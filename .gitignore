@@ -32,14 +32,17 @@
 *.dSYM/
 *.su
 
-#Temporary files
-cript-utils
-cript-utils/*
+#Unimplemented stuff
 user
 user/*
+cript-utils
+cript-utils/*
 
+#Temporary files
 build-fs
 build-fs/*
 bin
 bin/*
 cmake-build-debug/
+.idea
+.idea/*
