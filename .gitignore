@@ -35,8 +35,6 @@
 #Unimplemented stuff
 user
 user/*
-cript-utils
-cript-utils/*
 
 #Temporary files
 build-fs
