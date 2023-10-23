@@ -29,38 +29,17 @@
 #include <fcntl.h>            /* Definition of AT_* constants */
 #include <sys/stat.h>
 #include <time.h>
+#include <limits.h>
 
 char* root_path;
 char* password;
-
-static int tcfs_opendir(const char *path, struct fuse_file_info *fi) //TODO: Implement this
-{
-    /*int res;
-    char p[MAX_PATHLEN];
-    sanitize_path(path, p);
-
-    struct pt_dirp *dir = (struct pt_dirp*) malloc(sizeof(struct pt_dirp));
-    if (dir == NULL)
-        return -ENOMEM;
-
-    dir->dp = opendir(p);
-    if (dir->dp == NULL) {
-        res = -errno;
-        free(dir);
-        return res;
-    }
-    dir->offset = 0;
-    dir->entry = NULL;
-    fi->fh = (unsigned long) dir;*/
-    return 0;
-}
 
 /* is_encrypted: returns 1 if encryption succeeded, 0 otherwise. There is currently no use for this function */
 int is_encrypted(const char *path)
 {
     int ret;
     char xattr_val[5];
-    getxattr(path, "user.encfs", xattr_val, sizeof(char)*5);
+    getxattr(path, "user.tcfs", xattr_val, sizeof(char)*5);
     fprintf(stderr, "xattr set to: %s\n", xattr_val);
 
     ret = (strcmp(xattr_val, "true") == 0);
@@ -68,11 +47,11 @@ int is_encrypted(const char *path)
 }
 
 /* add_encrypted_attr: returns 1 on success, 0 on failure */
-int add_encrypted_attr(const char *path)
+int add_encrypted_attr(const char *path, const char *name, const char *value)
 {
     int ret;
     int setxattr_ret;
-    setxattr_ret = setxattr(path, "user.encfs", "true", (sizeof(char)*5), 0);
+    setxattr_ret = setxattr(path, name, value, (sizeof(char)*5), 0);
     ret = setxattr_ret == 0;
     fprintf(stderr, "\nsetxattr %s\n", ret > 0 ? "succeeded" : "failed");
     return ret;
@@ -87,6 +66,23 @@ char *prefix_path(const char *path)
     strcat(root_dir, path);
 
     return root_dir;
+}
+
+static int tcfs_opendir(const char *fuse_path, struct fuse_file_info *fi)
+{
+    /*int res = 0;
+    DIR *dp;
+    char path[PATH_MAX];
+
+    *path = prefix_path(fuse_path);
+
+    dp = opendir(path);
+    if (dp == NULL)
+        res = -errno;
+
+    fi->fh = (intptr_t) dp;
+
+    return res;*/
 }
 
 static int tcfs_getattr(const char *fuse_path, struct stat *stbuf)
@@ -455,15 +451,17 @@ static int tcfs_create(const char* fuse_path, mode_t mode, struct fuse_file_info
     res = creat(path, mode);
 
     if(res == -1) {
-        fprintf(stderr, "xmp_create: failed to creat\n");
+        fprintf(stderr, "tcfs_create: failed to create\n");
         return -errno;
     }
 
     close(res);
 
-    if (!add_encrypted_attr(path)){
-        fprintf(stderr, "xmp_create: failed to add xattr.\n");
+    if (!add_encrypted_attr(path, "tcfs", "true")){
+        fprintf(stderr, "tcfs_create: failed to add xattr.\n");
         return -errno;
+    } else {
+        printf("xattr set\n");
     }
 
     return 0;
