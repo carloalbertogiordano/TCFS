@@ -83,6 +83,7 @@ static int tcfs_opendir(const char *fuse_path, struct fuse_file_info *fi)
     fi->fh = (intptr_t) dp;
 
     return res;*/
+    return 0;
 }
 
 static int tcfs_getattr(const char *fuse_path, struct stat *stbuf)
