@@ -38,13 +38,13 @@ your system's package manager (e.g., apt, yum, dnf, ecc).
 - Clone the TCFS repository to your local machine:
 <pre>
 <code>
-git clone https://github.com/ada-fs/ptfs.git
+git clone https://github.com/carloalbertogiordano/TCFS
 </code>
 </pre>
-- Compile: Run the compilation script (Only the FUSE module is avilable at the moment, the whole project has not been implemented yet)
+- Compile: Run the Makefile in the userspace-module directory (Only the FUSE module is avilable at the moment, the whole project has not been implemented yet)
 <pre>
 <code>
-chmod +x build-fs.sh; ./build-fs.sh;
+make all
 </code>
 </pre>
 
@@ -54,11 +54,12 @@ First, mount the NFS share to a directroy, this directory will be called sourced
 This will be done by the helper program in a future release.
 <pre>
 <code>
-    ./bin/tcfs /fullpath/sourcedir /fullpath/destdir
+    ./build-fs/tcfs-fuse-module/tcfs -s /fullpath/sourcedir -d /fullpath/destdir -p "your password here"
 </code>
 </pre>
 Access and modify files in the mounted directory as you normally would. TCFS will handle 
-encryption and decryption automatically.
+encryption and decryption automatically. NOTE: This behaviour will be changed in the future, the kernel
+module will handle your password.
 
 ### Unmount the NFS share when you're done:
 <pre>
@@ -91,3 +92,10 @@ TCFS implementation. We would like to express our gratitude to the creators and
 contributors of TCFS for their pioneering work, which has influenced and inspired our 
 efforts to create a modern TCFS solution. Thank you for your interest in this project 
 as we continue to build upon the foundations set by the original TCFS project.
+
+## Roadmap
+- Key management:
+  - Store a per-file key in the extended attributes and use the user key to decipher it.
+  - Implement a kernel module to rebuild the private key to decipher the files. This module will use a certificate and your key to rebuild the private key
+  - Implement key recovery.
+- Implement threshold sharing files.

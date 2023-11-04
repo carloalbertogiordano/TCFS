@@ -32,15 +32,7 @@
 *.dSYM/
 *.su
 
-#Unimplemented stuff
-user
-user/*
-
-#Temporary files
-build-fs
-build-fs/*
-bin
-bin/*
+#Useless files
 cmake-build-debug/
 .idea
 .idea/*

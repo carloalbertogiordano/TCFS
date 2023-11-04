@@ -30,9 +30,28 @@
 #include <sys/stat.h>
 #include <time.h>
 #include <limits.h>
+#include <argp.h>
+#include "password_manager/password_manager.h"
+#include <pwd.h>
 
 char* root_path;
-char* password;
+struct hashmap *map;
+
+void get_user_name(char *buf, size_t size)
+{
+    uid_t uid = geteuid();
+    struct passwd *pw = getpwuid(uid);
+    if (pw)
+        snprintf(buf, size, "%s", pw->pw_name);
+    else
+        perror("Error: Could not retrieve username.\n");
+}
+
+char *get_password(char * user_id){
+    if (is_user_logged(&map, user_id))
+        return get_user_pass(&map, user_id);
+    return NULL;
+}
 
 /* is_encrypted: returns 1 if encryption succeeded, 0 otherwise. There is currently no use for this function */
 int is_encrypted(const char *path)
@@ -41,19 +60,7 @@ int is_encrypted(const char *path)
     char xattr_val[5];
     getxattr(path, "user.tcfs", xattr_val, sizeof(char)*5);
     fprintf(stderr, "xattr set to: %s\n", xattr_val);
-
     ret = (strcmp(xattr_val, "true") == 0);
-    return ret;
-}
-
-/* add_encrypted_attr: returns 1 on success, 0 on failure */
-int add_encrypted_attr(const char *path, const char *name, const char *value)
-{
-    int ret;
-    int setxattr_ret;
-    setxattr_ret = setxattr(path, name, value, (sizeof(char)*5), 0);
-    ret = setxattr_ret == 0;
-    fprintf(stderr, "\nsetxattr %s\n", ret > 0 ? "succeeded" : "failed");
     return ret;
 }
 
@@ -331,12 +338,16 @@ static inline int file_size(FILE *file) {
     return -1;
 }
 
-static int tcfs_read(const char *fuse_path, char *buf, size_t size, off_t offset,
-                    struct fuse_file_info *fi)
+static int tcfs_read(const char *fuse_path, char *buf, size_t size, off_t offset, struct fuse_file_info *fi)
 {
     FILE *path_ptr, *tmpf;
     char *path;
     int res, action;
+
+    //Retrieve the username
+    char username_buf[1024];
+    size_t username_buf_size = 1024;
+    get_user_name(username_buf, username_buf_size);
 
     path = prefix_path(fuse_path);
     path_ptr = fopen(path, "r");
@@ -344,7 +355,7 @@ static int tcfs_read(const char *fuse_path, char *buf, size_t size, off_t offset
 
     /* Either encrypt, or just move along. */
     action = DECRYPT;
-    if (do_crypt(path_ptr, tmpf, action, password) == 0)
+    if (do_crypt(path_ptr, tmpf, action, get_password(username_buf)) == 0)
         return -errno;
 
     /* Something went terribly wrong if this is the case. */
@@ -384,47 +395,69 @@ int read_file(FILE *file)
     return 0;
 }
 
-static int tcfs_write(const char *fuse_path, const char *buf, size_t size,
-                     off_t offset, struct fuse_file_info *fi)
+static int tcfs_write(const char *fuse_path, const char *buf, size_t size, off_t offset, struct fuse_file_info *fi)
 {
+    printf("Called write\n");
+
     FILE *path_ptr, *tmpf;
     char *path;
     int res, action;
     int tmpf_descriptor;
+
+    //Retrieve the username
+    char username_buf[1024];
+    size_t username_buf_size = 1024;
+    get_user_name(username_buf, username_buf_size);
 
     path = prefix_path(fuse_path);
     path_ptr = fopen(path, "r+");
     tmpf = tmpfile();
     tmpf_descriptor = fileno(tmpf);
 
+    printf("TMP files created\n");
 
     /* Something went terribly wrong if this is the case. */
-    if (path_ptr == NULL || tmpf == NULL)
+    if (path_ptr == NULL || tmpf == NULL) {
+        fprintf(stderr, "Something went terrybly wrong, cannot create new files\n");
         return -errno;
+    }
 
     /* if the file to write to exists, read it into the tempfile */
     if (tcfs_access(fuse_path, R_OK) == 0 && file_size(path_ptr) > 0) {
         action = DECRYPT;
-        if (do_crypt(path_ptr, tmpf, action, password) == 0)
+        printf("CRYPT\n");
+        if (do_crypt(path_ptr, tmpf, action, get_password(username_buf)) == 0) {
+            perror("do_crypt: Cannot cypher file\n");
             return --errno;
+        }
 
         rewind(path_ptr);
         rewind(tmpf);
+        printf("Rewind OK\n");
     }
 
     /* Read our tmpfile into the buffer. */
     res = pwrite(tmpf_descriptor, buf, size, offset);
-    if (res == -1)
+    printf("tmpfile read into buffer\n");
+    if (res == -1){
+        printf("%d\n", res);
+        perror("pwrite: cannot read tmpfile into the buffer\n");
         res = -errno;
+    }
 
     /* Either encrypt, or just move along. */
     action = ENCRYPT;
 
-    if (do_crypt(tmpf, path_ptr, action, password) == 0)
+    printf("Calling do crypt 2\n");
+    if (do_crypt(tmpf, path_ptr, action, get_password(username_buf)) == 0) {
+        perror("do_crypt 2: cannot cypher file\n");
         return -errno;
+    }
+    printf("do_crypt ok\n");
 
     fclose(tmpf);
     fclose(path_ptr);
+    printf("All ok, files closed\n");
 
     return res;
 }
@@ -442,28 +475,33 @@ static int tcfs_statfs(const char *fuse_path, struct statvfs *stbuf)
     return 0;
 }
 
-static int tcfs_create(const char* fuse_path, mode_t mode, struct fuse_file_info* fi)
+static int tcfs_setxattr(const char *fuse_path, const char *name, const char *value, size_t size, int flags)
 {
     char *path = prefix_path(fuse_path);
+    int res = 1;
+    printf("called tcfs_setxattr %s %s %s %lu %d\n", fuse_path, name, value, size, flags);
+    if ((res = lsetxattr(path, name, value, size, flags)) == -1)
+        perror("tcfs_lsetxattr");
+    if (res == -1)
+        return -errno;
+    return 0;
+}
 
+static int tcfs_create(const char* fuse_path, mode_t mode, struct fuse_file_info* fi)
+{
     (void) fi;
+    (void) mode;
 
-    int res;
-    res = creat(path, mode);
+    FILE *res;
+    res = fopen(prefix_path(fuse_path), "w");
+    if(res == NULL)
+        return -errno;
 
-    if(res == -1) {
-        fprintf(stderr, "tcfs_create: failed to create\n");
+    if(fsetxattr(fileno(res), "user.encrypted", "true", 4, 0) != 0){
+        fclose(res);
         return -errno;
     }
-
-    close(res);
-
-    if (!add_encrypted_attr(path, "tcfs", "true")){
-        fprintf(stderr, "tcfs_create: failed to add xattr.\n");
-        return -errno;
-    } else {
-        printf("xattr set\n");
-    }
+    fclose(res);
 
     return 0;
 }
@@ -490,17 +528,6 @@ static int tcfs_fsync(const char *fuse_path, int isdatasync,
     (void) path;
     (void) isdatasync;
     (void) fi;
-    return 0;
-}
-
-static int tcfs_setxattr(const char *fuse_path, const char *name,
-                        const char *value, size_t size, int flags)
-{
-    char *path = prefix_path(fuse_path);
-
-    int res = lsetxattr(path, name, value, size, flags);
-    if (res == -1)
-        return -errno;
     return 0;
 }
 
@@ -567,24 +594,102 @@ static struct fuse_operations tcfs_oper = {
         .removexattr	= tcfs_removexattr,
 };
 
+const char *argp_program_version = "TCFS Alpha";
+const char *argp_program_bug_address = "carloalbertogiordano@duck.com";
+
+static char doc[] = "This is an implementation on TCFS\ntcfs -s <source_path> -d <dest_path> -p <password> [fuse arguments]";
+
+static char args_doc[] = "";
+
+static struct argp_option options[] = {
+        {"source", 's', "SOURCE", 0, "Source file path", -1},
+        {"destination", 'd', "DESTINATION", 0, "Destination file path", -1},
+        {"password", 'p', "PASSWORD", 0, "Password", -1},
+        {NULL}
+};
+
+struct arguments {
+    char *source;
+    char *destination;
+    char *password;
+};
+
+static error_t parse_opt(int key, char *arg, struct argp_state *state) {
+    struct arguments *arguments = state->input;
+
+    switch (key) {
+        case 's':
+            arguments->source = arg;
+            break;
+        case 'd':
+            arguments->destination = arg;
+            break;
+        case 'p':
+            arguments->password = arg;
+            break;
+        case ARGP_KEY_ARG:
+            return ARGP_ERR_UNKNOWN;
+        default:
+            return ARGP_ERR_UNKNOWN;
+    }
+
+    return 0;
+}
+
+static struct argp argp = {options, parse_opt, args_doc, doc, 0, NULL, NULL};
+
 int main(int argc, char *argv[])
 {
     umask(0);
 
-    /* ./tcfs mir mnt -e password */
-    if ((root_path = realpath(argv[argc - 4], NULL)) == NULL){
-        fprintf(stderr, "Please enter a valid root directory name.\n");
-        return EXIT_FAILURE;
+    struct arguments arguments;
+
+    arguments.source = NULL;
+    arguments.destination = NULL;
+    arguments.password = NULL;
+
+    argp_parse(&argp, argc, argv, 0, 0, &arguments);
+
+    if (arguments.source == NULL || arguments.destination == NULL || arguments.password == NULL) {
+        printf("Err: You need to specify at least 3 arguments\n");
+        return -1;
     }
 
-    if ((password = argv[argc - 1]) == NULL){
-        fprintf(stderr, "Please enter an encryption password.\n");
-        return EXIT_FAILURE;
+    printf("Source: %s\n", arguments.source);
+    printf("Destination: %s\n", arguments.destination);
+
+    // Salva destination in una variabile globale path
+    root_path = arguments.source;
+
+    printf("HEI1\n");
+
+    struct fuse_args args_fuse = FUSE_ARGS_INIT(0, NULL);
+    fuse_opt_add_arg(&args_fuse, "./tcfs");
+    fuse_opt_add_arg(&args_fuse, arguments.destination);
+    fuse_opt_add_arg(&args_fuse, "-f");
+
+    for (int i=0; i < args_fuse.argc; i++) {
+        printf("%s ", args_fuse.argv[i]);
+    }
+    printf("\n");
+
+    if (init_hashmap(&map) == 0){
+        printf("Could not initialize hashmap\n");
+        return 1;
     }
 
-    argv[argc-4] = argv[argc-3];
-    argv[argc-1] = NULL;
-    argc -= 3;
+    //Get username
+    char buf[1024];
+    size_t buf_size = 1024;
+    get_user_name(buf, buf_size);
 
-    return fuse_main(argc, argv, &tcfs_oper, NULL);
+    add_user(&map, buf,  arguments.password);
+    printf("Logging in with username %s\n", buf);
+
+    if (is_user_logged(&map, "test"))
+        printf("ok test\n");
+    if (is_user_logged(&map, "carlo"))
+        printf("Carlo ok\n");
+
+    return fuse_main(args_fuse.argc, args_fuse.argv, &tcfs_oper, NULL);
 }
