@@ -14,7 +14,6 @@
  * http://saju.net.in/code/misc/openssl_aes.c.txt
  *
  */
-
 #include "crypt-utils.h"
 
 #define BLOCKSIZE 1024
@@ -112,4 +111,15 @@ extern int do_crypt(FILE* in, FILE* out, int action, char* key_str){
 
     /* Success */
     return 1;
+}
+
+unsigned char* generate_key() {
+    static unsigned char key[256];
+
+    if (!RAND_bytes(key, sizeof(key)))
+    {
+        fprintf(stderr, "Err: cannot generate the key\n");
+        return NULL;
+    }
+    return key;
 }

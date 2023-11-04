@@ -24,7 +24,6 @@
 #include <dirent.h>
 #include <errno.h>
 #include <sys/time.h>
-#include "crypt-utils/crypt-utils.h"
 #include <sys/xattr.h>
 #include <fcntl.h>            /* Definition of AT_* constants */
 #include <sys/stat.h>
@@ -32,41 +31,11 @@
 #include <limits.h>
 #include <argp.h>
 #include <pwd.h>
+#include "utils/tcfs_utils/tcfs_utils.h"
+#include "utils/crypt-utils/crypt-utils.h"
 
 char *root_path;
 char *password;
-
-void get_user_name(char *buf, size_t size)
-{
-    uid_t uid = geteuid();
-    struct passwd *pw = getpwuid(uid);
-    if (pw)
-        snprintf(buf, size, "%s", pw->pw_name);
-    else
-        perror("Error: Could not retrieve username.\n");
-}
-
-/* is_encrypted: returns 1 if encryption succeeded, 0 otherwise. There is currently no use for this function */
-int is_encrypted(const char *path)
-{
-    int ret;
-    char xattr_val[5];
-    getxattr(path, "user.tcfs", xattr_val, sizeof(char)*5);
-    fprintf(stderr, "xattr set to: %s\n", xattr_val);
-    ret = (strcmp(xattr_val, "true") == 0);
-    return ret;
-}
-
-char *prefix_path(const char *path)
-{
-    size_t len = strlen(path) + strlen(root_path) + 1;
-    char *root_dir = malloc(len * sizeof(char));
-
-    strcpy(root_dir, root_path);
-    strcat(root_dir, path);
-
-    return root_dir;
-}
 
 static int tcfs_opendir(const char *fuse_path, struct fuse_file_info *fi)
 {
@@ -88,7 +57,7 @@ static int tcfs_opendir(const char *fuse_path, struct fuse_file_info *fi)
 
 static int tcfs_getattr(const char *fuse_path, struct stat *stbuf)
 {
-    char *path = prefix_path(fuse_path);
+    char *path = prefix_path(fuse_path, root_path);
 
     int res;
 
@@ -101,7 +70,7 @@ static int tcfs_getattr(const char *fuse_path, struct stat *stbuf)
 
 static int tcfs_access(const char *fuse_path, int mask)
 {
-    char *path = prefix_path(fuse_path);
+    char *path = prefix_path(fuse_path, root_path);
 
     int res;
 
@@ -114,7 +83,7 @@ static int tcfs_access(const char *fuse_path, int mask)
 
 static int tcfs_readlink(const char *fuse_path, char *buf, size_t size)
 {
-    char *path = prefix_path(fuse_path);
+    char *path = prefix_path(fuse_path, root_path);
 
     int res;
 
@@ -129,7 +98,7 @@ static int tcfs_readlink(const char *fuse_path, char *buf, size_t size)
 static int tcfs_readdir(const char *fuse_path, void *buf, fuse_fill_dir_t filler,
                        off_t offset, struct fuse_file_info *fi)
 {
-    char *path = prefix_path(fuse_path);
+    char *path = prefix_path(fuse_path, root_path);
 
     DIR *dp;
     struct dirent *de;
@@ -157,7 +126,7 @@ static int tcfs_readdir(const char *fuse_path, void *buf, fuse_fill_dir_t filler
 
 static int tcfs_mknod(const char *fuse_path, mode_t mode, dev_t rdev)
 {
-    char *path = prefix_path(fuse_path);
+    char *path = prefix_path(fuse_path, root_path);
 
     int res;
 
@@ -179,7 +148,7 @@ static int tcfs_mknod(const char *fuse_path, mode_t mode, dev_t rdev)
 
 static int tcfs_mkdir(const char *fuse_path, mode_t mode)
 {
-    char *path = prefix_path(fuse_path);
+    char *path = prefix_path(fuse_path, root_path);
 
     int res;
 
@@ -192,7 +161,7 @@ static int tcfs_mkdir(const char *fuse_path, mode_t mode)
 
 static int tcfs_unlink(const char *fuse_path)
 {
-    char *path = prefix_path(fuse_path);
+    char *path = prefix_path(fuse_path, root_path);
 
     int res;
 
@@ -205,7 +174,7 @@ static int tcfs_unlink(const char *fuse_path)
 
 static int tcfs_rmdir(const char *fuse_path)
 {
-    char *path = prefix_path(fuse_path);
+    char *path = prefix_path(fuse_path, root_path);
 
     int res;
 
@@ -251,7 +220,7 @@ static int tcfs_link(const char *from, const char *to)
 
 static int tcfs_chmod(const char *fuse_path, mode_t mode)
 {
-    char *path = prefix_path(fuse_path);
+    char *path = prefix_path(fuse_path, root_path);
 
     int res;
 
@@ -264,7 +233,7 @@ static int tcfs_chmod(const char *fuse_path, mode_t mode)
 
 static int tcfs_chown(const char *fuse_path, uid_t uid, gid_t gid)
 {
-    char *path = prefix_path(fuse_path);
+    char *path = prefix_path(fuse_path, root_path);
 
     int res;
 
@@ -277,7 +246,7 @@ static int tcfs_chown(const char *fuse_path, uid_t uid, gid_t gid)
 
 static int tcfs_truncate(const char *fuse_path, off_t size)
 {
-    char *path = prefix_path(fuse_path);
+    char *path = prefix_path(fuse_path, root_path);
 
     int res;
 
@@ -291,7 +260,7 @@ static int tcfs_truncate(const char *fuse_path, off_t size)
 #ifdef HAVE_UTIMENSAT
 static int tcfs_utimens(const char *fuse_path, const struct timespec ts[2])
 {
-    char *path = prefix_path(fuse_path);
+    char *path = prefix_path(fuse_path, root_path);
 
     int res;
     struct timeval tv[2];
@@ -311,7 +280,7 @@ static int tcfs_utimens(const char *fuse_path, const struct timespec ts[2])
 
 static int tcfs_open(const char *fuse_path, struct fuse_file_info *fi)
 {
-    char *path = prefix_path(fuse_path);
+    char *path = prefix_path(fuse_path, root_path);
     int res;
 
     res = open(path, fi->flags);
@@ -342,7 +311,7 @@ static int tcfs_read(const char *fuse_path, char *buf, size_t size, off_t offset
     size_t username_buf_size = 1024;
     get_user_name(username_buf, username_buf_size);
 
-    path = prefix_path(fuse_path);
+    path = prefix_path(fuse_path, root_path);
     path_ptr = fopen(path, "r");
     tmpf = tmpfile();
 
@@ -369,25 +338,6 @@ static int tcfs_read(const char *fuse_path, char *buf, size_t size, off_t offset
     return res;
 }
 
-/* read_file: for debugging tempfiles */
-int read_file(FILE *file)
-{
-    int c;
-    int file_contains_something = 0;
-    FILE *read = file; /* don't move original file pointer */
-    if (read) {
-        while ((c = getc(read)) != EOF) {
-            file_contains_something = 1;
-            putc(c, stderr);
-        }
-    }
-    if (!file_contains_something)
-        fprintf(stderr, "file was empty\n");
-    rewind(file);
-    /* fseek(tmpf, offset, SEEK_END); */
-    return 0;
-}
-
 static int tcfs_write(const char *fuse_path, const char *buf, size_t size, off_t offset, struct fuse_file_info *fi)
 {
     printf("Called write\n");
@@ -402,7 +352,7 @@ static int tcfs_write(const char *fuse_path, const char *buf, size_t size, off_t
     size_t username_buf_size = 1024;
     get_user_name(username_buf, username_buf_size);
 
-    path = prefix_path(fuse_path);
+    path = prefix_path(fuse_path, root_path);
     path_ptr = fopen(path, "r+");
     tmpf = tmpfile();
     tmpf_descriptor = fileno(tmpf);
@@ -457,7 +407,7 @@ static int tcfs_write(const char *fuse_path, const char *buf, size_t size, off_t
 
 static int tcfs_statfs(const char *fuse_path, struct statvfs *stbuf)
 {
-    char *path = prefix_path(fuse_path);
+    char *path = prefix_path(fuse_path, root_path);
 
     int res;
 
@@ -470,7 +420,7 @@ static int tcfs_statfs(const char *fuse_path, struct statvfs *stbuf)
 
 static int tcfs_setxattr(const char *fuse_path, const char *name, const char *value, size_t size, int flags)
 {
-    char *path = prefix_path(fuse_path);
+    char *path = prefix_path(fuse_path, root_path);
     int res = 1;
     printf("called tcfs_setxattr %s %s %s %lu %d\n", fuse_path, name, value, size, flags);
     if ((res = lsetxattr(path, name, value, size, flags)) == -1)
@@ -486,7 +436,7 @@ static int tcfs_create(const char* fuse_path, mode_t mode, struct fuse_file_info
     (void) mode;
 
     FILE *res;
-    res = fopen(prefix_path(fuse_path), "w");
+    res = fopen(prefix_path(fuse_path, root_path), "w");
     if(res == NULL)
         return -errno;
 
@@ -504,7 +454,7 @@ static int tcfs_release(const char *fuse_path, struct fuse_file_info *fi)
 {
     /* Just a stub.	 This method is optional and can safely be left
        unimplemented */
-    char *path = prefix_path(fuse_path);
+    char *path = prefix_path(fuse_path, root_path);
 
     (void) path;
     (void) fi;
@@ -516,7 +466,7 @@ static int tcfs_fsync(const char *fuse_path, int isdatasync,
 {
     /* Just a stub.	 This method is optional and can safely be left
        unimplemented */
-    char *path = prefix_path(fuse_path);
+    char *path = prefix_path(fuse_path, root_path);
 
     (void) path;
     (void) isdatasync;
@@ -527,7 +477,7 @@ static int tcfs_fsync(const char *fuse_path, int isdatasync,
 static int tcfs_getxattr(const char *fuse_path, const char *name, char *value,
                         size_t size)
 {
-    char *path = prefix_path(fuse_path);
+    char *path = prefix_path(fuse_path, root_path);
 
     int res = lgetxattr(path, name, value, size);
     if (res == -1)
@@ -537,7 +487,7 @@ static int tcfs_getxattr(const char *fuse_path, const char *name, char *value,
 
 static int tcfs_listxattr(const char *fuse_path, char *list, size_t size)
 {
-    char *path = prefix_path(fuse_path);
+    char *path = prefix_path(fuse_path, root_path);
 
     int res = llistxattr(path, list, size);
     if (res == -1)
@@ -547,7 +497,7 @@ static int tcfs_listxattr(const char *fuse_path, char *list, size_t size)
 
 static int tcfs_removexattr(const char *fuse_path, const char *name)
 {
-    char *path = prefix_path(fuse_path);
+    char *path = prefix_path(fuse_path, root_path);
 
     int res = lremovexattr(path, name);
     if (res == -1)

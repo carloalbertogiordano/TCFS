@@ -4,6 +4,7 @@
 
 #include <openssl/evp.h>
 #include <openssl/aes.h>
+#include <openssl/rand.h>
 
 #define BLOCKSIZE 1024
 #define FAILURE 0
@@ -18,3 +19,9 @@
  * Return: FAILURE on error, SUCCESS on success
  */
 extern int do_crypt(FILE* in, FILE* out, int action, char* key_str);
+
+/* char *generate_key()
+ * Purpose: Generate a random key for AES encryption
+ * Return: NULL on error, A char* on success
+ */
+unsigned char *generate_key();
