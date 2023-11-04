@@ -31,11 +31,10 @@
 #include <time.h>
 #include <limits.h>
 #include <argp.h>
-#include "password_manager/password_manager.h"
 #include <pwd.h>
 
-char* root_path;
-struct hashmap *map;
+char *root_path;
+char *password;
 
 void get_user_name(char *buf, size_t size)
 {
@@ -45,12 +44,6 @@ void get_user_name(char *buf, size_t size)
         snprintf(buf, size, "%s", pw->pw_name);
     else
         perror("Error: Could not retrieve username.\n");
-}
-
-char *get_password(char * user_id){
-    if (is_user_logged(&map, user_id))
-        return get_user_pass(&map, user_id);
-    return NULL;
 }
 
 /* is_encrypted: returns 1 if encryption succeeded, 0 otherwise. There is currently no use for this function */
@@ -355,7 +348,7 @@ static int tcfs_read(const char *fuse_path, char *buf, size_t size, off_t offset
 
     /* Either encrypt, or just move along. */
     action = DECRYPT;
-    if (do_crypt(path_ptr, tmpf, action, get_password(username_buf)) == 0)
+    if (do_crypt(path_ptr, tmpf, action, password) == 0)
         return -errno;
 
     /* Something went terribly wrong if this is the case. */
@@ -426,7 +419,7 @@ static int tcfs_write(const char *fuse_path, const char *buf, size_t size, off_t
     if (tcfs_access(fuse_path, R_OK) == 0 && file_size(path_ptr) > 0) {
         action = DECRYPT;
         printf("CRYPT\n");
-        if (do_crypt(path_ptr, tmpf, action, get_password(username_buf)) == 0) {
+        if (do_crypt(path_ptr, tmpf, action, password) == 0) {
             perror("do_crypt: Cannot cypher file\n");
             return --errno;
         }
@@ -449,7 +442,7 @@ static int tcfs_write(const char *fuse_path, const char *buf, size_t size, off_t
     action = ENCRYPT;
 
     printf("Calling do crypt 2\n");
-    if (do_crypt(tmpf, path_ptr, action, get_password(username_buf)) == 0) {
+    if (do_crypt(tmpf, path_ptr, action, password) == 0) {
         perror("do_crypt 2: cannot cypher file\n");
         return -errno;
     }
@@ -658,38 +651,25 @@ int main(int argc, char *argv[])
     printf("Source: %s\n", arguments.source);
     printf("Destination: %s\n", arguments.destination);
 
-    // Salva destination in una variabile globale path
     root_path = arguments.source;
-
-    printf("HEI1\n");
 
     struct fuse_args args_fuse = FUSE_ARGS_INIT(0, NULL);
     fuse_opt_add_arg(&args_fuse, "./tcfs");
     fuse_opt_add_arg(&args_fuse, arguments.destination);
-    fuse_opt_add_arg(&args_fuse, "-f");
+    fuse_opt_add_arg(&args_fuse, "-f"); //TODO: this is forced for now, but will be passed via options in the future
 
+    //Print what we are passing to fuse TODO: This will be removed
     for (int i=0; i < args_fuse.argc; i++) {
         printf("%s ", args_fuse.argv[i]);
     }
     printf("\n");
-
-    if (init_hashmap(&map) == 0){
-        printf("Could not initialize hashmap\n");
-        return 1;
-    }
 
     //Get username
     char buf[1024];
     size_t buf_size = 1024;
     get_user_name(buf, buf_size);
 
-    add_user(&map, buf,  arguments.password);
-    printf("Logging in with username %s\n", buf);
-
-    if (is_user_logged(&map, "test"))
-        printf("ok test\n");
-    if (is_user_logged(&map, "carlo"))
-        printf("Carlo ok\n");
+    password = arguments.password;
 
     return fuse_main(args_fuse.argc, args_fuse.argv, &tcfs_oper, NULL);
 }
