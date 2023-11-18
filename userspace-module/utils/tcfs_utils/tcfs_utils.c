@@ -1,4 +1,5 @@
 #include "tcfs_utils.h"
+#include "../crypt-utils/crypt-utils.h"
 
 void get_user_name(char *buf, size_t size)
 {
@@ -10,15 +11,15 @@ void get_user_name(char *buf, size_t size)
         perror("Error: Could not retrieve username.\n");
 }
 
-/* is_encrypted: returns 1 if encryption succeeded, 0 otherwise. There is currently no use for this function */
+/* is_encrypted: returns 1 if file is encrypted, 0 otherwise*/
 int is_encrypted(const char *path)
 {
     int ret;
     char xattr_val[5];
-    getxattr(path, "user.tcfs", xattr_val, sizeof(char)*5);
-    fprintf(stderr, "xattr set to: %s\n", xattr_val);
-    ret = (strcmp(xattr_val, "true") == 0);
-    return ret;
+    getxattr(path, "user.encrypted", xattr_val, sizeof(char)*5);
+    xattr_val[4] == '\n';
+
+    return strcmp(xattr_val, "true") == 0 ? 1:0;
 }
 
 char *prefix_path(const char *path, const char *realpath)
@@ -68,4 +69,44 @@ int read_file(FILE *file)
     rewind(file);
     /* fseek(tmpf, offset, SEEK_END); */
     return 0;
+}
+/* Get the xattr value describing the key of a file
+ * return 1 on success else 0
+ * */
+int get_encrypted_key(char *filepath, unsigned char *encrypted_key)
+{
+    printf("\tGet Encrypted key for file %s\n", filepath);
+    if (is_encrypted(filepath) == 1) {
+        printf("\t\tencrypted file\n");
+
+        FILE *src_file = fopen(filepath, "r");
+        if (src_file == NULL)
+        {
+            fclose(src_file);
+            perror("Could not open the file to get the key");
+            return -errno;
+        }
+        int src_fd;
+        src_fd = fileno(src_file);
+        if (src_fd == -1)
+        {
+            fclose(src_file);
+            perror("Could not get fd for the file");
+            return -errno;
+        }
+
+        if (fgetxattr(src_fd, "user.key", encrypted_key,  33) != -1) {
+            fclose(src_file);
+            return 1;
+        }
+    }
+    return 0;
+}
+/*For debugging only*/
+void print_aes_key(unsigned char *key) {
+    printf("AES HEX:%s -> ", key);
+    for (int i = 0; i < 32; i++) {
+        printf("%02x", key[i]);
+    }
+    printf("\n");
 }

@@ -17,10 +17,10 @@
 #include "crypt-utils.h"
 
 #define BLOCKSIZE 1024
-#define FAILURE 0
-#define SUCCESS 1
+#define IV_SIZE 32
+#define KEY_SIZE 32
 
-extern int do_crypt(FILE* in, FILE* out, int action, char* key_str){
+extern int do_crypt(FILE* in, FILE* out, int action, unsigned char *key_str){
     /* Local Vars */
 
     /* Buffers */
@@ -35,8 +35,8 @@ extern int do_crypt(FILE* in, FILE* out, int action, char* key_str){
     EVP_CIPHER_CTX *ctx;
     ctx = EVP_CIPHER_CTX_new();
 
-    unsigned char key[32];
-    unsigned char iv[32];
+    unsigned char key[KEY_SIZE];
+    unsigned char iv[IV_SIZE];
     int nrounds = 5;
 
     /* tmp vars */
@@ -50,7 +50,7 @@ extern int do_crypt(FILE* in, FILE* out, int action, char* key_str){
         }
         /* Build Key from String */
         i = EVP_BytesToKey(EVP_aes_256_cbc(), EVP_sha1(), NULL,
-                           (unsigned char*)key_str, strlen(key_str), nrounds, key, iv);
+                           key_str, (int)strlen((const char *)key_str), nrounds, key, iv);
         if (i != 32) {
             /* Error */
             fprintf(stderr, "Key size is %d bits - should be 256 bits\n", i*8);
@@ -113,13 +113,151 @@ extern int do_crypt(FILE* in, FILE* out, int action, char* key_str){
     return 1;
 }
 
-unsigned char* generate_key() {
-    static unsigned char key[256];
+// Verify the entropy
+int check_entropy(void) {
+    FILE *entropy_file = fopen("/proc/sys/kernel/random/entropy_avail", "r");
+    if (entropy_file == NULL) {
+        perror("Err: Cannot open entropy file");
+        return -1;
+    }
 
-    if (!RAND_bytes(key, sizeof(key)))
-    {
-        fprintf(stderr, "Err: cannot generate the key\n");
+    int entropy_value;
+    if (fscanf(entropy_file, "%d", &entropy_value) != 1) {
+        perror("Err: Cannot estimate entropy");
+        fclose(entropy_file);
+        return -1;
+    }
+
+    fclose(entropy_file);
+    return entropy_value;
+}
+
+//Add new entropy
+void add_entropy(void) {
+    FILE *urandom = fopen("/dev/urandom", "rb");
+    if (urandom == NULL) {
+        perror("Err: Cannot open /dev/urandom");
+        exit(EXIT_FAILURE);
+    }
+
+    unsigned char random_data[32];
+    size_t bytes_read = fread(random_data, 1, sizeof(random_data), urandom);
+    fclose(urandom);
+
+    if (bytes_read != sizeof(random_data)) {
+        fprintf(stderr, "Err: Cannot read data\n");
+        exit(EXIT_FAILURE);
+    }
+
+    // Usa i dati casuali per aggiungere entropia
+    RAND_add(random_data, sizeof(random_data), 0.5); // 0.5 è un peso arbitrario
+
+    fprintf(stdout, "Entropy added successfully!\n");
+}
+
+
+void generate_key(unsigned char *destination) {
+    fprintf(stdout, "Generating a new key...\n");
+
+    //Why? Because if we try to create a large number of files there might not be enough random bytes in the system to generate a key
+    for (int i = 0; i < 10; i++) {
+        int entropy = check_entropy();
+        if (entropy < 128) {
+            fprintf(stderr, "WARN: not enough entropy, creating some...\n");
+            add_entropy();
+        }
+
+        if (RAND_bytes(destination, 32) != 1) {
+            fprintf(stderr, "Err: Cannot generate key\n");
+            destination = NULL;
+        }
+
+        if (strlen((const char *)destination) == 32)
+            break;
+    }
+
+    if (is_valid_key(destination) == 0) {
+        fprintf(stderr, "Err: Generated key is inval1d\n");
+        print_aes_key(destination);
+        destination = NULL;
+    }
+}
+
+unsigned char* encrypt_string(unsigned char* plaintext, const char* key, int *encrypted_key_len) {
+    EVP_CIPHER_CTX* ctx;
+    const EVP_CIPHER* cipher = EVP_aes_256_cbc();
+    unsigned char iv[AES_BLOCK_SIZE];
+    memset(iv, 0, AES_BLOCK_SIZE);
+
+    ctx = EVP_CIPHER_CTX_new();
+    if (!ctx) {
         return NULL;
     }
-    return key;
+
+    EVP_EncryptInit_ex(ctx, cipher, NULL, (const unsigned char*)key, iv);
+
+    size_t plaintext_len = strlen((const char*)plaintext);
+    unsigned char ciphertext[plaintext_len + AES_BLOCK_SIZE];
+    memset(ciphertext, 0, sizeof(ciphertext));
+
+    int len;
+    EVP_EncryptUpdate(ctx, ciphertext, &len, plaintext, plaintext_len);
+    EVP_EncryptFinal_ex(ctx, ciphertext + len, &len);
+    EVP_CIPHER_CTX_free(ctx);
+
+    unsigned char* encoded_string = malloc(len * 2 + 1);
+    if (!encoded_string) {
+        return NULL;
+    }
+
+    for (int i = 0; i < len; i++) {
+        sprintf((char*)&encoded_string[i * 2], "%02x", ciphertext[i]);
+    }
+    encoded_string[len * 2] = '\0';
+
+    *encrypted_key_len = len * 2;
+    return encoded_string;
 }
+
+
+unsigned char* decrypt_string(unsigned char* ciphertext, const char* key) {
+    EVP_CIPHER_CTX *ctx;
+    const EVP_CIPHER *cipher = EVP_aes_256_cbc(); // Choose the correct algorithm
+    unsigned char iv[AES_BLOCK_SIZE];
+    memset(iv, 0, AES_BLOCK_SIZE);
+
+    ctx = EVP_CIPHER_CTX_new();
+    EVP_DecryptInit_ex(ctx, cipher, NULL, (const unsigned char*)key, iv);
+
+    size_t decoded_len = strlen((const char *)ciphertext);
+
+    unsigned char plaintext[decoded_len];
+    memset(plaintext, 0, sizeof(plaintext));
+
+    int len;
+    EVP_DecryptUpdate(ctx, plaintext, &len, ciphertext, (int )decoded_len);
+    EVP_DecryptFinal_ex(ctx, plaintext + len, &len);
+    EVP_CIPHER_CTX_free(ctx);
+
+    unsigned char* decrypted_string = (unsigned char*)malloc(decoded_len + 1);
+    memcpy(decrypted_string, plaintext, decoded_len);
+    decrypted_string[decoded_len] = '\0';
+
+
+    return decrypted_string;
+}
+
+int is_valid_key(const unsigned char* key)
+{
+    char str[33];
+    memcpy(str, key, 32);
+    str[32] = '\0';
+    size_t key_length = strlen(str);
+    return key_length != 32 ? 0:1;
+}
+
+
+/*
+int rebuild_key(char *key, char *cert, char *dest){
+    return -1;
+}*/

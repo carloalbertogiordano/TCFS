@@ -1,7 +1,5 @@
 #define FUSE_USE_VERSION 30
 #define HAVE_SETXATTR
-#define ENCRYPT 1
-#define DECRYPT 0
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -20,7 +18,6 @@
 #include <string.h>
 #include <unistd.h>
 #include <linux/limits.h>
-#include <fcntl.h>
 #include <dirent.h>
 #include <errno.h>
 #include <sys/time.h>
@@ -37,8 +34,13 @@
 char *root_path;
 char *password;
 
+static int tcfs_getxattr(const char *fuse_path, const char *name, char *value, size_t size);
+
 static int tcfs_opendir(const char *fuse_path, struct fuse_file_info *fi)
 {
+    (void) fuse_path;
+    (void) fi;
+    printf("Called opendir UNIMPLEMENTED\n");
     /*int res = 0;
     DIR *dp;
     char path[PATH_MAX];
@@ -57,11 +59,12 @@ static int tcfs_opendir(const char *fuse_path, struct fuse_file_info *fi)
 
 static int tcfs_getattr(const char *fuse_path, struct stat *stbuf)
 {
+    printf("Called getattr\n");
     char *path = prefix_path(fuse_path, root_path);
 
     int res;
 
-    res = lstat(path, stbuf);
+    res = stat(path, stbuf);
     if (res == -1)
         return -errno;
 
@@ -70,6 +73,7 @@ static int tcfs_getattr(const char *fuse_path, struct stat *stbuf)
 
 static int tcfs_access(const char *fuse_path, int mask)
 {
+    printf("Callen access\n");
     char *path = prefix_path(fuse_path, root_path);
 
     int res;
@@ -98,18 +102,21 @@ static int tcfs_readlink(const char *fuse_path, char *buf, size_t size)
 static int tcfs_readdir(const char *fuse_path, void *buf, fuse_fill_dir_t filler,
                        off_t offset, struct fuse_file_info *fi)
 {
+    (void) offset;
+    (void) fi;
+
+    printf("Called readdir %s\n", fuse_path);
     char *path = prefix_path(fuse_path, root_path);
 
     DIR *dp;
     struct dirent *de;
-    fprintf(stderr, "Path: %s\n", path);
-
-    (void) offset;
-    (void) fi;
 
     dp = opendir(path);
     if (dp == NULL)
+    {
+        perror("Could not open the directory");
         return -errno;
+    }
 
     while ((de = readdir(dp)) != NULL) {
         struct stat st;
@@ -126,6 +133,7 @@ static int tcfs_readdir(const char *fuse_path, void *buf, fuse_fill_dir_t filler
 
 static int tcfs_mknod(const char *fuse_path, mode_t mode, dev_t rdev)
 {
+    printf("Called mknod\n");
     char *path = prefix_path(fuse_path, root_path);
 
     int res;
@@ -148,6 +156,7 @@ static int tcfs_mknod(const char *fuse_path, mode_t mode, dev_t rdev)
 
 static int tcfs_mkdir(const char *fuse_path, mode_t mode)
 {
+    printf("Called mkdir\n");
     char *path = prefix_path(fuse_path, root_path);
 
     int res;
@@ -161,6 +170,7 @@ static int tcfs_mkdir(const char *fuse_path, mode_t mode)
 
 static int tcfs_unlink(const char *fuse_path)
 {
+    printf("Called unlink\n");
     char *path = prefix_path(fuse_path, root_path);
 
     int res;
@@ -174,6 +184,7 @@ static int tcfs_unlink(const char *fuse_path)
 
 static int tcfs_rmdir(const char *fuse_path)
 {
+    printf("Called rmdir\n");
     char *path = prefix_path(fuse_path, root_path);
 
     int res;
@@ -187,6 +198,7 @@ static int tcfs_rmdir(const char *fuse_path)
 
 static int tcfs_symlink(const char *from, const char *to)
 {
+    printf("Called symlink\n");
     int res;
 
     res = symlink(from, to);
@@ -198,6 +210,7 @@ static int tcfs_symlink(const char *from, const char *to)
 
 static int tcfs_rename(const char *from, const char *to)
 {
+    printf("Called rename\n");
     int res;
 
     res = rename(from, to);
@@ -209,6 +222,7 @@ static int tcfs_rename(const char *from, const char *to)
 
 static int tcfs_link(const char *from, const char *to)
 {
+    printf("Called link\n");
     int res;
 
     res = link(from, to);
@@ -220,6 +234,7 @@ static int tcfs_link(const char *from, const char *to)
 
 static int tcfs_chmod(const char *fuse_path, mode_t mode)
 {
+    printf("Called chmod\n");
     char *path = prefix_path(fuse_path, root_path);
 
     int res;
@@ -233,6 +248,7 @@ static int tcfs_chmod(const char *fuse_path, mode_t mode)
 
 static int tcfs_chown(const char *fuse_path, uid_t uid, gid_t gid)
 {
+    printf("Called chown\n");
     char *path = prefix_path(fuse_path, root_path);
 
     int res;
@@ -246,6 +262,7 @@ static int tcfs_chown(const char *fuse_path, uid_t uid, gid_t gid)
 
 static int tcfs_truncate(const char *fuse_path, off_t size)
 {
+    printf("Called truncate\n");
     char *path = prefix_path(fuse_path, root_path);
 
     int res;
@@ -257,9 +274,10 @@ static int tcfs_truncate(const char *fuse_path, off_t size)
     return 0;
 }
 
-#ifdef HAVE_UTIMENSAT
+//#ifdef HAVE_UTIMENSAT
 static int tcfs_utimens(const char *fuse_path, const struct timespec ts[2])
 {
+    printf("Called utimens\n");
     char *path = prefix_path(fuse_path, root_path);
 
     int res;
@@ -276,10 +294,11 @@ static int tcfs_utimens(const char *fuse_path, const struct timespec ts[2])
 
     return 0;
 }
-#endif
+//#endif
 
 static int tcfs_open(const char *fuse_path, struct fuse_file_info *fi)
 {
+    printf("Called open\n");
     char *path = prefix_path(fuse_path, root_path);
     int res;
 
@@ -302,9 +321,13 @@ static inline int file_size(FILE *file) {
 
 static int tcfs_read(const char *fuse_path, char *buf, size_t size, off_t offset, struct fuse_file_info *fi)
 {
+    (void) size;
+    (void) fi;
+
+    printf("Calling read\n");
     FILE *path_ptr, *tmpf;
     char *path;
-    int res, action;
+    int res;
 
     //Retrieve the username
     char username_buf[1024];
@@ -312,101 +335,145 @@ static int tcfs_read(const char *fuse_path, char *buf, size_t size, off_t offset
     get_user_name(username_buf, username_buf_size);
 
     path = prefix_path(fuse_path, root_path);
+
     path_ptr = fopen(path, "r");
     tmpf = tmpfile();
 
-    /* Either encrypt, or just move along. */
-    action = DECRYPT;
-    if (do_crypt(path_ptr, tmpf, action, password) == 0)
+    //Get key size
+    char* size_key_char = malloc(sizeof(char) * 20);
+    if (tcfs_getxattr(fuse_path, "user.key_len", size_key_char, 20) == -1)
+    {
+        perror("Could not get file key size");
         return -errno;
+    }
+    ssize_t size_key = strtol(size_key_char, NULL, 10);
+
+    //Retrive the file key
+    unsigned char *encrypted_key = malloc((size_key+1) * sizeof(char));
+    encrypted_key[size_key] = '\0';
+    if (tcfs_getxattr(fuse_path, "user.key", (char *)encrypted_key, size_key) == -1){
+        perror("Could not get encrypted key for file in tcfs_read");
+        return -errno;
+    }
+
+    //Decrypt the file key
+    unsigned char *decrypted_key;
+    decrypted_key = decrypt_string(encrypted_key, password);
+
+    /* Decrypt*/
+    if (do_crypt(path_ptr, tmpf, DECRYPT, decrypted_key) != 1)
+    {
+        perror("Err: do_crypt cannot decrypt file");
+        return -errno;
+    }
 
     /* Something went terribly wrong if this is the case. */
     if (path_ptr == NULL || tmpf == NULL)
         return -errno;
 
-    fflush(tmpf);
-    fseek(tmpf, offset, SEEK_SET);
+    if (fflush(tmpf) != 0)
+    {
+        perror("Err: Cannot flush file in read process");
+        return -errno;
+    }
+    if (fseek(tmpf, offset, SEEK_SET) != 0)
+    {
+        perror("Err: cannot fseek while reading file");
+        return -errno;
+    }
 
     /* Read our tmpfile into the buffer. */
     res = fread(buf, 1, file_size(tmpf), tmpf);
-    if (res == -1)
+    if (res == -1) {
+        perror("Err: cannot fread whine in read");
         res = -errno;
+    }
 
     fclose(tmpf);
     fclose(path_ptr);
-
+    free(encrypted_key);
+    free(decrypted_key);
     return res;
 }
 
 static int tcfs_write(const char *fuse_path, const char *buf, size_t size, off_t offset, struct fuse_file_info *fi)
 {
+    (void) fi;
     printf("Called write\n");
 
     FILE *path_ptr, *tmpf;
     char *path;
-    int res, action;
+    int res;
     int tmpf_descriptor;
-
-    //Retrieve the username
-    char username_buf[1024];
-    size_t username_buf_size = 1024;
-    get_user_name(username_buf, username_buf_size);
 
     path = prefix_path(fuse_path, root_path);
     path_ptr = fopen(path, "r+");
     tmpf = tmpfile();
     tmpf_descriptor = fileno(tmpf);
 
-    printf("TMP files created\n");
+    //Get the key size
+    char* size_key_char = malloc(sizeof(char) * 20);
+    if (tcfs_getxattr(fuse_path, "user.key_len", size_key_char, 20) == -1)
+    {
+        perror("Could not get file key size");
+        return -errno;
+    }
+    ssize_t size_key = strtol(size_key_char, NULL, 10);
+
+    //Retrieve the file key
+    unsigned char *encrypted_key = malloc(sizeof(unsigned char) * (size_key+1));
+    encrypted_key[size_key] = '\0';
+    if (tcfs_getxattr(fuse_path, "user.key", (char *)encrypted_key, size_key) == -1){
+        perror("Could not get file encrypted key in tcfs write");
+        return -errno;
+    }
+
+    //Decrypt the file key
+    unsigned char *decrypted_key = malloc(sizeof(unsigned char) * 33);
+    decrypted_key[32] = '\0';
+    decrypted_key = decrypt_string(encrypted_key, password);
 
     /* Something went terribly wrong if this is the case. */
     if (path_ptr == NULL || tmpf == NULL) {
-        fprintf(stderr, "Something went terrybly wrong, cannot create new files\n");
+        fprintf(stderr, "Something went terribly wrong, cannot create new files\n");
         return -errno;
     }
 
     /* if the file to write to exists, read it into the tempfile */
     if (tcfs_access(fuse_path, R_OK) == 0 && file_size(path_ptr) > 0) {
-        action = DECRYPT;
-        printf("CRYPT\n");
-        if (do_crypt(path_ptr, tmpf, action, password) == 0) {
+        if (do_crypt(path_ptr, tmpf, DECRYPT, decrypted_key) == 0) {
             perror("do_crypt: Cannot cypher file\n");
             return --errno;
         }
-
         rewind(path_ptr);
         rewind(tmpf);
-        printf("Rewind OK\n");
     }
 
     /* Read our tmpfile into the buffer. */
     res = pwrite(tmpf_descriptor, buf, size, offset);
-    printf("tmpfile read into buffer\n");
     if (res == -1){
         printf("%d\n", res);
         perror("pwrite: cannot read tmpfile into the buffer\n");
         res = -errno;
     }
 
-    /* Either encrypt, or just move along. */
-    action = ENCRYPT;
-
-    printf("Calling do crypt 2\n");
-    if (do_crypt(tmpf, path_ptr, action, password) == 0) {
+    /* Encrypt*/
+    if (do_crypt(tmpf, path_ptr, ENCRYPT, decrypted_key) == 0) {
         perror("do_crypt 2: cannot cypher file\n");
         return -errno;
     }
-    printf("do_crypt ok\n");
 
     fclose(tmpf);
     fclose(path_ptr);
-    printf("All ok, files closed\n");
+    free(encrypted_key);
+    free(decrypted_key);
 
     return res;
 }
 
 static int tcfs_statfs(const char *fuse_path, struct statvfs *stbuf)
 {
+    printf("Called statfs\n");
     char *path = prefix_path(fuse_path, root_path);
 
     int res;
@@ -422,7 +489,6 @@ static int tcfs_setxattr(const char *fuse_path, const char *name, const char *va
 {
     char *path = prefix_path(fuse_path, root_path);
     int res = 1;
-    printf("called tcfs_setxattr %s %s %s %lu %d\n", fuse_path, name, value, size, flags);
     if ((res = lsetxattr(path, name, value, size, flags)) == -1)
         perror("tcfs_lsetxattr");
     if (res == -1)
@@ -434,18 +500,58 @@ static int tcfs_create(const char* fuse_path, mode_t mode, struct fuse_file_info
 {
     (void) fi;
     (void) mode;
+    printf("Called create\n");
 
     FILE *res;
     res = fopen(prefix_path(fuse_path, root_path), "w");
     if(res == NULL)
         return -errno;
 
-    if(fsetxattr(fileno(res), "user.encrypted", "true", 4, 0) != 0){
+    //Flag file as encrypted
+    if (tcfs_setxattr(fuse_path, "user.encrypted", "true", 4, 0) != 0) //(fsetxattr(fileno(res), "user.encrypted", "true", 4, 0) != 0)
+    {
         fclose(res);
         return -errno;
     }
-    fclose(res);
 
+    //Generate and set a new encrypted key for the file
+    unsigned char *key = malloc(sizeof(unsigned char) * 33);
+    key[32] = '\0';
+    generate_key(key);
+
+    if (key == NULL)
+    {
+        perror("cannot generate file key");
+        return -errno;
+    }
+    if (is_valid_key(key) == 0)
+    {
+        fprintf(stderr, "Generated key size invalid\n");
+        return -1;
+    }
+
+    //Encrypt the generated key
+    int encrypted_key_len;
+    unsigned char *encrypted_key = encrypt_string(key, password, &encrypted_key_len);
+
+    //Set the file key
+    if (tcfs_setxattr(fuse_path, "user.key", (const char *)encrypted_key, encrypted_key_len, 0) != 0) //(fsetxattr(fileno(res), "user.key", encrypted_key, 32, 0) != 0)
+    {
+        perror("Err setting key xattr");
+        return -errno;
+    }
+    //Set key size
+    char encrypted_key_len_char[20];
+    snprintf(encrypted_key_len_char, sizeof(encrypted_key_len_char), "%d", encrypted_key_len);
+    if (tcfs_setxattr(fuse_path, "user.key_len", encrypted_key_len_char , sizeof(encrypted_key_len_char), 0) != 0) //(fsetxattr(fileno(res), "user.key", encrypted_key, 32, 0) != 0)
+    {
+        perror("Err setting key_len xattr");
+        return -errno;
+    }
+
+    free(encrypted_key);
+    free(key);
+    fclose(res);
     return 0;
 }
 
@@ -474,19 +580,26 @@ static int tcfs_fsync(const char *fuse_path, int isdatasync,
     return 0;
 }
 
-static int tcfs_getxattr(const char *fuse_path, const char *name, char *value,
-                        size_t size)
+static int tcfs_getxattr(const char *fuse_path, const char *name, char *value, size_t size)
 {
     char *path = prefix_path(fuse_path, root_path);
+    printf("Called getxattr on %s name:%s size:%zu\n", path, name, size);
 
-    int res = lgetxattr(path, name, value, size);
+    if (strcmp(name, "security.capability") == 0) //TODO: I don't know why this is called every time, understand why and handle this
+        return 0;
+
+    int res = (int)lgetxattr(path, name, value, size);
     if (res == -1)
+    {
+        perror("Could not get xattr for file");
         return -errno;
+    }
     return res;
 }
 
 static int tcfs_listxattr(const char *fuse_path, char *list, size_t size)
 {
+    printf("Called listxattr\n");
     char *path = prefix_path(fuse_path, root_path);
 
     int res = llistxattr(path, list, size);
@@ -497,6 +610,7 @@ static int tcfs_listxattr(const char *fuse_path, char *list, size_t size)
 
 static int tcfs_removexattr(const char *fuse_path, const char *name)
 {
+    printf("Called removexattr\n");
     char *path = prefix_path(fuse_path, root_path);
 
     int res = lremovexattr(path, name);
@@ -521,9 +635,7 @@ static struct fuse_operations tcfs_oper = {
         .chmod		= tcfs_chmod,
         .chown		= tcfs_chown,
         .truncate	= tcfs_truncate,
-        #ifdef HAVE_UTIMENSAT
         .utimens	= tcfs_utimens,
-        #endif
         .open		= tcfs_open,
         .read		= tcfs_read,
         .write		= tcfs_write,
@@ -600,13 +712,18 @@ int main(int argc, char *argv[])
 
     printf("Source: %s\n", arguments.source);
     printf("Destination: %s\n", arguments.destination);
-
     root_path = arguments.source;
+
+    if (is_valid_key((unsigned char *)arguments.password) == 0){
+        fprintf(stderr, "Inserted key not valid\n");
+        return 1;
+    }
 
     struct fuse_args args_fuse = FUSE_ARGS_INIT(0, NULL);
     fuse_opt_add_arg(&args_fuse, "./tcfs");
     fuse_opt_add_arg(&args_fuse, arguments.destination);
     fuse_opt_add_arg(&args_fuse, "-f"); //TODO: this is forced for now, but will be passed via options in the future
+    fuse_opt_add_arg(&args_fuse, "-s"); //TODO: this is forced for now, but will be passed via options in the future
 
     //Print what we are passing to fuse TODO: This will be removed
     for (int i=0; i < args_fuse.argc; i++) {
@@ -615,9 +732,11 @@ int main(int argc, char *argv[])
     printf("\n");
 
     //Get username
+    /*
     char buf[1024];
     size_t buf_size = 1024;
     get_user_name(buf, buf_size);
+    */
 
     password = arguments.password;
 
