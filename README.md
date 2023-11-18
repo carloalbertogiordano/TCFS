@@ -95,7 +95,7 @@ as we continue to build upon the foundations set by the original TCFS project.
 
 ## Roadmap
 - Key management:
-  - Store a per-file key in the extended attributes and use the user key to decipher it.
+  - ~~Store a per-file key in the extended attributes and use the user key to decipher it.~~
   - Implement a kernel module to rebuild the private key to decipher the files. This module will use a certificate and your key to rebuild the private key
   - Implement key recovery.
 - Implement threshold sharing files.
