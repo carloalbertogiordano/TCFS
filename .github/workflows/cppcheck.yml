@@ -22,6 +22,6 @@ jobs:
           BRANCH_NAME: 'main'
 
       - name: upload sarif
-        uses: github/codeql-action/upload-sarif@v1 # Upload results to GitHub Code Scanning Alerts
+        uses: github/codeql-action/upload-sarif@v2 # Upload results to GitHub Code Scanning Alerts
         with:
           sarif_file: ./code_analisys/cppcheck/cppcheck_result.sarif 
