@@ -30,6 +30,8 @@ at rest. TCFS addresses these security concerns by ensuring data is encrypted be
 - Transparency: No modifications to the NFS server are required.
 
 ## Getting Started
+### Documentation
+Documentation is lacking but it can be found [here](https://carloalbertogiordano.github.io/TCFS/)
 ### Prerequisites
 - FUSE: Ensure that FUSE and FUSE-dev are installed on your system. You can usually install it using
 your system's package manager (e.g., apt, yum, dnf, ecc).
