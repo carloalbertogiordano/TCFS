@@ -12,6 +12,11 @@ jobs:
         uses: sarnold/cccc-action@main
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
+          source_dirs: |
+            daemon
+            kernel-module
+            user
+            userspace-module
 
       - name: upload metrics report
         uses: actions/upload-artifact@v2
