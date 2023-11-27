@@ -13,8 +13,8 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN}}
           exclude_check: ./.github ./TCFS-2001 ./build ./doxygen_docs
-          output_path: ./code_analisys/cppcheck/
-        
+          output_file: ./code_analisys/cppcheck/cppcheck_result.sarif
+
       - name: publish report    
         uses: mikeal/publish-to-github-action@master
         env:
