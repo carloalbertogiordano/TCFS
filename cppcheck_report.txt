@@ -1,0 +1,194 @@
+daemon/daemon_utils/common_utils/print/print_utils.c:53:13: warning: Either the condition 'file==NULL' is redundant or there is possible null pointer dereference: file. [nullPointerRedundantCheck]
+    fprintf(file, "%s\n", log);
+            ^
+daemon/daemon_utils/common_utils/print/print_utils.c:48:14: note: Assuming that condition 'file==NULL' is not redundant
+    if (file == NULL) {
+             ^
+daemon/daemon_utils/common_utils/print/print_utils.c:53:13: note: Null pointer dereference
+    fprintf(file, "%s\n", log);
+            ^
+daemon/daemon_utils/common_utils/print/print_utils.c:56:12: warning: Either the condition 'file==NULL' is redundant or there is possible null pointer dereference: file. [nullPointerRedundantCheck]
+    fclose(file);
+           ^
+daemon/daemon_utils/common_utils/print/print_utils.c:48:14: note: Assuming that condition 'file==NULL' is not redundant
+    if (file == NULL) {
+             ^
+daemon/daemon_utils/common_utils/print/print_utils.c:56:12: note: Null pointer dereference
+    fclose(file);
+           ^
+daemon/daemon_utils/daemon_tools/tcfs_daemon_tools.c:20:16: style: The scope of the variable 'shared_msg' can be reduced. [variableScope]
+    qm_shared *shared_msg;
+               ^
+daemon/daemon_utils/daemon_tools/tcfs_daemon_tools.c:21:15: style: The scope of the variable 'broadcast_msg' can be reduced. [variableScope]
+    qm_broad *broadcast_msg;
+              ^
+daemon/daemon_utils/daemon_tools/tcfs_daemon_tools.c:25:11: style: The scope of the variable 'tmp_struct' can be reduced. [variableScope]
+    void *tmp_struct;
+          ^
+user/tcfs_helper_tools.c:149:5: warning: scanf() without field width limits can crash with huge input data. [invalidscanf]
+    scanf("%s", source);
+    ^
+user/tcfs_helper_tools.c:152:5: warning: scanf() without field width limits can crash with huge input data. [invalidscanf]
+    scanf("%s", dest);
+    ^
+user/tcfs_helper_tools.c:66:9: error: Memory leak: tcfs_path [memleak]
+        return 0;
+        ^
+user/tcfs_helper_tools.c:206:9: error: Memory leak: tcfs_command [memleak]
+        return 0;
+        ^
+user/tcfs_helper_tools.c:240:9: error: Memory leak: command [memleak]
+        return 0;
+        ^
+user/tcfs_helper_tools.c:244:19: error: Memory leak: command [memleak]
+    if (res == 0) return 0;
+                  ^
+user/tcfs_helper_tools.c:57:25: warning: Either the condition 'home==NULL' is redundant or there is possible null pointer dereference: home. [nullPointerRedundantCheck]
+    printf("$HOME=%s\n",home);
+                        ^
+user/tcfs_helper_tools.c:63:14: note: Assuming that condition 'home==NULL' is not redundant
+    if (home == NULL)
+             ^
+user/tcfs_helper_tools.c:57:25: note: Null pointer dereference
+    printf("$HOME=%s\n",home);
+                        ^
+user/tcfs_helper_tools.c:59:38: warning: Either the condition 'home==NULL' is redundant or there is possible null pointer dereference: home. [nullPointerRedundantCheck]
+    char *tcfs_path = malloc((strlen(home) + strlen("/.tcfs\0")) * sizeof(char));
+                                     ^
+user/tcfs_helper_tools.c:63:14: note: Assuming that condition 'home==NULL' is not redundant
+    if (home == NULL)
+             ^
+user/tcfs_helper_tools.c:59:38: note: Null pointer dereference
+    char *tcfs_path = malloc((strlen(home) + strlen("/.tcfs\0")) * sizeof(char));
+                                     ^
+user/tcfs_helper_tools.c:114:12: style: Variable 'ch' is assigned a value that is never used. [unreadVariable]
+    int ch = 0;
+           ^
+userspace-module/tcfs.c:347:9: error: Resource leak: path_ptr [resourceLeak]
+        return -errno;
+        ^
+userspace-module/tcfs.c:347:9: error: Resource leak: tmpf [resourceLeak]
+        return -errno;
+        ^
+userspace-module/tcfs.c:356:9: error: Resource leak: path_ptr [resourceLeak]
+        return -errno;
+        ^
+userspace-module/tcfs.c:356:9: error: Resource leak: tmpf [resourceLeak]
+        return -errno;
+        ^
+userspace-module/tcfs.c:419:9: error: Resource leak: path_ptr [resourceLeak]
+        return -errno;
+        ^
+userspace-module/tcfs.c:428:9: error: Resource leak: path_ptr [resourceLeak]
+        return -errno;
+        ^
+userspace-module/tcfs.c:434:5: error: Memory leak: decrypted_key [memleak]
+    decrypted_key = decrypt_string(encrypted_key, password);
+    ^
+userspace-module/tcfs.c:525:9: error: Resource leak: res [resourceLeak]
+        return -errno;
+        ^
+userspace-module/tcfs.c:530:9: error: Resource leak: res [resourceLeak]
+        return -1;
+        ^
+userspace-module/tcfs.c:541:9: error: Resource leak: res [resourceLeak]
+        return -errno;
+        ^
+userspace-module/tcfs.c:549:9: error: Resource leak: res [resourceLeak]
+        return -errno;
+        ^
+userspace-module/tcfs.c:519:5: warning: Either the condition 'key==NULL' is redundant or there is possible null pointer dereference: key. [nullPointerRedundantCheck]
+    key[32] = '\0';
+    ^
+userspace-module/tcfs.c:522:13: note: Assuming that condition 'key==NULL' is not redundant
+    if (key == NULL)
+            ^
+userspace-module/tcfs.c:519:5: note: Null pointer dereference
+    key[32] = '\0';
+    ^
+userspace-module/utils/crypt-utils/crypt-utils.c:182:9: warning: Assignment of function parameter has no effect outside the function. Did you forget dereferencing it? [uselessAssignmentPtrArg]
+        destination = NULL;
+        ^
+userspace-module/utils/crypt-utils/crypt-utils.c:28:9: style: The scope of the variable 'inlen' can be reduced. [variableScope]
+    int inlen;
+        ^
+userspace-module/utils/crypt-utils/crypt-utils.c:32:9: style: The scope of the variable 'writelen' can be reduced. [variableScope]
+    int writelen;
+        ^
+userspace-module/utils/crypt-utils/crypt-utils.c:38:19: style: The scope of the variable 'key' can be reduced. [variableScope]
+    unsigned char key[KEY_SIZE];
+                  ^
+userspace-module/utils/crypt-utils/crypt-utils.c:39:19: style: The scope of the variable 'iv' can be reduced. [variableScope]
+    unsigned char iv[IV_SIZE];
+                  ^
+userspace-module/utils/crypt-utils/crypt-utils.c:40:9: style: The scope of the variable 'nrounds' can be reduced. [variableScope]
+    int nrounds = 5;
+        ^
+userspace-module/utils/crypt-utils/crypt-utils.c:43:9: style: The scope of the variable 'i' can be reduced. [variableScope]
+    int i;
+        ^
+userspace-module/utils/crypt-utils/crypt-utils.c:186:79: style:inconclusive: Function 'encrypt_string' argument 3 names different: declaration 'encrypted_len' definition 'encrypted_key_len'. [funcArgNamesDifferent]
+unsigned char* encrypt_string(unsigned char* plaintext, const char* key, int *encrypted_key_len) {
+                                                                              ^
+userspace-module/utils/crypt-utils/crypt-utils.h:43:79: note: Function 'encrypt_string' argument 3 names different: declaration 'encrypted_len' definition 'encrypted_key_len'.
+unsigned char* encrypt_string(unsigned char* plaintext, const char* key, int *encrypted_len);
+                                                                              ^
+userspace-module/utils/crypt-utils/crypt-utils.c:186:79: note: Function 'encrypt_string' argument 3 names different: declaration 'encrypted_len' definition 'encrypted_key_len'.
+unsigned char* encrypt_string(unsigned char* plaintext, const char* key, int *encrypted_key_len) {
+                                                                              ^
+userspace-module/utils/crypt-utils/crypt-utils.c:223:46: style:inconclusive: Function 'decrypt_string' argument 1 names different: declaration 'base64_ciphertext' definition 'ciphertext'. [funcArgNamesDifferent]
+unsigned char* decrypt_string(unsigned char* ciphertext, const char* key) {
+                                             ^
+userspace-module/utils/crypt-utils/crypt-utils.h:51:46: note: Function 'decrypt_string' argument 1 names different: declaration 'base64_ciphertext' definition 'ciphertext'.
+unsigned char* decrypt_string(unsigned char* base64_ciphertext, const char* key);
+                                             ^
+userspace-module/utils/crypt-utils/crypt-utils.c:223:46: note: Function 'decrypt_string' argument 1 names different: declaration 'base64_ciphertext' definition 'ciphertext'.
+unsigned char* decrypt_string(unsigned char* ciphertext, const char* key) {
+                                             ^
+userspace-module/utils/tcfs_utils/tcfs_utils.c:45:9: error: Memory leak: root_dir [memleak]
+        return NULL;
+        ^
+userspace-module/utils/tcfs_utils/tcfs_utils.c:50:9: error: Memory leak: root_dir [memleak]
+        return NULL;
+        ^
+userspace-module/utils/tcfs_utils/tcfs_utils.c:85:20: warning: Either the condition 'src_file==NULL' is redundant or there is possible null pointer dereference: src_file. [nullPointerRedundantCheck]
+            fclose(src_file);
+                   ^
+userspace-module/utils/tcfs_utils/tcfs_utils.c:83:22: note: Assuming that condition 'src_file==NULL' is not redundant
+        if (src_file == NULL)
+                     ^
+userspace-module/utils/tcfs_utils/tcfs_utils.c:85:20: note: Null pointer dereference
+            fclose(src_file);
+                   ^
+userspace-module/utils/tcfs_utils/tcfs_utils.c:85:20: error: Null pointer dereference [nullPointer]
+            fclose(src_file);
+                   ^
+userspace-module/utils/tcfs_utils/tcfs_utils.c:58:9: style: The scope of the variable 'c' can be reduced. [variableScope]
+    int c;
+        ^
+userspace-module/utils/tcfs_utils/tcfs_utils.c:20:18: warning:inconclusive: Found suspicious equality comparison. Did you intend to assign a value instead? [constStatement]
+    xattr_val[4] == '\n';
+                 ^
+userspace-module/utils/tcfs_utils/tcfs_utils.c:17:9: style: Unused variable: ret [unusedVariable]
+    int ret;
+        ^
+daemon/daemon_utils/common_utils/db/user_db.c:41:0: style: The function 'disconnect_db' is never used. [unusedFunction]
+
+^
+userspace-module/utils/tcfs_utils/tcfs_utils.c:76:0: style: The function 'get_encrypted_key' is never used. [unusedFunction]
+
+^
+daemon/daemon_utils/common_utils/print/print_utils.c:131:0: style: The function 'print_debug' is never used. [unusedFunction]
+
+^
+daemon/daemon_utils/common_utils/print/print_utils.c:110:0: style: The function 'print_warn' is never used. [unusedFunction]
+
+^
+userspace-module/utils/tcfs_utils/tcfs_utils.c:56:0: style: The function 'read_file' is never used. [unusedFunction]
+
+^
+daemon/daemon_utils/common_utils/db/redis.c:235:0: style: The function 'remove_by_user' is never used. [unusedFunction]
+
+^
+nofile:0:0: information: Cppcheck cannot find all the include files (use --check-config for details) [missingInclude]
+
