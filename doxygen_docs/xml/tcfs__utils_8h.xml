@@ -1,0 +1,260 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="tcfs__utils_8h" kind="file" language="C++">
+    <compoundname>tcfs_utils.h</compoundname>
+    <includes local="no">string.h</includes>
+    <includes local="no">stdio.h</includes>
+    <includes local="no">pwd.h</includes>
+    <includes local="no">unistd.h</includes>
+    <includes local="no">sys/xattr.h</includes>
+    <includes local="no">stdlib.h</includes>
+    <includes local="no">errno.h</includes>
+    <includedby refid="tcfs_8c" local="yes">userspace-module/tcfs.c</includedby>
+    <includedby refid="crypt-utils_8h" local="yes">userspace-module/utils/crypt-utils/crypt-utils.h</includedby>
+    <includedby refid="tcfs__utils_8c" local="yes">userspace-module/utils/tcfs_utils/tcfs_utils.c</includedby>
+    <incdepgraph>
+      <node id="1">
+        <label>userspace-module/utils/tcfs_utils/tcfs_utils.h</label>
+        <link refid="tcfs__utils_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>errno.h</label>
+      </node>
+      <node id="4">
+        <label>pwd.h</label>
+      </node>
+      <node id="3">
+        <label>stdio.h</label>
+      </node>
+      <node id="7">
+        <label>stdlib.h</label>
+      </node>
+      <node id="2">
+        <label>string.h</label>
+      </node>
+      <node id="6">
+        <label>sys/xattr.h</label>
+      </node>
+      <node id="5">
+        <label>unistd.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="2">
+        <label>userspace-module/tcfs.c</label>
+        <link refid="tcfs_8c_source"/>
+      </node>
+      <node id="4">
+        <label>userspace-module/utils/crypt-utils/crypt-utils.c</label>
+        <link refid="crypt-utils_8c_source"/>
+      </node>
+      <node id="3">
+        <label>userspace-module/utils/crypt-utils/crypt-utils.h</label>
+        <link refid="crypt-utils_8h_source"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>userspace-module/utils/password_manager/password_manager.c</label>
+        <link refid="password__manager_8c_source"/>
+      </node>
+      <node id="6">
+        <label>userspace-module/utils/tcfs_utils/tcfs_utils.c</label>
+        <link refid="tcfs__utils_8c_source"/>
+      </node>
+      <node id="1">
+        <label>userspace-module/utils/tcfs_utils/tcfs_utils.h</label>
+        <link refid="tcfs__utils_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="tcfs__utils_8h_1aac1b7fab3a13b4cfcc0b34eb7511df55" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void get_user_name</definition>
+        <argsstring>(char *buf, size_t size)</argsstring>
+        <name>get_user_name</name>
+        <param>
+          <type>char *</type>
+          <declname>buf</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>size</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="userspace-module/utils/tcfs_utils/tcfs_utils.h" line="15" column="6" bodyfile="userspace-module/utils/tcfs_utils/tcfs_utils.c" bodystart="4" bodyend="12" declfile="userspace-module/utils/tcfs_utils/tcfs_utils.h" declline="15" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="tcfs__utils_8h_1a71e44dc105c7af8349bc3e7eb9edf2b0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int is_encrypted</definition>
+        <argsstring>(const char *path)</argsstring>
+        <name>is_encrypted</name>
+        <param>
+          <type>const char *</type>
+          <declname>path</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="userspace-module/utils/tcfs_utils/tcfs_utils.h" line="18" column="5" bodyfile="userspace-module/utils/tcfs_utils/tcfs_utils.c" bodystart="15" bodyend="23" declfile="userspace-module/utils/tcfs_utils/tcfs_utils.h" declline="18" declcolumn="5"/>
+      </memberdef>
+      <memberdef kind="function" id="tcfs__utils_8h_1ac4ff59963f4a122c9f802c0c2bf2abc8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>char *</type>
+        <definition>char * prefix_path</definition>
+        <argsstring>(const char *path, const char *realpath)</argsstring>
+        <name>prefix_path</name>
+        <param>
+          <type>const char *</type>
+          <declname>path</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>realpath</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="userspace-module/utils/tcfs_utils/tcfs_utils.h" line="26" column="6" bodyfile="userspace-module/utils/tcfs_utils/tcfs_utils.c" bodystart="25" bodyend="53" declfile="userspace-module/utils/tcfs_utils/tcfs_utils.h" declline="26" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="tcfs__utils_8h_1a42623317bb0b1ff095b4d946dc085bd6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int read_file</definition>
+        <argsstring>(FILE *file)</argsstring>
+        <name>read_file</name>
+        <param>
+          <type>FILE *</type>
+          <declname>file</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="userspace-module/utils/tcfs_utils/tcfs_utils.h" line="29" column="5" bodyfile="userspace-module/utils/tcfs_utils/tcfs_utils.c" bodystart="56" bodyend="72" declfile="userspace-module/utils/tcfs_utils/tcfs_utils.h" declline="29" declcolumn="5"/>
+      </memberdef>
+      <memberdef kind="function" id="tcfs__utils_8h_1a4316eb58a0cb5afb4e90e75a55c9b3ea" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int get_encrypted_key</definition>
+        <argsstring>(char *filepath, unsigned char *encrypted_key)</argsstring>
+        <name>get_encrypted_key</name>
+        <param>
+          <type>char *</type>
+          <declname>filepath</declname>
+        </param>
+        <param>
+          <type>unsigned char *</type>
+          <declname>encrypted_key</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="userspace-module/utils/tcfs_utils/tcfs_utils.h" line="37" column="5" bodyfile="userspace-module/utils/tcfs_utils/tcfs_utils.c" bodystart="76" bodyend="104" declfile="userspace-module/utils/tcfs_utils/tcfs_utils.h" declline="37" declcolumn="5"/>
+      </memberdef>
+      <memberdef kind="function" id="tcfs__utils_8h_1a8c1c24299a2b01f6157b051cb56ebc52" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void print_aes_key</definition>
+        <argsstring>(unsigned char *key)</argsstring>
+        <name>print_aes_key</name>
+        <param>
+          <type>unsigned char *</type>
+          <declname>key</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="userspace-module/utils/tcfs_utils/tcfs_utils.h" line="40" column="6" bodyfile="userspace-module/utils/tcfs_utils/tcfs_utils.c" bodystart="106" bodyend="112" declfile="userspace-module/utils/tcfs_utils/tcfs_utils.h" declline="40" declcolumn="6"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#include<sp/>&lt;string.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdio.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;pwd.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;unistd.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;sys/xattr.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdlib.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;errno.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>void<sp/>get_user_name(char<sp/>*buf,<sp/>size_t<sp/>size)</highlight></codeline>
+<codeline lineno="10"><highlight class="comment"><sp/>*<sp/>Purpose:<sp/>Fetch<sp/>the<sp/>username<sp/>of<sp/>the<sp/>current<sp/>user</highlight></codeline>
+<codeline lineno="11"><highlight class="comment"><sp/>*<sp/>Args:<sp/>char<sp/>*buf<sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>The<sp/>username<sp/>will<sp/>be<sp/>written<sp/>to<sp/>this<sp/>buffer</highlight></codeline>
+<codeline lineno="12"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/><sp/>size_t<sp/>size<sp/><sp/><sp/><sp/>:<sp/>The<sp/>size<sp/>of<sp/>the<sp/>buffer;</highlight></codeline>
+<codeline lineno="13"><highlight class="comment"><sp/>*<sp/>Return:<sp/>Nothing</highlight></codeline>
+<codeline lineno="14"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>get_user_name(</highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*buf,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>size);</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>is_encrypted:<sp/>returns<sp/>1<sp/>if<sp/>encryption<sp/>succeeded,<sp/>0<sp/>otherwise.<sp/>There<sp/>is<sp/>currently<sp/>no<sp/>use<sp/>for<sp/>this<sp/>function<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>is_encrypted(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*path);</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>char<sp/>*prefix_path(const<sp/>char<sp/>*path))</highlight></codeline>
+<codeline lineno="21"><highlight class="comment"><sp/>*<sp/>Purpose:<sp/>Prefix<sp/>the<sp/>realpath<sp/>to<sp/>the<sp/>fuse<sp/>path</highlight></codeline>
+<codeline lineno="22"><highlight class="comment"><sp/>*<sp/>Args:<sp/>char<sp/>*path<sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>The<sp/>fuse<sp/>path</highlight></codeline>
+<codeline lineno="23"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/><sp/>char<sp/>*realpath<sp/><sp/>:<sp/>The<sp/>realpath</highlight></codeline>
+<codeline lineno="24"><highlight class="comment"><sp/>*<sp/>Return:<sp/>NULL<sp/>on<sp/>error,<sp/>char*<sp/>on<sp/>success</highlight></codeline>
+<codeline lineno="25"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*prefix_path(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*path,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*realpath);</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>read_file:<sp/>for<sp/>debugging<sp/>tempfiles<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>read_file(FILE<sp/>*file);</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>int<sp/>get_encrypted_key(char<sp/>*filepath,<sp/>void<sp/>*encrypted_key)</highlight></codeline>
+<codeline lineno="32"><highlight class="comment"><sp/>*<sp/>Purpose:<sp/>Get<sp/>the<sp/>encrypted<sp/>file<sp/>key<sp/>from<sp/>its<sp/>xattrs</highlight></codeline>
+<codeline lineno="33"><highlight class="comment"><sp/>*<sp/>Args:<sp/>char<sp/>*filepath<sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>The<sp/>full-path<sp/>of<sp/>the<sp/>file</highlight></codeline>
+<codeline lineno="34"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/><sp/>char<sp/>*encrypted_key<sp/><sp/>:<sp/>The<sp/>buffer<sp/>to<sp/>save<sp/>the<sp/>encrypted<sp/>key<sp/>to</highlight></codeline>
+<codeline lineno="35"><highlight class="comment"><sp/>*<sp/>Return:<sp/>0<sp/>on<sp/>error,<sp/>1<sp/>on<sp/>success</highlight></codeline>
+<codeline lineno="36"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>get_encrypted_key(</highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*filepath,<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*encrypted_key);</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">/*For<sp/>debugging<sp/>only*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>print_aes_key(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*key);</highlight></codeline>
+    </programlisting>
+    <location file="userspace-module/utils/tcfs_utils/tcfs_utils.h"/>
+  </compounddef>
+</doxygen>

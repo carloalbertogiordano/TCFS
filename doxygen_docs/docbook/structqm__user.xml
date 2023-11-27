@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_structqm__user" xml:lang="en-US">
+<title>qm_user Struct Reference</title>
+<indexterm><primary>qm_user</primary></indexterm>
+Collaboration diagram for qm_user:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="structqm__user__coll__graph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+<simplesect>
+    <title>Public Attributes    </title>
+        <itemizedlist>
+            <listitem><para>user_operation <link linkend="_structqm__user_1a4b5bbaaf885c62f44f265eeba461303d">user_op</link></para>
+</listitem>
+            <listitem><para>pid_t <link linkend="_structqm__user_1aa69546c3a6a2124be9f964329c951a84">pid</link></para>
+</listitem>
+            <listitem><para>char * <link linkend="_structqm__user_1a6c52d68724b65831ba6d95f3d7448ff4">user</link></para>
+</listitem>
+            <listitem><para>char * <link linkend="_structqm__user_1ad718cfba201afae89c596111bd508d5f">pubkey</link></para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Detailed Description</title>
+<para>
+Definition at line <link linkend="_common_8h_source_1l00027">27</link> of file <link linkend="_common_8h_source">common.h</link>.</para>
+</section>
+<section>
+<title>Member Data Documentation</title>
+<anchor xml:id="_structqm__user_1aa69546c3a6a2124be9f964329c951a84"/><section>
+    <title>pid</title>
+<indexterm><primary>pid</primary><secondary>qm_user</secondary></indexterm>
+<indexterm><primary>qm_user</primary><secondary>pid</secondary></indexterm>
+<para><computeroutput>pid_t qm_user::pid</computeroutput></para><para>
+Definition at line <link linkend="_common_8h_source_1l00029">29</link> of file <link linkend="_common_8h_source">common.h</link>.</para>
+</section>
+<anchor xml:id="_structqm__user_1ad718cfba201afae89c596111bd508d5f"/><section>
+    <title>pubkey</title>
+<indexterm><primary>pubkey</primary><secondary>qm_user</secondary></indexterm>
+<indexterm><primary>qm_user</primary><secondary>pubkey</secondary></indexterm>
+<para><computeroutput>char* qm_user::pubkey</computeroutput></para><para>
+Definition at line <link linkend="_common_8h_source_1l00031">31</link> of file <link linkend="_common_8h_source">common.h</link>.</para>
+</section>
+<anchor xml:id="_structqm__user_1a6c52d68724b65831ba6d95f3d7448ff4"/><section>
+    <title>user</title>
+<indexterm><primary>user</primary><secondary>qm_user</secondary></indexterm>
+<indexterm><primary>qm_user</primary><secondary>user</secondary></indexterm>
+<para><computeroutput>char* qm_user::user</computeroutput></para><para>
+Definition at line <link linkend="_common_8h_source_1l00030">30</link> of file <link linkend="_common_8h_source">common.h</link>.</para>
+</section>
+<anchor xml:id="_structqm__user_1a4b5bbaaf885c62f44f265eeba461303d"/><section>
+    <title>user_op</title>
+<indexterm><primary>user_op</primary><secondary>qm_user</secondary></indexterm>
+<indexterm><primary>qm_user</primary><secondary>user_op</secondary></indexterm>
+<para><computeroutput>user_operation qm_user::user_op</computeroutput></para><para>
+Definition at line <link linkend="_common_8h_source_1l00028">28</link> of file <link linkend="_common_8h_source">common.h</link>.</para>
+</section>
+<para>
+The documentation for this struct was generated from the following file:</para>
+daemon/daemon_utils/common.h</section>
+</section>

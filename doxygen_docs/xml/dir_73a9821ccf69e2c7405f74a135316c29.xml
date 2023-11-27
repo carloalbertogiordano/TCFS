@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="dir_73a9821ccf69e2c7405f74a135316c29" kind="dir">
+    <compoundname>daemon/daemon_utils/daemon_tools</compoundname>
+    <innerfile refid="tcfs__daemon__tools_8c">tcfs_daemon_tools.c</innerfile>
+    <innerfile refid="tcfs__daemon__tools_8h">tcfs_daemon_tools.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="daemon/daemon_utils/daemon_tools/"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,25 @@
+.TH "todo" 3 "Mon Nov 27 2023 17:03:19" "Version 0.2" "TCFS" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+todo \- Todo List 
+.PP
+
+.IP "\fBMember \fBhandle_termination\fP (int signum)\fP" 1c
+: Implement remove_queue() to clear and delete the queue  
+.IP "\fBMember \fBmain\fP ()\fP" 1c
+: The brief description is basically false advertisement\&. It only spawn a thread and hangs infinitely 
+.PP
+.PP
+: Remove the thread that spawns handle_outgoing_messages\&. This must not make it into final release  
+.IP "\fBFile \fBtcfs_daemon\&.c\fP \fP" 1c
+: Enable forking 
+.PP
+.PP
+Run the daemon via SystemD  
+.IP "\fBMember \fBterminate\fP \fP" 1c
+: Implement logic to make this work  
+.IP "\fBMember \fBterminate_mutex\fP \fP" 1c
+: implement logic to make this work 
+.PP
+

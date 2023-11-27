@@ -1,0 +1,374 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="common_8h" kind="file" language="C++">
+    <compoundname>common.h</compoundname>
+    <includes local="no">sys/stat.h</includes>
+    <includes local="no">sys/types.h</includes>
+    <includes local="no">fcntl.h</includes>
+    <includes local="no">mqueue.h</includes>
+    <includes local="no">unistd.h</includes>
+    <includes local="no">string.h</includes>
+    <includes local="no">errno.h</includes>
+    <includedby refid="redis_8h" local="yes">daemon/daemon_utils/common_utils/db/redis.h</includedby>
+    <includedby refid="json__tools_8cpp" local="yes">daemon/daemon_utils/common_utils/json/json_tools.cpp</includedby>
+    <includedby refid="json__tools_8h" local="yes">daemon/daemon_utils/common_utils/json/json_tools.h</includedby>
+    <includedby refid="message__handler_8h" local="yes">daemon/daemon_utils/message_handler/message_handler.h</includedby>
+    <includedby refid="queue_8h" local="yes">daemon/daemon_utils/queue/queue.h</includedby>
+    <incdepgraph>
+      <node id="1">
+        <label>daemon/daemon_utils/common.h</label>
+        <link refid="common_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>errno.h</label>
+      </node>
+      <node id="4">
+        <label>fcntl.h</label>
+      </node>
+      <node id="5">
+        <label>mqueue.h</label>
+      </node>
+      <node id="7">
+        <label>string.h</label>
+      </node>
+      <node id="2">
+        <label>sys/stat.h</label>
+      </node>
+      <node id="3">
+        <label>sys/types.h</label>
+      </node>
+      <node id="6">
+        <label>unistd.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="1">
+        <label>daemon/daemon_utils/common.h</label>
+        <link refid="common_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>daemon/daemon_utils/common_utils/db/redis.c</label>
+        <link refid="redis_8c_source"/>
+      </node>
+      <node id="2">
+        <label>daemon/daemon_utils/common_utils/db/redis.h</label>
+        <link refid="redis_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>daemon/daemon_utils/common_utils/db/user_db.c</label>
+        <link refid="user__db_8c"/>
+      </node>
+      <node id="9">
+        <label>daemon/daemon_utils/common_utils/db/user_db.h</label>
+        <link refid="user__db_8h_source"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>daemon/daemon_utils/common_utils/json/json_tools.cpp</label>
+        <link refid="json__tools_8cpp_source"/>
+      </node>
+      <node id="6">
+        <label>daemon/daemon_utils/common_utils/json/json_tools.h</label>
+        <link refid="json__tools_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>daemon/daemon_utils/daemon_tools/tcfs_daemon_tools.c</label>
+        <link refid="tcfs__daemon__tools_8c_source"/>
+      </node>
+      <node id="10">
+        <label>daemon/daemon_utils/daemon_tools/tcfs_daemon_tools.h</label>
+        <link refid="tcfs__daemon__tools_8h_source"/>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>daemon/daemon_utils/message_handler/message_handler.c</label>
+        <link refid="message__handler_8c_source"/>
+      </node>
+      <node id="14">
+        <label>daemon/daemon_utils/message_handler/message_handler.h</label>
+        <link refid="message__handler_8h_source"/>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>daemon/daemon_utils/queue/queue.c</label>
+        <link refid="queue_8c_source"/>
+      </node>
+      <node id="8">
+        <label>daemon/daemon_utils/queue/queue.h</label>
+        <link refid="queue_8h_source"/>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>daemon/tcfs_daemon.c</label>
+        <link refid="tcfs__daemon_8c"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="structqm__user" prot="public">qm_user</innerclass>
+    <innerclass refid="structqm__shared" prot="public">qm_shared</innerclass>
+    <innerclass refid="structqm__broad" prot="public">qm_broad</innerclass>
+    <sectiondef kind="define">
+      <memberdef kind="define" id="common_8h_1acd35d77836b78577da8fff8dcae9e2e1" prot="public" static="no">
+        <name>MAX_QM_SIZE</name>
+        <initializer>512</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="daemon/daemon_utils/common.h" line="9" column="9" bodyfile="daemon/daemon_utils/common.h" bodystart="9" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="common_8h_1af4132207ad49b2d7fd2adb266f295cb4" prot="public" static="no">
+        <name>MAX_QM_N</name>
+        <initializer>100</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="daemon/daemon_utils/common.h" line="10" column="9" bodyfile="daemon/daemon_utils/common.h" bodystart="10" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="enum">
+      <memberdef kind="enum" id="common_8h_1ab2c144fca6129807a9fe4bad66970c4c" prot="public" static="no" strong="no">
+        <type></type>
+        <name>qm_type</name>
+        <enumvalue id="common_8h_1ab2c144fca6129807a9fe4bad66970c4cae2d30a195cee6b2961cc2c23ea4b520b" prot="public">
+          <name>USER</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="common_8h_1ab2c144fca6129807a9fe4bad66970c4ca9c46e16a4ab019339596acadeefc8c53" prot="public">
+          <name>SHARED</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="common_8h_1ab2c144fca6129807a9fe4bad66970c4ca78386e426adecb3fd26350119a3cb7c2" prot="public">
+          <name>BROADCAST</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="common_8h_1ab2c144fca6129807a9fe4bad66970c4ca84fb91aba870f3033713d9e4b638f006" prot="public">
+          <name>QM_TYPE_UNDEFINED</name>
+          <initializer>= -1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="daemon/daemon_utils/common.h" line="15" column="1" bodyfile="daemon/daemon_utils/common.h" bodystart="15" bodyend="20"/>
+      </memberdef>
+      <memberdef kind="enum" id="common_8h_1ad30dd7f5c8fc3f0027bbddc111c652b8" prot="public" static="no" strong="no">
+        <type></type>
+        <name>user_operation</name>
+        <enumvalue id="common_8h_1ad30dd7f5c8fc3f0027bbddc111c652b8aceb7c305772dab23a260960771180df3" prot="public">
+          <name>REGISTER</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="common_8h_1ad30dd7f5c8fc3f0027bbddc111c652b8ad46a7713a16573956ea43782ac970154" prot="public">
+          <name>UNREGISTER</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="daemon/daemon_utils/common.h" line="22" column="1" bodyfile="daemon/daemon_utils/common.h" bodystart="22" bodyend="25"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="common_8h_1a44bb09275166cece70878e4f6c9cfbbd" prot="public" static="no">
+        <type>enum qm_type</type>
+        <definition>typedef enum qm_type qm_type</definition>
+        <argsstring></argsstring>
+        <name>qm_type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="daemon/daemon_utils/common.h" line="20" column="9"/>
+      </memberdef>
+      <memberdef kind="typedef" id="common_8h_1ac545cb4ff9bc5c45c47224edc797c7b7" prot="public" static="no">
+        <type>enum user_operation</type>
+        <definition>typedef enum user_operation user_operation</definition>
+        <argsstring></argsstring>
+        <name>user_operation</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="daemon/daemon_utils/common.h" line="25" column="16"/>
+      </memberdef>
+      <memberdef kind="typedef" id="common_8h_1a34ec46bb3c221944f0aa4e967fad5bbc" prot="public" static="no">
+        <type>struct <ref refid="structqm__user" kindref="compound">qm_user</ref></type>
+        <definition>typedef struct qm_user qm_user</definition>
+        <argsstring></argsstring>
+        <name>qm_user</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="daemon/daemon_utils/common.h" line="32" column="9"/>
+      </memberdef>
+      <memberdef kind="typedef" id="common_8h_1a387ddb907b1a38641170b99cf9d27fde" prot="public" static="no">
+        <type>struct <ref refid="structqm__shared" kindref="compound">qm_shared</ref></type>
+        <definition>typedef struct qm_shared qm_shared</definition>
+        <argsstring></argsstring>
+        <name>qm_shared</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="daemon/daemon_utils/common.h" line="38" column="11"/>
+      </memberdef>
+      <memberdef kind="typedef" id="common_8h_1aba8be1278efe9d1826ede84584b45873" prot="public" static="no">
+        <type>struct <ref refid="structqm__broad" kindref="compound">qm_broad</ref></type>
+        <definition>typedef struct qm_broad qm_broad</definition>
+        <argsstring></argsstring>
+        <name>qm_broad</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="daemon/daemon_utils/common.h" line="42" column="10"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#include<sp/>&lt;sys/stat.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;sys/types.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;fcntl.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;mqueue.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;unistd.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;errno.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>MAX_QM_SIZE<sp/>512<sp/></highlight><highlight class="comment">//Max<sp/>size<sp/>of<sp/>a<sp/>message</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>MAX_QM_N<sp/>100<sp/></highlight><highlight class="comment">//Max<sp/>number<sp/>of<sp/>messages<sp/>that<sp/>can<sp/>be<sp/>enqueued</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>QUEUE_STRUCTS</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>QUEUE_STRUCTS</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>qm_type{</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/>USER<sp/>=<sp/>0,</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/>SHARED<sp/>=<sp/>1,</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/>BROADCAST<sp/>=<sp/>2,</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/>QM_TYPE_UNDEFINED<sp/>=<sp/>-1,</highlight></codeline>
+<codeline lineno="20"><highlight class="normal">}<sp/>qm_type;</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>user_operation{</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/>REGISTER<sp/>=<sp/>0,</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/>UNREGISTER<sp/>=<sp/>1,</highlight></codeline>
+<codeline lineno="25"><highlight class="normal">}<sp/>user_operation;</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight></codeline>
+<codeline lineno="27" refid="structqm__user" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structqm__user" kindref="compound">qm_user</ref><sp/>{</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/>user_operation<sp/>user_op;</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/>pid_t<sp/>pid;</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*user;</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*pubkey;</highlight></codeline>
+<codeline lineno="32"><highlight class="normal">}<sp/><ref refid="structqm__user" kindref="compound">qm_user</ref>;</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34" refid="structqm__shared" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structqm__shared" kindref="compound">qm_shared</ref><sp/>{</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>fd;</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>**userlist;</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*keypart;</highlight></codeline>
+<codeline lineno="38"><highlight class="normal">}<sp/><ref refid="structqm__shared" kindref="compound">qm_shared</ref>;</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40" refid="structqm__broad" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structqm__broad" kindref="compound">qm_broad</ref><sp/>{</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*data;</highlight></codeline>
+<codeline lineno="42"><highlight class="normal">}<sp/><ref refid="structqm__broad" kindref="compound">qm_broad</ref>;</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+    </programlisting>
+    <location file="daemon/daemon_utils/common.h"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,68 @@
+\chapter{TCFS -\/ Transparent Cryptographic Filesystem}
+\hypertarget{md_README}{}\label{md_README}\index{TCFS -\/ Transparent Cryptographic Filesystem@{TCFS -\/ Transparent Cryptographic Filesystem}}
+\label{md_README_autotoc_md0}%
+\Hypertarget{md_README_autotoc_md0}%
+TCFS is a transparent cryptographic filesystem designed to secure files mounted on a Network File System (NFS) server. It is implemented as a FUSE (Filesystem in Userspace) module along with a user-\/friendly helper program. TCFS ensures that files are encrypted and decrypted seamlessly without requiring user intervention, providing an additional layer of security for sensitive data.\hypertarget{md_README_autotoc_md1}{}\doxysection{\texorpdfstring{Disclamer}{Disclamer}}\label{md_README_autotoc_md1}
+{\bfseries{Note\+:}} This project is currently in an early development stage and should be considered as an alpha version. This means there may be many missing features, unresolved bugs, or unexpected behaviors. The project is made available in this phase for testing and evaluation purposes and should not be used in production or for critical purposes. It is not recommended to use this software in sensitive environments or to store important data until a stable and complete version is reached. We appreciate any feedback, bug reports, or contributions from the community that can help improve the project. If you decide to use this software, please {\bfseries{don\textquotesingle{}t do it}}. Thank you for your interest and understanding as we work to improve the project and make it stable and complete.\hypertarget{md_README_autotoc_md2}{}\doxysection{\texorpdfstring{Features}{Features}}\label{md_README_autotoc_md2}
+
+\begin{DoxyItemize}
+\item Transparent Encryption\+: TCFS operates silently in the background, encrypting and decrypting files on-\/the-\/fly as they are accessed or modified. Users don\textquotesingle{}t need to worry about managing encryption keys or performing manual cryptographic operations.
+\item FUSE Integration\+: TCFS leverages the FUSE framework to create a virtual filesystem that integrates seamlessly with the existing file hierarchy. This allows users to interact with their files just like any other files on their system.
+\item Secure Data Storage\+: Files stored on an NFS server can be vulnerable during transit or at rest. TCFS addresses these security concerns by ensuring data is encrypted before it leaves the client system, offering end-\/to-\/end encryption for your files.
+\item Transparency\+: No modifications to the NFS server are required.
+\end{DoxyItemize}\hypertarget{md_README_autotoc_md3}{}\doxysection{\texorpdfstring{Getting Started}{Getting Started}}\label{md_README_autotoc_md3}
+\hypertarget{md_README_autotoc_md4}{}\doxysubsection{\texorpdfstring{Prerequisites}{Prerequisites}}\label{md_README_autotoc_md4}
+
+\begin{DoxyItemize}
+\item FUSE\+: Ensure that FUSE and FUSE-\/dev are installed on your system. You can usually install it using your system\textquotesingle{}s package manager (e.\+g., apt, yum, dnf, ecc).
+\item Open\+SSl\+: Install Open\+SSL and its development package. 
+\end{DoxyItemize}\hypertarget{md_README_autotoc_md5}{}\doxysubsection{\texorpdfstring{Build}{Build}}\label{md_README_autotoc_md5}
+
+\begin{DoxyItemize}
+\item Clone the TCFS repository to your local machine\+: 
+\begin{DoxyPre}
+{\ttfamily 
+git clone \href{https://github.com/carloalbertogiordano/TCFS}{\texttt{ https://github.com/carloalbertogiordano/TCFS}}
+}
+\end{DoxyPre}
+
+\item Compile\+: Run the Makefile in the userspace-\/module directory (Only the FUSE module is avilable at the moment, the whole project has not been implemented yet) 
+\begin{DoxyPre}
+{\ttfamily 
+make all
+}
+\end{DoxyPre}
+
+\end{DoxyItemize}
+
+\#\hypertarget{md_README_autotoc_md6}{}\doxysection{\texorpdfstring{Usage}{Usage}}\label{md_README_autotoc_md6}
+\hypertarget{md_README_autotoc_md7}{}\doxysubsubsection{\texorpdfstring{Mount an NFS share using TCFS\+:}{Mount an NFS share using TCFS:}}\label{md_README_autotoc_md7}
+First, mount the NFS share to a directroy, this directory will be called sourcedir. This will be done by the helper program in a future release. 
+\begin{DoxyPre}
+{\ttfamily 
+    ./build-\/fs/tcfs-\/fuse-\/module/tcfs -\/s /fullpath/sourcedir -\/d /fullpath/destdir -\/p "{}your password here"{}
+}
+\end{DoxyPre}
+ Access and modify files in the mounted directory as you normally would. TCFS will handle encryption and decryption automatically. NOTE\+: This behaviour will be changed in the future, the kernel module will handle your password.\hypertarget{md_README_autotoc_md8}{}\doxysubsubsection{\texorpdfstring{Unmount the NFS share when you\textquotesingle{}re done\+:}{Unmount the NFS share when you're done:}}\label{md_README_autotoc_md8}
+
+\begin{DoxyPre}
+{\ttfamily 
+    fusermount -\/u /fullpath/destdir
+}
+\end{DoxyPre}
+ then unmount the NFS share.\hypertarget{md_README_autotoc_md9}{}\doxysubsection{\texorpdfstring{Contributing}{Contributing}}\label{md_README_autotoc_md9}
+Contributions to TCFS are welcome! If you find a bug or have an idea for an improvement, please open an issue or submit a pull request on the TCFS Git\+Hub repository.\hypertarget{md_README_autotoc_md10}{}\doxysubsection{\texorpdfstring{License}{License}}\label{md_README_autotoc_md10}
+This project is licensed under the GPLv3 License -\/ see the LICENSE file for details.\hypertarget{md_README_autotoc_md11}{}\doxysubsection{\texorpdfstring{Acknowledgments}{Acknowledgments}}\label{md_README_autotoc_md11}
+TCFS is inspired by the need for secure data storage and transmission in NFS environments. Thanks to the FUSE project for providing a user-\/friendly way to create custom filesystems.
+
+{\bfseries{Inspiration from TCFS (2001)\+:}} This project draws substantial inspiration from an earlier project named "{}\+TCFS"{} that was developed around 2001. While the original source code for TCFS has unfortunately been lost over time, we have retained valuable documentation and insights from that era. In the "{}\+TCFS-\/2001"{} folder, you can find historical documentation and design concepts related to the original TCFS project. Although we are unable to directly leverage the source code from the previous project, we have taken lessons learned from its design principles to inform the development of this current TCFS implementation. We would like to express our gratitude to the creators and contributors of TCFS for their pioneering work, which has influenced and inspired our efforts to create a modern TCFS solution. Thank you for your interest in this project as we continue to build upon the foundations set by the original TCFS project.\hypertarget{md_README_autotoc_md12}{}\doxysubsection{\texorpdfstring{Roadmap}{Roadmap}}\label{md_README_autotoc_md12}
+
+\begin{DoxyItemize}
+\item Key management\+:
+\begin{DoxyItemize}
+\item \sout{Store a per-\/file key in the extended attributes and use the user key to decipher it.}
+\item Implement a kernel module to rebuild the private key to decipher the files. This module will use a certificate and your key to rebuild the private key
+\item Implement key recovery.
+\end{DoxyItemize}
+\item Implement threshold sharing files. 
+\end{DoxyItemize}

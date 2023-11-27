@@ -1,0 +1,5 @@
+<map id="print_err" name="print_err">
+<area shape="rect" id="Node000001" title="Format and print data as an error." alt="" coords="104,5,173,31"/>
+<area shape="rect" id="Node000002" href="$tcfs__daemon_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title="main function of the daemon. This will daemonize the program, spawn a thread to handle messages and h..." alt="" coords="5,5,56,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="88,21,56,21,56,15,88,15"/>
+</map>

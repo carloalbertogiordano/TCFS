@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="dir_c5b5ac82090b72e74d2549aae5cfebb7" kind="dir">
+    <compoundname>daemon/daemon_utils/queue</compoundname>
+    <innerfile refid="queue_8c">queue.c</innerfile>
+    <innerfile refid="queue_8h">queue.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="daemon/daemon_utils/queue/"/>
+  </compounddef>
+</doxygen>

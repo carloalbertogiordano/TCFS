@@ -1,0 +1,5 @@
+<map id="handle_termination" name="handle_termination">
+<area shape="rect" id="Node000001" title="Handle the termination if SIGTERM is received." alt="" coords="104,5,235,31"/>
+<area shape="rect" id="Node000002" href="$tcfs__daemon_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title="main function of the daemon. This will daemonize the program, spawn a thread to handle messages and h..." alt="" coords="5,5,56,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="88,21,57,21,57,15,88,15"/>
+</map>

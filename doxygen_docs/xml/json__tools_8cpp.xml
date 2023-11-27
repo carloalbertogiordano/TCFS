@@ -1,0 +1,310 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="json__tools_8cpp" kind="file" language="C++">
+    <compoundname>json_tools.cpp</compoundname>
+    <includes refid="common_8h" local="yes">../../common.h</includes>
+    <includes local="no">iostream</includes>
+    <includes local="no">string.h</includes>
+    <includes local="no">vector</includes>
+    <includes local="no">cstring</includes>
+    <includes local="no">cstdlib</includes>
+    <includes local="yes">/usr/include/nlohmann/json.hpp</includes>
+    <includes refid="print__utils_8h" local="yes">../print/print_utils.h</includes>
+    <incdepgraph>
+      <node id="2">
+        <label>../../common.h</label>
+        <link refid="common_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>daemon/daemon_utils/common_utils/json/json_tools.cpp</label>
+        <link refid="json__tools_8cpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+      </node>
+      <node id="15">
+        <label>../print/print_utils.h</label>
+        <link refid="print__utils_8h_source"/>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>/usr/include/nlohmann/json.hpp</label>
+      </node>
+      <node id="13">
+        <label>cstdlib</label>
+      </node>
+      <node id="12">
+        <label>cstring</label>
+      </node>
+      <node id="9">
+        <label>errno.h</label>
+      </node>
+      <node id="5">
+        <label>fcntl.h</label>
+      </node>
+      <node id="10">
+        <label>iostream</label>
+      </node>
+      <node id="6">
+        <label>mqueue.h</label>
+      </node>
+      <node id="17">
+        <label>stdio.h</label>
+      </node>
+      <node id="18">
+        <label>stdlib.h</label>
+      </node>
+      <node id="8">
+        <label>string.h</label>
+      </node>
+      <node id="3">
+        <label>sys/stat.h</label>
+      </node>
+      <node id="4">
+        <label>sys/types.h</label>
+      </node>
+      <node id="16">
+        <label>systemd/sd-journal.h</label>
+      </node>
+      <node id="7">
+        <label>unistd.h</label>
+      </node>
+      <node id="11">
+        <label>vector</label>
+      </node>
+    </incdepgraph>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="json__tools_8cpp_1abe22bc6ace23fc8f7e186a824784765f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>char *</type>
+        <definition>char * struct_to_json</definition>
+        <argsstring>(qm_type qmt, void *q_mess)</argsstring>
+        <name>struct_to_json</name>
+        <param>
+          <type>qm_type</type>
+          <declname>qmt</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>q_mess</declname>
+        </param>
+        <briefdescription>
+<para>Cast a <ref refid="structqm__user" kindref="compound">qm_user</ref>, <ref refid="structqm__shared" kindref="compound">qm_shared</ref> or <ref refid="structqm__broad" kindref="compound">qm_broad</ref> struct to a json string representing the struct. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>qm_type</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>qmt </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="see"><para><ref refid="common_8h_source" kindref="compound">common.h</ref> </para>
+</simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>void*</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>q_mess The structure from which the json will be built </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>char* The json string </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="daemon/daemon_utils/common_utils/json/json_tools.cpp" line="23" column="6" bodyfile="daemon/daemon_utils/common_utils/json/json_tools.cpp" bodystart="23" bodyend="68"/>
+      </memberdef>
+      <memberdef kind="function" id="json__tools_8cpp_1a513edf914a6a6141c7892d193d0c1f52" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void *</type>
+        <definition>void * string_to_struct</definition>
+        <argsstring>(const char *json_string, qm_type *type)</argsstring>
+        <name>string_to_struct</name>
+        <param>
+          <type>const char *</type>
+          <declname>json_string</declname>
+        </param>
+        <param>
+          <type>qm_type *</type>
+          <declname>type</declname>
+        </param>
+        <briefdescription>
+<para>Cast a json string to a struct. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>const</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>char * json_string The string containing the json that represents the struct </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>qm_type</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>*type Will be set to the type of the struct </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>void* This is the actual allocated structure, casted to void </para>
+</simplesect>
+<simplesect kind="note"><para>To cast the returned param to the structure you probably need to use a switch(type) and cast it to a struct </para>
+</simplesect>
+<simplesect kind="see"><para><ref refid="common_8h_source" kindref="compound">common.h</ref> </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="daemon/daemon_utils/common_utils/json/json_tools.cpp" line="78" column="6" bodyfile="daemon/daemon_utils/common_utils/json/json_tools.cpp" bodystart="78" bodyend="118"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#include<sp/>&quot;../../common.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;iostream&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;vector&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;cstring&gt;</highlight><highlight class="normal"><sp/></highlight><highlight class="comment">//<sp/>For<sp/>strcpy</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;cstdlib&gt;</highlight><highlight class="normal"><sp/></highlight><highlight class="comment">//<sp/>For<sp/>malloc<sp/>and<sp/>free</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;/usr/include/nlohmann/json.hpp&quot;</highlight><highlight class="normal"><sp/></highlight><highlight class="comment">//<sp/>Assuming<sp/>you&apos;re<sp/>using<sp/>nlohmann&apos;s<sp/>JSON<sp/>library</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;../print/print_utils.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>struct_to_json(qm_type<sp/>qmt,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal">*<sp/>q_mess)<sp/>{</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/>nlohmann::json<sp/>json_obj;</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">switch</highlight><highlight class="normal"><sp/>(qmt)<sp/>{</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>USER:<sp/>{</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structqm__user" kindref="compound">qm_user</ref>*<sp/>user<sp/>=<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="normal"><ref refid="structqm__user" kindref="compound">qm_user</ref>*</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(q_mess);</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(user-&gt;user_op<sp/>==<sp/>REGISTER)</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="print__utils_8c_1a491dc14c94ed8cf706bb54880c50b2d0" kindref="member">print_msg</ref>(</highlight><highlight class="stringliteral">&quot;Register&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(user-&gt;user_op<sp/>==<sp/>UNREGISTER)</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="print__utils_8c_1a491dc14c94ed8cf706bb54880c50b2d0" kindref="member">print_msg</ref>(</highlight><highlight class="stringliteral">&quot;Unregister&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>json_obj[</highlight><highlight class="stringliteral">&quot;user_op&quot;</highlight><highlight class="normal">]<sp/>=<sp/>user-&gt;user_op;</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>json_obj[</highlight><highlight class="stringliteral">&quot;pid&quot;</highlight><highlight class="normal">]<sp/>=<sp/>user-&gt;pid;</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>json_obj[</highlight><highlight class="stringliteral">&quot;user&quot;</highlight><highlight class="normal">]<sp/>=<sp/>user-&gt;user;</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>json_obj[</highlight><highlight class="stringliteral">&quot;pubkey&quot;</highlight><highlight class="normal">]<sp/>=<sp/>user-&gt;pubkey;</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>SHARED:<sp/>{</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structqm__shared" kindref="compound">qm_shared</ref>*<sp/>shared<sp/>=<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="normal"><ref refid="structqm__shared" kindref="compound">qm_shared</ref>*</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(q_mess);</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>json_obj[</highlight><highlight class="stringliteral">&quot;fd&quot;</highlight><highlight class="normal">]<sp/>=<sp/>shared-&gt;fd;</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Converti<sp/>la<sp/>matrice<sp/>di<sp/>stringhe<sp/>in<sp/>un<sp/>array<sp/>di<sp/>stringhe<sp/>JSON</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>nlohmann::json<sp/>userlist_array<sp/>=<sp/>nlohmann::json::array();</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>shared-&gt;userlist[i]<sp/>!=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">;<sp/>++i)<sp/>{</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>userlist_array.push_back(shared-&gt;userlist[i]);</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>json_obj[</highlight><highlight class="stringliteral">&quot;userlist&quot;</highlight><highlight class="normal">]<sp/>=<sp/>userlist_array;</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>json_obj[</highlight><highlight class="stringliteral">&quot;keypart&quot;</highlight><highlight class="normal">]<sp/>=<sp/>shared-&gt;keypart;</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>BROADCAST:<sp/>{</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structqm__broad" kindref="compound">qm_broad</ref>*<sp/>broad<sp/>=<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="normal"><ref refid="structqm__broad" kindref="compound">qm_broad</ref>*</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(q_mess);</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>json_obj[</highlight><highlight class="stringliteral">&quot;data&quot;</highlight><highlight class="normal">]<sp/>=<sp/>broad-&gt;data;</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Cast<sp/>Json<sp/>obj<sp/>to<sp/>string</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/>json_str<sp/>=<sp/>json_obj.dump();</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Allocate<sp/>memory<sp/>for<sp/>result</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>result<sp/>=<sp/>(</highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*)malloc(json_str.size()<sp/>+<sp/>1);</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(result)<sp/>{</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>strcpy(result,<sp/>json_str.c_str());</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="print__utils_8c_1a491dc14c94ed8cf706bb54880c50b2d0" kindref="member">print_msg</ref>(</highlight><highlight class="stringliteral">&quot;JSONIFIED:<sp/>%s&quot;</highlight><highlight class="normal">,<sp/>result);</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>result;</highlight></codeline>
+<codeline lineno="68"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal">*<sp/>string_to_struct(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>json_string,<sp/>qm_type*<sp/>type)<sp/>{</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">try</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>nlohmann::json<sp/>json_obj<sp/>=<sp/>nlohmann::json::parse(json_string);</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(json_obj.contains(</highlight><highlight class="stringliteral">&quot;user_op&quot;</highlight><highlight class="normal">))<sp/>{</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*type<sp/>=<sp/>USER;</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structqm__user" kindref="compound">qm_user</ref>*<sp/>user<sp/>=<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="normal"><ref refid="structqm__user" kindref="compound">qm_user</ref>*</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(std::malloc(</highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="structqm__user" kindref="compound">qm_user</ref>)));</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>user-&gt;user_op<sp/>=<sp/>json_obj[</highlight><highlight class="stringliteral">&quot;user_op&quot;</highlight><highlight class="normal">];</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>user-&gt;pid<sp/>=<sp/>json_obj[</highlight><highlight class="stringliteral">&quot;pid&quot;</highlight><highlight class="normal">];</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>user-&gt;user<sp/>=<sp/>strdup(json_obj[</highlight><highlight class="stringliteral">&quot;user&quot;</highlight><highlight class="normal">].get&lt;std::string&gt;().c_str());</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>user-&gt;pubkey<sp/>=<sp/>strdup(json_obj[</highlight><highlight class="stringliteral">&quot;pubkey&quot;</highlight><highlight class="normal">].get&lt;std::string&gt;().c_str());</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>user;</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(json_obj.contains(</highlight><highlight class="stringliteral">&quot;fd&quot;</highlight><highlight class="normal">))<sp/>{</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*type<sp/>=<sp/>SHARED;</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structqm__shared" kindref="compound">qm_shared</ref>*<sp/>shared<sp/>=<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="normal"><ref refid="structqm__shared" kindref="compound">qm_shared</ref>*</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(std::malloc(</highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="structqm__shared" kindref="compound">qm_shared</ref>)));</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>shared-&gt;fd<sp/>=<sp/>json_obj[</highlight><highlight class="stringliteral">&quot;fd&quot;</highlight><highlight class="normal">];</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Populate<sp/>userlist<sp/>array</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::vector&lt;std::string&gt;<sp/>userlist<sp/>=<sp/>json_obj[</highlight><highlight class="stringliteral">&quot;userlist&quot;</highlight><highlight class="normal">];</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>shared-&gt;userlist<sp/>=<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">char</highlight><highlight class="normal">**</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(std::malloc((userlist.size()<sp/>+<sp/>1)<sp/>*<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(</highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*)));</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>userlist.size();<sp/>++i)<sp/>{</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>shared-&gt;userlist[i]<sp/>=<sp/>strdup(userlist[i].c_str());</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>shared-&gt;userlist[userlist.size()]<sp/>=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>shared-&gt;keypart<sp/>=<sp/>strdup(json_obj[</highlight><highlight class="stringliteral">&quot;keypart&quot;</highlight><highlight class="normal">].get&lt;std::string&gt;().c_str());</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>shared;</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(json_obj.contains(</highlight><highlight class="stringliteral">&quot;data&quot;</highlight><highlight class="normal">))<sp/>{</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*type<sp/>=<sp/>BROADCAST;</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structqm__broad" kindref="compound">qm_broad</ref>*<sp/>broad<sp/>=<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="normal"><ref refid="structqm__broad" kindref="compound">qm_broad</ref>*</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(std::malloc(</highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="structqm__broad" kindref="compound">qm_broad</ref>)));</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>broad-&gt;data<sp/>=<sp/>strdup(json_obj[</highlight><highlight class="stringliteral">&quot;data&quot;</highlight><highlight class="normal">].get&lt;std::string&gt;().c_str());</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>broad;</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*type<sp/>=<sp/>QM_TYPE_UNDEFINED;</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">catch</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::exception&amp;<sp/>e)<sp/>{</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::cerr<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Error<sp/>parsing<sp/>JSON:<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>e.what()<sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="118"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="daemon/daemon_utils/common_utils/json/json_tools.cpp"/>
+  </compounddef>
+</doxygen>

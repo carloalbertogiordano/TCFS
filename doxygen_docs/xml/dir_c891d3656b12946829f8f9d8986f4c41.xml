@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="dir_c891d3656b12946829f8f9d8986f4c41" kind="dir">
+    <compoundname>userspace-module/utils</compoundname>
+    <innerdir refid="dir_264e18e2f09578f9dd15f7a7044abb57">userspace-module/utils/crypt-utils</innerdir>
+    <innerdir refid="dir_b81a58de3bb52b393027480da145ec9d">userspace-module/utils/password_manager</innerdir>
+    <innerdir refid="dir_d95211408bd77596fd6790cd8f43ad0b">userspace-module/utils/tcfs_utils</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="userspace-module/utils/"/>
+  </compounddef>
+</doxygen>

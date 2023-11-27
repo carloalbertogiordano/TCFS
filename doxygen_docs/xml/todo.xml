@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="todo" kind="page">
+    <compoundname>todo</compoundname>
+    <title>Todo List</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><variablelist>
+<varlistentry><term>Member <ref refid="tcfs__daemon_8c_1a93d1097e4dd3c0735da3da2e89410090" kindref="member">handle_termination</ref>  (int signum)</term></varlistentry>
+<listitem><para><anchor id="todo_1_todo000006"/>: Implement remove_queue() to clear and delete the queue  </para>
+</listitem>
+<varlistentry><term>Member <ref refid="tcfs__daemon_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" kindref="member">main</ref>  ()</term></varlistentry>
+<listitem><para><anchor id="todo_1_todo000007"/>: The brief description is basically false advertisement. It only spawn a thread and hangs infinitely </para>
+<para></para>
+<para>: Remove the thread that spawns handle_outgoing_messages. This must not make it into final release  </para>
+</listitem>
+<varlistentry><term>File <ref refid="tcfs__daemon_8c" kindref="compound">tcfs_daemon.c</ref>  </term></varlistentry>
+<listitem><para><anchor id="todo_1_todo000003"/>: Enable forking </para>
+<para></para>
+<para>Run the daemon via SystemD  </para>
+</listitem>
+<varlistentry><term>Member <ref refid="tcfs__daemon_8c_1a679ec79d065ad812032851f6872caee6" kindref="member">terminate</ref>  </term></varlistentry>
+<listitem><para><anchor id="todo_1_todo000004"/>: Implement logic to make this work  </para>
+</listitem>
+<varlistentry><term>Member <ref refid="tcfs__daemon_8c_1af7e1db76e3a69a4b0484910b1f7562da" kindref="member">terminate_mutex</ref>  </term></varlistentry>
+<listitem><para><anchor id="todo_1_todo000005"/>: implement logic to make this work </para>
+</listitem>
+</variablelist>
+</para>
+    </detaileddescription>
+    <location file="todo"/>
+  </compounddef>
+</doxygen>

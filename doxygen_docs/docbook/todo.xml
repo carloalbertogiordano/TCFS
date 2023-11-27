@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_todo" xml:lang="en-US">
+<title>Todo List</title>
+<indexterm><primary>Todo List</primary></indexterm>
+
+<para><variablelist>
+<varlistentry><term>Member <link linkend="_tcfs__daemon_8c_1a93d1097e4dd3c0735da3da2e89410090">handle_termination</link>  (int signum)</term>
+<listitem>
+<para><anchor xml:id="_todo_1_todo000006"/>: Implement remove_queue() to clear and delete the queue  </para>
+</listitem></varlistentry>
+<varlistentry><term>Member <link linkend="_tcfs__daemon_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4">main</link>  ()</term>
+<listitem>
+<para><anchor xml:id="_todo_1_todo000007"/>: The brief description is basically false advertisement. It only spawn a thread and hangs infinitely </para>
+
+<para></para>
+
+<para>: Remove the thread that spawns handle_outgoing_messages. This must not make it into final release  </para>
+</listitem></varlistentry>
+<varlistentry><term>File <link linkend="_tcfs__daemon_8c">tcfs_daemon.c</link>  </term>
+<listitem>
+<para><anchor xml:id="_todo_1_todo000003"/>: Enable forking </para>
+
+<para></para>
+
+<para>Run the daemon via SystemD  </para>
+</listitem></varlistentry>
+<varlistentry><term>Member <link linkend="_tcfs__daemon_8c_1a679ec79d065ad812032851f6872caee6">terminate</link>  </term>
+<listitem>
+<para><anchor xml:id="_todo_1_todo000004"/>: Implement logic to make this work  </para>
+</listitem></varlistentry>
+<varlistentry><term>Member <link linkend="_tcfs__daemon_8c_1af7e1db76e3a69a4b0484910b1f7562da">terminate_mutex</link>  </term>
+<listitem>
+<para><anchor xml:id="_todo_1_todo000005"/>: implement logic to make this work </para>
+</listitem></varlistentry>
+</variablelist>
+</para>
+</section>

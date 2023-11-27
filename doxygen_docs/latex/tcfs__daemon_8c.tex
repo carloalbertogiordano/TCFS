@@ -1,0 +1,185 @@
+\doxysection{daemon/tcfs\+\_\+daemon.c File Reference}
+\hypertarget{tcfs__daemon_8c}{}\label{tcfs__daemon_8c}\index{daemon/tcfs\_daemon.c@{daemon/tcfs\_daemon.c}}
+
+
+This is the core of the daemon.  
+
+
+{\ttfamily \#include "{}daemon\+\_\+utils/daemon\+\_\+tools/tcfs\+\_\+daemon\+\_\+tools.\+h"{}}\newline
+Include dependency graph for tcfs\+\_\+daemon.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tcfs__daemon_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{tcfs__daemon_8c_a93d1097e4dd3c0735da3da2e89410090}{handle\+\_\+termination}} (int signum)
+\begin{DoxyCompactList}\small\item\em Handle the termination if SIGTERM is received. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{tcfs__daemon_8c_ae66f6b31b5ad750f1fe042a706a4e3d4}{main}} ()
+\begin{DoxyCompactList}\small\item\em main function of the daemon. This will daemonize the program, spawn a thread to handle messages and handle unexpected termination of the thread \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+volatile int \mbox{\hyperlink{tcfs__daemon_8c_a679ec79d065ad812032851f6872caee6}{terminate}} = 0
+\begin{DoxyCompactList}\small\item\em If the spawned threads terminate abruptly they should set this to 1, so that the daemon can terminate. \end{DoxyCompactList}\item 
+pthread\+\_\+mutex\+\_\+t \mbox{\hyperlink{tcfs__daemon_8c_af7e1db76e3a69a4b0484910b1f7562da}{terminate\+\_\+mutex}} = PTHREAD\+\_\+\+MUTEX\+\_\+\+INITIALIZER
+\begin{DoxyCompactList}\small\item\em Mutex needed to set the var terminate to 1 safely. \end{DoxyCompactList}\item 
+const char \mbox{\hyperlink{tcfs__daemon_8c_a6376ed00be9fd53f7579e9243f3eacde}{MQUEUE}} \mbox{[}$\,$\mbox{]} = "{}/tcfs\+\_\+queue"{}
+\begin{DoxyCompactList}\small\item\em the queue file location \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This is the core of the daemon. 
+
+\begin{DoxyNote}{Note}
+Forking is disable at the moment, this meas it will run as a "{}normal"{} program 
+
+the main function spawns a thread to handle incoming messages on the queue 
+\end{DoxyNote}
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000003}{Todo}}]\+: Enable forking 
+
+Run the daemon via SystemD \end{DoxyRefDesc}
+
+
+Definition in file \mbox{\hyperlink{tcfs__daemon_8c_source}{tcfs\+\_\+daemon.\+c}}.
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{tcfs__daemon_8c_a93d1097e4dd3c0735da3da2e89410090}\label{tcfs__daemon_8c_a93d1097e4dd3c0735da3da2e89410090} 
+\index{tcfs\_daemon.c@{tcfs\_daemon.c}!handle\_termination@{handle\_termination}}
+\index{handle\_termination@{handle\_termination}!tcfs\_daemon.c@{tcfs\_daemon.c}}
+\doxysubsubsection{\texorpdfstring{handle\_termination()}{handle\_termination()}}
+{\footnotesize\ttfamily void handle\+\_\+termination (\begin{DoxyParamCaption}\item[{int}]{signum }\end{DoxyParamCaption})}
+
+
+
+Handle the termination if SIGTERM is received. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em int} & signum Integer corresponding to SIGNUM \\
+\hline
+\end{DoxyParams}
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000006}{Todo}}]\+: Implement remove\+\_\+queue() to clear and delete the queue \end{DoxyRefDesc}
+
+
+Definition at line \mbox{\hyperlink{tcfs__daemon_8c_source_l00036}{36}} of file \mbox{\hyperlink{tcfs__daemon_8c_source}{tcfs\+\_\+daemon.\+c}}.
+
+
+
+References \mbox{\hyperlink{print__utils_8c_source_l00089}{print\+\_\+msg()}}.
+
+
+
+Referenced by \mbox{\hyperlink{tcfs__daemon_8c_source_l00047}{main()}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=273pt]{tcfs__daemon_8c_a93d1097e4dd3c0735da3da2e89410090_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=252pt]{tcfs__daemon_8c_a93d1097e4dd3c0735da3da2e89410090_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{tcfs__daemon_8c_ae66f6b31b5ad750f1fe042a706a4e3d4}\label{tcfs__daemon_8c_ae66f6b31b5ad750f1fe042a706a4e3d4} 
+\index{tcfs\_daemon.c@{tcfs\_daemon.c}!main@{main}}
+\index{main@{main}!tcfs\_daemon.c@{tcfs\_daemon.c}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+main function of the daemon. This will daemonize the program, spawn a thread to handle messages and handle unexpected termination of the thread 
+
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000007}{Todo}}]\+: The brief description is basically false advertisement. It only spawn a thread and hangs infinitely 
+
+\+: Remove the thread that spawns handle\+\_\+outgoing\+\_\+messages. This must not make it into final release \end{DoxyRefDesc}
+
+
+Definition at line \mbox{\hyperlink{tcfs__daemon_8c_source_l00047}{47}} of file \mbox{\hyperlink{tcfs__daemon_8c_source}{tcfs\+\_\+daemon.\+c}}.
+
+
+
+References \mbox{\hyperlink{tcfs__daemon_8c_source_l00036}{handle\+\_\+termination()}}, \mbox{\hyperlink{tcfs__daemon_8c_source_l00029}{MQUEUE}}, \mbox{\hyperlink{print__utils_8c_source_l00069}{print\+\_\+err()}}, \mbox{\hyperlink{print__utils_8c_source_l00089}{print\+\_\+msg()}}, and \mbox{\hyperlink{tcfs__daemon_8c_source_l00017}{terminate}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=347pt]{tcfs__daemon_8c_ae66f6b31b5ad750f1fe042a706a4e3d4_cgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{tcfs__daemon_8c_a6376ed00be9fd53f7579e9243f3eacde}\label{tcfs__daemon_8c_a6376ed00be9fd53f7579e9243f3eacde} 
+\index{tcfs\_daemon.c@{tcfs\_daemon.c}!MQUEUE@{MQUEUE}}
+\index{MQUEUE@{MQUEUE}!tcfs\_daemon.c@{tcfs\_daemon.c}}
+\doxysubsubsection{\texorpdfstring{MQUEUE}{MQUEUE}}
+{\footnotesize\ttfamily MQUEUE = "{}/tcfs\+\_\+queue"{}}
+
+
+
+the queue file location 
+
+
+
+Definition at line \mbox{\hyperlink{tcfs__daemon_8c_source_l00029}{29}} of file \mbox{\hyperlink{tcfs__daemon_8c_source}{tcfs\+\_\+daemon.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{tcfs__daemon_8c_source_l00047}{main()}}.
+
+\Hypertarget{tcfs__daemon_8c_a679ec79d065ad812032851f6872caee6}\label{tcfs__daemon_8c_a679ec79d065ad812032851f6872caee6} 
+\index{tcfs\_daemon.c@{tcfs\_daemon.c}!terminate@{terminate}}
+\index{terminate@{terminate}!tcfs\_daemon.c@{tcfs\_daemon.c}}
+\doxysubsubsection{\texorpdfstring{terminate}{terminate}}
+{\footnotesize\ttfamily volatile int terminate = 0}
+
+
+
+If the spawned threads terminate abruptly they should set this to 1, so that the daemon can terminate. 
+
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000004}{Todo}}]\+: Implement logic to make this work \end{DoxyRefDesc}
+
+
+Definition at line \mbox{\hyperlink{tcfs__daemon_8c_source_l00017}{17}} of file \mbox{\hyperlink{tcfs__daemon_8c_source}{tcfs\+\_\+daemon.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{tcfs__daemon_8c_source_l00047}{main()}}.
+
+\Hypertarget{tcfs__daemon_8c_af7e1db76e3a69a4b0484910b1f7562da}\label{tcfs__daemon_8c_af7e1db76e3a69a4b0484910b1f7562da} 
+\index{tcfs\_daemon.c@{tcfs\_daemon.c}!terminate\_mutex@{terminate\_mutex}}
+\index{terminate\_mutex@{terminate\_mutex}!tcfs\_daemon.c@{tcfs\_daemon.c}}
+\doxysubsubsection{\texorpdfstring{terminate\_mutex}{terminate\_mutex}}
+{\footnotesize\ttfamily pthread\+\_\+mutex\+\_\+t terminate\+\_\+mutex = PTHREAD\+\_\+\+MUTEX\+\_\+\+INITIALIZER}
+
+
+
+Mutex needed to set the var terminate to 1 safely. 
+
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000005}{Todo}}]\+: implement logic to make this work \end{DoxyRefDesc}
+
+
+Definition at line \mbox{\hyperlink{tcfs__daemon_8c_source_l00023}{23}} of file \mbox{\hyperlink{tcfs__daemon_8c_source}{tcfs\+\_\+daemon.\+c}}.
+

@@ -1,0 +1,103 @@
+\doxysection{json\+\_\+tools.\+cpp}
+\hypertarget{json__tools_8cpp_source}{}\label{json__tools_8cpp_source}\index{daemon/daemon\_utils/common\_utils/json/json\_tools.cpp@{daemon/daemon\_utils/common\_utils/json/json\_tools.cpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{json__tools_8cpp_source_l00001}00001\ \textcolor{preprocessor}{\#include\ "{}../../common.h"{}}}
+\DoxyCodeLine{\Hypertarget{json__tools_8cpp_source_l00002}00002\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{\Hypertarget{json__tools_8cpp_source_l00003}00003\ \textcolor{preprocessor}{\#include\ <string.h>}}
+\DoxyCodeLine{\Hypertarget{json__tools_8cpp_source_l00004}00004\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{\Hypertarget{json__tools_8cpp_source_l00005}00005\ \textcolor{preprocessor}{\#include\ <cstring>}\ \textcolor{comment}{//\ For\ strcpy}}
+\DoxyCodeLine{\Hypertarget{json__tools_8cpp_source_l00006}00006\ \textcolor{preprocessor}{\#include\ <cstdlib>}\ \textcolor{comment}{//\ For\ malloc\ and\ free}}
+\DoxyCodeLine{\Hypertarget{json__tools_8cpp_source_l00007}00007\ \textcolor{preprocessor}{\#include\ "{}/usr/include/nlohmann/json.hpp"{}}\ \textcolor{comment}{//\ Assuming\ you're\ using\ nlohmann's\ JSON\ library}}
+\DoxyCodeLine{\Hypertarget{json__tools_8cpp_source_l00008}00008\ \textcolor{preprocessor}{\#include\ "{}../print/print\_utils.h"{}}}
+\DoxyCodeLine{\Hypertarget{json__tools_8cpp_source_l00009}00009\ }
+\DoxyCodeLine{\Hypertarget{json__tools_8cpp_source_l00023}00023\ \textcolor{keywordtype}{char}*\ struct\_to\_json(qm\_type\ qmt,\ \textcolor{keywordtype}{void}*\ q\_mess)\ \{}
+\DoxyCodeLine{\Hypertarget{json__tools_8cpp_source_l00024}00024\ \ \ \ \ nlohmann::json\ json\_obj;}
+\DoxyCodeLine{\Hypertarget{json__tools_8cpp_source_l00025}00025\ }
+\DoxyCodeLine{\Hypertarget{json__tools_8cpp_source_l00026}00026\ \ \ \ \ \textcolor{keywordflow}{switch}\ (qmt)\ \{}
+\DoxyCodeLine{\Hypertarget{json__tools_8cpp_source_l00027}00027\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ USER:\ \{}
+\DoxyCodeLine{\Hypertarget{json__tools_8cpp_source_l00028}00028\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structqm__user}{qm\_user}}*\ user\ =\ \textcolor{keyword}{static\_cast<}\mbox{\hyperlink{structqm__user}{qm\_user}}*\textcolor{keyword}{>}(q\_mess);}
+\DoxyCodeLine{\Hypertarget{json__tools_8cpp_source_l00029}00029\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (user-\/>user\_op\ ==\ REGISTER)}
+\DoxyCodeLine{\Hypertarget{json__tools_8cpp_source_l00030}00030\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{print__utils_8c_a491dc14c94ed8cf706bb54880c50b2d0}{print\_msg}}(\textcolor{stringliteral}{"{}Register"{}});}
+\DoxyCodeLine{\Hypertarget{json__tools_8cpp_source_l00031}00031\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (user-\/>user\_op\ ==\ UNREGISTER)}
+\DoxyCodeLine{\Hypertarget{json__tools_8cpp_source_l00032}00032\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{print__utils_8c_a491dc14c94ed8cf706bb54880c50b2d0}{print\_msg}}(\textcolor{stringliteral}{"{}Unregister"{}});}
+\DoxyCodeLine{\Hypertarget{json__tools_8cpp_source_l00033}00033\ \ \ \ \ \ \ \ \ \ \ \ \ json\_obj[\textcolor{stringliteral}{"{}user\_op"{}}]\ =\ user-\/>user\_op;}
+\DoxyCodeLine{\Hypertarget{json__tools_8cpp_source_l00034}00034\ \ \ \ \ \ \ \ \ \ \ \ \ json\_obj[\textcolor{stringliteral}{"{}pid"{}}]\ =\ user-\/>pid;}
+\DoxyCodeLine{\Hypertarget{json__tools_8cpp_source_l00035}00035\ \ \ \ \ \ \ \ \ \ \ \ \ json\_obj[\textcolor{stringliteral}{"{}user"{}}]\ =\ user-\/>user;}
+\DoxyCodeLine{\Hypertarget{json__tools_8cpp_source_l00036}00036\ \ \ \ \ \ \ \ \ \ \ \ \ json\_obj[\textcolor{stringliteral}{"{}pubkey"{}}]\ =\ user-\/>pubkey;}
+\DoxyCodeLine{\Hypertarget{json__tools_8cpp_source_l00037}00037\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{json__tools_8cpp_source_l00038}00038\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__tools_8cpp_source_l00039}00039\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ SHARED:\ \{}
+\DoxyCodeLine{\Hypertarget{json__tools_8cpp_source_l00040}00040\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structqm__shared}{qm\_shared}}*\ shared\ =\ \textcolor{keyword}{static\_cast<}\mbox{\hyperlink{structqm__shared}{qm\_shared}}*\textcolor{keyword}{>}(q\_mess);}
+\DoxyCodeLine{\Hypertarget{json__tools_8cpp_source_l00041}00041\ \ \ \ \ \ \ \ \ \ \ \ \ json\_obj[\textcolor{stringliteral}{"{}fd"{}}]\ =\ shared-\/>fd;}
+\DoxyCodeLine{\Hypertarget{json__tools_8cpp_source_l00042}00042\ }
+\DoxyCodeLine{\Hypertarget{json__tools_8cpp_source_l00043}00043\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Converti\ la\ matrice\ di\ stringhe\ in\ un\ array\ di\ stringhe\ JSON}}
+\DoxyCodeLine{\Hypertarget{json__tools_8cpp_source_l00044}00044\ \ \ \ \ \ \ \ \ \ \ \ \ nlohmann::json\ userlist\_array\ =\ nlohmann::json::array();}
+\DoxyCodeLine{\Hypertarget{json__tools_8cpp_source_l00045}00045\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ shared-\/>userlist[i]\ !=\ \textcolor{keyword}{nullptr};\ ++i)\ \{}
+\DoxyCodeLine{\Hypertarget{json__tools_8cpp_source_l00046}00046\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ userlist\_array.push\_back(shared-\/>userlist[i]);}
+\DoxyCodeLine{\Hypertarget{json__tools_8cpp_source_l00047}00047\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__tools_8cpp_source_l00048}00048\ \ \ \ \ \ \ \ \ \ \ \ \ json\_obj[\textcolor{stringliteral}{"{}userlist"{}}]\ =\ userlist\_array;}
+\DoxyCodeLine{\Hypertarget{json__tools_8cpp_source_l00049}00049\ }
+\DoxyCodeLine{\Hypertarget{json__tools_8cpp_source_l00050}00050\ \ \ \ \ \ \ \ \ \ \ \ \ json\_obj[\textcolor{stringliteral}{"{}keypart"{}}]\ =\ shared-\/>keypart;}
+\DoxyCodeLine{\Hypertarget{json__tools_8cpp_source_l00051}00051\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{json__tools_8cpp_source_l00052}00052\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__tools_8cpp_source_l00053}00053\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ BROADCAST:\ \{}
+\DoxyCodeLine{\Hypertarget{json__tools_8cpp_source_l00054}00054\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structqm__broad}{qm\_broad}}*\ broad\ =\ \textcolor{keyword}{static\_cast<}\mbox{\hyperlink{structqm__broad}{qm\_broad}}*\textcolor{keyword}{>}(q\_mess);}
+\DoxyCodeLine{\Hypertarget{json__tools_8cpp_source_l00055}00055\ \ \ \ \ \ \ \ \ \ \ \ \ json\_obj[\textcolor{stringliteral}{"{}data"{}}]\ =\ broad-\/>data;}
+\DoxyCodeLine{\Hypertarget{json__tools_8cpp_source_l00056}00056\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{json__tools_8cpp_source_l00057}00057\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__tools_8cpp_source_l00058}00058\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__tools_8cpp_source_l00059}00059\ \ \ \ \ \textcolor{comment}{//\ Cast\ Json\ obj\ to\ string}}
+\DoxyCodeLine{\Hypertarget{json__tools_8cpp_source_l00060}00060\ \ \ \ \ std::string\ json\_str\ =\ json\_obj.dump();}
+\DoxyCodeLine{\Hypertarget{json__tools_8cpp_source_l00061}00061\ \ \ \ \ \textcolor{comment}{//\ Allocate\ memory\ for\ result}}
+\DoxyCodeLine{\Hypertarget{json__tools_8cpp_source_l00062}00062\ \ \ \ \ \textcolor{keywordtype}{char}*\ result\ =\ (\textcolor{keywordtype}{char}*)malloc(json\_str.size()\ +\ 1);}
+\DoxyCodeLine{\Hypertarget{json__tools_8cpp_source_l00063}00063\ \ \ \ \ \textcolor{keywordflow}{if}\ (result)\ \{}
+\DoxyCodeLine{\Hypertarget{json__tools_8cpp_source_l00064}00064\ \ \ \ \ \ \ \ \ strcpy(result,\ json\_str.c\_str());}
+\DoxyCodeLine{\Hypertarget{json__tools_8cpp_source_l00065}00065\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__tools_8cpp_source_l00066}00066\ \ \ \ \ \mbox{\hyperlink{print__utils_8c_a491dc14c94ed8cf706bb54880c50b2d0}{print\_msg}}(\textcolor{stringliteral}{"{}JSONIFIED:\ \%s"{}},\ result);}
+\DoxyCodeLine{\Hypertarget{json__tools_8cpp_source_l00067}00067\ \ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{\Hypertarget{json__tools_8cpp_source_l00068}00068\ \}}
+\DoxyCodeLine{\Hypertarget{json__tools_8cpp_source_l00069}00069\ }
+\DoxyCodeLine{\Hypertarget{json__tools_8cpp_source_l00078}00078\ \textcolor{keywordtype}{void}*\ string\_to\_struct(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ json\_string,\ qm\_type*\ type)\ \{}
+\DoxyCodeLine{\Hypertarget{json__tools_8cpp_source_l00079}00079\ \ \ \ \ \textcolor{keywordflow}{try}\ \{}
+\DoxyCodeLine{\Hypertarget{json__tools_8cpp_source_l00080}00080\ \ \ \ \ \ \ \ \ nlohmann::json\ json\_obj\ =\ nlohmann::json::parse(json\_string);}
+\DoxyCodeLine{\Hypertarget{json__tools_8cpp_source_l00081}00081\ }
+\DoxyCodeLine{\Hypertarget{json__tools_8cpp_source_l00082}00082\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (json\_obj.contains(\textcolor{stringliteral}{"{}user\_op"{}}))\ \{}
+\DoxyCodeLine{\Hypertarget{json__tools_8cpp_source_l00083}00083\ \ \ \ \ \ \ \ \ \ \ \ \ *type\ =\ USER;}
+\DoxyCodeLine{\Hypertarget{json__tools_8cpp_source_l00084}00084\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structqm__user}{qm\_user}}*\ user\ =\ \textcolor{keyword}{static\_cast<}\mbox{\hyperlink{structqm__user}{qm\_user}}*\textcolor{keyword}{>}(std::malloc(\textcolor{keyword}{sizeof}(\mbox{\hyperlink{structqm__user}{qm\_user}})));}
+\DoxyCodeLine{\Hypertarget{json__tools_8cpp_source_l00085}00085\ \ \ \ \ \ \ \ \ \ \ \ \ user-\/>user\_op\ =\ json\_obj[\textcolor{stringliteral}{"{}user\_op"{}}];}
+\DoxyCodeLine{\Hypertarget{json__tools_8cpp_source_l00086}00086\ \ \ \ \ \ \ \ \ \ \ \ \ user-\/>pid\ =\ json\_obj[\textcolor{stringliteral}{"{}pid"{}}];}
+\DoxyCodeLine{\Hypertarget{json__tools_8cpp_source_l00087}00087\ \ \ \ \ \ \ \ \ \ \ \ \ user-\/>user\ =\ strdup(json\_obj[\textcolor{stringliteral}{"{}user"{}}].get<std::string>().c\_str());}
+\DoxyCodeLine{\Hypertarget{json__tools_8cpp_source_l00088}00088\ \ \ \ \ \ \ \ \ \ \ \ \ user-\/>pubkey\ =\ strdup(json\_obj[\textcolor{stringliteral}{"{}pubkey"{}}].get<std::string>().c\_str());}
+\DoxyCodeLine{\Hypertarget{json__tools_8cpp_source_l00089}00089\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ user;}
+\DoxyCodeLine{\Hypertarget{json__tools_8cpp_source_l00090}00090\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (json\_obj.contains(\textcolor{stringliteral}{"{}fd"{}}))\ \{}
+\DoxyCodeLine{\Hypertarget{json__tools_8cpp_source_l00091}00091\ \ \ \ \ \ \ \ \ \ \ \ \ *type\ =\ SHARED;}
+\DoxyCodeLine{\Hypertarget{json__tools_8cpp_source_l00092}00092\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structqm__shared}{qm\_shared}}*\ shared\ =\ \textcolor{keyword}{static\_cast<}\mbox{\hyperlink{structqm__shared}{qm\_shared}}*\textcolor{keyword}{>}(std::malloc(\textcolor{keyword}{sizeof}(\mbox{\hyperlink{structqm__shared}{qm\_shared}})));}
+\DoxyCodeLine{\Hypertarget{json__tools_8cpp_source_l00093}00093\ \ \ \ \ \ \ \ \ \ \ \ \ shared-\/>fd\ =\ json\_obj[\textcolor{stringliteral}{"{}fd"{}}];}
+\DoxyCodeLine{\Hypertarget{json__tools_8cpp_source_l00094}00094\ }
+\DoxyCodeLine{\Hypertarget{json__tools_8cpp_source_l00095}00095\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Populate\ userlist\ array}}
+\DoxyCodeLine{\Hypertarget{json__tools_8cpp_source_l00096}00096\ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<std::string>\ userlist\ =\ json\_obj[\textcolor{stringliteral}{"{}userlist"{}}];}
+\DoxyCodeLine{\Hypertarget{json__tools_8cpp_source_l00097}00097\ \ \ \ \ \ \ \ \ \ \ \ \ shared-\/>userlist\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{char}**\textcolor{keyword}{>}(std::malloc((userlist.size()\ +\ 1)\ *\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{char}*)));}
+\DoxyCodeLine{\Hypertarget{json__tools_8cpp_source_l00098}00098\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ userlist.size();\ ++i)\ \{}
+\DoxyCodeLine{\Hypertarget{json__tools_8cpp_source_l00099}00099\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ shared-\/>userlist[i]\ =\ strdup(userlist[i].c\_str());}
+\DoxyCodeLine{\Hypertarget{json__tools_8cpp_source_l00100}00100\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__tools_8cpp_source_l00101}00101\ \ \ \ \ \ \ \ \ \ \ \ \ shared-\/>userlist[userlist.size()]\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{\Hypertarget{json__tools_8cpp_source_l00102}00102\ }
+\DoxyCodeLine{\Hypertarget{json__tools_8cpp_source_l00103}00103\ \ \ \ \ \ \ \ \ \ \ \ \ shared-\/>keypart\ =\ strdup(json\_obj[\textcolor{stringliteral}{"{}keypart"{}}].get<std::string>().c\_str());}
+\DoxyCodeLine{\Hypertarget{json__tools_8cpp_source_l00104}00104\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ shared;}
+\DoxyCodeLine{\Hypertarget{json__tools_8cpp_source_l00105}00105\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (json\_obj.contains(\textcolor{stringliteral}{"{}data"{}}))\ \{}
+\DoxyCodeLine{\Hypertarget{json__tools_8cpp_source_l00106}00106\ \ \ \ \ \ \ \ \ \ \ \ \ *type\ =\ BROADCAST;}
+\DoxyCodeLine{\Hypertarget{json__tools_8cpp_source_l00107}00107\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structqm__broad}{qm\_broad}}*\ broad\ =\ \textcolor{keyword}{static\_cast<}\mbox{\hyperlink{structqm__broad}{qm\_broad}}*\textcolor{keyword}{>}(std::malloc(\textcolor{keyword}{sizeof}(\mbox{\hyperlink{structqm__broad}{qm\_broad}})));}
+\DoxyCodeLine{\Hypertarget{json__tools_8cpp_source_l00108}00108\ \ \ \ \ \ \ \ \ \ \ \ \ broad-\/>data\ =\ strdup(json\_obj[\textcolor{stringliteral}{"{}data"{}}].get<std::string>().c\_str());}
+\DoxyCodeLine{\Hypertarget{json__tools_8cpp_source_l00109}00109\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ broad;}
+\DoxyCodeLine{\Hypertarget{json__tools_8cpp_source_l00110}00110\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{json__tools_8cpp_source_l00111}00111\ \ \ \ \ \ \ \ \ \ \ \ \ *type\ =\ QM\_TYPE\_UNDEFINED;}
+\DoxyCodeLine{\Hypertarget{json__tools_8cpp_source_l00112}00112\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{\Hypertarget{json__tools_8cpp_source_l00113}00113\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__tools_8cpp_source_l00114}00114\ \ \ \ \ \}\ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\&\ e)\ \{}
+\DoxyCodeLine{\Hypertarget{json__tools_8cpp_source_l00115}00115\ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}Error\ parsing\ JSON:\ "{}}\ <<\ e.what()\ <<\ std::endl;}
+\DoxyCodeLine{\Hypertarget{json__tools_8cpp_source_l00116}00116\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{\Hypertarget{json__tools_8cpp_source_l00117}00117\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{json__tools_8cpp_source_l00118}00118\ \}}
+
+\end{DoxyCode}

@@ -1,0 +1,145 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="message__handler_8h" kind="file" language="C++">
+    <compoundname>message_handler.h</compoundname>
+    <includes refid="common_8h" local="yes">../common.h</includes>
+    <includes refid="print__utils_8h" local="yes">../common_utils/print/print_utils.h</includes>
+    <includedby refid="tcfs__daemon__tools_8c" local="yes">daemon/daemon_utils/daemon_tools/tcfs_daemon_tools.c</includedby>
+    <includedby refid="tcfs__daemon__tools_8h" local="yes">daemon/daemon_utils/daemon_tools/tcfs_daemon_tools.h</includedby>
+    <includedby refid="message__handler_8c" local="yes">daemon/daemon_utils/message_handler/message_handler.c</includedby>
+    <incdepgraph>
+      <node id="2">
+        <label>../common.h</label>
+        <link refid="common_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>../common_utils/print/print_utils.h</label>
+        <link refid="print__utils_8h_source"/>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>daemon/daemon_utils/message_handler/message_handler.h</label>
+        <link refid="message__handler_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>errno.h</label>
+      </node>
+      <node id="5">
+        <label>fcntl.h</label>
+      </node>
+      <node id="6">
+        <label>mqueue.h</label>
+      </node>
+      <node id="12">
+        <label>stdio.h</label>
+      </node>
+      <node id="13">
+        <label>stdlib.h</label>
+      </node>
+      <node id="8">
+        <label>string.h</label>
+      </node>
+      <node id="3">
+        <label>sys/stat.h</label>
+      </node>
+      <node id="4">
+        <label>sys/types.h</label>
+      </node>
+      <node id="11">
+        <label>systemd/sd-journal.h</label>
+      </node>
+      <node id="7">
+        <label>unistd.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="2">
+        <label>daemon/daemon_utils/daemon_tools/tcfs_daemon_tools.c</label>
+        <link refid="tcfs__daemon__tools_8c_source"/>
+      </node>
+      <node id="3">
+        <label>daemon/daemon_utils/daemon_tools/tcfs_daemon_tools.h</label>
+        <link refid="tcfs__daemon__tools_8h_source"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>daemon/daemon_utils/message_handler/message_handler.c</label>
+        <link refid="message__handler_8c_source"/>
+      </node>
+      <node id="1">
+        <label>daemon/daemon_utils/message_handler/message_handler.h</label>
+        <link refid="message__handler_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>daemon/tcfs_daemon.c</label>
+        <link refid="tcfs__daemon_8c"/>
+      </node>
+    </invincdepgraph>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="message__handler_8h_1a5e10c17633a6a0b06bcf09cc28467542" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int handle_user_message</definition>
+        <argsstring>(qm_user *user_msg)</argsstring>
+        <name>handle_user_message</name>
+        <param>
+          <type><ref refid="structqm__user" kindref="compound">qm_user</ref> *</type>
+          <declname>user_msg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="daemon/daemon_utils/message_handler/message_handler.h" line="4" column="5" bodyfile="daemon/daemon_utils/message_handler/message_handler.c" bodystart="6" bodyend="22" declfile="daemon/daemon_utils/message_handler/message_handler.h" declline="4" declcolumn="5"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#include<sp/>&quot;../common.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;../common_utils/print/print_utils.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>handle_user_message(<ref refid="structqm__user" kindref="compound">qm_user</ref><sp/>*user_msg);</highlight></codeline>
+    </programlisting>
+    <location file="daemon/daemon_utils/message_handler/message_handler.h"/>
+  </compounddef>
+</doxygen>

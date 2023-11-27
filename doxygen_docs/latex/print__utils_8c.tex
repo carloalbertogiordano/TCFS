@@ -1,0 +1,201 @@
+\doxysection{daemon/daemon\+\_\+utils/common\+\_\+utils/print/print\+\_\+utils.c File Reference}
+\hypertarget{print__utils_8c}{}\label{print__utils_8c}\index{daemon/daemon\_utils/common\_utils/print/print\_utils.c@{daemon/daemon\_utils/common\_utils/print/print\_utils.c}}
+
+
+This file defines some QoL functions.  
+
+
+{\ttfamily \#include "{}print\+\_\+utils.\+h"{}}\newline
+Include dependency graph for print\+\_\+utils.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{print__utils_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{print__utils_8c_a650ab060ffe5dbc6c1a968a9cae3bded}{print\+\_\+err}} (const char \texorpdfstring{$\ast$}{*}format,...)
+\begin{DoxyCompactList}\small\item\em Format and print data as an error. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{print__utils_8c_a491dc14c94ed8cf706bb54880c50b2d0}{print\+\_\+msg}} (const char \texorpdfstring{$\ast$}{*}format,...)
+\begin{DoxyCompactList}\small\item\em Format and print data as a message. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{print__utils_8c_ae39065df491deead21b0375a8ce1a4d6}{print\+\_\+warn}} (const char \texorpdfstring{$\ast$}{*}format,...)
+\begin{DoxyCompactList}\small\item\em Format and print data as a waring. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{print__utils_8c_ad808dc3fd801407dcc907bdea848a47e}{print\+\_\+debug}} (const char \texorpdfstring{$\ast$}{*}format,...)
+\begin{DoxyCompactList}\small\item\em Format and print data as a debug. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{print__utils_8c_a887e8bdd9deeb0866ce86067cdba5fcc}{cleared}} = 0
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This file defines some QoL functions. 
+
+
+
+Definition in file \mbox{\hyperlink{print__utils_8c_source}{print\+\_\+utils.\+c}}.
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{print__utils_8c_ad808dc3fd801407dcc907bdea848a47e}\label{print__utils_8c_ad808dc3fd801407dcc907bdea848a47e} 
+\index{print\_utils.c@{print\_utils.c}!print\_debug@{print\_debug}}
+\index{print\_debug@{print\_debug}!print\_utils.c@{print\_utils.c}}
+\doxysubsubsection{\texorpdfstring{print\_debug()}{print\_debug()}}
+{\footnotesize\ttfamily void print\+\_\+debug (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{format,  }\item[{}]{... }\end{DoxyParamCaption})}
+
+
+
+Format and print data as a debug. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em const} & char \texorpdfstring{$\ast$}{*}format the string that will formatted and printed \\
+\hline
+{\em \mbox{[}\+ARGUMENTS\mbox{]}...} & Print optional ARGUMENT(s) according to format \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Will also log using systemD 
+
+"{}DEBUG="{} will be prepended to format 
+\end{DoxyNote}
+
+
+Definition at line \mbox{\hyperlink{print__utils_8c_source_l00131}{131}} of file \mbox{\hyperlink{print__utils_8c_source}{print\+\_\+utils.\+c}}.
+
+\Hypertarget{print__utils_8c_a650ab060ffe5dbc6c1a968a9cae3bded}\label{print__utils_8c_a650ab060ffe5dbc6c1a968a9cae3bded} 
+\index{print\_utils.c@{print\_utils.c}!print\_err@{print\_err}}
+\index{print\_err@{print\_err}!print\_utils.c@{print\_utils.c}}
+\doxysubsubsection{\texorpdfstring{print\_err()}{print\_err()}}
+{\footnotesize\ttfamily void print\+\_\+err (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{format,  }\item[{}]{... }\end{DoxyParamCaption})}
+
+
+
+Format and print data as an error. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em const} & char \texorpdfstring{$\ast$}{*}format the string that will formatted and printed \\
+\hline
+{\em \mbox{[}\+ARGUMENTS\mbox{]}...} & Print optional ARGUMENT(s) according to format \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Will also log using systemD 
+
+"{}ERROR="{} will be prepended to format 
+
+"{}Err\+\_\+\+Numebr\+:d"{} will be appended to the formatted string describing the error number 
+
+after Err\+\_\+\+Number "{}-\/\texorpdfstring{$>$}{>} s"{} will be appended printing the std-\/error 
+\end{DoxyNote}
+
+
+Definition at line \mbox{\hyperlink{print__utils_8c_source_l00069}{69}} of file \mbox{\hyperlink{print__utils_8c_source}{print\+\_\+utils.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{tcfs__daemon_8c_source_l00047}{main()}}.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=206pt]{print__utils_8c_a650ab060ffe5dbc6c1a968a9cae3bded_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{print__utils_8c_a491dc14c94ed8cf706bb54880c50b2d0}\label{print__utils_8c_a491dc14c94ed8cf706bb54880c50b2d0} 
+\index{print\_utils.c@{print\_utils.c}!print\_msg@{print\_msg}}
+\index{print\_msg@{print\_msg}!print\_utils.c@{print\_utils.c}}
+\doxysubsubsection{\texorpdfstring{print\_msg()}{print\_msg()}}
+{\footnotesize\ttfamily void print\+\_\+msg (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{format,  }\item[{}]{... }\end{DoxyParamCaption})}
+
+
+
+Format and print data as a message. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em const} & char \texorpdfstring{$\ast$}{*}format the string that will formatted and printed \\
+\hline
+{\em \mbox{[}\+ARGUMENTS\mbox{]}...} & Print optional ARGUMENT(s) according to format \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Will also log using systemD 
+
+"{}MESSAGE="{} will be prepended to format 
+\end{DoxyNote}
+
+
+Definition at line \mbox{\hyperlink{print__utils_8c_source_l00089}{89}} of file \mbox{\hyperlink{print__utils_8c_source}{print\+\_\+utils.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{user__db_8c_source_l00041}{disconnect\+\_\+db()}}, \mbox{\hyperlink{tcfs__daemon_8c_source_l00036}{handle\+\_\+termination()}}, \mbox{\hyperlink{tcfs__daemon_8c_source_l00047}{main()}}, \mbox{\hyperlink{user__db_8c_source_l00014}{register\+\_\+user()}}, and \mbox{\hyperlink{user__db_8c_source_l00029}{unregister\+\_\+user()}}.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=347pt]{print__utils_8c_a491dc14c94ed8cf706bb54880c50b2d0_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{print__utils_8c_ae39065df491deead21b0375a8ce1a4d6}\label{print__utils_8c_ae39065df491deead21b0375a8ce1a4d6} 
+\index{print\_utils.c@{print\_utils.c}!print\_warn@{print\_warn}}
+\index{print\_warn@{print\_warn}!print\_utils.c@{print\_utils.c}}
+\doxysubsubsection{\texorpdfstring{print\_warn()}{print\_warn()}}
+{\footnotesize\ttfamily void print\+\_\+warn (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{format,  }\item[{}]{... }\end{DoxyParamCaption})}
+
+
+
+Format and print data as a waring. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em const} & char \texorpdfstring{$\ast$}{*}format the string that will formatted and printed \\
+\hline
+{\em \mbox{[}\+ARGUMENTS\mbox{]}...} & Print optional ARGUMENT(s) according to format \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Will also log using systemD 
+
+"{}WARNING="{} will be prepended to format 
+\end{DoxyNote}
+
+
+Definition at line \mbox{\hyperlink{print__utils_8c_source_l00110}{110}} of file \mbox{\hyperlink{print__utils_8c_source}{print\+\_\+utils.\+c}}.
+
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{print__utils_8c_a887e8bdd9deeb0866ce86067cdba5fcc}\label{print__utils_8c_a887e8bdd9deeb0866ce86067cdba5fcc} 
+\index{print\_utils.c@{print\_utils.c}!cleared@{cleared}}
+\index{cleared@{cleared}!print\_utils.c@{print\_utils.c}}
+\doxysubsubsection{\texorpdfstring{cleared}{cleared}}
+{\footnotesize\ttfamily int cleared = 0}
+
+
+
+Definition at line \mbox{\hyperlink{print__utils_8c_source_l00013}{13}} of file \mbox{\hyperlink{print__utils_8c_source}{print\+\_\+utils.\+c}}.
+

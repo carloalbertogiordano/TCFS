@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="dir_ceb7717feb72345a4d66a9159ce3c403" kind="dir">
+    <compoundname>daemon/daemon_utils/common_utils/json</compoundname>
+    <innerfile refid="json__tools_8cpp">json_tools.cpp</innerfile>
+    <innerfile refid="json__tools_8h">json_tools.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="daemon/daemon_utils/common_utils/json/"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,243 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="redis_8h" kind="file" language="C++">
+    <compoundname>redis.h</compoundname>
+    <includes refid="common_8h" local="yes">../../common.h</includes>
+    <includedby refid="redis_8c" local="yes">daemon/daemon_utils/common_utils/db/redis.c</includedby>
+    <includedby refid="user__db_8c" local="yes">daemon/daemon_utils/common_utils/db/user_db.c</includedby>
+    <incdepgraph>
+      <node id="2">
+        <label>../../common.h</label>
+        <link refid="common_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>daemon/daemon_utils/common_utils/db/redis.h</label>
+        <link refid="redis_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>errno.h</label>
+      </node>
+      <node id="5">
+        <label>fcntl.h</label>
+      </node>
+      <node id="6">
+        <label>mqueue.h</label>
+      </node>
+      <node id="8">
+        <label>string.h</label>
+      </node>
+      <node id="3">
+        <label>sys/stat.h</label>
+      </node>
+      <node id="4">
+        <label>sys/types.h</label>
+      </node>
+      <node id="7">
+        <label>unistd.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="2">
+        <label>daemon/daemon_utils/common_utils/db/redis.c</label>
+        <link refid="redis_8c_source"/>
+      </node>
+      <node id="1">
+        <label>daemon/daemon_utils/common_utils/db/redis.h</label>
+        <link refid="redis_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>daemon/daemon_utils/common_utils/db/user_db.c</label>
+        <link refid="user__db_8c"/>
+      </node>
+    </invincdepgraph>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="redis_8h_1a7b5eb746d92734b57a71ce552363283d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void print_all_keys</definition>
+        <argsstring>()</argsstring>
+        <name>print_all_keys</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="daemon/daemon_utils/common_utils/db/redis.h" line="3" column="6" bodyfile="daemon/daemon_utils/common_utils/db/redis.c" bodystart="40" bodyend="54" declfile="daemon/daemon_utils/common_utils/db/redis.h" declline="3" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="redis_8h_1a1f6dc2f98a71a88567fe11fd9e2585ea" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int init_context</definition>
+        <argsstring>()</argsstring>
+        <name>init_context</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="daemon/daemon_utils/common_utils/db/redis.h" line="5" column="5" bodyfile="daemon/daemon_utils/common_utils/db/redis.c" bodystart="60" bodyend="72" declfile="daemon/daemon_utils/common_utils/db/redis.h" declline="5" declcolumn="5"/>
+      </memberdef>
+      <memberdef kind="function" id="redis_8h_1a8e6e1687d6351741ac3e353d23425f71" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="structqm__user" kindref="compound">qm_user</ref> *</type>
+        <definition>qm_user * json_to_qm_user</definition>
+        <argsstring>(char *json)</argsstring>
+        <name>json_to_qm_user</name>
+        <param>
+          <type>char *</type>
+          <declname>json</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="daemon/daemon_utils/common_utils/db/redis.h" line="7" column="9" bodyfile="daemon/daemon_utils/common_utils/db/redis.c" bodystart="88" bodyend="97" declfile="daemon/daemon_utils/common_utils/db/redis.h" declline="7" declcolumn="9"/>
+      </memberdef>
+      <memberdef kind="function" id="redis_8h_1af0bf1bfc99afc940619371e3c76ab4f9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="structqm__user" kindref="compound">qm_user</ref> *</type>
+        <definition>qm_user * get_user_by_pid</definition>
+        <argsstring>(pid_t pid)</argsstring>
+        <name>get_user_by_pid</name>
+        <param>
+          <type>pid_t</type>
+          <declname>pid</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="daemon/daemon_utils/common_utils/db/redis.h" line="9" column="9" bodyfile="daemon/daemon_utils/common_utils/db/redis.c" bodystart="104" bodyend="126" declfile="daemon/daemon_utils/common_utils/db/redis.h" declline="9" declcolumn="9"/>
+      </memberdef>
+      <memberdef kind="function" id="redis_8h_1a73711c0a9d0060337409d15dc44f5ad1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="structqm__user" kindref="compound">qm_user</ref> *</type>
+        <definition>qm_user * get_user_by_name</definition>
+        <argsstring>(const char *name)</argsstring>
+        <name>get_user_by_name</name>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="daemon/daemon_utils/common_utils/db/redis.h" line="11" column="9" bodyfile="daemon/daemon_utils/common_utils/db/redis.c" bodystart="133" bodyend="155" declfile="daemon/daemon_utils/common_utils/db/redis.h" declline="11" declcolumn="9"/>
+      </memberdef>
+      <memberdef kind="function" id="redis_8h_1ac9878ee09b53700eb08c1f175873c30b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int insert</definition>
+        <argsstring>(qm_user *user)</argsstring>
+        <name>insert</name>
+        <param>
+          <type><ref refid="structqm__user" kindref="compound">qm_user</ref> *</type>
+          <declname>user</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="daemon/daemon_utils/common_utils/db/redis.h" line="13" column="5" bodyfile="daemon/daemon_utils/common_utils/db/redis.c" bodystart="164" bodyend="196" declfile="daemon/daemon_utils/common_utils/db/redis.h" declline="13" declcolumn="5"/>
+      </memberdef>
+      <memberdef kind="function" id="redis_8h_1a6b18d7ad2f1e8275106a5b39c0c7d216" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int remove_by_pid</definition>
+        <argsstring>(pid_t pid)</argsstring>
+        <name>remove_by_pid</name>
+        <param>
+          <type>pid_t</type>
+          <declname>pid</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="daemon/daemon_utils/common_utils/db/redis.h" line="15" column="5" bodyfile="daemon/daemon_utils/common_utils/db/redis.c" bodystart="205" bodyend="226" declfile="daemon/daemon_utils/common_utils/db/redis.h" declline="15" declcolumn="5"/>
+      </memberdef>
+      <memberdef kind="function" id="redis_8h_1a2678c0575f2b6c944fd261255aeaebff" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int remove_by_user</definition>
+        <argsstring>(char *name)</argsstring>
+        <name>remove_by_user</name>
+        <param>
+          <type>char *</type>
+          <declname>name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="daemon/daemon_utils/common_utils/db/redis.h" line="17" column="5" bodyfile="daemon/daemon_utils/common_utils/db/redis.c" bodystart="235" bodyend="255" declfile="daemon/daemon_utils/common_utils/db/redis.h" declline="17" declcolumn="5"/>
+      </memberdef>
+      <memberdef kind="function" id="redis_8h_1ae19d8c90888a6ed078d6e835bb11e67a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void free_context</definition>
+        <argsstring>()</argsstring>
+        <name>free_context</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="daemon/daemon_utils/common_utils/db/redis.h" line="19" column="6" bodyfile="daemon/daemon_utils/common_utils/db/redis.c" bodystart="78" bodyend="81" declfile="daemon/daemon_utils/common_utils/db/redis.h" declline="19" declcolumn="6"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#include<sp/>&quot;../../common.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>print_all_keys();</highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>init_context();</highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"><ref refid="structqm__user" kindref="compound">qm_user</ref><sp/>*json_to_qm_user(</highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*json);</highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"><ref refid="structqm__user" kindref="compound">qm_user</ref><sp/>*get_user_by_pid(pid_t<sp/>pid);</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"><ref refid="structqm__user" kindref="compound">qm_user</ref><sp/>*get_user_by_name(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*name);</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>insert(<ref refid="structqm__user" kindref="compound">qm_user</ref><sp/>*user);</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>remove_by_pid(pid_t<sp/>pid);</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>remove_by_user(</highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*name);</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>free_context();</highlight></codeline>
+    </programlisting>
+    <location file="daemon/daemon_utils/common_utils/db/redis.h"/>
+  </compounddef>
+</doxygen>

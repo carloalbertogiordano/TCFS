@@ -1,0 +1,61 @@
+\doxysection{queue.\+c}
+\hypertarget{queue_8c_source}{}\label{queue_8c_source}\index{daemon/daemon\_utils/queue/queue.c@{daemon/daemon\_utils/queue/queue.c}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{queue_8c_source_l00001}00001\ \textcolor{preprocessor}{\#include\ "{}queue.h"{}}}
+\DoxyCodeLine{\Hypertarget{queue_8c_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{queue_8c_source_l00003}00003\ mqd\_t\ init\_queue(\textcolor{keywordtype}{char}\ *queue)}
+\DoxyCodeLine{\Hypertarget{queue_8c_source_l00004}00004\ \{}
+\DoxyCodeLine{\Hypertarget{queue_8c_source_l00005}00005\ \ \ \ \ \textcolor{keyword}{struct\ }mq\_attr\ attr;}
+\DoxyCodeLine{\Hypertarget{queue_8c_source_l00006}00006\ \ \ \ \ mqd\_t\ mq;}
+\DoxyCodeLine{\Hypertarget{queue_8c_source_l00007}00007\ }
+\DoxyCodeLine{\Hypertarget{queue_8c_source_l00008}00008\ \ \ \ \ \textcolor{comment}{//\ Initialize\ queue\ attributes}}
+\DoxyCodeLine{\Hypertarget{queue_8c_source_l00009}00009\ \ \ \ \ attr.mq\_flags\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{queue_8c_source_l00010}00010\ \ \ \ \ attr.mq\_maxmsg\ =\ MAX\_QM\_N;\ \textcolor{comment}{//\ Maximum\ number\ of\ messages\ in\ the\ queue}}
+\DoxyCodeLine{\Hypertarget{queue_8c_source_l00011}00011\ \ \ \ \ attr.mq\_msgsize\ =\ MAX\_QM\_SIZE;\ \textcolor{comment}{//\ Maximum\ size\ of\ a\ single\ message}}
+\DoxyCodeLine{\Hypertarget{queue_8c_source_l00012}00012\ \ \ \ \ attr.mq\_curmsgs\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{queue_8c_source_l00013}00013\ }
+\DoxyCodeLine{\Hypertarget{queue_8c_source_l00014}00014\ \ \ \ \ \textcolor{comment}{//\ Create\ the\ message\ queue}}
+\DoxyCodeLine{\Hypertarget{queue_8c_source_l00015}00015\ \ \ \ \ mq\ =\ mq\_open(queue,\ O\_CREAT\ |\ O\_RDWR\ \textcolor{comment}{/*|\ O\_RDONLY\ |\ O\_NONBLOCK*/},\ 0777,\ \&attr);\ \textcolor{comment}{//TODO:\ Better\ define\ permissions}}
+\DoxyCodeLine{\Hypertarget{queue_8c_source_l00016}00016\ \ \ \ \ printf(\textcolor{stringliteral}{"{}mqopen\ \%d\(\backslash\)n"{}},\ mq);}
+\DoxyCodeLine{\Hypertarget{queue_8c_source_l00017}00017\ \ \ \ \ \textcolor{keywordflow}{if}\ (mq\ ==\ (mqd\_t)-\/1)\ \{}
+\DoxyCodeLine{\Hypertarget{queue_8c_source_l00018}00018\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{print__utils_8c_a650ab060ffe5dbc6c1a968a9cae3bded}{print\_err}}(\textcolor{stringliteral}{"{}mq\_open\ cannot\ create\ que\ in\ \%s\ \%d\ \%s"{}},\ queue,\ errno,\ strerror(errno));}
+\DoxyCodeLine{\Hypertarget{queue_8c_source_l00019}00019\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{print__utils_8c_a491dc14c94ed8cf706bb54880c50b2d0}{print\_msg}}(\textcolor{stringliteral}{"{}mq\_open\ cannot\ create\ que\ in\ \%s\ \%d\ \%s"{}},\ queue,\ errno,\ strerror(errno));}
+\DoxyCodeLine{\Hypertarget{queue_8c_source_l00020}00020\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\Hypertarget{queue_8c_source_l00021}00021\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{queue_8c_source_l00022}00022\ \ \ \ \ printf(\textcolor{stringliteral}{"{}Message\ queue\ created\ successfully\ at\ \%s!\(\backslash\)n"{}},\ queue);}
+\DoxyCodeLine{\Hypertarget{queue_8c_source_l00023}00023\ \ \ \ \ \textcolor{keywordflow}{return}\ mq;}
+\DoxyCodeLine{\Hypertarget{queue_8c_source_l00024}00024\ \}}
+\DoxyCodeLine{\Hypertarget{queue_8c_source_l00025}00025\ \textcolor{keywordtype}{int}\ enqueue(mqd\_t\ queue\_d,\ qm\_type\ qmt,\ \textcolor{keywordtype}{void}\ *q\_mess)}
+\DoxyCodeLine{\Hypertarget{queue_8c_source_l00026}00026\ \{}
+\DoxyCodeLine{\Hypertarget{queue_8c_source_l00027}00027\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *qm\_json\ =\ struct\_to\_json(qmt,\ q\_mess);}
+\DoxyCodeLine{\Hypertarget{queue_8c_source_l00028}00028\ }
+\DoxyCodeLine{\Hypertarget{queue_8c_source_l00029}00029\ \ \ \ \ \textcolor{keywordflow}{if}\ (mq\_send(queue\_d,\ qm\_json,\ strlen(qm\_json)+1,\ 0)\ ==\ -\/1)}
+\DoxyCodeLine{\Hypertarget{queue_8c_source_l00030}00030\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{queue_8c_source_l00031}00031\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{print__utils_8c_a650ab060ffe5dbc6c1a968a9cae3bded}{print\_err}}(\textcolor{stringliteral}{"{}mq\_send\ \%s"{}},\ qm\_json);}
+\DoxyCodeLine{\Hypertarget{queue_8c_source_l00032}00032\ \ \ \ \ \ \ \ \ free((\textcolor{keywordtype}{void}\ *)qm\_json);}
+\DoxyCodeLine{\Hypertarget{queue_8c_source_l00033}00033\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\Hypertarget{queue_8c_source_l00034}00034\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{queue_8c_source_l00035}00035\ \ \ \ \ \mbox{\hyperlink{print__utils_8c_a491dc14c94ed8cf706bb54880c50b2d0}{print\_msg}}(\textcolor{stringliteral}{"{}Message\ sent\ successfully!\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{queue_8c_source_l00036}00036\ \ \ \ \ free((\textcolor{keywordtype}{void}\ *)qm\_json);}
+\DoxyCodeLine{\Hypertarget{queue_8c_source_l00037}00037\ \ \ \ \ \textcolor{keywordflow}{return}\ 1;}
+\DoxyCodeLine{\Hypertarget{queue_8c_source_l00038}00038\ \}}
+\DoxyCodeLine{\Hypertarget{queue_8c_source_l00039}00039\ \textcolor{keywordtype}{void}\ *dequeue(mqd\_t\ queue\_d,\ qm\_type\ *qmt)}
+\DoxyCodeLine{\Hypertarget{queue_8c_source_l00040}00040\ \{}
+\DoxyCodeLine{\Hypertarget{queue_8c_source_l00041}00041\ \ \ \ \ \textcolor{keywordtype}{char}\ *qm\_json\ =\ (\textcolor{keywordtype}{char}\ *)malloc(\textcolor{keyword}{sizeof}(\textcolor{keywordtype}{char}\ )\ *\ MAX\_QM\_SIZE);}
+\DoxyCodeLine{\Hypertarget{queue_8c_source_l00042}00042\ }
+\DoxyCodeLine{\Hypertarget{queue_8c_source_l00043}00043\ \ \ \ \ \textcolor{keywordflow}{if}\ (mq\_receive(queue\_d,\ qm\_json,\ MAX\_QM\_SIZE,\ 0)\ ==\ -\/1)}
+\DoxyCodeLine{\Hypertarget{queue_8c_source_l00044}00044\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{queue_8c_source_l00045}00045\ \ \ \ \ \ \ \ \ free((\textcolor{keywordtype}{void}\ *)qm\_json);}
+\DoxyCodeLine{\Hypertarget{queue_8c_source_l00046}00046\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{print__utils_8c_a650ab060ffe5dbc6c1a968a9cae3bded}{print\_err}}(\textcolor{stringliteral}{"{}mq\_rec\ \%d\ \%s"{}},\ errno,\ strerror(errno));}
+\DoxyCodeLine{\Hypertarget{queue_8c_source_l00047}00047\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ NULL;}
+\DoxyCodeLine{\Hypertarget{queue_8c_source_l00048}00048\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{queue_8c_source_l00049}00049\ }
+\DoxyCodeLine{\Hypertarget{queue_8c_source_l00050}00050\ \ \ \ \ \mbox{\hyperlink{print__utils_8c_a491dc14c94ed8cf706bb54880c50b2d0}{print\_msg}}(\textcolor{stringliteral}{"{}Dequeued\ \%s"{}},\ qm\_json);}
+\DoxyCodeLine{\Hypertarget{queue_8c_source_l00051}00051\ \ \ \ \ \textcolor{keywordtype}{void}\ *tmp\_struct\ =\ string\_to\_struct(qm\_json,\ qmt);}
+\DoxyCodeLine{\Hypertarget{queue_8c_source_l00052}00052\ }
+\DoxyCodeLine{\Hypertarget{queue_8c_source_l00053}00053\ \ \ \ \ free((\textcolor{keywordtype}{void}\ *)qm\_json);}
+\DoxyCodeLine{\Hypertarget{queue_8c_source_l00054}00054\ \ \ \ \ \textcolor{keywordflow}{return}\ tmp\_struct;}
+\DoxyCodeLine{\Hypertarget{queue_8c_source_l00055}00055\ \}}
+
+\end{DoxyCode}

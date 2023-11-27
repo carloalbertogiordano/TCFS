@@ -1,0 +1,224 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="queue_8c" kind="file" language="C++">
+    <compoundname>queue.c</compoundname>
+    <includes refid="queue_8h" local="yes">queue.h</includes>
+    <incdepgraph>
+      <node id="3">
+        <label>../common.h</label>
+        <link refid="common_8h_source"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="15">
+        <label>../common_utils/json/json_tools.h</label>
+        <link refid="json__tools_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>../common_utils/print/print_utils.h</label>
+        <link refid="print__utils_8h_source"/>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>daemon/daemon_utils/queue/queue.c</label>
+        <link refid="queue_8c"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>queue.h</label>
+        <link refid="queue_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>errno.h</label>
+      </node>
+      <node id="6">
+        <label>fcntl.h</label>
+      </node>
+      <node id="7">
+        <label>mqueue.h</label>
+      </node>
+      <node id="13">
+        <label>stdio.h</label>
+      </node>
+      <node id="14">
+        <label>stdlib.h</label>
+      </node>
+      <node id="9">
+        <label>string.h</label>
+      </node>
+      <node id="4">
+        <label>sys/stat.h</label>
+      </node>
+      <node id="5">
+        <label>sys/types.h</label>
+      </node>
+      <node id="12">
+        <label>systemd/sd-journal.h</label>
+      </node>
+      <node id="8">
+        <label>unistd.h</label>
+      </node>
+    </incdepgraph>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="queue_8c_1a6997b2cacf3d2e49bc848d0274e24b13" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>mqd_t</type>
+        <definition>mqd_t init_queue</definition>
+        <argsstring>(char *queue)</argsstring>
+        <name>init_queue</name>
+        <param>
+          <type>char *</type>
+          <declname>queue</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="daemon/daemon_utils/queue/queue.c" line="3" column="7" bodyfile="daemon/daemon_utils/queue/queue.c" bodystart="3" bodyend="24"/>
+      </memberdef>
+      <memberdef kind="function" id="queue_8c_1ac51f5d595a9d7376eb0448116c99e1f4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int enqueue</definition>
+        <argsstring>(mqd_t queue_d, qm_type qmt, void *q_mess)</argsstring>
+        <name>enqueue</name>
+        <param>
+          <type>mqd_t</type>
+          <declname>queue_d</declname>
+        </param>
+        <param>
+          <type>qm_type</type>
+          <declname>qmt</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>q_mess</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="daemon/daemon_utils/queue/queue.c" line="25" column="5" bodyfile="daemon/daemon_utils/queue/queue.c" bodystart="25" bodyend="38"/>
+      </memberdef>
+      <memberdef kind="function" id="queue_8c_1a1874b6e320d1e54d571c89766d046602" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void *</type>
+        <definition>void * dequeue</definition>
+        <argsstring>(mqd_t queue_d, qm_type *qmt)</argsstring>
+        <name>dequeue</name>
+        <param>
+          <type>mqd_t</type>
+          <declname>queue_d</declname>
+        </param>
+        <param>
+          <type>qm_type *</type>
+          <declname>qmt</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="daemon/daemon_utils/queue/queue.c" line="39" column="6" bodyfile="daemon/daemon_utils/queue/queue.c" bodystart="39" bodyend="55"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#include<sp/>&quot;queue.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal">mqd_t<sp/>init_queue(</highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*queue)</highlight></codeline>
+<codeline lineno="4"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="5"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">mq_attr<sp/>attr;</highlight></codeline>
+<codeline lineno="6"><highlight class="normal"><sp/><sp/><sp/><sp/>mqd_t<sp/>mq;</highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Initialize<sp/>queue<sp/>attributes</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"><sp/><sp/><sp/><sp/>attr.mq_flags<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"><sp/><sp/><sp/><sp/>attr.mq_maxmsg<sp/>=<sp/>MAX_QM_N;<sp/></highlight><highlight class="comment">//<sp/>Maximum<sp/>number<sp/>of<sp/>messages<sp/>in<sp/>the<sp/>queue</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"><sp/><sp/><sp/><sp/>attr.mq_msgsize<sp/>=<sp/>MAX_QM_SIZE;<sp/></highlight><highlight class="comment">//<sp/>Maximum<sp/>size<sp/>of<sp/>a<sp/>single<sp/>message</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><sp/><sp/><sp/><sp/>attr.mq_curmsgs<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Create<sp/>the<sp/>message<sp/>queue</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/><sp/><sp/>mq<sp/>=<sp/>mq_open(queue,<sp/>O_CREAT<sp/>|<sp/>O_RDWR<sp/></highlight><highlight class="comment">/*|<sp/>O_RDONLY<sp/>|<sp/>O_NONBLOCK*/</highlight><highlight class="normal">,<sp/>0777,<sp/>&amp;attr);<sp/></highlight><highlight class="comment">//TODO:<sp/>Better<sp/>define<sp/>permissions</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/>printf(</highlight><highlight class="stringliteral">&quot;mqopen<sp/>%d\n&quot;</highlight><highlight class="normal">,<sp/>mq);</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(mq<sp/>==<sp/>(mqd_t)-1)<sp/>{</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="print__utils_8c_1a650ab060ffe5dbc6c1a968a9cae3bded" kindref="member">print_err</ref>(</highlight><highlight class="stringliteral">&quot;mq_open<sp/>cannot<sp/>create<sp/>que<sp/>in<sp/>%s<sp/>%d<sp/>%s&quot;</highlight><highlight class="normal">,<sp/>queue,<sp/>errno,<sp/>strerror(errno));</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="print__utils_8c_1a491dc14c94ed8cf706bb54880c50b2d0" kindref="member">print_msg</ref>(</highlight><highlight class="stringliteral">&quot;mq_open<sp/>cannot<sp/>create<sp/>que<sp/>in<sp/>%s<sp/>%d<sp/>%s&quot;</highlight><highlight class="normal">,<sp/>queue,<sp/>errno,<sp/>strerror(errno));</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/>printf(</highlight><highlight class="stringliteral">&quot;Message<sp/>queue<sp/>created<sp/>successfully<sp/>at<sp/>%s!\n&quot;</highlight><highlight class="normal">,<sp/>queue);</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>mq;</highlight></codeline>
+<codeline lineno="24"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>enqueue(mqd_t<sp/>queue_d,<sp/>qm_type<sp/>qmt,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*q_mess)</highlight></codeline>
+<codeline lineno="26"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*qm_json<sp/>=<sp/>struct_to_json(qmt,<sp/>q_mess);</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(mq_send(queue_d,<sp/>qm_json,<sp/>strlen(qm_json)+1,<sp/>0)<sp/>==<sp/>-1)</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="print__utils_8c_1a650ab060ffe5dbc6c1a968a9cae3bded" kindref="member">print_err</ref>(</highlight><highlight class="stringliteral">&quot;mq_send<sp/>%s&quot;</highlight><highlight class="normal">,<sp/>qm_json);</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>free((</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*)qm_json);</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="print__utils_8c_1a491dc14c94ed8cf706bb54880c50b2d0" kindref="member">print_msg</ref>(</highlight><highlight class="stringliteral">&quot;Message<sp/>sent<sp/>successfully!\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/>free((</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*)qm_json);</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>1;</highlight></codeline>
+<codeline lineno="38"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*dequeue(mqd_t<sp/>queue_d,<sp/>qm_type<sp/>*qmt)</highlight></codeline>
+<codeline lineno="40"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*qm_json<sp/>=<sp/>(</highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*)malloc(</highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(</highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>)<sp/>*<sp/>MAX_QM_SIZE);</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(mq_receive(queue_d,<sp/>qm_json,<sp/>MAX_QM_SIZE,<sp/>0)<sp/>==<sp/>-1)</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>free((</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*)qm_json);</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="print__utils_8c_1a650ab060ffe5dbc6c1a968a9cae3bded" kindref="member">print_err</ref>(</highlight><highlight class="stringliteral">&quot;mq_rec<sp/>%d<sp/>%s&quot;</highlight><highlight class="normal">,<sp/>errno,<sp/>strerror(errno));</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>NULL;</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="print__utils_8c_1a491dc14c94ed8cf706bb54880c50b2d0" kindref="member">print_msg</ref>(</highlight><highlight class="stringliteral">&quot;Dequeued<sp/>%s&quot;</highlight><highlight class="normal">,<sp/>qm_json);</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*tmp_struct<sp/>=<sp/>string_to_struct(qm_json,<sp/>qmt);</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/>free((</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*)qm_json);</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>tmp_struct;</highlight></codeline>
+<codeline lineno="55"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="daemon/daemon_utils/queue/queue.c"/>
+  </compounddef>
+</doxygen>

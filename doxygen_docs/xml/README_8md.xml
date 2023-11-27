@@ -1,0 +1,114 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="README_8md" kind="file" language="Markdown">
+    <compoundname>README.md</compoundname>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline><highlight class="normal">#<sp/>TCFS<sp/>-<sp/>Transparent<sp/>Cryptographic<sp/>Filesystem</highlight></codeline>
+<codeline><highlight class="normal">TCFS<sp/>is<sp/>a<sp/>transparent<sp/>cryptographic<sp/>filesystem<sp/>designed<sp/>to<sp/>secure<sp/>files<sp/>mounted<sp/>on<sp/>a<sp/></highlight></codeline>
+<codeline><highlight class="normal">Network<sp/>File<sp/>System<sp/>(NFS)<sp/>server.<sp/>It<sp/>is<sp/>implemented<sp/>as<sp/>a<sp/>FUSE<sp/>(Filesystem<sp/>in<sp/>Userspace)</highlight></codeline>
+<codeline><highlight class="normal">module<sp/>along<sp/>with<sp/>a<sp/>user-friendly<sp/>helper<sp/>program.<sp/>TCFS<sp/>ensures<sp/>that<sp/>files<sp/>are<sp/>encrypted<sp/></highlight></codeline>
+<codeline><highlight class="normal">and<sp/>decrypted<sp/>seamlessly<sp/>without<sp/>requiring<sp/>user<sp/>intervention,<sp/>providing<sp/>an<sp/>additional<sp/></highlight></codeline>
+<codeline><highlight class="normal">layer<sp/>of<sp/>security<sp/>for<sp/>sensitive<sp/>data.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>Disclamer</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**Note:**<sp/>This<sp/>project<sp/>is<sp/>currently<sp/>in<sp/>an<sp/>early<sp/>development<sp/>stage<sp/>and<sp/>should<sp/>be<sp/>considered</highlight></codeline>
+<codeline><highlight class="normal">as<sp/>an<sp/>alpha<sp/>version.<sp/>This<sp/>means<sp/>there<sp/>may<sp/>be<sp/>many<sp/>missing<sp/>features,<sp/>unresolved<sp/>bugs,</highlight></codeline>
+<codeline><highlight class="normal">or<sp/>unexpected<sp/>behaviors.<sp/>The<sp/>project<sp/>is<sp/>made<sp/>available<sp/>in<sp/>this<sp/>phase<sp/>for<sp/>testing<sp/>and</highlight></codeline>
+<codeline><highlight class="normal">evaluation<sp/>purposes<sp/>and<sp/>should<sp/>not<sp/>be<sp/>used<sp/>in<sp/>production<sp/>or<sp/>for<sp/>critical<sp/>purposes.</highlight></codeline>
+<codeline><highlight class="normal">It<sp/>is<sp/>not<sp/>recommended<sp/>to<sp/>use<sp/>this<sp/>software<sp/>in<sp/>sensitive<sp/>environments<sp/>or<sp/>to<sp/>store</highlight></codeline>
+<codeline><highlight class="normal">important<sp/>data<sp/>until<sp/>a<sp/>stable<sp/>and<sp/>complete<sp/>version<sp/>is<sp/>reached.<sp/>We<sp/>appreciate<sp/>any<sp/>feedback,</highlight></codeline>
+<codeline><highlight class="normal">bug<sp/>reports,<sp/>or<sp/>contributions<sp/>from<sp/>the<sp/>community<sp/>that<sp/>can<sp/>help<sp/>improve<sp/>the<sp/>project.<sp/></highlight></codeline>
+<codeline><highlight class="normal">If<sp/>you<sp/>decide<sp/>to<sp/>use<sp/>this<sp/>software,<sp/>please<sp/>**don&apos;t<sp/>do<sp/>it**.</highlight></codeline>
+<codeline><highlight class="normal">Thank<sp/>you<sp/>for<sp/>your<sp/>interest<sp/>and<sp/>understanding<sp/>as<sp/>we<sp/>work<sp/>to<sp/>improve<sp/>the<sp/>project<sp/>and<sp/>make<sp/></highlight></codeline>
+<codeline><highlight class="normal">it<sp/>stable<sp/>and<sp/>complete.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>Features</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>Transparent<sp/>Encryption:<sp/>TCFS<sp/>operates<sp/>silently<sp/>in<sp/>the<sp/>background,<sp/>encrypting<sp/>and<sp/></highlight></codeline>
+<codeline><highlight class="normal">decrypting<sp/>files<sp/>on-the-fly<sp/>as<sp/>they<sp/>are<sp/>accessed<sp/>or<sp/>modified.<sp/>Users<sp/>don&apos;t<sp/>need<sp/>to<sp/>worry</highlight></codeline>
+<codeline><highlight class="normal">about<sp/>managing<sp/>encryption<sp/>keys<sp/>or<sp/>performing<sp/>manual<sp/>cryptographic<sp/>operations.</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>FUSE<sp/>Integration:<sp/>TCFS<sp/>leverages<sp/>the<sp/>FUSE<sp/>framework<sp/>to<sp/>create<sp/>a<sp/>virtual<sp/>filesystem<sp/>that</highlight></codeline>
+<codeline><highlight class="normal">integrates<sp/>seamlessly<sp/>with<sp/>the<sp/>existing<sp/>file<sp/>hierarchy.<sp/>This<sp/>allows<sp/>users<sp/>to<sp/>interact<sp/></highlight></codeline>
+<codeline><highlight class="normal">with<sp/>their<sp/>files<sp/>just<sp/>like<sp/>any<sp/>other<sp/>files<sp/>on<sp/>their<sp/>system.</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>Secure<sp/>Data<sp/>Storage:<sp/>Files<sp/>stored<sp/>on<sp/>an<sp/>NFS<sp/>server<sp/>can<sp/>be<sp/>vulnerable<sp/>during<sp/>transit<sp/>or</highlight></codeline>
+<codeline><highlight class="normal">at<sp/>rest.<sp/>TCFS<sp/>addresses<sp/>these<sp/>security<sp/>concerns<sp/>by<sp/>ensuring<sp/>data<sp/>is<sp/>encrypted<sp/>before<sp/>it<sp/>leaves<sp/>the<sp/>client<sp/>system,<sp/>offering<sp/>end-to-end<sp/>encryption<sp/>for<sp/>your<sp/>files.</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>Transparency:<sp/>No<sp/>modifications<sp/>to<sp/>the<sp/>NFS<sp/>server<sp/>are<sp/>required.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>Getting<sp/>Started</highlight></codeline>
+<codeline><highlight class="normal">###<sp/>Prerequisites</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>FUSE:<sp/>Ensure<sp/>that<sp/>FUSE<sp/>and<sp/>FUSE-dev<sp/>are<sp/>installed<sp/>on<sp/>your<sp/>system.<sp/>You<sp/>can<sp/>usually<sp/>install<sp/>it<sp/>using</highlight></codeline>
+<codeline><highlight class="normal">your<sp/>system&apos;s<sp/>package<sp/>manager<sp/>(e.g.,<sp/>apt,<sp/>yum,<sp/>dnf,<sp/>ecc).</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>OpenSSl:<sp/>Install<sp/>OpenSSL<sp/>and<sp/>its<sp/>development<sp/>package.</highlight></codeline>
+<codeline><highlight class="normal">###<sp/>Build</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>Clone<sp/>the<sp/>TCFS<sp/>repository<sp/>to<sp/>your<sp/>local<sp/>machine:</highlight></codeline>
+<codeline><highlight class="normal">&lt;pre&gt;</highlight></codeline>
+<codeline><highlight class="normal">&lt;code&gt;</highlight></codeline>
+<codeline><highlight class="normal">git<sp/>clone<sp/>https://github.com/carloalbertogiordano/TCFS</highlight></codeline>
+<codeline><highlight class="normal">&lt;/code&gt;</highlight></codeline>
+<codeline><highlight class="normal">&lt;/pre&gt;</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>Compile:<sp/>Run<sp/>the<sp/>Makefile<sp/>in<sp/>the<sp/>userspace-module<sp/>directory<sp/>(Only<sp/>the<sp/>FUSE<sp/>module<sp/>is<sp/>avilable<sp/>at<sp/>the<sp/>moment,<sp/>the<sp/>whole<sp/>project<sp/>has<sp/>not<sp/>been<sp/>implemented<sp/>yet)</highlight></codeline>
+<codeline><highlight class="normal">&lt;pre&gt;</highlight></codeline>
+<codeline><highlight class="normal">&lt;code&gt;</highlight></codeline>
+<codeline><highlight class="normal">make<sp/>all</highlight></codeline>
+<codeline><highlight class="normal">&lt;/code&gt;</highlight></codeline>
+<codeline><highlight class="normal">&lt;/pre&gt;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>Usage</highlight></codeline>
+<codeline><highlight class="normal">###<sp/>Mount<sp/>an<sp/>NFS<sp/>share<sp/>using<sp/>TCFS:</highlight></codeline>
+<codeline><highlight class="normal">First,<sp/>mount<sp/>the<sp/>NFS<sp/>share<sp/>to<sp/>a<sp/>directroy,<sp/>this<sp/>directory<sp/>will<sp/>be<sp/>called<sp/>sourcedir.</highlight></codeline>
+<codeline><highlight class="normal">This<sp/>will<sp/>be<sp/>done<sp/>by<sp/>the<sp/>helper<sp/>program<sp/>in<sp/>a<sp/>future<sp/>release.</highlight></codeline>
+<codeline><highlight class="normal">&lt;pre&gt;</highlight></codeline>
+<codeline><highlight class="normal">&lt;code&gt;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>./build-fs/tcfs-fuse-module/tcfs<sp/>-s<sp/>/fullpath/sourcedir<sp/>-d<sp/>/fullpath/destdir<sp/>-p<sp/>&quot;your<sp/>password<sp/>here&quot;</highlight></codeline>
+<codeline><highlight class="normal">&lt;/code&gt;</highlight></codeline>
+<codeline><highlight class="normal">&lt;/pre&gt;</highlight></codeline>
+<codeline><highlight class="normal">Access<sp/>and<sp/>modify<sp/>files<sp/>in<sp/>the<sp/>mounted<sp/>directory<sp/>as<sp/>you<sp/>normally<sp/>would.<sp/>TCFS<sp/>will<sp/>handle<sp/></highlight></codeline>
+<codeline><highlight class="normal">encryption<sp/>and<sp/>decryption<sp/>automatically.<sp/>NOTE:<sp/>This<sp/>behaviour<sp/>will<sp/>be<sp/>changed<sp/>in<sp/>the<sp/>future,<sp/>the<sp/>kernel</highlight></codeline>
+<codeline><highlight class="normal">module<sp/>will<sp/>handle<sp/>your<sp/>password.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>Unmount<sp/>the<sp/>NFS<sp/>share<sp/>when<sp/>you&apos;re<sp/>done:</highlight></codeline>
+<codeline><highlight class="normal">&lt;pre&gt;</highlight></codeline>
+<codeline><highlight class="normal">&lt;code&gt;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>fusermount<sp/>-u<sp/>/fullpath/destdir</highlight></codeline>
+<codeline><highlight class="normal">&lt;/code&gt;</highlight></codeline>
+<codeline><highlight class="normal">&lt;/pre&gt;</highlight></codeline>
+<codeline><highlight class="normal">then<sp/>unmount<sp/>the<sp/>NFS<sp/>share.</highlight></codeline>
+<codeline></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>Contributing</highlight></codeline>
+<codeline><highlight class="normal">Contributions<sp/>to<sp/>TCFS<sp/>are<sp/>welcome!<sp/>If<sp/>you<sp/>find<sp/>a<sp/>bug<sp/>or<sp/>have<sp/>an<sp/>idea<sp/>for<sp/>an<sp/>improvement,</highlight></codeline>
+<codeline><highlight class="normal">please<sp/>open<sp/>an<sp/>issue<sp/>or<sp/>submit<sp/>a<sp/>pull<sp/>request<sp/>on<sp/>the<sp/>TCFS<sp/>GitHub<sp/>repository.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>License</highlight></codeline>
+<codeline><highlight class="normal">This<sp/>project<sp/>is<sp/>licensed<sp/>under<sp/>the<sp/>GPLv3<sp/>License<sp/>-<sp/>see<sp/>the<sp/>LICENSE<sp/>file<sp/>for<sp/>details.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>Acknowledgments</highlight></codeline>
+<codeline><highlight class="normal">TCFS<sp/>is<sp/>inspired<sp/>by<sp/>the<sp/>need<sp/>for<sp/>secure<sp/>data<sp/>storage<sp/>and<sp/>transmission<sp/>in<sp/>NFS<sp/>environments.</highlight></codeline>
+<codeline><highlight class="normal">Thanks<sp/>to<sp/>the<sp/>FUSE<sp/>project<sp/>for<sp/>providing<sp/>a<sp/>user-friendly<sp/>way<sp/>to<sp/>create<sp/>custom<sp/>filesystems.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**Inspiration<sp/>from<sp/>TCFS<sp/>(2001):**<sp/>This<sp/>project<sp/>draws<sp/>substantial<sp/>inspiration<sp/>from<sp/>an<sp/></highlight></codeline>
+<codeline><highlight class="normal">earlier<sp/>project<sp/>named<sp/>&quot;TCFS&quot;<sp/>that<sp/>was<sp/>developed<sp/>around<sp/>2001.<sp/>While<sp/>the<sp/>original<sp/>source<sp/>code</highlight></codeline>
+<codeline><highlight class="normal">for<sp/>TCFS<sp/>has<sp/>unfortunately<sp/>been<sp/>lost<sp/>over<sp/>time,<sp/>we<sp/>have<sp/>retained<sp/>valuable<sp/>documentation<sp/></highlight></codeline>
+<codeline><highlight class="normal">and<sp/>insights<sp/>from<sp/>that<sp/>era.<sp/>In<sp/>the<sp/>&quot;TCFS-2001&quot;<sp/>folder,<sp/>you<sp/>can<sp/>find<sp/>historical<sp/></highlight></codeline>
+<codeline><highlight class="normal">documentation<sp/>and<sp/>design<sp/>concepts<sp/>related<sp/>to<sp/>the<sp/>original<sp/>TCFS<sp/>project.<sp/>Although<sp/>we<sp/>are<sp/></highlight></codeline>
+<codeline><highlight class="normal">unable<sp/>to<sp/>directly<sp/>leverage<sp/>the<sp/>source<sp/>code<sp/>from<sp/>the<sp/>previous<sp/>project,<sp/>we<sp/>have<sp/>taken<sp/></highlight></codeline>
+<codeline><highlight class="normal">lessons<sp/>learned<sp/>from<sp/>its<sp/>design<sp/>principles<sp/>to<sp/>inform<sp/>the<sp/>development<sp/>of<sp/>this<sp/>current</highlight></codeline>
+<codeline><highlight class="normal">TCFS<sp/>implementation.<sp/>We<sp/>would<sp/>like<sp/>to<sp/>express<sp/>our<sp/>gratitude<sp/>to<sp/>the<sp/>creators<sp/>and<sp/></highlight></codeline>
+<codeline><highlight class="normal">contributors<sp/>of<sp/>TCFS<sp/>for<sp/>their<sp/>pioneering<sp/>work,<sp/>which<sp/>has<sp/>influenced<sp/>and<sp/>inspired<sp/>our<sp/></highlight></codeline>
+<codeline><highlight class="normal">efforts<sp/>to<sp/>create<sp/>a<sp/>modern<sp/>TCFS<sp/>solution.<sp/>Thank<sp/>you<sp/>for<sp/>your<sp/>interest<sp/>in<sp/>this<sp/>project<sp/></highlight></codeline>
+<codeline><highlight class="normal">as<sp/>we<sp/>continue<sp/>to<sp/>build<sp/>upon<sp/>the<sp/>foundations<sp/>set<sp/>by<sp/>the<sp/>original<sp/>TCFS<sp/>project.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>Roadmap</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>Key<sp/>management:</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>-<sp/>~~Store<sp/>a<sp/>per-file<sp/>key<sp/>in<sp/>the<sp/>extended<sp/>attributes<sp/>and<sp/>use<sp/>the<sp/>user<sp/>key<sp/>to<sp/>decipher<sp/>it.~~</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>-<sp/>Implement<sp/>a<sp/>kernel<sp/>module<sp/>to<sp/>rebuild<sp/>the<sp/>private<sp/>key<sp/>to<sp/>decipher<sp/>the<sp/>files.<sp/>This<sp/>module<sp/>will<sp/>use<sp/>a<sp/>certificate<sp/>and<sp/>your<sp/>key<sp/>to<sp/>rebuild<sp/>the<sp/>private<sp/>key</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>-<sp/>Implement<sp/>key<sp/>recovery.</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>Implement<sp/>threshold<sp/>sharing<sp/>files.</highlight></codeline>
+    </programlisting>
+    <location file="README.md"/>
+  </compounddef>
+</doxygen>

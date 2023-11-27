@@ -1,0 +1,10 @@
+<map id="main" name="main">
+<area shape="rect" id="Node000001" title="main function of the daemon. This will daemonize the program, spawn a thread to handle messages and h..." alt="" coords="5,56,56,81"/>
+<area shape="rect" id="Node000002" href="$tcfs__daemon_8c.html#a93d1097e4dd3c0735da3da2e89410090" title="Handle the termination if SIGTERM is received." alt="" coords="104,5,235,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="55,57,118,34,119,39,57,62"/>
+<area shape="rect" id="Node000003" href="$print__utils_8c.html#a491dc14c94ed8cf706bb54880c50b2d0" title="Format and print data as a message." alt="" coords="283,31,361,56"/>
+<area shape="poly" id="edge4_Node000001_Node000003" title=" " alt="" coords="56,64,267,45,267,51,57,69"/>
+<area shape="rect" id="Node000004" href="$print__utils_8c.html#a650ab060ffe5dbc6c1a968a9cae3bded" title="Format and print data as an error." alt="" coords="135,107,204,132"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="57,75,121,99,119,104,55,80"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="236,26,268,32,267,37,235,32"/>
+</map>

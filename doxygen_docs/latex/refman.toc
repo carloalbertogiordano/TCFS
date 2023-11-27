@@ -1,0 +1,97 @@
+\@ifundefined {etoctocstyle}{\let \etoc@startlocaltoc \@gobble \let \etoc@settocdepth \@gobble \let \etoc@depthtag \@gobble \let \etoc@setlocaltop \@gobble }{}
+\contentsline {chapter}{\numberline {1}TCFS -\/ Transparent Cryptographic Filesystem}{1}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Disclamer}{1}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Features}{1}{section.1.2}%
+\contentsline {section}{\numberline {1.3}Getting Started}{2}{section.1.3}%
+\contentsline {subsection}{\numberline {1.3.1}Prerequisites}{2}{subsection.1.3.1}%
+\contentsline {subsection}{\numberline {1.3.2}Build}{2}{subsection.1.3.2}%
+\contentsline {section}{\numberline {1.4}Usage}{2}{section.1.4}%
+\contentsline {subsubsection}{\numberline {1.4.0.1}Mount an NFS share using TCFS\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}:}{2}{subsubsection.1.4.0.1}%
+\contentsline {subsubsection}{\numberline {1.4.0.2}Unmount the NFS share when you\textquotesingle {}re done\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}:}{2}{subsubsection.1.4.0.2}%
+\contentsline {subsection}{\numberline {1.4.1}Contributing}{3}{subsection.1.4.1}%
+\contentsline {subsection}{\numberline {1.4.2}License}{3}{subsection.1.4.2}%
+\contentsline {subsection}{\numberline {1.4.3}Acknowledgments}{3}{subsection.1.4.3}%
+\contentsline {subsection}{\numberline {1.4.4}Roadmap}{3}{subsection.1.4.4}%
+\contentsline {chapter}{\numberline {2}Todo List}{5}{chapter.2}%
+\contentsline {chapter}{\numberline {3}Class Index}{7}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Class List}{7}{section.3.1}%
+\contentsline {chapter}{\numberline {4}File Index}{9}{chapter.4}%
+\contentsline {section}{\numberline {4.1}File List}{9}{section.4.1}%
+\contentsline {chapter}{\numberline {5}Class Documentation}{11}{chapter.5}%
+\contentsline {section}{\numberline {5.1}arguments Struct Reference}{11}{section.5.1}%
+\contentsline {subsection}{\numberline {5.1.1}Detailed Description}{11}{subsection.5.1.1}%
+\contentsline {subsection}{\numberline {5.1.2}Member Data Documentation}{12}{subsection.5.1.2}%
+\contentsline {subsubsection}{\numberline {5.1.2.1}destination}{12}{subsubsection.5.1.2.1}%
+\contentsline {subsubsection}{\numberline {5.1.2.2}operation}{12}{subsubsection.5.1.2.2}%
+\contentsline {subsubsection}{\numberline {5.1.2.3}password}{12}{subsubsection.5.1.2.3}%
+\contentsline {subsubsection}{\numberline {5.1.2.4}source}{12}{subsubsection.5.1.2.4}%
+\contentsline {section}{\numberline {5.2}qm\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}broad Struct Reference}{12}{section.5.2}%
+\contentsline {subsection}{\numberline {5.2.1}Detailed Description}{13}{subsection.5.2.1}%
+\contentsline {subsection}{\numberline {5.2.2}Member Data Documentation}{13}{subsection.5.2.2}%
+\contentsline {subsubsection}{\numberline {5.2.2.1}data}{13}{subsubsection.5.2.2.1}%
+\contentsline {section}{\numberline {5.3}qm\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}shared Struct Reference}{13}{section.5.3}%
+\contentsline {subsection}{\numberline {5.3.1}Detailed Description}{13}{subsection.5.3.1}%
+\contentsline {subsection}{\numberline {5.3.2}Member Data Documentation}{14}{subsection.5.3.2}%
+\contentsline {subsubsection}{\numberline {5.3.2.1}fd}{14}{subsubsection.5.3.2.1}%
+\contentsline {subsubsection}{\numberline {5.3.2.2}keypart}{14}{subsubsection.5.3.2.2}%
+\contentsline {subsubsection}{\numberline {5.3.2.3}userlist}{14}{subsubsection.5.3.2.3}%
+\contentsline {section}{\numberline {5.4}qm\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}user Struct Reference}{14}{section.5.4}%
+\contentsline {subsection}{\numberline {5.4.1}Detailed Description}{15}{subsection.5.4.1}%
+\contentsline {subsection}{\numberline {5.4.2}Member Data Documentation}{15}{subsection.5.4.2}%
+\contentsline {subsubsection}{\numberline {5.4.2.1}pid}{15}{subsubsection.5.4.2.1}%
+\contentsline {subsubsection}{\numberline {5.4.2.2}pubkey}{15}{subsubsection.5.4.2.2}%
+\contentsline {subsubsection}{\numberline {5.4.2.3}user}{15}{subsubsection.5.4.2.3}%
+\contentsline {subsubsection}{\numberline {5.4.2.4}user\_op}{15}{subsubsection.5.4.2.4}%
+\contentsline {chapter}{\numberline {6}File Documentation}{17}{chapter.6}%
+\contentsline {section}{\numberline {6.1}common.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}h}{17}{section.6.1}%
+\contentsline {section}{\numberline {6.2}redis.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}c}{17}{section.6.2}%
+\contentsline {section}{\numberline {6.3}redis.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}h}{20}{section.6.3}%
+\contentsline {section}{\numberline {6.4}daemon/daemon\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}utils/common\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}utils/db/user\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}db.c File Reference}{20}{section.6.4}%
+\contentsline {subsection}{\numberline {6.4.1}Detailed Description}{20}{subsection.6.4.1}%
+\contentsline {subsection}{\numberline {6.4.2}Function Documentation}{21}{subsection.6.4.2}%
+\contentsline {subsubsection}{\numberline {6.4.2.1}disconnect\_db()}{21}{subsubsection.6.4.2.1}%
+\contentsline {subsubsection}{\numberline {6.4.2.2}register\_user()}{21}{subsubsection.6.4.2.2}%
+\contentsline {subsubsection}{\numberline {6.4.2.3}unregister\_user()}{22}{subsubsection.6.4.2.3}%
+\contentsline {section}{\numberline {6.5}user\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}db.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}c}{23}{section.6.5}%
+\contentsline {section}{\numberline {6.6}user\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}db.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}h}{23}{section.6.6}%
+\contentsline {section}{\numberline {6.7}json\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}tools.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}cpp}{23}{section.6.7}%
+\contentsline {section}{\numberline {6.8}json\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}tools.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}h}{24}{section.6.8}%
+\contentsline {section}{\numberline {6.9}daemon/daemon\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}utils/common\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}utils/print/print\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}utils.c File Reference}{24}{section.6.9}%
+\contentsline {subsection}{\numberline {6.9.1}Detailed Description}{25}{subsection.6.9.1}%
+\contentsline {subsection}{\numberline {6.9.2}Function Documentation}{25}{subsection.6.9.2}%
+\contentsline {subsubsection}{\numberline {6.9.2.1}print\_debug()}{25}{subsubsection.6.9.2.1}%
+\contentsline {subsubsection}{\numberline {6.9.2.2}print\_err()}{26}{subsubsection.6.9.2.2}%
+\contentsline {subsubsection}{\numberline {6.9.2.3}print\_msg()}{27}{subsubsection.6.9.2.3}%
+\contentsline {subsubsection}{\numberline {6.9.2.4}print\_warn()}{28}{subsubsection.6.9.2.4}%
+\contentsline {subsection}{\numberline {6.9.3}Variable Documentation}{28}{subsection.6.9.3}%
+\contentsline {subsubsection}{\numberline {6.9.3.1}cleared}{28}{subsubsection.6.9.3.1}%
+\contentsline {section}{\numberline {6.10}print\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}utils.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}c}{29}{section.6.10}%
+\contentsline {section}{\numberline {6.11}print\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}utils.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}h}{30}{section.6.11}%
+\contentsline {section}{\numberline {6.12}tcfs\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}daemon\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}tools.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}c}{30}{section.6.12}%
+\contentsline {section}{\numberline {6.13}tcfs\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}daemon\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}tools.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}h}{31}{section.6.13}%
+\contentsline {section}{\numberline {6.14}message\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}handler.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}c}{31}{section.6.14}%
+\contentsline {section}{\numberline {6.15}message\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}handler.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}h}{32}{section.6.15}%
+\contentsline {section}{\numberline {6.16}queue.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}c}{32}{section.6.16}%
+\contentsline {section}{\numberline {6.17}queue.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}h}{33}{section.6.17}%
+\contentsline {section}{\numberline {6.18}daemon/tcfs\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}daemon.c File Reference}{33}{section.6.18}%
+\contentsline {subsection}{\numberline {6.18.1}Detailed Description}{34}{subsection.6.18.1}%
+\contentsline {subsection}{\numberline {6.18.2}Function Documentation}{34}{subsection.6.18.2}%
+\contentsline {subsubsection}{\numberline {6.18.2.1}handle\_termination()}{34}{subsubsection.6.18.2.1}%
+\contentsline {subsubsection}{\numberline {6.18.2.2}main()}{35}{subsubsection.6.18.2.2}%
+\contentsline {subsection}{\numberline {6.18.3}Variable Documentation}{35}{subsection.6.18.3}%
+\contentsline {subsubsection}{\numberline {6.18.3.1}MQUEUE}{35}{subsubsection.6.18.3.1}%
+\contentsline {subsubsection}{\numberline {6.18.3.2}terminate}{36}{subsubsection.6.18.3.2}%
+\contentsline {subsubsection}{\numberline {6.18.3.3}terminate\_mutex}{36}{subsubsection.6.18.3.3}%
+\contentsline {section}{\numberline {6.19}tcfs\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}daemon.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}c}{36}{section.6.19}%
+\contentsline {section}{\numberline {6.20}tcfs\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}kmodule.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}c}{37}{section.6.20}%
+\contentsline {section}{\numberline {6.21}tcfs\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}helper\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}tools.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}c}{38}{section.6.21}%
+\contentsline {section}{\numberline {6.22}tcfs\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}helper\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}tools.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}h}{42}{section.6.22}%
+\contentsline {section}{\numberline {6.23}user\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}tcfs.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}c}{42}{section.6.23}%
+\contentsline {section}{\numberline {6.24}tcfs.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}c}{43}{section.6.24}%
+\contentsline {section}{\numberline {6.25}crypt-\/utils.c}{52}{section.6.25}%
+\contentsline {section}{\numberline {6.26}crypt-\/utils.h}{55}{section.6.26}%
+\contentsline {section}{\numberline {6.27}password\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}manager.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}c}{56}{section.6.27}%
+\contentsline {section}{\numberline {6.28}password\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}manager.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}h}{56}{section.6.28}%
+\contentsline {section}{\numberline {6.29}tcfs\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}utils.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}c}{56}{section.6.29}%
+\contentsline {section}{\numberline {6.30}tcfs\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}utils.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}h}{58}{section.6.30}%
+\contentsline {chapter}{Index}{59}{section*.25}%

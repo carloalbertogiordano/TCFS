@@ -1,0 +1,107 @@
+.TH "daemon/daemon_utils/common_utils/db/user_db.c" 3 "Mon Nov 27 2023 17:03:19" "Version 0.2" "TCFS" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+daemon/daemon_utils/common_utils/db/user_db.c \- This file contains the functions to interact with the database\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+\fC#include 'user_db\&.h'\fP
+.br
+\fC#include 'redis\&.h'\fP
+.br
+
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "int \fBregister_user\fP (\fBqm_user\fP *user_msg)"
+.br
+.RI "Register or update a user in the db, this relies on the \fBredis\&.c\fP file\&. "
+.ti -1c
+.RI "int \fBunregister_user\fP (pid_t pid)"
+.br
+.RI "Remove a user from the DB\&. "
+.ti -1c
+.RI "void \fBdisconnect_db\fP (void)"
+.br
+.RI "Free the context of the DB\&. "
+.in -1c
+.SH "Detailed Description"
+.PP 
+This file contains the functions to interact with the database\&. 
+
+
+.PP
+Definition in file \fBuser_db\&.c\fP\&.
+.SH "Function Documentation"
+.PP 
+.SS "void disconnect_db (void)"
+
+.PP
+Free the context of the DB\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIvoid\fP 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+void 
+.RE
+.PP
+\fBNote\fP
+.RS 4
+If this fails no errors will be printed and no errno will be set, you are on your own :( 
+.RE
+.PP
+
+.PP
+Definition at line \fB41\fP of file \fBuser_db\&.c\fP\&.
+.PP
+References \fBprint_msg()\fP\&.
+.SS "int register_user (\fBqm_user\fP * user_msg)"
+
+.PP
+Register or update a user in the db, this relies on the \fBredis\&.c\fP file\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIqm_user*\fP A pointer to the allocated qm_user* struct 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+1 if successful, 0 otherwise 
+.RE
+.PP
+
+.PP
+Definition at line \fB14\fP of file \fBuser_db\&.c\fP\&.
+.PP
+References \fBprint_msg()\fP\&.
+.SS "int unregister_user (pid_t pid)"
+
+.PP
+Remove a user from the DB\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIpid_t\fP pid the key 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+1 if successful, 0 otherwise 
+.RE
+.PP
+
+.PP
+Definition at line \fB29\fP of file \fBuser_db\&.c\fP\&.
+.PP
+References \fBprint_msg()\fP\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for TCFS from the source code\&.

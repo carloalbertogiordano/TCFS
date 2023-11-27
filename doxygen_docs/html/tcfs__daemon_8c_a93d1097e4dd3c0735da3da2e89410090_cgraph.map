@@ -1,0 +1,5 @@
+<map id="handle_termination" name="handle_termination">
+<area shape="rect" id="Node000001" title="Handle the termination if SIGTERM is received." alt="" coords="5,5,136,31"/>
+<area shape="rect" id="Node000002" href="$print__utils_8c.html#a491dc14c94ed8cf706bb54880c50b2d0" title="Format and print data as a message." alt="" coords="184,5,263,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="136,15,168,15,168,21,136,21"/>
+</map>

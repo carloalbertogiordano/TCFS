@@ -1,0 +1,371 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="tcfs__daemon_8c" kind="file" language="C++">
+    <compoundname>tcfs_daemon.c</compoundname>
+    <includes refid="tcfs__daemon__tools_8h" local="yes">daemon_utils/daemon_tools/tcfs_daemon_tools.h</includes>
+    <incdepgraph>
+      <node id="13">
+        <label>../common.h</label>
+        <link refid="common_8h_source"/>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+      </node>
+      <node id="21">
+        <label>../common_utils/json/json_tools.h</label>
+        <link refid="json__tools_8h_source"/>
+        <childnode refid="13" relation="include">
+        </childnode>
+      </node>
+      <node id="18">
+        <label>../common_utils/print/print_utils.h</label>
+        <link refid="print__utils_8h_source"/>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>daemon_utils/daemon_tools/tcfs_daemon_tools.h</label>
+        <link refid="tcfs__daemon__tools_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+      </node>
+      <node id="22">
+        <label>../message_handler/message_handler.h</label>
+        <link refid="message__handler_8h_source"/>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>../queue/queue.h</label>
+        <link refid="queue_8h_source"/>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>daemon/tcfs_daemon.c</label>
+        <link refid="tcfs__daemon_8c"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>errno.h</label>
+      </node>
+      <node id="5">
+        <label>fcntl.h</label>
+      </node>
+      <node id="15">
+        <label>mqueue.h</label>
+      </node>
+      <node id="10">
+        <label>pthread.h</label>
+      </node>
+      <node id="11">
+        <label>signal.h</label>
+      </node>
+      <node id="6">
+        <label>stdbool.h</label>
+      </node>
+      <node id="20">
+        <label>stdio.h</label>
+      </node>
+      <node id="3">
+        <label>stdlib.h</label>
+      </node>
+      <node id="16">
+        <label>string.h</label>
+      </node>
+      <node id="7">
+        <label>sys/socket.h</label>
+      </node>
+      <node id="9">
+        <label>sys/stat.h</label>
+      </node>
+      <node id="14">
+        <label>sys/types.h</label>
+      </node>
+      <node id="8">
+        <label>sys/un.h</label>
+      </node>
+      <node id="19">
+        <label>systemd/sd-journal.h</label>
+      </node>
+      <node id="4">
+        <label>unistd.h</label>
+      </node>
+    </incdepgraph>
+    <sectiondef kind="var">
+      <memberdef kind="variable" id="tcfs__daemon_8c_1a679ec79d065ad812032851f6872caee6" prot="public" static="no" mutable="no">
+        <type>volatile int</type>
+        <definition>volatile int terminate</definition>
+        <argsstring></argsstring>
+        <name>terminate</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+<para>If the spawned threads terminate abruptly they should set this to 1, so that the daemon can terminate. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><xrefsect id="todo_1_todo000004"><xreftitle>Todo</xreftitle><xrefdescription><para>: Implement logic to make this work </para>
+</xrefdescription></xrefsect></para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="daemon/tcfs_daemon.c" line="17" column="14" bodyfile="daemon/tcfs_daemon.c" bodystart="17" bodyend="-1"/>
+        <referencedby refid="tcfs__daemon_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="tcfs__daemon_8c" startline="47" endline="135">main</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="tcfs__daemon_8c_1af7e1db76e3a69a4b0484910b1f7562da" prot="public" static="no" mutable="no">
+        <type>pthread_mutex_t</type>
+        <definition>pthread_mutex_t terminate_mutex</definition>
+        <argsstring></argsstring>
+        <name>terminate_mutex</name>
+        <initializer>= PTHREAD_MUTEX_INITIALIZER</initializer>
+        <briefdescription>
+<para>Mutex needed to set the var terminate to 1 safely. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><xrefsect id="todo_1_todo000005"><xreftitle>Todo</xreftitle><xrefdescription><para>: implement logic to make this work </para>
+</xrefdescription></xrefsect></para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="daemon/tcfs_daemon.c" line="23" column="17" bodyfile="daemon/tcfs_daemon.c" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="tcfs__daemon_8c_1a6376ed00be9fd53f7579e9243f3eacde" prot="public" static="no" mutable="no">
+        <type>const char</type>
+        <definition>MQUEUE</definition>
+        <argsstring>[]</argsstring>
+        <name>MQUEUE</name>
+        <initializer>= &quot;/tcfs_queue&quot;</initializer>
+        <briefdescription>
+<para>the queue file location </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="daemon/tcfs_daemon.c" line="29" column="12" bodyfile="daemon/tcfs_daemon.c" bodystart="29" bodyend="-1"/>
+        <referencedby refid="tcfs__daemon_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="tcfs__daemon_8c" startline="47" endline="135">main</referencedby>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="tcfs__daemon_8c_1a93d1097e4dd3c0735da3da2e89410090" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void handle_termination</definition>
+        <argsstring>(int signum)</argsstring>
+        <name>handle_termination</name>
+        <param>
+          <type>int</type>
+          <declname>signum</declname>
+        </param>
+        <briefdescription>
+<para>Handle the termination if SIGTERM is received. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>int</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>signum Integer corresponding to SIGNUM </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<xrefsect id="todo_1_todo000006"><xreftitle>Todo</xreftitle><xrefdescription><para>: Implement remove_queue() to clear and delete the queue </para>
+</xrefdescription></xrefsect></para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="daemon/tcfs_daemon.c" line="36" column="6" bodyfile="daemon/tcfs_daemon.c" bodystart="36" bodyend="40"/>
+        <references refid="print__utils_8c_1a491dc14c94ed8cf706bb54880c50b2d0" compoundref="print__utils_8c" startline="89" endline="100">print_msg</references>
+        <referencedby refid="tcfs__daemon_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="tcfs__daemon_8c" startline="47" endline="135">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="tcfs__daemon_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int main</definition>
+        <argsstring>()</argsstring>
+        <name>main</name>
+        <briefdescription>
+<para>main function of the daemon. This will daemonize the program, spawn a thread to handle messages and handle unexpected termination of the thread </para>
+        </briefdescription>
+        <detaileddescription>
+<para><xrefsect id="todo_1_todo000007"><xreftitle>Todo</xreftitle><xrefdescription><para>: The brief description is basically false advertisement. It only spawn a thread and hangs infinitely </para>
+<para>: Remove the thread that spawns handle_outgoing_messages. This must not make it into final release </para>
+</xrefdescription></xrefsect></para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="daemon/tcfs_daemon.c" line="47" column="5" bodyfile="daemon/tcfs_daemon.c" bodystart="47" bodyend="135"/>
+        <references refid="tcfs__daemon_8c_1a93d1097e4dd3c0735da3da2e89410090" compoundref="tcfs__daemon_8c" startline="36" endline="40">handle_termination</references>
+        <references refid="tcfs__daemon_8c_1a6376ed00be9fd53f7579e9243f3eacde" compoundref="tcfs__daemon_8c" startline="29">MQUEUE</references>
+        <references refid="print__utils_8c_1a650ab060ffe5dbc6c1a968a9cae3bded" compoundref="print__utils_8c" startline="69" endline="80">print_err</references>
+        <references refid="print__utils_8c_1a491dc14c94ed8cf706bb54880c50b2d0" compoundref="print__utils_8c" startline="89" endline="100">print_msg</references>
+        <references refid="tcfs__daemon_8c_1a679ec79d065ad812032851f6872caee6" compoundref="tcfs__daemon_8c" startline="17">terminate</references>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>This is the core of the daemon. </para>
+    </briefdescription>
+    <detaileddescription>
+<para><simplesect kind="note"><para>Forking is disable at the moment, this meas it will run as a &quot;normal&quot; program </para>
+</simplesect>
+<simplesect kind="note"><para>the main function spawns a thread to handle incoming messages on the queue </para>
+</simplesect>
+<xrefsect id="todo_1_todo000003"><xreftitle>Todo</xreftitle><xrefdescription><para>: Enable forking </para>
+<para>Run the daemon via SystemD </para>
+</xrefdescription></xrefsect></para>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#include<sp/>&quot;daemon_utils/daemon_tools/tcfs_daemon_tools.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="17" refid="tcfs__daemon_8c_1a679ec79d065ad812032851f6872caee6" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="tcfs__daemon_8c_1a679ec79d065ad812032851f6872caee6" kindref="member">terminate</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="23" refid="tcfs__daemon_8c_1af7e1db76e3a69a4b0484910b1f7562da" refkind="member"><highlight class="normal">pthread_mutex_t<sp/><ref refid="tcfs__daemon_8c_1af7e1db76e3a69a4b0484910b1f7562da" kindref="member">terminate_mutex</ref><sp/>=<sp/>PTHREAD_MUTEX_INITIALIZER;</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29" refid="tcfs__daemon_8c_1a6376ed00be9fd53f7579e9243f3eacde" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="tcfs__daemon_8c_1a6376ed00be9fd53f7579e9243f3eacde" kindref="member">MQUEUE</ref>[]<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;/tcfs_queue&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36" refid="tcfs__daemon_8c_1a93d1097e4dd3c0735da3da2e89410090" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="tcfs__daemon_8c_1a93d1097e4dd3c0735da3da2e89410090" kindref="member">handle_termination</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>signum)<sp/>{</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="print__utils_8c_1a491dc14c94ed8cf706bb54880c50b2d0" kindref="member">print_msg</ref>(</highlight><highlight class="stringliteral">&quot;TCFS<sp/>TERMINATED.\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//remove_empty_queue(queue_id);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/>exit(0);</highlight></codeline>
+<codeline lineno="40"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47" refid="tcfs__daemon_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="tcfs__daemon_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" kindref="member">main</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/>signal(SIGTERM,<sp/><ref refid="tcfs__daemon_8c_1a93d1097e4dd3c0735da3da2e89410090" kindref="member">handle_termination</ref>);</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="print__utils_8c_1a491dc14c94ed8cf706bb54880c50b2d0" kindref="member">print_msg</ref>(</highlight><highlight class="stringliteral">&quot;TCFS<sp/>daemon<sp/>is<sp/>starting&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*pid_t<sp/>pid;</highlight></codeline>
+<codeline lineno="53"><highlight class="comment"></highlight></codeline>
+<codeline lineno="54"><highlight class="comment"><sp/><sp/><sp/><sp/>//<sp/>Fork<sp/>off<sp/>the<sp/>parent<sp/>process</highlight></codeline>
+<codeline lineno="55"><highlight class="comment"><sp/><sp/><sp/><sp/>pid<sp/>=<sp/>fork();</highlight></codeline>
+<codeline lineno="56"><highlight class="comment"></highlight></codeline>
+<codeline lineno="57"><highlight class="comment"><sp/><sp/><sp/><sp/>//<sp/>An<sp/>error<sp/>occurred</highlight></codeline>
+<codeline lineno="58"><highlight class="comment"><sp/><sp/><sp/><sp/>if<sp/>(pid<sp/>&lt;<sp/>0)</highlight></codeline>
+<codeline lineno="59"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>exit(EXIT_FAILURE);</highlight></codeline>
+<codeline lineno="60"><highlight class="comment"></highlight></codeline>
+<codeline lineno="61"><highlight class="comment"><sp/><sp/><sp/><sp/>//<sp/>Success:<sp/>Let<sp/>the<sp/>parent<sp/>terminate</highlight></codeline>
+<codeline lineno="62"><highlight class="comment"><sp/><sp/><sp/><sp/>if<sp/>(pid<sp/>&gt;<sp/>0)</highlight></codeline>
+<codeline lineno="63"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>exit(EXIT_SUCCESS);</highlight></codeline>
+<codeline lineno="64"><highlight class="comment"></highlight></codeline>
+<codeline lineno="65"><highlight class="comment"><sp/><sp/><sp/><sp/>//<sp/>On<sp/>success:<sp/>The<sp/>child<sp/>process<sp/>becomes<sp/>session<sp/>leader</highlight></codeline>
+<codeline lineno="66"><highlight class="comment"><sp/><sp/><sp/><sp/>if<sp/>(setsid()<sp/>&lt;<sp/>0)</highlight></codeline>
+<codeline lineno="67"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>exit(EXIT_FAILURE);</highlight></codeline>
+<codeline lineno="68"><highlight class="comment"></highlight></codeline>
+<codeline lineno="69"><highlight class="comment"><sp/><sp/><sp/><sp/>//<sp/>Catch,<sp/>ignore<sp/>and<sp/>handle<sp/>signals</highlight></codeline>
+<codeline lineno="70"><highlight class="comment"><sp/><sp/><sp/><sp/>signal(SIGCHLD,<sp/>SIG_IGN);</highlight></codeline>
+<codeline lineno="71"><highlight class="comment"><sp/><sp/><sp/><sp/>signal(SIGHUP,<sp/>SIG_IGN);</highlight></codeline>
+<codeline lineno="72"><highlight class="comment"></highlight></codeline>
+<codeline lineno="73"><highlight class="comment"><sp/><sp/><sp/><sp/>//<sp/>Fork<sp/>off<sp/>for<sp/>the<sp/>second<sp/>time</highlight></codeline>
+<codeline lineno="74"><highlight class="comment"><sp/><sp/><sp/><sp/>pid<sp/>=<sp/>fork();</highlight></codeline>
+<codeline lineno="75"><highlight class="comment"></highlight></codeline>
+<codeline lineno="76"><highlight class="comment"><sp/><sp/><sp/><sp/>//<sp/>An<sp/>error<sp/>occurred</highlight></codeline>
+<codeline lineno="77"><highlight class="comment"><sp/><sp/><sp/><sp/>if<sp/>(pid<sp/>&lt;<sp/>0)</highlight></codeline>
+<codeline lineno="78"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>exit(EXIT_FAILURE);</highlight></codeline>
+<codeline lineno="79"><highlight class="comment"></highlight></codeline>
+<codeline lineno="80"><highlight class="comment"><sp/><sp/><sp/><sp/>//<sp/>Success:<sp/>Let<sp/>the<sp/>parent<sp/>terminate</highlight></codeline>
+<codeline lineno="81"><highlight class="comment"><sp/><sp/><sp/><sp/>if<sp/>(pid<sp/>&gt;<sp/>0)</highlight></codeline>
+<codeline lineno="82"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>exit(EXIT_SUCCESS);</highlight></codeline>
+<codeline lineno="83"><highlight class="comment"></highlight></codeline>
+<codeline lineno="84"><highlight class="comment"><sp/><sp/><sp/><sp/>//<sp/>Set<sp/>new<sp/>file<sp/>permissions</highlight></codeline>
+<codeline lineno="85"><highlight class="comment"><sp/><sp/><sp/><sp/>umask(0);</highlight></codeline>
+<codeline lineno="86"><highlight class="comment"></highlight></codeline>
+<codeline lineno="87"><highlight class="comment"><sp/><sp/><sp/><sp/>//<sp/>Change<sp/>the<sp/>working<sp/>directory<sp/>to<sp/>the<sp/>root<sp/>directory</highlight></codeline>
+<codeline lineno="88"><highlight class="comment"><sp/><sp/><sp/><sp/>//<sp/>or<sp/>another<sp/>appropriated<sp/>directory</highlight></codeline>
+<codeline lineno="89"><highlight class="comment"><sp/><sp/><sp/><sp/>chdir(&quot;/&quot;);</highlight></codeline>
+<codeline lineno="90"><highlight class="comment"></highlight></codeline>
+<codeline lineno="91"><highlight class="comment"><sp/><sp/><sp/><sp/>//<sp/>Close<sp/>all<sp/>open<sp/>file<sp/>descriptors</highlight></codeline>
+<codeline lineno="92"><highlight class="comment"><sp/><sp/><sp/><sp/>int<sp/>x;</highlight></codeline>
+<codeline lineno="93"><highlight class="comment"><sp/><sp/><sp/><sp/>for<sp/>(x<sp/>=<sp/>sysconf(_SC_OPEN_MAX);<sp/>x&gt;=0;<sp/>x--)</highlight></codeline>
+<codeline lineno="94"><highlight class="comment"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="95"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>close<sp/>(x);</highlight></codeline>
+<codeline lineno="96"><highlight class="comment"><sp/><sp/><sp/><sp/>}*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/>pthread_t<sp/>thread1,<sp/>thread2;</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/>mqd_t<sp/>queue_id<sp/>=<sp/>init_queue((</highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*)<ref refid="tcfs__daemon_8c_1a6376ed00be9fd53f7579e9243f3eacde" kindref="member">MQUEUE</ref>);</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/>printf(</highlight><highlight class="stringliteral">&quot;TEST<sp/>%d&quot;</highlight><highlight class="normal">,<sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal">)queue_id);</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(queue_id<sp/>==<sp/>0)</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="print__utils_8c_1a650ab060ffe5dbc6c1a968a9cae3bded" kindref="member">print_err</ref>(</highlight><highlight class="stringliteral">&quot;Cannot<sp/>open<sp/>message<sp/>queue<sp/>in<sp/>%s&quot;</highlight><highlight class="normal">,<sp/>(</highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*)<ref refid="tcfs__daemon_8c_1a6376ed00be9fd53f7579e9243f3eacde" kindref="member">MQUEUE</ref>);</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>unlink(<ref refid="tcfs__daemon_8c_1a6376ed00be9fd53f7579e9243f3eacde" kindref="member">MQUEUE</ref>);</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>-errno;</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(pthread_create(&amp;thread1,<sp/>NULL,<sp/>handle_incoming_messages,<sp/>&amp;queue_id)<sp/>!=<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="print__utils_8c_1a650ab060ffe5dbc6c1a968a9cae3bded" kindref="member">print_err</ref>(</highlight><highlight class="stringliteral">&quot;Failed<sp/>to<sp/>create<sp/>thread1&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>mq_close(queue_id);</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>unlink(<ref refid="tcfs__daemon_8c_1a6376ed00be9fd53f7579e9243f3eacde" kindref="member">MQUEUE</ref>);</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>-errno;</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(pthread_create(&amp;thread2,<sp/>NULL,<sp/>handle_outgoing_messages,<sp/>&amp;queue_id)<sp/>!=<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="print__utils_8c_1a650ab060ffe5dbc6c1a968a9cae3bded" kindref="member">print_err</ref>(</highlight><highlight class="stringliteral">&quot;Failed<sp/>to<sp/>create<sp/>thread1&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>mq_close(queue_id);</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>unlink(<ref refid="tcfs__daemon_8c_1a6376ed00be9fd53f7579e9243f3eacde" kindref="member">MQUEUE</ref>);</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>-errno;</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(!<ref refid="tcfs__daemon_8c_1a679ec79d065ad812032851f6872caee6" kindref="member">terminate</ref>)<sp/>{}</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/>pthread_join(thread1,<sp/>NULL);</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/>pthread_join(thread2,<sp/>NULL);</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/>mq_close(queue_id);</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/>unlink(<ref refid="tcfs__daemon_8c_1a6376ed00be9fd53f7579e9243f3eacde" kindref="member">MQUEUE</ref>);</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="print__utils_8c_1a650ab060ffe5dbc6c1a968a9cae3bded" kindref="member">print_err</ref>(</highlight><highlight class="stringliteral">&quot;TCFS<sp/>daemon<sp/>threads<sp/>returned,<sp/>this<sp/>should<sp/>have<sp/>never<sp/>happened&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"></highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>-1;</highlight></codeline>
+<codeline lineno="135"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="daemon/tcfs_daemon.c"/>
+  </compounddef>
+</doxygen>

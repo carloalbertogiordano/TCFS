@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_print__utils_8c_source" xml:lang="en-US">
+<title>print_utils.c</title>
+<indexterm><primary>daemon/daemon_utils/common_utils/print/print_utils.c</primary></indexterm>
+Go to the documentation of this file.<programlisting linenumbering="unnumbered"><anchor xml:id="_print__utils_8c_source_1l00001"/>00001 <emphasis role="preprocessor">#include&#32;&quot;print_utils.h&quot;</emphasis>
+<anchor xml:id="_print__utils_8c_source_1l00002"/>00002 
+<anchor xml:id="_print__utils_8c_source_1l00013"/>00013 <emphasis role="keywordtype">int</emphasis>&#32;cleared&#32;=&#32;0;
+<anchor xml:id="_print__utils_8c_source_1l00014"/>00014 
+<anchor xml:id="_print__utils_8c_source_1l00022"/>00022 <emphasis role="keywordtype">void</emphasis>&#32;log_message(<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*log){
+<anchor xml:id="_print__utils_8c_source_1l00023"/>00023 &#32;&#32;&#32;&#32;printf(<emphasis role="stringliteral">&quot;%s\n&quot;</emphasis>,&#32;log);
+<anchor xml:id="_print__utils_8c_source_1l00024"/>00024 &#32;&#32;&#32;&#32;<emphasis role="comment">//&#32;Path&#32;of&#32;the&#32;log&#32;folder&#32;and&#32;log&#32;file</emphasis>
+<anchor xml:id="_print__utils_8c_source_1l00025"/>00025 &#32;&#32;&#32;&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*logFolder&#32;=&#32;<emphasis role="stringliteral">&quot;/var/log/tcfs&quot;</emphasis>;
+<anchor xml:id="_print__utils_8c_source_1l00030"/>00030 &#32;&#32;&#32;&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*logFile&#32;=&#32;<emphasis role="stringliteral">&quot;/var/log/tcfs/log.txt&quot;</emphasis>;
+<anchor xml:id="_print__utils_8c_source_1l00031"/>00031 
+<anchor xml:id="_print__utils_8c_source_1l00032"/>00032 &#32;&#32;&#32;&#32;<emphasis role="comment">//&#32;Check&#32;if&#32;the&#32;folder&#32;exists,&#32;otherwise&#32;create&#32;it</emphasis>
+<anchor xml:id="_print__utils_8c_source_1l00033"/>00033 &#32;&#32;&#32;&#32;<emphasis role="keyword">struct&#32;</emphasis>stat&#32;st;
+<anchor xml:id="_print__utils_8c_source_1l00034"/>00034 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(stat(logFolder,&#32;&amp;st)&#32;==&#32;-1)&#32;{
+<anchor xml:id="_print__utils_8c_source_1l00035"/>00035 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;mkdir(logFolder,&#32;0700);
+<anchor xml:id="_print__utils_8c_source_1l00036"/>00036 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_print__utils_8c_source_1l00037"/>00037 
+<anchor xml:id="_print__utils_8c_source_1l00038"/>00038 &#32;&#32;&#32;&#32;FILE&#32;*file;
+<anchor xml:id="_print__utils_8c_source_1l00039"/>00039 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(cleared&#32;==&#32;0)
+<anchor xml:id="_print__utils_8c_source_1l00040"/>00040 &#32;&#32;&#32;&#32;{
+<anchor xml:id="_print__utils_8c_source_1l00041"/>00041 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;cleared&#32;=&#32;1;
+<anchor xml:id="_print__utils_8c_source_1l00042"/>00042 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;file&#32;=&#32;fopen(logFile,&#32;<emphasis role="stringliteral">&quot;w&quot;</emphasis>);
+<anchor xml:id="_print__utils_8c_source_1l00043"/>00043 &#32;&#32;&#32;&#32;}&#32;<emphasis role="keywordflow">else</emphasis>&#32;{
+<anchor xml:id="_print__utils_8c_source_1l00044"/>00044 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;file&#32;=&#32;fopen(logFile,&#32;<emphasis role="stringliteral">&quot;a&quot;</emphasis>);
+<anchor xml:id="_print__utils_8c_source_1l00045"/>00045 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_print__utils_8c_source_1l00046"/>00046 
+<anchor xml:id="_print__utils_8c_source_1l00047"/>00047 &#32;&#32;&#32;&#32;<emphasis role="comment">//&#32;Open&#32;the&#32;log&#32;file&#32;in&#32;append&#32;mode</emphasis>
+<anchor xml:id="_print__utils_8c_source_1l00048"/>00048 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(file&#32;==&#32;NULL)&#32;{
+<anchor xml:id="_print__utils_8c_source_1l00049"/>00049 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;perror(<emphasis role="stringliteral">&quot;Error&#32;opening&#32;the&#32;log&#32;file&quot;</emphasis>);
+<anchor xml:id="_print__utils_8c_source_1l00050"/>00050 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_print__utils_8c_source_1l00051"/>00051 
+<anchor xml:id="_print__utils_8c_source_1l00052"/>00052 &#32;&#32;&#32;&#32;<emphasis role="comment">//&#32;Write&#32;the&#32;message&#32;to&#32;the&#32;log&#32;file</emphasis>
+<anchor xml:id="_print__utils_8c_source_1l00053"/>00053 &#32;&#32;&#32;&#32;fprintf(file,&#32;<emphasis role="stringliteral">&quot;%s\n&quot;</emphasis>,&#32;log);
+<anchor xml:id="_print__utils_8c_source_1l00054"/>00054 
+<anchor xml:id="_print__utils_8c_source_1l00055"/>00055 &#32;&#32;&#32;&#32;<emphasis role="comment">//&#32;Close&#32;the&#32;file</emphasis>
+<anchor xml:id="_print__utils_8c_source_1l00056"/>00056 &#32;&#32;&#32;&#32;fclose(file);
+<anchor xml:id="_print__utils_8c_source_1l00057"/>00057 }
+<anchor xml:id="_print__utils_8c_source_1l00058"/>00058 
+<anchor xml:id="_print__utils_8c_source_1l00069"/><link linkend="_print__utils_8c_1a650ab060ffe5dbc6c1a968a9cae3bded">00069</link> <emphasis role="keywordtype">void</emphasis>&#32;<link linkend="_print__utils_8c_1a650ab060ffe5dbc6c1a968a9cae3bded">print_err</link>(<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*format,&#32;...)
+<anchor xml:id="_print__utils_8c_source_1l00070"/>00070 {
+<anchor xml:id="_print__utils_8c_source_1l00071"/>00071 &#32;&#32;&#32;&#32;va_list&#32;args;
+<anchor xml:id="_print__utils_8c_source_1l00072"/>00072 &#32;&#32;&#32;&#32;va_start(args,&#32;format);
+<anchor xml:id="_print__utils_8c_source_1l00073"/>00073 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">char</emphasis>&#32;buffer[1024];
+<anchor xml:id="_print__utils_8c_source_1l00074"/>00074 &#32;&#32;&#32;&#32;vsnprintf(buffer,&#32;<emphasis role="keyword">sizeof</emphasis>(buffer),&#32;format,&#32;args);
+<anchor xml:id="_print__utils_8c_source_1l00075"/>00075 &#32;&#32;&#32;&#32;va_end(args);
+<anchor xml:id="_print__utils_8c_source_1l00076"/>00076 
+<anchor xml:id="_print__utils_8c_source_1l00077"/>00077 &#32;&#32;&#32;&#32;log_message(buffer);
+<anchor xml:id="_print__utils_8c_source_1l00078"/>00078 
+<anchor xml:id="_print__utils_8c_source_1l00079"/>00079 &#32;&#32;&#32;&#32;sd_journal_print(LOG_ERR,&#32;<emphasis role="stringliteral">&quot;ERROR=%s&#32;Err_Number:%d&#32;-&gt;&#32;%s&quot;</emphasis>,&#32;buffer,&#32;errno,&#32;strerror(errno));
+<anchor xml:id="_print__utils_8c_source_1l00080"/>00080 }
+<anchor xml:id="_print__utils_8c_source_1l00089"/><link linkend="_print__utils_8c_1a491dc14c94ed8cf706bb54880c50b2d0">00089</link> <emphasis role="keywordtype">void</emphasis>&#32;<link linkend="_print__utils_8c_1a491dc14c94ed8cf706bb54880c50b2d0">print_msg</link>(<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*format,&#32;...)
+<anchor xml:id="_print__utils_8c_source_1l00090"/>00090 {
+<anchor xml:id="_print__utils_8c_source_1l00091"/>00091 &#32;&#32;&#32;&#32;va_list&#32;args;
+<anchor xml:id="_print__utils_8c_source_1l00092"/>00092 &#32;&#32;&#32;&#32;va_start(args,&#32;format);
+<anchor xml:id="_print__utils_8c_source_1l00093"/>00093 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">char</emphasis>&#32;buffer[1024];
+<anchor xml:id="_print__utils_8c_source_1l00094"/>00094 &#32;&#32;&#32;&#32;vsnprintf(buffer,&#32;<emphasis role="keyword">sizeof</emphasis>(buffer),&#32;format,&#32;args);
+<anchor xml:id="_print__utils_8c_source_1l00095"/>00095 &#32;&#32;&#32;&#32;va_end(args);
+<anchor xml:id="_print__utils_8c_source_1l00096"/>00096 
+<anchor xml:id="_print__utils_8c_source_1l00097"/>00097 &#32;&#32;&#32;&#32;log_message(buffer);
+<anchor xml:id="_print__utils_8c_source_1l00098"/>00098 
+<anchor xml:id="_print__utils_8c_source_1l00099"/>00099 &#32;&#32;&#32;&#32;sd_journal_send(<emphasis role="stringliteral">&quot;MESSAGE=%s&quot;</emphasis>,&#32;buffer,&#32;NULL);
+<anchor xml:id="_print__utils_8c_source_1l00100"/>00100 }
+<anchor xml:id="_print__utils_8c_source_1l00101"/>00101 
+<anchor xml:id="_print__utils_8c_source_1l00110"/><link linkend="_print__utils_8c_1ae39065df491deead21b0375a8ce1a4d6">00110</link> <emphasis role="keywordtype">void</emphasis>&#32;<link linkend="_print__utils_8c_1ae39065df491deead21b0375a8ce1a4d6">print_warn</link>(<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*format,&#32;...)
+<anchor xml:id="_print__utils_8c_source_1l00111"/>00111 {
+<anchor xml:id="_print__utils_8c_source_1l00112"/>00112 &#32;&#32;&#32;&#32;va_list&#32;args;
+<anchor xml:id="_print__utils_8c_source_1l00113"/>00113 &#32;&#32;&#32;&#32;va_start(args,&#32;format);
+<anchor xml:id="_print__utils_8c_source_1l00114"/>00114 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">char</emphasis>&#32;buffer[1024];
+<anchor xml:id="_print__utils_8c_source_1l00115"/>00115 &#32;&#32;&#32;&#32;vsnprintf(buffer,&#32;<emphasis role="keyword">sizeof</emphasis>(buffer),&#32;format,&#32;args);
+<anchor xml:id="_print__utils_8c_source_1l00116"/>00116 &#32;&#32;&#32;&#32;va_end(args);
+<anchor xml:id="_print__utils_8c_source_1l00117"/>00117 
+<anchor xml:id="_print__utils_8c_source_1l00118"/>00118 &#32;&#32;&#32;&#32;log_message(buffer);
+<anchor xml:id="_print__utils_8c_source_1l00119"/>00119 
+<anchor xml:id="_print__utils_8c_source_1l00120"/>00120 &#32;&#32;&#32;&#32;sd_journal_print(LOG_WARNING,&#32;<emphasis role="stringliteral">&quot;WARNING=%s&quot;</emphasis>,&#32;buffer,&#32;NULL);
+<anchor xml:id="_print__utils_8c_source_1l00121"/>00121 }
+<anchor xml:id="_print__utils_8c_source_1l00122"/>00122 
+<anchor xml:id="_print__utils_8c_source_1l00131"/><link linkend="_print__utils_8c_1ad808dc3fd801407dcc907bdea848a47e">00131</link> <emphasis role="keywordtype">void</emphasis>&#32;<link linkend="_print__utils_8c_1ad808dc3fd801407dcc907bdea848a47e">print_debug</link>(<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*format,&#32;...)
+<anchor xml:id="_print__utils_8c_source_1l00132"/>00132 {
+<anchor xml:id="_print__utils_8c_source_1l00133"/>00133 &#32;&#32;&#32;&#32;va_list&#32;args;
+<anchor xml:id="_print__utils_8c_source_1l00134"/>00134 &#32;&#32;&#32;&#32;va_start(args,&#32;format);
+<anchor xml:id="_print__utils_8c_source_1l00135"/>00135 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">char</emphasis>&#32;buffer[1024];
+<anchor xml:id="_print__utils_8c_source_1l00136"/>00136 &#32;&#32;&#32;&#32;vsnprintf(buffer,&#32;<emphasis role="keyword">sizeof</emphasis>(buffer),&#32;format,&#32;args);
+<anchor xml:id="_print__utils_8c_source_1l00137"/>00137 &#32;&#32;&#32;&#32;va_end(args);
+<anchor xml:id="_print__utils_8c_source_1l00138"/>00138 
+<anchor xml:id="_print__utils_8c_source_1l00139"/>00139 &#32;&#32;&#32;&#32;log_message(buffer);
+<anchor xml:id="_print__utils_8c_source_1l00140"/>00140 
+<anchor xml:id="_print__utils_8c_source_1l00141"/>00141 &#32;&#32;&#32;&#32;sd_journal_print(LOG_DEBUG,&#32;<emphasis role="stringliteral">&quot;DEBUG=%s&quot;</emphasis>,&#32;buffer,&#32;NULL);
+<anchor xml:id="_print__utils_8c_source_1l00142"/>00142 }
+</programlisting></section>

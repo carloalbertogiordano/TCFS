@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_json__tools_8h_source" xml:lang="en-US">
+<title>json_tools.h</title>
+<indexterm><primary>daemon/daemon_utils/common_utils/json/json_tools.h</primary></indexterm>
+<programlisting linenumbering="unnumbered"><anchor xml:id="_json__tools_8h_source_1l00001"/>00001 <emphasis role="preprocessor">#include&#32;&quot;../../common.h&quot;</emphasis>
+<anchor xml:id="_json__tools_8h_source_1l00002"/>00002 
+<anchor xml:id="_json__tools_8h_source_1l00003"/>00003 <emphasis role="keyword">extern</emphasis>&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*struct_to_json(qm_type&#32;qmt,&#32;<emphasis role="keywordtype">void</emphasis>&#32;*q_mess);
+<anchor xml:id="_json__tools_8h_source_1l00004"/>00004 <emphasis role="keyword">extern</emphasis>&#32;<emphasis role="keywordtype">void</emphasis>*&#32;string_to_struct(<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>*&#32;json_string,&#32;qm_type*&#32;type);
+</programlisting></section>

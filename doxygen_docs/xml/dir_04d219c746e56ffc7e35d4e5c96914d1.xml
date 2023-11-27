@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="dir_04d219c746e56ffc7e35d4e5c96914d1" kind="dir">
+    <compoundname>daemon/daemon_utils/message_handler</compoundname>
+    <innerfile refid="message__handler_8c">message_handler.c</innerfile>
+    <innerfile refid="message__handler_8h">message_handler.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="daemon/daemon_utils/message_handler/"/>
+  </compounddef>
+</doxygen>

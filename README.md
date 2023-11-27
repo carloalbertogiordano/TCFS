@@ -16,7 +16,7 @@ important data until a stable and complete version is reached. We appreciate any
 bug reports, or contributions from the community that can help improve the project. 
 If you decide to use this software, please **don't do it**.
 Thank you for your interest and understanding as we work to improve the project and make 
-it stable and complete.
+it stable and complete :-).
 
 ## Features
 - Transparent Encryption: TCFS operates silently in the background, encrypting and 
@@ -41,16 +41,49 @@ your system's package manager (e.g., apt, yum, dnf, ecc).
 git clone https://github.com/carloalbertogiordano/TCFS
 </code>
 </pre>
-- Compile: Run the Makefile in the userspace-module directory (Only the FUSE module is avilable at the moment, the whole project has not been implemented yet)
+#### Build and run the userpace module
+- Compile: Run the Makefile in the userspace-module directory
 <pre>
 <code>
 make all
 </code>
 </pre>
+- Run: Run the compiled file. NOTE: Password must be 256 bit or 32 bytes 
+<pre>
+<code>
+build/fuse-module/tcfs -s "source_dir" -d "dest_dir" -p "password"
+</code>
+</pre>
 
-## Usage
+#### Build and run the daemon
+- Build and install: To install the daemon run this commands in the tcfs_daemon directory
+<pre>
+<code>
+make; make install
+</code>
+</pre>
+
+#### Build and run the helper program
+- Compile: Run the Makefile in the user directory
+<pre>
+<code>
+make
+</code>
+</pre>
+- Run: Run the compiled file
+<pre>
+<code>
+build/tcfs_helper/tcfs_helper
+</code>
+</pre>
+
+#### Kernel module
+- This part of the project is not being developed at the moment.
+
+## Usage of the fuse module
+### This is not raccomended, consider using the tcfs_helper program
 ### Mount an NFS share using TCFS:
-First, mount the NFS share to a directroy, this directory will be called sourcedir.
+First, mount the NFS share to a directory, this directory will be called sourcedir.
 This will be done by the helper program in a future release.
 <pre>
 <code>
@@ -98,4 +131,9 @@ as we continue to build upon the foundations set by the original TCFS project.
   - ~~Store a per-file key in the extended attributes and use the user key to decipher it.~~
   - Implement a kernel module to rebuild the private key to decipher the files. This module will use a certificate and your key to rebuild the private key
   - Implement key recovery.
+  - Switch to public/private key
 - Implement threshold sharing files.
+- Daemon:
+  - ~~Implement user registration and deregistration~~
+  - Implement accessing and creation of shared files
+  - Update the userspace module to handle the features that the daemon provides 

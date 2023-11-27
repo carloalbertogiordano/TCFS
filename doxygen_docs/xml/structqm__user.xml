@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structqm__user" kind="struct" language="C++" prot="public">
+    <compoundname>qm_user</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structqm__user_1a4b5bbaaf885c62f44f265eeba461303d" prot="public" static="no" mutable="no">
+        <type>user_operation</type>
+        <definition>user_operation qm_user::user_op</definition>
+        <argsstring></argsstring>
+        <name>user_op</name>
+        <qualifiedname>qm_user::user_op</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="daemon/daemon_utils/common.h" line="28" column="20" bodyfile="daemon/daemon_utils/common.h" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structqm__user_1aa69546c3a6a2124be9f964329c951a84" prot="public" static="no" mutable="no">
+        <type>pid_t</type>
+        <definition>pid_t qm_user::pid</definition>
+        <argsstring></argsstring>
+        <name>pid</name>
+        <qualifiedname>qm_user::pid</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="daemon/daemon_utils/common.h" line="29" column="11" bodyfile="daemon/daemon_utils/common.h" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structqm__user_1a6c52d68724b65831ba6d95f3d7448ff4" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* qm_user::user</definition>
+        <argsstring></argsstring>
+        <name>user</name>
+        <qualifiedname>qm_user::user</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="daemon/daemon_utils/common.h" line="30" column="10" bodyfile="daemon/daemon_utils/common.h" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structqm__user_1ad718cfba201afae89c596111bd508d5f" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* qm_user::pubkey</definition>
+        <argsstring></argsstring>
+        <name>pubkey</name>
+        <qualifiedname>qm_user::pubkey</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="daemon/daemon_utils/common.h" line="31" column="10" bodyfile="daemon/daemon_utils/common.h" bodystart="31" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="4">
+        <label>char *</label>
+      </node>
+      <node id="2">
+        <label>enum user_operation</label>
+      </node>
+      <node id="3">
+        <label>pid_t</label>
+      </node>
+      <node id="1">
+        <label>qm_user</label>
+        <link refid="structqm__user"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>user_op</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>pid</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>pubkey</edgelabel>
+          <edgelabel>user</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="daemon/daemon_utils/common.h" line="27" column="1" bodyfile="daemon/daemon_utils/common.h" bodystart="27" bodyend="32"/>
+    <listofallmembers>
+      <member refid="structqm__user_1aa69546c3a6a2124be9f964329c951a84" prot="public" virt="non-virtual"><scope>qm_user</scope><name>pid</name></member>
+      <member refid="structqm__user_1ad718cfba201afae89c596111bd508d5f" prot="public" virt="non-virtual"><scope>qm_user</scope><name>pubkey</name></member>
+      <member refid="structqm__user_1a6c52d68724b65831ba6d95f3d7448ff4" prot="public" virt="non-virtual"><scope>qm_user</scope><name>user</name></member>
+      <member refid="structqm__user_1a4b5bbaaf885c62f44f265eeba461303d" prot="public" virt="non-virtual"><scope>qm_user</scope><name>user_op</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

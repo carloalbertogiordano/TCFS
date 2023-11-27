@@ -1,0 +1,256 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="queue_8h" kind="file" language="C++">
+    <compoundname>queue.h</compoundname>
+    <includes refid="common_8h" local="yes">../common.h</includes>
+    <includes refid="print__utils_8h" local="yes">../common_utils/print/print_utils.h</includes>
+    <includes refid="json__tools_8h" local="yes">../common_utils/json/json_tools.h</includes>
+    <includes local="no">stdio.h</includes>
+    <includes local="no">stdlib.h</includes>
+    <includedby refid="user__db_8h" local="yes">daemon/daemon_utils/common_utils/db/user_db.h</includedby>
+    <includedby refid="tcfs__daemon__tools_8h" local="yes">daemon/daemon_utils/daemon_tools/tcfs_daemon_tools.h</includedby>
+    <includedby refid="queue_8c" local="yes">daemon/daemon_utils/queue/queue.c</includedby>
+    <incdepgraph>
+      <node id="2">
+        <label>../common.h</label>
+        <link refid="common_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>../common_utils/json/json_tools.h</label>
+        <link refid="json__tools_8h_source"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>../common_utils/print/print_utils.h</label>
+        <link refid="print__utils_8h_source"/>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>daemon/daemon_utils/queue/queue.h</label>
+        <link refid="queue_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>errno.h</label>
+      </node>
+      <node id="5">
+        <label>fcntl.h</label>
+      </node>
+      <node id="6">
+        <label>mqueue.h</label>
+      </node>
+      <node id="12">
+        <label>stdio.h</label>
+      </node>
+      <node id="13">
+        <label>stdlib.h</label>
+      </node>
+      <node id="8">
+        <label>string.h</label>
+      </node>
+      <node id="3">
+        <label>sys/stat.h</label>
+      </node>
+      <node id="4">
+        <label>sys/types.h</label>
+      </node>
+      <node id="11">
+        <label>systemd/sd-journal.h</label>
+      </node>
+      <node id="7">
+        <label>unistd.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="3">
+        <label>daemon/daemon_utils/common_utils/db/user_db.c</label>
+        <link refid="user__db_8c"/>
+      </node>
+      <node id="2">
+        <label>daemon/daemon_utils/common_utils/db/user_db.h</label>
+        <link refid="user__db_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>daemon/daemon_utils/daemon_tools/tcfs_daemon_tools.c</label>
+        <link refid="tcfs__daemon__tools_8c_source"/>
+      </node>
+      <node id="5">
+        <label>daemon/daemon_utils/daemon_tools/tcfs_daemon_tools.h</label>
+        <link refid="tcfs__daemon__tools_8h_source"/>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>daemon/daemon_utils/message_handler/message_handler.c</label>
+        <link refid="message__handler_8c_source"/>
+      </node>
+      <node id="8">
+        <label>daemon/daemon_utils/queue/queue.c</label>
+        <link refid="queue_8c_source"/>
+      </node>
+      <node id="1">
+        <label>daemon/daemon_utils/queue/queue.h</label>
+        <link refid="queue_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>daemon/tcfs_daemon.c</label>
+        <link refid="tcfs__daemon_8c"/>
+      </node>
+    </invincdepgraph>
+    <sectiondef kind="define">
+      <memberdef kind="define" id="queue_8h_1a69e73620bd8f14313137ac04cf571477" prot="public" static="no">
+        <name>MESSAGE_BUFFER_SIZE</name>
+        <initializer>256</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="daemon/daemon_utils/queue/queue.h" line="7" column="9" bodyfile="daemon/daemon_utils/queue/queue.h" bodystart="7" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="queue_8h_1a5872868a041bf1b9e1a266271c317876" prot="public" static="no">
+        <name>MQUEUE_N</name>
+        <initializer>3;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="daemon/daemon_utils/queue/queue.h" line="8" column="9" bodyfile="daemon/daemon_utils/queue/queue.h" bodystart="8" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="queue_8h_1a6997b2cacf3d2e49bc848d0274e24b13" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>mqd_t</type>
+        <definition>mqd_t init_queue</definition>
+        <argsstring>(char *queue)</argsstring>
+        <name>init_queue</name>
+        <param>
+          <type>char *</type>
+          <declname>queue</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="daemon/daemon_utils/queue/queue.h" line="12" column="7" bodyfile="daemon/daemon_utils/queue/queue.c" bodystart="3" bodyend="24" declfile="daemon/daemon_utils/queue/queue.h" declline="12" declcolumn="7"/>
+      </memberdef>
+      <memberdef kind="function" id="queue_8h_1ac51f5d595a9d7376eb0448116c99e1f4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int enqueue</definition>
+        <argsstring>(mqd_t queue_d, qm_type qmt, void *q_mess)</argsstring>
+        <name>enqueue</name>
+        <param>
+          <type>mqd_t</type>
+          <declname>queue_d</declname>
+        </param>
+        <param>
+          <type>qm_type</type>
+          <declname>qmt</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>q_mess</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="daemon/daemon_utils/queue/queue.h" line="13" column="5" bodyfile="daemon/daemon_utils/queue/queue.c" bodystart="25" bodyend="38" declfile="daemon/daemon_utils/queue/queue.h" declline="13" declcolumn="5"/>
+      </memberdef>
+      <memberdef kind="function" id="queue_8h_1a1874b6e320d1e54d571c89766d046602" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void *</type>
+        <definition>void * dequeue</definition>
+        <argsstring>(mqd_t queue_d, qm_type *qmt)</argsstring>
+        <name>dequeue</name>
+        <param>
+          <type>mqd_t</type>
+          <declname>queue_d</declname>
+        </param>
+        <param>
+          <type>qm_type *</type>
+          <declname>qmt</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="daemon/daemon_utils/queue/queue.h" line="14" column="6" bodyfile="daemon/daemon_utils/queue/queue.c" bodystart="39" bodyend="55" declfile="daemon/daemon_utils/queue/queue.h" declline="14" declcolumn="6"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#include<sp/>&quot;../common.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;../common_utils/print/print_utils.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;../common_utils/json/json_tools.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdio.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdlib.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>MESSAGE_BUFFER_SIZE<sp/>256</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>MQUEUE_N<sp/>3;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal">mqd_t<sp/>init_queue(</highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*queue);</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>enqueue(mqd_t<sp/>queue_d,<sp/>qm_type<sp/>qmt,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*q_mess);</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*dequeue(mqd_t<sp/>queue_d,<sp/>qm_type<sp/>*qmt);</highlight></codeline>
+    </programlisting>
+    <location file="daemon/daemon_utils/queue/queue.h"/>
+  </compounddef>
+</doxygen>

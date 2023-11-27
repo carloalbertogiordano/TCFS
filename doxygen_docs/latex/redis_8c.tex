@@ -1,0 +1,341 @@
+\doxysection{daemon/daemon\+\_\+utils/common\+\_\+utils/db/redis.c File Reference}
+\hypertarget{redis_8c}{}\label{redis_8c}\index{daemon/daemon\_utils/common\_utils/db/redis.c@{daemon/daemon\_utils/common\_utils/db/redis.c}}
+
+
+All the function in this file should not be used directly, instead use the function defined by user\+\_\+db.  
+
+
+{\ttfamily \#include "{}redis.\+h"{}}\newline
+{\ttfamily \#include "{}../print/print\+\_\+utils.\+h"{}}\newline
+{\ttfamily \#include "{}../json/json\+\_\+tools.\+h"{}}\newline
+{\ttfamily \#include $<$hiredis/hiredis.\+h$>$}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{redis_8c_a614217d263be1fb1a5f76e2ff7be19a2}{PORT}}~6380
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{redis_8c_a7b5eb746d92734b57a71ce552363283d}{print\+\_\+all\+\_\+keys}} ()
+\begin{DoxyCompactList}\small\item\em For debugging only. Prints all the keys in the database. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{redis_8c_a1f6dc2f98a71a88567fe11fd9e2585ea}{init\+\_\+context}} ()
+\begin{DoxyCompactList}\small\item\em initialize the context for the Redis DB \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{redis_8c_ae19d8c90888a6ed078d6e835bb11e67a}{free\+\_\+context}} ()
+\begin{DoxyCompactList}\small\item\em Free the hiredis context variable. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structqm__user}{qm\+\_\+user}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{redis_8c_a8e6e1687d6351741ac3e353d23425f71}{json\+\_\+to\+\_\+qm\+\_\+user}} (char \texorpdfstring{$\ast$}{*}json)
+\begin{DoxyCompactList}\small\item\em Internal function to simplify the casting of a json to a \doxylink{structqm__user}{qm\+\_\+user} struct. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structqm__user}{qm\+\_\+user}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{redis_8c_af0bf1bfc99afc940619371e3c76ab4f9}{get\+\_\+user\+\_\+by\+\_\+pid}} (pid\+\_\+t pid)
+\begin{DoxyCompactList}\small\item\em Fetch the user on the DB with key pid. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structqm__user}{qm\+\_\+user}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{redis_8c_a73711c0a9d0060337409d15dc44f5ad1}{get\+\_\+user\+\_\+by\+\_\+name}} (const char \texorpdfstring{$\ast$}{*}name)
+\begin{DoxyCompactList}\small\item\em Fetch the user on the DB with key name. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{redis_8c_ac9878ee09b53700eb08c1f175873c30b}{insert}} (\mbox{\hyperlink{structqm__user}{qm\+\_\+user}} \texorpdfstring{$\ast$}{*}user)
+\begin{DoxyCompactList}\small\item\em Insert a new user in the DB. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{redis_8c_a6b18d7ad2f1e8275106a5b39c0c7d216}{remove\+\_\+by\+\_\+pid}} (pid\+\_\+t pid)
+\begin{DoxyCompactList}\small\item\em Remove a user from the DB using the PID as key. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{redis_8c_a2678c0575f2b6c944fd261255aeaebff}{remove\+\_\+by\+\_\+user}} (char \texorpdfstring{$\ast$}{*}name)
+\begin{DoxyCompactList}\small\item\em Remove a user from the DB using the name as key. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+const char \mbox{\hyperlink{redis_8c_a0cc05631b755191d8d1c64c74c77894b}{HOST}} \mbox{[}$\,$\mbox{]} = "{}127.\+0.\+0.\+1"{}
+\item 
+redis\+Context \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{redis_8c_ace869d36dc1b4de4b6d046c0c71486cb}{context}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+All the function in this file should not be used directly, instead use the function defined by user\+\_\+db. 
+
+\begin{DoxySeeAlso}{See also}
+\textbackslash{}ref \doxylink{user__db_8c}{user\+\_\+db.\+c} 
+\end{DoxySeeAlso}
+
+
+Definition in file \mbox{\hyperlink{redis_8c_source}{redis.\+c}}.
+
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{redis_8c_a614217d263be1fb1a5f76e2ff7be19a2}\label{redis_8c_a614217d263be1fb1a5f76e2ff7be19a2} 
+\index{redis.c@{redis.c}!PORT@{PORT}}
+\index{PORT@{PORT}!redis.c@{redis.c}}
+\doxysubsubsection{\texorpdfstring{PORT}{PORT}}
+{\footnotesize\ttfamily \#define PORT~6380}
+
+
+
+Definition at line \mbox{\hyperlink{redis_8c_source_l00013}{13}} of file \mbox{\hyperlink{redis_8c_source}{redis.\+c}}.
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{redis_8c_ae19d8c90888a6ed078d6e835bb11e67a}\label{redis_8c_ae19d8c90888a6ed078d6e835bb11e67a} 
+\index{redis.c@{redis.c}!free\_context@{free\_context}}
+\index{free\_context@{free\_context}!redis.c@{redis.c}}
+\doxysubsubsection{\texorpdfstring{free\_context()}{free\_context()}}
+{\footnotesize\ttfamily void free\+\_\+context (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Free the hiredis context variable. 
+
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{redis_8c_source_l00057}{57}} of file \mbox{\hyperlink{redis_8c_source}{redis.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{user__db_8c_source_l00041}{disconnect\+\_\+db()}}.
+
+\Hypertarget{redis_8c_a73711c0a9d0060337409d15dc44f5ad1}\label{redis_8c_a73711c0a9d0060337409d15dc44f5ad1} 
+\index{redis.c@{redis.c}!get\_user\_by\_name@{get\_user\_by\_name}}
+\index{get\_user\_by\_name@{get\_user\_by\_name}!redis.c@{redis.c}}
+\doxysubsubsection{\texorpdfstring{get\_user\_by\_name()}{get\_user\_by\_name()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structqm__user}{qm\+\_\+user}} \texorpdfstring{$\ast$}{*} get\+\_\+user\+\_\+by\+\_\+name (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{name }\end{DoxyParamCaption})}
+
+
+
+Fetch the user on the DB with key name. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em const} & char \texorpdfstring{$\ast$}{*}name The key of the row \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+qm\+\_\+user\texorpdfstring{$\ast$}{*} A pointer to the allocated qm\+\_\+user\texorpdfstring{$\ast$}{*} struct 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{redis_8c_source_l00109}{109}} of file \mbox{\hyperlink{redis_8c_source}{redis.\+c}}.
+
+
+
+References \mbox{\hyperlink{redis_8c_source_l00066}{json\+\_\+to\+\_\+qm\+\_\+user()}}.
+
+
+
+Referenced by \mbox{\hyperlink{redis_8c_source_l00208}{remove\+\_\+by\+\_\+user()}}.
+
+\Hypertarget{redis_8c_af0bf1bfc99afc940619371e3c76ab4f9}\label{redis_8c_af0bf1bfc99afc940619371e3c76ab4f9} 
+\index{redis.c@{redis.c}!get\_user\_by\_pid@{get\_user\_by\_pid}}
+\index{get\_user\_by\_pid@{get\_user\_by\_pid}!redis.c@{redis.c}}
+\doxysubsubsection{\texorpdfstring{get\_user\_by\_pid()}{get\_user\_by\_pid()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structqm__user}{qm\+\_\+user}} \texorpdfstring{$\ast$}{*} get\+\_\+user\+\_\+by\+\_\+pid (\begin{DoxyParamCaption}\item[{pid\+\_\+t}]{pid }\end{DoxyParamCaption})}
+
+
+
+Fetch the user on the DB with key pid. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pid\+\_\+t} & pid The key of the row \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+qm\+\_\+user\texorpdfstring{$\ast$}{*} A pointer to the allocated qm\+\_\+user\texorpdfstring{$\ast$}{*} struct 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{redis_8c_source_l00081}{81}} of file \mbox{\hyperlink{redis_8c_source}{redis.\+c}}.
+
+
+
+References \mbox{\hyperlink{redis_8c_source_l00066}{json\+\_\+to\+\_\+qm\+\_\+user()}}.
+
+
+
+Referenced by \mbox{\hyperlink{redis_8c_source_l00179}{remove\+\_\+by\+\_\+pid()}}.
+
+\Hypertarget{redis_8c_a1f6dc2f98a71a88567fe11fd9e2585ea}\label{redis_8c_a1f6dc2f98a71a88567fe11fd9e2585ea} 
+\index{redis.c@{redis.c}!init\_context@{init\_context}}
+\index{init\_context@{init\_context}!redis.c@{redis.c}}
+\doxysubsubsection{\texorpdfstring{init\_context()}{init\_context()}}
+{\footnotesize\ttfamily int init\+\_\+context (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+initialize the context for the Redis DB 
+
+\begin{DoxyReturn}{Returns}
+1 if initialization was successful or the database was already initialized, 0 on failure 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{redis_8c_source_l00040}{40}} of file \mbox{\hyperlink{redis_8c_source}{redis.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{user__db_8c_source_l00014}{register\+\_\+user()}}.
+
+\Hypertarget{redis_8c_ac9878ee09b53700eb08c1f175873c30b}\label{redis_8c_ac9878ee09b53700eb08c1f175873c30b} 
+\index{redis.c@{redis.c}!insert@{insert}}
+\index{insert@{insert}!redis.c@{redis.c}}
+\doxysubsubsection{\texorpdfstring{insert()}{insert()}}
+{\footnotesize\ttfamily int insert (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structqm__user}{qm\+\_\+user}} \texorpdfstring{$\ast$}{*}}]{user }\end{DoxyParamCaption})}
+
+
+
+Insert a new user in the DB. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em qm\+\_\+user\texorpdfstring{$\ast$}{*}} & A pointer to the allocated qm\+\_\+user\texorpdfstring{$\ast$}{*} struct \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+1 if successful, 0 otherwise 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+The user will be set 2 times, once with key user-\/\texorpdfstring{$>$}{>}pid and once with key user-\/\texorpdfstring{$>$}{>}name 
+
+If an error is thrown it will be printed by print\+\_\+err() function 
+\end{DoxyNote}
+
+
+Definition at line \mbox{\hyperlink{redis_8c_source_l00139}{139}} of file \mbox{\hyperlink{redis_8c_source}{redis.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{user__db_8c_source_l00014}{register\+\_\+user()}}.
+
+\Hypertarget{redis_8c_a8e6e1687d6351741ac3e353d23425f71}\label{redis_8c_a8e6e1687d6351741ac3e353d23425f71} 
+\index{redis.c@{redis.c}!json\_to\_qm\_user@{json\_to\_qm\_user}}
+\index{json\_to\_qm\_user@{json\_to\_qm\_user}!redis.c@{redis.c}}
+\doxysubsubsection{\texorpdfstring{json\_to\_qm\_user()}{json\_to\_qm\_user()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structqm__user}{qm\+\_\+user}} \texorpdfstring{$\ast$}{*} json\+\_\+to\+\_\+qm\+\_\+user (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{json }\end{DoxyParamCaption})}
+
+
+
+Internal function to simplify the casting of a json to a \doxylink{structqm__user}{qm\+\_\+user} struct. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em char} & \texorpdfstring{$\ast$}{*}json the json string representing the \doxylink{structqm__user}{qm\+\_\+user} struct \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+qm\+\_\+user\texorpdfstring{$\ast$}{*} A pointer to the allocated qm\+\_\+user\texorpdfstring{$\ast$}{*} struct 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{redis_8c_source_l00066}{66}} of file \mbox{\hyperlink{redis_8c_source}{redis.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{redis_8c_source_l00109}{get\+\_\+user\+\_\+by\+\_\+name()}}, and \mbox{\hyperlink{redis_8c_source_l00081}{get\+\_\+user\+\_\+by\+\_\+pid()}}.
+
+\Hypertarget{redis_8c_a7b5eb746d92734b57a71ce552363283d}\label{redis_8c_a7b5eb746d92734b57a71ce552363283d} 
+\index{redis.c@{redis.c}!print\_all\_keys@{print\_all\_keys}}
+\index{print\_all\_keys@{print\_all\_keys}!redis.c@{redis.c}}
+\doxysubsubsection{\texorpdfstring{print\_all\_keys()}{print\_all\_keys()}}
+{\footnotesize\ttfamily void print\+\_\+all\+\_\+keys (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+For debugging only. Prints all the keys in the database. 
+
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{redis_8c_source_l00021}{21}} of file \mbox{\hyperlink{redis_8c_source}{redis.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{user__db_8c_source_l00014}{register\+\_\+user()}}, and \mbox{\hyperlink{user__db_8c_source_l00029}{unregister\+\_\+user()}}.
+
+\Hypertarget{redis_8c_a6b18d7ad2f1e8275106a5b39c0c7d216}\label{redis_8c_a6b18d7ad2f1e8275106a5b39c0c7d216} 
+\index{redis.c@{redis.c}!remove\_by\_pid@{remove\_by\_pid}}
+\index{remove\_by\_pid@{remove\_by\_pid}!redis.c@{redis.c}}
+\doxysubsubsection{\texorpdfstring{remove\_by\_pid()}{remove\_by\_pid()}}
+{\footnotesize\ttfamily int remove\+\_\+by\+\_\+pid (\begin{DoxyParamCaption}\item[{pid\+\_\+t}]{pid }\end{DoxyParamCaption})}
+
+
+
+Remove a user from the DB using the PID as key. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pid\+\_\+t} & pid The key \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+1 if successful, 0 otherwise 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Will also remove the corresponding entry by name. 
+
+If an error is thrown it will be printed using the print\+\_\+err() function 
+\end{DoxyNote}
+
+
+Definition at line \mbox{\hyperlink{redis_8c_source_l00179}{179}} of file \mbox{\hyperlink{redis_8c_source}{redis.\+c}}.
+
+
+
+References \mbox{\hyperlink{redis_8c_source_l00081}{get\+\_\+user\+\_\+by\+\_\+pid()}}.
+
+
+
+Referenced by \mbox{\hyperlink{user__db_8c_source_l00029}{unregister\+\_\+user()}}.
+
+\Hypertarget{redis_8c_a2678c0575f2b6c944fd261255aeaebff}\label{redis_8c_a2678c0575f2b6c944fd261255aeaebff} 
+\index{redis.c@{redis.c}!remove\_by\_user@{remove\_by\_user}}
+\index{remove\_by\_user@{remove\_by\_user}!redis.c@{redis.c}}
+\doxysubsubsection{\texorpdfstring{remove\_by\_user()}{remove\_by\_user()}}
+{\footnotesize\ttfamily int remove\+\_\+by\+\_\+user (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{name }\end{DoxyParamCaption})}
+
+
+
+Remove a user from the DB using the name as key. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em char} & \texorpdfstring{$\ast$}{*}name The key \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+1 if successful, 0 otherwise 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Will also remove the corresponding entry by PID 
+
+If an error is thrown it will be printed using the print\+\_\+err() function 
+\end{DoxyNote}
+
+
+Definition at line \mbox{\hyperlink{redis_8c_source_l00208}{208}} of file \mbox{\hyperlink{redis_8c_source}{redis.\+c}}.
+
+
+
+References \mbox{\hyperlink{redis_8c_source_l00109}{get\+\_\+user\+\_\+by\+\_\+name()}}.
+
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{redis_8c_ace869d36dc1b4de4b6d046c0c71486cb}\label{redis_8c_ace869d36dc1b4de4b6d046c0c71486cb} 
+\index{redis.c@{redis.c}!context@{context}}
+\index{context@{context}!redis.c@{redis.c}}
+\doxysubsubsection{\texorpdfstring{context}{context}}
+{\footnotesize\ttfamily redis\+Context\texorpdfstring{$\ast$}{*} context}
+
+
+
+Definition at line \mbox{\hyperlink{redis_8c_source_l00015}{15}} of file \mbox{\hyperlink{redis_8c_source}{redis.\+c}}.
+
+\Hypertarget{redis_8c_a0cc05631b755191d8d1c64c74c77894b}\label{redis_8c_a0cc05631b755191d8d1c64c74c77894b} 
+\index{redis.c@{redis.c}!HOST@{HOST}}
+\index{HOST@{HOST}!redis.c@{redis.c}}
+\doxysubsubsection{\texorpdfstring{HOST}{HOST}}
+{\footnotesize\ttfamily const char HOST\mbox{[}$\,$\mbox{]} = "{}127.\+0.\+0.\+1"{}}
+
+
+
+Definition at line \mbox{\hyperlink{redis_8c_source_l00012}{12}} of file \mbox{\hyperlink{redis_8c_source}{redis.\+c}}.
+

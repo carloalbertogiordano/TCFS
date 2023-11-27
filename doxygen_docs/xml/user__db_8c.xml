@@ -1,0 +1,240 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="user__db_8c" kind="file" language="C++">
+    <compoundname>user_db.c</compoundname>
+    <includes refid="user__db_8h" local="yes">user_db.h</includes>
+    <includes refid="redis_8h" local="yes">redis.h</includes>
+    <incdepgraph>
+      <node id="4">
+        <label>../common.h</label>
+        <link refid="common_8h_source"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>redis.h</label>
+        <link refid="redis_8h_source"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>daemon/daemon_utils/common_utils/db/user_db.c</label>
+        <link refid="user__db_8c"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>user_db.h</label>
+        <link refid="user__db_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>../common_utils/json/json_tools.h</label>
+        <link refid="json__tools_8h_source"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>../common_utils/print/print_utils.h</label>
+        <link refid="print__utils_8h_source"/>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>../../queue/queue.h</label>
+        <link refid="queue_8h_source"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>errno.h</label>
+      </node>
+      <node id="7">
+        <label>fcntl.h</label>
+      </node>
+      <node id="8">
+        <label>mqueue.h</label>
+      </node>
+      <node id="14">
+        <label>stdio.h</label>
+      </node>
+      <node id="15">
+        <label>stdlib.h</label>
+      </node>
+      <node id="10">
+        <label>string.h</label>
+      </node>
+      <node id="5">
+        <label>sys/stat.h</label>
+      </node>
+      <node id="6">
+        <label>sys/types.h</label>
+      </node>
+      <node id="13">
+        <label>systemd/sd-journal.h</label>
+      </node>
+      <node id="9">
+        <label>unistd.h</label>
+      </node>
+    </incdepgraph>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="user__db_8c_1a2ae8a82033440194ad80949cd4493971" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int register_user</definition>
+        <argsstring>(qm_user *user_msg)</argsstring>
+        <name>register_user</name>
+        <param>
+          <type><ref refid="structqm__user" kindref="compound">qm_user</ref> *</type>
+          <declname>user_msg</declname>
+        </param>
+        <briefdescription>
+<para>Register or update a user in the db, this relies on the <ref refid="redis_8c_source" kindref="compound">redis.c</ref> file. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>qm_user*</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A pointer to the allocated qm_user* struct </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>1 if successful, 0 otherwise </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="daemon/daemon_utils/common_utils/db/user_db.c" line="14" column="5" bodyfile="daemon/daemon_utils/common_utils/db/user_db.c" bodystart="14" bodyend="23"/>
+        <references refid="print__utils_8c_1a491dc14c94ed8cf706bb54880c50b2d0" compoundref="print__utils_8c" startline="89" endline="100">print_msg</references>
+      </memberdef>
+      <memberdef kind="function" id="user__db_8c_1a6e2fcf4aa637e61f69b1b601981663cf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int unregister_user</definition>
+        <argsstring>(pid_t pid)</argsstring>
+        <name>unregister_user</name>
+        <param>
+          <type>pid_t</type>
+          <declname>pid</declname>
+        </param>
+        <briefdescription>
+<para>Remove a user from the DB. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pid_t</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pid the key </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>1 if successful, 0 otherwise </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="daemon/daemon_utils/common_utils/db/user_db.c" line="29" column="5" bodyfile="daemon/daemon_utils/common_utils/db/user_db.c" bodystart="29" bodyend="34"/>
+        <references refid="print__utils_8c_1a491dc14c94ed8cf706bb54880c50b2d0" compoundref="print__utils_8c" startline="89" endline="100">print_msg</references>
+      </memberdef>
+      <memberdef kind="function" id="user__db_8c_1ab57ffd0f0b23a847e766e762906af22e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void disconnect_db</definition>
+        <argsstring>(void)</argsstring>
+        <name>disconnect_db</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Free the context of the DB. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>void</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>void </para>
+</simplesect>
+<simplesect kind="note"><para>If this fails no errors will be printed and no errno will be set, you are on your own :( </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="daemon/daemon_utils/common_utils/db/user_db.c" line="41" column="6" bodyfile="daemon/daemon_utils/common_utils/db/user_db.c" bodystart="41" bodyend="45"/>
+        <references refid="print__utils_8c_1a491dc14c94ed8cf706bb54880c50b2d0" compoundref="print__utils_8c" startline="89" endline="100">print_msg</references>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>This file contains the functions to interact with the database. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#include<sp/>&quot;user_db.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;redis.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="14" refid="user__db_8c_1a2ae8a82033440194ad80949cd4493971" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="user__db_8c_1a2ae8a82033440194ad80949cd4493971" kindref="member">register_user</ref>(<ref refid="structqm__user" kindref="compound">qm_user</ref><sp/>*user_msg)</highlight></codeline>
+<codeline lineno="15"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="print__utils_8c_1a491dc14c94ed8cf706bb54880c50b2d0" kindref="member">print_msg</ref>(</highlight><highlight class="stringliteral">&quot;Registering<sp/>new<sp/>user&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(init_context()<sp/>==<sp/>0)</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/>print_all_keys();</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(insert(user_msg)<sp/>==<sp/>0)</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>1;</highlight></codeline>
+<codeline lineno="23"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="29" refid="user__db_8c_1a6e2fcf4aa637e61f69b1b601981663cf" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="user__db_8c_1a6e2fcf4aa637e61f69b1b601981663cf" kindref="member">unregister_user</ref>(pid_t<sp/>pid)</highlight></codeline>
+<codeline lineno="30"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/>print_all_keys();</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="print__utils_8c_1a491dc14c94ed8cf706bb54880c50b2d0" kindref="member">print_msg</ref>(</highlight><highlight class="stringliteral">&quot;Removing<sp/>user&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>remove_by_pid(pid);</highlight></codeline>
+<codeline lineno="34"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="41" refid="user__db_8c_1ab57ffd0f0b23a847e766e762906af22e" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="user__db_8c_1ab57ffd0f0b23a847e766e762906af22e" kindref="member">disconnect_db</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="42"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="print__utils_8c_1a491dc14c94ed8cf706bb54880c50b2d0" kindref="member">print_msg</ref>(</highlight><highlight class="stringliteral">&quot;Freeing<sp/>context...&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/>free_context();</highlight></codeline>
+<codeline lineno="45"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="daemon/daemon_utils/common_utils/db/user_db.c"/>
+  </compounddef>
+</doxygen>

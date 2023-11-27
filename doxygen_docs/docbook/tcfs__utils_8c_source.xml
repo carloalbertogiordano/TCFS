@@ -1,0 +1,117 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_tcfs__utils_8c_source" xml:lang="en-US">
+<title>tcfs_utils.c</title>
+<indexterm><primary>userspace-module/utils/tcfs_utils/tcfs_utils.c</primary></indexterm>
+<programlisting linenumbering="unnumbered"><anchor xml:id="_tcfs__utils_8c_source_1l00001"/>00001 <emphasis role="preprocessor">#include&#32;&quot;tcfs_utils.h&quot;</emphasis>
+<anchor xml:id="_tcfs__utils_8c_source_1l00002"/>00002 <emphasis role="preprocessor">#include&#32;&quot;../crypt-utils/crypt-utils.h&quot;</emphasis>
+<anchor xml:id="_tcfs__utils_8c_source_1l00003"/>00003 
+<anchor xml:id="_tcfs__utils_8c_source_1l00004"/>00004 <emphasis role="keywordtype">void</emphasis>&#32;get_user_name(<emphasis role="keywordtype">char</emphasis>&#32;*buf,&#32;<emphasis role="keywordtype">size_t</emphasis>&#32;size)
+<anchor xml:id="_tcfs__utils_8c_source_1l00005"/>00005 {
+<anchor xml:id="_tcfs__utils_8c_source_1l00006"/>00006 &#32;&#32;&#32;&#32;uid_t&#32;uid&#32;=&#32;geteuid();
+<anchor xml:id="_tcfs__utils_8c_source_1l00007"/>00007 &#32;&#32;&#32;&#32;<emphasis role="keyword">struct&#32;</emphasis>passwd&#32;*pw&#32;=&#32;getpwuid(uid);
+<anchor xml:id="_tcfs__utils_8c_source_1l00008"/>00008 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(pw)
+<anchor xml:id="_tcfs__utils_8c_source_1l00009"/>00009 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;snprintf(buf,&#32;size,&#32;<emphasis role="stringliteral">&quot;%s&quot;</emphasis>,&#32;pw-&gt;pw_name);
+<anchor xml:id="_tcfs__utils_8c_source_1l00010"/>00010 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">else</emphasis>
+<anchor xml:id="_tcfs__utils_8c_source_1l00011"/>00011 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;perror(<emphasis role="stringliteral">&quot;Error:&#32;Could&#32;not&#32;retrieve&#32;username.\n&quot;</emphasis>);
+<anchor xml:id="_tcfs__utils_8c_source_1l00012"/>00012 }
+<anchor xml:id="_tcfs__utils_8c_source_1l00013"/>00013 
+<anchor xml:id="_tcfs__utils_8c_source_1l00014"/>00014 <emphasis role="comment">/*&#32;is_encrypted:&#32;returns&#32;1&#32;if&#32;file&#32;is&#32;encrypted,&#32;0&#32;otherwise*/</emphasis>
+<anchor xml:id="_tcfs__utils_8c_source_1l00015"/>00015 <emphasis role="keywordtype">int</emphasis>&#32;is_encrypted(<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*path)
+<anchor xml:id="_tcfs__utils_8c_source_1l00016"/>00016 {
+<anchor xml:id="_tcfs__utils_8c_source_1l00017"/>00017 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;ret;
+<anchor xml:id="_tcfs__utils_8c_source_1l00018"/>00018 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">char</emphasis>&#32;xattr_val[5];
+<anchor xml:id="_tcfs__utils_8c_source_1l00019"/>00019 &#32;&#32;&#32;&#32;getxattr(path,&#32;<emphasis role="stringliteral">&quot;user.encrypted&quot;</emphasis>,&#32;xattr_val,&#32;<emphasis role="keyword">sizeof</emphasis>(<emphasis role="keywordtype">char</emphasis>)*5);
+<anchor xml:id="_tcfs__utils_8c_source_1l00020"/>00020 &#32;&#32;&#32;&#32;xattr_val[4]&#32;==&#32;<emphasis role="charliteral">&apos;\n&apos;</emphasis>;
+<anchor xml:id="_tcfs__utils_8c_source_1l00021"/>00021 
+<anchor xml:id="_tcfs__utils_8c_source_1l00022"/>00022 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;strcmp(xattr_val,&#32;<emphasis role="stringliteral">&quot;true&quot;</emphasis>)&#32;==&#32;0&#32;?&#32;1:0;
+<anchor xml:id="_tcfs__utils_8c_source_1l00023"/>00023 }
+<anchor xml:id="_tcfs__utils_8c_source_1l00024"/>00024 
+<anchor xml:id="_tcfs__utils_8c_source_1l00025"/>00025 <emphasis role="keywordtype">char</emphasis>&#32;*prefix_path(<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*path,&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*realpath)
+<anchor xml:id="_tcfs__utils_8c_source_1l00026"/>00026 {
+<anchor xml:id="_tcfs__utils_8c_source_1l00027"/>00027 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(path&#32;==&#32;NULL&#32;||&#32;realpath&#32;==&#32;NULL)
+<anchor xml:id="_tcfs__utils_8c_source_1l00028"/>00028 &#32;&#32;&#32;&#32;{
+<anchor xml:id="_tcfs__utils_8c_source_1l00029"/>00029 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;perror(<emphasis role="stringliteral">&quot;Err:&#32;path&#32;or&#32;realpath&#32;is&#32;NULL&quot;</emphasis>);
+<anchor xml:id="_tcfs__utils_8c_source_1l00030"/>00030 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;NULL;
+<anchor xml:id="_tcfs__utils_8c_source_1l00031"/>00031 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_tcfs__utils_8c_source_1l00032"/>00032 
+<anchor xml:id="_tcfs__utils_8c_source_1l00033"/>00033 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">size_t</emphasis>&#32;len&#32;=&#32;strlen(path)&#32;+&#32;strlen(realpath)&#32;+&#32;1;
+<anchor xml:id="_tcfs__utils_8c_source_1l00034"/>00034 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">char</emphasis>&#32;*root_dir&#32;=&#32;malloc(len&#32;*&#32;<emphasis role="keyword">sizeof</emphasis>(<emphasis role="keywordtype">char</emphasis>));
+<anchor xml:id="_tcfs__utils_8c_source_1l00035"/>00035 
+<anchor xml:id="_tcfs__utils_8c_source_1l00036"/>00036 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(root_dir&#32;==&#32;NULL)
+<anchor xml:id="_tcfs__utils_8c_source_1l00037"/>00037 &#32;&#32;&#32;&#32;{
+<anchor xml:id="_tcfs__utils_8c_source_1l00038"/>00038 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;perror(<emphasis role="stringliteral">&quot;Err:&#32;Could&#32;not&#32;allocate&#32;memory&#32;while&#32;in&#32;prefix_path&quot;</emphasis>);
+<anchor xml:id="_tcfs__utils_8c_source_1l00039"/>00039 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;NULL;
+<anchor xml:id="_tcfs__utils_8c_source_1l00040"/>00040 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_tcfs__utils_8c_source_1l00041"/>00041 
+<anchor xml:id="_tcfs__utils_8c_source_1l00042"/>00042 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(strcpy(root_dir,&#32;realpath)&#32;==&#32;NULL)
+<anchor xml:id="_tcfs__utils_8c_source_1l00043"/>00043 &#32;&#32;&#32;&#32;{
+<anchor xml:id="_tcfs__utils_8c_source_1l00044"/>00044 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;perror(<emphasis role="stringliteral">&quot;strcpy:&#32;Cannot&#32;copy&#32;path&quot;</emphasis>);
+<anchor xml:id="_tcfs__utils_8c_source_1l00045"/>00045 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;NULL;
+<anchor xml:id="_tcfs__utils_8c_source_1l00046"/>00046 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_tcfs__utils_8c_source_1l00047"/>00047 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(strcat(root_dir,&#32;path)&#32;==&#32;NULL)
+<anchor xml:id="_tcfs__utils_8c_source_1l00048"/>00048 &#32;&#32;&#32;&#32;{
+<anchor xml:id="_tcfs__utils_8c_source_1l00049"/>00049 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;perror(<emphasis role="stringliteral">&quot;strcat:&#32;in&#32;prefix_path&#32;cannot&#32;concatenate&#32;the&#32;paths&quot;</emphasis>);
+<anchor xml:id="_tcfs__utils_8c_source_1l00050"/>00050 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;NULL;
+<anchor xml:id="_tcfs__utils_8c_source_1l00051"/>00051 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_tcfs__utils_8c_source_1l00052"/>00052 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;root_dir;
+<anchor xml:id="_tcfs__utils_8c_source_1l00053"/>00053 }
+<anchor xml:id="_tcfs__utils_8c_source_1l00054"/>00054 
+<anchor xml:id="_tcfs__utils_8c_source_1l00055"/>00055 <emphasis role="comment">/*&#32;read_file:&#32;for&#32;debugging&#32;tempfiles&#32;*/</emphasis>
+<anchor xml:id="_tcfs__utils_8c_source_1l00056"/>00056 <emphasis role="keywordtype">int</emphasis>&#32;read_file(FILE&#32;*file)
+<anchor xml:id="_tcfs__utils_8c_source_1l00057"/>00057 {
+<anchor xml:id="_tcfs__utils_8c_source_1l00058"/>00058 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;c;
+<anchor xml:id="_tcfs__utils_8c_source_1l00059"/>00059 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;file_contains_something&#32;=&#32;0;
+<anchor xml:id="_tcfs__utils_8c_source_1l00060"/>00060 &#32;&#32;&#32;&#32;FILE&#32;*read&#32;=&#32;file;&#32;<emphasis role="comment">/*&#32;don&apos;t&#32;move&#32;original&#32;file&#32;pointer&#32;*/</emphasis>
+<anchor xml:id="_tcfs__utils_8c_source_1l00061"/>00061 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(read)&#32;{
+<anchor xml:id="_tcfs__utils_8c_source_1l00062"/>00062 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">while</emphasis>&#32;((c&#32;=&#32;getc(read))&#32;!=&#32;EOF)&#32;{
+<anchor xml:id="_tcfs__utils_8c_source_1l00063"/>00063 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;file_contains_something&#32;=&#32;1;
+<anchor xml:id="_tcfs__utils_8c_source_1l00064"/>00064 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;putc(c,&#32;stderr);
+<anchor xml:id="_tcfs__utils_8c_source_1l00065"/>00065 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_tcfs__utils_8c_source_1l00066"/>00066 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_tcfs__utils_8c_source_1l00067"/>00067 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(!file_contains_something)
+<anchor xml:id="_tcfs__utils_8c_source_1l00068"/>00068 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;fprintf(stderr,&#32;<emphasis role="stringliteral">&quot;file&#32;was&#32;empty\n&quot;</emphasis>);
+<anchor xml:id="_tcfs__utils_8c_source_1l00069"/>00069 &#32;&#32;&#32;&#32;rewind(file);
+<anchor xml:id="_tcfs__utils_8c_source_1l00070"/>00070 &#32;&#32;&#32;&#32;<emphasis role="comment">/*&#32;fseek(tmpf,&#32;offset,&#32;SEEK_END);&#32;*/</emphasis>
+<anchor xml:id="_tcfs__utils_8c_source_1l00071"/>00071 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;0;
+<anchor xml:id="_tcfs__utils_8c_source_1l00072"/>00072 }
+<anchor xml:id="_tcfs__utils_8c_source_1l00073"/>00073 <emphasis role="comment">/*&#32;Get&#32;the&#32;xattr&#32;value&#32;describing&#32;the&#32;key&#32;of&#32;a&#32;file</emphasis>
+<anchor xml:id="_tcfs__utils_8c_source_1l00074"/>00074 <emphasis role="comment">&#32;*&#32;return&#32;1&#32;on&#32;success&#32;else&#32;0</emphasis>
+<anchor xml:id="_tcfs__utils_8c_source_1l00075"/>00075 <emphasis role="comment">&#32;*&#32;*/</emphasis>
+<anchor xml:id="_tcfs__utils_8c_source_1l00076"/>00076 <emphasis role="keywordtype">int</emphasis>&#32;get_encrypted_key(<emphasis role="keywordtype">char</emphasis>&#32;*filepath,&#32;<emphasis role="keywordtype">unsigned</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*encrypted_key)
+<anchor xml:id="_tcfs__utils_8c_source_1l00077"/>00077 {
+<anchor xml:id="_tcfs__utils_8c_source_1l00078"/>00078 &#32;&#32;&#32;&#32;printf(<emphasis role="stringliteral">&quot;\tGet&#32;Encrypted&#32;key&#32;for&#32;file&#32;%s\n&quot;</emphasis>,&#32;filepath);
+<anchor xml:id="_tcfs__utils_8c_source_1l00079"/>00079 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(is_encrypted(filepath)&#32;==&#32;1)&#32;{
+<anchor xml:id="_tcfs__utils_8c_source_1l00080"/>00080 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;printf(<emphasis role="stringliteral">&quot;\t\tencrypted&#32;file\n&quot;</emphasis>);
+<anchor xml:id="_tcfs__utils_8c_source_1l00081"/>00081 
+<anchor xml:id="_tcfs__utils_8c_source_1l00082"/>00082 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;FILE&#32;*src_file&#32;=&#32;fopen(filepath,&#32;<emphasis role="stringliteral">&quot;r&quot;</emphasis>);
+<anchor xml:id="_tcfs__utils_8c_source_1l00083"/>00083 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(src_file&#32;==&#32;NULL)
+<anchor xml:id="_tcfs__utils_8c_source_1l00084"/>00084 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_tcfs__utils_8c_source_1l00085"/>00085 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;fclose(src_file);
+<anchor xml:id="_tcfs__utils_8c_source_1l00086"/>00086 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;perror(<emphasis role="stringliteral">&quot;Could&#32;not&#32;open&#32;the&#32;file&#32;to&#32;get&#32;the&#32;key&quot;</emphasis>);
+<anchor xml:id="_tcfs__utils_8c_source_1l00087"/>00087 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;-errno;
+<anchor xml:id="_tcfs__utils_8c_source_1l00088"/>00088 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_tcfs__utils_8c_source_1l00089"/>00089 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;src_fd;
+<anchor xml:id="_tcfs__utils_8c_source_1l00090"/>00090 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;src_fd&#32;=&#32;fileno(src_file);
+<anchor xml:id="_tcfs__utils_8c_source_1l00091"/>00091 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(src_fd&#32;==&#32;-1)
+<anchor xml:id="_tcfs__utils_8c_source_1l00092"/>00092 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="_tcfs__utils_8c_source_1l00093"/>00093 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;fclose(src_file);
+<anchor xml:id="_tcfs__utils_8c_source_1l00094"/>00094 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;perror(<emphasis role="stringliteral">&quot;Could&#32;not&#32;get&#32;fd&#32;for&#32;the&#32;file&quot;</emphasis>);
+<anchor xml:id="_tcfs__utils_8c_source_1l00095"/>00095 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;-errno;
+<anchor xml:id="_tcfs__utils_8c_source_1l00096"/>00096 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_tcfs__utils_8c_source_1l00097"/>00097 
+<anchor xml:id="_tcfs__utils_8c_source_1l00098"/>00098 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(fgetxattr(src_fd,&#32;<emphasis role="stringliteral">&quot;user.key&quot;</emphasis>,&#32;encrypted_key,&#32;&#32;33)&#32;!=&#32;-1)&#32;{
+<anchor xml:id="_tcfs__utils_8c_source_1l00099"/>00099 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;fclose(src_file);
+<anchor xml:id="_tcfs__utils_8c_source_1l00100"/>00100 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;1;
+<anchor xml:id="_tcfs__utils_8c_source_1l00101"/>00101 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_tcfs__utils_8c_source_1l00102"/>00102 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_tcfs__utils_8c_source_1l00103"/>00103 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;0;
+<anchor xml:id="_tcfs__utils_8c_source_1l00104"/>00104 }
+<anchor xml:id="_tcfs__utils_8c_source_1l00105"/>00105 <emphasis role="comment">/*For&#32;debugging&#32;only*/</emphasis>
+<anchor xml:id="_tcfs__utils_8c_source_1l00106"/>00106 <emphasis role="keywordtype">void</emphasis>&#32;print_aes_key(<emphasis role="keywordtype">unsigned</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*key)&#32;{
+<anchor xml:id="_tcfs__utils_8c_source_1l00107"/>00107 &#32;&#32;&#32;&#32;printf(<emphasis role="stringliteral">&quot;AES&#32;HEX:%s&#32;-&gt;&#32;&quot;</emphasis>,&#32;key);
+<anchor xml:id="_tcfs__utils_8c_source_1l00108"/>00108 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;(<emphasis role="keywordtype">int</emphasis>&#32;i&#32;=&#32;0;&#32;i&#32;&lt;&#32;32;&#32;i++)&#32;{
+<anchor xml:id="_tcfs__utils_8c_source_1l00109"/>00109 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;printf(<emphasis role="stringliteral">&quot;%02x&quot;</emphasis>,&#32;key[i]);
+<anchor xml:id="_tcfs__utils_8c_source_1l00110"/>00110 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_tcfs__utils_8c_source_1l00111"/>00111 &#32;&#32;&#32;&#32;printf(<emphasis role="stringliteral">&quot;\n&quot;</emphasis>);
+<anchor xml:id="_tcfs__utils_8c_source_1l00112"/>00112 }
+</programlisting></section>

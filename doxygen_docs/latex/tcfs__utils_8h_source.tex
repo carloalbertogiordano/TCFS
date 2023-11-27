@@ -1,0 +1,46 @@
+\doxysection{tcfs\+\_\+utils.\+h}
+\hypertarget{tcfs__utils_8h_source}{}\label{tcfs__utils_8h_source}\index{userspace-\/module/utils/tcfs\_utils/tcfs\_utils.h@{userspace-\/module/utils/tcfs\_utils/tcfs\_utils.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8h_source_l00001}00001\ \textcolor{preprocessor}{\#include\ <string.h>}}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8h_source_l00002}00002\ \textcolor{preprocessor}{\#include\ <stdio.h>}}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8h_source_l00003}00003\ \textcolor{preprocessor}{\#include\ <pwd.h>}}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8h_source_l00004}00004\ \textcolor{preprocessor}{\#include\ <unistd.h>}}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8h_source_l00005}00005\ \textcolor{preprocessor}{\#include\ <sys/xattr.h>}}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8h_source_l00006}00006\ \textcolor{preprocessor}{\#include\ <stdlib.h>}}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8h_source_l00007}00007\ \textcolor{preprocessor}{\#include\ <errno.h>}}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8h_source_l00008}00008\ }
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8h_source_l00009}00009\ \textcolor{comment}{/*\ void\ get\_user\_name(char\ *buf,\ size\_t\ size)}}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8h_source_l00010}00010\ \textcolor{comment}{\ *\ Purpose:\ Fetch\ the\ username\ of\ the\ current\ user}}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8h_source_l00011}00011\ \textcolor{comment}{\ *\ Args:\ char\ *buf\ \ \ \ \ \ :\ The\ username\ will\ be\ written\ to\ this\ buffer}}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8h_source_l00012}00012\ \textcolor{comment}{\ *\ \ \ \ \ \ \ size\_t\ size\ \ \ \ :\ The\ size\ of\ the\ buffer;}}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8h_source_l00013}00013\ \textcolor{comment}{\ *\ Return:\ Nothing}}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8h_source_l00014}00014\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8h_source_l00015}00015\ \textcolor{keywordtype}{void}\ get\_user\_name(\textcolor{keywordtype}{char}\ *buf,\ \textcolor{keywordtype}{size\_t}\ size);}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8h_source_l00016}00016\ }
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8h_source_l00017}00017\ \textcolor{comment}{/*\ is\_encrypted:\ returns\ 1\ if\ encryption\ succeeded,\ 0\ otherwise.\ There\ is\ currently\ no\ use\ for\ this\ function\ */}}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8h_source_l00018}00018\ \textcolor{keywordtype}{int}\ is\_encrypted(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *path);}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8h_source_l00019}00019\ }
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8h_source_l00020}00020\ \textcolor{comment}{/*\ char\ *prefix\_path(const\ char\ *path))}}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8h_source_l00021}00021\ \textcolor{comment}{\ *\ Purpose:\ Prefix\ the\ realpath\ to\ the\ fuse\ path}}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8h_source_l00022}00022\ \textcolor{comment}{\ *\ Args:\ char\ *path\ \ \ \ \ \ :\ The\ fuse\ path}}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8h_source_l00023}00023\ \textcolor{comment}{\ *\ \ \ \ \ \ \ char\ *realpath\ \ :\ The\ realpath}}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8h_source_l00024}00024\ \textcolor{comment}{\ *\ Return:\ NULL\ on\ error,\ char*\ on\ success}}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8h_source_l00025}00025\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8h_source_l00026}00026\ \textcolor{keywordtype}{char}\ *prefix\_path(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *path,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *realpath);}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8h_source_l00027}00027\ }
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8h_source_l00028}00028\ \textcolor{comment}{/*\ read\_file:\ for\ debugging\ tempfiles\ */}}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8h_source_l00029}00029\ \textcolor{keywordtype}{int}\ read\_file(FILE\ *file);}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8h_source_l00030}00030\ }
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8h_source_l00031}00031\ \textcolor{comment}{/*\ int\ get\_encrypted\_key(char\ *filepath,\ void\ *encrypted\_key)}}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8h_source_l00032}00032\ \textcolor{comment}{\ *\ Purpose:\ Get\ the\ encrypted\ file\ key\ from\ its\ xattrs}}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8h_source_l00033}00033\ \textcolor{comment}{\ *\ Args:\ char\ *filepath\ \ \ \ \ \ :\ The\ full-\/path\ of\ the\ file}}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8h_source_l00034}00034\ \textcolor{comment}{\ *\ \ \ \ \ \ \ char\ *encrypted\_key\ \ :\ The\ buffer\ to\ save\ the\ encrypted\ key\ to}}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8h_source_l00035}00035\ \textcolor{comment}{\ *\ Return:\ 0\ on\ error,\ 1\ on\ success}}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8h_source_l00036}00036\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8h_source_l00037}00037\ \textcolor{keywordtype}{int}\ get\_encrypted\_key(\textcolor{keywordtype}{char}\ *filepath,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *encrypted\_key);}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8h_source_l00038}00038\ }
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8h_source_l00039}00039\ \textcolor{comment}{/*For\ debugging\ only*/}}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8h_source_l00040}00040\ \textcolor{keywordtype}{void}\ print\_aes\_key(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *key);}
+
+\end{DoxyCode}

@@ -37,3 +37,8 @@ cmake-build-debug/
 .idea
 .idea/*
 build/*
+build/fuse-module
+.vscode/*
+.vscode
+daemon/dump.rdb
+Doxyfile.bak

@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_redis_8h_source" xml:lang="en-US">
+<title>redis.h</title>
+<indexterm><primary>daemon/daemon_utils/common_utils/db/redis.h</primary></indexterm>
+<programlisting linenumbering="unnumbered"><anchor xml:id="_redis_8h_source_1l00001"/>00001 <emphasis role="preprocessor">#include&#32;&quot;../../common.h&quot;</emphasis>
+<anchor xml:id="_redis_8h_source_1l00002"/>00002 
+<anchor xml:id="_redis_8h_source_1l00003"/>00003 <emphasis role="keywordtype">void</emphasis>&#32;print_all_keys();
+<anchor xml:id="_redis_8h_source_1l00004"/>00004 
+<anchor xml:id="_redis_8h_source_1l00005"/>00005 <emphasis role="keywordtype">int</emphasis>&#32;init_context();
+<anchor xml:id="_redis_8h_source_1l00006"/>00006 
+<anchor xml:id="_redis_8h_source_1l00007"/>00007 <link linkend="_structqm__user">qm_user</link>&#32;*json_to_qm_user(<emphasis role="keywordtype">char</emphasis>&#32;*json);
+<anchor xml:id="_redis_8h_source_1l00008"/>00008 
+<anchor xml:id="_redis_8h_source_1l00009"/>00009 <link linkend="_structqm__user">qm_user</link>&#32;*get_user_by_pid(pid_t&#32;pid);
+<anchor xml:id="_redis_8h_source_1l00010"/>00010 
+<anchor xml:id="_redis_8h_source_1l00011"/>00011 <link linkend="_structqm__user">qm_user</link>&#32;*get_user_by_name(<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*name);
+<anchor xml:id="_redis_8h_source_1l00012"/>00012 
+<anchor xml:id="_redis_8h_source_1l00013"/>00013 <emphasis role="keywordtype">int</emphasis>&#32;insert(<link linkend="_structqm__user">qm_user</link>&#32;*user);
+<anchor xml:id="_redis_8h_source_1l00014"/>00014 
+<anchor xml:id="_redis_8h_source_1l00015"/>00015 <emphasis role="keywordtype">int</emphasis>&#32;remove_by_pid(pid_t&#32;pid);
+<anchor xml:id="_redis_8h_source_1l00016"/>00016 
+<anchor xml:id="_redis_8h_source_1l00017"/>00017 <emphasis role="keywordtype">int</emphasis>&#32;remove_by_user(<emphasis role="keywordtype">char</emphasis>&#32;*name);
+<anchor xml:id="_redis_8h_source_1l00018"/>00018 
+<anchor xml:id="_redis_8h_source_1l00019"/>00019 <emphasis role="keywordtype">void</emphasis>&#32;free_context();
+</programlisting></section>

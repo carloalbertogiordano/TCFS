@@ -1,0 +1,302 @@
+.TH "daemon/daemon_utils/common_utils/db/redis.c" 3 "Mon Nov 27 2023 15:49:26" "Version 0.2" "TCFS" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+daemon/daemon_utils/common_utils/db/redis.c \- All the function in this file should not be used directly, instead use the function defined by user_db\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+\fC#include 'redis\&.h'\fP
+.br
+\fC#include '\&.\&./print/print_utils\&.h'\fP
+.br
+\fC#include '\&.\&./json/json_tools\&.h'\fP
+.br
+\fC#include <hiredis/hiredis\&.h>\fP
+.br
+
+.SS "Macros"
+
+.in +1c
+.ti -1c
+.RI "#define \fBPORT\fP   6380"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBprint_all_keys\fP ()"
+.br
+.RI "For debugging only\&. Prints all the keys in the database\&. "
+.ti -1c
+.RI "int \fBinit_context\fP ()"
+.br
+.RI "initialize the context for the Redis DB "
+.ti -1c
+.RI "void \fBfree_context\fP ()"
+.br
+.RI "Free the hiredis context variable\&. "
+.ti -1c
+.RI "\fBqm_user\fP * \fBjson_to_qm_user\fP (char *json)"
+.br
+.RI "Internal function to simplify the casting of a json to a \fBqm_user\fP struct\&. "
+.ti -1c
+.RI "\fBqm_user\fP * \fBget_user_by_pid\fP (pid_t pid)"
+.br
+.RI "Fetch the user on the DB with key pid\&. "
+.ti -1c
+.RI "\fBqm_user\fP * \fBget_user_by_name\fP (const char *name)"
+.br
+.RI "Fetch the user on the DB with key name\&. "
+.ti -1c
+.RI "int \fBinsert\fP (\fBqm_user\fP *user)"
+.br
+.RI "Insert a new user in the DB\&. "
+.ti -1c
+.RI "int \fBremove_by_pid\fP (pid_t pid)"
+.br
+.RI "Remove a user from the DB using the PID as key\&. "
+.ti -1c
+.RI "int \fBremove_by_user\fP (char *name)"
+.br
+.RI "Remove a user from the DB using the name as key\&. "
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "const char \fBHOST\fP [] = '127\&.0\&.0\&.1'"
+.br
+.ti -1c
+.RI "redisContext * \fBcontext\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+All the function in this file should not be used directly, instead use the function defined by user_db\&. 
+
+
+.PP
+\fBSee also\fP
+.RS 4
+\\ref \fBuser_db\&.c\fP 
+.RE
+.PP
+
+.PP
+Definition in file \fBredis\&.c\fP\&.
+.SH "Macro Definition Documentation"
+.PP 
+.SS "#define PORT   6380"
+
+.PP
+Definition at line \fB13\fP of file \fBredis\&.c\fP\&.
+.SH "Function Documentation"
+.PP 
+.SS "void free_context ()"
+
+.PP
+Free the hiredis context variable\&. 
+.PP
+\fBReturns\fP
+.RS 4
+void 
+.RE
+.PP
+
+.PP
+Definition at line \fB57\fP of file \fBredis\&.c\fP\&.
+.PP
+Referenced by \fBdisconnect_db()\fP\&.
+.SS "\fBqm_user\fP * get_user_by_name (const char * name)"
+
+.PP
+Fetch the user on the DB with key name\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIconst\fP char *name The key of the row 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+qm_user* A pointer to the allocated qm_user* struct 
+.RE
+.PP
+
+.PP
+Definition at line \fB109\fP of file \fBredis\&.c\fP\&.
+.PP
+References \fBjson_to_qm_user()\fP\&.
+.PP
+Referenced by \fBremove_by_user()\fP\&.
+.SS "\fBqm_user\fP * get_user_by_pid (pid_t pid)"
+
+.PP
+Fetch the user on the DB with key pid\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIpid_t\fP pid The key of the row 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+qm_user* A pointer to the allocated qm_user* struct 
+.RE
+.PP
+
+.PP
+Definition at line \fB81\fP of file \fBredis\&.c\fP\&.
+.PP
+References \fBjson_to_qm_user()\fP\&.
+.PP
+Referenced by \fBremove_by_pid()\fP\&.
+.SS "int init_context ()"
+
+.PP
+initialize the context for the Redis DB 
+.PP
+\fBReturns\fP
+.RS 4
+1 if initialization was successful or the database was already initialized, 0 on failure 
+.RE
+.PP
+
+.PP
+Definition at line \fB40\fP of file \fBredis\&.c\fP\&.
+.PP
+Referenced by \fBregister_user()\fP\&.
+.SS "int insert (\fBqm_user\fP * user)"
+
+.PP
+Insert a new user in the DB\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIqm_user*\fP A pointer to the allocated qm_user* struct 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+1 if successful, 0 otherwise 
+.RE
+.PP
+\fBNote\fP
+.RS 4
+The user will be set 2 times, once with key user->pid and once with key user->name 
+.PP
+If an error is thrown it will be printed by print_err() function 
+.RE
+.PP
+
+.PP
+Definition at line \fB139\fP of file \fBredis\&.c\fP\&.
+.PP
+Referenced by \fBregister_user()\fP\&.
+.SS "\fBqm_user\fP * json_to_qm_user (char * json)"
+
+.PP
+Internal function to simplify the casting of a json to a \fBqm_user\fP struct\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIchar\fP *json the json string representing the \fBqm_user\fP struct 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+qm_user* A pointer to the allocated qm_user* struct 
+.RE
+.PP
+
+.PP
+Definition at line \fB66\fP of file \fBredis\&.c\fP\&.
+.PP
+Referenced by \fBget_user_by_name()\fP, and \fBget_user_by_pid()\fP\&.
+.SS "void print_all_keys ()"
+
+.PP
+For debugging only\&. Prints all the keys in the database\&. 
+.PP
+\fBReturns\fP
+.RS 4
+void 
+.RE
+.PP
+
+.PP
+Definition at line \fB21\fP of file \fBredis\&.c\fP\&.
+.PP
+Referenced by \fBregister_user()\fP, and \fBunregister_user()\fP\&.
+.SS "int remove_by_pid (pid_t pid)"
+
+.PP
+Remove a user from the DB using the PID as key\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIpid_t\fP pid The key 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+1 if successful, 0 otherwise 
+.RE
+.PP
+\fBNote\fP
+.RS 4
+Will also remove the corresponding entry by name\&. 
+.PP
+If an error is thrown it will be printed using the print_err() function 
+.RE
+.PP
+
+.PP
+Definition at line \fB179\fP of file \fBredis\&.c\fP\&.
+.PP
+References \fBget_user_by_pid()\fP\&.
+.PP
+Referenced by \fBunregister_user()\fP\&.
+.SS "int remove_by_user (char * name)"
+
+.PP
+Remove a user from the DB using the name as key\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIchar\fP *name The key 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+1 if successful, 0 otherwise 
+.RE
+.PP
+\fBNote\fP
+.RS 4
+Will also remove the corresponding entry by PID 
+.PP
+If an error is thrown it will be printed using the print_err() function 
+.RE
+.PP
+
+.PP
+Definition at line \fB208\fP of file \fBredis\&.c\fP\&.
+.PP
+References \fBget_user_by_name()\fP\&.
+.SH "Variable Documentation"
+.PP 
+.SS "redisContext* context"
+
+.PP
+Definition at line \fB15\fP of file \fBredis\&.c\fP\&.
+.SS "const char HOST[] = '127\&.0\&.0\&.1'"
+
+.PP
+Definition at line \fB12\fP of file \fBredis\&.c\fP\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for TCFS from the source code\&.

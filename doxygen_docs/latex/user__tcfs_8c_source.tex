@@ -1,0 +1,93 @@
+\doxysection{user\+\_\+tcfs.\+c}
+\hypertarget{user__tcfs_8c_source}{}\label{user__tcfs_8c_source}\index{user/user\_tcfs.c@{user/user\_tcfs.c}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{user__tcfs_8c_source_l00001}00001\ \textcolor{preprocessor}{\#include\ <stdio.h>}}
+\DoxyCodeLine{\Hypertarget{user__tcfs_8c_source_l00002}00002\ \textcolor{preprocessor}{\#include\ <stdlib.h>}}
+\DoxyCodeLine{\Hypertarget{user__tcfs_8c_source_l00003}00003\ \textcolor{preprocessor}{\#include\ <argp.h>}}
+\DoxyCodeLine{\Hypertarget{user__tcfs_8c_source_l00004}00004\ \textcolor{preprocessor}{\#include\ "{}tcfs\_helper\_tools.h"{}}}
+\DoxyCodeLine{\Hypertarget{user__tcfs_8c_source_l00005}00005\ }
+\DoxyCodeLine{\Hypertarget{user__tcfs_8c_source_l00006}00006\ \textcolor{comment}{//\ Define\ the\ program\ documentation}}
+\DoxyCodeLine{\Hypertarget{user__tcfs_8c_source_l00007}00007\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *argp\_program\_version\ =\ \textcolor{stringliteral}{"{}TCFS\ user\ helper\ program"{}};}
+\DoxyCodeLine{\Hypertarget{user__tcfs_8c_source_l00008}00008\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *argp\_program\_bug\_address\ =\ \textcolor{stringliteral}{"{}carloalbertogiordano@duck.com"{}};}
+\DoxyCodeLine{\Hypertarget{user__tcfs_8c_source_l00009}00009\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{char}\ doc[]\ =\ \textcolor{stringliteral}{"{}TCFS\ user\ accepts\ one\ of\ three\ arguments:\ mount,\ create-\/shared,\ or\ umount."{}};}
+\DoxyCodeLine{\Hypertarget{user__tcfs_8c_source_l00010}00010\ }
+\DoxyCodeLine{\Hypertarget{user__tcfs_8c_source_l00011}00011\ \textcolor{comment}{//\ Define\ the\ accepted\ options}}
+\DoxyCodeLine{\Hypertarget{user__tcfs_8c_source_l00012}00012\ \textcolor{keyword}{static}\ \textcolor{keyword}{struct\ }argp\_option\ options[]\ =\ \{}
+\DoxyCodeLine{\Hypertarget{user__tcfs_8c_source_l00013}00013\ \ \ \ \ \ \ \ \ \{\textcolor{stringliteral}{"{}mount"{}},\ \textcolor{charliteral}{'m'},\ 0,\ 0,\ \textcolor{stringliteral}{"{}Perform\ mount\ operation"{}},\ -\/1\},}
+\DoxyCodeLine{\Hypertarget{user__tcfs_8c_source_l00014}00014\ \ \ \ \ \ \ \ \ \{\textcolor{stringliteral}{"{}create-\/shared"{}},\ \textcolor{charliteral}{'c'},\ 0,\ 0,\ \textcolor{stringliteral}{"{}Perform\ create-\/shared\ operation"{}},\ -\/1\},}
+\DoxyCodeLine{\Hypertarget{user__tcfs_8c_source_l00015}00015\ \ \ \ \ \ \ \ \ \{\textcolor{stringliteral}{"{}umount"{}},\ \textcolor{charliteral}{'u'},\ 0,\ 0,\ \textcolor{stringliteral}{"{}Perform\ umount\ operation"{}},\ -\/1\},}
+\DoxyCodeLine{\Hypertarget{user__tcfs_8c_source_l00016}00016\ \ \ \ \ \ \ \ \ \{NULL\}}
+\DoxyCodeLine{\Hypertarget{user__tcfs_8c_source_l00017}00017\ \};}
+\DoxyCodeLine{\Hypertarget{user__tcfs_8c_source_l00018}00018\ }
+\DoxyCodeLine{\Hypertarget{user__tcfs_8c_source_l00019}00019\ \textcolor{comment}{//\ Structure\ to\ hold\ the\ parsed\ arguments}}
+\DoxyCodeLine{\Hypertarget{user__tcfs_8c_source_l00020}\mbox{\hyperlink{structarguments}{00020}}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structarguments}{arguments}}\ \{}
+\DoxyCodeLine{\Hypertarget{user__tcfs_8c_source_l00021}00021\ \ \ \ \ \textcolor{keywordtype}{int}\ operation;}
+\DoxyCodeLine{\Hypertarget{user__tcfs_8c_source_l00022}00022\ \};}
+\DoxyCodeLine{\Hypertarget{user__tcfs_8c_source_l00023}00023\ }
+\DoxyCodeLine{\Hypertarget{user__tcfs_8c_source_l00024}00024\ \textcolor{comment}{//\ Parse\ the\ arguments}}
+\DoxyCodeLine{\Hypertarget{user__tcfs_8c_source_l00025}00025\ \textcolor{keyword}{static}\ error\_t\ parse\_opt(\textcolor{keywordtype}{int}\ key,\ \textcolor{keywordtype}{char}\ *arg,\ \textcolor{keyword}{struct}\ argp\_state\ *state)\ \{}
+\DoxyCodeLine{\Hypertarget{user__tcfs_8c_source_l00026}00026\ \ \ \ \ (void\ )arg;}
+\DoxyCodeLine{\Hypertarget{user__tcfs_8c_source_l00027}00027\ }
+\DoxyCodeLine{\Hypertarget{user__tcfs_8c_source_l00028}00028\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structarguments}{arguments}}\ *\mbox{\hyperlink{structarguments}{arguments}}\ =\ state-\/>input;}
+\DoxyCodeLine{\Hypertarget{user__tcfs_8c_source_l00029}00029\ \ \ \ \ \textcolor{keywordflow}{switch}\ (key)\ \{}
+\DoxyCodeLine{\Hypertarget{user__tcfs_8c_source_l00030}00030\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \textcolor{charliteral}{'m'}:}
+\DoxyCodeLine{\Hypertarget{user__tcfs_8c_source_l00031}00031\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structarguments}{arguments}}-\/>operation\ =\ 1;\ \textcolor{comment}{//\ Mount}}
+\DoxyCodeLine{\Hypertarget{user__tcfs_8c_source_l00032}00032\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{user__tcfs_8c_source_l00033}00033\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \textcolor{charliteral}{'c'}:}
+\DoxyCodeLine{\Hypertarget{user__tcfs_8c_source_l00034}00034\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structarguments}{arguments}}-\/>operation\ =\ 2;\ \textcolor{comment}{//\ Create-\/shared}}
+\DoxyCodeLine{\Hypertarget{user__tcfs_8c_source_l00035}00035\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{user__tcfs_8c_source_l00036}00036\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \textcolor{charliteral}{'u'}:}
+\DoxyCodeLine{\Hypertarget{user__tcfs_8c_source_l00037}00037\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structarguments}{arguments}}-\/>operation\ =\ 3;\ \textcolor{comment}{//\ Umount}}
+\DoxyCodeLine{\Hypertarget{user__tcfs_8c_source_l00038}00038\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{user__tcfs_8c_source_l00039}00039\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{\Hypertarget{user__tcfs_8c_source_l00040}00040\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ARGP\_ERR\_UNKNOWN;}
+\DoxyCodeLine{\Hypertarget{user__tcfs_8c_source_l00041}00041\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{user__tcfs_8c_source_l00042}00042\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\Hypertarget{user__tcfs_8c_source_l00043}00043\ \}}
+\DoxyCodeLine{\Hypertarget{user__tcfs_8c_source_l00044}00044\ }
+\DoxyCodeLine{\Hypertarget{user__tcfs_8c_source_l00045}00045\ \textcolor{comment}{//\ Define\ the\ argp\ object}}
+\DoxyCodeLine{\Hypertarget{user__tcfs_8c_source_l00046}00046\ \textcolor{keyword}{static}\ \textcolor{keyword}{struct\ }argp\ argp\ =\ \{}
+\DoxyCodeLine{\Hypertarget{user__tcfs_8c_source_l00047}00047\ \ \ \ \ \ \ \ \ .options\ =\ options,}
+\DoxyCodeLine{\Hypertarget{user__tcfs_8c_source_l00048}00048\ \ \ \ \ \ \ \ \ .parser\ =\ parse\_opt,}
+\DoxyCodeLine{\Hypertarget{user__tcfs_8c_source_l00049}00049\ \ \ \ \ \ \ \ \ .doc\ =\ doc,}
+\DoxyCodeLine{\Hypertarget{user__tcfs_8c_source_l00050}00050\ \ \ \ \ \ \ \ \ .args\_doc\ =\ NULL,}
+\DoxyCodeLine{\Hypertarget{user__tcfs_8c_source_l00051}00051\ \ \ \ \ \ \ \ \ .children\ =\ NULL,}
+\DoxyCodeLine{\Hypertarget{user__tcfs_8c_source_l00052}00052\ \ \ \ \ \ \ \ \ .help\_filter\ =\ NULL}
+\DoxyCodeLine{\Hypertarget{user__tcfs_8c_source_l00053}00053\ \};}
+\DoxyCodeLine{\Hypertarget{user__tcfs_8c_source_l00054}00054\ }
+\DoxyCodeLine{\Hypertarget{user__tcfs_8c_source_l00055}00055\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{tcfs__daemon_8c_ae66f6b31b5ad750f1fe042a706a4e3d4}{main}}(\textcolor{keywordtype}{int}\ argc,\ \textcolor{keywordtype}{char}\ *argv[])\ \{}
+\DoxyCodeLine{\Hypertarget{user__tcfs_8c_source_l00056}00056\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structarguments}{arguments}}\ \mbox{\hyperlink{structarguments}{arguments}};}
+\DoxyCodeLine{\Hypertarget{user__tcfs_8c_source_l00057}00057\ \ \ \ \ \mbox{\hyperlink{structarguments}{arguments}}.operation\ =\ 0;\ \textcolor{comment}{//\ Default\ value}}
+\DoxyCodeLine{\Hypertarget{user__tcfs_8c_source_l00058}00058\ }
+\DoxyCodeLine{\Hypertarget{user__tcfs_8c_source_l00059}00059\ \ \ \ \ \textcolor{comment}{//\ Parse\ the\ arguments}}
+\DoxyCodeLine{\Hypertarget{user__tcfs_8c_source_l00060}00060\ \ \ \ \ argp\_parse(\&argp,\ argc,\ argv,\ 0,\ 0,\ \&\mbox{\hyperlink{structarguments}{arguments}});}
+\DoxyCodeLine{\Hypertarget{user__tcfs_8c_source_l00061}00061\ }
+\DoxyCodeLine{\Hypertarget{user__tcfs_8c_source_l00062}00062\ \ \ \ \ \mbox{\hyperlink{structarguments}{arguments}}.operation\ =\ 1;\ \textcolor{comment}{//TODO:\ option\ 1\ is\ the\ only\ one\ implemented}}
+\DoxyCodeLine{\Hypertarget{user__tcfs_8c_source_l00063}00063\ \ \ \ \ \textcolor{keywordflow}{switch}\ (\mbox{\hyperlink{structarguments}{arguments}}.operation)\ \{}
+\DoxyCodeLine{\Hypertarget{user__tcfs_8c_source_l00064}00064\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 1:}
+\DoxyCodeLine{\Hypertarget{user__tcfs_8c_source_l00065}00065\ \ \ \ \ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}Mounting\ your\ FS,\ Please\ specify\ the\ location\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{user__tcfs_8c_source_l00066}00066\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ result\ =\ do\_mount();}
+\DoxyCodeLine{\Hypertarget{user__tcfs_8c_source_l00067}00067\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (result\ ==\ 0)}
+\DoxyCodeLine{\Hypertarget{user__tcfs_8c_source_l00068}00068\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{user__tcfs_8c_source_l00069}00069\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fprintf(stderr,\ \textcolor{stringliteral}{"{}An\ error\ occurred\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{user__tcfs_8c_source_l00070}00070\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ exit(-\/1);}
+\DoxyCodeLine{\Hypertarget{user__tcfs_8c_source_l00071}00071\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{user__tcfs_8c_source_l00072}00072\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{user__tcfs_8c_source_l00073}00073\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 2:}
+\DoxyCodeLine{\Hypertarget{user__tcfs_8c_source_l00074}00074\ \ \ \ \ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}You\ chose\ the\ 'create-\/shared'\ operation.\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{user__tcfs_8c_source_l00075}00075\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Add\ specific\ logic\ for\ 'create-\/shared'\ here.}}
+\DoxyCodeLine{\Hypertarget{user__tcfs_8c_source_l00076}00076\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{user__tcfs_8c_source_l00077}00077\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 3:}
+\DoxyCodeLine{\Hypertarget{user__tcfs_8c_source_l00078}00078\ \ \ \ \ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}You\ chose\ the\ 'umount'\ operation.\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{user__tcfs_8c_source_l00079}00079\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Add\ specific\ logic\ for\ 'umount'\ here.}}
+\DoxyCodeLine{\Hypertarget{user__tcfs_8c_source_l00080}00080\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{user__tcfs_8c_source_l00081}00081\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{\Hypertarget{user__tcfs_8c_source_l00082}00082\ \ \ \ \ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}Invalid\ argument.\ Choose\ from\ 'mount',\ 'create-\/shared',\ or\ 'umount'.\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{user__tcfs_8c_source_l00083}00083\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 1;}
+\DoxyCodeLine{\Hypertarget{user__tcfs_8c_source_l00084}00084\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{user__tcfs_8c_source_l00085}00085\ }
+\DoxyCodeLine{\Hypertarget{user__tcfs_8c_source_l00086}00086\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\Hypertarget{user__tcfs_8c_source_l00087}00087\ \}}
+
+\end{DoxyCode}

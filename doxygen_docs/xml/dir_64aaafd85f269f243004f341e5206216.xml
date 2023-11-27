@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="dir_64aaafd85f269f243004f341e5206216" kind="dir">
+    <compoundname>daemon/daemon_utils</compoundname>
+    <innerdir refid="dir_ea5ab4308b809761446f4f1849ce8ac1">daemon/daemon_utils/common_utils</innerdir>
+    <innerdir refid="dir_73a9821ccf69e2c7405f74a135316c29">daemon/daemon_utils/daemon_tools</innerdir>
+    <innerdir refid="dir_04d219c746e56ffc7e35d4e5c96914d1">daemon/daemon_utils/message_handler</innerdir>
+    <innerdir refid="dir_c5b5ac82090b72e74d2549aae5cfebb7">daemon/daemon_utils/queue</innerdir>
+    <innerfile refid="common_8h">common.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="daemon/daemon_utils/"/>
+  </compounddef>
+</doxygen>

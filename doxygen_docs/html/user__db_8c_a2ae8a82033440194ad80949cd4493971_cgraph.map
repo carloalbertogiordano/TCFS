@@ -1,0 +1,5 @@
+<map id="register_user" name="register_user">
+<area shape="rect" id="Node000001" title="Register or update a user in the db, this relies on the redis.c file." alt="" coords="5,5,103,31"/>
+<area shape="rect" id="Node000002" href="$print__utils_8c.html#a491dc14c94ed8cf706bb54880c50b2d0" title="Format and print data as a message." alt="" coords="151,5,229,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="103,15,135,15,135,21,103,21"/>
+</map>

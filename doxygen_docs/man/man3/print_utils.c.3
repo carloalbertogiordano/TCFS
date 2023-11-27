@@ -1,0 +1,173 @@
+.TH "daemon/daemon_utils/common_utils/print/print_utils.c" 3 "Mon Nov 27 2023 17:03:19" "Version 0.2" "TCFS" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+daemon/daemon_utils/common_utils/print/print_utils.c \- This file defines some QoL functions\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+\fC#include 'print_utils\&.h'\fP
+.br
+
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBprint_err\fP (const char *format,\&.\&.\&.)"
+.br
+.RI "Format and print data as an error\&. "
+.ti -1c
+.RI "void \fBprint_msg\fP (const char *format,\&.\&.\&.)"
+.br
+.RI "Format and print data as a message\&. "
+.ti -1c
+.RI "void \fBprint_warn\fP (const char *format,\&.\&.\&.)"
+.br
+.RI "Format and print data as a waring\&. "
+.ti -1c
+.RI "void \fBprint_debug\fP (const char *format,\&.\&.\&.)"
+.br
+.RI "Format and print data as a debug\&. "
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "int \fBcleared\fP = 0"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+This file defines some QoL functions\&. 
+
+
+.PP
+Definition in file \fBprint_utils\&.c\fP\&.
+.SH "Function Documentation"
+.PP 
+.SS "void print_debug (const char * format,  \&.\&.\&.)"
+
+.PP
+Format and print data as a debug\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIconst\fP char *format the string that will formatted and printed 
+.br
+\fI[ARGUMENTS]\&.\&.\&.\fP Print optional ARGUMENT(s) according to format 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+void 
+.RE
+.PP
+\fBNote\fP
+.RS 4
+Will also log using systemD 
+.PP
+"DEBUG=" will be prepended to format 
+.RE
+.PP
+
+.PP
+Definition at line \fB131\fP of file \fBprint_utils\&.c\fP\&.
+.SS "void print_err (const char * format,  \&.\&.\&.)"
+
+.PP
+Format and print data as an error\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIconst\fP char *format the string that will formatted and printed 
+.br
+\fI[ARGUMENTS]\&.\&.\&.\fP Print optional ARGUMENT(s) according to format 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+void 
+.RE
+.PP
+\fBNote\fP
+.RS 4
+Will also log using systemD 
+.PP
+"ERROR=" will be prepended to format 
+.PP
+"Err_Numebr:d" will be appended to the formatted string describing the error number 
+.PP
+after Err_Number "-> s" will be appended printing the std-error 
+.RE
+.PP
+
+.PP
+Definition at line \fB69\fP of file \fBprint_utils\&.c\fP\&.
+.PP
+Referenced by \fBmain()\fP\&.
+.SS "void print_msg (const char * format,  \&.\&.\&.)"
+
+.PP
+Format and print data as a message\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIconst\fP char *format the string that will formatted and printed 
+.br
+\fI[ARGUMENTS]\&.\&.\&.\fP Print optional ARGUMENT(s) according to format 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+void 
+.RE
+.PP
+\fBNote\fP
+.RS 4
+Will also log using systemD 
+.PP
+"MESSAGE=" will be prepended to format 
+.RE
+.PP
+
+.PP
+Definition at line \fB89\fP of file \fBprint_utils\&.c\fP\&.
+.PP
+Referenced by \fBdisconnect_db()\fP, \fBhandle_termination()\fP, \fBmain()\fP, \fBregister_user()\fP, and \fBunregister_user()\fP\&.
+.SS "void print_warn (const char * format,  \&.\&.\&.)"
+
+.PP
+Format and print data as a waring\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIconst\fP char *format the string that will formatted and printed 
+.br
+\fI[ARGUMENTS]\&.\&.\&.\fP Print optional ARGUMENT(s) according to format 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+void 
+.RE
+.PP
+\fBNote\fP
+.RS 4
+Will also log using systemD 
+.PP
+"WARNING=" will be prepended to format 
+.RE
+.PP
+
+.PP
+Definition at line \fB110\fP of file \fBprint_utils\&.c\fP\&.
+.SH "Variable Documentation"
+.PP 
+.SS "int cleared = 0"
+
+.PP
+Definition at line \fB13\fP of file \fBprint_utils\&.c\fP\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for TCFS from the source code\&.

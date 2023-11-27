@@ -1,0 +1,285 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_print__utils_8c" xml:lang="en-US">
+<title>daemon/daemon_utils/common_utils/print/print_utils.c File Reference</title>
+<indexterm><primary>daemon/daemon_utils/common_utils/print/print_utils.c</primary></indexterm>
+<para>
+
+<para>This file defines some QoL functions. </para>
+ 
+</para>
+<programlisting linenumbering="unnumbered">#include &quot;print_utils.h&quot;<?linebreak?></programlisting>Include dependency graph for print_utils.c:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="print__utils_8c__incl.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+<simplesect>
+    <title>Functions    </title>
+        <itemizedlist>
+            <listitem><para>void <link linkend="_print__utils_8c_1a650ab060ffe5dbc6c1a968a9cae3bded">print_err</link> (const char *format,...)</para>
+
+<para>Format and print data as an error. </para>
+</listitem>
+            <listitem><para>void <link linkend="_print__utils_8c_1a491dc14c94ed8cf706bb54880c50b2d0">print_msg</link> (const char *format,...)</para>
+
+<para>Format and print data as a message. </para>
+</listitem>
+            <listitem><para>void <link linkend="_print__utils_8c_1ae39065df491deead21b0375a8ce1a4d6">print_warn</link> (const char *format,...)</para>
+
+<para>Format and print data as a waring. </para>
+</listitem>
+            <listitem><para>void <link linkend="_print__utils_8c_1ad808dc3fd801407dcc907bdea848a47e">print_debug</link> (const char *format,...)</para>
+
+<para>Format and print data as a debug. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Variables    </title>
+        <itemizedlist>
+            <listitem><para>int <link linkend="_print__utils_8c_1a887e8bdd9deeb0866ce86067cdba5fcc">cleared</link> = 0</para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Detailed Description</title>
+
+<para>This file defines some QoL functions. </para>
+<para>
+Definition in file <link linkend="_print__utils_8c_source">print_utils.c</link>.</para>
+</section>
+<section>
+<title>Function Documentation</title>
+<anchor xml:id="_print__utils_8c_1ad808dc3fd801407dcc907bdea848a47e"/><section>
+    <title>print_debug()</title>
+<indexterm><primary>print_debug</primary><secondary>print_utils.c</secondary></indexterm>
+<indexterm><primary>print_utils.c</primary><secondary>print_debug</secondary></indexterm>
+<para><computeroutput>void print_debug (const char * format,  ...)</computeroutput></para><para>
+
+<para>Format and print data as a debug. </para>
+</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>const</entry><entry>
+<para>char *format the string that will formatted and printed </para>
+</entry>
+                            </row>
+                            <row>
+<entry>[ARGUMENTS]...</entry><entry>
+<para>Print optional ARGUMENT(s) according to format </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>void </para>
+</formalpara>
+<note><title>Note</title>
+
+<para>Will also log using systemD </para>
+
+<para>&quot;DEBUG=&quot; will be prepended to format </para>
+</note>
+</para>
+<para>
+Definition at line <link linkend="_print__utils_8c_source_1l00131">131</link> of file <link linkend="_print__utils_8c_source">print_utils.c</link>.</para>
+</section>
+<anchor xml:id="_print__utils_8c_1a650ab060ffe5dbc6c1a968a9cae3bded"/><section>
+    <title>print_err()</title>
+<indexterm><primary>print_err</primary><secondary>print_utils.c</secondary></indexterm>
+<indexterm><primary>print_utils.c</primary><secondary>print_err</secondary></indexterm>
+<para><computeroutput>void print_err (const char * format,  ...)</computeroutput></para><para>
+
+<para>Format and print data as an error. </para>
+</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>const</entry><entry>
+<para>char *format the string that will formatted and printed </para>
+</entry>
+                            </row>
+                            <row>
+<entry>[ARGUMENTS]...</entry><entry>
+<para>Print optional ARGUMENT(s) according to format </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>void </para>
+</formalpara>
+<note><title>Note</title>
+
+<para>Will also log using systemD </para>
+
+<para>&quot;ERROR=&quot; will be prepended to format </para>
+
+<para>&quot;Err_Numebr:d&quot; will be appended to the formatted string describing the error number </para>
+
+<para>after Err_Number &quot;-&gt; s&quot; will be appended printing the std-error </para>
+</note>
+</para>
+<para>
+Definition at line <link linkend="_print__utils_8c_source_1l00069">69</link> of file <link linkend="_print__utils_8c_source">print_utils.c</link>.</para>
+<para>
+Referenced by <link linkend="_tcfs__daemon_8c_source_1l00047">main()</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="print__utils_8c_a650ab060ffe5dbc6c1a968a9cae3bded_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_print__utils_8c_1a491dc14c94ed8cf706bb54880c50b2d0"/><section>
+    <title>print_msg()</title>
+<indexterm><primary>print_msg</primary><secondary>print_utils.c</secondary></indexterm>
+<indexterm><primary>print_utils.c</primary><secondary>print_msg</secondary></indexterm>
+<para><computeroutput>void print_msg (const char * format,  ...)</computeroutput></para><para>
+
+<para>Format and print data as a message. </para>
+</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>const</entry><entry>
+<para>char *format the string that will formatted and printed </para>
+</entry>
+                            </row>
+                            <row>
+<entry>[ARGUMENTS]...</entry><entry>
+<para>Print optional ARGUMENT(s) according to format </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>void </para>
+</formalpara>
+<note><title>Note</title>
+
+<para>Will also log using systemD </para>
+
+<para>&quot;MESSAGE=&quot; will be prepended to format </para>
+</note>
+</para>
+<para>
+Definition at line <link linkend="_print__utils_8c_source_1l00089">89</link> of file <link linkend="_print__utils_8c_source">print_utils.c</link>.</para>
+<para>
+Referenced by <link linkend="_user__db_8c_source_1l00041">disconnect_db()</link>, <link linkend="_tcfs__daemon_8c_source_1l00036">handle_termination()</link>, <link linkend="_tcfs__daemon_8c_source_1l00047">main()</link>, <link linkend="_user__db_8c_source_1l00014">register_user()</link>, and <link linkend="_user__db_8c_source_1l00029">unregister_user()</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="print__utils_8c_a491dc14c94ed8cf706bb54880c50b2d0_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_print__utils_8c_1ae39065df491deead21b0375a8ce1a4d6"/><section>
+    <title>print_warn()</title>
+<indexterm><primary>print_warn</primary><secondary>print_utils.c</secondary></indexterm>
+<indexterm><primary>print_utils.c</primary><secondary>print_warn</secondary></indexterm>
+<para><computeroutput>void print_warn (const char * format,  ...)</computeroutput></para><para>
+
+<para>Format and print data as a waring. </para>
+</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>const</entry><entry>
+<para>char *format the string that will formatted and printed </para>
+</entry>
+                            </row>
+                            <row>
+<entry>[ARGUMENTS]...</entry><entry>
+<para>Print optional ARGUMENT(s) according to format </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>void </para>
+</formalpara>
+<note><title>Note</title>
+
+<para>Will also log using systemD </para>
+
+<para>&quot;WARNING=&quot; will be prepended to format </para>
+</note>
+</para>
+<para>
+Definition at line <link linkend="_print__utils_8c_source_1l00110">110</link> of file <link linkend="_print__utils_8c_source">print_utils.c</link>.</para>
+</section>
+</section>
+<section>
+<title>Variable Documentation</title>
+<anchor xml:id="_print__utils_8c_1a887e8bdd9deeb0866ce86067cdba5fcc"/><section>
+    <title>cleared</title>
+<indexterm><primary>cleared</primary><secondary>print_utils.c</secondary></indexterm>
+<indexterm><primary>print_utils.c</primary><secondary>cleared</secondary></indexterm>
+<para><computeroutput>int cleared = 0</computeroutput></para><para>
+Definition at line <link linkend="_print__utils_8c_source_1l00013">13</link> of file <link linkend="_print__utils_8c_source">print_utils.c</link>.</para>
+</section>
+</section>
+</section>

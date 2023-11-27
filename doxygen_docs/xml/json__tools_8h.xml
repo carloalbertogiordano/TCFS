@@ -1,0 +1,223 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="json__tools_8h" kind="file" language="C++">
+    <compoundname>json_tools.h</compoundname>
+    <includes refid="common_8h" local="yes">../../common.h</includes>
+    <includedby refid="redis_8c" local="yes">daemon/daemon_utils/common_utils/db/redis.c</includedby>
+    <includedby refid="message__handler_8c" local="yes">daemon/daemon_utils/message_handler/message_handler.c</includedby>
+    <includedby refid="queue_8h" local="yes">daemon/daemon_utils/queue/queue.h</includedby>
+    <incdepgraph>
+      <node id="2">
+        <label>../../common.h</label>
+        <link refid="common_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>daemon/daemon_utils/common_utils/json/json_tools.h</label>
+        <link refid="json__tools_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>errno.h</label>
+      </node>
+      <node id="5">
+        <label>fcntl.h</label>
+      </node>
+      <node id="6">
+        <label>mqueue.h</label>
+      </node>
+      <node id="8">
+        <label>string.h</label>
+      </node>
+      <node id="3">
+        <label>sys/stat.h</label>
+      </node>
+      <node id="4">
+        <label>sys/types.h</label>
+      </node>
+      <node id="7">
+        <label>unistd.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="2">
+        <label>daemon/daemon_utils/common_utils/db/redis.c</label>
+        <link refid="redis_8c_source"/>
+      </node>
+      <node id="6">
+        <label>daemon/daemon_utils/common_utils/db/user_db.c</label>
+        <link refid="user__db_8c"/>
+      </node>
+      <node id="5">
+        <label>daemon/daemon_utils/common_utils/db/user_db.h</label>
+        <link refid="user__db_8h_source"/>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>daemon/daemon_utils/common_utils/json/json_tools.h</label>
+        <link refid="json__tools_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>daemon/daemon_utils/daemon_tools/tcfs_daemon_tools.c</label>
+        <link refid="tcfs__daemon__tools_8c_source"/>
+      </node>
+      <node id="7">
+        <label>daemon/daemon_utils/daemon_tools/tcfs_daemon_tools.h</label>
+        <link refid="tcfs__daemon__tools_8h_source"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>daemon/daemon_utils/message_handler/message_handler.c</label>
+        <link refid="message__handler_8c_source"/>
+      </node>
+      <node id="10">
+        <label>daemon/daemon_utils/queue/queue.c</label>
+        <link refid="queue_8c_source"/>
+      </node>
+      <node id="4">
+        <label>daemon/daemon_utils/queue/queue.h</label>
+        <link refid="queue_8h_source"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>daemon/tcfs_daemon.c</label>
+        <link refid="tcfs__daemon_8c"/>
+      </node>
+    </invincdepgraph>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="json__tools_8h_1a6d8f7b16cc20fb98cb9a3feda51705be" prot="public" static="no" extern="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const char *</type>
+        <definition>const char * struct_to_json</definition>
+        <argsstring>(qm_type qmt, void *q_mess)</argsstring>
+        <name>struct_to_json</name>
+        <param>
+          <type>qm_type</type>
+          <declname>qmt</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>q_mess</declname>
+        </param>
+        <briefdescription>
+<para>Cast a <ref refid="structqm__user" kindref="compound">qm_user</ref>, <ref refid="structqm__shared" kindref="compound">qm_shared</ref> or <ref refid="structqm__broad" kindref="compound">qm_broad</ref> struct to a json string representing the struct. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>qm_type</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>qmt </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="see"><para><ref refid="common_8h_source" kindref="compound">common.h</ref> </para>
+</simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>void*</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>q_mess The structure from which the json will be built </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>char* The json string </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="daemon/daemon_utils/common_utils/json/json_tools.h" line="3" column="19" bodyfile="daemon/daemon_utils/common_utils/json/json_tools.cpp" bodystart="23" bodyend="68" declfile="daemon/daemon_utils/common_utils/json/json_tools.h" declline="3" declcolumn="19"/>
+      </memberdef>
+      <memberdef kind="function" id="json__tools_8h_1a513edf914a6a6141c7892d193d0c1f52" prot="public" static="no" extern="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void *</type>
+        <definition>void * string_to_struct</definition>
+        <argsstring>(const char *json_string, qm_type *type)</argsstring>
+        <name>string_to_struct</name>
+        <param>
+          <type>const char *</type>
+          <declname>json_string</declname>
+        </param>
+        <param>
+          <type>qm_type *</type>
+          <declname>type</declname>
+        </param>
+        <briefdescription>
+<para>Cast a json string to a struct. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>const</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>char * json_string The string containing the json that represents the struct </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>qm_type</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>*type Will be set to the type of the struct </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>void* This is the actual allocated structure, casted to void </para>
+</simplesect>
+<simplesect kind="note"><para>To cast the returned param to the structure you probably need to use a switch(type) and cast it to a struct </para>
+</simplesect>
+<simplesect kind="see"><para><ref refid="common_8h_source" kindref="compound">common.h</ref> </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="daemon/daemon_utils/common_utils/json/json_tools.h" line="4" column="13" bodyfile="daemon/daemon_utils/common_utils/json/json_tools.cpp" bodystart="78" bodyend="118" declfile="daemon/daemon_utils/common_utils/json/json_tools.h" declline="4" declcolumn="13"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#include<sp/>&quot;../../common.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*struct_to_json(qm_type<sp/>qmt,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*q_mess);</highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal">*<sp/>string_to_struct(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>json_string,<sp/>qm_type*<sp/>type);</highlight></codeline>
+    </programlisting>
+    <location file="daemon/daemon_utils/common_utils/json/json_tools.h"/>
+  </compounddef>
+</doxygen>
