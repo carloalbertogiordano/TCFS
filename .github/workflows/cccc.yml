@@ -17,6 +17,7 @@ jobs:
             kernel-module
             user
             userspace-module
+          output_dir: code_analisys/cccc/metrics
 
       - name: upload metrics report
         uses: actions/upload-artifact@v2
