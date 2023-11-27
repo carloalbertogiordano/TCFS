@@ -1,0 +1,27 @@
+name: cppcheck-action
+on: [push]
+
+jobs:
+  build:
+    name: cppcheck-test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+          
+      - name: cppcheck
+        uses: deep5050/cppcheck-action@main
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN}}
+          exclude_check: ./.github ./TCFS-2001 ./build ./doxygen_docs
+          output_path: ./code_analisys/cppcheck/
+        
+      - name: publish report    
+        uses: mikeal/publish-to-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH_NAME: 'main'
+
+      - name: upload sarif
+        uses: github/codeql-action/upload-sarif@v1 # Upload results to GitHub Code Scanning Alerts
+        with:
+          sarif_file: ./code_analisys/cppcheck/cppcheck_result.sarif 
