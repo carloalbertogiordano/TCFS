@@ -5,64 +5,67 @@
 \DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00001}00001\ \textcolor{preprocessor}{\#include\ <stdio.h>}}
 \DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00002}00002\ \textcolor{preprocessor}{\#include\ <stdlib.h>}}
 \DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00003}00003\ \textcolor{preprocessor}{\#include\ <string.h>}}
-\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00004}00004\ \textcolor{preprocessor}{\#include\ <unistd.h>}}
-\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00005}00005\ \textcolor{preprocessor}{\#include\ <sys/mman.h>}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00004}00004\ \textcolor{preprocessor}{\#include\ <sys/mman.h>}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00005}00005\ \textcolor{preprocessor}{\#include\ <unistd.h>}}
 \DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00006}00006\ }
-\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00007}00007\ \textcolor{preprocessor}{\#include\ <openssl/evp.h>}}
-\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00008}00008\ \textcolor{preprocessor}{\#include\ <openssl/aes.h>}}
-\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00009}00009\ \textcolor{preprocessor}{\#include\ <openssl/rand.h>}}
-\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00010}00010\ \textcolor{preprocessor}{\#include\ <openssl/bio.h>}}
-\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00011}00011\ \textcolor{preprocessor}{\#include\ <openssl/buffer.h>}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00007}00007\ \textcolor{preprocessor}{\#include\ <openssl/aes.h>}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00008}00008\ \textcolor{preprocessor}{\#include\ <openssl/bio.h>}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00009}00009\ \textcolor{preprocessor}{\#include\ <openssl/buffer.h>}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00010}00010\ \textcolor{preprocessor}{\#include\ <openssl/evp.h>}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00011}00011\ \textcolor{preprocessor}{\#include\ <openssl/rand.h>}}
 \DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00012}00012\ }
 \DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00013}00013\ \textcolor{preprocessor}{\#include\ "{}../tcfs\_utils/tcfs\_utils.h"{}}\ \textcolor{comment}{//TODO:\ Remove,\ for\ debugging\ only}}
 \DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00014}00014\ }
 \DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00015}00015\ \textcolor{preprocessor}{\#define\ BLOCKSIZE\ 1024}}
-\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00016}00016\ \textcolor{preprocessor}{\#define\ ENCRYPT\ 1}}
-\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00017}00017\ \textcolor{preprocessor}{\#define\ DECRYPT\ 0}}
-\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00018}00018\ }
-\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00019}00019\ \textcolor{comment}{/*\ int\ do\_crypt(FILE*\ in,\ FILE*\ out,\ int\ action,\ char*\ key\_str)}}
-\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00020}00020\ \textcolor{comment}{\ *\ Purpose:\ Perform\ cipher\ on\ in\ File*\ and\ place\ result\ in\ out\ File*}}
-\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00021}00021\ \textcolor{comment}{\ *\ Args:\ FILE*\ in\ \ \ \ \ \ :\ Input\ File\ Pointer}}
-\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00022}00022\ \textcolor{comment}{\ *\ \ \ \ \ \ \ FILE*\ out\ \ \ \ \ :\ Output\ File\ Pointer}}
-\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00023}00023\ \textcolor{comment}{\ *\ \ \ \ \ \ \ int\ action\ \ \ \ :\ Cipher\ action\ (1=encrypt,\ 0=decrypt,\ -\/1=pass-\/through\ (copy))}}
-\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00024}00024\ \textcolor{comment}{\ *\ \ \ unsigned\ char\ *key\_str\ :\ C-\/string\ containing\ passphrase\ from\ which\ key\ is\ derived}}
-\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00025}00025\ \textcolor{comment}{\ *\ Return:\ 0\ on\ error,\ 1\ on\ success}}
-\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00026}00026\ \textcolor{comment}{\ */}}
-\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00027}00027\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{int}\ do\_crypt(FILE*\ in,\ FILE*\ out,\ \textcolor{keywordtype}{int}\ action,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *key\_str);}
-\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00028}00028\ }
-\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00029}00029\ \textcolor{comment}{/*\ void\ generate\_key(unsigned\ char\ *destination)}}
-\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00030}00030\ \textcolor{comment}{\ *\ Purpose:\ Generate\ an\ AES\ 256\ key\ of\ size\ 32\ bytes}}
-\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00031}00031\ \textcolor{comment}{\ *\ Args:\ unsigned\ char\ *destination\ \ \ \ :\ The\ destination\ for\ the\ generated\ key.\ it\ must\ be\ 33\ bytes\ long\ to\ account\ for\ a\ \(\backslash\)0}}
-\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00032}00032\ \textcolor{comment}{\ *\ Return:\ void,\ if\ the\ generation\ failed\ an\ error\ will\ be\ thrown}}
-\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00033}00033\ \textcolor{comment}{\ */}}
-\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00034}00034\ \textcolor{keywordtype}{void}\ generate\_key(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *destination);}
-\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00035}00035\ }
-\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00036}00036\ \textcolor{comment}{/*unsigned\ char*\ encrypt\_string(unsigned\ char*\ plaintext,\ const\ char*\ key,\ int\ *encrypted\_len)}}
-\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00037}00037\ \textcolor{comment}{\ *\ Purpose:\ Encrypt\ a\ string\ with\ AES-\/256}}
-\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00038}00038\ \textcolor{comment}{\ *\ Args:\ unsigned\ char*\ plaintext\ \ \ :\ The\ plaintext\ to\ be\ encrypted}}
-\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00039}00039\ \textcolor{comment}{\ *\ \ \ \ \ \ \ const\ char*\ key\ \ \ \ \ \ \ \ \ \ \ \ :\ The\ key\ for\ the\ encryption}}
-\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00040}00040\ \textcolor{comment}{\ *\ \ \ \ \ \ \ int\ *encrypted\_len\ \ \ \ \ \ \ \ \ :\ This\ will\ be\ filled\ with\ the\ encrypted\ text\ length}}
-\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00041}00041\ \textcolor{comment}{\ *\ Return:\ The\ encrypted\ string\ +\ \(\backslash\)0.\ On\ error\ null\ is\ returned}}
-\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00042}00042\ \textcolor{comment}{\ *\ */}}
-\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00043}00043\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\ encrypt\_string(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\ plaintext,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ key,\ \textcolor{keywordtype}{int}\ *encrypted\_len);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00020}00020\ \textcolor{preprocessor}{\#define\ ENCRYPT\ 1}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00025}00025\ \textcolor{preprocessor}{\#define\ DECRYPT\ 0}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00026}00026\ }
+\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00027}00027\ \textcolor{comment}{/*\ int\ do\_crypt(FILE*\ in,\ FILE*\ out,\ int\ action,\ char*\ key\_str)}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00028}00028\ \textcolor{comment}{\ *\ Purpose:\ Perform\ cipher\ on\ in\ File*\ and\ place\ result\ in\ out\ File*}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00029}00029\ \textcolor{comment}{\ *\ Args:\ FILE*\ in\ \ \ \ \ \ :\ Input\ File\ Pointer}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00030}00030\ \textcolor{comment}{\ *\ \ \ \ \ \ \ FILE*\ out\ \ \ \ \ :\ Output\ File\ Pointer}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00031}00031\ \textcolor{comment}{\ *\ \ \ \ \ \ \ int\ action\ \ \ \ :\ Cipher\ action\ (1=encrypt,\ 0=decrypt,\ -\/1=pass-\/through}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00032}00032\ \textcolor{comment}{\ *(copy))\ unsigned\ char\ *key\_str\ :\ C-\/string\ containing\ passphrase\ from\ which}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00033}00033\ \textcolor{comment}{\ *key\ is\ derived\ Return:\ 0\ on\ error,\ 1\ on\ success}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00034}00034\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00035}00035\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{int}\ do\_crypt\ (FILE\ *in,\ FILE\ *out,\ \textcolor{keywordtype}{int}\ action,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *key\_str);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00036}00036\ }
+\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00037}00037\ \textcolor{comment}{/*\ void\ generate\_key(unsigned\ char\ *destination)}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00038}00038\ \textcolor{comment}{\ *\ Purpose:\ Generate\ an\ AES\ 256\ key\ of\ size\ 32\ bytes}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00039}00039\ \textcolor{comment}{\ *\ Args:\ unsigned\ char\ *destination\ \ \ \ :\ The\ destination\ for\ the\ generated\ key.}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00040}00040\ \textcolor{comment}{\ *\ it\ must\ be\ 33\ bytes\ long\ to\ account\ for\ a\ \(\backslash\)0\ Return:\ void,\ if\ the\ generation}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00041}00041\ \textcolor{comment}{\ *\ failed\ an\ error\ will\ be\ thrown}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00042}00042\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00043}00043\ \textcolor{keywordtype}{void}\ generate\_key\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *destination);}
 \DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00044}00044\ }
-\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00045}00045\ \textcolor{comment}{/*unsigned\ char*\ decrypt\_string(unsigned\ char*\ base64\_ciphertext,\ const\ char*\ key);}}
-\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00046}00046\ \textcolor{comment}{\ *\ Purpose:\ Decrypt\ a\ string\ with\ AES-\/256}}
-\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00047}00047\ \textcolor{comment}{\ *\ Args:\ unsigned\ char*\ base64\_ciphertext\ \ \ :\ The\ cyphertext\ to\ be\ decrypted}}
-\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00048}00048\ \textcolor{comment}{\ *\ \ \ \ \ \ \ const\ char*\ key\ \ \ \ \ \ \ \ \ \ \ \ :\ The\ key\ for\ the\ decryption}}
-\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00049}00049\ \textcolor{comment}{\ *\ Return:\ The\ decrypted\ string\ +\ \(\backslash\)0.\ On\ error\ null\ is\ returned}}
-\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00050}00050\ \textcolor{comment}{\ *\ */}}
-\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00051}00051\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\ decrypt\_string(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\ base64\_ciphertext,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ key);}
-\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00052}00052\ }
-\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00053}00053\ \textcolor{comment}{/*int\ is\_valid\_key(const\ unsigned\ char*\ key);}}
-\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00054}00054\ \textcolor{comment}{\ *\ Purpose:\ Check\ if\ a\ AES-\/256\ key\ is\ valid}}
-\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00055}00055\ \textcolor{comment}{\ *\ Args:\ unsigned\ char*\ key\ \ \ :\ The\ key\ to\ be\ checked}}
-\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00056}00056\ \textcolor{comment}{\ *\ Return:\ 1\ if\ the\ key\ is\ valid,\ 0\ if\ it\ is\ invalid}}
-\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00057}00057\ \textcolor{comment}{\ *\ */}}
-\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00058}00058\ \textcolor{keywordtype}{int}\ is\_valid\_key(\textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\ key);}
-\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00059}00059\ }
-\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00060}00060\ \textcolor{comment}{/*}}
-\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00061}00061\ \textcolor{comment}{int\ rebuild\_key(char\ *key,\ char\ *cert,\ char\ *dest);}}
-\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00062}00062\ \textcolor{comment}{*/}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00045}00045\ \textcolor{comment}{/*unsigned\ char*\ encrypt\_string(unsigned\ char*\ plaintext,\ const\ char*\ key,\ int}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00046}00046\ \textcolor{comment}{\ *\ *encrypted\_len)\ Purpose:\ Encrypt\ a\ string\ with\ AES-\/256\ Args:\ unsigned\ char*}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00047}00047\ \textcolor{comment}{\ *\ plaintext\ \ \ :\ The\ plaintext\ to\ be\ encrypted\ const\ char*\ key\ \ \ \ \ \ \ \ \ \ \ \ :\ The}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00048}00048\ \textcolor{comment}{\ *\ key\ for\ the\ encryption\ int\ *encrypted\_len\ \ \ \ \ \ \ \ \ :\ This\ will\ be\ filled\ with}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00049}00049\ \textcolor{comment}{\ *\ the\ encrypted\ text\ length\ Return:\ The\ encrypted\ string\ +\ \(\backslash\)0.\ On\ error\ null}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00050}00050\ \textcolor{comment}{\ *\ is\ returned}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00051}00051\ \textcolor{comment}{\ *\ */}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00052}00052\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *encrypt\_string\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *plaintext,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *key,}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00053}00053\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ *encrypted\_len);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00054}00054\ }
+\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00055}00055\ \textcolor{comment}{/*unsigned\ char*\ decrypt\_string(unsigned\ char*\ base64\_ciphertext,\ const\ char*}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00056}00056\ \textcolor{comment}{\ *\ key);\ Purpose:\ Decrypt\ a\ string\ with\ AES-\/256\ Args:\ unsigned\ char*}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00057}00057\ \textcolor{comment}{\ *\ base64\_ciphertext\ \ \ :\ The\ cyphertext\ to\ be\ decrypted\ const\ char*\ key\ :\ The}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00058}00058\ \textcolor{comment}{\ *\ key\ for\ the\ decryption\ Return:\ The\ decrypted\ string\ +\ \(\backslash\)0.\ On\ error\ null\ is}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00059}00059\ \textcolor{comment}{\ *\ returned}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00060}00060\ \textcolor{comment}{\ *\ */}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00061}00061\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *decrypt\_string\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *base64\_ciphertext,}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00062}00062\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *key);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00063}00063\ }
+\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00064}00064\ \textcolor{comment}{/*int\ is\_valid\_key(const\ unsigned\ char*\ key);}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00065}00065\ \textcolor{comment}{\ *\ Purpose:\ Check\ if\ a\ AES-\/256\ key\ is\ valid}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00066}00066\ \textcolor{comment}{\ *\ Args:\ unsigned\ char*\ key\ \ \ :\ The\ key\ to\ be\ checked}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00067}00067\ \textcolor{comment}{\ *\ Return:\ 1\ if\ the\ key\ is\ valid,\ 0\ if\ it\ is\ invalid}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00068}00068\ \textcolor{comment}{\ *\ */}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00069}00069\ \textcolor{keywordtype}{int}\ is\_valid\_key\ (\textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *key);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00070}00070\ }
+\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00071}00071\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00072}00072\ \textcolor{comment}{int\ rebuild\_key(char\ *key,\ char\ *cert,\ char\ *dest);}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8h_source_l00073}00073\ \textcolor{comment}{*/}}
 
 \end{DoxyCode}

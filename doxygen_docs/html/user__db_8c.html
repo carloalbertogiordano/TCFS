@@ -95,7 +95,7 @@ Include dependency graph for user_db.c:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a2ae8a82033440194ad80949cd4493971" id="r_a2ae8a82033440194ad80949cd4493971"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="user__db_8c.html#a2ae8a82033440194ad80949cd4493971">register_user</a> (<a class="el" href="structqm__user.html">qm_user</a> *user_msg)</td></tr>
-<tr class="memdesc:a2ae8a82033440194ad80949cd4493971"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register or update a user in the db, this relies on the <a class="el" href="redis_8c_source.html">redis.c</a> file.  <br /></td></tr>
+<tr class="memdesc:a2ae8a82033440194ad80949cd4493971"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register or update a user in the db, this relies on the <a class="el" href="redis_8c.html" title="All the function in this file should not be used directly, instead use the function defined by user_d...">redis.c</a> file.  <br /></td></tr>
 <tr class="separator:a2ae8a82033440194ad80949cd4493971"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6e2fcf4aa637e61f69b1b601981663cf" id="r_a6e2fcf4aa637e61f69b1b601981663cf"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="user__db_8c.html#a6e2fcf4aa637e61f69b1b601981663cf">unregister_user</a> (pid_t pid)</td></tr>
 <tr class="memdesc:a6e2fcf4aa637e61f69b1b601981663cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove a user from the DB.  <br /></td></tr>
@@ -135,13 +135,13 @@ Functions</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>If this fails no errors will be printed and no errno will be set, you are on your own :( </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="user__db_8c_source.html#l00041">41</a> of file <a class="el" href="user__db_8c_source.html">user_db.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="user__db_8c_source.html#l00045">45</a> of file <a class="el" href="user__db_8c_source.html">user_db.c</a>.</p>
 
-<p class="reference">References <a class="el" href="print__utils_8c_source.html#l00089">print_msg()</a>.</p>
+<p class="reference">References <a class="el" href="redis_8c_source.html#l00092">free_context()</a>, and <a class="el" href="print__utils_8c_source.html#l00101">print_msg()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="user__db_8c_ab57ffd0f0b23a847e766e762906af22e_cgraph.svg" width="244" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="user__db_8c_ab57ffd0f0b23a847e766e762906af22e_cgraph.svg" width="260" height="86"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -162,22 +162,23 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Register or update a user in the db, this relies on the <a class="el" href="redis_8c_source.html">redis.c</a> file. </p>
+<p>Register or update a user in the db, this relies on the <a class="el" href="redis_8c.html" title="All the function in this file should not be used directly, instead use the function defined by user_d...">redis.c</a> file. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">qm_user*</td><td>A pointer to the allocated qm_user* struct </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>1 if successful, 0 otherwise </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>1 if successful, 0 otherwise. An error might be printen by <a class="el" href="print__utils_8c.html#a650ab060ffe5dbc6c1a968a9cae3bded" title="Format and print data as an error.">print_err()</a> function, </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="print__utils_8c.html#a650ab060ffe5dbc6c1a968a9cae3bded" title="Format and print data as an error.">print_err</a> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="user__db_8c_source.html#l00014">14</a> of file <a class="el" href="user__db_8c_source.html">user_db.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="user__db_8c_source.html#l00015">15</a> of file <a class="el" href="user__db_8c_source.html">user_db.c</a>.</p>
 
-<p class="reference">References <a class="el" href="print__utils_8c_source.html#l00089">print_msg()</a>.</p>
+<p class="reference">References <a class="el" href="redis_8c_source.html#l00072">init_context()</a>, <a class="el" href="redis_8c_source.html#l00211">insert()</a>, <a class="el" href="redis_8c_source.html#l00042">print_all_keys()</a>, and <a class="el" href="print__utils_8c_source.html#l00101">print_msg()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="user__db_8c_a2ae8a82033440194ad80949cd4493971_cgraph.svg" width="235" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="user__db_8c_a2ae8a82033440194ad80949cd4493971_cgraph.svg" width="386" height="187"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -205,15 +206,16 @@ Here is the call graph for this function:</div>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>1 if successful, 0 otherwise </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>1 if successful, 0 otherwise. An error might be printen by <a class="el" href="print__utils_8c.html#a650ab060ffe5dbc6c1a968a9cae3bded" title="Format and print data as an error.">print_err()</a> function, </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="print__utils_8c.html#a650ab060ffe5dbc6c1a968a9cae3bded" title="Format and print data as an error.">print_err</a> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="user__db_8c_source.html#l00029">29</a> of file <a class="el" href="user__db_8c_source.html">user_db.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="user__db_8c_source.html#l00031">31</a> of file <a class="el" href="user__db_8c_source.html">user_db.c</a>.</p>
 
-<p class="reference">References <a class="el" href="print__utils_8c_source.html#l00089">print_msg()</a>.</p>
+<p class="reference">References <a class="el" href="redis_8c_source.html#l00042">print_all_keys()</a>, <a class="el" href="print__utils_8c_source.html#l00101">print_msg()</a>, and <a class="el" href="redis_8c_source.html#l00256">remove_by_pid()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="user__db_8c_a6e2fcf4aa637e61f69b1b601981663cf_cgraph.svg" width="248" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="user__db_8c_a6e2fcf4aa637e61f69b1b601981663cf_cgraph.svg" width="100%" height="516"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -221,7 +223,7 @@ Here is the call graph for this function:</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Nov 27 2023 17:03:19 for TCFS by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated on Tue Nov 28 2023 12:06:42 for TCFS by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

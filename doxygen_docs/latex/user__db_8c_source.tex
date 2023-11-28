@@ -5,26 +5,29 @@
 \DoxyCodeLine{\Hypertarget{user__db_8c_source_l00001}00001\ \textcolor{preprocessor}{\#include\ "{}user\_db.h"{}}}
 \DoxyCodeLine{\Hypertarget{user__db_8c_source_l00002}00002\ \textcolor{preprocessor}{\#include\ "{}redis.h"{}}}
 \DoxyCodeLine{\Hypertarget{user__db_8c_source_l00003}00003\ }
-\DoxyCodeLine{\Hypertarget{user__db_8c_source_l00014}\mbox{\hyperlink{user__db_8c_a2ae8a82033440194ad80949cd4493971}{00014}}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{user__db_8c_a2ae8a82033440194ad80949cd4493971}{register\_user}}(\mbox{\hyperlink{structqm__user}{qm\_user}}\ *user\_msg)}
-\DoxyCodeLine{\Hypertarget{user__db_8c_source_l00015}00015\ \{}
-\DoxyCodeLine{\Hypertarget{user__db_8c_source_l00016}00016\ \ \ \ \ \mbox{\hyperlink{print__utils_8c_a491dc14c94ed8cf706bb54880c50b2d0}{print\_msg}}(\textcolor{stringliteral}{"{}Registering\ new\ user"{}});}
-\DoxyCodeLine{\Hypertarget{user__db_8c_source_l00017}00017\ \ \ \ \ \textcolor{keywordflow}{if}\ (init\_context()\ ==\ 0)}
-\DoxyCodeLine{\Hypertarget{user__db_8c_source_l00018}00018\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
-\DoxyCodeLine{\Hypertarget{user__db_8c_source_l00019}00019\ \ \ \ \ print\_all\_keys();}
-\DoxyCodeLine{\Hypertarget{user__db_8c_source_l00020}00020\ \ \ \ \ \textcolor{keywordflow}{if}\ (insert(user\_msg)\ ==\ 0)}
-\DoxyCodeLine{\Hypertarget{user__db_8c_source_l00021}00021\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
-\DoxyCodeLine{\Hypertarget{user__db_8c_source_l00022}00022\ \ \ \ \ \textcolor{keywordflow}{return}\ 1;}
-\DoxyCodeLine{\Hypertarget{user__db_8c_source_l00023}00023\ \}}
-\DoxyCodeLine{\Hypertarget{user__db_8c_source_l00029}\mbox{\hyperlink{user__db_8c_a6e2fcf4aa637e61f69b1b601981663cf}{00029}}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{user__db_8c_a6e2fcf4aa637e61f69b1b601981663cf}{unregister\_user}}(pid\_t\ pid)}
-\DoxyCodeLine{\Hypertarget{user__db_8c_source_l00030}00030\ \{}
-\DoxyCodeLine{\Hypertarget{user__db_8c_source_l00031}00031\ \ \ \ \ print\_all\_keys();}
-\DoxyCodeLine{\Hypertarget{user__db_8c_source_l00032}00032\ \ \ \ \ \mbox{\hyperlink{print__utils_8c_a491dc14c94ed8cf706bb54880c50b2d0}{print\_msg}}(\textcolor{stringliteral}{"{}Removing\ user"{}});}
-\DoxyCodeLine{\Hypertarget{user__db_8c_source_l00033}00033\ \ \ \ \ \textcolor{keywordflow}{return}\ remove\_by\_pid(pid);}
-\DoxyCodeLine{\Hypertarget{user__db_8c_source_l00034}00034\ \}}
-\DoxyCodeLine{\Hypertarget{user__db_8c_source_l00041}\mbox{\hyperlink{user__db_8c_ab57ffd0f0b23a847e766e762906af22e}{00041}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{user__db_8c_ab57ffd0f0b23a847e766e762906af22e}{disconnect\_db}}(\textcolor{keywordtype}{void})}
-\DoxyCodeLine{\Hypertarget{user__db_8c_source_l00042}00042\ \{}
-\DoxyCodeLine{\Hypertarget{user__db_8c_source_l00043}00043\ \ \ \ \ \mbox{\hyperlink{print__utils_8c_a491dc14c94ed8cf706bb54880c50b2d0}{print\_msg}}(\textcolor{stringliteral}{"{}Freeing\ context..."{}});}
-\DoxyCodeLine{\Hypertarget{user__db_8c_source_l00044}00044\ \ \ \ \ free\_context();}
-\DoxyCodeLine{\Hypertarget{user__db_8c_source_l00045}00045\ \}}
+\DoxyCodeLine{\Hypertarget{user__db_8c_source_l00014}00014\ \textcolor{keywordtype}{int}}
+\DoxyCodeLine{\Hypertarget{user__db_8c_source_l00015}\mbox{\hyperlink{user__db_8c_a2ae8a82033440194ad80949cd4493971}{00015}}\ \mbox{\hyperlink{user__db_8c_a2ae8a82033440194ad80949cd4493971}{register\_user}}\ (\mbox{\hyperlink{structqm__user}{qm\_user}}\ *user\_msg)}
+\DoxyCodeLine{\Hypertarget{user__db_8c_source_l00016}00016\ \{}
+\DoxyCodeLine{\Hypertarget{user__db_8c_source_l00017}00017\ \ \ \mbox{\hyperlink{print__utils_8c_a491dc14c94ed8cf706bb54880c50b2d0}{print\_msg}}\ (\textcolor{stringliteral}{"{}Registering\ new\ user"{}});}
+\DoxyCodeLine{\Hypertarget{user__db_8c_source_l00018}00018\ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{redis_8c_a1f6dc2f98a71a88567fe11fd9e2585ea}{init\_context}}\ ()\ ==\ 0)}
+\DoxyCodeLine{\Hypertarget{user__db_8c_source_l00019}00019\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\Hypertarget{user__db_8c_source_l00020}00020\ \ \ \mbox{\hyperlink{redis_8c_a7b5eb746d92734b57a71ce552363283d}{print\_all\_keys}}\ ();}
+\DoxyCodeLine{\Hypertarget{user__db_8c_source_l00021}00021\ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{redis_8c_ac9878ee09b53700eb08c1f175873c30b}{insert}}\ (user\_msg)\ ==\ 0)}
+\DoxyCodeLine{\Hypertarget{user__db_8c_source_l00022}00022\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\Hypertarget{user__db_8c_source_l00023}00023\ \ \ \textcolor{keywordflow}{return}\ 1;}
+\DoxyCodeLine{\Hypertarget{user__db_8c_source_l00024}00024\ \}}
+\DoxyCodeLine{\Hypertarget{user__db_8c_source_l00030}00030\ \textcolor{keywordtype}{int}}
+\DoxyCodeLine{\Hypertarget{user__db_8c_source_l00031}\mbox{\hyperlink{user__db_8c_a6e2fcf4aa637e61f69b1b601981663cf}{00031}}\ \mbox{\hyperlink{user__db_8c_a6e2fcf4aa637e61f69b1b601981663cf}{unregister\_user}}\ (pid\_t\ pid)}
+\DoxyCodeLine{\Hypertarget{user__db_8c_source_l00032}00032\ \{}
+\DoxyCodeLine{\Hypertarget{user__db_8c_source_l00033}00033\ \ \ \mbox{\hyperlink{redis_8c_a7b5eb746d92734b57a71ce552363283d}{print\_all\_keys}}\ ();}
+\DoxyCodeLine{\Hypertarget{user__db_8c_source_l00034}00034\ \ \ \mbox{\hyperlink{print__utils_8c_a491dc14c94ed8cf706bb54880c50b2d0}{print\_msg}}\ (\textcolor{stringliteral}{"{}Removing\ user"{}});}
+\DoxyCodeLine{\Hypertarget{user__db_8c_source_l00035}00035\ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{redis_8c_a6b18d7ad2f1e8275106a5b39c0c7d216}{remove\_by\_pid}}\ (pid);}
+\DoxyCodeLine{\Hypertarget{user__db_8c_source_l00036}00036\ \}}
+\DoxyCodeLine{\Hypertarget{user__db_8c_source_l00044}00044\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{\Hypertarget{user__db_8c_source_l00045}\mbox{\hyperlink{user__db_8c_ab57ffd0f0b23a847e766e762906af22e}{00045}}\ \mbox{\hyperlink{user__db_8c_ab57ffd0f0b23a847e766e762906af22e}{disconnect\_db}}\ (\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{user__db_8c_source_l00046}00046\ \{}
+\DoxyCodeLine{\Hypertarget{user__db_8c_source_l00047}00047\ \ \ \mbox{\hyperlink{print__utils_8c_a491dc14c94ed8cf706bb54880c50b2d0}{print\_msg}}\ (\textcolor{stringliteral}{"{}Freeing\ context..."{}});}
+\DoxyCodeLine{\Hypertarget{user__db_8c_source_l00048}00048\ \ \ \mbox{\hyperlink{redis_8c_ae19d8c90888a6ed078d6e835bb11e67a}{free\_context}}\ ();}
+\DoxyCodeLine{\Hypertarget{user__db_8c_source_l00049}00049\ \}}
 
 \end{DoxyCode}

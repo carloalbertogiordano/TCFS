@@ -4,90 +4,101 @@
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00001}00001\ \textcolor{preprocessor}{\#include\ "{}print\_utils.h"{}}}
 \DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00002}00002\ }
-\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00013}00013\ \textcolor{keywordtype}{int}\ cleared\ =\ 0;}
-\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00014}00014\ }
-\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00022}00022\ \textcolor{keywordtype}{void}\ log\_message(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *log)\{}
-\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00023}00023\ \ \ \ \ printf(\textcolor{stringliteral}{"{}\%s\(\backslash\)n"{}},\ log);}
-\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00024}00024\ \ \ \ \ \textcolor{comment}{//\ Path\ of\ the\ log\ folder\ and\ log\ file}}
-\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00025}00025\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *logFolder\ =\ \textcolor{stringliteral}{"{}/var/log/tcfs"{}};}
-\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00030}00030\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *logFile\ =\ \textcolor{stringliteral}{"{}/var/log/tcfs/log.txt"{}};}
-\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00031}00031\ }
-\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00032}00032\ \ \ \ \ \textcolor{comment}{//\ Check\ if\ the\ folder\ exists,\ otherwise\ create\ it}}
-\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00033}00033\ \ \ \ \ \textcolor{keyword}{struct\ }stat\ st;}
-\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00034}00034\ \ \ \ \ \textcolor{keywordflow}{if}\ (stat(logFolder,\ \&st)\ ==\ -\/1)\ \{}
-\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00035}00035\ \ \ \ \ \ \ \ \ mkdir(logFolder,\ 0700);}
-\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00036}00036\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00037}00037\ }
-\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00038}00038\ \ \ \ \ FILE\ *file;}
-\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00039}00039\ \ \ \ \ \textcolor{keywordflow}{if}\ (cleared\ ==\ 0)}
-\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00040}00040\ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00041}00041\ \ \ \ \ \ \ \ \ cleared\ =\ 1;}
-\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00042}00042\ \ \ \ \ \ \ \ \ file\ =\ fopen(logFile,\ \textcolor{stringliteral}{"{}w"{}});}
-\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00043}00043\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
-\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00044}00044\ \ \ \ \ \ \ \ \ file\ =\ fopen(logFile,\ \textcolor{stringliteral}{"{}a"{}});}
-\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00045}00045\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00046}00046\ }
-\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00047}00047\ \ \ \ \ \textcolor{comment}{//\ Open\ the\ log\ file\ in\ append\ mode}}
-\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00048}00048\ \ \ \ \ \textcolor{keywordflow}{if}\ (file\ ==\ NULL)\ \{}
-\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00049}00049\ \ \ \ \ \ \ \ \ perror(\textcolor{stringliteral}{"{}Error\ opening\ the\ log\ file"{}});}
-\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00050}00050\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00051}00051\ }
-\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00052}00052\ \ \ \ \ \textcolor{comment}{//\ Write\ the\ message\ to\ the\ log\ file}}
-\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00053}00053\ \ \ \ \ fprintf(file,\ \textcolor{stringliteral}{"{}\%s\(\backslash\)n"{}},\ log);}
-\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00054}00054\ }
-\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00055}00055\ \ \ \ \ \textcolor{comment}{//\ Close\ the\ file}}
-\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00056}00056\ \ \ \ \ fclose(file);}
-\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00057}00057\ \}}
-\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00058}00058\ }
-\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00069}\mbox{\hyperlink{print__utils_8c_a650ab060ffe5dbc6c1a968a9cae3bded}{00069}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{print__utils_8c_a650ab060ffe5dbc6c1a968a9cae3bded}{print\_err}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *format,\ ...)}
-\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00070}00070\ \{}
-\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00071}00071\ \ \ \ \ va\_list\ args;}
-\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00072}00072\ \ \ \ \ va\_start(args,\ format);}
-\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00073}00073\ \ \ \ \ \textcolor{keywordtype}{char}\ buffer[1024];}
-\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00074}00074\ \ \ \ \ vsnprintf(buffer,\ \textcolor{keyword}{sizeof}(buffer),\ format,\ args);}
-\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00075}00075\ \ \ \ \ va\_end(args);}
-\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00076}00076\ }
-\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00077}00077\ \ \ \ \ log\_message(buffer);}
-\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00078}00078\ }
-\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00079}00079\ \ \ \ \ sd\_journal\_print(LOG\_ERR,\ \textcolor{stringliteral}{"{}ERROR=\%s\ Err\_Number:\%d\ -\/>\ \%s"{}},\ buffer,\ errno,\ strerror(errno));}
-\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00080}00080\ \}}
-\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00089}\mbox{\hyperlink{print__utils_8c_a491dc14c94ed8cf706bb54880c50b2d0}{00089}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{print__utils_8c_a491dc14c94ed8cf706bb54880c50b2d0}{print\_msg}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *format,\ ...)}
-\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00090}00090\ \{}
-\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00091}00091\ \ \ \ \ va\_list\ args;}
-\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00092}00092\ \ \ \ \ va\_start(args,\ format);}
-\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00093}00093\ \ \ \ \ \textcolor{keywordtype}{char}\ buffer[1024];}
-\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00094}00094\ \ \ \ \ vsnprintf(buffer,\ \textcolor{keyword}{sizeof}(buffer),\ format,\ args);}
-\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00095}00095\ \ \ \ \ va\_end(args);}
-\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00096}00096\ }
-\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00097}00097\ \ \ \ \ log\_message(buffer);}
-\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00098}00098\ }
-\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00099}00099\ \ \ \ \ sd\_journal\_send(\textcolor{stringliteral}{"{}MESSAGE=\%s"{}},\ buffer,\ NULL);}
-\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00100}00100\ \}}
-\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00101}00101\ }
-\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00110}\mbox{\hyperlink{print__utils_8c_ae39065df491deead21b0375a8ce1a4d6}{00110}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{print__utils_8c_ae39065df491deead21b0375a8ce1a4d6}{print\_warn}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *format,\ ...)}
-\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00111}00111\ \{}
-\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00112}00112\ \ \ \ \ va\_list\ args;}
-\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00113}00113\ \ \ \ \ va\_start(args,\ format);}
-\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00114}00114\ \ \ \ \ \textcolor{keywordtype}{char}\ buffer[1024];}
-\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00115}00115\ \ \ \ \ vsnprintf(buffer,\ \textcolor{keyword}{sizeof}(buffer),\ format,\ args);}
-\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00116}00116\ \ \ \ \ va\_end(args);}
-\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00117}00117\ }
-\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00118}00118\ \ \ \ \ log\_message(buffer);}
-\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00119}00119\ }
-\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00120}00120\ \ \ \ \ sd\_journal\_print(LOG\_WARNING,\ \textcolor{stringliteral}{"{}WARNING=\%s"{}},\ buffer,\ NULL);}
-\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00121}00121\ \}}
-\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00122}00122\ }
-\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00131}\mbox{\hyperlink{print__utils_8c_ad808dc3fd801407dcc907bdea848a47e}{00131}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{print__utils_8c_ad808dc3fd801407dcc907bdea848a47e}{print\_debug}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *format,\ ...)}
-\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00132}00132\ \{}
-\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00133}00133\ \ \ \ \ va\_list\ args;}
-\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00134}00134\ \ \ \ \ va\_start(args,\ format);}
-\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00135}00135\ \ \ \ \ \textcolor{keywordtype}{char}\ buffer[1024];}
-\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00136}00136\ \ \ \ \ vsnprintf(buffer,\ \textcolor{keyword}{sizeof}(buffer),\ format,\ args);}
-\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00137}00137\ \ \ \ \ va\_end(args);}
-\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00138}00138\ }
-\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00139}00139\ \ \ \ \ log\_message(buffer);}
-\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00140}00140\ }
-\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00141}00141\ \ \ \ \ sd\_journal\_print(LOG\_DEBUG,\ \textcolor{stringliteral}{"{}DEBUG=\%s"{}},\ buffer,\ NULL);}
-\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00142}00142\ \}}
+\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00014}\mbox{\hyperlink{print__utils_8c_a887e8bdd9deeb0866ce86067cdba5fcc}{00014}}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{print__utils_8c_a887e8bdd9deeb0866ce86067cdba5fcc}{cleared}}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00024}00024\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00025}00025\ log\_message\ (\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *log)}
+\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00026}00026\ \{}
+\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00027}00027\ \ \ printf\ (\textcolor{stringliteral}{"{}\%s\(\backslash\)n"{}},\ log);}
+\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00028}00028\ \ \ \textcolor{comment}{//\ Path\ of\ the\ log\ folder\ and\ log\ file}}
+\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00029}00029\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *logFolder\ =\ \textcolor{stringliteral}{"{}/var/log/tcfs"{}};}
+\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00034}00034\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *logFile\ =\ \textcolor{stringliteral}{"{}/var/log/tcfs/log.txt"{}};}
+\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00035}00035\ }
+\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00036}00036\ \ \ \textcolor{comment}{//\ Check\ if\ the\ folder\ exists,\ otherwise\ create\ it}}
+\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00037}00037\ \ \ \textcolor{keyword}{struct\ }stat\ st;}
+\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00038}00038\ \ \ \textcolor{keywordflow}{if}\ (stat\ (logFolder,\ \&st)\ ==\ -\/1)}
+\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00039}00039\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00040}00040\ \ \ \ \ \ \ mkdir\ (logFolder,\ 0700);}
+\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00041}00041\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00042}00042\ }
+\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00043}00043\ \ \ FILE\ *file;}
+\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00044}00044\ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{print__utils_8c_a887e8bdd9deeb0866ce86067cdba5fcc}{cleared}}\ ==\ 0)}
+\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00045}00045\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00046}00046\ \ \ \ \ \ \ \mbox{\hyperlink{print__utils_8c_a887e8bdd9deeb0866ce86067cdba5fcc}{cleared}}\ =\ 1;}
+\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00047}00047\ \ \ \ \ \ \ file\ =\ fopen\ (logFile,\ \textcolor{stringliteral}{"{}w"{}});}
+\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00048}00048\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00049}00049\ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00050}00050\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00051}00051\ \ \ \ \ \ \ file\ =\ fopen\ (logFile,\ \textcolor{stringliteral}{"{}a"{}});}
+\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00052}00052\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00053}00053\ }
+\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00054}00054\ \ \ \textcolor{comment}{//\ Open\ the\ log\ file\ in\ append\ mode}}
+\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00055}00055\ \ \ \textcolor{keywordflow}{if}\ (file\ ==\ NULL)}
+\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00056}00056\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00057}00057\ \ \ \ \ \ \ perror\ (\textcolor{stringliteral}{"{}Error\ opening\ the\ log\ file"{}});}
+\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00058}00058\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00059}00059\ }
+\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00060}00060\ \ \ \textcolor{comment}{//\ Write\ the\ message\ to\ the\ log\ file}}
+\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00061}00061\ \ \ fprintf\ (file,\ \textcolor{stringliteral}{"{}\%s\(\backslash\)n"{}},\ log);}
+\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00062}00062\ }
+\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00063}00063\ \ \ \textcolor{comment}{//\ Close\ the\ file}}
+\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00064}00064\ \ \ fclose\ (file);}
+\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00065}00065\ \}}
+\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00066}00066\ }
+\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00078}00078\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00079}\mbox{\hyperlink{print__utils_8c_a650ab060ffe5dbc6c1a968a9cae3bded}{00079}}\ \mbox{\hyperlink{print__utils_8c_a650ab060ffe5dbc6c1a968a9cae3bded}{print\_err}}\ (\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *format,\ ...)}
+\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00080}00080\ \{}
+\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00081}00081\ \ \ va\_list\ args;}
+\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00082}00082\ \ \ va\_start\ (args,\ format);}
+\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00083}00083\ \ \ \textcolor{keywordtype}{char}\ buffer[1024];}
+\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00084}00084\ \ \ vsnprintf\ (buffer,\ \textcolor{keyword}{sizeof}\ (buffer),\ format,\ args);}
+\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00085}00085\ \ \ va\_end\ (args);}
+\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00086}00086\ }
+\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00087}00087\ \ \ log\_message\ (buffer);}
+\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00088}00088\ }
+\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00089}00089\ \ \ sd\_journal\_print\ (LOG\_ERR,\ \textcolor{stringliteral}{"{}ERROR=\%s\ Err\_Number:\%d\ -\/>\ \%s"{}},\ buffer,\ errno,}
+\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00090}00090\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ strerror\ (errno));}
+\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00091}00091\ \}}
+\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00100}00100\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00101}\mbox{\hyperlink{print__utils_8c_a491dc14c94ed8cf706bb54880c50b2d0}{00101}}\ \mbox{\hyperlink{print__utils_8c_a491dc14c94ed8cf706bb54880c50b2d0}{print\_msg}}\ (\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *format,\ ...)}
+\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00102}00102\ \{}
+\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00103}00103\ \ \ va\_list\ args;}
+\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00104}00104\ \ \ va\_start\ (args,\ format);}
+\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00105}00105\ \ \ \textcolor{keywordtype}{char}\ buffer[1024];}
+\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00106}00106\ \ \ vsnprintf\ (buffer,\ \textcolor{keyword}{sizeof}\ (buffer),\ format,\ args);}
+\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00107}00107\ \ \ va\_end\ (args);}
+\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00108}00108\ }
+\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00109}00109\ \ \ log\_message\ (buffer);}
+\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00110}00110\ }
+\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00111}00111\ \ \ sd\_journal\_send\ (\textcolor{stringliteral}{"{}MESSAGE=\%s"{}},\ buffer,\ NULL);}
+\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00112}00112\ \}}
+\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00113}00113\ }
+\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00122}00122\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00123}\mbox{\hyperlink{print__utils_8c_ae39065df491deead21b0375a8ce1a4d6}{00123}}\ \mbox{\hyperlink{print__utils_8c_ae39065df491deead21b0375a8ce1a4d6}{print\_warn}}\ (\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *format,\ ...)}
+\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00124}00124\ \{}
+\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00125}00125\ \ \ va\_list\ args;}
+\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00126}00126\ \ \ va\_start\ (args,\ format);}
+\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00127}00127\ \ \ \textcolor{keywordtype}{char}\ buffer[1024];}
+\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00128}00128\ \ \ vsnprintf\ (buffer,\ \textcolor{keyword}{sizeof}\ (buffer),\ format,\ args);}
+\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00129}00129\ \ \ va\_end\ (args);}
+\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00130}00130\ }
+\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00131}00131\ \ \ log\_message\ (buffer);}
+\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00132}00132\ }
+\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00133}00133\ \ \ sd\_journal\_print\ (LOG\_WARNING,\ \textcolor{stringliteral}{"{}WARNING=\%s"{}},\ buffer,\ NULL);}
+\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00134}00134\ \}}
+\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00135}00135\ }
+\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00144}00144\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00145}\mbox{\hyperlink{print__utils_8c_ad808dc3fd801407dcc907bdea848a47e}{00145}}\ \mbox{\hyperlink{print__utils_8c_ad808dc3fd801407dcc907bdea848a47e}{print\_debug}}\ (\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *format,\ ...)}
+\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00146}00146\ \{}
+\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00147}00147\ \ \ va\_list\ args;}
+\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00148}00148\ \ \ va\_start\ (args,\ format);}
+\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00149}00149\ \ \ \textcolor{keywordtype}{char}\ buffer[1024];}
+\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00150}00150\ \ \ vsnprintf\ (buffer,\ \textcolor{keyword}{sizeof}\ (buffer),\ format,\ args);}
+\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00151}00151\ \ \ va\_end\ (args);}
+\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00152}00152\ }
+\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00153}00153\ \ \ log\_message\ (buffer);}
+\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00154}00154\ }
+\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00155}00155\ \ \ sd\_journal\_print\ (LOG\_DEBUG,\ \textcolor{stringliteral}{"{}DEBUG=\%s"{}},\ buffer,\ NULL);}
+\DoxyCodeLine{\Hypertarget{print__utils_8c_source_l00156}00156\ \}}
 
 \end{DoxyCode}

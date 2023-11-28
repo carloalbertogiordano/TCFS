@@ -1,4 +1,4 @@
-.TH "daemon/daemon_utils/common_utils/print/print_utils.c" 3 "Mon Nov 27 2023 17:03:19" "Version 0.2" "TCFS" \" -*- nroff -*-
+.TH "daemon/daemon_utils/common_utils/print/print_utils.c" 3 "Tue Nov 28 2023 12:06:42" "Version 0.2" "TCFS" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -36,6 +36,7 @@ daemon/daemon_utils/common_utils/print/print_utils.c \- This file defines some Q
 .ti -1c
 .RI "int \fBcleared\fP = 0"
 .br
+.RI "If it is 0 the log file will be cleared, if is 1 the log file will we open as append\&. "
 .in -1c
 .SH "Detailed Description"
 .PP 
@@ -72,7 +73,7 @@ Will also log using systemD
 .PP
 
 .PP
-Definition at line \fB131\fP of file \fBprint_utils\&.c\fP\&.
+Definition at line \fB145\fP of file \fBprint_utils\&.c\fP\&.
 .SS "void print_err (const char * format,  \&.\&.\&.)"
 
 .PP
@@ -103,9 +104,9 @@ after Err_Number "-> s" will be appended printing the std-error
 .PP
 
 .PP
-Definition at line \fB69\fP of file \fBprint_utils\&.c\fP\&.
+Definition at line \fB79\fP of file \fBprint_utils\&.c\fP\&.
 .PP
-Referenced by \fBmain()\fP\&.
+Referenced by \fBdequeue()\fP, \fBenqueue()\fP, \fBget_user_by_name()\fP, \fBget_user_by_pid()\fP, \fBinit_context()\fP, \fBinit_queue()\fP, \fBinsert()\fP, \fBmain()\fP, \fBremove_by_pid()\fP, and \fBremove_by_user()\fP\&.
 .SS "void print_msg (const char * format,  \&.\&.\&.)"
 
 .PP
@@ -132,9 +133,9 @@ Will also log using systemD
 .PP
 
 .PP
-Definition at line \fB89\fP of file \fBprint_utils\&.c\fP\&.
+Definition at line \fB101\fP of file \fBprint_utils\&.c\fP\&.
 .PP
-Referenced by \fBdisconnect_db()\fP, \fBhandle_termination()\fP, \fBmain()\fP, \fBregister_user()\fP, and \fBunregister_user()\fP\&.
+Referenced by \fBdequeue()\fP, \fBdisconnect_db()\fP, \fBenqueue()\fP, \fBget_user_by_name()\fP, \fBget_user_by_pid()\fP, \fBhandle_termination()\fP, \fBinit_queue()\fP, \fBinsert()\fP, \fBjson_to_qm_user()\fP, \fBmain()\fP, \fBprint_all_keys()\fP, \fBregister_user()\fP, \fBremove_by_pid()\fP, and \fBunregister_user()\fP\&.
 .SS "void print_warn (const char * format,  \&.\&.\&.)"
 
 .PP
@@ -161,13 +162,15 @@ Will also log using systemD
 .PP
 
 .PP
-Definition at line \fB110\fP of file \fBprint_utils\&.c\fP\&.
+Definition at line \fB123\fP of file \fBprint_utils\&.c\fP\&.
 .SH "Variable Documentation"
 .PP 
 .SS "int cleared = 0"
 
 .PP
-Definition at line \fB13\fP of file \fBprint_utils\&.c\fP\&.
+If it is 0 the log file will be cleared, if is 1 the log file will we open as append\&. 
+.PP
+Definition at line \fB14\fP of file \fBprint_utils\&.c\fP\&.
 .SH "Author"
 .PP 
 Generated automatically by Doxygen for TCFS from the source code\&.

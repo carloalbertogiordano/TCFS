@@ -6,8 +6,7 @@ This file defines some QoL functions.
 
 
 {\ttfamily \#include "{}print\+\_\+utils.\+h"{}}\newline
-Include dependency graph for print\+\_\+utils.\+c\+:
-\nopagebreak
+Include dependency graph for print\+\_\+utils.\+c\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -29,7 +28,7 @@ void \mbox{\hyperlink{print__utils_8c_ad808dc3fd801407dcc907bdea848a47e}{print\+
 \begin{DoxyCompactItemize}
 \item 
 int \mbox{\hyperlink{print__utils_8c_a887e8bdd9deeb0866ce86067cdba5fcc}{cleared}} = 0
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em If it is 0 the log file will be cleared, if is 1 the log file will we open as append. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -69,7 +68,7 @@ Will also log using systemD
 \end{DoxyNote}
 
 
-Definition at line \mbox{\hyperlink{print__utils_8c_source_l00131}{131}} of file \mbox{\hyperlink{print__utils_8c_source}{print\+\_\+utils.\+c}}.
+Definition at line \mbox{\hyperlink{print__utils_8c_source_l00145}{145}} of file \mbox{\hyperlink{print__utils_8c_source}{print\+\_\+utils.\+c}}.
 
 \Hypertarget{print__utils_8c_a650ab060ffe5dbc6c1a968a9cae3bded}\label{print__utils_8c_a650ab060ffe5dbc6c1a968a9cae3bded} 
 \index{print\_utils.c@{print\_utils.c}!print\_err@{print\_err}}
@@ -102,18 +101,17 @@ after Err\+\_\+\+Number "{}-\/\texorpdfstring{$>$}{>} s"{} will be appended prin
 \end{DoxyNote}
 
 
-Definition at line \mbox{\hyperlink{print__utils_8c_source_l00069}{69}} of file \mbox{\hyperlink{print__utils_8c_source}{print\+\_\+utils.\+c}}.
+Definition at line \mbox{\hyperlink{print__utils_8c_source_l00079}{79}} of file \mbox{\hyperlink{print__utils_8c_source}{print\+\_\+utils.\+c}}.
 
 
 
-Referenced by \mbox{\hyperlink{tcfs__daemon_8c_source_l00047}{main()}}.
+Referenced by \mbox{\hyperlink{queue_8c_source_l00095}{dequeue()}}, \mbox{\hyperlink{queue_8c_source_l00067}{enqueue()}}, \mbox{\hyperlink{redis_8c_source_l00165}{get\+\_\+user\+\_\+by\+\_\+name()}}, \mbox{\hyperlink{redis_8c_source_l00122}{get\+\_\+user\+\_\+by\+\_\+pid()}}, \mbox{\hyperlink{redis_8c_source_l00072}{init\+\_\+context()}}, \mbox{\hyperlink{queue_8c_source_l00027}{init\+\_\+queue()}}, \mbox{\hyperlink{redis_8c_source_l00211}{insert()}}, \mbox{\hyperlink{tcfs__daemon_8c_source_l00056}{main()}}, \mbox{\hyperlink{redis_8c_source_l00256}{remove\+\_\+by\+\_\+pid()}}, and \mbox{\hyperlink{redis_8c_source_l00292}{remove\+\_\+by\+\_\+user()}}.
 
-Here is the caller graph for this function\+:
-\nopagebreak
+Here is the caller graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=206pt]{print__utils_8c_a650ab060ffe5dbc6c1a968a9cae3bded_icgraph}
+\includegraphics[width=350pt]{print__utils_8c_a650ab060ffe5dbc6c1a968a9cae3bded_icgraph}
 \end{center}
 \end{figure}
 \Hypertarget{print__utils_8c_a491dc14c94ed8cf706bb54880c50b2d0}\label{print__utils_8c_a491dc14c94ed8cf706bb54880c50b2d0} 
@@ -143,18 +141,17 @@ Will also log using systemD
 \end{DoxyNote}
 
 
-Definition at line \mbox{\hyperlink{print__utils_8c_source_l00089}{89}} of file \mbox{\hyperlink{print__utils_8c_source}{print\+\_\+utils.\+c}}.
+Definition at line \mbox{\hyperlink{print__utils_8c_source_l00101}{101}} of file \mbox{\hyperlink{print__utils_8c_source}{print\+\_\+utils.\+c}}.
 
 
 
-Referenced by \mbox{\hyperlink{user__db_8c_source_l00041}{disconnect\+\_\+db()}}, \mbox{\hyperlink{tcfs__daemon_8c_source_l00036}{handle\+\_\+termination()}}, \mbox{\hyperlink{tcfs__daemon_8c_source_l00047}{main()}}, \mbox{\hyperlink{user__db_8c_source_l00014}{register\+\_\+user()}}, and \mbox{\hyperlink{user__db_8c_source_l00029}{unregister\+\_\+user()}}.
+Referenced by \mbox{\hyperlink{queue_8c_source_l00095}{dequeue()}}, \mbox{\hyperlink{user__db_8c_source_l00045}{disconnect\+\_\+db()}}, \mbox{\hyperlink{queue_8c_source_l00067}{enqueue()}}, \mbox{\hyperlink{redis_8c_source_l00165}{get\+\_\+user\+\_\+by\+\_\+name()}}, \mbox{\hyperlink{redis_8c_source_l00122}{get\+\_\+user\+\_\+by\+\_\+pid()}}, \mbox{\hyperlink{tcfs__daemon_8c_source_l00040}{handle\+\_\+termination()}}, \mbox{\hyperlink{queue_8c_source_l00027}{init\+\_\+queue()}}, \mbox{\hyperlink{redis_8c_source_l00211}{insert()}}, \mbox{\hyperlink{redis_8c_source_l00104}{json\+\_\+to\+\_\+qm\+\_\+user()}}, \mbox{\hyperlink{tcfs__daemon_8c_source_l00056}{main()}}, \mbox{\hyperlink{redis_8c_source_l00042}{print\+\_\+all\+\_\+keys()}}, \mbox{\hyperlink{user__db_8c_source_l00015}{register\+\_\+user()}}, \mbox{\hyperlink{redis_8c_source_l00256}{remove\+\_\+by\+\_\+pid()}}, and \mbox{\hyperlink{user__db_8c_source_l00031}{unregister\+\_\+user()}}.
 
-Here is the caller graph for this function\+:
-\nopagebreak
+Here is the caller graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=347pt]{print__utils_8c_a491dc14c94ed8cf706bb54880c50b2d0_icgraph}
+\includegraphics[width=350pt]{print__utils_8c_a491dc14c94ed8cf706bb54880c50b2d0_icgraph}
 \end{center}
 \end{figure}
 \Hypertarget{print__utils_8c_ae39065df491deead21b0375a8ce1a4d6}\label{print__utils_8c_ae39065df491deead21b0375a8ce1a4d6} 
@@ -184,7 +181,7 @@ Will also log using systemD
 \end{DoxyNote}
 
 
-Definition at line \mbox{\hyperlink{print__utils_8c_source_l00110}{110}} of file \mbox{\hyperlink{print__utils_8c_source}{print\+\_\+utils.\+c}}.
+Definition at line \mbox{\hyperlink{print__utils_8c_source_l00123}{123}} of file \mbox{\hyperlink{print__utils_8c_source}{print\+\_\+utils.\+c}}.
 
 
 
@@ -197,5 +194,9 @@ Definition at line \mbox{\hyperlink{print__utils_8c_source_l00110}{110}} of file
 
 
 
-Definition at line \mbox{\hyperlink{print__utils_8c_source_l00013}{13}} of file \mbox{\hyperlink{print__utils_8c_source}{print\+\_\+utils.\+c}}.
+If it is 0 the log file will be cleared, if is 1 the log file will we open as append. 
+
+
+
+Definition at line \mbox{\hyperlink{print__utils_8c_source_l00014}{14}} of file \mbox{\hyperlink{print__utils_8c_source}{print\+\_\+utils.\+c}}.
 

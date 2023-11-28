@@ -76,6 +76,14 @@ $(function() {
   <div class="headertitle"><div class="title">qm_shared Struct Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Represents a shared message. <br  />
+Contains information about the file descriptor ti which the TCFS module wants to access,<br  />
+the user list to ask for keyparts and the key part of the caller. <br  />
+.  
+ <a href="structqm__shared.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="common_8h_source.html">common.h</a>&gt;</code></p>
 <div class="dynheader">
 Collaboration diagram for qm_shared:</div>
 <div class="dyncontent">
@@ -92,8 +100,13 @@ Public Attributes</h2></td></tr>
 <tr class="separator:afef3f8b7e15af861010c6e0d66de659e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="common_8h_source.html#l00034">34</a> of file <a class="el" href="common_8h_source.html">common.h</a>.</p>
+<div class="textblock"><p>Represents a shared message. <br  />
+Contains information about the file descriptor ti which the TCFS module wants to access,<br  />
+the user list to ask for keyparts and the key part of the caller. <br  />
+. </p>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000001">Todo:</a></b></dt><dd>Handle creation of shared files and not only accessing them. This mey imply a new field </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="common_8h_source.html#l00070">70</a> of file <a class="el" href="common_8h_source.html">common.h</a>.</p>
 </div><h2 class="groupheader">Member Data Documentation</h2>
 <a id="ac6ce7156e06279b3194acb24e4face96" name="ac6ce7156e06279b3194acb24e4face96"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac6ce7156e06279b3194acb24e4face96">&#9670;&#160;</a></span>fd</h2>
@@ -106,8 +119,9 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>The file descriptor of the shared file. </p>
 
-<p class="definition">Definition at line <a class="el" href="common_8h_source.html#l00035">35</a> of file <a class="el" href="common_8h_source.html">common.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="common_8h_source.html#l00071">71</a> of file <a class="el" href="common_8h_source.html">common.h</a>.</p>
 
 </div>
 </div>
@@ -122,8 +136,9 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>The part of the key given by the caller that is needed to decrypt the shared file. </p>
 
-<p class="definition">Definition at line <a class="el" href="common_8h_source.html#l00037">37</a> of file <a class="el" href="common_8h_source.html">common.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="common_8h_source.html#l00073">73</a> of file <a class="el" href="common_8h_source.html">common.h</a>.</p>
 
 </div>
 </div>
@@ -138,8 +153,10 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>The list of users who created the shared file.<br  />
+ </p><dl class="section note"><dt>Note</dt><dd>This is really a matrix of chars </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="common_8h_source.html#l00036">36</a> of file <a class="el" href="common_8h_source.html">common.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="common_8h_source.html#l00072">72</a> of file <a class="el" href="common_8h_source.html">common.h</a>.</p>
 
 </div>
 </div>
@@ -149,7 +166,7 @@ Public Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Nov 27 2023 17:03:19 for TCFS by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated on Tue Nov 28 2023 12:06:42 for TCFS by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

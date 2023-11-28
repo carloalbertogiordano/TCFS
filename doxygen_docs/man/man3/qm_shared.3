@@ -1,11 +1,20 @@
-.TH "qm_shared" 3 "Mon Nov 27 2023 17:03:19" "Version 0.2" "TCFS" \" -*- nroff -*-
+.TH "qm_shared" 3 "Tue Nov 28 2023 12:06:42" "Version 0.2" "TCFS" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
-qm_shared
+qm_shared \- Represents a shared message\&. 
+.br
+Contains information about the file descriptor ti which the TCFS module wants to access,
+.br
+the user list to ask for keyparts and the key part of the caller\&. 
+.br
+\&.  
+
 .SH SYNOPSIS
 .br
 .PP
+.PP
+\fC#include <common\&.h>\fP
 .SS "Public Attributes"
 
 .in +1c
@@ -21,21 +30,47 @@ qm_shared
 .in -1c
 .SH "Detailed Description"
 .PP 
-Definition at line \fB34\fP of file \fBcommon\&.h\fP\&.
+Represents a shared message\&. 
+.br
+Contains information about the file descriptor ti which the TCFS module wants to access,
+.br
+the user list to ask for keyparts and the key part of the caller\&. 
+.br
+\&. 
+
+
+.PP
+\fBTodo\fP
+.RS 4
+Handle creation of shared files and not only accessing them\&. This mey imply a new field 
+.RE
+.PP
+
+.PP
+Definition at line \fB70\fP of file \fBcommon\&.h\fP\&.
 .SH "Member Data Documentation"
 .PP 
 .SS "int qm_shared::fd"
-
+The file descriptor of the shared file\&. 
 .PP
-Definition at line \fB35\fP of file \fBcommon\&.h\fP\&.
+Definition at line \fB71\fP of file \fBcommon\&.h\fP\&.
 .SS "char* qm_shared::keypart"
-
+The part of the key given by the caller that is needed to decrypt the shared file\&. 
 .PP
-Definition at line \fB37\fP of file \fBcommon\&.h\fP\&.
+Definition at line \fB73\fP of file \fBcommon\&.h\fP\&.
 .SS "char** qm_shared::userlist"
+The list of users who created the shared file\&.
+.br
+ 
+.PP
+\fBNote\fP
+.RS 4
+This is really a matrix of chars 
+.RE
+.PP
 
 .PP
-Definition at line \fB36\fP of file \fBcommon\&.h\fP\&.
+Definition at line \fB72\fP of file \fBcommon\&.h\fP\&.
 
 .SH "Author"
 .PP 

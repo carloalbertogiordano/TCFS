@@ -1,25 +1,55 @@
-/*
- * High level function interface for performing AES encryption on FILE pointers
- * Uses OpenSSL libcrypto EVP API
+/***
+
  *
- * By Andy Sayler (www.andysayler.com)
- * Created  04/17/12
- * Modified 18/10/23 by [Carlo Alberto Giordano]
- *
- * Derived from OpenSSL.org EVP_Encrypt_* Manpage Examples
- * http://www.openssl.org/docs/crypto/EVP_EncryptInit.html#EXAMPLES
- *
- * With additional information from Saju Pillai's OpenSSL AES Example
- * http://saju.net.in/blog/?p=36
- * http://saju.net.in/code/misc/openssl_aes.c.txt
- *
- */
+ **/
 #include "crypt-utils.h"
 
+/**
+ * @internal \_def
+ * @def BLOCKSIZE
+ * @brief This defines the max size of a block that can be cyphered
+ * */
 #define BLOCKSIZE 1024
+/**
+ * @internal \_def
+ * @def IV_SIZE
+ * @brief The fixed size of the initialization vector \link
+ * https://en.wikipedia.org/wiki/Initialization_vector IV \endlink
+ * */
 #define IV_SIZE 32
+/**
+ * @internal \_def
+ * @def KEY_SIZE
+ * @brief The fixed size of the key
+ * */
 #define KEY_SIZE 32
 
+/**
+ * @brief
+ * High level function interface for performing AES encryption on FILE pointers
+ * Uses OpenSSL libcrypto EVP API \n
+ *
+ * @author
+ * By Andy Sayler (www.andysayler.com) \n
+ * Created  04/17/12 \n
+ * @author
+ * Modified 18/10/23 by [Carlo Alberto Giordano] \n
+ *
+ *@brief
+ * Derived from OpenSSL.org EVP_Encrypt_* Manpage Examples \n
+ * http://www.openssl.org/docs/crypto/EVP_EncryptInit.html#EXAMPLES \n
+ *
+ * With additional information from Saju Pillai's OpenSSL AES Example \n
+ * http://saju.net.in/blog/?p=36 \n
+ * http://saju.net.in/code/misc/openssl_aes.c.txt \n
+ * @param FILE *in  The input file
+ * @param FILE *out The output file
+ * @param int action    Defines if the action to do on the input file should be
+ *of encryption or decryption. \see ENCRYPT \see DECRYPT
+ * @param unsigned char *key_str The key that must be AES 256
+ * @return \ret
+ * @note This function cyphers using AES 256 CBC
+ * */
 extern int
 do_crypt (FILE *in, FILE *out, int action, unsigned char *key_str)
 {
@@ -126,7 +156,15 @@ do_crypt (FILE *in, FILE *out, int action, unsigned char *key_str)
   return 1;
 }
 
-// Verify the entropy
+/**
+ * @internal \_func
+ * @brief Verify if there is enough entropy in the system to generate a key
+ * @param void
+ * @return A value greater than 0 corresponding to the entropy level, if an
+ * error occurs -1 is returned
+ * @note This function evaluates the entropy by checking the
+ * /proc/sys/kernel/random/entropy_avail file. \see man page 4 for random
+ * */
 int
 check_entropy (void)
 {
@@ -149,7 +187,14 @@ check_entropy (void)
   return entropy_value;
 }
 
-// Add new entropy
+/**
+ * @internal \func
+ * @brief Force new entropy in /dev/urandom
+ * @param void
+ * @return void
+ * @note Very dangerous, if this fails an error will be printed and the program
+ * will exit with EXIT_FAILURE
+ * */
 void
 add_entropy (void)
 {
@@ -177,6 +222,12 @@ add_entropy (void)
   fprintf (stdout, "Entropy added successfully!\n");
 }
 
+/**
+ * @brief Generate a new AES 256 key for a file
+ * @param unsigned char *destination    Pointer to the string in which the
+ * generated key will be saved. If an error occurs it will be set to NULL
+ * @return void
+ * */
 void
 generate_key (unsigned char *destination)
 {
@@ -211,6 +262,15 @@ generate_key (unsigned char *destination)
     }
 }
 
+/**
+ * @brief Encrypt the *plaintext string using a AES 256 key
+ * @param unsigned char *plaintext  This is the string to encrypt
+ * @param const char *key   The AES 256 KEY
+ * @paramc int *encrypted_len   This will be set to the encrypted string length
+ * @return unsigned char *  The encrypted string will be allocated and then
+ * returned
+ * @note    After the use remember to free the result
+ * */
 unsigned char *
 encrypt_string (unsigned char *plaintext, const char *key,
                 int *encrypted_key_len)
@@ -253,6 +313,14 @@ encrypt_string (unsigned char *plaintext, const char *key,
   return encoded_string;
 }
 
+/**
+ * @brief Decrypt the *ciphertext string using a AES 256 key
+ * @param unsigned char *ciphertext  This is the string to decrypt
+ * @param const char *key   The AES 256 KEY
+ * @return unsigned char *  The plaintext string will be allocated and then
+ * returned
+ * @note    After the use remember to free the result
+ * */
 unsigned char *
 decrypt_string (unsigned char *ciphertext, const char *key)
 {
@@ -282,6 +350,12 @@ decrypt_string (unsigned char *ciphertext, const char *key)
   return decrypted_string;
 }
 
+/**
+ * @brief Check if a given key is valid
+ * @param const unsigned char *key  The key to validate
+ * @return \ret
+ * @note This function only checks for key length
+ * */
 int
 is_valid_key (const unsigned char *key)
 {

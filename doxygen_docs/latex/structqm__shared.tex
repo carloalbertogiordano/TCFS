@@ -2,8 +2,19 @@
 \hypertarget{structqm__shared}{}\label{structqm__shared}\index{qm\_shared@{qm\_shared}}
 
 
-Collaboration diagram for qm\+\_\+shared\+:
-\nopagebreak
+Represents a shared message. ~\newline
+Contains information about the file descriptor ti which the TCFS module wants to access,~\newline
+the user list to ask for keyparts and the key part of the caller. ~\newline
+.  
+
+
+
+
+{\ttfamily \#include $<$common.\+h$>$}
+
+
+
+Collaboration diagram for qm\+\_\+shared\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -22,9 +33,16 @@ char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{structqm__shared_afef3f8b7e15af
 
 
 \doxysubsection{Detailed Description}
+Represents a shared message. ~\newline
+Contains information about the file descriptor ti which the TCFS module wants to access,~\newline
+the user list to ask for keyparts and the key part of the caller. ~\newline
+. 
+
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000001}{Todo}}]Handle creation of shared files and not only accessing them. This mey imply a new field \end{DoxyRefDesc}
 
 
-Definition at line \mbox{\hyperlink{common_8h_source_l00034}{34}} of file \mbox{\hyperlink{common_8h_source}{common.\+h}}.
+Definition at line \mbox{\hyperlink{common_8h_source_l00070}{70}} of file \mbox{\hyperlink{common_8h_source}{common.\+h}}.
 
 
 
@@ -35,9 +53,9 @@ Definition at line \mbox{\hyperlink{common_8h_source_l00034}{34}} of file \mbox{
 \doxysubsubsection{\texorpdfstring{fd}{fd}}
 {\footnotesize\ttfamily int qm\+\_\+shared\+::fd}
 
+The file descriptor of the shared file. 
 
-
-Definition at line \mbox{\hyperlink{common_8h_source_l00035}{35}} of file \mbox{\hyperlink{common_8h_source}{common.\+h}}.
+Definition at line \mbox{\hyperlink{common_8h_source_l00071}{71}} of file \mbox{\hyperlink{common_8h_source}{common.\+h}}.
 
 \Hypertarget{structqm__shared_afef3f8b7e15af861010c6e0d66de659e}\label{structqm__shared_afef3f8b7e15af861010c6e0d66de659e} 
 \index{qm\_shared@{qm\_shared}!keypart@{keypart}}
@@ -45,9 +63,9 @@ Definition at line \mbox{\hyperlink{common_8h_source_l00035}{35}} of file \mbox{
 \doxysubsubsection{\texorpdfstring{keypart}{keypart}}
 {\footnotesize\ttfamily char\texorpdfstring{$\ast$}{*} qm\+\_\+shared\+::keypart}
 
+The part of the key given by the caller that is needed to decrypt the shared file. 
 
-
-Definition at line \mbox{\hyperlink{common_8h_source_l00037}{37}} of file \mbox{\hyperlink{common_8h_source}{common.\+h}}.
+Definition at line \mbox{\hyperlink{common_8h_source_l00073}{73}} of file \mbox{\hyperlink{common_8h_source}{common.\+h}}.
 
 \Hypertarget{structqm__shared_af2a26858d769e4a816d0567b51ce0ed5}\label{structqm__shared_af2a26858d769e4a816d0567b51ce0ed5} 
 \index{qm\_shared@{qm\_shared}!userlist@{userlist}}
@@ -55,9 +73,13 @@ Definition at line \mbox{\hyperlink{common_8h_source_l00037}{37}} of file \mbox{
 \doxysubsubsection{\texorpdfstring{userlist}{userlist}}
 {\footnotesize\ttfamily char\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} qm\+\_\+shared\+::userlist}
 
+The list of users who created the shared file.~\newline
+ \begin{DoxyNote}{Note}
+This is really a matrix of chars 
+\end{DoxyNote}
 
 
-Definition at line \mbox{\hyperlink{common_8h_source_l00036}{36}} of file \mbox{\hyperlink{common_8h_source}{common.\+h}}.
+Definition at line \mbox{\hyperlink{common_8h_source_l00072}{72}} of file \mbox{\hyperlink{common_8h_source}{common.\+h}}.
 
 
 

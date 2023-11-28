@@ -113,7 +113,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="userspace-module/utils/tcfs_utils/tcfs_utils.h" line="15" column="6" bodyfile="userspace-module/utils/tcfs_utils/tcfs_utils.c" bodystart="4" bodyend="12" declfile="userspace-module/utils/tcfs_utils/tcfs_utils.h" declline="15" declcolumn="6"/>
+        <location file="userspace-module/utils/tcfs_utils/tcfs_utils.h" line="15" column="6" bodyfile="userspace-module/utils/tcfs_utils/tcfs_utils.c" bodystart="5" bodyend="13" declfile="userspace-module/utils/tcfs_utils/tcfs_utils.h" declline="15" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="tcfs__utils_8h_1a71e44dc105c7af8349bc3e7eb9edf2b0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -130,7 +130,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="userspace-module/utils/tcfs_utils/tcfs_utils.h" line="18" column="5" bodyfile="userspace-module/utils/tcfs_utils/tcfs_utils.c" bodystart="15" bodyend="23" declfile="userspace-module/utils/tcfs_utils/tcfs_utils.h" declline="18" declcolumn="5"/>
+        <location file="userspace-module/utils/tcfs_utils/tcfs_utils.h" line="18" column="5" bodyfile="userspace-module/utils/tcfs_utils/tcfs_utils.c" bodystart="17" bodyend="25" declfile="userspace-module/utils/tcfs_utils/tcfs_utils.h" declline="18" declcolumn="5"/>
       </memberdef>
       <memberdef kind="function" id="tcfs__utils_8h_1ac4ff59963f4a122c9f802c0c2bf2abc8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>char *</type>
@@ -151,7 +151,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="userspace-module/utils/tcfs_utils/tcfs_utils.h" line="26" column="6" bodyfile="userspace-module/utils/tcfs_utils/tcfs_utils.c" bodystart="25" bodyend="53" declfile="userspace-module/utils/tcfs_utils/tcfs_utils.h" declline="26" declcolumn="6"/>
+        <location file="userspace-module/utils/tcfs_utils/tcfs_utils.h" line="26" column="6" bodyfile="userspace-module/utils/tcfs_utils/tcfs_utils.c" bodystart="28" bodyend="56" declfile="userspace-module/utils/tcfs_utils/tcfs_utils.h" declline="26" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="tcfs__utils_8h_1a42623317bb0b1ff095b4d946dc085bd6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -168,7 +168,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="userspace-module/utils/tcfs_utils/tcfs_utils.h" line="29" column="5" bodyfile="userspace-module/utils/tcfs_utils/tcfs_utils.c" bodystart="56" bodyend="72" declfile="userspace-module/utils/tcfs_utils/tcfs_utils.h" declline="29" declcolumn="5"/>
+        <location file="userspace-module/utils/tcfs_utils/tcfs_utils.h" line="29" column="5" bodyfile="userspace-module/utils/tcfs_utils/tcfs_utils.c" bodystart="60" bodyend="78" declfile="userspace-module/utils/tcfs_utils/tcfs_utils.h" declline="29" declcolumn="5"/>
       </memberdef>
       <memberdef kind="function" id="tcfs__utils_8h_1a4316eb58a0cb5afb4e90e75a55c9b3ea" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -189,7 +189,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="userspace-module/utils/tcfs_utils/tcfs_utils.h" line="37" column="5" bodyfile="userspace-module/utils/tcfs_utils/tcfs_utils.c" bodystart="76" bodyend="104" declfile="userspace-module/utils/tcfs_utils/tcfs_utils.h" declline="37" declcolumn="5"/>
+        <location file="userspace-module/utils/tcfs_utils/tcfs_utils.h" line="37" column="5" bodyfile="userspace-module/utils/tcfs_utils/tcfs_utils.c" bodystart="83" bodyend="113" declfile="userspace-module/utils/tcfs_utils/tcfs_utils.h" declline="37" declcolumn="5"/>
       </memberdef>
       <memberdef kind="function" id="tcfs__utils_8h_1a8c1c24299a2b01f6157b051cb56ebc52" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -206,7 +206,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="userspace-module/utils/tcfs_utils/tcfs_utils.h" line="40" column="6" bodyfile="userspace-module/utils/tcfs_utils/tcfs_utils.c" bodystart="106" bodyend="112" declfile="userspace-module/utils/tcfs_utils/tcfs_utils.h" declline="40" declcolumn="6"/>
+        <location file="userspace-module/utils/tcfs_utils/tcfs_utils.h" line="40" column="6" bodyfile="userspace-module/utils/tcfs_utils/tcfs_utils.c" bodystart="116" bodyend="124" declfile="userspace-module/utils/tcfs_utils/tcfs_utils.h" declline="40" declcolumn="6"/>
       </memberdef>
     </sectiondef>
     <briefdescription>
@@ -253,7 +253,7 @@
 <codeline lineno="37"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>get_encrypted_key(</highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*filepath,<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*encrypted_key);</highlight></codeline>
 <codeline lineno="38"><highlight class="normal"></highlight></codeline>
 <codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">/*For<sp/>debugging<sp/>only*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="40"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>print_aes_key(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*key);</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>print_aes_key<sp/>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*key);</highlight></codeline>
     </programlisting>
     <location file="userspace-module/utils/tcfs_utils/tcfs_utils.h"/>
   </compounddef>

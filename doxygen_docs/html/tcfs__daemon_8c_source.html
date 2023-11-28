@@ -84,121 +84,131 @@ $(document).ready(function() { init_codefold(0); });
 <div class="contents">
 <a href="tcfs__daemon_8c.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;daemon_utils/daemon_tools/tcfs_daemon_tools.h&quot;</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="tcfs__daemon_8c.html#a679ec79d065ad812032851f6872caee6">   17</a></span><span class="keyword">volatile</span> <span class="keywordtype">int</span> <a class="code hl_variable" href="tcfs__daemon_8c.html#a679ec79d065ad812032851f6872caee6">terminate</a> = 0;</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="tcfs__daemon_8c.html#af7e1db76e3a69a4b0484910b1f7562da">   23</a></span>pthread_mutex_t <a class="code hl_variable" href="tcfs__daemon_8c.html#af7e1db76e3a69a4b0484910b1f7562da">terminate_mutex</a> = PTHREAD_MUTEX_INITIALIZER;</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="tcfs__daemon_8c.html#a6376ed00be9fd53f7579e9243f3eacde">   29</a></span><span class="keyword">const</span> <span class="keywordtype">char</span> <a class="code hl_variable" href="tcfs__daemon_8c.html#a6376ed00be9fd53f7579e9243f3eacde">MQUEUE</a>[] = <span class="stringliteral">&quot;/tcfs_queue&quot;</span>;</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
-<div class="foldopen" id="foldopen00036" data-start="{" data-end="}">
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="tcfs__daemon_8c.html#a93d1097e4dd3c0735da3da2e89410090">   36</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="tcfs__daemon_8c.html#a93d1097e4dd3c0735da3da2e89410090">handle_termination</a>(<span class="keywordtype">int</span> signum) {</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <a class="code hl_function" href="print__utils_8c.html#a491dc14c94ed8cf706bb54880c50b2d0">print_msg</a>(<span class="stringliteral">&quot;TCFS TERMINATED.\n&quot;</span>);</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <span class="comment">//remove_empty_queue(queue_id);</span></div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    exit(0);</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>}</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="tcfs__daemon_8c.html#a679ec79d065ad812032851f6872caee6">   20</a></span><span class="keyword">volatile</span> <span class="keywordtype">int</span> <a class="code hl_variable" href="tcfs__daemon_8c.html#a679ec79d065ad812032851f6872caee6">terminate</a> = 0;</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="tcfs__daemon_8c.html#af7e1db76e3a69a4b0484910b1f7562da">   26</a></span>pthread_mutex_t <a class="code hl_variable" href="tcfs__daemon_8c.html#af7e1db76e3a69a4b0484910b1f7562da">terminate_mutex</a> = PTHREAD_MUTEX_INITIALIZER;</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="tcfs__daemon_8c.html#a6376ed00be9fd53f7579e9243f3eacde">   32</a></span><span class="keyword">const</span> <span class="keywordtype">char</span> <a class="code hl_variable" href="tcfs__daemon_8c.html#a6376ed00be9fd53f7579e9243f3eacde">MQUEUE</a>[] = <span class="stringliteral">&quot;/tcfs_queue&quot;</span>;</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="keywordtype">void</span></div>
+<div class="foldopen" id="foldopen00040" data-start="{" data-end="}">
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="tcfs__daemon_8c.html#a93d1097e4dd3c0735da3da2e89410090">   40</a></span><a class="code hl_function" href="tcfs__daemon_8c.html#a93d1097e4dd3c0735da3da2e89410090">handle_termination</a> (<span class="keywordtype">int</span> signum)</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>{</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>  <a class="code hl_function" href="print__utils_8c.html#a491dc14c94ed8cf706bb54880c50b2d0">print_msg</a> (<span class="stringliteral">&quot;TCFS TERMINATED.\n&quot;</span>);</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>  <span class="comment">// remove_empty_queue(queue_id);</span></div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>  exit (0);</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>}</div>
 </div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
-<div class="foldopen" id="foldopen00047" data-start="{" data-end="}">
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="tcfs__daemon_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4">   47</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="tcfs__daemon_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main</a>() {</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    signal(SIGTERM, <a class="code hl_function" href="tcfs__daemon_8c.html#a93d1097e4dd3c0735da3da2e89410090">handle_termination</a>);</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <a class="code hl_function" href="print__utils_8c.html#a491dc14c94ed8cf706bb54880c50b2d0">print_msg</a>(<span class="stringliteral">&quot;TCFS daemon is starting&quot;</span>);</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <span class="comment">/*pid_t pid;</span></div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="comment"></span> </div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="comment">    // Fork off the parent process</span></div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="comment">    pid = fork();</span></div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="comment"></span> </div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="comment">    // An error occurred</span></div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="comment">    if (pid &lt; 0)</span></div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><span class="comment">        exit(EXIT_FAILURE);</span></div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="comment"></span> </div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="comment">    // Success: Let the parent terminate</span></div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="comment">    if (pid &gt; 0)</span></div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span><span class="comment">        exit(EXIT_SUCCESS);</span></div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span><span class="comment"></span> </div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="comment">    // On success: The child process becomes session leader</span></div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span><span class="comment">    if (setsid() &lt; 0)</span></div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span><span class="comment">        exit(EXIT_FAILURE);</span></div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span><span class="comment"></span> </div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span><span class="comment">    // Catch, ignore and handle signals</span></div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span><span class="comment">    signal(SIGCHLD, SIG_IGN);</span></div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span><span class="comment">    signal(SIGHUP, SIG_IGN);</span></div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span><span class="comment"></span> </div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span><span class="comment">    // Fork off for the second time</span></div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span><span class="comment">    pid = fork();</span></div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span><span class="comment"></span> </div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span><span class="comment">    // An error occurred</span></div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span><span class="comment">    if (pid &lt; 0)</span></div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span><span class="comment">        exit(EXIT_FAILURE);</span></div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span><span class="comment"></span> </div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span><span class="comment">    // Success: Let the parent terminate</span></div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span><span class="comment">    if (pid &gt; 0)</span></div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span><span class="comment">        exit(EXIT_SUCCESS);</span></div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span><span class="comment"></span> </div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span><span class="comment">    // Set new file permissions</span></div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span><span class="comment">    umask(0);</span></div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span><span class="comment"></span> </div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span><span class="comment">    // Change the working directory to the root directory</span></div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span><span class="comment">    // or another appropriated directory</span></div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span><span class="comment">    chdir(&quot;/&quot;);</span></div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span><span class="comment"></span> </div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span><span class="comment">    // Close all open file descriptors</span></div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span><span class="comment">    int x;</span></div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span><span class="comment">    for (x = sysconf(_SC_OPEN_MAX); x&gt;=0; x--)</span></div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span><span class="comment">    {</span></div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span><span class="comment">        close (x);</span></div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span><span class="comment">    }*/</span></div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span> </div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    pthread_t thread1, thread2;</div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span> </div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    mqd_t queue_id = init_queue((<span class="keywordtype">char</span> *)<a class="code hl_variable" href="tcfs__daemon_8c.html#a6376ed00be9fd53f7579e9243f3eacde">MQUEUE</a>);</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    printf(<span class="stringliteral">&quot;TEST %d&quot;</span>, (<span class="keywordtype">int</span>)queue_id);</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    <span class="keywordflow">if</span> (queue_id == 0)</div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    {</div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>        <a class="code hl_function" href="print__utils_8c.html#a650ab060ffe5dbc6c1a968a9cae3bded">print_err</a>(<span class="stringliteral">&quot;Cannot open message queue in %s&quot;</span>, (<span class="keywordtype">char</span> *)<a class="code hl_variable" href="tcfs__daemon_8c.html#a6376ed00be9fd53f7579e9243f3eacde">MQUEUE</a>);</div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>        unlink(<a class="code hl_variable" href="tcfs__daemon_8c.html#a6376ed00be9fd53f7579e9243f3eacde">MQUEUE</a>);</div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>        <span class="keywordflow">return</span> -errno;</div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    }</div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span> </div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    <span class="keywordflow">if</span> (pthread_create(&amp;thread1, NULL, handle_incoming_messages, &amp;queue_id) != 0) {</div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>        <a class="code hl_function" href="print__utils_8c.html#a650ab060ffe5dbc6c1a968a9cae3bded">print_err</a>(<span class="stringliteral">&quot;Failed to create thread1&quot;</span>);</div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>        mq_close(queue_id);</div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>        unlink(<a class="code hl_variable" href="tcfs__daemon_8c.html#a6376ed00be9fd53f7579e9243f3eacde">MQUEUE</a>);</div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>        <span class="keywordflow">return</span> -errno;</div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    }</div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span> </div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>    <span class="keywordflow">if</span> (pthread_create(&amp;thread2, NULL, handle_outgoing_messages, &amp;queue_id) != 0) {</div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>        <a class="code hl_function" href="print__utils_8c.html#a650ab060ffe5dbc6c1a968a9cae3bded">print_err</a>(<span class="stringliteral">&quot;Failed to create thread1&quot;</span>);</div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>        mq_close(queue_id);</div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>        unlink(<a class="code hl_variable" href="tcfs__daemon_8c.html#a6376ed00be9fd53f7579e9243f3eacde">MQUEUE</a>);</div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>        <span class="keywordflow">return</span> -errno;</div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>    }</div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span> </div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>    <span class="keywordflow">while</span> (!<a class="code hl_variable" href="tcfs__daemon_8c.html#a679ec79d065ad812032851f6872caee6">terminate</a>) {}</div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span> </div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>    pthread_join(thread1, NULL);</div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>    pthread_join(thread2, NULL);</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="keywordtype">int</span></div>
+<div class="foldopen" id="foldopen00056" data-start="{" data-end="}">
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno"><a class="line" href="tcfs__daemon_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4">   56</a></span><a class="code hl_function" href="tcfs__daemon_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main</a> ()</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>{</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>  signal (SIGTERM, <a class="code hl_function" href="tcfs__daemon_8c.html#a93d1097e4dd3c0735da3da2e89410090">handle_termination</a>);</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>  <a class="code hl_function" href="print__utils_8c.html#a491dc14c94ed8cf706bb54880c50b2d0">print_msg</a> (<span class="stringliteral">&quot;TCFS daemon is starting&quot;</span>);</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>  <span class="comment">/*pid_t pid;</span></div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span><span class="comment"></span> </div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span><span class="comment">  // Fork off the parent process</span></div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="comment">  pid = fork();</span></div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span><span class="comment"></span> </div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span><span class="comment">  // An error occurred</span></div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span><span class="comment">  if (pid &lt; 0)</span></div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span><span class="comment">      exit(EXIT_FAILURE);</span></div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span><span class="comment"></span> </div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span><span class="comment">  // Success: Let the parent terminate</span></div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span><span class="comment">  if (pid &gt; 0)</span></div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span><span class="comment">      exit(EXIT_SUCCESS);</span></div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span><span class="comment"></span> </div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span><span class="comment">  // On success: The child process becomes session leader</span></div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span><span class="comment">  if (setsid() &lt; 0)</span></div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span><span class="comment">      exit(EXIT_FAILURE);</span></div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span><span class="comment"></span> </div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span><span class="comment">  // Catch, ignore and handle signals</span></div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span><span class="comment">  signal(SIGCHLD, SIG_IGN);</span></div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span><span class="comment">  signal(SIGHUP, SIG_IGN);</span></div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span><span class="comment"></span> </div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span><span class="comment">  // Fork off for the second time</span></div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span><span class="comment">  pid = fork();</span></div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span><span class="comment"></span> </div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span><span class="comment">  // An error occurred</span></div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span><span class="comment">  if (pid &lt; 0)</span></div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span><span class="comment">      exit(EXIT_FAILURE);</span></div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span><span class="comment"></span> </div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span><span class="comment">  // Success: Let the parent terminate</span></div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span><span class="comment">  if (pid &gt; 0)</span></div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span><span class="comment">      exit(EXIT_SUCCESS);</span></div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span><span class="comment"></span> </div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span><span class="comment">  // Set new file permissions</span></div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span><span class="comment">  umask(0);</span></div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span><span class="comment"></span> </div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span><span class="comment">  // Change the working directory to the root directory</span></div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span><span class="comment">  // or another appropriated directory</span></div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span><span class="comment">  chdir(&quot;/&quot;);</span></div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span><span class="comment"></span> </div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span><span class="comment">  // Close all open file descriptors</span></div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span><span class="comment">  int x;</span></div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span><span class="comment">  for (x = sysconf(_SC_OPEN_MAX); x&gt;=0; x--)</span></div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span><span class="comment">  {</span></div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span><span class="comment">      close (x);</span></div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span><span class="comment">  }*/</span></div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span> </div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>  pthread_t thread1, thread2;</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span> </div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>  mqd_t queue_id = <a class="code hl_function" href="queue_8c.html#a6997b2cacf3d2e49bc848d0274e24b13">init_queue</a> ((<span class="keywordtype">char</span> *)<a class="code hl_variable" href="tcfs__daemon_8c.html#a6376ed00be9fd53f7579e9243f3eacde">MQUEUE</a>);</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>  printf (<span class="stringliteral">&quot;TEST %d&quot;</span>, (<span class="keywordtype">int</span>)queue_id);</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>  <span class="keywordflow">if</span> (queue_id == 0)</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    {</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>      <a class="code hl_function" href="print__utils_8c.html#a650ab060ffe5dbc6c1a968a9cae3bded">print_err</a> (<span class="stringliteral">&quot;Cannot open message queue in %s&quot;</span>, (<span class="keywordtype">char</span> *)<a class="code hl_variable" href="tcfs__daemon_8c.html#a6376ed00be9fd53f7579e9243f3eacde">MQUEUE</a>);</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>      unlink (<a class="code hl_variable" href="tcfs__daemon_8c.html#a6376ed00be9fd53f7579e9243f3eacde">MQUEUE</a>);</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>      <span class="keywordflow">return</span> -errno;</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    }</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span> </div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>  <span class="keywordflow">if</span> (pthread_create (&amp;thread1, NULL, handle_incoming_messages, &amp;queue_id)</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>      != 0)</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>    {</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>      <a class="code hl_function" href="print__utils_8c.html#a650ab060ffe5dbc6c1a968a9cae3bded">print_err</a> (<span class="stringliteral">&quot;Failed to create thread1&quot;</span>);</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>      mq_close (queue_id);</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>      unlink (<a class="code hl_variable" href="tcfs__daemon_8c.html#a6376ed00be9fd53f7579e9243f3eacde">MQUEUE</a>);</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>      <span class="keywordflow">return</span> -errno;</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>    }</div>
 <div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span> </div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>    mq_close(queue_id);</div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>    unlink(<a class="code hl_variable" href="tcfs__daemon_8c.html#a6376ed00be9fd53f7579e9243f3eacde">MQUEUE</a>);</div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span> </div>
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span> </div>
-<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>    <a class="code hl_function" href="print__utils_8c.html#a650ab060ffe5dbc6c1a968a9cae3bded">print_err</a>(<span class="stringliteral">&quot;TCFS daemon threads returned, this should have never happened&quot;</span>);</div>
-<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span> </div>
-<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>    <span class="keywordflow">return</span> -1;</div>
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>}</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>  <span class="keywordflow">if</span> (pthread_create (&amp;thread2, NULL, handle_outgoing_messages, &amp;queue_id)</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>      != 0)</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>    {</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>      <a class="code hl_function" href="print__utils_8c.html#a650ab060ffe5dbc6c1a968a9cae3bded">print_err</a> (<span class="stringliteral">&quot;Failed to create thread1&quot;</span>);</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>      mq_close (queue_id);</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>      unlink (<a class="code hl_variable" href="tcfs__daemon_8c.html#a6376ed00be9fd53f7579e9243f3eacde">MQUEUE</a>);</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>      <span class="keywordflow">return</span> -errno;</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>    }</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span> </div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>  <span class="keywordflow">while</span> (!<a class="code hl_variable" href="tcfs__daemon_8c.html#a679ec79d065ad812032851f6872caee6">terminate</a>)</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>    {</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>    }</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span> </div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>  pthread_join (thread1, NULL);</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>  pthread_join (thread2, NULL);</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span> </div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>  mq_close (queue_id);</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>  unlink (<a class="code hl_variable" href="tcfs__daemon_8c.html#a6376ed00be9fd53f7579e9243f3eacde">MQUEUE</a>);</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span> </div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>  <a class="code hl_function" href="print__utils_8c.html#a650ab060ffe5dbc6c1a968a9cae3bded">print_err</a> (<span class="stringliteral">&quot;TCFS daemon threads returned, this should have never happened&quot;</span>);</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span> </div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>  <span class="keywordflow">return</span> -1;</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>}</div>
 </div>
-<div class="ttc" id="aprint__utils_8c_html_a491dc14c94ed8cf706bb54880c50b2d0"><div class="ttname"><a href="print__utils_8c.html#a491dc14c94ed8cf706bb54880c50b2d0">print_msg</a></div><div class="ttdeci">void print_msg(const char *format,...)</div><div class="ttdoc">Format and print data as a message.</div><div class="ttdef"><b>Definition</b> <a href="print__utils_8c_source.html#l00089">print_utils.c:89</a></div></div>
-<div class="ttc" id="aprint__utils_8c_html_a650ab060ffe5dbc6c1a968a9cae3bded"><div class="ttname"><a href="print__utils_8c.html#a650ab060ffe5dbc6c1a968a9cae3bded">print_err</a></div><div class="ttdeci">void print_err(const char *format,...)</div><div class="ttdoc">Format and print data as an error.</div><div class="ttdef"><b>Definition</b> <a href="print__utils_8c_source.html#l00069">print_utils.c:69</a></div></div>
-<div class="ttc" id="atcfs__daemon_8c_html_a6376ed00be9fd53f7579e9243f3eacde"><div class="ttname"><a href="tcfs__daemon_8c.html#a6376ed00be9fd53f7579e9243f3eacde">MQUEUE</a></div><div class="ttdeci">const char MQUEUE[]</div><div class="ttdoc">the queue file location</div><div class="ttdef"><b>Definition</b> <a href="tcfs__daemon_8c_source.html#l00029">tcfs_daemon.c:29</a></div></div>
-<div class="ttc" id="atcfs__daemon_8c_html_a679ec79d065ad812032851f6872caee6"><div class="ttname"><a href="tcfs__daemon_8c.html#a679ec79d065ad812032851f6872caee6">terminate</a></div><div class="ttdeci">volatile int terminate</div><div class="ttdoc">If the spawned threads terminate abruptly they should set this to 1, so that the daemon can terminate...</div><div class="ttdef"><b>Definition</b> <a href="tcfs__daemon_8c_source.html#l00017">tcfs_daemon.c:17</a></div></div>
-<div class="ttc" id="atcfs__daemon_8c_html_a93d1097e4dd3c0735da3da2e89410090"><div class="ttname"><a href="tcfs__daemon_8c.html#a93d1097e4dd3c0735da3da2e89410090">handle_termination</a></div><div class="ttdeci">void handle_termination(int signum)</div><div class="ttdoc">Handle the termination if SIGTERM is received.</div><div class="ttdef"><b>Definition</b> <a href="tcfs__daemon_8c_source.html#l00036">tcfs_daemon.c:36</a></div></div>
-<div class="ttc" id="atcfs__daemon_8c_html_ae66f6b31b5ad750f1fe042a706a4e3d4"><div class="ttname"><a href="tcfs__daemon_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main</a></div><div class="ttdeci">int main()</div><div class="ttdoc">main function of the daemon. This will daemonize the program, spawn a thread to handle messages and h...</div><div class="ttdef"><b>Definition</b> <a href="tcfs__daemon_8c_source.html#l00047">tcfs_daemon.c:47</a></div></div>
-<div class="ttc" id="atcfs__daemon_8c_html_af7e1db76e3a69a4b0484910b1f7562da"><div class="ttname"><a href="tcfs__daemon_8c.html#af7e1db76e3a69a4b0484910b1f7562da">terminate_mutex</a></div><div class="ttdeci">pthread_mutex_t terminate_mutex</div><div class="ttdoc">Mutex needed to set the var terminate to 1 safely.</div><div class="ttdef"><b>Definition</b> <a href="tcfs__daemon_8c_source.html#l00023">tcfs_daemon.c:23</a></div></div>
+<div class="ttc" id="aprint__utils_8c_html_a491dc14c94ed8cf706bb54880c50b2d0"><div class="ttname"><a href="print__utils_8c.html#a491dc14c94ed8cf706bb54880c50b2d0">print_msg</a></div><div class="ttdeci">void print_msg(const char *format,...)</div><div class="ttdoc">Format and print data as a message.</div><div class="ttdef"><b>Definition</b> <a href="print__utils_8c_source.html#l00101">print_utils.c:101</a></div></div>
+<div class="ttc" id="aprint__utils_8c_html_a650ab060ffe5dbc6c1a968a9cae3bded"><div class="ttname"><a href="print__utils_8c.html#a650ab060ffe5dbc6c1a968a9cae3bded">print_err</a></div><div class="ttdeci">void print_err(const char *format,...)</div><div class="ttdoc">Format and print data as an error.</div><div class="ttdef"><b>Definition</b> <a href="print__utils_8c_source.html#l00079">print_utils.c:79</a></div></div>
+<div class="ttc" id="aqueue_8c_html_a6997b2cacf3d2e49bc848d0274e24b13"><div class="ttname"><a href="queue_8c.html#a6997b2cacf3d2e49bc848d0274e24b13">init_queue</a></div><div class="ttdeci">mqd_t init_queue(char *queue)</div><div class="ttdoc">Initialize the message queue.</div><div class="ttdef"><b>Definition</b> <a href="queue_8c_source.html#l00027">queue.c:27</a></div></div>
+<div class="ttc" id="atcfs__daemon_8c_html_a6376ed00be9fd53f7579e9243f3eacde"><div class="ttname"><a href="tcfs__daemon_8c.html#a6376ed00be9fd53f7579e9243f3eacde">MQUEUE</a></div><div class="ttdeci">const char MQUEUE[]</div><div class="ttdoc">the queue file location</div><div class="ttdef"><b>Definition</b> <a href="tcfs__daemon_8c_source.html#l00032">tcfs_daemon.c:32</a></div></div>
+<div class="ttc" id="atcfs__daemon_8c_html_a679ec79d065ad812032851f6872caee6"><div class="ttname"><a href="tcfs__daemon_8c.html#a679ec79d065ad812032851f6872caee6">terminate</a></div><div class="ttdeci">volatile int terminate</div><div class="ttdoc">If the spawned threads terminate abruptly they should set this to 1, so that the daemon can terminate...</div><div class="ttdef"><b>Definition</b> <a href="tcfs__daemon_8c_source.html#l00020">tcfs_daemon.c:20</a></div></div>
+<div class="ttc" id="atcfs__daemon_8c_html_a93d1097e4dd3c0735da3da2e89410090"><div class="ttname"><a href="tcfs__daemon_8c.html#a93d1097e4dd3c0735da3da2e89410090">handle_termination</a></div><div class="ttdeci">void handle_termination(int signum)</div><div class="ttdoc">Handle the termination if SIGTERM is received.</div><div class="ttdef"><b>Definition</b> <a href="tcfs__daemon_8c_source.html#l00040">tcfs_daemon.c:40</a></div></div>
+<div class="ttc" id="atcfs__daemon_8c_html_ae66f6b31b5ad750f1fe042a706a4e3d4"><div class="ttname"><a href="tcfs__daemon_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main</a></div><div class="ttdeci">int main()</div><div class="ttdoc">main function of the daemon. This will daemonize the program, spawn a thread to handle messages and h...</div><div class="ttdef"><b>Definition</b> <a href="tcfs__daemon_8c_source.html#l00056">tcfs_daemon.c:56</a></div></div>
+<div class="ttc" id="atcfs__daemon_8c_html_af7e1db76e3a69a4b0484910b1f7562da"><div class="ttname"><a href="tcfs__daemon_8c.html#af7e1db76e3a69a4b0484910b1f7562da">terminate_mutex</a></div><div class="ttdeci">pthread_mutex_t terminate_mutex</div><div class="ttdoc">Mutex needed to set the var terminate to 1 safely.</div><div class="ttdef"><b>Definition</b> <a href="tcfs__daemon_8c_source.html#l00026">tcfs_daemon.c:26</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Nov 27 2023 17:03:19 for TCFS by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated on Tue Nov 28 2023 12:06:42 for TCFS by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

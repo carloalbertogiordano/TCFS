@@ -283,7 +283,7 @@ TAB_SIZE               = 4
 # with the commands \{ and \} for these it is advised to use the version @{ and
 # @} or use a double escape (\\{ and \\})
 
-ALIASES                += "ret=1 if successful, 0 otherwise"
+ALIASES                += "ret=1 if successful, 0 otherwise. An error might be printen by print_err() function, \see print_err"
 ALIASES                += "p_qmu=qm_user*     A pointer to the allocated qm_user* struct"
 ALIASES                += "_var= This variable is marked as internal and should not be used by the user"
 ALIASES                += "_func= This function is marked as internal and should not be used by the user"
@@ -543,7 +543,7 @@ EXTRACT_PRIV_VIRTUAL   = NO
 # scope will be included in the documentation.
 # The default value is: NO.
 
-EXTRACT_PACKAGE        = NO
+EXTRACT_PACKAGE        = YES
 
 # If the EXTRACT_STATIC tag is set to YES, all static members of a file will be
 # included in the documentation.
@@ -619,7 +619,7 @@ HIDE_IN_BODY_DOCS      = NO
 # will be excluded. Set it to YES to include the internal documentation.
 # The default value is: NO.
 
-INTERNAL_DOCS          = NO
+INTERNAL_DOCS          = YES
 
 # With the correct setting of option CASE_SENSE_NAMES doxygen will better be
 # able to match the capabilities of the underlying filesystem. In case the

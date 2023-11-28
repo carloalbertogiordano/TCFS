@@ -7,7 +7,7 @@
 <section xml:id="_md_README_1autotoc_md1">
 <title>Disclamer</title>
 
-<para><emphasis role="bold">Note:</emphasis> This project is currently in an early development stage and should be considered as an alpha version. This means there may be many missing features, unresolved bugs, or unexpected behaviors. The project is made available in this phase for testing and evaluation purposes and should not be used in production or for critical purposes. It is not recommended to use this software in sensitive environments or to store important data until a stable and complete version is reached. We appreciate any feedback, bug reports, or contributions from the community that can help improve the project. If you decide to use this software, please <emphasis role="bold">don&apos;t do it</emphasis>. Thank you for your interest and understanding as we work to improve the project and make it stable and complete.</para>
+<para><emphasis role="bold">Note:</emphasis> This project is currently in an early development stage and should be considered as an alpha version. This means there may be many missing features, unresolved bugs, or unexpected behaviors. The project is made available in this phase for testing and evaluation purposes and should not be used in production or for critical purposes. It is not recommended to use this software in sensitive environments or to store important data until a stable and complete version is reached. We appreciate any feedback, bug reports, or contributions from the community that can help improve the project. If you decide to use this software, please <emphasis role="bold">don&apos;t do it</emphasis>. Thank you for your interest and understanding as we work to improve the project and make it stable and complete :-).</para>
 </section>
 <section xml:id="_md_README_1autotoc_md2">
 <title>Features</title>
@@ -27,6 +27,11 @@
 <section xml:id="_md_README_1autotoc_md3">
 <title>Getting Started</title>
 <section xml:id="_md_README_1autotoc_md4">
+<title>Documentation</title>
+
+<para>Documentation is lacking but it can be found <link xlink:href="https://carloalbertogiordano.github.io/TCFS/">here</link> </para>
+</section>
+<section xml:id="_md_README_1autotoc_md5">
 <title>Prerequisites</title>
 
 <para><itemizedlist>
@@ -37,7 +42,7 @@
 </listitem></itemizedlist>
 </para>
 </section>
-<section xml:id="_md_README_1autotoc_md5">
+<section xml:id="_md_README_1autotoc_md6">
 <title>Build</title>
 
 <para><itemizedlist>
@@ -46,11 +51,39 @@
 <computeroutput>
 git clone <link xlink:href="https://github.com/carloalbertogiordano/TCFS">https://github.com/carloalbertogiordano/TCFS</link>
 </computeroutput>
-</literallayout></para>
-</listitem><listitem>
-<para>Compile: Run the Makefile in the userspace-module directory (Only the FUSE module is avilable at the moment, the whole project has not been implemented yet) <literallayout>
+</literallayout> ##</para>
+</listitem></itemizedlist>
+</para>
+</section>
+</section>
+<section xml:id="_md_README_1autotoc_md7">
+<title>Build and run the userpace module</title>
+
+<para><itemizedlist>
+<listitem>
+<para>Compile: Run the Makefile in the userspace-module directory <literallayout>
 <computeroutput>
 make all
+</computeroutput>
+</literallayout></para>
+</listitem><listitem>
+<para>Run: Run the compiled file. NOTE: Password must be 256 bit or 32 bytes <literallayout>
+<computeroutput>
+build/fuse-module/tcfs -s &quot;source_dir&quot; -d &quot;dest_dir&quot; -p &quot;password&quot;
+</computeroutput>
+</literallayout></para>
+</listitem></itemizedlist>
+</para>
+
+<para>#</para>
+<section xml:id="_md_README_1autotoc_md8">
+<title>Build and run the daemon</title>
+
+<para><itemizedlist>
+<listitem>
+<para>Build and install: To install the daemon run this commands in the tcfs_daemon directory <literallayout>
+<computeroutput>
+make; make install
 </computeroutput>
 </literallayout></para>
 </listitem></itemizedlist>
@@ -58,19 +91,52 @@ make all
 
 <para>#</para>
 </section>
+<section xml:id="_md_README_1autotoc_md9">
+<title>Build and run the helper program</title>
+
+<para><itemizedlist>
+<listitem>
+<para>Compile: Run the Makefile in the user directory <literallayout>
+<computeroutput>
+make
+</computeroutput>
+</literallayout></para>
+</listitem><listitem>
+<para>Run: Run the compiled file <literallayout>
+<computeroutput>
+build/tcfs_helper/tcfs_helper
+</computeroutput>
+</literallayout></para>
+</listitem></itemizedlist>
+</para>
+
+<para>#</para>
 </section>
-<section xml:id="_md_README_1autotoc_md6">
-<title>Usage</title>
-<section xml:id="_md_README_1autotoc_md7">
+<section xml:id="_md_README_1autotoc_md10">
+<title>Kernel module</title>
+
+<para><itemizedlist>
+<listitem>
+<para>This part of the project is not being developed at the moment.</para>
+</listitem></itemizedlist>
+</para>
+</section>
+</section>
+<section xml:id="_md_README_1autotoc_md11">
+<title>Usage of the fuse module</title>
+<section xml:id="_md_README_1autotoc_md12">
+<title>This is not raccomended, consider using the tcfs_helper program</title>
+</section>
+<section xml:id="_md_README_1autotoc_md13">
 <title>Mount an NFS share using TCFS:</title>
 
-<para>First, mount the NFS share to a directroy, this directory will be called sourcedir. This will be done by the helper program in a future release. <literallayout>
+<para>First, mount the NFS share to a directory, this directory will be called sourcedir. This will be done by the helper program in a future release. <literallayout>
 <computeroutput>
     ./build-fs/tcfs-fuse-module/tcfs -s /fullpath/sourcedir -d /fullpath/destdir -p &quot;your password here&quot;
 </computeroutput>
 </literallayout> Access and modify files in the mounted directory as you normally would. TCFS will handle encryption and decryption automatically. NOTE: This behaviour will be changed in the future, the kernel module will handle your password.</para>
 </section>
-<section xml:id="_md_README_1autotoc_md8">
+<section xml:id="_md_README_1autotoc_md14">
 <title>Unmount the NFS share when you&apos;re done:</title>
 
 <para><literallayout>
@@ -79,24 +145,25 @@ make all
 </computeroutput>
 </literallayout> then unmount the NFS share.</para>
 </section>
-<section xml:id="_md_README_1autotoc_md9">
+</section>
+<section xml:id="_md_README_1autotoc_md15">
 <title>Contributing</title>
 
 <para>Contributions to TCFS are welcome! If you find a bug or have an idea for an improvement, please open an issue or submit a pull request on the TCFS GitHub repository.</para>
 </section>
-<section xml:id="_md_README_1autotoc_md10">
+<section xml:id="_md_README_1autotoc_md16">
 <title>License</title>
 
 <para>This project is licensed under the GPLv3 License - see the LICENSE file for details.</para>
 </section>
-<section xml:id="_md_README_1autotoc_md11">
+<section xml:id="_md_README_1autotoc_md17">
 <title>Acknowledgments</title>
 
 <para>TCFS is inspired by the need for secure data storage and transmission in NFS environments. Thanks to the FUSE project for providing a user-friendly way to create custom filesystems.</para>
 
 <para><emphasis role="bold">Inspiration from TCFS (2001):</emphasis> This project draws substantial inspiration from an earlier project named &quot;TCFS&quot; that was developed around 2001. While the original source code for TCFS has unfortunately been lost over time, we have retained valuable documentation and insights from that era. In the &quot;TCFS-2001&quot; folder, you can find historical documentation and design concepts related to the original TCFS project. Although we are unable to directly leverage the source code from the previous project, we have taken lessons learned from its design principles to inform the development of this current TCFS implementation. We would like to express our gratitude to the creators and contributors of TCFS for their pioneering work, which has influenced and inspired our efforts to create a modern TCFS solution. Thank you for your interest in this project as we continue to build upon the foundations set by the original TCFS project.</para>
 </section>
-<section xml:id="_md_README_1autotoc_md12">
+<section xml:id="_md_README_1autotoc_md18">
 <title>Roadmap</title>
 
 <para><itemizedlist>
@@ -108,12 +175,23 @@ make all
 <para>Implement a kernel module to rebuild the private key to decipher the files. This module will use a certificate and your key to rebuild the private key</para>
 </listitem><listitem>
 <para>Implement key recovery.</para>
+</listitem><listitem>
+<para>Switch to public/private key</para>
 </listitem></itemizedlist>
 </para>
 </listitem><listitem>
-<para>Implement threshold sharing files. </para>
+<para>Implement threshold sharing files.</para>
+</listitem><listitem>
+<para>Daemon:<itemizedlist>
+<listitem>
+<para>Implement user registration and deregistration</para>
+</listitem><listitem>
+<para>Implement accessing and creation of shared files</para>
+</listitem><listitem>
+<para>Update the userspace module to handle the features that the daemon provides </para>
 </listitem></itemizedlist>
 </para>
-</section>
+</listitem></itemizedlist>
+</para>
 </section>
 </section>

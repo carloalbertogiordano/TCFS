@@ -1,8 +1,15 @@
 // TODO: This util will handle requesting keys to kernel
 
+/**
+ * @file password_manager.c
+ * @brief This file will handle key exchanges with the kernel module. This is
+ * not being currently developed
+ * */
+
+/*
 #include "password_manager.h"
 #include "../crypt-utils/crypt-utils.h"
-/*
+
 char *true_key;
 
 int insert_key(char* key, char* cert, int is_sys_call)

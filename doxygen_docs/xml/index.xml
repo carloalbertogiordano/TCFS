@@ -42,7 +42,7 @@
   <compound refid="redis_8c" kind="file"><name>redis.c</name>
     <member refid="redis_8c_1a614217d263be1fb1a5f76e2ff7be19a2" kind="define"><name>PORT</name></member>
     <member refid="redis_8c_1a0cc05631b755191d8d1c64c74c77894b" kind="variable"><name>HOST</name></member>
-    <member refid="redis_8c_1ace869d36dc1b4de4b6d046c0c71486cb" kind="variable"><name>context</name></member>
+    <member refid="redis_8c_1a71ea645922f3e5dcc69b644656c79a99" kind="variable"><name>context</name></member>
     <member refid="redis_8c_1a7b5eb746d92734b57a71ce552363283d" kind="function"><name>print_all_keys</name></member>
     <member refid="redis_8c_1a1f6dc2f98a71a88567fe11fd9e2585ea" kind="function"><name>init_context</name></member>
     <member refid="redis_8c_1ae19d8c90888a6ed078d6e835bb11e67a" kind="function"><name>free_context</name></member>
@@ -114,13 +114,13 @@
     <member refid="message__handler_8h_1a5e10c17633a6a0b06bcf09cc28467542" kind="function"><name>handle_user_message</name></member>
   </compound>
   <compound refid="queue_8c" kind="file"><name>queue.c</name>
+    <member refid="queue_8c_1a69e73620bd8f14313137ac04cf571477" kind="define"><name>MESSAGE_BUFFER_SIZE</name></member>
+    <member refid="queue_8c_1a5872868a041bf1b9e1a266271c317876" kind="define"><name>MQUEUE_N</name></member>
     <member refid="queue_8c_1a6997b2cacf3d2e49bc848d0274e24b13" kind="function"><name>init_queue</name></member>
     <member refid="queue_8c_1ac51f5d595a9d7376eb0448116c99e1f4" kind="function"><name>enqueue</name></member>
     <member refid="queue_8c_1a1874b6e320d1e54d571c89766d046602" kind="function"><name>dequeue</name></member>
   </compound>
   <compound refid="queue_8h" kind="file"><name>queue.h</name>
-    <member refid="queue_8h_1a69e73620bd8f14313137ac04cf571477" kind="define"><name>MESSAGE_BUFFER_SIZE</name></member>
-    <member refid="queue_8h_1a5872868a041bf1b9e1a266271c317876" kind="define"><name>MQUEUE_N</name></member>
     <member refid="queue_8h_1a6997b2cacf3d2e49bc848d0274e24b13" kind="function"><name>init_queue</name></member>
     <member refid="queue_8h_1ac51f5d595a9d7376eb0448116c99e1f4" kind="function"><name>enqueue</name></member>
     <member refid="queue_8h_1a1874b6e320d1e54d571c89766d046602" kind="function"><name>dequeue</name></member>

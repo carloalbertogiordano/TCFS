@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['unregister_5fuser_0',['unregister_user',['../user__db_8c.html#a6e2fcf4aa637e61f69b1b601981663cf',1,'user_db.c']]]
+  ['main_0',['main',['../tcfs__daemon_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4',1,'tcfs_daemon.c']]]
 ];

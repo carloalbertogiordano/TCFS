@@ -2,8 +2,18 @@
 \hypertarget{structqm__user}{}\label{structqm__user}\index{qm\_user@{qm\_user}}
 
 
-Collaboration diagram for qm\+\_\+user\+:
-\nopagebreak
+Represents a user message. ~\newline
+Contains information about the user\textquotesingle{}s operation, process ID, username and public key. ~\newline
+.  
+
+
+
+
+{\ttfamily \#include $<$common.\+h$>$}
+
+
+
+Collaboration diagram for qm\+\_\+user\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -24,9 +34,11 @@ char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{structqm__user_ad718cfba201afae
 
 
 \doxysubsection{Detailed Description}
+Represents a user message. ~\newline
+Contains information about the user\textquotesingle{}s operation, process ID, username and public key. ~\newline
+. 
 
-
-Definition at line \mbox{\hyperlink{common_8h_source_l00027}{27}} of file \mbox{\hyperlink{common_8h_source}{common.\+h}}.
+Definition at line \mbox{\hyperlink{common_8h_source_l00056}{56}} of file \mbox{\hyperlink{common_8h_source}{common.\+h}}.
 
 
 
@@ -37,9 +49,13 @@ Definition at line \mbox{\hyperlink{common_8h_source_l00027}{27}} of file \mbox{
 \doxysubsubsection{\texorpdfstring{pid}{pid}}
 {\footnotesize\ttfamily pid\+\_\+t qm\+\_\+user\+::pid}
 
+The process ID of the user. 
+
+Definition at line \mbox{\hyperlink{common_8h_source_l00058}{58}} of file \mbox{\hyperlink{common_8h_source}{common.\+h}}.
 
 
-Definition at line \mbox{\hyperlink{common_8h_source_l00029}{29}} of file \mbox{\hyperlink{common_8h_source}{common.\+h}}.
+
+Referenced by \mbox{\hyperlink{redis_8c_source_l00165}{get\+\_\+user\+\_\+by\+\_\+name()}}, \mbox{\hyperlink{redis_8c_source_l00122}{get\+\_\+user\+\_\+by\+\_\+pid()}}, \mbox{\hyperlink{redis_8c_source_l00211}{insert()}}, and \mbox{\hyperlink{redis_8c_source_l00292}{remove\+\_\+by\+\_\+user()}}.
 
 \Hypertarget{structqm__user_ad718cfba201afae89c596111bd508d5f}\label{structqm__user_ad718cfba201afae89c596111bd508d5f} 
 \index{qm\_user@{qm\_user}!pubkey@{pubkey}}
@@ -47,9 +63,9 @@ Definition at line \mbox{\hyperlink{common_8h_source_l00029}{29}} of file \mbox{
 \doxysubsubsection{\texorpdfstring{pubkey}{pubkey}}
 {\footnotesize\ttfamily char\texorpdfstring{$\ast$}{*} qm\+\_\+user\+::pubkey}
 
+The public key of the user. 
 
-
-Definition at line \mbox{\hyperlink{common_8h_source_l00031}{31}} of file \mbox{\hyperlink{common_8h_source}{common.\+h}}.
+Definition at line \mbox{\hyperlink{common_8h_source_l00060}{60}} of file \mbox{\hyperlink{common_8h_source}{common.\+h}}.
 
 \Hypertarget{structqm__user_a6c52d68724b65831ba6d95f3d7448ff4}\label{structqm__user_a6c52d68724b65831ba6d95f3d7448ff4} 
 \index{qm\_user@{qm\_user}!user@{user}}
@@ -57,9 +73,13 @@ Definition at line \mbox{\hyperlink{common_8h_source_l00031}{31}} of file \mbox{
 \doxysubsubsection{\texorpdfstring{user}{user}}
 {\footnotesize\ttfamily char\texorpdfstring{$\ast$}{*} qm\+\_\+user\+::user}
 
+The username of the user. 
+
+Definition at line \mbox{\hyperlink{common_8h_source_l00059}{59}} of file \mbox{\hyperlink{common_8h_source}{common.\+h}}.
 
 
-Definition at line \mbox{\hyperlink{common_8h_source_l00030}{30}} of file \mbox{\hyperlink{common_8h_source}{common.\+h}}.
+
+Referenced by \mbox{\hyperlink{redis_8c_source_l00165}{get\+\_\+user\+\_\+by\+\_\+name()}}, \mbox{\hyperlink{redis_8c_source_l00122}{get\+\_\+user\+\_\+by\+\_\+pid()}}, \mbox{\hyperlink{redis_8c_source_l00211}{insert()}}, and \mbox{\hyperlink{redis_8c_source_l00256}{remove\+\_\+by\+\_\+pid()}}.
 
 \Hypertarget{structqm__user_a4b5bbaaf885c62f44f265eeba461303d}\label{structqm__user_a4b5bbaaf885c62f44f265eeba461303d} 
 \index{qm\_user@{qm\_user}!user\_op@{user\_op}}
@@ -67,9 +87,9 @@ Definition at line \mbox{\hyperlink{common_8h_source_l00030}{30}} of file \mbox{
 \doxysubsubsection{\texorpdfstring{user\_op}{user\_op}}
 {\footnotesize\ttfamily user\+\_\+operation qm\+\_\+user\+::user\+\_\+op}
 
+The operation that the user wants to perform. 
 
-
-Definition at line \mbox{\hyperlink{common_8h_source_l00028}{28}} of file \mbox{\hyperlink{common_8h_source}{common.\+h}}.
+Definition at line \mbox{\hyperlink{common_8h_source_l00057}{57}} of file \mbox{\hyperlink{common_8h_source}{common.\+h}}.
 
 
 

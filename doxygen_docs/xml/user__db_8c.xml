@@ -43,24 +43,24 @@
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="16">
+      <node id="12">
         <label>../common_utils/json/json_tools.h</label>
         <link refid="json__tools_8h_source"/>
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="12">
+      <node id="13">
         <label>../common_utils/print/print_utils.h</label>
         <link refid="print__utils_8h_source"/>
-        <childnode refid="13" relation="include">
-        </childnode>
         <childnode refid="11" relation="include">
         </childnode>
         <childnode refid="14" relation="include">
         </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
         <childnode refid="5" relation="include">
         </childnode>
-        <childnode refid="15" relation="include">
+        <childnode refid="16" relation="include">
         </childnode>
       </node>
       <node id="3">
@@ -70,7 +70,7 @@
         </childnode>
         <childnode refid="12" relation="include">
         </childnode>
-        <childnode refid="16" relation="include">
+        <childnode refid="13" relation="include">
         </childnode>
         <childnode refid="14" relation="include">
         </childnode>
@@ -101,7 +101,7 @@
       <node id="6">
         <label>sys/types.h</label>
       </node>
-      <node id="13">
+      <node id="16">
         <label>systemd/sd-journal.h</label>
       </node>
       <node id="9">
@@ -119,7 +119,7 @@
           <declname>user_msg</declname>
         </param>
         <briefdescription>
-<para>Register or update a user in the db, this relies on the <ref refid="redis_8c_source" kindref="compound">redis.c</ref> file. </para>
+<para>Register or update a user in the db, this relies on the <ref refid="redis_8c" kindref="compound">redis.c</ref> file. </para>
         </briefdescription>
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
@@ -131,14 +131,19 @@
 </parameterdescription>
 </parameteritem>
 </parameterlist>
-<simplesect kind="return"><para>1 if successful, 0 otherwise </para>
+<simplesect kind="return"><para>1 if successful, 0 otherwise. An error might be printen by <ref refid="print__utils_8c_1a650ab060ffe5dbc6c1a968a9cae3bded" kindref="member">print_err()</ref> function, </para>
+</simplesect>
+<simplesect kind="see"><para><ref refid="print__utils_8c_1a650ab060ffe5dbc6c1a968a9cae3bded" kindref="member">print_err</ref> </para>
 </simplesect>
 </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="daemon/daemon_utils/common_utils/db/user_db.c" line="14" column="5" bodyfile="daemon/daemon_utils/common_utils/db/user_db.c" bodystart="14" bodyend="23"/>
-        <references refid="print__utils_8c_1a491dc14c94ed8cf706bb54880c50b2d0" compoundref="print__utils_8c" startline="89" endline="100">print_msg</references>
+        <location file="daemon/daemon_utils/common_utils/db/user_db.c" line="15" column="1" bodyfile="daemon/daemon_utils/common_utils/db/user_db.c" bodystart="15" bodyend="24"/>
+        <references refid="redis_8c_1a1f6dc2f98a71a88567fe11fd9e2585ea" compoundref="redis_8c" startline="72" endline="85">init_context</references>
+        <references refid="redis_8c_1ac9878ee09b53700eb08c1f175873c30b" compoundref="redis_8c" startline="211" endline="245">insert</references>
+        <references refid="redis_8c_1a7b5eb746d92734b57a71ce552363283d" compoundref="redis_8c" startline="42" endline="64">print_all_keys</references>
+        <references refid="print__utils_8c_1a491dc14c94ed8cf706bb54880c50b2d0" compoundref="print__utils_8c" startline="101" endline="112">print_msg</references>
       </memberdef>
       <memberdef kind="function" id="user__db_8c_1a6e2fcf4aa637e61f69b1b601981663cf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -162,14 +167,18 @@
 </parameterdescription>
 </parameteritem>
 </parameterlist>
-<simplesect kind="return"><para>1 if successful, 0 otherwise </para>
+<simplesect kind="return"><para>1 if successful, 0 otherwise. An error might be printen by <ref refid="print__utils_8c_1a650ab060ffe5dbc6c1a968a9cae3bded" kindref="member">print_err()</ref> function, </para>
+</simplesect>
+<simplesect kind="see"><para><ref refid="print__utils_8c_1a650ab060ffe5dbc6c1a968a9cae3bded" kindref="member">print_err</ref> </para>
 </simplesect>
 </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="daemon/daemon_utils/common_utils/db/user_db.c" line="29" column="5" bodyfile="daemon/daemon_utils/common_utils/db/user_db.c" bodystart="29" bodyend="34"/>
-        <references refid="print__utils_8c_1a491dc14c94ed8cf706bb54880c50b2d0" compoundref="print__utils_8c" startline="89" endline="100">print_msg</references>
+        <location file="daemon/daemon_utils/common_utils/db/user_db.c" line="31" column="1" bodyfile="daemon/daemon_utils/common_utils/db/user_db.c" bodystart="31" bodyend="36"/>
+        <references refid="redis_8c_1a7b5eb746d92734b57a71ce552363283d" compoundref="redis_8c" startline="42" endline="64">print_all_keys</references>
+        <references refid="print__utils_8c_1a491dc14c94ed8cf706bb54880c50b2d0" compoundref="print__utils_8c" startline="101" endline="112">print_msg</references>
+        <references refid="redis_8c_1a6b18d7ad2f1e8275106a5b39c0c7d216" compoundref="redis_8c" startline="256" endline="281">remove_by_pid</references>
       </memberdef>
       <memberdef kind="function" id="user__db_8c_1ab57ffd0f0b23a847e766e762906af22e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -200,8 +209,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="daemon/daemon_utils/common_utils/db/user_db.c" line="41" column="6" bodyfile="daemon/daemon_utils/common_utils/db/user_db.c" bodystart="41" bodyend="45"/>
-        <references refid="print__utils_8c_1a491dc14c94ed8cf706bb54880c50b2d0" compoundref="print__utils_8c" startline="89" endline="100">print_msg</references>
+        <location file="daemon/daemon_utils/common_utils/db/user_db.c" line="45" column="1" bodyfile="daemon/daemon_utils/common_utils/db/user_db.c" bodystart="45" bodyend="49"/>
+        <references refid="redis_8c_1ae19d8c90888a6ed078d6e835bb11e67a" compoundref="redis_8c" startline="92" endline="95">free_context</references>
+        <references refid="print__utils_8c_1a491dc14c94ed8cf706bb54880c50b2d0" compoundref="print__utils_8c" startline="101" endline="112">print_msg</references>
       </memberdef>
     </sectiondef>
     <briefdescription>
@@ -213,27 +223,30 @@
 <codeline lineno="1"><highlight class="preprocessor">#include<sp/>&quot;user_db.h&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;redis.h&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="3"><highlight class="normal"></highlight></codeline>
-<codeline lineno="14" refid="user__db_8c_1a2ae8a82033440194ad80949cd4493971" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="user__db_8c_1a2ae8a82033440194ad80949cd4493971" kindref="member">register_user</ref>(<ref refid="structqm__user" kindref="compound">qm_user</ref><sp/>*user_msg)</highlight></codeline>
-<codeline lineno="15"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="print__utils_8c_1a491dc14c94ed8cf706bb54880c50b2d0" kindref="member">print_msg</ref>(</highlight><highlight class="stringliteral">&quot;Registering<sp/>new<sp/>user&quot;</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(init_context()<sp/>==<sp/>0)</highlight></codeline>
-<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;</highlight></codeline>
-<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/>print_all_keys();</highlight></codeline>
-<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(insert(user_msg)<sp/>==<sp/>0)</highlight></codeline>
-<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;</highlight></codeline>
-<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>1;</highlight></codeline>
-<codeline lineno="23"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="29" refid="user__db_8c_1a6e2fcf4aa637e61f69b1b601981663cf" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="user__db_8c_1a6e2fcf4aa637e61f69b1b601981663cf" kindref="member">unregister_user</ref>(pid_t<sp/>pid)</highlight></codeline>
-<codeline lineno="30"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/>print_all_keys();</highlight></codeline>
-<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="print__utils_8c_1a491dc14c94ed8cf706bb54880c50b2d0" kindref="member">print_msg</ref>(</highlight><highlight class="stringliteral">&quot;Removing<sp/>user&quot;</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>remove_by_pid(pid);</highlight></codeline>
-<codeline lineno="34"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="41" refid="user__db_8c_1ab57ffd0f0b23a847e766e762906af22e" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="user__db_8c_1ab57ffd0f0b23a847e766e762906af22e" kindref="member">disconnect_db</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
-<codeline lineno="42"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="print__utils_8c_1a491dc14c94ed8cf706bb54880c50b2d0" kindref="member">print_msg</ref>(</highlight><highlight class="stringliteral">&quot;Freeing<sp/>context...&quot;</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/>free_context();</highlight></codeline>
-<codeline lineno="45"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15" refid="user__db_8c_1a2ae8a82033440194ad80949cd4493971" refkind="member"><highlight class="normal"><ref refid="user__db_8c_1a2ae8a82033440194ad80949cd4493971" kindref="member">register_user</ref><sp/>(<ref refid="structqm__user" kindref="compound">qm_user</ref><sp/>*user_msg)</highlight></codeline>
+<codeline lineno="16"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/><ref refid="print__utils_8c_1a491dc14c94ed8cf706bb54880c50b2d0" kindref="member">print_msg</ref><sp/>(</highlight><highlight class="stringliteral">&quot;Registering<sp/>new<sp/>user&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="redis_8c_1a1f6dc2f98a71a88567fe11fd9e2585ea" kindref="member">init_context</ref><sp/>()<sp/>==<sp/>0)</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><ref refid="redis_8c_1a7b5eb746d92734b57a71ce552363283d" kindref="member">print_all_keys</ref><sp/>();</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="redis_8c_1ac9878ee09b53700eb08c1f175873c30b" kindref="member">insert</ref><sp/>(user_msg)<sp/>==<sp/>0)</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>1;</highlight></codeline>
+<codeline lineno="24"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31" refid="user__db_8c_1a6e2fcf4aa637e61f69b1b601981663cf" refkind="member"><highlight class="normal"><ref refid="user__db_8c_1a6e2fcf4aa637e61f69b1b601981663cf" kindref="member">unregister_user</ref><sp/>(pid_t<sp/>pid)</highlight></codeline>
+<codeline lineno="32"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><ref refid="redis_8c_1a7b5eb746d92734b57a71ce552363283d" kindref="member">print_all_keys</ref><sp/>();</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><ref refid="print__utils_8c_1a491dc14c94ed8cf706bb54880c50b2d0" kindref="member">print_msg</ref><sp/>(</highlight><highlight class="stringliteral">&quot;Removing<sp/>user&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="redis_8c_1a6b18d7ad2f1e8275106a5b39c0c7d216" kindref="member">remove_by_pid</ref><sp/>(pid);</highlight></codeline>
+<codeline lineno="36"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45" refid="user__db_8c_1ab57ffd0f0b23a847e766e762906af22e" refkind="member"><highlight class="normal"><ref refid="user__db_8c_1ab57ffd0f0b23a847e766e762906af22e" kindref="member">disconnect_db</ref><sp/>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="46"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><ref refid="print__utils_8c_1a491dc14c94ed8cf706bb54880c50b2d0" kindref="member">print_msg</ref><sp/>(</highlight><highlight class="stringliteral">&quot;Freeing<sp/>context...&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><ref refid="redis_8c_1ae19d8c90888a6ed078d6e835bb11e67a" kindref="member">free_context</ref><sp/>();</highlight></codeline>
+<codeline lineno="49"><highlight class="normal">}</highlight></codeline>
     </programlisting>
     <location file="daemon/daemon_utils/common_utils/db/user_db.c"/>
   </compounddef>

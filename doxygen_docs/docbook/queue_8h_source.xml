@@ -3,17 +3,12 @@
 <title>queue.h</title>
 <indexterm><primary>daemon/daemon_utils/queue/queue.h</primary></indexterm>
 <programlisting linenumbering="unnumbered"><anchor xml:id="_queue_8h_source_1l00001"/>00001 <emphasis role="preprocessor">#include&#32;&quot;../common.h&quot;</emphasis>
-<anchor xml:id="_queue_8h_source_1l00002"/>00002 <emphasis role="preprocessor">#include&#32;&quot;../common_utils/print/print_utils.h&quot;</emphasis>
-<anchor xml:id="_queue_8h_source_1l00003"/>00003 <emphasis role="preprocessor">#include&#32;&quot;../common_utils/json/json_tools.h&quot;</emphasis>
+<anchor xml:id="_queue_8h_source_1l00002"/>00002 <emphasis role="preprocessor">#include&#32;&quot;../common_utils/json/json_tools.h&quot;</emphasis>
+<anchor xml:id="_queue_8h_source_1l00003"/>00003 <emphasis role="preprocessor">#include&#32;&quot;../common_utils/print/print_utils.h&quot;</emphasis>
 <anchor xml:id="_queue_8h_source_1l00004"/>00004 <emphasis role="preprocessor">#include&#32;&lt;stdio.h&gt;</emphasis>
 <anchor xml:id="_queue_8h_source_1l00005"/>00005 <emphasis role="preprocessor">#include&#32;&lt;stdlib.h&gt;</emphasis>
 <anchor xml:id="_queue_8h_source_1l00006"/>00006 
-<anchor xml:id="_queue_8h_source_1l00007"/>00007 <emphasis role="preprocessor">#define&#32;MESSAGE_BUFFER_SIZE&#32;256</emphasis>
-<anchor xml:id="_queue_8h_source_1l00008"/>00008 <emphasis role="preprocessor">#define&#32;MQUEUE_N&#32;3;</emphasis>
-<anchor xml:id="_queue_8h_source_1l00009"/>00009 
-<anchor xml:id="_queue_8h_source_1l00010"/>00010 
-<anchor xml:id="_queue_8h_source_1l00011"/>00011 
-<anchor xml:id="_queue_8h_source_1l00012"/>00012 mqd_t&#32;init_queue(<emphasis role="keywordtype">char</emphasis>&#32;*queue);
-<anchor xml:id="_queue_8h_source_1l00013"/>00013 <emphasis role="keywordtype">int</emphasis>&#32;enqueue(mqd_t&#32;queue_d,&#32;qm_type&#32;qmt,&#32;<emphasis role="keywordtype">void</emphasis>&#32;*q_mess);
-<anchor xml:id="_queue_8h_source_1l00014"/>00014 <emphasis role="keywordtype">void</emphasis>&#32;*dequeue(mqd_t&#32;queue_d,&#32;qm_type&#32;*qmt);
+<anchor xml:id="_queue_8h_source_1l00007"/>00007 mqd_t&#32;<link linkend="_queue_8c_1a6997b2cacf3d2e49bc848d0274e24b13">init_queue</link>&#32;(<emphasis role="keywordtype">char</emphasis>&#32;*queue);
+<anchor xml:id="_queue_8h_source_1l00008"/>00008 <emphasis role="keywordtype">int</emphasis>&#32;<link linkend="_queue_8c_1ac51f5d595a9d7376eb0448116c99e1f4">enqueue</link>&#32;(mqd_t&#32;queue_d,&#32;qm_type&#32;qmt,&#32;<emphasis role="keywordtype">void</emphasis>&#32;*q_mess);
+<anchor xml:id="_queue_8h_source_1l00009"/>00009 <emphasis role="keywordtype">void</emphasis>&#32;*<link linkend="_queue_8c_1a1874b6e320d1e54d571c89766d046602">dequeue</link>&#32;(mqd_t&#32;queue_d,&#32;qm_type&#32;*qmt);
 </programlisting></section>

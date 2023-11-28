@@ -1,4 +1,4 @@
-.TH "daemon/tcfs_daemon.c" 3 "Mon Nov 27 2023 17:03:19" "Version 0.2" "TCFS" \" -*- nroff -*-
+.TH "daemon/tcfs_daemon.c" 3 "Tue Nov 28 2023 12:06:42" "Version 0.2" "TCFS" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -80,7 +80,7 @@ Handle the termination if SIGTERM is received\&.
 .PP
 
 .PP
-Definition at line \fB36\fP of file \fBtcfs_daemon\&.c\fP\&.
+Definition at line \fB40\fP of file \fBtcfs_daemon\&.c\fP\&.
 .PP
 References \fBprint_msg()\fP\&.
 .PP
@@ -99,9 +99,9 @@ main function of the daemon\&. This will daemonize the program, spawn a thread t
 .PP
 
 .PP
-Definition at line \fB47\fP of file \fBtcfs_daemon\&.c\fP\&.
+Definition at line \fB56\fP of file \fBtcfs_daemon\&.c\fP\&.
 .PP
-References \fBhandle_termination()\fP, \fBMQUEUE\fP, \fBprint_err()\fP, \fBprint_msg()\fP, and \fBterminate\fP\&.
+References \fBhandle_termination()\fP, \fBinit_queue()\fP, \fBMQUEUE\fP, \fBprint_err()\fP, \fBprint_msg()\fP, and \fBterminate\fP\&.
 .SH "Variable Documentation"
 .PP 
 .SS "MQUEUE = '/tcfs_queue'"
@@ -109,7 +109,7 @@ References \fBhandle_termination()\fP, \fBMQUEUE\fP, \fBprint_err()\fP, \fBprint
 .PP
 the queue file location 
 .PP
-Definition at line \fB29\fP of file \fBtcfs_daemon\&.c\fP\&.
+Definition at line \fB32\fP of file \fBtcfs_daemon\&.c\fP\&.
 .PP
 Referenced by \fBmain()\fP\&.
 .SS "volatile int terminate = 0"
@@ -124,7 +124,7 @@ If the spawned threads terminate abruptly they should set this to 1, so that the
 .PP
 
 .PP
-Definition at line \fB17\fP of file \fBtcfs_daemon\&.c\fP\&.
+Definition at line \fB20\fP of file \fBtcfs_daemon\&.c\fP\&.
 .PP
 Referenced by \fBmain()\fP\&.
 .SS "pthread_mutex_t terminate_mutex = PTHREAD_MUTEX_INITIALIZER"
@@ -139,7 +139,7 @@ Mutex needed to set the var terminate to 1 safely\&.
 .PP
 
 .PP
-Definition at line \fB23\fP of file \fBtcfs_daemon\&.c\fP\&.
+Definition at line \fB26\fP of file \fBtcfs_daemon\&.c\fP\&.
 .SH "Author"
 .PP 
 Generated automatically by Doxygen for TCFS from the source code\&.

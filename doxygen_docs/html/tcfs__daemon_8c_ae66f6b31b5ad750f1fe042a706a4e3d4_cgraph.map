@@ -1,10 +1,14 @@
 <map id="main" name="main">
-<area shape="rect" id="Node000001" title="main function of the daemon. This will daemonize the program, spawn a thread to handle messages and h..." alt="" coords="5,56,56,81"/>
+<area shape="rect" id="Node000001" title="main function of the daemon. This will daemonize the program, spawn a thread to handle messages and h..." alt="" coords="5,81,56,107"/>
 <area shape="rect" id="Node000002" href="$tcfs__daemon_8c.html#a93d1097e4dd3c0735da3da2e89410090" title="Handle the termination if SIGTERM is received." alt="" coords="104,5,235,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="55,57,118,34,119,39,57,62"/>
-<area shape="rect" id="Node000003" href="$print__utils_8c.html#a491dc14c94ed8cf706bb54880c50b2d0" title="Format and print data as a message." alt="" coords="283,31,361,56"/>
-<area shape="poly" id="edge4_Node000001_Node000003" title=" " alt="" coords="56,64,267,45,267,51,57,69"/>
-<area shape="rect" id="Node000004" href="$print__utils_8c.html#a650ab060ffe5dbc6c1a968a9cae3bded" title="Format and print data as an error." alt="" coords="135,107,204,132"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="57,75,121,99,119,104,55,80"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="236,26,268,32,267,37,235,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="51,79,103,48,126,36,128,40,105,52,54,83"/>
+<area shape="rect" id="Node000003" href="$print__utils_8c.html#a491dc14c94ed8cf706bb54880c50b2d0" title="Format and print data as a message." alt="" coords="283,56,361,81"/>
+<area shape="poly" id="edge7_Node000001_Node000003" title=" " alt="" coords="56,89,267,71,267,76,57,94"/>
+<area shape="rect" id="Node000004" href="$queue_8c.html#a6997b2cacf3d2e49bc848d0274e24b13" title="Initialize the message queue." alt="" coords="129,107,210,132"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="57,96,114,107,113,112,56,101"/>
+<area shape="rect" id="Node000005" href="$print__utils_8c.html#a650ab060ffe5dbc6c1a968a9cae3bded" title="Format and print data as an error." alt="" coords="287,132,357,157"/>
+<area shape="poly" id="edge6_Node000001_Node000005" title=" " alt="" coords="47,105,72,125,105,142,148,152,192,155,272,150,272,156,192,160,147,157,103,147,69,130,43,109"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="211,29,269,48,267,53,209,34"/>
+<area shape="poly" id="edge5_Node000004_Node000003" title=" " alt="" coords="209,103,267,84,269,89,211,109"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="211,123,273,134,272,139,210,129"/>
 </map>

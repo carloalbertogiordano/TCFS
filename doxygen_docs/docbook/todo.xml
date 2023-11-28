@@ -6,19 +6,31 @@
 <para><variablelist>
 <varlistentry><term>Member <link linkend="_tcfs__daemon_8c_1a93d1097e4dd3c0735da3da2e89410090">handle_termination</link>  (int signum)</term>
 <listitem>
-<para><anchor xml:id="_todo_1_todo000006"/>: Implement remove_queue() to clear and delete the queue  </para>
+<para><anchor xml:id="_todo_1_todo000010"/>: Implement remove_queue() to clear and delete the queue  </para>
+</listitem></varlistentry>
+<varlistentry><term>Member <link linkend="_queue_8c_1a6997b2cacf3d2e49bc848d0274e24b13">init_queue</link>  (char *queue)</term>
+<listitem>
+<para><anchor xml:id="_todo_1_todo000004"/>Define permissions for mq_open  </para>
 </listitem></varlistentry>
 <varlistentry><term>Member <link linkend="_tcfs__daemon_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4">main</link>  ()</term>
 <listitem>
-<para><anchor xml:id="_todo_1_todo000007"/>: The brief description is basically false advertisement. It only spawn a thread and hangs infinitely </para>
+<para><anchor xml:id="_todo_1_todo000011"/>: The brief description is basically false advertisement. It only spawn a thread and hangs infinitely </para>
 
 <para></para>
 
 <para>: Remove the thread that spawns handle_outgoing_messages. This must not make it into final release  </para>
 </listitem></varlistentry>
+<varlistentry><term>Member <link linkend="_redis_8c_1a614217d263be1fb1a5f76e2ff7be19a2">PORT</link>  </term>
+<listitem>
+<para><anchor xml:id="_todo_1_todo000003"/>This should be passed as a parameter to the daemon  </para>
+</listitem></varlistentry>
+<varlistentry><term>Struct <link linkend="_structqm__shared">qm_shared</link>  </term>
+<listitem>
+<para><anchor xml:id="_todo_1_todo000001"/>Handle creation of shared files and not only accessing them. This mey imply a new field  </para>
+</listitem></varlistentry>
 <varlistentry><term>File <link linkend="_tcfs__daemon_8c">tcfs_daemon.c</link>  </term>
 <listitem>
-<para><anchor xml:id="_todo_1_todo000003"/>: Enable forking </para>
+<para><anchor xml:id="_todo_1_todo000007"/>: Enable forking </para>
 
 <para></para>
 
@@ -26,11 +38,11 @@
 </listitem></varlistentry>
 <varlistentry><term>Member <link linkend="_tcfs__daemon_8c_1a679ec79d065ad812032851f6872caee6">terminate</link>  </term>
 <listitem>
-<para><anchor xml:id="_todo_1_todo000004"/>: Implement logic to make this work  </para>
+<para><anchor xml:id="_todo_1_todo000008"/>: Implement logic to make this work  </para>
 </listitem></varlistentry>
 <varlistentry><term>Member <link linkend="_tcfs__daemon_8c_1af7e1db76e3a69a4b0484910b1f7562da">terminate_mutex</link>  </term>
 <listitem>
-<para><anchor xml:id="_todo_1_todo000005"/>: implement logic to make this work </para>
+<para><anchor xml:id="_todo_1_todo000009"/>: implement logic to make this work </para>
 </listitem></varlistentry>
 </variablelist>
 </para>

@@ -7,10 +7,21 @@
 <para>All the function in this file should not be used directly, instead use the function defined by user_db. </para>
  
 </para>
-<programlisting linenumbering="unnumbered">#include &quot;redis.h&quot;<?linebreak?>#include &quot;../print/print_utils.h&quot;<?linebreak?>#include &quot;../json/json_tools.h&quot;<?linebreak?>#include &lt;hiredis/hiredis.h&gt;<?linebreak?></programlisting><simplesect>
+<programlisting linenumbering="unnumbered">#include &quot;redis.h&quot;<?linebreak?>#include &quot;../json/json_tools.h&quot;<?linebreak?>#include &quot;../print/print_utils.h&quot;<?linebreak?>#include &lt;hiredis/hiredis.h&gt;<?linebreak?></programlisting>Include dependency graph for redis.c:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="redis_8c__incl.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+<simplesect>
     <title>Macros    </title>
         <itemizedlist>
             <listitem><para>#define <link linkend="_redis_8c_1a614217d263be1fb1a5f76e2ff7be19a2">PORT</link>&#160;&#160;&#160;6380</para>
+
+<para>The port of the redis DB. </para>
 </listitem>
         </itemizedlist>
 </simplesect>
@@ -60,7 +71,9 @@
         <itemizedlist>
             <listitem><para>const char <link linkend="_redis_8c_1a0cc05631b755191d8d1c64c74c77894b">HOST</link> [] = &quot;127.0.0.1&quot;</para>
 </listitem>
-            <listitem><para>redisContext * <link linkend="_redis_8c_1ace869d36dc1b4de4b6d046c0c71486cb">context</link></para>
+            <listitem><para>redisContext * <link linkend="_redis_8c_1a71ea645922f3e5dcc69b644656c79a99">context</link></para>
+
+<para>Pointer to the context of Redis DB. </para>
 </listitem>
         </itemizedlist>
 </simplesect>
@@ -68,6 +81,8 @@
 <title>Detailed Description</title>
 
 <para>All the function in this file should not be used directly, instead use the function defined by user_db. </para>
+
+<para>This file is marked as internal and the corresponding header should not be used by the user. Please refer to the see section</para>
 
 <para><formalpara><title>See also</title>
 
@@ -84,7 +99,17 @@ Definition in file <link linkend="_redis_8c_source">redis.c</link>.</para>
 <indexterm><primary>PORT</primary><secondary>redis.c</secondary></indexterm>
 <indexterm><primary>redis.c</primary><secondary>PORT</secondary></indexterm>
 <para><computeroutput>#define PORT&#160;&#160;&#160;6380</computeroutput></para><para>
-Definition at line <link linkend="_redis_8c_source_1l00013">13</link> of file <link linkend="_redis_8c_source">redis.c</link>.</para>
+
+<para>The port of the redis DB. </para>
+</para>
+
+<para>This definition is marked as internal and be used directly</para>
+
+<para><para><link linkend="_todo_1_todo000003">Todo</link> 
+<para>This should be passed as a parameter to the daemon </para>
+</para></para>
+<para>
+Definition at line <link linkend="_redis_8c_source_1l00027">27</link> of file <link linkend="_redis_8c_source">redis.c</link>.</para>
 </section>
 </section>
 <section>
@@ -98,15 +123,26 @@ Definition at line <link linkend="_redis_8c_source_1l00013">13</link> of file <l
 <para>Free the hiredis context variable. </para>
 </para>
 
-<para><formalpara><title>Returns</title>
+<para>This function is marked as internal and should not be used by the user <formalpara><title>Returns</title>
 
 <para>void </para>
 </formalpara>
 </para>
 <para>
-Definition at line <link linkend="_redis_8c_source_1l00057">57</link> of file <link linkend="_redis_8c_source">redis.c</link>.</para>
+Definition at line <link linkend="_redis_8c_source_1l00092">92</link> of file <link linkend="_redis_8c_source">redis.c</link>.</para>
 <para>
-Referenced by <link linkend="_user__db_8c_source_1l00041">disconnect_db()</link>.</para>
+References <link linkend="_redis_8c_source_1l00034">context</link>.</para>
+<para>
+Referenced by <link linkend="_user__db_8c_source_1l00045">disconnect_db()</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="redis_8c_ae19d8c90888a6ed078d6e835bb11e67a_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
 </section>
 <anchor xml:id="_redis_8c_1a73711c0a9d0060337409d15dc44f5ad1"/><section>
     <title>get_user_by_name()</title>
@@ -117,7 +153,7 @@ Referenced by <link linkend="_user__db_8c_source_1l00041">disconnect_db()</link>
 <para>Fetch the user on the DB with key name. </para>
 </para>
 
-<para>
+<para>This function is marked as internal and should not be used by the user 
                 <formalpara>
                     <title>
 Parameters</title>
@@ -143,11 +179,29 @@ Parameters</title>
 </formalpara>
 </para>
 <para>
-Definition at line <link linkend="_redis_8c_source_1l00109">109</link> of file <link linkend="_redis_8c_source">redis.c</link>.</para>
+Definition at line <link linkend="_redis_8c_source_1l00165">165</link> of file <link linkend="_redis_8c_source">redis.c</link>.</para>
 <para>
-References <link linkend="_redis_8c_source_1l00066">json_to_qm_user()</link>.</para>
+References <link linkend="_redis_8c_source_1l00034">context</link>, <link linkend="_redis_8c_source_1l00104">json_to_qm_user()</link>, <link linkend="_common_8h_source_1l00058">qm_user::pid</link>, <link linkend="_print__utils_8c_source_1l00079">print_err()</link>, <link linkend="_print__utils_8c_source_1l00101">print_msg()</link>, and <link linkend="_common_8h_source_1l00059">qm_user::user</link>.</para>
 <para>
-Referenced by <link linkend="_redis_8c_source_1l00208">remove_by_user()</link>.</para>
+Referenced by <link linkend="_redis_8c_source_1l00292">remove_by_user()</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="redis_8c_a73711c0a9d0060337409d15dc44f5ad1_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="redis_8c_a73711c0a9d0060337409d15dc44f5ad1_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
 </section>
 <anchor xml:id="_redis_8c_1af0bf1bfc99afc940619371e3c76ab4f9"/><section>
     <title>get_user_by_pid()</title>
@@ -158,7 +212,7 @@ Referenced by <link linkend="_redis_8c_source_1l00208">remove_by_user()</link>.<
 <para>Fetch the user on the DB with key pid. </para>
 </para>
 
-<para>
+<para>This function is marked as internal and should not be used by the user 
                 <formalpara>
                     <title>
 Parameters</title>
@@ -184,11 +238,29 @@ Parameters</title>
 </formalpara>
 </para>
 <para>
-Definition at line <link linkend="_redis_8c_source_1l00081">81</link> of file <link linkend="_redis_8c_source">redis.c</link>.</para>
+Definition at line <link linkend="_redis_8c_source_1l00122">122</link> of file <link linkend="_redis_8c_source">redis.c</link>.</para>
 <para>
-References <link linkend="_redis_8c_source_1l00066">json_to_qm_user()</link>.</para>
+References <link linkend="_redis_8c_source_1l00034">context</link>, <link linkend="_redis_8c_source_1l00104">json_to_qm_user()</link>, <link linkend="_common_8h_source_1l00058">qm_user::pid</link>, <link linkend="_print__utils_8c_source_1l00079">print_err()</link>, <link linkend="_print__utils_8c_source_1l00101">print_msg()</link>, and <link linkend="_common_8h_source_1l00059">qm_user::user</link>.</para>
 <para>
-Referenced by <link linkend="_redis_8c_source_1l00179">remove_by_pid()</link>.</para>
+Referenced by <link linkend="_redis_8c_source_1l00256">remove_by_pid()</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="redis_8c_af0bf1bfc99afc940619371e3c76ab4f9_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="redis_8c_af0bf1bfc99afc940619371e3c76ab4f9_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
 </section>
 <anchor xml:id="_redis_8c_1a1f6dc2f98a71a88567fe11fd9e2585ea"/><section>
     <title>init_context()</title>
@@ -199,15 +271,35 @@ Referenced by <link linkend="_redis_8c_source_1l00179">remove_by_pid()</link>.</
 <para>initialize the context for the Redis DB </para>
 </para>
 
-<para><formalpara><title>Returns</title>
+<para>This function is marked as internal and should not be used by the user <formalpara><title>Returns</title>
 
 <para>1 if initialization was successful or the database was already initialized, 0 on failure </para>
 </formalpara>
 </para>
 <para>
-Definition at line <link linkend="_redis_8c_source_1l00040">40</link> of file <link linkend="_redis_8c_source">redis.c</link>.</para>
+Definition at line <link linkend="_redis_8c_source_1l00072">72</link> of file <link linkend="_redis_8c_source">redis.c</link>.</para>
 <para>
-Referenced by <link linkend="_user__db_8c_source_1l00014">register_user()</link>.</para>
+References <link linkend="_redis_8c_source_1l00034">context</link>, <link linkend="_redis_8c_source_1l00027">PORT</link>, and <link linkend="_print__utils_8c_source_1l00079">print_err()</link>.</para>
+<para>
+Referenced by <link linkend="_user__db_8c_source_1l00015">register_user()</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="redis_8c_a1f6dc2f98a71a88567fe11fd9e2585ea_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="redis_8c_a1f6dc2f98a71a88567fe11fd9e2585ea_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
 </section>
 <anchor xml:id="_redis_8c_1ac9878ee09b53700eb08c1f175873c30b"/><section>
     <title>insert()</title>
@@ -218,7 +310,7 @@ Referenced by <link linkend="_user__db_8c_source_1l00014">register_user()</link>
 <para>Insert a new user in the DB. </para>
 </para>
 
-<para>
+<para>This function is marked as internal and should not be used by the user 
                 <formalpara>
                     <title>
 Parameters</title>
@@ -240,19 +332,43 @@ Parameters</title>
                 </formalpara>
                 <formalpara><title>Returns</title>
 
-<para>1 if successful, 0 otherwise </para>
+<para>1 if successful, 0 otherwise. An error might be printen by <link linkend="_print__utils_8c_1a650ab060ffe5dbc6c1a968a9cae3bded">print_err()</link> function, </para>
+</formalpara>
+<formalpara><title>See also</title>
+
+<para><link linkend="_print__utils_8c_1a650ab060ffe5dbc6c1a968a9cae3bded">print_err</link> </para>
 </formalpara>
 <note><title>Note</title>
 
 <para>The user will be set 2 times, once with key user-&gt;pid and once with key user-&gt;name </para>
 
-<para>If an error is thrown it will be printed by print_err() function </para>
+<para>If an error is thrown it will be printed by <link linkend="_print__utils_8c_1a650ab060ffe5dbc6c1a968a9cae3bded">print_err()</link> function </para>
 </note>
 </para>
 <para>
-Definition at line <link linkend="_redis_8c_source_1l00139">139</link> of file <link linkend="_redis_8c_source">redis.c</link>.</para>
+Definition at line <link linkend="_redis_8c_source_1l00211">211</link> of file <link linkend="_redis_8c_source">redis.c</link>.</para>
 <para>
-Referenced by <link linkend="_user__db_8c_source_1l00014">register_user()</link>.</para>
+References <link linkend="_redis_8c_source_1l00034">context</link>, <link linkend="_common_8h_source_1l00058">qm_user::pid</link>, <link linkend="_print__utils_8c_source_1l00079">print_err()</link>, <link linkend="_print__utils_8c_source_1l00101">print_msg()</link>, and <link linkend="_common_8h_source_1l00059">qm_user::user</link>.</para>
+<para>
+Referenced by <link linkend="_user__db_8c_source_1l00015">register_user()</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="redis_8c_ac9878ee09b53700eb08c1f175873c30b_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="redis_8c_ac9878ee09b53700eb08c1f175873c30b_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
 </section>
 <anchor xml:id="_redis_8c_1a8e6e1687d6351741ac3e353d23425f71"/><section>
     <title>json_to_qm_user()</title>
@@ -263,7 +379,7 @@ Referenced by <link linkend="_user__db_8c_source_1l00014">register_user()</link>
 <para>Internal function to simplify the casting of a json to a <link linkend="_structqm__user">qm_user</link> struct. </para>
 </para>
 
-<para>
+<para>This function is marked as internal and should not be used by the user 
                 <formalpara>
                     <title>
 Parameters</title>
@@ -289,9 +405,29 @@ Parameters</title>
 </formalpara>
 </para>
 <para>
-Definition at line <link linkend="_redis_8c_source_1l00066">66</link> of file <link linkend="_redis_8c_source">redis.c</link>.</para>
+Definition at line <link linkend="_redis_8c_source_1l00104">104</link> of file <link linkend="_redis_8c_source">redis.c</link>.</para>
 <para>
-Referenced by <link linkend="_redis_8c_source_1l00109">get_user_by_name()</link>, and <link linkend="_redis_8c_source_1l00081">get_user_by_pid()</link>.</para>
+References <link linkend="_print__utils_8c_source_1l00101">print_msg()</link>.</para>
+<para>
+Referenced by <link linkend="_redis_8c_source_1l00165">get_user_by_name()</link>, and <link linkend="_redis_8c_source_1l00122">get_user_by_pid()</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="redis_8c_a8e6e1687d6351741ac3e353d23425f71_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="redis_8c_a8e6e1687d6351741ac3e353d23425f71_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
 </section>
 <anchor xml:id="_redis_8c_1a7b5eb746d92734b57a71ce552363283d"/><section>
     <title>print_all_keys()</title>
@@ -302,15 +438,35 @@ Referenced by <link linkend="_redis_8c_source_1l00109">get_user_by_name()</link>
 <para>For debugging only. Prints all the keys in the database. </para>
 </para>
 
-<para><formalpara><title>Returns</title>
+<para>This function is marked as internal and should not be used by the user <formalpara><title>Returns</title>
 
 <para>void </para>
 </formalpara>
 </para>
 <para>
-Definition at line <link linkend="_redis_8c_source_1l00021">21</link> of file <link linkend="_redis_8c_source">redis.c</link>.</para>
+Definition at line <link linkend="_redis_8c_source_1l00042">42</link> of file <link linkend="_redis_8c_source">redis.c</link>.</para>
 <para>
-Referenced by <link linkend="_user__db_8c_source_1l00014">register_user()</link>, and <link linkend="_user__db_8c_source_1l00029">unregister_user()</link>.</para>
+References <link linkend="_redis_8c_source_1l00034">context</link>, and <link linkend="_print__utils_8c_source_1l00101">print_msg()</link>.</para>
+<para>
+Referenced by <link linkend="_user__db_8c_source_1l00015">register_user()</link>, and <link linkend="_user__db_8c_source_1l00031">unregister_user()</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="redis_8c_a7b5eb746d92734b57a71ce552363283d_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="redis_8c_a7b5eb746d92734b57a71ce552363283d_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
 </section>
 <anchor xml:id="_redis_8c_1a6b18d7ad2f1e8275106a5b39c0c7d216"/><section>
     <title>remove_by_pid()</title>
@@ -321,7 +477,7 @@ Referenced by <link linkend="_user__db_8c_source_1l00014">register_user()</link>
 <para>Remove a user from the DB using the PID as key. </para>
 </para>
 
-<para>
+<para>This function is marked as internal and should not be used by the user 
                 <formalpara>
                     <title>
 Parameters</title>
@@ -343,21 +499,43 @@ Parameters</title>
                 </formalpara>
                 <formalpara><title>Returns</title>
 
-<para>1 if successful, 0 otherwise </para>
+<para>1 if successful, 0 otherwise. An error might be printen by <link linkend="_print__utils_8c_1a650ab060ffe5dbc6c1a968a9cae3bded">print_err()</link> function, </para>
+</formalpara>
+<formalpara><title>See also</title>
+
+<para><link linkend="_print__utils_8c_1a650ab060ffe5dbc6c1a968a9cae3bded">print_err</link> </para>
 </formalpara>
 <note><title>Note</title>
 
 <para>Will also remove the corresponding entry by name. </para>
 
-<para>If an error is thrown it will be printed using the print_err() function </para>
+<para>If an error is thrown it will be printed using the <link linkend="_print__utils_8c_1a650ab060ffe5dbc6c1a968a9cae3bded">print_err()</link> function </para>
 </note>
 </para>
 <para>
-Definition at line <link linkend="_redis_8c_source_1l00179">179</link> of file <link linkend="_redis_8c_source">redis.c</link>.</para>
+Definition at line <link linkend="_redis_8c_source_1l00256">256</link> of file <link linkend="_redis_8c_source">redis.c</link>.</para>
 <para>
-References <link linkend="_redis_8c_source_1l00081">get_user_by_pid()</link>.</para>
+References <link linkend="_redis_8c_source_1l00034">context</link>, <link linkend="_redis_8c_source_1l00122">get_user_by_pid()</link>, <link linkend="_print__utils_8c_source_1l00079">print_err()</link>, <link linkend="_print__utils_8c_source_1l00101">print_msg()</link>, and <link linkend="_common_8h_source_1l00059">qm_user::user</link>.</para>
 <para>
-Referenced by <link linkend="_user__db_8c_source_1l00029">unregister_user()</link>.</para>
+Referenced by <link linkend="_user__db_8c_source_1l00031">unregister_user()</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="redis_8c_a6b18d7ad2f1e8275106a5b39c0c7d216_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="redis_8c_a6b18d7ad2f1e8275106a5b39c0c7d216_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
 </section>
 <anchor xml:id="_redis_8c_1a2678c0575f2b6c944fd261255aeaebff"/><section>
     <title>remove_by_user()</title>
@@ -368,7 +546,7 @@ Referenced by <link linkend="_user__db_8c_source_1l00029">unregister_user()</lin
 <para>Remove a user from the DB using the name as key. </para>
 </para>
 
-<para>
+<para>This function is marked as internal and should not be used by the user 
                 <formalpara>
                     <title>
 Parameters</title>
@@ -390,36 +568,57 @@ Parameters</title>
                 </formalpara>
                 <formalpara><title>Returns</title>
 
-<para>1 if successful, 0 otherwise </para>
+<para>1 if successful, 0 otherwise. An error might be printen by <link linkend="_print__utils_8c_1a650ab060ffe5dbc6c1a968a9cae3bded">print_err()</link> function, </para>
+</formalpara>
+<formalpara><title>See also</title>
+
+<para><link linkend="_print__utils_8c_1a650ab060ffe5dbc6c1a968a9cae3bded">print_err</link> </para>
 </formalpara>
 <note><title>Note</title>
 
 <para>Will also remove the corresponding entry by PID </para>
 
-<para>If an error is thrown it will be printed using the print_err() function </para>
+<para>If an error is thrown it will be printed using the <link linkend="_print__utils_8c_1a650ab060ffe5dbc6c1a968a9cae3bded">print_err()</link> function </para>
 </note>
 </para>
 <para>
-Definition at line <link linkend="_redis_8c_source_1l00208">208</link> of file <link linkend="_redis_8c_source">redis.c</link>.</para>
+Definition at line <link linkend="_redis_8c_source_1l00292">292</link> of file <link linkend="_redis_8c_source">redis.c</link>.</para>
 <para>
-References <link linkend="_redis_8c_source_1l00109">get_user_by_name()</link>.</para>
+References <link linkend="_redis_8c_source_1l00034">context</link>, <link linkend="_redis_8c_source_1l00165">get_user_by_name()</link>, <link linkend="_common_8h_source_1l00058">qm_user::pid</link>, and <link linkend="_print__utils_8c_source_1l00079">print_err()</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="redis_8c_a2678c0575f2b6c944fd261255aeaebff_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
 </section>
 </section>
 <section>
 <title>Variable Documentation</title>
-<anchor xml:id="_redis_8c_1ace869d36dc1b4de4b6d046c0c71486cb"/><section>
+<anchor xml:id="_redis_8c_1a71ea645922f3e5dcc69b644656c79a99"/><section>
     <title>context</title>
 <indexterm><primary>context</primary><secondary>redis.c</secondary></indexterm>
 <indexterm><primary>redis.c</primary><secondary>context</secondary></indexterm>
-<para><computeroutput>redisContext* context</computeroutput></para><para>
-Definition at line <link linkend="_redis_8c_source_1l00015">15</link> of file <link linkend="_redis_8c_source">redis.c</link>.</para>
+<para><computeroutput>redisContext * context</computeroutput></para><para>
+
+<para>Pointer to the context of Redis DB. </para>
+</para>
+
+<para>This variable is marked as internal and should not be used by the user </para>
+<para>
+Definition at line <link linkend="_redis_8c_source_1l00034">34</link> of file <link linkend="_redis_8c_source">redis.c</link>.</para>
+<para>
+Referenced by <link linkend="_redis_8c_source_1l00092">free_context()</link>, <link linkend="_redis_8c_source_1l00165">get_user_by_name()</link>, <link linkend="_redis_8c_source_1l00122">get_user_by_pid()</link>, <link linkend="_redis_8c_source_1l00072">init_context()</link>, <link linkend="_redis_8c_source_1l00211">insert()</link>, <link linkend="_redis_8c_source_1l00042">print_all_keys()</link>, <link linkend="_redis_8c_source_1l00256">remove_by_pid()</link>, and <link linkend="_redis_8c_source_1l00292">remove_by_user()</link>.</para>
 </section>
 <anchor xml:id="_redis_8c_1a0cc05631b755191d8d1c64c74c77894b"/><section>
     <title>HOST</title>
 <indexterm><primary>HOST</primary><secondary>redis.c</secondary></indexterm>
 <indexterm><primary>redis.c</primary><secondary>HOST</secondary></indexterm>
 <para><computeroutput>const char HOST[] = &quot;127.0.0.1&quot;</computeroutput></para><para>
-Definition at line <link linkend="_redis_8c_source_1l00012">12</link> of file <link linkend="_redis_8c_source">redis.c</link>.</para>
+Definition at line <link linkend="_redis_8c_source_1l00020">20</link> of file <link linkend="_redis_8c_source">redis.c</link>.</para>
 </section>
 </section>
 </section>

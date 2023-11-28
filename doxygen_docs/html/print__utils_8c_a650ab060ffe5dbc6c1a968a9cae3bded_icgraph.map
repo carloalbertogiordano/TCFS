@@ -1,5 +1,31 @@
 <map id="print_err" name="print_err">
-<area shape="rect" id="Node000001" title="Format and print data as an error." alt="" coords="104,5,173,31"/>
-<area shape="rect" id="Node000002" href="$tcfs__daemon_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title="main function of the daemon. This will daemonize the program, spawn a thread to handle messages and h..." alt="" coords="5,5,56,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="88,21,56,21,56,15,88,15"/>
+<area shape="rect" id="Node000001" title="Format and print data as an error." alt="" coords="511,231,580,256"/>
+<area shape="rect" id="Node000002" href="$queue_8c.html#a1874b6e320d1e54d571c89766d046602" title="Dequeue a message from the queue and get is as a void* pointing to a structure that will be either &#160;&#160;..." alt="" coords="361,5,432,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="537,216,529,177,515,131,492,85,461,44,447,34,431,27,434,23,450,30,465,40,497,82,519,129,534,176,543,215"/>
+<area shape="rect" id="Node000003" href="$queue_8c.html#ac51f5d595a9d7376eb0448116c99e1f4" title="Enqueues a message void* message on the queue." alt="" coords="361,55,432,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="534,217,507,155,487,122,461,93,431,77,434,73,464,89,491,119,512,152,538,215"/>
+<area shape="rect" id="Node000004" href="$redis_8c.html#a73711c0a9d0060337409d15dc44f5ad1" title="Fetch the user on the DB with key name." alt="" coords="331,104,463,129"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="525,220,497,185,461,151,430,132,432,128,464,147,501,181,529,216"/>
+<area shape="rect" id="Node000005" href="$redis_8c.html#a2678c0575f2b6c944fd261255aeaebff" title="Remove a user from the DB using the name as key." alt="" coords="164,129,283,155"/>
+<area shape="poly" id="edge16_Node000001_Node000005" title=" " alt="" coords="513,224,462,195,416,179,369,167,283,151,284,146,370,162,418,174,464,190,516,219"/>
+<area shape="rect" id="Node000006" href="$redis_8c.html#af0bf1bfc99afc940619371e3c76ab4f9" title="Fetch the user on the DB with key pid." alt="" coords="338,205,455,231"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="495,238,455,231,456,225,496,232"/>
+<area shape="rect" id="Node000007" href="$redis_8c.html#a6b18d7ad2f1e8275106a5b39c0c7d216" title="Remove a user from the DB using the PID as key." alt="" coords="168,231,279,256"/>
+<area shape="poly" id="edge15_Node000001_Node000007" title=" " alt="" coords="495,246,279,246,279,241,495,241"/>
+<area shape="rect" id="Node000009" href="$redis_8c.html#a1f6dc2f98a71a88567fe11fd9e2585ea" title="initialize the context for the Redis DB" alt="" coords="352,307,441,332"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="508,266,464,290,426,309,424,304,461,285,505,262"/>
+<area shape="rect" id="Node000011" href="$queue_8c.html#a6997b2cacf3d2e49bc848d0274e24b13" title="Initialize the message queue." alt="" coords="356,405,437,431"/>
+<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="538,272,511,333,491,366,464,395,439,410,436,405,461,391,486,363,507,330,533,270"/>
+<area shape="rect" id="Node000012" href="$tcfs__daemon_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title="main function of the daemon. This will daemonize the program, spawn a thread to handle messages and h..." alt="" coords="198,419,249,444"/>
+<area shape="poly" id="edge14_Node000001_Node000012" title=" " alt="" coords="545,272,538,313,525,361,501,408,484,429,464,446,437,459,408,467,378,469,348,468,292,458,248,444,250,439,293,453,349,463,378,464,407,462,435,454,461,441,481,425,496,405,520,359,533,312,539,271"/>
+<area shape="rect" id="Node000013" href="$redis_8c.html#ac9878ee09b53700eb08c1f175873c30b" title="Insert a new user in the DB." alt="" coords="369,356,424,381"/>
+<area shape="poly" id="edge12_Node000001_Node000013" title=" " alt="" coords="531,271,503,309,464,346,425,364,423,359,461,341,499,305,526,267"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="316,131,283,136,282,131,315,126"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="323,231,279,238,279,233,322,226"/>
+<area shape="rect" id="Node000008" href="$user__db_8c.html#a6e2fcf4aa637e61f69b1b601981663cf" title="Remove a user from the DB." alt="" coords="5,231,116,256"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="152,246,116,246,116,241,152,241"/>
+<area shape="rect" id="Node000010" href="$user__db_8c.html#a2ae8a82033440194ad80949cd4493971" title="Register or update a user in the db, this relies on the redis.c file." alt="" coords="175,344,272,369"/>
+<area shape="poly" id="edge9_Node000009_Node000010" title=" " alt="" coords="337,335,273,349,271,344,336,330"/>
+<area shape="poly" id="edge11_Node000011_Node000012" title=" " alt="" coords="341,425,249,432,249,427,341,420"/>
+<area shape="poly" id="edge13_Node000013_Node000010" title=" " alt="" coords="353,368,272,363,273,357,354,363"/>
 </map>

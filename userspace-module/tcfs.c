@@ -31,12 +31,23 @@
 #include <time.h>
 #include <unistd.h>
 
+/**
+ * @var root_path
+ * @brief Contains the fullpath to the mounted directory
+ * */
 char *root_path;
+/**
+ * @var password
+ * @brief Contains the password passed to TCFS when started
+ * */
 char *password;
 
 static int tcfs_getxattr (const char *fuse_path, const char *name, char *value,
                           size_t size);
 
+/**
+ * @todo Implement the opendir function
+ * */
 static int
 tcfs_opendir (const char *fuse_path, struct fuse_file_info *fi)
 {

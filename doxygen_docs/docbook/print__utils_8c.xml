@@ -41,6 +41,8 @@
     <title>Variables    </title>
         <itemizedlist>
             <listitem><para>int <link linkend="_print__utils_8c_1a887e8bdd9deeb0866ce86067cdba5fcc">cleared</link> = 0</para>
+
+<para>If it is 0 the log file will be cleared, if is 1 the log file will we open as append. </para>
 </listitem>
         </itemizedlist>
 </simplesect>
@@ -99,7 +101,7 @@ Parameters</title>
 </note>
 </para>
 <para>
-Definition at line <link linkend="_print__utils_8c_source_1l00131">131</link> of file <link linkend="_print__utils_8c_source">print_utils.c</link>.</para>
+Definition at line <link linkend="_print__utils_8c_source_1l00145">145</link> of file <link linkend="_print__utils_8c_source">print_utils.c</link>.</para>
 </section>
 <anchor xml:id="_print__utils_8c_1a650ab060ffe5dbc6c1a968a9cae3bded"/><section>
     <title>print_err()</title>
@@ -151,9 +153,9 @@ Parameters</title>
 </note>
 </para>
 <para>
-Definition at line <link linkend="_print__utils_8c_source_1l00069">69</link> of file <link linkend="_print__utils_8c_source">print_utils.c</link>.</para>
+Definition at line <link linkend="_print__utils_8c_source_1l00079">79</link> of file <link linkend="_print__utils_8c_source">print_utils.c</link>.</para>
 <para>
-Referenced by <link linkend="_tcfs__daemon_8c_source_1l00047">main()</link>.</para>
+Referenced by <link linkend="_queue_8c_source_1l00095">dequeue()</link>, <link linkend="_queue_8c_source_1l00067">enqueue()</link>, <link linkend="_redis_8c_source_1l00165">get_user_by_name()</link>, <link linkend="_redis_8c_source_1l00122">get_user_by_pid()</link>, <link linkend="_redis_8c_source_1l00072">init_context()</link>, <link linkend="_queue_8c_source_1l00027">init_queue()</link>, <link linkend="_redis_8c_source_1l00211">insert()</link>, <link linkend="_tcfs__daemon_8c_source_1l00056">main()</link>, <link linkend="_redis_8c_source_1l00256">remove_by_pid()</link>, and <link linkend="_redis_8c_source_1l00292">remove_by_user()</link>.</para>
 Here is the caller graph for this function:<para>
     <informalfigure>
         <mediaobject>
@@ -210,9 +212,9 @@ Parameters</title>
 </note>
 </para>
 <para>
-Definition at line <link linkend="_print__utils_8c_source_1l00089">89</link> of file <link linkend="_print__utils_8c_source">print_utils.c</link>.</para>
+Definition at line <link linkend="_print__utils_8c_source_1l00101">101</link> of file <link linkend="_print__utils_8c_source">print_utils.c</link>.</para>
 <para>
-Referenced by <link linkend="_user__db_8c_source_1l00041">disconnect_db()</link>, <link linkend="_tcfs__daemon_8c_source_1l00036">handle_termination()</link>, <link linkend="_tcfs__daemon_8c_source_1l00047">main()</link>, <link linkend="_user__db_8c_source_1l00014">register_user()</link>, and <link linkend="_user__db_8c_source_1l00029">unregister_user()</link>.</para>
+Referenced by <link linkend="_queue_8c_source_1l00095">dequeue()</link>, <link linkend="_user__db_8c_source_1l00045">disconnect_db()</link>, <link linkend="_queue_8c_source_1l00067">enqueue()</link>, <link linkend="_redis_8c_source_1l00165">get_user_by_name()</link>, <link linkend="_redis_8c_source_1l00122">get_user_by_pid()</link>, <link linkend="_tcfs__daemon_8c_source_1l00040">handle_termination()</link>, <link linkend="_queue_8c_source_1l00027">init_queue()</link>, <link linkend="_redis_8c_source_1l00211">insert()</link>, <link linkend="_redis_8c_source_1l00104">json_to_qm_user()</link>, <link linkend="_tcfs__daemon_8c_source_1l00056">main()</link>, <link linkend="_redis_8c_source_1l00042">print_all_keys()</link>, <link linkend="_user__db_8c_source_1l00015">register_user()</link>, <link linkend="_redis_8c_source_1l00256">remove_by_pid()</link>, and <link linkend="_user__db_8c_source_1l00031">unregister_user()</link>.</para>
 Here is the caller graph for this function:<para>
     <informalfigure>
         <mediaobject>
@@ -269,7 +271,7 @@ Parameters</title>
 </note>
 </para>
 <para>
-Definition at line <link linkend="_print__utils_8c_source_1l00110">110</link> of file <link linkend="_print__utils_8c_source">print_utils.c</link>.</para>
+Definition at line <link linkend="_print__utils_8c_source_1l00123">123</link> of file <link linkend="_print__utils_8c_source">print_utils.c</link>.</para>
 </section>
 </section>
 <section>
@@ -279,7 +281,11 @@ Definition at line <link linkend="_print__utils_8c_source_1l00110">110</link> of
 <indexterm><primary>cleared</primary><secondary>print_utils.c</secondary></indexterm>
 <indexterm><primary>print_utils.c</primary><secondary>cleared</secondary></indexterm>
 <para><computeroutput>int cleared = 0</computeroutput></para><para>
-Definition at line <link linkend="_print__utils_8c_source_1l00013">13</link> of file <link linkend="_print__utils_8c_source">print_utils.c</link>.</para>
+
+<para>If it is 0 the log file will be cleared, if is 1 the log file will we open as append. </para>
+</para>
+<para>
+Definition at line <link linkend="_print__utils_8c_source_1l00014">14</link> of file <link linkend="_print__utils_8c_source">print_utils.c</link>.</para>
 </section>
 </section>
 </section>

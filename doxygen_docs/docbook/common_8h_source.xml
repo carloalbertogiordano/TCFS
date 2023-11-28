@@ -10,40 +10,40 @@
 <anchor xml:id="_common_8h_source_1l00006"/>00006 <emphasis role="preprocessor">#include&#32;&lt;string.h&gt;</emphasis>
 <anchor xml:id="_common_8h_source_1l00007"/>00007 <emphasis role="preprocessor">#include&#32;&lt;errno.h&gt;</emphasis>
 <anchor xml:id="_common_8h_source_1l00008"/>00008 
-<anchor xml:id="_common_8h_source_1l00009"/>00009 <emphasis role="preprocessor">#define&#32;MAX_QM_SIZE&#32;512&#32;</emphasis><emphasis role="comment">//Max&#32;size&#32;of&#32;a&#32;message</emphasis>
-<anchor xml:id="_common_8h_source_1l00010"/>00010 <emphasis role="preprocessor">#define&#32;MAX_QM_N&#32;100&#32;</emphasis><emphasis role="comment">//Max&#32;number&#32;of&#32;messages&#32;that&#32;can&#32;be&#32;enqueued</emphasis>
-<anchor xml:id="_common_8h_source_1l00011"/>00011 
-<anchor xml:id="_common_8h_source_1l00012"/>00012 <emphasis role="preprocessor">#ifndef&#32;QUEUE_STRUCTS</emphasis>
-<anchor xml:id="_common_8h_source_1l00013"/>00013 <emphasis role="preprocessor">#define&#32;QUEUE_STRUCTS</emphasis>
-<anchor xml:id="_common_8h_source_1l00014"/>00014 
-<anchor xml:id="_common_8h_source_1l00015"/>00015 <emphasis role="keyword">typedef</emphasis>&#32;<emphasis role="keyword">enum</emphasis>&#32;qm_type{
-<anchor xml:id="_common_8h_source_1l00016"/>00016 &#32;&#32;&#32;&#32;USER&#32;=&#32;0,
-<anchor xml:id="_common_8h_source_1l00017"/>00017 &#32;&#32;&#32;&#32;SHARED&#32;=&#32;1,
-<anchor xml:id="_common_8h_source_1l00018"/>00018 &#32;&#32;&#32;&#32;BROADCAST&#32;=&#32;2,
-<anchor xml:id="_common_8h_source_1l00019"/>00019 &#32;&#32;&#32;&#32;QM_TYPE_UNDEFINED&#32;=&#32;-1,
-<anchor xml:id="_common_8h_source_1l00020"/>00020 }&#32;qm_type;
+<anchor xml:id="_common_8h_source_1l00014"/>00014 <emphasis role="preprocessor">#define&#32;MAX_QM_SIZE&#32;512</emphasis>
+<anchor xml:id="_common_8h_source_1l00020"/>00020 <emphasis role="preprocessor">#define&#32;MAX_QM_N&#32;100</emphasis>
 <anchor xml:id="_common_8h_source_1l00021"/>00021 
-<anchor xml:id="_common_8h_source_1l00022"/>00022 <emphasis role="keyword">typedef</emphasis>&#32;<emphasis role="keyword">enum</emphasis>&#32;user_operation{
-<anchor xml:id="_common_8h_source_1l00023"/>00023 &#32;&#32;&#32;&#32;REGISTER&#32;=&#32;0,
-<anchor xml:id="_common_8h_source_1l00024"/>00024 &#32;&#32;&#32;&#32;UNREGISTER&#32;=&#32;1,
-<anchor xml:id="_common_8h_source_1l00025"/>00025 }&#32;user_operation;
-<anchor xml:id="_common_8h_source_1l00026"/>00026 
-<anchor xml:id="_common_8h_source_1l00027"/><link linkend="_structqm__user">00027</link> <emphasis role="keyword">typedef</emphasis>&#32;<emphasis role="keyword">struct&#32;</emphasis><link linkend="_structqm__user">qm_user</link>&#32;{
-<anchor xml:id="_common_8h_source_1l00028"/>00028 &#32;&#32;&#32;&#32;user_operation&#32;user_op;
-<anchor xml:id="_common_8h_source_1l00029"/>00029 &#32;&#32;&#32;&#32;pid_t&#32;pid;
-<anchor xml:id="_common_8h_source_1l00030"/>00030 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">char</emphasis>&#32;*user;
-<anchor xml:id="_common_8h_source_1l00031"/>00031 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">char</emphasis>&#32;*pubkey;
-<anchor xml:id="_common_8h_source_1l00032"/>00032 }&#32;<link linkend="_structqm__user">qm_user</link>;
-<anchor xml:id="_common_8h_source_1l00033"/>00033 
-<anchor xml:id="_common_8h_source_1l00034"/><link linkend="_structqm__shared">00034</link> <emphasis role="keyword">typedef</emphasis>&#32;<emphasis role="keyword">struct&#32;</emphasis><link linkend="_structqm__shared">qm_shared</link>&#32;{
-<anchor xml:id="_common_8h_source_1l00035"/>00035 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;fd;
-<anchor xml:id="_common_8h_source_1l00036"/>00036 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">char</emphasis>&#32;**userlist;
-<anchor xml:id="_common_8h_source_1l00037"/>00037 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">char</emphasis>&#32;*keypart;
-<anchor xml:id="_common_8h_source_1l00038"/>00038 }&#32;<link linkend="_structqm__shared">qm_shared</link>;
+<anchor xml:id="_common_8h_source_1l00022"/>00022 <emphasis role="preprocessor">#ifndef&#32;QUEUE_STRUCTS</emphasis>
+<anchor xml:id="_common_8h_source_1l00023"/>00023 <emphasis role="preprocessor">#define&#32;QUEUE_STRUCTS</emphasis>
+<anchor xml:id="_common_8h_source_1l00024"/>00024 
+<anchor xml:id="_common_8h_source_1l00033"/>00033 <emphasis role="keyword">typedef</emphasis>&#32;<emphasis role="keyword">enum</emphasis>&#32;qm_type{
+<anchor xml:id="_common_8h_source_1l00034"/>00034 &#32;&#32;&#32;&#32;USER&#32;=&#32;0,&#32;
+<anchor xml:id="_common_8h_source_1l00035"/>00035 &#32;&#32;&#32;&#32;SHARED&#32;=&#32;1,&#32;
+<anchor xml:id="_common_8h_source_1l00036"/>00036 &#32;&#32;&#32;&#32;BROADCAST&#32;=&#32;2,&#32;
+<anchor xml:id="_common_8h_source_1l00037"/>00037 &#32;&#32;&#32;&#32;QM_TYPE_UNDEFINED&#32;=&#32;-1,&#32;
+<anchor xml:id="_common_8h_source_1l00038"/>00038 }&#32;qm_type;
 <anchor xml:id="_common_8h_source_1l00039"/>00039 
-<anchor xml:id="_common_8h_source_1l00040"/><link linkend="_structqm__broad">00040</link> <emphasis role="keyword">typedef</emphasis>&#32;<emphasis role="keyword">struct&#32;</emphasis><link linkend="_structqm__broad">qm_broad</link>&#32;{
-<anchor xml:id="_common_8h_source_1l00041"/>00041 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">char</emphasis>&#32;*data;
-<anchor xml:id="_common_8h_source_1l00042"/>00042 }&#32;<link linkend="_structqm__broad">qm_broad</link>;
-<anchor xml:id="_common_8h_source_1l00043"/>00043 
-<anchor xml:id="_common_8h_source_1l00044"/>00044 <emphasis role="preprocessor">#endif</emphasis>
+<anchor xml:id="_common_8h_source_1l00046"/>00046 <emphasis role="keyword">typedef</emphasis>&#32;<emphasis role="keyword">enum</emphasis>&#32;user_operation{
+<anchor xml:id="_common_8h_source_1l00047"/>00047 &#32;&#32;&#32;&#32;REGISTER&#32;=&#32;0,&#32;
+<anchor xml:id="_common_8h_source_1l00048"/>00048 &#32;&#32;&#32;&#32;UNREGISTER&#32;=&#32;1,&#32;
+<anchor xml:id="_common_8h_source_1l00049"/>00049 }&#32;user_operation;
+<anchor xml:id="_common_8h_source_1l00050"/>00050 
+<anchor xml:id="_common_8h_source_1l00056"/><link linkend="_structqm__user">00056</link> <emphasis role="keyword">typedef</emphasis>&#32;<emphasis role="keyword">struct&#32;</emphasis><link linkend="_structqm__user">qm_user</link>&#32;{
+<anchor xml:id="_common_8h_source_1l00057"/><link linkend="_structqm__user_1a4b5bbaaf885c62f44f265eeba461303d">00057</link> &#32;&#32;&#32;&#32;user_operation&#32;<link linkend="_structqm__user_1a4b5bbaaf885c62f44f265eeba461303d">user_op</link>;&#32;
+<anchor xml:id="_common_8h_source_1l00058"/><link linkend="_structqm__user_1aa69546c3a6a2124be9f964329c951a84">00058</link> &#32;&#32;&#32;&#32;pid_t&#32;<link linkend="_structqm__user_1aa69546c3a6a2124be9f964329c951a84">pid</link>;&#32;
+<anchor xml:id="_common_8h_source_1l00059"/><link linkend="_structqm__user_1a6c52d68724b65831ba6d95f3d7448ff4">00059</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">char</emphasis>&#32;*<link linkend="_structqm__user_1a6c52d68724b65831ba6d95f3d7448ff4">user</link>;&#32;
+<anchor xml:id="_common_8h_source_1l00060"/><link linkend="_structqm__user_1ad718cfba201afae89c596111bd508d5f">00060</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">char</emphasis>&#32;*<link linkend="_structqm__user_1ad718cfba201afae89c596111bd508d5f">pubkey</link>;&#32;
+<anchor xml:id="_common_8h_source_1l00061"/>00061 }&#32;<link linkend="_structqm__user">qm_user</link>;
+<anchor xml:id="_common_8h_source_1l00062"/>00062 
+<anchor xml:id="_common_8h_source_1l00070"/><link linkend="_structqm__shared">00070</link> <emphasis role="keyword">typedef</emphasis>&#32;<emphasis role="keyword">struct&#32;</emphasis><link linkend="_structqm__shared">qm_shared</link>&#32;{
+<anchor xml:id="_common_8h_source_1l00071"/><link linkend="_structqm__shared_1ac6ce7156e06279b3194acb24e4face96">00071</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;<link linkend="_structqm__shared_1ac6ce7156e06279b3194acb24e4face96">fd</link>;&#32;
+<anchor xml:id="_common_8h_source_1l00072"/><link linkend="_structqm__shared_1af2a26858d769e4a816d0567b51ce0ed5">00072</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">char</emphasis>&#32;**<link linkend="_structqm__shared_1af2a26858d769e4a816d0567b51ce0ed5">userlist</link>;&#32;
+<anchor xml:id="_common_8h_source_1l00073"/><link linkend="_structqm__shared_1afef3f8b7e15af861010c6e0d66de659e">00073</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">char</emphasis>&#32;*<link linkend="_structqm__shared_1afef3f8b7e15af861010c6e0d66de659e">keypart</link>;&#32;
+<anchor xml:id="_common_8h_source_1l00074"/>00074 }&#32;<link linkend="_structqm__shared">qm_shared</link>;
+<anchor xml:id="_common_8h_source_1l00075"/>00075 
+<anchor xml:id="_common_8h_source_1l00081"/><link linkend="_structqm__broad">00081</link> <emphasis role="keyword">typedef</emphasis>&#32;<emphasis role="keyword">struct&#32;</emphasis><link linkend="_structqm__broad">qm_broad</link>&#32;{
+<anchor xml:id="_common_8h_source_1l00082"/><link linkend="_structqm__broad_1a59096b6c11d45cf9addecfb629b55978">00082</link> &#32;&#32;&#32;&#32;<emphasis role="keywordtype">char</emphasis>&#32;*<link linkend="_structqm__broad_1a59096b6c11d45cf9addecfb629b55978">data</link>;&#32;
+<anchor xml:id="_common_8h_source_1l00083"/>00083 }&#32;<link linkend="_structqm__broad">qm_broad</link>;
+<anchor xml:id="_common_8h_source_1l00084"/>00084 
+<anchor xml:id="_common_8h_source_1l00085"/>00085 <emphasis role="preprocessor">#endif</emphasis>
 </programlisting></section>

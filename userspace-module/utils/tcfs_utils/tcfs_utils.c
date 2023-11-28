@@ -1,6 +1,13 @@
 #include "tcfs_utils.h"
 #include "../crypt-utils/crypt-utils.h"
 
+/**
+ * @brief  Fetch the username of the current user
+ * @param char *buf The username will be written to this buffer
+ * @param size_t size   The size of the buffer
+ * @return void
+ * @note If an error occurs it will be printed and the buffer will not be modified
+ * */
 void
 get_user_name (char *buf, size_t size)
 {
@@ -12,7 +19,11 @@ get_user_name (char *buf, size_t size)
     perror ("Error: Could not retrieve username.\n");
 }
 
-/* is_encrypted: returns 1 if file is encrypted, 0 otherwise*/
+/**
+ * @brief Check if a file is encrypted by TCFS
+ * @param const char *path  The fullpath of the file
+ * @return \ret
+ * */
 int
 is_encrypted (const char *path)
 {
@@ -24,6 +35,19 @@ is_encrypted (const char *path)
   return strcmp (xattr_val, "true") == 0 ? 1 : 0;
 }
 
+/* char *prefix_path(const char *path))
+ * Purpose:
+ * Args:
+ *
+ * Return: NULL on error, char* on success
+ */
+/**
+ * @brief Prefix the realpath to the fuse path
+ * @param char *path    The fuse path
+ * @param char *realpath  The realpath to the directory mounted by TCFS
+ * @return char * An allocated string containing the fullpath to the file
+ * @note Please free the result after use
+ * */
 char *
 prefix_path (const char *path, const char *realpath)
 {
@@ -55,7 +79,13 @@ prefix_path (const char *path, const char *realpath)
   return root_dir;
 }
 
-/* read_file: for debugging tempfiles */
+/**
+ * @deprecated Currently it has no use
+ * @brief Read a file, useful for debugging tmpfiles
+ * @param FILE *file    The file to read
+ * @return 0
+ * @note It will print "file was empty" if the file was empty
+ * */
 int
 read_file (FILE *file)
 {
@@ -76,8 +106,20 @@ read_file (FILE *file)
   /* fseek(tmpf, offset, SEEK_END); */
   return 0;
 }
-/* Get the xattr value describing the key of a file
- * return 1 on success else 0
+
+/*
+ * */
+/* int get_encrypted_key(char *filepath, void *encrypted_key)
+ * Purpose: Get the encrypted file key from its xattrs
+ * Args:
+ *
+ */
+/**
+ * @brief Get the xattr value describing the key of a file
+ * @deprecated There is no use currenly for this function. It was once used for debugging
+ * @param char *filepath    The full-path of the file
+ * @param char *encrypted_key   The buffer to save the encrypted key to
+ * @return \ret
  * */
 int
 get_encrypted_key (char *filepath, unsigned char *encrypted_key)
@@ -111,7 +153,14 @@ get_encrypted_key (char *filepath, unsigned char *encrypted_key)
     }
   return 0;
 }
-/*For debugging only*/
+
+/**
+ * @brief Print the value of an aes key
+ * @deprecated There is currently no use for this function
+ * @warning THIS WILL PRINT THE AES KEY TO STDOUT. TCFS trusts the user by design, but this is excessive
+ * @param unsigned char *key    The string containing the key
+ * @return void
+ * */
 void
 print_aes_key (unsigned char *key)
 {

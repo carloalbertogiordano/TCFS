@@ -5,25 +5,28 @@
 Go to the documentation of this file.<programlisting linenumbering="unnumbered"><anchor xml:id="_user__db_8c_source_1l00001"/>00001 <emphasis role="preprocessor">#include&#32;&quot;user_db.h&quot;</emphasis>
 <anchor xml:id="_user__db_8c_source_1l00002"/>00002 <emphasis role="preprocessor">#include&#32;&quot;redis.h&quot;</emphasis>
 <anchor xml:id="_user__db_8c_source_1l00003"/>00003 
-<anchor xml:id="_user__db_8c_source_1l00014"/><link linkend="_user__db_8c_1a2ae8a82033440194ad80949cd4493971">00014</link> <emphasis role="keywordtype">int</emphasis>&#32;<link linkend="_user__db_8c_1a2ae8a82033440194ad80949cd4493971">register_user</link>(<link linkend="_structqm__user">qm_user</link>&#32;*user_msg)
-<anchor xml:id="_user__db_8c_source_1l00015"/>00015 {
-<anchor xml:id="_user__db_8c_source_1l00016"/>00016 &#32;&#32;&#32;&#32;<link linkend="_print__utils_8c_1a491dc14c94ed8cf706bb54880c50b2d0">print_msg</link>(<emphasis role="stringliteral">&quot;Registering&#32;new&#32;user&quot;</emphasis>);
-<anchor xml:id="_user__db_8c_source_1l00017"/>00017 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(init_context()&#32;==&#32;0)
-<anchor xml:id="_user__db_8c_source_1l00018"/>00018 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;0;
-<anchor xml:id="_user__db_8c_source_1l00019"/>00019 &#32;&#32;&#32;&#32;print_all_keys();
-<anchor xml:id="_user__db_8c_source_1l00020"/>00020 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(insert(user_msg)&#32;==&#32;0)
-<anchor xml:id="_user__db_8c_source_1l00021"/>00021 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;0;
-<anchor xml:id="_user__db_8c_source_1l00022"/>00022 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;1;
-<anchor xml:id="_user__db_8c_source_1l00023"/>00023 }
-<anchor xml:id="_user__db_8c_source_1l00029"/><link linkend="_user__db_8c_1a6e2fcf4aa637e61f69b1b601981663cf">00029</link> <emphasis role="keywordtype">int</emphasis>&#32;<link linkend="_user__db_8c_1a6e2fcf4aa637e61f69b1b601981663cf">unregister_user</link>(pid_t&#32;pid)
-<anchor xml:id="_user__db_8c_source_1l00030"/>00030 {
-<anchor xml:id="_user__db_8c_source_1l00031"/>00031 &#32;&#32;&#32;&#32;print_all_keys();
-<anchor xml:id="_user__db_8c_source_1l00032"/>00032 &#32;&#32;&#32;&#32;<link linkend="_print__utils_8c_1a491dc14c94ed8cf706bb54880c50b2d0">print_msg</link>(<emphasis role="stringliteral">&quot;Removing&#32;user&quot;</emphasis>);
-<anchor xml:id="_user__db_8c_source_1l00033"/>00033 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;remove_by_pid(pid);
-<anchor xml:id="_user__db_8c_source_1l00034"/>00034 }
-<anchor xml:id="_user__db_8c_source_1l00041"/><link linkend="_user__db_8c_1ab57ffd0f0b23a847e766e762906af22e">00041</link> <emphasis role="keywordtype">void</emphasis>&#32;<link linkend="_user__db_8c_1ab57ffd0f0b23a847e766e762906af22e">disconnect_db</link>(<emphasis role="keywordtype">void</emphasis>)
-<anchor xml:id="_user__db_8c_source_1l00042"/>00042 {
-<anchor xml:id="_user__db_8c_source_1l00043"/>00043 &#32;&#32;&#32;&#32;<link linkend="_print__utils_8c_1a491dc14c94ed8cf706bb54880c50b2d0">print_msg</link>(<emphasis role="stringliteral">&quot;Freeing&#32;context...&quot;</emphasis>);
-<anchor xml:id="_user__db_8c_source_1l00044"/>00044 &#32;&#32;&#32;&#32;free_context();
-<anchor xml:id="_user__db_8c_source_1l00045"/>00045 }
+<anchor xml:id="_user__db_8c_source_1l00014"/>00014 <emphasis role="keywordtype">int</emphasis>
+<anchor xml:id="_user__db_8c_source_1l00015"/><link linkend="_user__db_8c_1a2ae8a82033440194ad80949cd4493971">00015</link> <link linkend="_user__db_8c_1a2ae8a82033440194ad80949cd4493971">register_user</link>&#32;(<link linkend="_structqm__user">qm_user</link>&#32;*user_msg)
+<anchor xml:id="_user__db_8c_source_1l00016"/>00016 {
+<anchor xml:id="_user__db_8c_source_1l00017"/>00017 &#32;&#32;<link linkend="_print__utils_8c_1a491dc14c94ed8cf706bb54880c50b2d0">print_msg</link>&#32;(<emphasis role="stringliteral">&quot;Registering&#32;new&#32;user&quot;</emphasis>);
+<anchor xml:id="_user__db_8c_source_1l00018"/>00018 &#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(<link linkend="_redis_8c_1a1f6dc2f98a71a88567fe11fd9e2585ea">init_context</link>&#32;()&#32;==&#32;0)
+<anchor xml:id="_user__db_8c_source_1l00019"/>00019 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;0;
+<anchor xml:id="_user__db_8c_source_1l00020"/>00020 &#32;&#32;<link linkend="_redis_8c_1a7b5eb746d92734b57a71ce552363283d">print_all_keys</link>&#32;();
+<anchor xml:id="_user__db_8c_source_1l00021"/>00021 &#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(<link linkend="_redis_8c_1ac9878ee09b53700eb08c1f175873c30b">insert</link>&#32;(user_msg)&#32;==&#32;0)
+<anchor xml:id="_user__db_8c_source_1l00022"/>00022 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;0;
+<anchor xml:id="_user__db_8c_source_1l00023"/>00023 &#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;1;
+<anchor xml:id="_user__db_8c_source_1l00024"/>00024 }
+<anchor xml:id="_user__db_8c_source_1l00030"/>00030 <emphasis role="keywordtype">int</emphasis>
+<anchor xml:id="_user__db_8c_source_1l00031"/><link linkend="_user__db_8c_1a6e2fcf4aa637e61f69b1b601981663cf">00031</link> <link linkend="_user__db_8c_1a6e2fcf4aa637e61f69b1b601981663cf">unregister_user</link>&#32;(pid_t&#32;pid)
+<anchor xml:id="_user__db_8c_source_1l00032"/>00032 {
+<anchor xml:id="_user__db_8c_source_1l00033"/>00033 &#32;&#32;<link linkend="_redis_8c_1a7b5eb746d92734b57a71ce552363283d">print_all_keys</link>&#32;();
+<anchor xml:id="_user__db_8c_source_1l00034"/>00034 &#32;&#32;<link linkend="_print__utils_8c_1a491dc14c94ed8cf706bb54880c50b2d0">print_msg</link>&#32;(<emphasis role="stringliteral">&quot;Removing&#32;user&quot;</emphasis>);
+<anchor xml:id="_user__db_8c_source_1l00035"/>00035 &#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<link linkend="_redis_8c_1a6b18d7ad2f1e8275106a5b39c0c7d216">remove_by_pid</link>&#32;(pid);
+<anchor xml:id="_user__db_8c_source_1l00036"/>00036 }
+<anchor xml:id="_user__db_8c_source_1l00044"/>00044 <emphasis role="keywordtype">void</emphasis>
+<anchor xml:id="_user__db_8c_source_1l00045"/><link linkend="_user__db_8c_1ab57ffd0f0b23a847e766e762906af22e">00045</link> <link linkend="_user__db_8c_1ab57ffd0f0b23a847e766e762906af22e">disconnect_db</link>&#32;(<emphasis role="keywordtype">void</emphasis>)
+<anchor xml:id="_user__db_8c_source_1l00046"/>00046 {
+<anchor xml:id="_user__db_8c_source_1l00047"/>00047 &#32;&#32;<link linkend="_print__utils_8c_1a491dc14c94ed8cf706bb54880c50b2d0">print_msg</link>&#32;(<emphasis role="stringliteral">&quot;Freeing&#32;context...&quot;</emphasis>);
+<anchor xml:id="_user__db_8c_source_1l00048"/>00048 &#32;&#32;<link linkend="_redis_8c_1ae19d8c90888a6ed078d6e835bb11e67a">free_context</link>&#32;();
+<anchor xml:id="_user__db_8c_source_1l00049"/>00049 }
 </programlisting></section>

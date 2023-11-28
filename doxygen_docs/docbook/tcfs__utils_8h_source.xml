@@ -41,5 +41,5 @@
 <anchor xml:id="_tcfs__utils_8h_source_1l00037"/>00037 <emphasis role="keywordtype">int</emphasis>&#32;get_encrypted_key(<emphasis role="keywordtype">char</emphasis>&#32;*filepath,&#32;<emphasis role="keywordtype">unsigned</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*encrypted_key);
 <anchor xml:id="_tcfs__utils_8h_source_1l00038"/>00038 
 <anchor xml:id="_tcfs__utils_8h_source_1l00039"/>00039 <emphasis role="comment">/*For&#32;debugging&#32;only*/</emphasis>
-<anchor xml:id="_tcfs__utils_8h_source_1l00040"/>00040 <emphasis role="keywordtype">void</emphasis>&#32;print_aes_key(<emphasis role="keywordtype">unsigned</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*key);
+<anchor xml:id="_tcfs__utils_8h_source_1l00040"/>00040 <emphasis role="keywordtype">void</emphasis>&#32;print_aes_key&#32;(<emphasis role="keywordtype">unsigned</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*key);
 </programlisting></section>

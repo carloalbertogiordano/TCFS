@@ -3,50 +3,53 @@
   <compounddef id="tcfs__kmodule_8c" kind="file" language="C++">
     <compoundname>tcfs_kmodule.c</compoundname>
     <briefdescription>
+<para>This will host the kernel module implementation in the future. It is not beeing currently developed. </para>
     </briefdescription>
     <detaileddescription>
+<internal></internal>
     </detaileddescription>
     <programlisting>
-<codeline lineno="1"><highlight class="comment">/*</highlight></codeline>
-<codeline lineno="2"><highlight class="comment">#include<sp/>&lt;linux/kernel.h&gt;</highlight></codeline>
-<codeline lineno="3"><highlight class="comment">#include<sp/>&lt;linux/module.h&gt;</highlight></codeline>
-<codeline lineno="4"><highlight class="comment">#include<sp/>&lt;linux/syscalls.h&gt;</highlight></codeline>
-<codeline lineno="5"><highlight class="comment">#include<sp/>&lt;linux/slab.h&gt;</highlight></codeline>
-<codeline lineno="6"><highlight class="comment"></highlight></codeline>
-<codeline lineno="7"><highlight class="comment">MODULE_LICENSE(&quot;GPL&quot;);</highlight></codeline>
-<codeline lineno="8"><highlight class="comment"></highlight></codeline>
-<codeline lineno="9"><highlight class="comment">static<sp/>char<sp/>*key<sp/>=<sp/>NULL;</highlight></codeline>
-<codeline lineno="10"><highlight class="comment">static<sp/>size_t<sp/>key_size<sp/>=<sp/>0;</highlight></codeline>
-<codeline lineno="11"><highlight class="comment"></highlight></codeline>
-<codeline lineno="12"><highlight class="comment">SYSCALL_DEFINE2(putkey,<sp/>char<sp/>__user<sp/>*,<sp/>user_key,<sp/>size_t,<sp/>size)</highlight></codeline>
-<codeline lineno="13"><highlight class="comment">{</highlight></codeline>
-<codeline lineno="14"><highlight class="comment">char<sp/>*new_key<sp/>=<sp/>kmalloc(size,<sp/>GFP_KERNEL);</highlight></codeline>
-<codeline lineno="15"><highlight class="comment">if<sp/>(!new_key)</highlight></codeline>
-<codeline lineno="16"><highlight class="comment">return<sp/>-ENOMEM;</highlight></codeline>
-<codeline lineno="17"><highlight class="comment"></highlight></codeline>
-<codeline lineno="18"><highlight class="comment">if<sp/>(copy_from_user(new_key,<sp/>user_key,<sp/>size))<sp/>{</highlight></codeline>
-<codeline lineno="19"><highlight class="comment">kfree(new_key);</highlight></codeline>
-<codeline lineno="20"><highlight class="comment">return<sp/>-EFAULT;</highlight></codeline>
-<codeline lineno="21"><highlight class="comment">}</highlight></codeline>
-<codeline lineno="22"><highlight class="comment"></highlight></codeline>
-<codeline lineno="23"><highlight class="comment">kfree(key);</highlight></codeline>
-<codeline lineno="24"><highlight class="comment">key<sp/>=<sp/>new_key;</highlight></codeline>
-<codeline lineno="25"><highlight class="comment">key_size<sp/>=<sp/>size;</highlight></codeline>
-<codeline lineno="26"><highlight class="comment"></highlight></codeline>
-<codeline lineno="27"><highlight class="comment">return<sp/>0;</highlight></codeline>
+<codeline lineno="1"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="9"><highlight class="comment">#include<sp/>&lt;linux/kernel.h&gt;</highlight></codeline>
+<codeline lineno="10"><highlight class="comment">#include<sp/>&lt;linux/module.h&gt;</highlight></codeline>
+<codeline lineno="11"><highlight class="comment">#include<sp/>&lt;linux/syscalls.h&gt;</highlight></codeline>
+<codeline lineno="12"><highlight class="comment">#include<sp/>&lt;linux/slab.h&gt;</highlight></codeline>
+<codeline lineno="13"><highlight class="comment"></highlight></codeline>
+<codeline lineno="14"><highlight class="comment">MODULE_LICENSE(&quot;GPL&quot;);</highlight></codeline>
+<codeline lineno="15"><highlight class="comment"></highlight></codeline>
+<codeline lineno="16"><highlight class="comment">static<sp/>char<sp/>*key<sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="17"><highlight class="comment">static<sp/>size_t<sp/>key_size<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="18"><highlight class="comment"></highlight></codeline>
+<codeline lineno="19"><highlight class="comment">SYSCALL_DEFINE2(putkey,<sp/>char<sp/>__user<sp/>*,<sp/>user_key,<sp/>size_t,<sp/>size)</highlight></codeline>
+<codeline lineno="20"><highlight class="comment">{</highlight></codeline>
+<codeline lineno="21"><highlight class="comment">char<sp/>*new_key<sp/>=<sp/>kmalloc(size,<sp/>GFP_KERNEL);</highlight></codeline>
+<codeline lineno="22"><highlight class="comment">if<sp/>(!new_key)</highlight></codeline>
+<codeline lineno="23"><highlight class="comment">return<sp/>-ENOMEM;</highlight></codeline>
+<codeline lineno="24"><highlight class="comment"></highlight></codeline>
+<codeline lineno="25"><highlight class="comment">if<sp/>(copy_from_user(new_key,<sp/>user_key,<sp/>size))<sp/>{</highlight></codeline>
+<codeline lineno="26"><highlight class="comment">kfree(new_key);</highlight></codeline>
+<codeline lineno="27"><highlight class="comment">return<sp/>-EFAULT;</highlight></codeline>
 <codeline lineno="28"><highlight class="comment">}</highlight></codeline>
 <codeline lineno="29"><highlight class="comment"></highlight></codeline>
-<codeline lineno="30"><highlight class="comment">SYSCALL_DEFINE2(getkey,<sp/>char<sp/>__user<sp/>*,<sp/>user_key,<sp/>size_t,<sp/>size)</highlight></codeline>
-<codeline lineno="31"><highlight class="comment">{</highlight></codeline>
-<codeline lineno="32"><highlight class="comment">if<sp/>(size<sp/>&lt;<sp/>key_size)</highlight></codeline>
-<codeline lineno="33"><highlight class="comment">return<sp/>-EINVAL;</highlight></codeline>
-<codeline lineno="34"><highlight class="comment"></highlight></codeline>
-<codeline lineno="35"><highlight class="comment">if<sp/>(copy_to_user(user_key,<sp/>key,<sp/>key_size))</highlight></codeline>
-<codeline lineno="36"><highlight class="comment">return<sp/>-EFAULT;</highlight></codeline>
-<codeline lineno="37"><highlight class="comment"></highlight></codeline>
-<codeline lineno="38"><highlight class="comment">return<sp/>key_size;</highlight></codeline>
-<codeline lineno="39"><highlight class="comment">}</highlight></codeline>
-<codeline lineno="40"><highlight class="comment">*/</highlight></codeline>
+<codeline lineno="30"><highlight class="comment">kfree(key);</highlight></codeline>
+<codeline lineno="31"><highlight class="comment">key<sp/>=<sp/>new_key;</highlight></codeline>
+<codeline lineno="32"><highlight class="comment">key_size<sp/>=<sp/>size;</highlight></codeline>
+<codeline lineno="33"><highlight class="comment"></highlight></codeline>
+<codeline lineno="34"><highlight class="comment">return<sp/>0;</highlight></codeline>
+<codeline lineno="35"><highlight class="comment">}</highlight></codeline>
+<codeline lineno="36"><highlight class="comment"></highlight></codeline>
+<codeline lineno="37"><highlight class="comment">SYSCALL_DEFINE2(getkey,<sp/>char<sp/>__user<sp/>*,<sp/>user_key,<sp/>size_t,<sp/>size)</highlight></codeline>
+<codeline lineno="38"><highlight class="comment">{</highlight></codeline>
+<codeline lineno="39"><highlight class="comment">if<sp/>(size<sp/>&lt;<sp/>key_size)</highlight></codeline>
+<codeline lineno="40"><highlight class="comment">return<sp/>-EINVAL;</highlight></codeline>
+<codeline lineno="41"><highlight class="comment"></highlight></codeline>
+<codeline lineno="42"><highlight class="comment">if<sp/>(copy_to_user(user_key,<sp/>key,<sp/>key_size))</highlight></codeline>
+<codeline lineno="43"><highlight class="comment">return<sp/>-EFAULT;</highlight></codeline>
+<codeline lineno="44"><highlight class="comment"></highlight></codeline>
+<codeline lineno="45"><highlight class="comment">return<sp/>key_size;</highlight></codeline>
+<codeline lineno="46"><highlight class="comment">}</highlight></codeline>
+<codeline lineno="47"><highlight class="comment">*/</highlight></codeline>
     </programlisting>
     <location file="kernel-module/tcfs_kmodule.c"/>
   </compounddef>

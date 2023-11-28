@@ -1,4 +1,4 @@
-.TH "md_README" 3 "Mon Nov 27 2023 17:03:19" "Version 0.2" "TCFS" \" -*- nroff -*-
+.TH "md_README" 3 "Tue Nov 28 2023 12:06:42" "Version 0.2" "TCFS" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -7,7 +7,7 @@ md_README \- TCFS - Transparent Cryptographic Filesystem
 TCFS is a transparent cryptographic filesystem designed to secure files mounted on a Network File System (NFS) server\&. It is implemented as a FUSE (Filesystem in Userspace) module along with a user-friendly helper program\&. TCFS ensures that files are encrypted and decrypted seamlessly without requiring user intervention, providing an additional layer of security for sensitive data\&.
 .SH "Disclamer"
 .PP
-\fBNote:\fP This project is currently in an early development stage and should be considered as an alpha version\&. This means there may be many missing features, unresolved bugs, or unexpected behaviors\&. The project is made available in this phase for testing and evaluation purposes and should not be used in production or for critical purposes\&. It is not recommended to use this software in sensitive environments or to store important data until a stable and complete version is reached\&. We appreciate any feedback, bug reports, or contributions from the community that can help improve the project\&. If you decide to use this software, please \fBdon't do it\fP\&. Thank you for your interest and understanding as we work to improve the project and make it stable and complete\&.
+\fBNote:\fP This project is currently in an early development stage and should be considered as an alpha version\&. This means there may be many missing features, unresolved bugs, or unexpected behaviors\&. The project is made available in this phase for testing and evaluation purposes and should not be used in production or for critical purposes\&. It is not recommended to use this software in sensitive environments or to store important data until a stable and complete version is reached\&. We appreciate any feedback, bug reports, or contributions from the community that can help improve the project\&. If you decide to use this software, please \fBdon't do it\fP\&. Thank you for your interest and understanding as we work to improve the project and make it stable and complete :-)\&.
 .SH "Features"
 .PP
 .IP "\(bu" 2
@@ -21,6 +21,8 @@ Transparency: No modifications to the NFS server are required\&.
 .PP
 .SH "Getting Started"
 .PP
+.SS "Documentation"
+Documentation is lacking but it can be found \fChere\fP 
 .SS "Prerequisites"
 .IP "\(bu" 2
 FUSE: Ensure that FUSE and FUSE-dev are installed on your system\&. You can usually install it using your system's package manager (e\&.g\&., apt, yum, dnf, ecc)\&.
@@ -38,9 +40,12 @@ git clone https://github.com/carloalbertogiordano/TCFS
 \fP
 .fi
 .PP
-
+ ##
+.PP
+.SH "Build and run the userpace module"
+.PP
 .IP "\(bu" 2
-Compile: Run the Makefile in the userspace-module directory (Only the FUSE module is avilable at the moment, the whole project has not been implemented yet) 
+Compile: Run the Makefile in the userspace-module directory 
 .PP
 .nf
 
@@ -50,13 +55,70 @@ make all
 .fi
 .PP
 
+.IP "\(bu" 2
+Run: Run the compiled file\&. NOTE: Password must be 256 bit or 32 bytes 
+.PP
+.nf
+
+\fC
+build/fuse-module/tcfs -s 'source_dir' -d 'dest_dir' -p 'password'
+\fP
+.fi
+.PP
+
 .PP
 .PP
 #
-.SH "Usage"
+.SS "Build and run the daemon"
+.IP "\(bu" 2
+Build and install: To install the daemon run this commands in the tcfs_daemon directory 
 .PP
+.nf
+
+\fC
+make; make install
+\fP
+.fi
+.PP
+
+.PP
+.PP
+#
+.SS "Build and run the helper program"
+.IP "\(bu" 2
+Compile: Run the Makefile in the user directory 
+.PP
+.nf
+
+\fC
+make
+\fP
+.fi
+.PP
+
+.IP "\(bu" 2
+Run: Run the compiled file 
+.PP
+.nf
+
+\fC
+build/tcfs_helper/tcfs_helper
+\fP
+.fi
+.PP
+
+.PP
+.PP
+#
+.SS "Kernel module"
+.IP "\(bu" 2
+This part of the project is not being developed at the moment\&.
+.PP
+.SH "Usage of the fuse module"
+.PP
+.SS "This is not raccomended, consider using the tcfs_helper program"
 .SS "Mount an NFS share using TCFS:"
-First, mount the NFS share to a directroy, this directory will be called sourcedir\&. This will be done by the helper program in a future release\&. 
+First, mount the NFS share to a directory, this directory will be called sourcedir\&. This will be done by the helper program in a future release\&. 
 .PP
 .nf
 
@@ -76,15 +138,19 @@ First, mount the NFS share to a directroy, this directory will be called sourced
 .fi
 .PP
  then unmount the NFS share\&.
-.SS "Contributing"
+.SH "Contributing"
+.PP
 Contributions to TCFS are welcome! If you find a bug or have an idea for an improvement, please open an issue or submit a pull request on the TCFS GitHub repository\&.
-.SS "License"
+.SH "License"
+.PP
 This project is licensed under the GPLv3 License - see the LICENSE file for details\&.
-.SS "Acknowledgments"
+.SH "Acknowledgments"
+.PP
 TCFS is inspired by the need for secure data storage and transmission in NFS environments\&. Thanks to the FUSE project for providing a user-friendly way to create custom filesystems\&.
 .PP
 \fBInspiration from TCFS (2001):\fP This project draws substantial inspiration from an earlier project named 'TCFS' that was developed around 2001\&. While the original source code for TCFS has unfortunately been lost over time, we have retained valuable documentation and insights from that era\&. In the 'TCFS-2001' folder, you can find historical documentation and design concepts related to the original TCFS project\&. Although we are unable to directly leverage the source code from the previous project, we have taken lessons learned from its design principles to inform the development of this current TCFS implementation\&. We would like to express our gratitude to the creators and contributors of TCFS for their pioneering work, which has influenced and inspired our efforts to create a modern TCFS solution\&. Thank you for your interest in this project as we continue to build upon the foundations set by the original TCFS project\&.
-.SS "Roadmap"
+.SH "Roadmap"
+.PP
 .IP "\(bu" 2
 Key management:
 .IP "  \(bu" 4
@@ -93,9 +159,21 @@ Store a per-file key in the extended attributes and use the user key to decipher
 Implement a kernel module to rebuild the private key to decipher the files\&. This module will use a certificate and your key to rebuild the private key
 .IP "  \(bu" 4
 Implement key recovery\&.
+.IP "  \(bu" 4
+Switch to public/private key
 .PP
 
 .IP "\(bu" 2
-Implement threshold sharing files\&. 
+Implement threshold sharing files\&.
+.IP "\(bu" 2
+Daemon:
+.IP "  \(bu" 4
+Implement user registration and deregistration
+.IP "  \(bu" 4
+Implement accessing and creation of shared files
+.IP "  \(bu" 4
+Update the userspace module to handle the features that the daemon provides 
+.PP
+
 .PP
 

@@ -21,7 +21,7 @@
         <itemizedlist>
             <listitem><para>int <link linkend="_user__db_8c_1a2ae8a82033440194ad80949cd4493971">register_user</link> (<link linkend="_structqm__user">qm_user</link> *user_msg)</para>
 
-<para>Register or update a user in the db, this relies on the <link linkend="_redis_8c_source">redis.c</link> file. </para>
+<para>Register or update a user in the db, this relies on the <link linkend="_redis_8c">redis.c</link> file. </para>
 </listitem>
             <listitem><para>int <link linkend="_user__db_8c_1a6e2fcf4aa637e61f69b1b601981663cf">unregister_user</link> (pid_t pid)</para>
 
@@ -81,9 +81,9 @@ Parameters</title>
 </note>
 </para>
 <para>
-Definition at line <link linkend="_user__db_8c_source_1l00041">41</link> of file <link linkend="_user__db_8c_source">user_db.c</link>.</para>
+Definition at line <link linkend="_user__db_8c_source_1l00045">45</link> of file <link linkend="_user__db_8c_source">user_db.c</link>.</para>
 <para>
-References <link linkend="_print__utils_8c_source_1l00089">print_msg()</link>.</para>
+References <link linkend="_redis_8c_source_1l00092">free_context()</link>, and <link linkend="_print__utils_8c_source_1l00101">print_msg()</link>.</para>
 Here is the call graph for this function:<para>
     <informalfigure>
         <mediaobject>
@@ -100,7 +100,7 @@ Here is the call graph for this function:<para>
 <indexterm><primary>user_db.c</primary><secondary>register_user</secondary></indexterm>
 <para><computeroutput>int register_user (<link linkend="_structqm__user">qm_user</link> * user_msg)</computeroutput></para><para>
 
-<para>Register or update a user in the db, this relies on the <link linkend="_redis_8c_source">redis.c</link> file. </para>
+<para>Register or update a user in the db, this relies on the <link linkend="_redis_8c">redis.c</link> file. </para>
 </para>
 
 <para>
@@ -125,13 +125,17 @@ Parameters</title>
                 </formalpara>
                 <formalpara><title>Returns</title>
 
-<para>1 if successful, 0 otherwise </para>
+<para>1 if successful, 0 otherwise. An error might be printen by <link linkend="_print__utils_8c_1a650ab060ffe5dbc6c1a968a9cae3bded">print_err()</link> function, </para>
+</formalpara>
+<formalpara><title>See also</title>
+
+<para><link linkend="_print__utils_8c_1a650ab060ffe5dbc6c1a968a9cae3bded">print_err</link> </para>
 </formalpara>
 </para>
 <para>
-Definition at line <link linkend="_user__db_8c_source_1l00014">14</link> of file <link linkend="_user__db_8c_source">user_db.c</link>.</para>
+Definition at line <link linkend="_user__db_8c_source_1l00015">15</link> of file <link linkend="_user__db_8c_source">user_db.c</link>.</para>
 <para>
-References <link linkend="_print__utils_8c_source_1l00089">print_msg()</link>.</para>
+References <link linkend="_redis_8c_source_1l00072">init_context()</link>, <link linkend="_redis_8c_source_1l00211">insert()</link>, <link linkend="_redis_8c_source_1l00042">print_all_keys()</link>, and <link linkend="_print__utils_8c_source_1l00101">print_msg()</link>.</para>
 Here is the call graph for this function:<para>
     <informalfigure>
         <mediaobject>
@@ -173,13 +177,17 @@ Parameters</title>
                 </formalpara>
                 <formalpara><title>Returns</title>
 
-<para>1 if successful, 0 otherwise </para>
+<para>1 if successful, 0 otherwise. An error might be printen by <link linkend="_print__utils_8c_1a650ab060ffe5dbc6c1a968a9cae3bded">print_err()</link> function, </para>
+</formalpara>
+<formalpara><title>See also</title>
+
+<para><link linkend="_print__utils_8c_1a650ab060ffe5dbc6c1a968a9cae3bded">print_err</link> </para>
 </formalpara>
 </para>
 <para>
-Definition at line <link linkend="_user__db_8c_source_1l00029">29</link> of file <link linkend="_user__db_8c_source">user_db.c</link>.</para>
+Definition at line <link linkend="_user__db_8c_source_1l00031">31</link> of file <link linkend="_user__db_8c_source">user_db.c</link>.</para>
 <para>
-References <link linkend="_print__utils_8c_source_1l00089">print_msg()</link>.</para>
+References <link linkend="_redis_8c_source_1l00042">print_all_keys()</link>, <link linkend="_print__utils_8c_source_1l00101">print_msg()</link>, and <link linkend="_redis_8c_source_1l00256">remove_by_pid()</link>.</para>
 Here is the call graph for this function:<para>
     <informalfigure>
         <mediaobject>

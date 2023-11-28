@@ -36,28 +36,28 @@ Definition at line <link linkend="_user__tcfs_8c_source_1l00020">20</link> of fi
 <indexterm><primary>destination</primary><secondary>arguments</secondary></indexterm>
 <indexterm><primary>arguments</primary><secondary>destination</secondary></indexterm>
 <para><computeroutput>char* arguments::destination</computeroutput></para><para>
-Definition at line <link linkend="_tcfs_8c_source_1l00668">668</link> of file <link linkend="_tcfs_8c_source">tcfs.c</link>.</para>
+Definition at line <link linkend="_tcfs_8c_source_1l00725">725</link> of file <link linkend="_tcfs_8c_source">tcfs.c</link>.</para>
 </section>
 <anchor xml:id="_structarguments_1a0dbf3970b8b18964140f0397c22a3711"/><section>
     <title>operation</title>
 <indexterm><primary>operation</primary><secondary>arguments</secondary></indexterm>
 <indexterm><primary>arguments</primary><secondary>operation</secondary></indexterm>
 <para><computeroutput>int arguments::operation</computeroutput></para><para>
-Definition at line <link linkend="_user__tcfs_8c_source_1l00021">21</link> of file <link linkend="_user__tcfs_8c_source">user_tcfs.c</link>.</para>
+Definition at line <link linkend="_user__tcfs_8c_source_1l00022">22</link> of file <link linkend="_user__tcfs_8c_source">user_tcfs.c</link>.</para>
 </section>
 <anchor xml:id="_structarguments_1a1efc30f669fcaf8c5943cbb3e8124ee7"/><section>
     <title>password</title>
 <indexterm><primary>password</primary><secondary>arguments</secondary></indexterm>
 <indexterm><primary>arguments</primary><secondary>password</secondary></indexterm>
 <para><computeroutput>char* arguments::password</computeroutput></para><para>
-Definition at line <link linkend="_tcfs_8c_source_1l00669">669</link> of file <link linkend="_tcfs_8c_source">tcfs.c</link>.</para>
+Definition at line <link linkend="_tcfs_8c_source_1l00726">726</link> of file <link linkend="_tcfs_8c_source">tcfs.c</link>.</para>
 </section>
 <anchor xml:id="_structarguments_1a53fda996abfaa79d9c6376292bcbd5da"/><section>
     <title>source</title>
 <indexterm><primary>source</primary><secondary>arguments</secondary></indexterm>
 <indexterm><primary>arguments</primary><secondary>source</secondary></indexterm>
 <para><computeroutput>char* arguments::source</computeroutput></para><para>
-Definition at line <link linkend="_tcfs_8c_source_1l00667">667</link> of file <link linkend="_tcfs_8c_source">tcfs.c</link>.</para>
+Definition at line <link linkend="_tcfs_8c_source_1l00724">724</link> of file <link linkend="_tcfs_8c_source">tcfs.c</link>.</para>
 </section>
 <para>
 The documentation for this struct was generated from the following files:</para>

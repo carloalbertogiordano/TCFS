@@ -6,8 +6,7 @@ This is the core of the daemon.
 
 
 {\ttfamily \#include "{}daemon\+\_\+utils/daemon\+\_\+tools/tcfs\+\_\+daemon\+\_\+tools.\+h"{}}\newline
-Include dependency graph for tcfs\+\_\+daemon.\+c\+:
-\nopagebreak
+Include dependency graph for tcfs\+\_\+daemon.\+c\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -41,7 +40,7 @@ Forking is disable at the moment, this meas it will run as a "{}normal"{} progra
 the main function spawns a thread to handle incoming messages on the queue 
 \end{DoxyNote}
 \begin{DoxyRefDesc}{Todo}
-\item[\mbox{\hyperlink{todo__todo000003}{Todo}}]\+: Enable forking 
+\item[\mbox{\hyperlink{todo__todo000007}{Todo}}]\+: Enable forking 
 
 Run the daemon via SystemD \end{DoxyRefDesc}
 
@@ -67,29 +66,27 @@ Handle the termination if SIGTERM is received.
 \hline
 \end{DoxyParams}
 \begin{DoxyRefDesc}{Todo}
-\item[\mbox{\hyperlink{todo__todo000006}{Todo}}]\+: Implement remove\+\_\+queue() to clear and delete the queue \end{DoxyRefDesc}
+\item[\mbox{\hyperlink{todo__todo000010}{Todo}}]\+: Implement remove\+\_\+queue() to clear and delete the queue \end{DoxyRefDesc}
 
 
-Definition at line \mbox{\hyperlink{tcfs__daemon_8c_source_l00036}{36}} of file \mbox{\hyperlink{tcfs__daemon_8c_source}{tcfs\+\_\+daemon.\+c}}.
-
-
-
-References \mbox{\hyperlink{print__utils_8c_source_l00089}{print\+\_\+msg()}}.
+Definition at line \mbox{\hyperlink{tcfs__daemon_8c_source_l00040}{40}} of file \mbox{\hyperlink{tcfs__daemon_8c_source}{tcfs\+\_\+daemon.\+c}}.
 
 
 
-Referenced by \mbox{\hyperlink{tcfs__daemon_8c_source_l00047}{main()}}.
+References \mbox{\hyperlink{print__utils_8c_source_l00101}{print\+\_\+msg()}}.
 
-Here is the call graph for this function\+:
-\nopagebreak
+
+
+Referenced by \mbox{\hyperlink{tcfs__daemon_8c_source_l00056}{main()}}.
+
+Here is the call graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=273pt]{tcfs__daemon_8c_a93d1097e4dd3c0735da3da2e89410090_cgraph}
 \end{center}
 \end{figure}
-Here is the caller graph for this function\+:
-\nopagebreak
+Here is the caller graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -107,19 +104,18 @@ Here is the caller graph for this function\+:
 main function of the daemon. This will daemonize the program, spawn a thread to handle messages and handle unexpected termination of the thread 
 
 \begin{DoxyRefDesc}{Todo}
-\item[\mbox{\hyperlink{todo__todo000007}{Todo}}]\+: The brief description is basically false advertisement. It only spawn a thread and hangs infinitely 
+\item[\mbox{\hyperlink{todo__todo000011}{Todo}}]\+: The brief description is basically false advertisement. It only spawn a thread and hangs infinitely 
 
 \+: Remove the thread that spawns handle\+\_\+outgoing\+\_\+messages. This must not make it into final release \end{DoxyRefDesc}
 
 
-Definition at line \mbox{\hyperlink{tcfs__daemon_8c_source_l00047}{47}} of file \mbox{\hyperlink{tcfs__daemon_8c_source}{tcfs\+\_\+daemon.\+c}}.
+Definition at line \mbox{\hyperlink{tcfs__daemon_8c_source_l00056}{56}} of file \mbox{\hyperlink{tcfs__daemon_8c_source}{tcfs\+\_\+daemon.\+c}}.
 
 
 
-References \mbox{\hyperlink{tcfs__daemon_8c_source_l00036}{handle\+\_\+termination()}}, \mbox{\hyperlink{tcfs__daemon_8c_source_l00029}{MQUEUE}}, \mbox{\hyperlink{print__utils_8c_source_l00069}{print\+\_\+err()}}, \mbox{\hyperlink{print__utils_8c_source_l00089}{print\+\_\+msg()}}, and \mbox{\hyperlink{tcfs__daemon_8c_source_l00017}{terminate}}.
+References \mbox{\hyperlink{tcfs__daemon_8c_source_l00040}{handle\+\_\+termination()}}, \mbox{\hyperlink{queue_8c_source_l00027}{init\+\_\+queue()}}, \mbox{\hyperlink{tcfs__daemon_8c_source_l00032}{MQUEUE}}, \mbox{\hyperlink{print__utils_8c_source_l00079}{print\+\_\+err()}}, \mbox{\hyperlink{print__utils_8c_source_l00101}{print\+\_\+msg()}}, and \mbox{\hyperlink{tcfs__daemon_8c_source_l00020}{terminate}}.
 
-Here is the call graph for this function\+:
-\nopagebreak
+Here is the call graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -141,11 +137,11 @@ the queue file location
 
 
 
-Definition at line \mbox{\hyperlink{tcfs__daemon_8c_source_l00029}{29}} of file \mbox{\hyperlink{tcfs__daemon_8c_source}{tcfs\+\_\+daemon.\+c}}.
+Definition at line \mbox{\hyperlink{tcfs__daemon_8c_source_l00032}{32}} of file \mbox{\hyperlink{tcfs__daemon_8c_source}{tcfs\+\_\+daemon.\+c}}.
 
 
 
-Referenced by \mbox{\hyperlink{tcfs__daemon_8c_source_l00047}{main()}}.
+Referenced by \mbox{\hyperlink{tcfs__daemon_8c_source_l00056}{main()}}.
 
 \Hypertarget{tcfs__daemon_8c_a679ec79d065ad812032851f6872caee6}\label{tcfs__daemon_8c_a679ec79d065ad812032851f6872caee6} 
 \index{tcfs\_daemon.c@{tcfs\_daemon.c}!terminate@{terminate}}
@@ -158,14 +154,14 @@ Referenced by \mbox{\hyperlink{tcfs__daemon_8c_source_l00047}{main()}}.
 If the spawned threads terminate abruptly they should set this to 1, so that the daemon can terminate. 
 
 \begin{DoxyRefDesc}{Todo}
-\item[\mbox{\hyperlink{todo__todo000004}{Todo}}]\+: Implement logic to make this work \end{DoxyRefDesc}
+\item[\mbox{\hyperlink{todo__todo000008}{Todo}}]\+: Implement logic to make this work \end{DoxyRefDesc}
 
 
-Definition at line \mbox{\hyperlink{tcfs__daemon_8c_source_l00017}{17}} of file \mbox{\hyperlink{tcfs__daemon_8c_source}{tcfs\+\_\+daemon.\+c}}.
+Definition at line \mbox{\hyperlink{tcfs__daemon_8c_source_l00020}{20}} of file \mbox{\hyperlink{tcfs__daemon_8c_source}{tcfs\+\_\+daemon.\+c}}.
 
 
 
-Referenced by \mbox{\hyperlink{tcfs__daemon_8c_source_l00047}{main()}}.
+Referenced by \mbox{\hyperlink{tcfs__daemon_8c_source_l00056}{main()}}.
 
 \Hypertarget{tcfs__daemon_8c_af7e1db76e3a69a4b0484910b1f7562da}\label{tcfs__daemon_8c_af7e1db76e3a69a4b0484910b1f7562da} 
 \index{tcfs\_daemon.c@{tcfs\_daemon.c}!terminate\_mutex@{terminate\_mutex}}
@@ -178,8 +174,8 @@ Referenced by \mbox{\hyperlink{tcfs__daemon_8c_source_l00047}{main()}}.
 Mutex needed to set the var terminate to 1 safely. 
 
 \begin{DoxyRefDesc}{Todo}
-\item[\mbox{\hyperlink{todo__todo000005}{Todo}}]\+: implement logic to make this work \end{DoxyRefDesc}
+\item[\mbox{\hyperlink{todo__todo000009}{Todo}}]\+: implement logic to make this work \end{DoxyRefDesc}
 
 
-Definition at line \mbox{\hyperlink{tcfs__daemon_8c_source_l00023}{23}} of file \mbox{\hyperlink{tcfs__daemon_8c_source}{tcfs\+\_\+daemon.\+c}}.
+Definition at line \mbox{\hyperlink{tcfs__daemon_8c_source_l00026}{26}} of file \mbox{\hyperlink{tcfs__daemon_8c_source}{tcfs\+\_\+daemon.\+c}}.
 

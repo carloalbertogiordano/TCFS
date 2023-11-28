@@ -2,6 +2,14 @@
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_structqm__broad" xml:lang="en-US">
 <title>qm_broad Struct Reference</title>
 <indexterm><primary>qm_broad</primary></indexterm>
+<para>
+
+<para>Represents a broadcast message. Contains the data that is broadcasted to all users. </para>
+ 
+</para>
+<para>
+<computeroutput>#include &lt;common.h&gt;</computeroutput>
+</para>
 Collaboration diagram for qm_broad:<para>
     <informalfigure>
         <mediaobject>
@@ -20,8 +28,10 @@ Collaboration diagram for qm_broad:<para>
 </simplesect>
 <section>
 <title>Detailed Description</title>
+
+<para>Represents a broadcast message. Contains the data that is broadcasted to all users. </para>
 <para>
-Definition at line <link linkend="_common_8h_source_1l00040">40</link> of file <link linkend="_common_8h_source">common.h</link>.</para>
+Definition at line <link linkend="_common_8h_source_1l00081">81</link> of file <link linkend="_common_8h_source">common.h</link>.</para>
 </section>
 <section>
 <title>Member Data Documentation</title>
@@ -29,8 +39,10 @@ Definition at line <link linkend="_common_8h_source_1l00040">40</link> of file <
     <title>data</title>
 <indexterm><primary>data</primary><secondary>qm_broad</secondary></indexterm>
 <indexterm><primary>qm_broad</primary><secondary>data</secondary></indexterm>
-<para><computeroutput>char* qm_broad::data</computeroutput></para><para>
-Definition at line <link linkend="_common_8h_source_1l00041">41</link> of file <link linkend="_common_8h_source">common.h</link>.</para>
+<para><computeroutput>char* qm_broad::data</computeroutput></para>
+<para>The data that is broadcasted. </para>
+<para>
+Definition at line <link linkend="_common_8h_source_1l00082">82</link> of file <link linkend="_common_8h_source">common.h</link>.</para>
 </section>
 <para>
 The documentation for this struct was generated from the following file:</para>

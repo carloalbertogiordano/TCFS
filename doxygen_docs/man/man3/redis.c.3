@@ -1,4 +1,4 @@
-.TH "daemon/daemon_utils/common_utils/db/redis.c" 3 "Mon Nov 27 2023 15:49:26" "Version 0.2" "TCFS" \" -*- nroff -*-
+.TH "daemon/daemon_utils/common_utils/db/redis.c" 3 "Tue Nov 28 2023 12:06:42" "Version 0.2" "TCFS" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -9,9 +9,9 @@ daemon/daemon_utils/common_utils/db/redis.c \- All the function in this file sho
 .PP
 \fC#include 'redis\&.h'\fP
 .br
-\fC#include '\&.\&./print/print_utils\&.h'\fP
-.br
 \fC#include '\&.\&./json/json_tools\&.h'\fP
+.br
+\fC#include '\&.\&./print/print_utils\&.h'\fP
 .br
 \fC#include <hiredis/hiredis\&.h>\fP
 .br
@@ -22,6 +22,7 @@ daemon/daemon_utils/common_utils/db/redis.c \- All the function in this file sho
 .ti -1c
 .RI "#define \fBPORT\fP   6380"
 .br
+.RI "The port of the redis DB\&. "
 .in -1c
 .SS "Functions"
 
@@ -72,12 +73,13 @@ daemon/daemon_utils/common_utils/db/redis.c \- All the function in this file sho
 .ti -1c
 .RI "redisContext * \fBcontext\fP"
 .br
+.RI "Pointer to the context of Redis DB\&. "
 .in -1c
 .SH "Detailed Description"
 .PP 
 All the function in this file should not be used directly, instead use the function defined by user_db\&. 
 
-
+This file is marked as internal and the corresponding header should not be used by the user\&. Please refer to the see section
 .PP
 \fBSee also\fP
 .RS 4
@@ -92,13 +94,22 @@ Definition in file \fBredis\&.c\fP\&.
 .SS "#define PORT   6380"
 
 .PP
-Definition at line \fB13\fP of file \fBredis\&.c\fP\&.
+The port of the redis DB\&. This definition is marked as internal and be used directly
+.PP
+\fBTodo\fP
+.RS 4
+This should be passed as a parameter to the daemon 
+.RE
+.PP
+
+.PP
+Definition at line \fB27\fP of file \fBredis\&.c\fP\&.
 .SH "Function Documentation"
 .PP 
 .SS "void free_context ()"
 
 .PP
-Free the hiredis context variable\&. 
+Free the hiredis context variable\&. This function is marked as internal and should not be used by the user 
 .PP
 \fBReturns\fP
 .RS 4
@@ -107,13 +118,15 @@ void
 .PP
 
 .PP
-Definition at line \fB57\fP of file \fBredis\&.c\fP\&.
+Definition at line \fB92\fP of file \fBredis\&.c\fP\&.
+.PP
+References \fBcontext\fP\&.
 .PP
 Referenced by \fBdisconnect_db()\fP\&.
 .SS "\fBqm_user\fP * get_user_by_name (const char * name)"
 
 .PP
-Fetch the user on the DB with key name\&. 
+Fetch the user on the DB with key name\&. This function is marked as internal and should not be used by the user 
 .PP
 \fBParameters\fP
 .RS 4
@@ -127,15 +140,15 @@ qm_user* A pointer to the allocated qm_user* struct
 .PP
 
 .PP
-Definition at line \fB109\fP of file \fBredis\&.c\fP\&.
+Definition at line \fB165\fP of file \fBredis\&.c\fP\&.
 .PP
-References \fBjson_to_qm_user()\fP\&.
+References \fBcontext\fP, \fBjson_to_qm_user()\fP, \fBqm_user::pid\fP, \fBprint_err()\fP, \fBprint_msg()\fP, and \fBqm_user::user\fP\&.
 .PP
 Referenced by \fBremove_by_user()\fP\&.
 .SS "\fBqm_user\fP * get_user_by_pid (pid_t pid)"
 
 .PP
-Fetch the user on the DB with key pid\&. 
+Fetch the user on the DB with key pid\&. This function is marked as internal and should not be used by the user 
 .PP
 \fBParameters\fP
 .RS 4
@@ -149,15 +162,15 @@ qm_user* A pointer to the allocated qm_user* struct
 .PP
 
 .PP
-Definition at line \fB81\fP of file \fBredis\&.c\fP\&.
+Definition at line \fB122\fP of file \fBredis\&.c\fP\&.
 .PP
-References \fBjson_to_qm_user()\fP\&.
+References \fBcontext\fP, \fBjson_to_qm_user()\fP, \fBqm_user::pid\fP, \fBprint_err()\fP, \fBprint_msg()\fP, and \fBqm_user::user\fP\&.
 .PP
 Referenced by \fBremove_by_pid()\fP\&.
 .SS "int init_context ()"
 
 .PP
-initialize the context for the Redis DB 
+initialize the context for the Redis DB This function is marked as internal and should not be used by the user 
 .PP
 \fBReturns\fP
 .RS 4
@@ -166,13 +179,15 @@ initialize the context for the Redis DB
 .PP
 
 .PP
-Definition at line \fB40\fP of file \fBredis\&.c\fP\&.
+Definition at line \fB72\fP of file \fBredis\&.c\fP\&.
+.PP
+References \fBcontext\fP, \fBPORT\fP, and \fBprint_err()\fP\&.
 .PP
 Referenced by \fBregister_user()\fP\&.
 .SS "int insert (\fBqm_user\fP * user)"
 
 .PP
-Insert a new user in the DB\&. 
+Insert a new user in the DB\&. This function is marked as internal and should not be used by the user 
 .PP
 \fBParameters\fP
 .RS 4
@@ -181,25 +196,32 @@ Insert a new user in the DB\&.
 .PP
 \fBReturns\fP
 .RS 4
-1 if successful, 0 otherwise 
+1 if successful, 0 otherwise\&. An error might be printen by \fBprint_err()\fP function, 
+.RE
+.PP
+\fBSee also\fP
+.RS 4
+\fBprint_err\fP 
 .RE
 .PP
 \fBNote\fP
 .RS 4
 The user will be set 2 times, once with key user->pid and once with key user->name 
 .PP
-If an error is thrown it will be printed by print_err() function 
+If an error is thrown it will be printed by \fBprint_err()\fP function 
 .RE
 .PP
 
 .PP
-Definition at line \fB139\fP of file \fBredis\&.c\fP\&.
+Definition at line \fB211\fP of file \fBredis\&.c\fP\&.
+.PP
+References \fBcontext\fP, \fBqm_user::pid\fP, \fBprint_err()\fP, \fBprint_msg()\fP, and \fBqm_user::user\fP\&.
 .PP
 Referenced by \fBregister_user()\fP\&.
 .SS "\fBqm_user\fP * json_to_qm_user (char * json)"
 
 .PP
-Internal function to simplify the casting of a json to a \fBqm_user\fP struct\&. 
+Internal function to simplify the casting of a json to a \fBqm_user\fP struct\&. This function is marked as internal and should not be used by the user 
 .PP
 \fBParameters\fP
 .RS 4
@@ -213,13 +235,15 @@ qm_user* A pointer to the allocated qm_user* struct
 .PP
 
 .PP
-Definition at line \fB66\fP of file \fBredis\&.c\fP\&.
+Definition at line \fB104\fP of file \fBredis\&.c\fP\&.
+.PP
+References \fBprint_msg()\fP\&.
 .PP
 Referenced by \fBget_user_by_name()\fP, and \fBget_user_by_pid()\fP\&.
 .SS "void print_all_keys ()"
 
 .PP
-For debugging only\&. Prints all the keys in the database\&. 
+For debugging only\&. Prints all the keys in the database\&. This function is marked as internal and should not be used by the user 
 .PP
 \fBReturns\fP
 .RS 4
@@ -228,13 +252,15 @@ void
 .PP
 
 .PP
-Definition at line \fB21\fP of file \fBredis\&.c\fP\&.
+Definition at line \fB42\fP of file \fBredis\&.c\fP\&.
+.PP
+References \fBcontext\fP, and \fBprint_msg()\fP\&.
 .PP
 Referenced by \fBregister_user()\fP, and \fBunregister_user()\fP\&.
 .SS "int remove_by_pid (pid_t pid)"
 
 .PP
-Remove a user from the DB using the PID as key\&. 
+Remove a user from the DB using the PID as key\&. This function is marked as internal and should not be used by the user 
 .PP
 \fBParameters\fP
 .RS 4
@@ -243,27 +269,32 @@ Remove a user from the DB using the PID as key\&.
 .PP
 \fBReturns\fP
 .RS 4
-1 if successful, 0 otherwise 
+1 if successful, 0 otherwise\&. An error might be printen by \fBprint_err()\fP function, 
+.RE
+.PP
+\fBSee also\fP
+.RS 4
+\fBprint_err\fP 
 .RE
 .PP
 \fBNote\fP
 .RS 4
 Will also remove the corresponding entry by name\&. 
 .PP
-If an error is thrown it will be printed using the print_err() function 
+If an error is thrown it will be printed using the \fBprint_err()\fP function 
 .RE
 .PP
 
 .PP
-Definition at line \fB179\fP of file \fBredis\&.c\fP\&.
+Definition at line \fB256\fP of file \fBredis\&.c\fP\&.
 .PP
-References \fBget_user_by_pid()\fP\&.
+References \fBcontext\fP, \fBget_user_by_pid()\fP, \fBprint_err()\fP, \fBprint_msg()\fP, and \fBqm_user::user\fP\&.
 .PP
 Referenced by \fBunregister_user()\fP\&.
 .SS "int remove_by_user (char * name)"
 
 .PP
-Remove a user from the DB using the name as key\&. 
+Remove a user from the DB using the name as key\&. This function is marked as internal and should not be used by the user 
 .PP
 \fBParameters\fP
 .RS 4
@@ -272,31 +303,40 @@ Remove a user from the DB using the name as key\&.
 .PP
 \fBReturns\fP
 .RS 4
-1 if successful, 0 otherwise 
+1 if successful, 0 otherwise\&. An error might be printen by \fBprint_err()\fP function, 
+.RE
+.PP
+\fBSee also\fP
+.RS 4
+\fBprint_err\fP 
 .RE
 .PP
 \fBNote\fP
 .RS 4
 Will also remove the corresponding entry by PID 
 .PP
-If an error is thrown it will be printed using the print_err() function 
+If an error is thrown it will be printed using the \fBprint_err()\fP function 
 .RE
 .PP
 
 .PP
-Definition at line \fB208\fP of file \fBredis\&.c\fP\&.
+Definition at line \fB292\fP of file \fBredis\&.c\fP\&.
 .PP
-References \fBget_user_by_name()\fP\&.
+References \fBcontext\fP, \fBget_user_by_name()\fP, \fBqm_user::pid\fP, and \fBprint_err()\fP\&.
 .SH "Variable Documentation"
 .PP 
-.SS "redisContext* context"
+.SS "redisContext * context"
 
 .PP
-Definition at line \fB15\fP of file \fBredis\&.c\fP\&.
+Pointer to the context of Redis DB\&. This variable is marked as internal and should not be used by the user 
+.PP
+Definition at line \fB34\fP of file \fBredis\&.c\fP\&.
+.PP
+Referenced by \fBfree_context()\fP, \fBget_user_by_name()\fP, \fBget_user_by_pid()\fP, \fBinit_context()\fP, \fBinsert()\fP, \fBprint_all_keys()\fP, \fBremove_by_pid()\fP, and \fBremove_by_user()\fP\&.
 .SS "const char HOST[] = '127\&.0\&.0\&.1'"
 
 .PP
-Definition at line \fB12\fP of file \fBredis\&.c\fP\&.
+Definition at line \fB20\fP of file \fBredis\&.c\fP\&.
 .SH "Author"
 .PP 
 Generated automatically by Doxygen for TCFS from the source code\&.

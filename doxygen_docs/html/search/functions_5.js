@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['unregister_5fuser_0',['unregister_user',['../user__db_8c.html#a6e2fcf4aa637e61f69b1b601981663cf',1,'user_db.c']]]
+  ['init_5fcontext_0',['init_context',['../redis_8c.html#a1f6dc2f98a71a88567fe11fd9e2585ea',1,'redis.c']]],
+  ['init_5fqueue_1',['init_queue',['../queue_8c.html#a6997b2cacf3d2e49bc848d0274e24b13',1,'queue.c']]],
+  ['insert_2',['insert',['../redis_8c.html#ac9878ee09b53700eb08c1f175873c30b',1,'redis.c']]]
 ];

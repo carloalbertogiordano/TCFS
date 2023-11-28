@@ -57,7 +57,7 @@
 
 <para>the main function spawns a thread to handle incoming messages on the queue </para>
 </note>
-<para><link linkend="_todo_1_todo000003">Todo</link> 
+<para><link linkend="_todo_1_todo000007">Todo</link> 
 <para>: Enable forking </para>
 
 <para>Run the daemon via SystemD </para>
@@ -96,15 +96,15 @@ Parameters</title>
                     </table>
                     </para>
                 </formalpara>
-                <para><link linkend="_todo_1_todo000006">Todo</link> 
+                <para><link linkend="_todo_1_todo000010">Todo</link> 
 <para>: Implement remove_queue() to clear and delete the queue </para>
 </para></para>
 <para>
-Definition at line <link linkend="_tcfs__daemon_8c_source_1l00036">36</link> of file <link linkend="_tcfs__daemon_8c_source">tcfs_daemon.c</link>.</para>
+Definition at line <link linkend="_tcfs__daemon_8c_source_1l00040">40</link> of file <link linkend="_tcfs__daemon_8c_source">tcfs_daemon.c</link>.</para>
 <para>
-References <link linkend="_print__utils_8c_source_1l00089">print_msg()</link>.</para>
+References <link linkend="_print__utils_8c_source_1l00101">print_msg()</link>.</para>
 <para>
-Referenced by <link linkend="_tcfs__daemon_8c_source_1l00047">main()</link>.</para>
+Referenced by <link linkend="_tcfs__daemon_8c_source_1l00056">main()</link>.</para>
 Here is the call graph for this function:<para>
     <informalfigure>
         <mediaobject>
@@ -133,15 +133,15 @@ Here is the caller graph for this function:<para>
 <para>main function of the daemon. This will daemonize the program, spawn a thread to handle messages and handle unexpected termination of the thread </para>
 </para>
 
-<para><para><link linkend="_todo_1_todo000007">Todo</link> 
+<para><para><link linkend="_todo_1_todo000011">Todo</link> 
 <para>: The brief description is basically false advertisement. It only spawn a thread and hangs infinitely </para>
 
 <para>: Remove the thread that spawns handle_outgoing_messages. This must not make it into final release </para>
 </para></para>
 <para>
-Definition at line <link linkend="_tcfs__daemon_8c_source_1l00047">47</link> of file <link linkend="_tcfs__daemon_8c_source">tcfs_daemon.c</link>.</para>
+Definition at line <link linkend="_tcfs__daemon_8c_source_1l00056">56</link> of file <link linkend="_tcfs__daemon_8c_source">tcfs_daemon.c</link>.</para>
 <para>
-References <link linkend="_tcfs__daemon_8c_source_1l00036">handle_termination()</link>, <link linkend="_tcfs__daemon_8c_source_1l00029">MQUEUE</link>, <link linkend="_print__utils_8c_source_1l00069">print_err()</link>, <link linkend="_print__utils_8c_source_1l00089">print_msg()</link>, and <link linkend="_tcfs__daemon_8c_source_1l00017">terminate</link>.</para>
+References <link linkend="_tcfs__daemon_8c_source_1l00040">handle_termination()</link>, <link linkend="_queue_8c_source_1l00027">init_queue()</link>, <link linkend="_tcfs__daemon_8c_source_1l00032">MQUEUE</link>, <link linkend="_print__utils_8c_source_1l00079">print_err()</link>, <link linkend="_print__utils_8c_source_1l00101">print_msg()</link>, and <link linkend="_tcfs__daemon_8c_source_1l00020">terminate</link>.</para>
 Here is the call graph for this function:<para>
     <informalfigure>
         <mediaobject>
@@ -164,9 +164,9 @@ Here is the call graph for this function:<para>
 <para>the queue file location </para>
 </para>
 <para>
-Definition at line <link linkend="_tcfs__daemon_8c_source_1l00029">29</link> of file <link linkend="_tcfs__daemon_8c_source">tcfs_daemon.c</link>.</para>
+Definition at line <link linkend="_tcfs__daemon_8c_source_1l00032">32</link> of file <link linkend="_tcfs__daemon_8c_source">tcfs_daemon.c</link>.</para>
 <para>
-Referenced by <link linkend="_tcfs__daemon_8c_source_1l00047">main()</link>.</para>
+Referenced by <link linkend="_tcfs__daemon_8c_source_1l00056">main()</link>.</para>
 </section>
 <anchor xml:id="_tcfs__daemon_8c_1a679ec79d065ad812032851f6872caee6"/><section>
     <title>terminate</title>
@@ -177,13 +177,13 @@ Referenced by <link linkend="_tcfs__daemon_8c_source_1l00047">main()</link>.</pa
 <para>If the spawned threads terminate abruptly they should set this to 1, so that the daemon can terminate. </para>
 </para>
 
-<para><para><link linkend="_todo_1_todo000004">Todo</link> 
+<para><para><link linkend="_todo_1_todo000008">Todo</link> 
 <para>: Implement logic to make this work </para>
 </para></para>
 <para>
-Definition at line <link linkend="_tcfs__daemon_8c_source_1l00017">17</link> of file <link linkend="_tcfs__daemon_8c_source">tcfs_daemon.c</link>.</para>
+Definition at line <link linkend="_tcfs__daemon_8c_source_1l00020">20</link> of file <link linkend="_tcfs__daemon_8c_source">tcfs_daemon.c</link>.</para>
 <para>
-Referenced by <link linkend="_tcfs__daemon_8c_source_1l00047">main()</link>.</para>
+Referenced by <link linkend="_tcfs__daemon_8c_source_1l00056">main()</link>.</para>
 </section>
 <anchor xml:id="_tcfs__daemon_8c_1af7e1db76e3a69a4b0484910b1f7562da"/><section>
     <title>terminate_mutex</title>
@@ -194,11 +194,11 @@ Referenced by <link linkend="_tcfs__daemon_8c_source_1l00047">main()</link>.</pa
 <para>Mutex needed to set the var terminate to 1 safely. </para>
 </para>
 
-<para><para><link linkend="_todo_1_todo000005">Todo</link> 
+<para><para><link linkend="_todo_1_todo000009">Todo</link> 
 <para>: implement logic to make this work </para>
 </para></para>
 <para>
-Definition at line <link linkend="_tcfs__daemon_8c_source_1l00023">23</link> of file <link linkend="_tcfs__daemon_8c_source">tcfs_daemon.c</link>.</para>
+Definition at line <link linkend="_tcfs__daemon_8c_source_1l00026">26</link> of file <link linkend="_tcfs__daemon_8c_source">tcfs_daemon.c</link>.</para>
 </section>
 </section>
 </section>

@@ -29,9 +29,9 @@
       <node id="10">
         <label>../common_utils/print/print_utils.h</label>
         <link refid="print__utils_8h_source"/>
-        <childnode refid="11" relation="include">
-        </childnode>
         <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
         </childnode>
         <childnode refid="12" relation="include">
         </childnode>
@@ -57,10 +57,10 @@
       <node id="6">
         <label>mqueue.h</label>
       </node>
-      <node id="12">
+      <node id="11">
         <label>stdio.h</label>
       </node>
-      <node id="13">
+      <node id="12">
         <label>stdlib.h</label>
       </node>
       <node id="8">
@@ -72,7 +72,7 @@
       <node id="4">
         <label>sys/types.h</label>
       </node>
-      <node id="11">
+      <node id="13">
         <label>systemd/sd-journal.h</label>
       </node>
       <node id="7">
@@ -94,7 +94,7 @@
       </node>
       <node id="5">
         <label>daemon/daemon_utils/message_handler/message_handler.c</label>
-        <link refid="message__handler_8c_source"/>
+        <link refid="message__handler_8c"/>
       </node>
       <node id="1">
         <label>daemon/daemon_utils/message_handler/message_handler.h</label>
@@ -127,7 +127,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="daemon/daemon_utils/message_handler/message_handler.h" line="4" column="5" bodyfile="daemon/daemon_utils/message_handler/message_handler.c" bodystart="6" bodyend="22" declfile="daemon/daemon_utils/message_handler/message_handler.h" declline="4" declcolumn="5"/>
+        <location file="daemon/daemon_utils/message_handler/message_handler.h" line="4" column="5" bodyfile="daemon/daemon_utils/message_handler/message_handler.c" bodystart="12" bodyend="31" declfile="daemon/daemon_utils/message_handler/message_handler.h" declline="4" declcolumn="5"/>
       </memberdef>
     </sectiondef>
     <briefdescription>
@@ -138,7 +138,7 @@
 <codeline lineno="1"><highlight class="preprocessor">#include<sp/>&quot;../common.h&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;../common_utils/print/print_utils.h&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="3"><highlight class="normal"></highlight></codeline>
-<codeline lineno="4"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>handle_user_message(<ref refid="structqm__user" kindref="compound">qm_user</ref><sp/>*user_msg);</highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>handle_user_message<sp/>(<ref refid="structqm__user" kindref="compound">qm_user</ref><sp/>*user_msg);</highlight></codeline>
     </programlisting>
     <location file="daemon/daemon_utils/message_handler/message_handler.h"/>
   </compounddef>

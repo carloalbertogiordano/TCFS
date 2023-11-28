@@ -6,14 +6,21 @@ All the function in this file should not be used directly, instead use the funct
 
 
 {\ttfamily \#include "{}redis.\+h"{}}\newline
-{\ttfamily \#include "{}../print/print\+\_\+utils.\+h"{}}\newline
 {\ttfamily \#include "{}../json/json\+\_\+tools.\+h"{}}\newline
+{\ttfamily \#include "{}../print/print\+\_\+utils.\+h"{}}\newline
 {\ttfamily \#include $<$hiredis/hiredis.\+h$>$}\newline
+Include dependency graph for redis.\+c\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{redis_8c__incl}
+\end{center}
+\end{figure}
 \doxysubsubsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
 \#define \mbox{\hyperlink{redis_8c_a614217d263be1fb1a5f76e2ff7be19a2}{PORT}}~6380
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em The port of the redis DB. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -40,12 +47,14 @@ int \mbox{\hyperlink{redis_8c_a2678c0575f2b6c944fd261255aeaebff}{remove\+\_\+by\
 \item 
 const char \mbox{\hyperlink{redis_8c_a0cc05631b755191d8d1c64c74c77894b}{HOST}} \mbox{[}$\,$\mbox{]} = "{}127.\+0.\+0.\+1"{}
 \item 
-redis\+Context \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{redis_8c_ace869d36dc1b4de4b6d046c0c71486cb}{context}}
-\end{DoxyCompactItemize}
+redis\+Context \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{redis_8c_a71ea645922f3e5dcc69b644656c79a99}{context}}
+\begin{DoxyCompactList}\small\item\em Pointer to the context of Redis DB. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
 All the function in this file should not be used directly, instead use the function defined by user\+\_\+db. 
+
+This file is marked as internal and the corresponding header should not be used by the user. Please refer to the see section
 
 \begin{DoxySeeAlso}{See also}
 \textbackslash{}ref \doxylink{user__db_8c}{user\+\_\+db.\+c} 
@@ -65,7 +74,15 @@ Definition in file \mbox{\hyperlink{redis_8c_source}{redis.\+c}}.
 
 
 
-Definition at line \mbox{\hyperlink{redis_8c_source_l00013}{13}} of file \mbox{\hyperlink{redis_8c_source}{redis.\+c}}.
+The port of the redis DB. 
+
+This definition is marked as internal and be used directly
+
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000003}{Todo}}]This should be passed as a parameter to the daemon \end{DoxyRefDesc}
+
+
+Definition at line \mbox{\hyperlink{redis_8c_source_l00027}{27}} of file \mbox{\hyperlink{redis_8c_source}{redis.\+c}}.
 
 
 
@@ -80,17 +97,28 @@ Definition at line \mbox{\hyperlink{redis_8c_source_l00013}{13}} of file \mbox{\
 
 Free the hiredis context variable. 
 
-\begin{DoxyReturn}{Returns}
+This function is marked as internal and should not be used by the user \begin{DoxyReturn}{Returns}
 void 
 \end{DoxyReturn}
 
 
-Definition at line \mbox{\hyperlink{redis_8c_source_l00057}{57}} of file \mbox{\hyperlink{redis_8c_source}{redis.\+c}}.
+Definition at line \mbox{\hyperlink{redis_8c_source_l00092}{92}} of file \mbox{\hyperlink{redis_8c_source}{redis.\+c}}.
 
 
 
-Referenced by \mbox{\hyperlink{user__db_8c_source_l00041}{disconnect\+\_\+db()}}.
+References \mbox{\hyperlink{redis_8c_source_l00034}{context}}.
 
+
+
+Referenced by \mbox{\hyperlink{user__db_8c_source_l00045}{disconnect\+\_\+db()}}.
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=267pt]{redis_8c_ae19d8c90888a6ed078d6e835bb11e67a_icgraph}
+\end{center}
+\end{figure}
 \Hypertarget{redis_8c_a73711c0a9d0060337409d15dc44f5ad1}\label{redis_8c_a73711c0a9d0060337409d15dc44f5ad1} 
 \index{redis.c@{redis.c}!get\_user\_by\_name@{get\_user\_by\_name}}
 \index{get\_user\_by\_name@{get\_user\_by\_name}!redis.c@{redis.c}}
@@ -101,7 +129,7 @@ Referenced by \mbox{\hyperlink{user__db_8c_source_l00041}{disconnect\+\_\+db()}}
 
 Fetch the user on the DB with key name. 
 
-
+This function is marked as internal and should not be used by the user 
 \begin{DoxyParams}{Parameters}
 {\em const} & char \texorpdfstring{$\ast$}{*}name The key of the row \\
 \hline
@@ -111,16 +139,30 @@ qm\+\_\+user\texorpdfstring{$\ast$}{*} A pointer to the allocated qm\+\_\+user\t
 \end{DoxyReturn}
 
 
-Definition at line \mbox{\hyperlink{redis_8c_source_l00109}{109}} of file \mbox{\hyperlink{redis_8c_source}{redis.\+c}}.
+Definition at line \mbox{\hyperlink{redis_8c_source_l00165}{165}} of file \mbox{\hyperlink{redis_8c_source}{redis.\+c}}.
 
 
 
-References \mbox{\hyperlink{redis_8c_source_l00066}{json\+\_\+to\+\_\+qm\+\_\+user()}}.
+References \mbox{\hyperlink{redis_8c_source_l00034}{context}}, \mbox{\hyperlink{redis_8c_source_l00104}{json\+\_\+to\+\_\+qm\+\_\+user()}}, \mbox{\hyperlink{common_8h_source_l00058}{qm\+\_\+user\+::pid}}, \mbox{\hyperlink{print__utils_8c_source_l00079}{print\+\_\+err()}}, \mbox{\hyperlink{print__utils_8c_source_l00101}{print\+\_\+msg()}}, and \mbox{\hyperlink{common_8h_source_l00059}{qm\+\_\+user\+::user}}.
 
 
 
-Referenced by \mbox{\hyperlink{redis_8c_source_l00208}{remove\+\_\+by\+\_\+user()}}.
+Referenced by \mbox{\hyperlink{redis_8c_source_l00292}{remove\+\_\+by\+\_\+user()}}.
 
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{redis_8c_a73711c0a9d0060337409d15dc44f5ad1_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=304pt]{redis_8c_a73711c0a9d0060337409d15dc44f5ad1_icgraph}
+\end{center}
+\end{figure}
 \Hypertarget{redis_8c_af0bf1bfc99afc940619371e3c76ab4f9}\label{redis_8c_af0bf1bfc99afc940619371e3c76ab4f9} 
 \index{redis.c@{redis.c}!get\_user\_by\_pid@{get\_user\_by\_pid}}
 \index{get\_user\_by\_pid@{get\_user\_by\_pid}!redis.c@{redis.c}}
@@ -131,7 +173,7 @@ Referenced by \mbox{\hyperlink{redis_8c_source_l00208}{remove\+\_\+by\+\_\+user(
 
 Fetch the user on the DB with key pid. 
 
-
+This function is marked as internal and should not be used by the user 
 \begin{DoxyParams}{Parameters}
 {\em pid\+\_\+t} & pid The key of the row \\
 \hline
@@ -141,16 +183,30 @@ qm\+\_\+user\texorpdfstring{$\ast$}{*} A pointer to the allocated qm\+\_\+user\t
 \end{DoxyReturn}
 
 
-Definition at line \mbox{\hyperlink{redis_8c_source_l00081}{81}} of file \mbox{\hyperlink{redis_8c_source}{redis.\+c}}.
+Definition at line \mbox{\hyperlink{redis_8c_source_l00122}{122}} of file \mbox{\hyperlink{redis_8c_source}{redis.\+c}}.
 
 
 
-References \mbox{\hyperlink{redis_8c_source_l00066}{json\+\_\+to\+\_\+qm\+\_\+user()}}.
+References \mbox{\hyperlink{redis_8c_source_l00034}{context}}, \mbox{\hyperlink{redis_8c_source_l00104}{json\+\_\+to\+\_\+qm\+\_\+user()}}, \mbox{\hyperlink{common_8h_source_l00058}{qm\+\_\+user\+::pid}}, \mbox{\hyperlink{print__utils_8c_source_l00079}{print\+\_\+err()}}, \mbox{\hyperlink{print__utils_8c_source_l00101}{print\+\_\+msg()}}, and \mbox{\hyperlink{common_8h_source_l00059}{qm\+\_\+user\+::user}}.
 
 
 
-Referenced by \mbox{\hyperlink{redis_8c_source_l00179}{remove\+\_\+by\+\_\+pid()}}.
+Referenced by \mbox{\hyperlink{redis_8c_source_l00256}{remove\+\_\+by\+\_\+pid()}}.
 
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{redis_8c_af0bf1bfc99afc940619371e3c76ab4f9_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{redis_8c_af0bf1bfc99afc940619371e3c76ab4f9_icgraph}
+\end{center}
+\end{figure}
 \Hypertarget{redis_8c_a1f6dc2f98a71a88567fe11fd9e2585ea}\label{redis_8c_a1f6dc2f98a71a88567fe11fd9e2585ea} 
 \index{redis.c@{redis.c}!init\_context@{init\_context}}
 \index{init\_context@{init\_context}!redis.c@{redis.c}}
@@ -161,17 +217,35 @@ Referenced by \mbox{\hyperlink{redis_8c_source_l00179}{remove\+\_\+by\+\_\+pid()
 
 initialize the context for the Redis DB 
 
-\begin{DoxyReturn}{Returns}
+This function is marked as internal and should not be used by the user \begin{DoxyReturn}{Returns}
 1 if initialization was successful or the database was already initialized, 0 on failure 
 \end{DoxyReturn}
 
 
-Definition at line \mbox{\hyperlink{redis_8c_source_l00040}{40}} of file \mbox{\hyperlink{redis_8c_source}{redis.\+c}}.
+Definition at line \mbox{\hyperlink{redis_8c_source_l00072}{72}} of file \mbox{\hyperlink{redis_8c_source}{redis.\+c}}.
 
 
 
-Referenced by \mbox{\hyperlink{user__db_8c_source_l00014}{register\+\_\+user()}}.
+References \mbox{\hyperlink{redis_8c_source_l00034}{context}}, \mbox{\hyperlink{redis_8c_source_l00027}{PORT}}, and \mbox{\hyperlink{print__utils_8c_source_l00079}{print\+\_\+err()}}.
 
+
+
+Referenced by \mbox{\hyperlink{user__db_8c_source_l00015}{register\+\_\+user()}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=235pt]{redis_8c_a1f6dc2f98a71a88567fe11fd9e2585ea_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=256pt]{redis_8c_a1f6dc2f98a71a88567fe11fd9e2585ea_icgraph}
+\end{center}
+\end{figure}
 \Hypertarget{redis_8c_ac9878ee09b53700eb08c1f175873c30b}\label{redis_8c_ac9878ee09b53700eb08c1f175873c30b} 
 \index{redis.c@{redis.c}!insert@{insert}}
 \index{insert@{insert}!redis.c@{redis.c}}
@@ -182,27 +256,48 @@ Referenced by \mbox{\hyperlink{user__db_8c_source_l00014}{register\+\_\+user()}}
 
 Insert a new user in the DB. 
 
-
+This function is marked as internal and should not be used by the user 
 \begin{DoxyParams}{Parameters}
 {\em qm\+\_\+user\texorpdfstring{$\ast$}{*}} & A pointer to the allocated qm\+\_\+user\texorpdfstring{$\ast$}{*} struct \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-1 if successful, 0 otherwise 
+1 if successful, 0 otherwise. An error might be printen by \doxylink{print__utils_8c_a650ab060ffe5dbc6c1a968a9cae3bded}{print\+\_\+err()} function, 
 \end{DoxyReturn}
+\begin{DoxySeeAlso}{See also}
+\doxylink{print__utils_8c_a650ab060ffe5dbc6c1a968a9cae3bded}{print\+\_\+err} 
+\end{DoxySeeAlso}
 \begin{DoxyNote}{Note}
 The user will be set 2 times, once with key user-\/\texorpdfstring{$>$}{>}pid and once with key user-\/\texorpdfstring{$>$}{>}name 
 
-If an error is thrown it will be printed by print\+\_\+err() function 
+If an error is thrown it will be printed by \doxylink{print__utils_8c_a650ab060ffe5dbc6c1a968a9cae3bded}{print\+\_\+err()} function 
 \end{DoxyNote}
 
 
-Definition at line \mbox{\hyperlink{redis_8c_source_l00139}{139}} of file \mbox{\hyperlink{redis_8c_source}{redis.\+c}}.
+Definition at line \mbox{\hyperlink{redis_8c_source_l00211}{211}} of file \mbox{\hyperlink{redis_8c_source}{redis.\+c}}.
 
 
 
-Referenced by \mbox{\hyperlink{user__db_8c_source_l00014}{register\+\_\+user()}}.
+References \mbox{\hyperlink{redis_8c_source_l00034}{context}}, \mbox{\hyperlink{common_8h_source_l00058}{qm\+\_\+user\+::pid}}, \mbox{\hyperlink{print__utils_8c_source_l00079}{print\+\_\+err()}}, \mbox{\hyperlink{print__utils_8c_source_l00101}{print\+\_\+msg()}}, and \mbox{\hyperlink{common_8h_source_l00059}{qm\+\_\+user\+::user}}.
 
+
+
+Referenced by \mbox{\hyperlink{user__db_8c_source_l00015}{register\+\_\+user()}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=216pt]{redis_8c_ac9878ee09b53700eb08c1f175873c30b_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=230pt]{redis_8c_ac9878ee09b53700eb08c1f175873c30b_icgraph}
+\end{center}
+\end{figure}
 \Hypertarget{redis_8c_a8e6e1687d6351741ac3e353d23425f71}\label{redis_8c_a8e6e1687d6351741ac3e353d23425f71} 
 \index{redis.c@{redis.c}!json\_to\_qm\_user@{json\_to\_qm\_user}}
 \index{json\_to\_qm\_user@{json\_to\_qm\_user}!redis.c@{redis.c}}
@@ -213,7 +308,7 @@ Referenced by \mbox{\hyperlink{user__db_8c_source_l00014}{register\+\_\+user()}}
 
 Internal function to simplify the casting of a json to a \doxylink{structqm__user}{qm\+\_\+user} struct. 
 
-
+This function is marked as internal and should not be used by the user 
 \begin{DoxyParams}{Parameters}
 {\em char} & \texorpdfstring{$\ast$}{*}json the json string representing the \doxylink{structqm__user}{qm\+\_\+user} struct \\
 \hline
@@ -223,12 +318,30 @@ qm\+\_\+user\texorpdfstring{$\ast$}{*} A pointer to the allocated qm\+\_\+user\t
 \end{DoxyReturn}
 
 
-Definition at line \mbox{\hyperlink{redis_8c_source_l00066}{66}} of file \mbox{\hyperlink{redis_8c_source}{redis.\+c}}.
+Definition at line \mbox{\hyperlink{redis_8c_source_l00104}{104}} of file \mbox{\hyperlink{redis_8c_source}{redis.\+c}}.
 
 
 
-Referenced by \mbox{\hyperlink{redis_8c_source_l00109}{get\+\_\+user\+\_\+by\+\_\+name()}}, and \mbox{\hyperlink{redis_8c_source_l00081}{get\+\_\+user\+\_\+by\+\_\+pid()}}.
+References \mbox{\hyperlink{print__utils_8c_source_l00101}{print\+\_\+msg()}}.
 
+
+
+Referenced by \mbox{\hyperlink{redis_8c_source_l00165}{get\+\_\+user\+\_\+by\+\_\+name()}}, and \mbox{\hyperlink{redis_8c_source_l00122}{get\+\_\+user\+\_\+by\+\_\+pid()}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=266pt]{redis_8c_a8e6e1687d6351741ac3e353d23425f71_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{redis_8c_a8e6e1687d6351741ac3e353d23425f71_icgraph}
+\end{center}
+\end{figure}
 \Hypertarget{redis_8c_a7b5eb746d92734b57a71ce552363283d}\label{redis_8c_a7b5eb746d92734b57a71ce552363283d} 
 \index{redis.c@{redis.c}!print\_all\_keys@{print\_all\_keys}}
 \index{print\_all\_keys@{print\_all\_keys}!redis.c@{redis.c}}
@@ -239,17 +352,35 @@ Referenced by \mbox{\hyperlink{redis_8c_source_l00109}{get\+\_\+user\+\_\+by\+\_
 
 For debugging only. Prints all the keys in the database. 
 
-\begin{DoxyReturn}{Returns}
+This function is marked as internal and should not be used by the user \begin{DoxyReturn}{Returns}
 void 
 \end{DoxyReturn}
 
 
-Definition at line \mbox{\hyperlink{redis_8c_source_l00021}{21}} of file \mbox{\hyperlink{redis_8c_source}{redis.\+c}}.
+Definition at line \mbox{\hyperlink{redis_8c_source_l00042}{42}} of file \mbox{\hyperlink{redis_8c_source}{redis.\+c}}.
 
 
 
-Referenced by \mbox{\hyperlink{user__db_8c_source_l00014}{register\+\_\+user()}}, and \mbox{\hyperlink{user__db_8c_source_l00029}{unregister\+\_\+user()}}.
+References \mbox{\hyperlink{redis_8c_source_l00034}{context}}, and \mbox{\hyperlink{print__utils_8c_source_l00101}{print\+\_\+msg()}}.
 
+
+
+Referenced by \mbox{\hyperlink{user__db_8c_source_l00015}{register\+\_\+user()}}, and \mbox{\hyperlink{user__db_8c_source_l00031}{unregister\+\_\+user()}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=252pt]{redis_8c_a7b5eb746d92734b57a71ce552363283d_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=276pt]{redis_8c_a7b5eb746d92734b57a71ce552363283d_icgraph}
+\end{center}
+\end{figure}
 \Hypertarget{redis_8c_a6b18d7ad2f1e8275106a5b39c0c7d216}\label{redis_8c_a6b18d7ad2f1e8275106a5b39c0c7d216} 
 \index{redis.c@{redis.c}!remove\_by\_pid@{remove\_by\_pid}}
 \index{remove\_by\_pid@{remove\_by\_pid}!redis.c@{redis.c}}
@@ -260,31 +391,48 @@ Referenced by \mbox{\hyperlink{user__db_8c_source_l00014}{register\+\_\+user()}}
 
 Remove a user from the DB using the PID as key. 
 
-
+This function is marked as internal and should not be used by the user 
 \begin{DoxyParams}{Parameters}
 {\em pid\+\_\+t} & pid The key \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-1 if successful, 0 otherwise 
+1 if successful, 0 otherwise. An error might be printen by \doxylink{print__utils_8c_a650ab060ffe5dbc6c1a968a9cae3bded}{print\+\_\+err()} function, 
 \end{DoxyReturn}
+\begin{DoxySeeAlso}{See also}
+\doxylink{print__utils_8c_a650ab060ffe5dbc6c1a968a9cae3bded}{print\+\_\+err} 
+\end{DoxySeeAlso}
 \begin{DoxyNote}{Note}
 Will also remove the corresponding entry by name. 
 
-If an error is thrown it will be printed using the print\+\_\+err() function 
+If an error is thrown it will be printed using the \doxylink{print__utils_8c_a650ab060ffe5dbc6c1a968a9cae3bded}{print\+\_\+err()} function 
 \end{DoxyNote}
 
 
-Definition at line \mbox{\hyperlink{redis_8c_source_l00179}{179}} of file \mbox{\hyperlink{redis_8c_source}{redis.\+c}}.
+Definition at line \mbox{\hyperlink{redis_8c_source_l00256}{256}} of file \mbox{\hyperlink{redis_8c_source}{redis.\+c}}.
 
 
 
-References \mbox{\hyperlink{redis_8c_source_l00081}{get\+\_\+user\+\_\+by\+\_\+pid()}}.
+References \mbox{\hyperlink{redis_8c_source_l00034}{context}}, \mbox{\hyperlink{redis_8c_source_l00122}{get\+\_\+user\+\_\+by\+\_\+pid()}}, \mbox{\hyperlink{print__utils_8c_source_l00079}{print\+\_\+err()}}, \mbox{\hyperlink{print__utils_8c_source_l00101}{print\+\_\+msg()}}, and \mbox{\hyperlink{common_8h_source_l00059}{qm\+\_\+user\+::user}}.
 
 
 
-Referenced by \mbox{\hyperlink{user__db_8c_source_l00029}{unregister\+\_\+user()}}.
+Referenced by \mbox{\hyperlink{user__db_8c_source_l00031}{unregister\+\_\+user()}}.
 
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{redis_8c_a6b18d7ad2f1e8275106a5b39c0c7d216_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=282pt]{redis_8c_a6b18d7ad2f1e8275106a5b39c0c7d216_icgraph}
+\end{center}
+\end{figure}
 \Hypertarget{redis_8c_a2678c0575f2b6c944fd261255aeaebff}\label{redis_8c_a2678c0575f2b6c944fd261255aeaebff} 
 \index{redis.c@{redis.c}!remove\_by\_user@{remove\_by\_user}}
 \index{remove\_by\_user@{remove\_by\_user}!redis.c@{redis.c}}
@@ -295,39 +443,57 @@ Referenced by \mbox{\hyperlink{user__db_8c_source_l00029}{unregister\+\_\+user()
 
 Remove a user from the DB using the name as key. 
 
-
+This function is marked as internal and should not be used by the user 
 \begin{DoxyParams}{Parameters}
 {\em char} & \texorpdfstring{$\ast$}{*}name The key \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-1 if successful, 0 otherwise 
+1 if successful, 0 otherwise. An error might be printen by \doxylink{print__utils_8c_a650ab060ffe5dbc6c1a968a9cae3bded}{print\+\_\+err()} function, 
 \end{DoxyReturn}
+\begin{DoxySeeAlso}{See also}
+\doxylink{print__utils_8c_a650ab060ffe5dbc6c1a968a9cae3bded}{print\+\_\+err} 
+\end{DoxySeeAlso}
 \begin{DoxyNote}{Note}
 Will also remove the corresponding entry by PID 
 
-If an error is thrown it will be printed using the print\+\_\+err() function 
+If an error is thrown it will be printed using the \doxylink{print__utils_8c_a650ab060ffe5dbc6c1a968a9cae3bded}{print\+\_\+err()} function 
 \end{DoxyNote}
 
 
-Definition at line \mbox{\hyperlink{redis_8c_source_l00208}{208}} of file \mbox{\hyperlink{redis_8c_source}{redis.\+c}}.
+Definition at line \mbox{\hyperlink{redis_8c_source_l00292}{292}} of file \mbox{\hyperlink{redis_8c_source}{redis.\+c}}.
 
 
 
-References \mbox{\hyperlink{redis_8c_source_l00109}{get\+\_\+user\+\_\+by\+\_\+name()}}.
+References \mbox{\hyperlink{redis_8c_source_l00034}{context}}, \mbox{\hyperlink{redis_8c_source_l00165}{get\+\_\+user\+\_\+by\+\_\+name()}}, \mbox{\hyperlink{common_8h_source_l00058}{qm\+\_\+user\+::pid}}, and \mbox{\hyperlink{print__utils_8c_source_l00079}{print\+\_\+err()}}.
 
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{redis_8c_a2678c0575f2b6c944fd261255aeaebff_cgraph}
+\end{center}
+\end{figure}
 
 
 \doxysubsection{Variable Documentation}
-\Hypertarget{redis_8c_ace869d36dc1b4de4b6d046c0c71486cb}\label{redis_8c_ace869d36dc1b4de4b6d046c0c71486cb} 
+\Hypertarget{redis_8c_a71ea645922f3e5dcc69b644656c79a99}\label{redis_8c_a71ea645922f3e5dcc69b644656c79a99} 
 \index{redis.c@{redis.c}!context@{context}}
 \index{context@{context}!redis.c@{redis.c}}
 \doxysubsubsection{\texorpdfstring{context}{context}}
-{\footnotesize\ttfamily redis\+Context\texorpdfstring{$\ast$}{*} context}
+{\footnotesize\ttfamily redis\+Context \texorpdfstring{$\ast$}{*} context}
 
 
 
-Definition at line \mbox{\hyperlink{redis_8c_source_l00015}{15}} of file \mbox{\hyperlink{redis_8c_source}{redis.\+c}}.
+Pointer to the context of Redis DB. 
+
+This variable is marked as internal and should not be used by the user 
+
+Definition at line \mbox{\hyperlink{redis_8c_source_l00034}{34}} of file \mbox{\hyperlink{redis_8c_source}{redis.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{redis_8c_source_l00092}{free\+\_\+context()}}, \mbox{\hyperlink{redis_8c_source_l00165}{get\+\_\+user\+\_\+by\+\_\+name()}}, \mbox{\hyperlink{redis_8c_source_l00122}{get\+\_\+user\+\_\+by\+\_\+pid()}}, \mbox{\hyperlink{redis_8c_source_l00072}{init\+\_\+context()}}, \mbox{\hyperlink{redis_8c_source_l00211}{insert()}}, \mbox{\hyperlink{redis_8c_source_l00042}{print\+\_\+all\+\_\+keys()}}, \mbox{\hyperlink{redis_8c_source_l00256}{remove\+\_\+by\+\_\+pid()}}, and \mbox{\hyperlink{redis_8c_source_l00292}{remove\+\_\+by\+\_\+user()}}.
 
 \Hypertarget{redis_8c_a0cc05631b755191d8d1c64c74c77894b}\label{redis_8c_a0cc05631b755191d8d1c64c74c77894b} 
 \index{redis.c@{redis.c}!HOST@{HOST}}
@@ -337,5 +503,5 @@ Definition at line \mbox{\hyperlink{redis_8c_source_l00015}{15}} of file \mbox{\
 
 
 
-Definition at line \mbox{\hyperlink{redis_8c_source_l00012}{12}} of file \mbox{\hyperlink{redis_8c_source}{redis.\+c}}.
+Definition at line \mbox{\hyperlink{redis_8c_source_l00020}{20}} of file \mbox{\hyperlink{redis_8c_source}{redis.\+c}}.
 

@@ -96,7 +96,7 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <a class="code hl_function" href="print__utils_8c.html#a491dc14c94ed8cf706bb54880c50b2d0">print_msg</a>(<span class="stringliteral">&quot;Starting handler for incoming messages&quot;</span>);</div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <span class="keywordtype">void</span> *tmp_struct;</div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <span class="keywordflow">while</span> (1) {</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        tmp_struct = dequeue(*(mqd_t *) queue_id, &amp;qmt);</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        tmp_struct = <a class="code hl_function" href="queue_8c.html#a1874b6e320d1e54d571c89766d046602">dequeue</a>(*(mqd_t *) queue_id, &amp;qmt);</div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        <span class="keywordflow">switch</span> (qmt) {</div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>            <span class="keywordflow">case</span> USER:</div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>                <a class="code hl_function" href="print__utils_8c.html#a491dc14c94ed8cf706bb54880c50b2d0">print_msg</a>(<span class="stringliteral">&quot;Handling user message&quot;</span>);</div>
@@ -131,13 +131,13 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    <span class="keywordtype">char</span> s2[] = <span class="stringliteral">&quot;pubkey&quot;</span>;</div>
 <div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
 <div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    <span class="keyword">struct </span><a class="code hl_struct" href="structqm__user.html">qm_user</a> test_msg;</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    test_msg.user_op = REGISTER;</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    test_msg.<a class="code hl_variable" href="structqm__user.html#a4b5bbaaf885c62f44f265eeba461303d">user_op</a> = REGISTER;</div>
 <div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    test_msg.pid = 104;</div>
 <div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    test_msg.user = s1;</div>
 <div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    test_msg.pubkey = s2;</div>
 <div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
 <div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    <a class="code hl_function" href="print__utils_8c.html#a491dc14c94ed8cf706bb54880c50b2d0">print_msg</a>(<span class="stringliteral">&quot;Enqueueing test registration...&quot;</span>);</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    <span class="keywordtype">int</span> res = enqueue(*(mqd_t *)queue_id, USER, (<span class="keywordtype">void</span> *)&amp;test_msg);</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    <span class="keywordtype">int</span> res = <a class="code hl_function" href="queue_8c.html#ac51f5d595a9d7376eb0448116c99e1f4">enqueue</a>(*(mqd_t *)queue_id, USER, (<span class="keywordtype">void</span> *)&amp;test_msg);</div>
 <div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    <a class="code hl_function" href="print__utils_8c.html#a491dc14c94ed8cf706bb54880c50b2d0">print_msg</a>(<span class="stringliteral">&quot;TEST message send with result %d&quot;</span>, res);</div>
 <div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
 <div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    <span class="keywordflow">if</span> (res != 1){</div>
@@ -145,7 +145,7 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    }</div>
 <div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span> </div>
 <div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    <span class="keyword">struct </span><a class="code hl_struct" href="structqm__user.html">qm_user</a> test_msg2;</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    test_msg2.user_op = UNREGISTER;</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    test_msg2.<a class="code hl_variable" href="structqm__user.html#a4b5bbaaf885c62f44f265eeba461303d">user_op</a> = UNREGISTER;</div>
 <div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    test_msg2.pid = 104;</div>
 <div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    test_msg2.user = <span class="stringliteral">&quot;&quot;</span>;</div>
 <div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    test_msg2.pubkey = <span class="stringliteral">&quot;&quot;</span>;</div>
@@ -153,7 +153,7 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    sleep(3);</div>
 <div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
 <div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    <a class="code hl_function" href="print__utils_8c.html#a491dc14c94ed8cf706bb54880c50b2d0">print_msg</a>(<span class="stringliteral">&quot;Enqueueing test remove...&quot;</span>);</div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    res = enqueue(*(mqd_t *)queue_id, USER, (<span class="keywordtype">void</span> *)&amp;test_msg2);</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    res = <a class="code hl_function" href="queue_8c.html#ac51f5d595a9d7376eb0448116c99e1f4">enqueue</a>(*(mqd_t *)queue_id, USER, (<span class="keywordtype">void</span> *)&amp;test_msg2);</div>
 <div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    <a class="code hl_function" href="print__utils_8c.html#a491dc14c94ed8cf706bb54880c50b2d0">print_msg</a>(<span class="stringliteral">&quot;TEST message send with result %d&quot;</span>, res);</div>
 <div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
 <div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    <span class="keywordflow">if</span> (res != 1){</div>
@@ -179,15 +179,18 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span><span class="comment">    remove_empty_queue(*(int *)queue_id);</span></div>
 <div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span><span class="comment">    return NULL;</span></div>
 <div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span><span class="comment">}*/</span></div>
-<div class="ttc" id="aprint__utils_8c_html_a491dc14c94ed8cf706bb54880c50b2d0"><div class="ttname"><a href="print__utils_8c.html#a491dc14c94ed8cf706bb54880c50b2d0">print_msg</a></div><div class="ttdeci">void print_msg(const char *format,...)</div><div class="ttdoc">Format and print data as a message.</div><div class="ttdef"><b>Definition</b> <a href="print__utils_8c_source.html#l00089">print_utils.c:89</a></div></div>
-<div class="ttc" id="aprint__utils_8c_html_a650ab060ffe5dbc6c1a968a9cae3bded"><div class="ttname"><a href="print__utils_8c.html#a650ab060ffe5dbc6c1a968a9cae3bded">print_err</a></div><div class="ttdeci">void print_err(const char *format,...)</div><div class="ttdoc">Format and print data as an error.</div><div class="ttdef"><b>Definition</b> <a href="print__utils_8c_source.html#l00069">print_utils.c:69</a></div></div>
-<div class="ttc" id="astructqm__broad_html"><div class="ttname"><a href="structqm__broad.html">qm_broad</a></div><div class="ttdef"><b>Definition</b> <a href="common_8h_source.html#l00040">common.h:40</a></div></div>
-<div class="ttc" id="astructqm__shared_html"><div class="ttname"><a href="structqm__shared.html">qm_shared</a></div><div class="ttdef"><b>Definition</b> <a href="common_8h_source.html#l00034">common.h:34</a></div></div>
-<div class="ttc" id="astructqm__user_html"><div class="ttname"><a href="structqm__user.html">qm_user</a></div><div class="ttdef"><b>Definition</b> <a href="common_8h_source.html#l00027">common.h:27</a></div></div>
+<div class="ttc" id="aprint__utils_8c_html_a491dc14c94ed8cf706bb54880c50b2d0"><div class="ttname"><a href="print__utils_8c.html#a491dc14c94ed8cf706bb54880c50b2d0">print_msg</a></div><div class="ttdeci">void print_msg(const char *format,...)</div><div class="ttdoc">Format and print data as a message.</div><div class="ttdef"><b>Definition</b> <a href="print__utils_8c_source.html#l00101">print_utils.c:101</a></div></div>
+<div class="ttc" id="aprint__utils_8c_html_a650ab060ffe5dbc6c1a968a9cae3bded"><div class="ttname"><a href="print__utils_8c.html#a650ab060ffe5dbc6c1a968a9cae3bded">print_err</a></div><div class="ttdeci">void print_err(const char *format,...)</div><div class="ttdoc">Format and print data as an error.</div><div class="ttdef"><b>Definition</b> <a href="print__utils_8c_source.html#l00079">print_utils.c:79</a></div></div>
+<div class="ttc" id="aqueue_8c_html_a1874b6e320d1e54d571c89766d046602"><div class="ttname"><a href="queue_8c.html#a1874b6e320d1e54d571c89766d046602">dequeue</a></div><div class="ttdeci">void * dequeue(mqd_t queue_d, qm_type *qmt)</div><div class="ttdoc">Dequeue a message from the queue and get is as a void* pointing to a structure that will be either   ...</div><div class="ttdef"><b>Definition</b> <a href="queue_8c_source.html#l00095">queue.c:95</a></div></div>
+<div class="ttc" id="aqueue_8c_html_ac51f5d595a9d7376eb0448116c99e1f4"><div class="ttname"><a href="queue_8c.html#ac51f5d595a9d7376eb0448116c99e1f4">enqueue</a></div><div class="ttdeci">int enqueue(mqd_t queue_d, qm_type qmt, void *q_mess)</div><div class="ttdoc">Enqueues a message void* message on the queue.</div><div class="ttdef"><b>Definition</b> <a href="queue_8c_source.html#l00067">queue.c:67</a></div></div>
+<div class="ttc" id="astructqm__broad_html"><div class="ttname"><a href="structqm__broad.html">qm_broad</a></div><div class="ttdoc">Represents a broadcast message. Contains the data that is broadcasted to all users.</div><div class="ttdef"><b>Definition</b> <a href="common_8h_source.html#l00081">common.h:81</a></div></div>
+<div class="ttc" id="astructqm__shared_html"><div class="ttname"><a href="structqm__shared.html">qm_shared</a></div><div class="ttdoc">Represents a shared message.  Contains information about the file descriptor ti which the TCFS module...</div><div class="ttdef"><b>Definition</b> <a href="common_8h_source.html#l00070">common.h:70</a></div></div>
+<div class="ttc" id="astructqm__user_html"><div class="ttname"><a href="structqm__user.html">qm_user</a></div><div class="ttdoc">Represents a user message.  Contains information about the user's operation, process ID,...</div><div class="ttdef"><b>Definition</b> <a href="common_8h_source.html#l00056">common.h:56</a></div></div>
+<div class="ttc" id="astructqm__user_html_a4b5bbaaf885c62f44f265eeba461303d"><div class="ttname"><a href="structqm__user.html#a4b5bbaaf885c62f44f265eeba461303d">qm_user::user_op</a></div><div class="ttdeci">user_operation user_op</div><div class="ttdef"><b>Definition</b> <a href="common_8h_source.html#l00057">common.h:57</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Nov 27 2023 17:03:19 for TCFS by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated on Tue Nov 28 2023 12:06:42 for TCFS by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

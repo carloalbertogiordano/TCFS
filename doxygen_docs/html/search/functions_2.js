@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['main_0',['main',['../tcfs__daemon_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4',1,'tcfs_daemon.c']]]
+  ['free_5fcontext_0',['free_context',['../redis_8c.html#ae19d8c90888a6ed078d6e835bb11e67a',1,'redis.c']]]
 ];

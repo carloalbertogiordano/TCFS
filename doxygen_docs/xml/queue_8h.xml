@@ -3,8 +3,8 @@
   <compounddef id="queue_8h" kind="file" language="C++">
     <compoundname>queue.h</compoundname>
     <includes refid="common_8h" local="yes">../common.h</includes>
-    <includes refid="print__utils_8h" local="yes">../common_utils/print/print_utils.h</includes>
     <includes refid="json__tools_8h" local="yes">../common_utils/json/json_tools.h</includes>
+    <includes refid="print__utils_8h" local="yes">../common_utils/print/print_utils.h</includes>
     <includes local="no">stdio.h</includes>
     <includes local="no">stdlib.h</includes>
     <includedby refid="user__db_8h" local="yes">daemon/daemon_utils/common_utils/db/user_db.h</includedby>
@@ -29,24 +29,24 @@
         <childnode refid="9" relation="include">
         </childnode>
       </node>
-      <node id="14">
+      <node id="10">
         <label>../common_utils/json/json_tools.h</label>
         <link refid="json__tools_8h_source"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="10">
+      <node id="11">
         <label>../common_utils/print/print_utils.h</label>
         <link refid="print__utils_8h_source"/>
-        <childnode refid="11" relation="include">
-        </childnode>
         <childnode refid="9" relation="include">
         </childnode>
         <childnode refid="12" relation="include">
         </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
         <childnode refid="3" relation="include">
         </childnode>
-        <childnode refid="13" relation="include">
+        <childnode refid="14" relation="include">
         </childnode>
       </node>
       <node id="1">
@@ -56,7 +56,7 @@
         </childnode>
         <childnode refid="10" relation="include">
         </childnode>
-        <childnode refid="14" relation="include">
+        <childnode refid="11" relation="include">
         </childnode>
         <childnode refid="12" relation="include">
         </childnode>
@@ -87,7 +87,7 @@
       <node id="4">
         <label>sys/types.h</label>
       </node>
-      <node id="11">
+      <node id="14">
         <label>systemd/sd-journal.h</label>
       </node>
       <node id="7">
@@ -121,11 +121,11 @@
       </node>
       <node id="4">
         <label>daemon/daemon_utils/message_handler/message_handler.c</label>
-        <link refid="message__handler_8c_source"/>
+        <link refid="message__handler_8c"/>
       </node>
       <node id="8">
         <label>daemon/daemon_utils/queue/queue.c</label>
-        <link refid="queue_8c_source"/>
+        <link refid="queue_8c"/>
       </node>
       <node id="1">
         <label>daemon/daemon_utils/queue/queue.h</label>
@@ -142,30 +142,6 @@
         <link refid="tcfs__daemon_8c"/>
       </node>
     </invincdepgraph>
-    <sectiondef kind="define">
-      <memberdef kind="define" id="queue_8h_1a69e73620bd8f14313137ac04cf571477" prot="public" static="no">
-        <name>MESSAGE_BUFFER_SIZE</name>
-        <initializer>256</initializer>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="daemon/daemon_utils/queue/queue.h" line="7" column="9" bodyfile="daemon/daemon_utils/queue/queue.h" bodystart="7" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="define" id="queue_8h_1a5872868a041bf1b9e1a266271c317876" prot="public" static="no">
-        <name>MQUEUE_N</name>
-        <initializer>3;</initializer>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="daemon/daemon_utils/queue/queue.h" line="8" column="9" bodyfile="daemon/daemon_utils/queue/queue.h" bodystart="8" bodyend="-1"/>
-      </memberdef>
-    </sectiondef>
     <sectiondef kind="func">
       <memberdef kind="function" id="queue_8h_1a6997b2cacf3d2e49bc848d0274e24b13" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>mqd_t</type>
@@ -177,12 +153,29 @@
           <declname>queue</declname>
         </param>
         <briefdescription>
+<para>Initialize the message queue. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>char</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>*queue the path of the queue file </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>mqd_t Message queue descriptor </para>
+</simplesect>
+<xrefsect id="todo_1_todo000004"><xreftitle>Todo</xreftitle><xrefdescription><para>Define permissions for mq_open </para>
+</xrefdescription></xrefsect></para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="daemon/daemon_utils/queue/queue.h" line="12" column="7" bodyfile="daemon/daemon_utils/queue/queue.c" bodystart="3" bodyend="24" declfile="daemon/daemon_utils/queue/queue.h" declline="12" declcolumn="7"/>
+        <location file="daemon/daemon_utils/queue/queue.h" line="7" column="7" bodyfile="daemon/daemon_utils/queue/queue.c" bodystart="27" bodyend="52" declfile="daemon/daemon_utils/queue/queue.h" declline="7" declcolumn="7"/>
+        <references refid="print__utils_8c_1a650ab060ffe5dbc6c1a968a9cae3bded" compoundref="print__utils_8c" startline="79" endline="91">print_err</references>
+        <references refid="print__utils_8c_1a491dc14c94ed8cf706bb54880c50b2d0" compoundref="print__utils_8c" startline="101" endline="112">print_msg</references>
+        <referencedby refid="tcfs__daemon_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="tcfs__daemon_8c" startline="56" endline="150">main</referencedby>
       </memberdef>
       <memberdef kind="function" id="queue_8h_1ac51f5d595a9d7376eb0448116c99e1f4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -202,12 +195,59 @@
           <declname>q_mess</declname>
         </param>
         <briefdescription>
+<para>Enqueues a message void* message on the queue. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>mqd_t</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>q_mess Message queue descriptor type </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>qm_type</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>qmt enum describing the type of the message. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="see"><para>qm_type </para>
+</simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>void</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>*q_mess Actual message, this must be either <linebreak/>
+<ref refid="structqm__user" kindref="compound">qm_user</ref> </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="see"><para><ref refid="structqm__user" kindref="compound">qm_user</ref> <linebreak/>
+<ref refid="structqm__shared" kindref="compound">qm_shared</ref> </para>
+</simplesect>
+<simplesect kind="see"><para><ref refid="structqm__shared" kindref="compound">qm_shared</ref> <linebreak/>
+<ref refid="structqm__broad" kindref="compound">qm_broad</ref> </para>
+</simplesect>
+<simplesect kind="see"><para><ref refid="structqm__broad" kindref="compound">qm_broad</ref> </para>
+</simplesect>
+<simplesect kind="return"><para>1 if successful, 0 otherwise. An error might be printen by <ref refid="print__utils_8c_1a650ab060ffe5dbc6c1a968a9cae3bded" kindref="member">print_err()</ref> function, </para>
+</simplesect>
+<simplesect kind="see"><para><ref refid="print__utils_8c_1a650ab060ffe5dbc6c1a968a9cae3bded" kindref="member">print_err</ref> </para>
+</simplesect>
+<simplesect kind="note"><para>The structure representing the message will be casted to a json and then it will be enqueued </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="daemon/daemon_utils/queue/queue.h" line="13" column="5" bodyfile="daemon/daemon_utils/queue/queue.c" bodystart="25" bodyend="38" declfile="daemon/daemon_utils/queue/queue.h" declline="13" declcolumn="5"/>
+        <location file="daemon/daemon_utils/queue/queue.h" line="8" column="5" bodyfile="daemon/daemon_utils/queue/queue.c" bodystart="67" bodyend="80" declfile="daemon/daemon_utils/queue/queue.h" declline="8" declcolumn="5"/>
+        <references refid="print__utils_8c_1a650ab060ffe5dbc6c1a968a9cae3bded" compoundref="print__utils_8c" startline="79" endline="91">print_err</references>
+        <references refid="print__utils_8c_1a491dc14c94ed8cf706bb54880c50b2d0" compoundref="print__utils_8c" startline="101" endline="112">print_msg</references>
       </memberdef>
       <memberdef kind="function" id="queue_8h_1a1874b6e320d1e54d571c89766d046602" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void *</type>
@@ -223,12 +263,47 @@
           <declname>qmt</declname>
         </param>
         <briefdescription>
+<para>Dequeue a message from the queue and get is as a void* pointing to a structure that will be either <linebreak/>
+ <ref refid="structqm__user" kindref="compound">qm_user</ref>. </para>
         </briefdescription>
         <detaileddescription>
+<para><simplesect kind="see"><para><ref refid="structqm__user" kindref="compound">qm_user</ref> <linebreak/>
+ <ref refid="structqm__shared" kindref="compound">qm_shared</ref> </para>
+</simplesect>
+<simplesect kind="see"><para><ref refid="structqm__shared" kindref="compound">qm_shared</ref> <linebreak/>
+ <ref refid="structqm__broad" kindref="compound">qm_broad</ref> </para>
+</simplesect>
+<simplesect kind="see"><para><ref refid="structqm__broad" kindref="compound">qm_broad</ref> <linebreak/>
+ qm_type *qmt will be set to the corresponding type. You can yse this value to cast the returned value back to a structure </para>
+</simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>mqd_t</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>queue_d Message queue descriptor type </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>qm_type</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>*qmt Pointer to a struct indicating the type of the returned parameter </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="see"><para>qm_type </para>
+</simplesect>
+<simplesect kind="return"><para>A pointer to a structure containing the structured message data. If an error occurs NULL is returned </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="daemon/daemon_utils/queue/queue.h" line="14" column="6" bodyfile="daemon/daemon_utils/queue/queue.c" bodystart="39" bodyend="55" declfile="daemon/daemon_utils/queue/queue.h" declline="14" declcolumn="6"/>
+        <location file="daemon/daemon_utils/queue/queue.h" line="9" column="6" bodyfile="daemon/daemon_utils/queue/queue.c" bodystart="95" bodyend="111" declfile="daemon/daemon_utils/queue/queue.h" declline="9" declcolumn="6"/>
+        <references refid="print__utils_8c_1a650ab060ffe5dbc6c1a968a9cae3bded" compoundref="print__utils_8c" startline="79" endline="91">print_err</references>
+        <references refid="print__utils_8c_1a491dc14c94ed8cf706bb54880c50b2d0" compoundref="print__utils_8c" startline="101" endline="112">print_msg</references>
       </memberdef>
     </sectiondef>
     <briefdescription>
@@ -237,19 +312,14 @@
     </detaileddescription>
     <programlisting>
 <codeline lineno="1"><highlight class="preprocessor">#include<sp/>&quot;../common.h&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;../common_utils/print/print_utils.h&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;../common_utils/json/json_tools.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;../common_utils/json/json_tools.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;../common_utils/print/print_utils.h&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdio.h&gt;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdlib.h&gt;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="6"><highlight class="normal"></highlight></codeline>
-<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>MESSAGE_BUFFER_SIZE<sp/>256</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>MQUEUE_N<sp/>3;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="9"><highlight class="normal"></highlight></codeline>
-<codeline lineno="10"><highlight class="normal"></highlight></codeline>
-<codeline lineno="11"><highlight class="normal"></highlight></codeline>
-<codeline lineno="12"><highlight class="normal">mqd_t<sp/>init_queue(</highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*queue);</highlight></codeline>
-<codeline lineno="13"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>enqueue(mqd_t<sp/>queue_d,<sp/>qm_type<sp/>qmt,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*q_mess);</highlight></codeline>
-<codeline lineno="14"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*dequeue(mqd_t<sp/>queue_d,<sp/>qm_type<sp/>*qmt);</highlight></codeline>
+<codeline lineno="7"><highlight class="normal">mqd_t<sp/><ref refid="queue_8c_1a6997b2cacf3d2e49bc848d0274e24b13" kindref="member">init_queue</ref><sp/>(</highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*queue);</highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="queue_8c_1ac51f5d595a9d7376eb0448116c99e1f4" kindref="member">enqueue</ref><sp/>(mqd_t<sp/>queue_d,<sp/>qm_type<sp/>qmt,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*q_mess);</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*<ref refid="queue_8c_1a1874b6e320d1e54d571c89766d046602" kindref="member">dequeue</ref><sp/>(mqd_t<sp/>queue_d,<sp/>qm_type<sp/>*qmt);</highlight></codeline>
     </programlisting>
     <location file="daemon/daemon_utils/queue/queue.h"/>
   </compounddef>

@@ -16,7 +16,7 @@
 <anchor xml:id="_tcfs__daemon__tools_8c_source_1l00024"/>00024 &#32;&#32;&#32;&#32;<link linkend="_print__utils_8c_1a491dc14c94ed8cf706bb54880c50b2d0">print_msg</link>(<emphasis role="stringliteral">&quot;Starting&#32;handler&#32;for&#32;incoming&#32;messages&quot;</emphasis>);
 <anchor xml:id="_tcfs__daemon__tools_8c_source_1l00025"/>00025 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">void</emphasis>&#32;*tmp_struct;
 <anchor xml:id="_tcfs__daemon__tools_8c_source_1l00026"/>00026 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">while</emphasis>&#32;(1)&#32;{
-<anchor xml:id="_tcfs__daemon__tools_8c_source_1l00027"/>00027 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;tmp_struct&#32;=&#32;dequeue(*(mqd_t&#32;*)&#32;queue_id,&#32;&amp;qmt);
+<anchor xml:id="_tcfs__daemon__tools_8c_source_1l00027"/>00027 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;tmp_struct&#32;=&#32;<link linkend="_queue_8c_1a1874b6e320d1e54d571c89766d046602">dequeue</link>(*(mqd_t&#32;*)&#32;queue_id,&#32;&amp;qmt);
 <anchor xml:id="_tcfs__daemon__tools_8c_source_1l00028"/>00028 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">switch</emphasis>&#32;(qmt)&#32;{
 <anchor xml:id="_tcfs__daemon__tools_8c_source_1l00029"/>00029 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">case</emphasis>&#32;USER:
 <anchor xml:id="_tcfs__daemon__tools_8c_source_1l00030"/>00030 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_print__utils_8c_1a491dc14c94ed8cf706bb54880c50b2d0">print_msg</link>(<emphasis role="stringliteral">&quot;Handling&#32;user&#32;message&quot;</emphasis>);
@@ -51,13 +51,13 @@
 <anchor xml:id="_tcfs__daemon__tools_8c_source_1l00066"/>00066 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">char</emphasis>&#32;s2[]&#32;=&#32;<emphasis role="stringliteral">&quot;pubkey&quot;</emphasis>;
 <anchor xml:id="_tcfs__daemon__tools_8c_source_1l00067"/>00067 
 <anchor xml:id="_tcfs__daemon__tools_8c_source_1l00068"/>00068 &#32;&#32;&#32;&#32;<emphasis role="keyword">struct&#32;</emphasis><link linkend="_structqm__user">qm_user</link>&#32;test_msg;
-<anchor xml:id="_tcfs__daemon__tools_8c_source_1l00069"/>00069 &#32;&#32;&#32;&#32;test_msg.user_op&#32;=&#32;REGISTER;
+<anchor xml:id="_tcfs__daemon__tools_8c_source_1l00069"/>00069 &#32;&#32;&#32;&#32;test_msg.<link linkend="_structqm__user_1a4b5bbaaf885c62f44f265eeba461303d">user_op</link>&#32;=&#32;REGISTER;
 <anchor xml:id="_tcfs__daemon__tools_8c_source_1l00070"/>00070 &#32;&#32;&#32;&#32;test_msg.pid&#32;=&#32;104;
 <anchor xml:id="_tcfs__daemon__tools_8c_source_1l00071"/>00071 &#32;&#32;&#32;&#32;test_msg.user&#32;=&#32;s1;
 <anchor xml:id="_tcfs__daemon__tools_8c_source_1l00072"/>00072 &#32;&#32;&#32;&#32;test_msg.pubkey&#32;=&#32;s2;
 <anchor xml:id="_tcfs__daemon__tools_8c_source_1l00073"/>00073 
 <anchor xml:id="_tcfs__daemon__tools_8c_source_1l00074"/>00074 &#32;&#32;&#32;&#32;<link linkend="_print__utils_8c_1a491dc14c94ed8cf706bb54880c50b2d0">print_msg</link>(<emphasis role="stringliteral">&quot;Enqueueing&#32;test&#32;registration...&quot;</emphasis>);
-<anchor xml:id="_tcfs__daemon__tools_8c_source_1l00075"/>00075 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;res&#32;=&#32;enqueue(*(mqd_t&#32;*)queue_id,&#32;USER,&#32;(<emphasis role="keywordtype">void</emphasis>&#32;*)&amp;test_msg);
+<anchor xml:id="_tcfs__daemon__tools_8c_source_1l00075"/>00075 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;res&#32;=&#32;<link linkend="_queue_8c_1ac51f5d595a9d7376eb0448116c99e1f4">enqueue</link>(*(mqd_t&#32;*)queue_id,&#32;USER,&#32;(<emphasis role="keywordtype">void</emphasis>&#32;*)&amp;test_msg);
 <anchor xml:id="_tcfs__daemon__tools_8c_source_1l00076"/>00076 &#32;&#32;&#32;&#32;<link linkend="_print__utils_8c_1a491dc14c94ed8cf706bb54880c50b2d0">print_msg</link>(<emphasis role="stringliteral">&quot;TEST&#32;message&#32;send&#32;with&#32;result&#32;%d&quot;</emphasis>,&#32;res);
 <anchor xml:id="_tcfs__daemon__tools_8c_source_1l00077"/>00077 
 <anchor xml:id="_tcfs__daemon__tools_8c_source_1l00078"/>00078 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(res&#32;!=&#32;1){
@@ -65,7 +65,7 @@
 <anchor xml:id="_tcfs__daemon__tools_8c_source_1l00080"/>00080 &#32;&#32;&#32;&#32;}
 <anchor xml:id="_tcfs__daemon__tools_8c_source_1l00081"/>00081 
 <anchor xml:id="_tcfs__daemon__tools_8c_source_1l00082"/>00082 &#32;&#32;&#32;&#32;<emphasis role="keyword">struct&#32;</emphasis><link linkend="_structqm__user">qm_user</link>&#32;test_msg2;
-<anchor xml:id="_tcfs__daemon__tools_8c_source_1l00083"/>00083 &#32;&#32;&#32;&#32;test_msg2.user_op&#32;=&#32;UNREGISTER;
+<anchor xml:id="_tcfs__daemon__tools_8c_source_1l00083"/>00083 &#32;&#32;&#32;&#32;test_msg2.<link linkend="_structqm__user_1a4b5bbaaf885c62f44f265eeba461303d">user_op</link>&#32;=&#32;UNREGISTER;
 <anchor xml:id="_tcfs__daemon__tools_8c_source_1l00084"/>00084 &#32;&#32;&#32;&#32;test_msg2.pid&#32;=&#32;104;
 <anchor xml:id="_tcfs__daemon__tools_8c_source_1l00085"/>00085 &#32;&#32;&#32;&#32;test_msg2.user&#32;=&#32;<emphasis role="stringliteral">&quot;&quot;</emphasis>;
 <anchor xml:id="_tcfs__daemon__tools_8c_source_1l00086"/>00086 &#32;&#32;&#32;&#32;test_msg2.pubkey&#32;=&#32;<emphasis role="stringliteral">&quot;&quot;</emphasis>;
@@ -73,7 +73,7 @@
 <anchor xml:id="_tcfs__daemon__tools_8c_source_1l00088"/>00088 &#32;&#32;&#32;&#32;sleep(3);
 <anchor xml:id="_tcfs__daemon__tools_8c_source_1l00089"/>00089 
 <anchor xml:id="_tcfs__daemon__tools_8c_source_1l00090"/>00090 &#32;&#32;&#32;&#32;<link linkend="_print__utils_8c_1a491dc14c94ed8cf706bb54880c50b2d0">print_msg</link>(<emphasis role="stringliteral">&quot;Enqueueing&#32;test&#32;remove...&quot;</emphasis>);
-<anchor xml:id="_tcfs__daemon__tools_8c_source_1l00091"/>00091 &#32;&#32;&#32;&#32;res&#32;=&#32;enqueue(*(mqd_t&#32;*)queue_id,&#32;USER,&#32;(<emphasis role="keywordtype">void</emphasis>&#32;*)&amp;test_msg2);
+<anchor xml:id="_tcfs__daemon__tools_8c_source_1l00091"/>00091 &#32;&#32;&#32;&#32;res&#32;=&#32;<link linkend="_queue_8c_1ac51f5d595a9d7376eb0448116c99e1f4">enqueue</link>(*(mqd_t&#32;*)queue_id,&#32;USER,&#32;(<emphasis role="keywordtype">void</emphasis>&#32;*)&amp;test_msg2);
 <anchor xml:id="_tcfs__daemon__tools_8c_source_1l00092"/>00092 &#32;&#32;&#32;&#32;<link linkend="_print__utils_8c_1a491dc14c94ed8cf706bb54880c50b2d0">print_msg</link>(<emphasis role="stringliteral">&quot;TEST&#32;message&#32;send&#32;with&#32;result&#32;%d&quot;</emphasis>,&#32;res);
 <anchor xml:id="_tcfs__daemon__tools_8c_source_1l00093"/>00093 
 <anchor xml:id="_tcfs__daemon__tools_8c_source_1l00094"/>00094 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(res&#32;!=&#32;1){

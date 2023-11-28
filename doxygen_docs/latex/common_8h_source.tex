@@ -10,41 +10,41 @@
 \DoxyCodeLine{\Hypertarget{common_8h_source_l00006}00006\ \textcolor{preprocessor}{\#include\ <string.h>}}
 \DoxyCodeLine{\Hypertarget{common_8h_source_l00007}00007\ \textcolor{preprocessor}{\#include\ <errno.h>}}
 \DoxyCodeLine{\Hypertarget{common_8h_source_l00008}00008\ }
-\DoxyCodeLine{\Hypertarget{common_8h_source_l00009}00009\ \textcolor{preprocessor}{\#define\ MAX\_QM\_SIZE\ 512\ }\textcolor{comment}{//Max\ size\ of\ a\ message}}
-\DoxyCodeLine{\Hypertarget{common_8h_source_l00010}00010\ \textcolor{preprocessor}{\#define\ MAX\_QM\_N\ 100\ }\textcolor{comment}{//Max\ number\ of\ messages\ that\ can\ be\ enqueued}}
-\DoxyCodeLine{\Hypertarget{common_8h_source_l00011}00011\ }
-\DoxyCodeLine{\Hypertarget{common_8h_source_l00012}00012\ \textcolor{preprocessor}{\#ifndef\ QUEUE\_STRUCTS}}
-\DoxyCodeLine{\Hypertarget{common_8h_source_l00013}00013\ \textcolor{preprocessor}{\#define\ QUEUE\_STRUCTS}}
-\DoxyCodeLine{\Hypertarget{common_8h_source_l00014}00014\ }
-\DoxyCodeLine{\Hypertarget{common_8h_source_l00015}00015\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ qm\_type\{}
-\DoxyCodeLine{\Hypertarget{common_8h_source_l00016}00016\ \ \ \ \ USER\ =\ 0,}
-\DoxyCodeLine{\Hypertarget{common_8h_source_l00017}00017\ \ \ \ \ SHARED\ =\ 1,}
-\DoxyCodeLine{\Hypertarget{common_8h_source_l00018}00018\ \ \ \ \ BROADCAST\ =\ 2,}
-\DoxyCodeLine{\Hypertarget{common_8h_source_l00019}00019\ \ \ \ \ QM\_TYPE\_UNDEFINED\ =\ -\/1,}
-\DoxyCodeLine{\Hypertarget{common_8h_source_l00020}00020\ \}\ qm\_type;}
+\DoxyCodeLine{\Hypertarget{common_8h_source_l00014}00014\ \textcolor{preprocessor}{\#define\ MAX\_QM\_SIZE\ 512}}
+\DoxyCodeLine{\Hypertarget{common_8h_source_l00020}00020\ \textcolor{preprocessor}{\#define\ MAX\_QM\_N\ 100}}
 \DoxyCodeLine{\Hypertarget{common_8h_source_l00021}00021\ }
-\DoxyCodeLine{\Hypertarget{common_8h_source_l00022}00022\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ user\_operation\{}
-\DoxyCodeLine{\Hypertarget{common_8h_source_l00023}00023\ \ \ \ \ REGISTER\ =\ 0,}
-\DoxyCodeLine{\Hypertarget{common_8h_source_l00024}00024\ \ \ \ \ UNREGISTER\ =\ 1,}
-\DoxyCodeLine{\Hypertarget{common_8h_source_l00025}00025\ \}\ user\_operation;}
-\DoxyCodeLine{\Hypertarget{common_8h_source_l00026}00026\ }
-\DoxyCodeLine{\Hypertarget{common_8h_source_l00027}\mbox{\hyperlink{structqm__user}{00027}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structqm__user}{qm\_user}}\ \{}
-\DoxyCodeLine{\Hypertarget{common_8h_source_l00028}00028\ \ \ \ \ user\_operation\ user\_op;}
-\DoxyCodeLine{\Hypertarget{common_8h_source_l00029}00029\ \ \ \ \ pid\_t\ pid;}
-\DoxyCodeLine{\Hypertarget{common_8h_source_l00030}00030\ \ \ \ \ \textcolor{keywordtype}{char}\ *user;}
-\DoxyCodeLine{\Hypertarget{common_8h_source_l00031}00031\ \ \ \ \ \textcolor{keywordtype}{char}\ *pubkey;}
-\DoxyCodeLine{\Hypertarget{common_8h_source_l00032}00032\ \}\ \mbox{\hyperlink{structqm__user}{qm\_user}};}
-\DoxyCodeLine{\Hypertarget{common_8h_source_l00033}00033\ }
-\DoxyCodeLine{\Hypertarget{common_8h_source_l00034}\mbox{\hyperlink{structqm__shared}{00034}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structqm__shared}{qm\_shared}}\ \{}
-\DoxyCodeLine{\Hypertarget{common_8h_source_l00035}00035\ \ \ \ \ \textcolor{keywordtype}{int}\ fd;}
-\DoxyCodeLine{\Hypertarget{common_8h_source_l00036}00036\ \ \ \ \ \textcolor{keywordtype}{char}\ **userlist;}
-\DoxyCodeLine{\Hypertarget{common_8h_source_l00037}00037\ \ \ \ \ \textcolor{keywordtype}{char}\ *keypart;}
-\DoxyCodeLine{\Hypertarget{common_8h_source_l00038}00038\ \}\ \mbox{\hyperlink{structqm__shared}{qm\_shared}};}
+\DoxyCodeLine{\Hypertarget{common_8h_source_l00022}00022\ \textcolor{preprocessor}{\#ifndef\ QUEUE\_STRUCTS}}
+\DoxyCodeLine{\Hypertarget{common_8h_source_l00023}00023\ \textcolor{preprocessor}{\#define\ QUEUE\_STRUCTS}}
+\DoxyCodeLine{\Hypertarget{common_8h_source_l00024}00024\ }
+\DoxyCodeLine{\Hypertarget{common_8h_source_l00033}00033\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ qm\_type\{}
+\DoxyCodeLine{\Hypertarget{common_8h_source_l00034}00034\ \ \ \ \ USER\ =\ 0,\ }
+\DoxyCodeLine{\Hypertarget{common_8h_source_l00035}00035\ \ \ \ \ SHARED\ =\ 1,\ }
+\DoxyCodeLine{\Hypertarget{common_8h_source_l00036}00036\ \ \ \ \ BROADCAST\ =\ 2,\ }
+\DoxyCodeLine{\Hypertarget{common_8h_source_l00037}00037\ \ \ \ \ QM\_TYPE\_UNDEFINED\ =\ -\/1,\ }
+\DoxyCodeLine{\Hypertarget{common_8h_source_l00038}00038\ \}\ qm\_type;}
 \DoxyCodeLine{\Hypertarget{common_8h_source_l00039}00039\ }
-\DoxyCodeLine{\Hypertarget{common_8h_source_l00040}\mbox{\hyperlink{structqm__broad}{00040}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structqm__broad}{qm\_broad}}\ \{}
-\DoxyCodeLine{\Hypertarget{common_8h_source_l00041}00041\ \ \ \ \ \textcolor{keywordtype}{char}\ *data;}
-\DoxyCodeLine{\Hypertarget{common_8h_source_l00042}00042\ \}\ \mbox{\hyperlink{structqm__broad}{qm\_broad}};}
-\DoxyCodeLine{\Hypertarget{common_8h_source_l00043}00043\ }
-\DoxyCodeLine{\Hypertarget{common_8h_source_l00044}00044\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{common_8h_source_l00046}00046\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ user\_operation\{}
+\DoxyCodeLine{\Hypertarget{common_8h_source_l00047}00047\ \ \ \ \ REGISTER\ =\ 0,\ }
+\DoxyCodeLine{\Hypertarget{common_8h_source_l00048}00048\ \ \ \ \ UNREGISTER\ =\ 1,\ }
+\DoxyCodeLine{\Hypertarget{common_8h_source_l00049}00049\ \}\ user\_operation;}
+\DoxyCodeLine{\Hypertarget{common_8h_source_l00050}00050\ }
+\DoxyCodeLine{\Hypertarget{common_8h_source_l00056}\mbox{\hyperlink{structqm__user}{00056}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structqm__user}{qm\_user}}\ \{}
+\DoxyCodeLine{\Hypertarget{common_8h_source_l00057}\mbox{\hyperlink{structqm__user_a4b5bbaaf885c62f44f265eeba461303d}{00057}}\ \ \ \ \ user\_operation\ \mbox{\hyperlink{structqm__user_a4b5bbaaf885c62f44f265eeba461303d}{user\_op}};\ }
+\DoxyCodeLine{\Hypertarget{common_8h_source_l00058}\mbox{\hyperlink{structqm__user_aa69546c3a6a2124be9f964329c951a84}{00058}}\ \ \ \ \ pid\_t\ \mbox{\hyperlink{structqm__user_aa69546c3a6a2124be9f964329c951a84}{pid}};\ }
+\DoxyCodeLine{\Hypertarget{common_8h_source_l00059}\mbox{\hyperlink{structqm__user_a6c52d68724b65831ba6d95f3d7448ff4}{00059}}\ \ \ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structqm__user_a6c52d68724b65831ba6d95f3d7448ff4}{user}};\ }
+\DoxyCodeLine{\Hypertarget{common_8h_source_l00060}\mbox{\hyperlink{structqm__user_ad718cfba201afae89c596111bd508d5f}{00060}}\ \ \ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structqm__user_ad718cfba201afae89c596111bd508d5f}{pubkey}};\ }
+\DoxyCodeLine{\Hypertarget{common_8h_source_l00061}00061\ \}\ \mbox{\hyperlink{structqm__user}{qm\_user}};}
+\DoxyCodeLine{\Hypertarget{common_8h_source_l00062}00062\ }
+\DoxyCodeLine{\Hypertarget{common_8h_source_l00070}\mbox{\hyperlink{structqm__shared}{00070}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structqm__shared}{qm\_shared}}\ \{}
+\DoxyCodeLine{\Hypertarget{common_8h_source_l00071}\mbox{\hyperlink{structqm__shared_ac6ce7156e06279b3194acb24e4face96}{00071}}\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structqm__shared_ac6ce7156e06279b3194acb24e4face96}{fd}};\ }
+\DoxyCodeLine{\Hypertarget{common_8h_source_l00072}\mbox{\hyperlink{structqm__shared_af2a26858d769e4a816d0567b51ce0ed5}{00072}}\ \ \ \ \ \textcolor{keywordtype}{char}\ **\mbox{\hyperlink{structqm__shared_af2a26858d769e4a816d0567b51ce0ed5}{userlist}};\ }
+\DoxyCodeLine{\Hypertarget{common_8h_source_l00073}\mbox{\hyperlink{structqm__shared_afef3f8b7e15af861010c6e0d66de659e}{00073}}\ \ \ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structqm__shared_afef3f8b7e15af861010c6e0d66de659e}{keypart}};\ }
+\DoxyCodeLine{\Hypertarget{common_8h_source_l00074}00074\ \}\ \mbox{\hyperlink{structqm__shared}{qm\_shared}};}
+\DoxyCodeLine{\Hypertarget{common_8h_source_l00075}00075\ }
+\DoxyCodeLine{\Hypertarget{common_8h_source_l00081}\mbox{\hyperlink{structqm__broad}{00081}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structqm__broad}{qm\_broad}}\ \{}
+\DoxyCodeLine{\Hypertarget{common_8h_source_l00082}\mbox{\hyperlink{structqm__broad_a59096b6c11d45cf9addecfb629b55978}{00082}}\ \ \ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structqm__broad_a59096b6c11d45cf9addecfb629b55978}{data}};\ }
+\DoxyCodeLine{\Hypertarget{common_8h_source_l00083}00083\ \}\ \mbox{\hyperlink{structqm__broad}{qm\_broad}};}
+\DoxyCodeLine{\Hypertarget{common_8h_source_l00084}00084\ }
+\DoxyCodeLine{\Hypertarget{common_8h_source_l00085}00085\ \textcolor{preprocessor}{\#endif}}
 
 \end{DoxyCode}

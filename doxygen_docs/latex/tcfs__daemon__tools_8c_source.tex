@@ -16,7 +16,7 @@
 \DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00024}00024\ \ \ \ \ \mbox{\hyperlink{print__utils_8c_a491dc14c94ed8cf706bb54880c50b2d0}{print\_msg}}(\textcolor{stringliteral}{"{}Starting\ handler\ for\ incoming\ messages"{}});}
 \DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00025}00025\ \ \ \ \ \textcolor{keywordtype}{void}\ *tmp\_struct;}
 \DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00026}00026\ \ \ \ \ \textcolor{keywordflow}{while}\ (1)\ \{}
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00027}00027\ \ \ \ \ \ \ \ \ tmp\_struct\ =\ dequeue(*(mqd\_t\ *)\ queue\_id,\ \&qmt);}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00027}00027\ \ \ \ \ \ \ \ \ tmp\_struct\ =\ \mbox{\hyperlink{queue_8c_a1874b6e320d1e54d571c89766d046602}{dequeue}}(*(mqd\_t\ *)\ queue\_id,\ \&qmt);}
 \DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00028}00028\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}\ (qmt)\ \{}
 \DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00029}00029\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ USER:}
 \DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00030}00030\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{print__utils_8c_a491dc14c94ed8cf706bb54880c50b2d0}{print\_msg}}(\textcolor{stringliteral}{"{}Handling\ user\ message"{}});}
@@ -51,13 +51,13 @@
 \DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00066}00066\ \ \ \ \ \textcolor{keywordtype}{char}\ s2[]\ =\ \textcolor{stringliteral}{"{}pubkey"{}};}
 \DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00067}00067\ }
 \DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00068}00068\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structqm__user}{qm\_user}}\ test\_msg;}
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00069}00069\ \ \ \ \ test\_msg.user\_op\ =\ REGISTER;}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00069}00069\ \ \ \ \ test\_msg.\mbox{\hyperlink{structqm__user_a4b5bbaaf885c62f44f265eeba461303d}{user\_op}}\ =\ REGISTER;}
 \DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00070}00070\ \ \ \ \ test\_msg.pid\ =\ 104;}
 \DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00071}00071\ \ \ \ \ test\_msg.user\ =\ s1;}
 \DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00072}00072\ \ \ \ \ test\_msg.pubkey\ =\ s2;}
 \DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00073}00073\ }
 \DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00074}00074\ \ \ \ \ \mbox{\hyperlink{print__utils_8c_a491dc14c94ed8cf706bb54880c50b2d0}{print\_msg}}(\textcolor{stringliteral}{"{}Enqueueing\ test\ registration..."{}});}
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00075}00075\ \ \ \ \ \textcolor{keywordtype}{int}\ res\ =\ enqueue(*(mqd\_t\ *)queue\_id,\ USER,\ (\textcolor{keywordtype}{void}\ *)\&test\_msg);}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00075}00075\ \ \ \ \ \textcolor{keywordtype}{int}\ res\ =\ \mbox{\hyperlink{queue_8c_ac51f5d595a9d7376eb0448116c99e1f4}{enqueue}}(*(mqd\_t\ *)queue\_id,\ USER,\ (\textcolor{keywordtype}{void}\ *)\&test\_msg);}
 \DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00076}00076\ \ \ \ \ \mbox{\hyperlink{print__utils_8c_a491dc14c94ed8cf706bb54880c50b2d0}{print\_msg}}(\textcolor{stringliteral}{"{}TEST\ message\ send\ with\ result\ \%d"{}},\ res);}
 \DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00077}00077\ }
 \DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00078}00078\ \ \ \ \ \textcolor{keywordflow}{if}\ (res\ !=\ 1)\{}
@@ -65,7 +65,7 @@
 \DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00080}00080\ \ \ \ \ \}}
 \DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00081}00081\ }
 \DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00082}00082\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structqm__user}{qm\_user}}\ test\_msg2;}
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00083}00083\ \ \ \ \ test\_msg2.user\_op\ =\ UNREGISTER;}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00083}00083\ \ \ \ \ test\_msg2.\mbox{\hyperlink{structqm__user_a4b5bbaaf885c62f44f265eeba461303d}{user\_op}}\ =\ UNREGISTER;}
 \DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00084}00084\ \ \ \ \ test\_msg2.pid\ =\ 104;}
 \DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00085}00085\ \ \ \ \ test\_msg2.user\ =\ \textcolor{stringliteral}{"{}"{}};}
 \DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00086}00086\ \ \ \ \ test\_msg2.pubkey\ =\ \textcolor{stringliteral}{"{}"{}};}
@@ -73,7 +73,7 @@
 \DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00088}00088\ \ \ \ \ sleep(3);}
 \DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00089}00089\ }
 \DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00090}00090\ \ \ \ \ \mbox{\hyperlink{print__utils_8c_a491dc14c94ed8cf706bb54880c50b2d0}{print\_msg}}(\textcolor{stringliteral}{"{}Enqueueing\ test\ remove..."{}});}
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00091}00091\ \ \ \ \ res\ =\ enqueue(*(mqd\_t\ *)queue\_id,\ USER,\ (\textcolor{keywordtype}{void}\ *)\&test\_msg2);}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00091}00091\ \ \ \ \ res\ =\ \mbox{\hyperlink{queue_8c_ac51f5d595a9d7376eb0448116c99e1f4}{enqueue}}(*(mqd\_t\ *)queue\_id,\ USER,\ (\textcolor{keywordtype}{void}\ *)\&test\_msg2);}
 \DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00092}00092\ \ \ \ \ \mbox{\hyperlink{print__utils_8c_a491dc14c94ed8cf706bb54880c50b2d0}{print\_msg}}(\textcolor{stringliteral}{"{}TEST\ message\ send\ with\ result\ \%d"{}},\ res);}
 \DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00093}00093\ }
 \DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00094}00094\ \ \ \ \ \textcolor{keywordflow}{if}\ (res\ !=\ 1)\{}

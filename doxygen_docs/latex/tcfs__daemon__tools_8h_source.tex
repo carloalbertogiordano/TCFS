@@ -2,25 +2,25 @@
 \hypertarget{tcfs__daemon__tools_8h_source}{}\label{tcfs__daemon__tools_8h_source}\index{daemon/daemon\_utils/daemon\_tools/tcfs\_daemon\_tools.h@{daemon/daemon\_utils/daemon\_tools/tcfs\_daemon\_tools.h}}
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8h_source_l00001}00001\ \textcolor{preprocessor}{\#include\ <stdlib.h>}}
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8h_source_l00002}00002\ \textcolor{preprocessor}{\#include\ <unistd.h>}}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8h_source_l00001}00001\ \textcolor{preprocessor}{\#include\ "{}../message\_handler/message\_handler.h"{}}}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8h_source_l00002}00002\ \textcolor{preprocessor}{\#include\ "{}../queue/queue.h"{}}}
 \DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8h_source_l00003}00003\ \textcolor{preprocessor}{\#include\ <fcntl.h>}}
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8h_source_l00004}00004\ \textcolor{preprocessor}{\#include\ <stdbool.h>}}
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8h_source_l00005}00005\ \textcolor{preprocessor}{\#include\ <sys/socket.h>}}
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8h_source_l00006}00006\ \textcolor{preprocessor}{\#include\ <sys/un.h>}}
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8h_source_l00007}00007\ \textcolor{preprocessor}{\#include\ <sys/stat.h>}}
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8h_source_l00008}00008\ \textcolor{preprocessor}{\#include\ <pthread.h>}}
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8h_source_l00009}00009\ \textcolor{preprocessor}{\#include\ <signal.h>}}
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8h_source_l00010}00010\ \textcolor{preprocessor}{\#include\ "{}../queue/queue.h"{}}}
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8h_source_l00011}00011\ \textcolor{preprocessor}{\#include\ "{}../message\_handler/message\_handler.h"{}}}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8h_source_l00004}00004\ \textcolor{preprocessor}{\#include\ <pthread.h>}}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8h_source_l00005}00005\ \textcolor{preprocessor}{\#include\ <signal.h>}}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8h_source_l00006}00006\ \textcolor{preprocessor}{\#include\ <stdbool.h>}}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8h_source_l00007}00007\ \textcolor{preprocessor}{\#include\ <stdlib.h>}}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8h_source_l00008}00008\ \textcolor{preprocessor}{\#include\ <sys/socket.h>}}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8h_source_l00009}00009\ \textcolor{preprocessor}{\#include\ <sys/stat.h>}}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8h_source_l00010}00010\ \textcolor{preprocessor}{\#include\ <sys/un.h>}}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8h_source_l00011}00011\ \textcolor{preprocessor}{\#include\ <unistd.h>}}
 \DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8h_source_l00012}00012\ }
 \DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8h_source_l00013}00013\ \textcolor{comment}{//\ Condition\ variable\ \&\ mutex}}
 \DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8h_source_l00014}00014\ \textcolor{keyword}{extern}\ \textcolor{keyword}{volatile}\ \textcolor{keywordtype}{int}\ terminate;}
 \DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8h_source_l00015}00015\ \textcolor{keyword}{extern}\ pthread\_mutex\_t\ terminate\_mutex;}
 \DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8h_source_l00016}00016\ }
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8h_source_l00017}00017\ \textcolor{keywordtype}{void}\ *handle\_incoming\_messages(\textcolor{keywordtype}{void}\ *queue\_id);}
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8h_source_l00018}00018\ \textcolor{keywordtype}{void}\ *handle\_outgoing\_messages(\textcolor{keywordtype}{void}\ *queue\_id);}
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8h_source_l00019}00019\ \textcolor{keywordtype}{void}\ *monitor\_termination(\textcolor{keywordtype}{void}\ *queue\_id);}
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8h_source_l00020}00020\ \textcolor{keywordtype}{void}\ cleanup\_threads(pthread\_t\ thread1,\ pthread\_t\ thread2);}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8h_source_l00017}00017\ \textcolor{keywordtype}{void}\ *handle\_incoming\_messages\ (\textcolor{keywordtype}{void}\ *queue\_id);}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8h_source_l00018}00018\ \textcolor{keywordtype}{void}\ *handle\_outgoing\_messages\ (\textcolor{keywordtype}{void}\ *queue\_id);}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8h_source_l00019}00019\ \textcolor{keywordtype}{void}\ *monitor\_termination\ (\textcolor{keywordtype}{void}\ *queue\_id);}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8h_source_l00020}00020\ \textcolor{keywordtype}{void}\ cleanup\_threads\ (pthread\_t\ thread1,\ pthread\_t\ thread2);}
 
 \end{DoxyCode}

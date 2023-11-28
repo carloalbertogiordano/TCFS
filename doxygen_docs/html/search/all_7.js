@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['license_0',['License',['../md_README.html#autotoc_md10',1,'']]],
-  ['list_1',['Todo List',['../todo.html',1,'']]]
+  ['handle_5ftermination_0',['handle_termination',['../tcfs__daemon_8c.html#a93d1097e4dd3c0735da3da2e89410090',1,'tcfs_daemon.c']]],
+  ['helper_20program_1',['Build and run the helper program',['../md_README.html#autotoc_md9',1,'']]]
 ];

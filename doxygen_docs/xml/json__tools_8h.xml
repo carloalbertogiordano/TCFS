@@ -56,7 +56,7 @@
     <invincdepgraph>
       <node id="2">
         <label>daemon/daemon_utils/common_utils/db/redis.c</label>
-        <link refid="redis_8c_source"/>
+        <link refid="redis_8c"/>
       </node>
       <node id="6">
         <label>daemon/daemon_utils/common_utils/db/user_db.c</label>
@@ -94,11 +94,11 @@
       </node>
       <node id="3">
         <label>daemon/daemon_utils/message_handler/message_handler.c</label>
-        <link refid="message__handler_8c_source"/>
+        <link refid="message__handler_8c"/>
       </node>
       <node id="10">
         <label>daemon/daemon_utils/queue/queue.c</label>
-        <link refid="queue_8c_source"/>
+        <link refid="queue_8c"/>
       </node>
       <node id="4">
         <label>daemon/daemon_utils/queue/queue.h</label>
@@ -159,7 +159,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="daemon/daemon_utils/common_utils/json/json_tools.h" line="3" column="19" bodyfile="daemon/daemon_utils/common_utils/json/json_tools.cpp" bodystart="23" bodyend="68" declfile="daemon/daemon_utils/common_utils/json/json_tools.h" declline="3" declcolumn="19"/>
+        <location file="daemon/daemon_utils/common_utils/json/json_tools.h" line="3" column="19" bodyfile="daemon/daemon_utils/common_utils/json/json_tools.cpp" bodystart="27" bodyend="79" declfile="daemon/daemon_utils/common_utils/json/json_tools.h" declline="3" declcolumn="19"/>
       </memberdef>
       <memberdef kind="function" id="json__tools_8h_1a513edf914a6a6141c7892d193d0c1f52" prot="public" static="no" extern="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void *</type>
@@ -205,7 +205,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="daemon/daemon_utils/common_utils/json/json_tools.h" line="4" column="13" bodyfile="daemon/daemon_utils/common_utils/json/json_tools.cpp" bodystart="78" bodyend="118" declfile="daemon/daemon_utils/common_utils/json/json_tools.h" declline="4" declcolumn="13"/>
+        <location file="daemon/daemon_utils/common_utils/json/json_tools.h" line="4" column="13" bodyfile="daemon/daemon_utils/common_utils/json/json_tools.cpp" bodystart="92" bodyend="150" declfile="daemon/daemon_utils/common_utils/json/json_tools.h" declline="4" declcolumn="13"/>
       </memberdef>
     </sectiondef>
     <briefdescription>
@@ -215,8 +215,8 @@
     <programlisting>
 <codeline lineno="1"><highlight class="preprocessor">#include<sp/>&quot;../../common.h&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="2"><highlight class="normal"></highlight></codeline>
-<codeline lineno="3"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*struct_to_json(qm_type<sp/>qmt,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*q_mess);</highlight></codeline>
-<codeline lineno="4"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal">*<sp/>string_to_struct(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>json_string,<sp/>qm_type*<sp/>type);</highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*struct_to_json<sp/>(qm_type<sp/>qmt,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*q_mess);</highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*string_to_struct<sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*json_string,<sp/>qm_type<sp/>*type);</highlight></codeline>
     </programlisting>
     <location file="daemon/daemon_utils/common_utils/json/json_tools.h"/>
   </compounddef>

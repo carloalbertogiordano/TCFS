@@ -1,4 +1,4 @@
-.TH "daemon/daemon_utils/common_utils/db/user_db.c" 3 "Mon Nov 27 2023 17:03:19" "Version 0.2" "TCFS" \" -*- nroff -*-
+.TH "daemon/daemon_utils/common_utils/db/user_db.c" 3 "Tue Nov 28 2023 12:06:42" "Version 0.2" "TCFS" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -59,9 +59,9 @@ If this fails no errors will be printed and no errno will be set, you are on you
 .PP
 
 .PP
-Definition at line \fB41\fP of file \fBuser_db\&.c\fP\&.
+Definition at line \fB45\fP of file \fBuser_db\&.c\fP\&.
 .PP
-References \fBprint_msg()\fP\&.
+References \fBfree_context()\fP, and \fBprint_msg()\fP\&.
 .SS "int register_user (\fBqm_user\fP * user_msg)"
 
 .PP
@@ -74,14 +74,19 @@ Register or update a user in the db, this relies on the \fBredis\&.c\fP file\&.
 .PP
 \fBReturns\fP
 .RS 4
-1 if successful, 0 otherwise 
+1 if successful, 0 otherwise\&. An error might be printen by \fBprint_err()\fP function, 
+.RE
+.PP
+\fBSee also\fP
+.RS 4
+\fBprint_err\fP 
 .RE
 .PP
 
 .PP
-Definition at line \fB14\fP of file \fBuser_db\&.c\fP\&.
+Definition at line \fB15\fP of file \fBuser_db\&.c\fP\&.
 .PP
-References \fBprint_msg()\fP\&.
+References \fBinit_context()\fP, \fBinsert()\fP, \fBprint_all_keys()\fP, and \fBprint_msg()\fP\&.
 .SS "int unregister_user (pid_t pid)"
 
 .PP
@@ -94,14 +99,19 @@ Remove a user from the DB\&.
 .PP
 \fBReturns\fP
 .RS 4
-1 if successful, 0 otherwise 
+1 if successful, 0 otherwise\&. An error might be printen by \fBprint_err()\fP function, 
+.RE
+.PP
+\fBSee also\fP
+.RS 4
+\fBprint_err\fP 
 .RE
 .PP
 
 .PP
-Definition at line \fB29\fP of file \fBuser_db\&.c\fP\&.
+Definition at line \fB31\fP of file \fBuser_db\&.c\fP\&.
 .PP
-References \fBprint_msg()\fP\&.
+References \fBprint_all_keys()\fP, \fBprint_msg()\fP, and \fBremove_by_pid()\fP\&.
 .SH "Author"
 .PP 
 Generated automatically by Doxygen for TCFS from the source code\&.

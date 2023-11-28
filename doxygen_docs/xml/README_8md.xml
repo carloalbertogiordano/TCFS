@@ -25,7 +25,7 @@
 <codeline><highlight class="normal">bug<sp/>reports,<sp/>or<sp/>contributions<sp/>from<sp/>the<sp/>community<sp/>that<sp/>can<sp/>help<sp/>improve<sp/>the<sp/>project.<sp/></highlight></codeline>
 <codeline><highlight class="normal">If<sp/>you<sp/>decide<sp/>to<sp/>use<sp/>this<sp/>software,<sp/>please<sp/>**don&apos;t<sp/>do<sp/>it**.</highlight></codeline>
 <codeline><highlight class="normal">Thank<sp/>you<sp/>for<sp/>your<sp/>interest<sp/>and<sp/>understanding<sp/>as<sp/>we<sp/>work<sp/>to<sp/>improve<sp/>the<sp/>project<sp/>and<sp/>make<sp/></highlight></codeline>
-<codeline><highlight class="normal">it<sp/>stable<sp/>and<sp/>complete.</highlight></codeline>
+<codeline><highlight class="normal">it<sp/>stable<sp/>and<sp/>complete<sp/>:-).</highlight></codeline>
 <codeline></codeline>
 <codeline><highlight class="normal">##<sp/>Features</highlight></codeline>
 <codeline><highlight class="normal">-<sp/>Transparent<sp/>Encryption:<sp/>TCFS<sp/>operates<sp/>silently<sp/>in<sp/>the<sp/>background,<sp/>encrypting<sp/>and<sp/></highlight></codeline>
@@ -39,6 +39,8 @@
 <codeline><highlight class="normal">-<sp/>Transparency:<sp/>No<sp/>modifications<sp/>to<sp/>the<sp/>NFS<sp/>server<sp/>are<sp/>required.</highlight></codeline>
 <codeline></codeline>
 <codeline><highlight class="normal">##<sp/>Getting<sp/>Started</highlight></codeline>
+<codeline><highlight class="normal">###<sp/>Documentation</highlight></codeline>
+<codeline><highlight class="normal">Documentation<sp/>is<sp/>lacking<sp/>but<sp/>it<sp/>can<sp/>be<sp/>found<sp/>[here](https://carloalbertogiordano.github.io/TCFS/)</highlight></codeline>
 <codeline><highlight class="normal">###<sp/>Prerequisites</highlight></codeline>
 <codeline><highlight class="normal">-<sp/>FUSE:<sp/>Ensure<sp/>that<sp/>FUSE<sp/>and<sp/>FUSE-dev<sp/>are<sp/>installed<sp/>on<sp/>your<sp/>system.<sp/>You<sp/>can<sp/>usually<sp/>install<sp/>it<sp/>using</highlight></codeline>
 <codeline><highlight class="normal">your<sp/>system&apos;s<sp/>package<sp/>manager<sp/>(e.g.,<sp/>apt,<sp/>yum,<sp/>dnf,<sp/>ecc).</highlight></codeline>
@@ -50,16 +52,49 @@
 <codeline><highlight class="normal">git<sp/>clone<sp/>https://github.com/carloalbertogiordano/TCFS</highlight></codeline>
 <codeline><highlight class="normal">&lt;/code&gt;</highlight></codeline>
 <codeline><highlight class="normal">&lt;/pre&gt;</highlight></codeline>
-<codeline><highlight class="normal">-<sp/>Compile:<sp/>Run<sp/>the<sp/>Makefile<sp/>in<sp/>the<sp/>userspace-module<sp/>directory<sp/>(Only<sp/>the<sp/>FUSE<sp/>module<sp/>is<sp/>avilable<sp/>at<sp/>the<sp/>moment,<sp/>the<sp/>whole<sp/>project<sp/>has<sp/>not<sp/>been<sp/>implemented<sp/>yet)</highlight></codeline>
+<codeline><highlight class="normal">####<sp/>Build<sp/>and<sp/>run<sp/>the<sp/>userpace<sp/>module</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>Compile:<sp/>Run<sp/>the<sp/>Makefile<sp/>in<sp/>the<sp/>userspace-module<sp/>directory</highlight></codeline>
 <codeline><highlight class="normal">&lt;pre&gt;</highlight></codeline>
 <codeline><highlight class="normal">&lt;code&gt;</highlight></codeline>
 <codeline><highlight class="normal">make<sp/>all</highlight></codeline>
 <codeline><highlight class="normal">&lt;/code&gt;</highlight></codeline>
 <codeline><highlight class="normal">&lt;/pre&gt;</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>Run:<sp/>Run<sp/>the<sp/>compiled<sp/>file.<sp/>NOTE:<sp/>Password<sp/>must<sp/>be<sp/>256<sp/>bit<sp/>or<sp/>32<sp/>bytes<sp/></highlight></codeline>
+<codeline><highlight class="normal">&lt;pre&gt;</highlight></codeline>
+<codeline><highlight class="normal">&lt;code&gt;</highlight></codeline>
+<codeline><highlight class="normal">build/fuse-module/tcfs<sp/>-s<sp/>&quot;source_dir&quot;<sp/>-d<sp/>&quot;dest_dir&quot;<sp/>-p<sp/>&quot;password&quot;</highlight></codeline>
+<codeline><highlight class="normal">&lt;/code&gt;</highlight></codeline>
+<codeline><highlight class="normal">&lt;/pre&gt;</highlight></codeline>
 <codeline></codeline>
-<codeline><highlight class="normal">##<sp/>Usage</highlight></codeline>
+<codeline><highlight class="normal">####<sp/>Build<sp/>and<sp/>run<sp/>the<sp/>daemon</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>Build<sp/>and<sp/>install:<sp/>To<sp/>install<sp/>the<sp/>daemon<sp/>run<sp/>this<sp/>commands<sp/>in<sp/>the<sp/>tcfs_daemon<sp/>directory</highlight></codeline>
+<codeline><highlight class="normal">&lt;pre&gt;</highlight></codeline>
+<codeline><highlight class="normal">&lt;code&gt;</highlight></codeline>
+<codeline><highlight class="normal">make;<sp/>make<sp/>install</highlight></codeline>
+<codeline><highlight class="normal">&lt;/code&gt;</highlight></codeline>
+<codeline><highlight class="normal">&lt;/pre&gt;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">####<sp/>Build<sp/>and<sp/>run<sp/>the<sp/>helper<sp/>program</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>Compile:<sp/>Run<sp/>the<sp/>Makefile<sp/>in<sp/>the<sp/>user<sp/>directory</highlight></codeline>
+<codeline><highlight class="normal">&lt;pre&gt;</highlight></codeline>
+<codeline><highlight class="normal">&lt;code&gt;</highlight></codeline>
+<codeline><highlight class="normal">make</highlight></codeline>
+<codeline><highlight class="normal">&lt;/code&gt;</highlight></codeline>
+<codeline><highlight class="normal">&lt;/pre&gt;</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>Run:<sp/>Run<sp/>the<sp/>compiled<sp/>file</highlight></codeline>
+<codeline><highlight class="normal">&lt;pre&gt;</highlight></codeline>
+<codeline><highlight class="normal">&lt;code&gt;</highlight></codeline>
+<codeline><highlight class="normal">build/tcfs_helper/tcfs_helper</highlight></codeline>
+<codeline><highlight class="normal">&lt;/code&gt;</highlight></codeline>
+<codeline><highlight class="normal">&lt;/pre&gt;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">####<sp/>Kernel<sp/>module</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>This<sp/>part<sp/>of<sp/>the<sp/>project<sp/>is<sp/>not<sp/>being<sp/>developed<sp/>at<sp/>the<sp/>moment.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>Usage<sp/>of<sp/>the<sp/>fuse<sp/>module</highlight></codeline>
+<codeline><highlight class="normal">###<sp/>This<sp/>is<sp/>not<sp/>raccomended,<sp/>consider<sp/>using<sp/>the<sp/>tcfs_helper<sp/>program</highlight></codeline>
 <codeline><highlight class="normal">###<sp/>Mount<sp/>an<sp/>NFS<sp/>share<sp/>using<sp/>TCFS:</highlight></codeline>
-<codeline><highlight class="normal">First,<sp/>mount<sp/>the<sp/>NFS<sp/>share<sp/>to<sp/>a<sp/>directroy,<sp/>this<sp/>directory<sp/>will<sp/>be<sp/>called<sp/>sourcedir.</highlight></codeline>
+<codeline><highlight class="normal">First,<sp/>mount<sp/>the<sp/>NFS<sp/>share<sp/>to<sp/>a<sp/>directory,<sp/>this<sp/>directory<sp/>will<sp/>be<sp/>called<sp/>sourcedir.</highlight></codeline>
 <codeline><highlight class="normal">This<sp/>will<sp/>be<sp/>done<sp/>by<sp/>the<sp/>helper<sp/>program<sp/>in<sp/>a<sp/>future<sp/>release.</highlight></codeline>
 <codeline><highlight class="normal">&lt;pre&gt;</highlight></codeline>
 <codeline><highlight class="normal">&lt;code&gt;</highlight></codeline>
@@ -107,7 +142,12 @@
 <codeline><highlight class="normal"><sp/><sp/>-<sp/>~~Store<sp/>a<sp/>per-file<sp/>key<sp/>in<sp/>the<sp/>extended<sp/>attributes<sp/>and<sp/>use<sp/>the<sp/>user<sp/>key<sp/>to<sp/>decipher<sp/>it.~~</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>-<sp/>Implement<sp/>a<sp/>kernel<sp/>module<sp/>to<sp/>rebuild<sp/>the<sp/>private<sp/>key<sp/>to<sp/>decipher<sp/>the<sp/>files.<sp/>This<sp/>module<sp/>will<sp/>use<sp/>a<sp/>certificate<sp/>and<sp/>your<sp/>key<sp/>to<sp/>rebuild<sp/>the<sp/>private<sp/>key</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>-<sp/>Implement<sp/>key<sp/>recovery.</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>-<sp/>Switch<sp/>to<sp/>public/private<sp/>key</highlight></codeline>
 <codeline><highlight class="normal">-<sp/>Implement<sp/>threshold<sp/>sharing<sp/>files.</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>Daemon:</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>-<sp/>~~Implement<sp/>user<sp/>registration<sp/>and<sp/>deregistration~~</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>-<sp/>Implement<sp/>accessing<sp/>and<sp/>creation<sp/>of<sp/>shared<sp/>files</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>-<sp/>Update<sp/>the<sp/>userspace<sp/>module<sp/>to<sp/>handle<sp/>the<sp/>features<sp/>that<sp/>the<sp/>daemon<sp/>provides<sp/></highlight></codeline>
     </programlisting>
     <location file="README.md"/>
   </compounddef>

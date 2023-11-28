@@ -76,7 +76,7 @@ $(function() {
 <div class="textblock"><p><a class="anchor" id="autotoc_md0"></a>TCFS is a transparent cryptographic filesystem designed to secure files mounted on a Network File System (NFS) server. It is implemented as a FUSE (Filesystem in Userspace) module along with a user-friendly helper program. TCFS ensures that files are encrypted and decrypted seamlessly without requiring user intervention, providing an additional layer of security for sensitive data.</p>
 <h1><a class="anchor" id="autotoc_md1"></a>
 Disclamer</h1>
-<p><b>Note:</b> This project is currently in an early development stage and should be considered as an alpha version. This means there may be many missing features, unresolved bugs, or unexpected behaviors. The project is made available in this phase for testing and evaluation purposes and should not be used in production or for critical purposes. It is not recommended to use this software in sensitive environments or to store important data until a stable and complete version is reached. We appreciate any feedback, bug reports, or contributions from the community that can help improve the project. If you decide to use this software, please <b>don't do it</b>. Thank you for your interest and understanding as we work to improve the project and make it stable and complete.</p>
+<p><b>Note:</b> This project is currently in an early development stage and should be considered as an alpha version. This means there may be many missing features, unresolved bugs, or unexpected behaviors. The project is made available in this phase for testing and evaluation purposes and should not be used in production or for critical purposes. It is not recommended to use this software in sensitive environments or to store important data until a stable and complete version is reached. We appreciate any feedback, bug reports, or contributions from the community that can help improve the project. If you decide to use this software, please <b>don't do it</b>. Thank you for your interest and understanding as we work to improve the project and make it stable and complete :-).</p>
 <h1><a class="anchor" id="autotoc_md2"></a>
 Features</h1>
 <ul>
@@ -88,68 +88,119 @@ Features</h1>
 <h1><a class="anchor" id="autotoc_md3"></a>
 Getting Started</h1>
 <h2><a class="anchor" id="autotoc_md4"></a>
+Documentation</h2>
+<p>Documentation is lacking but it can be found <a href="https://carloalbertogiordano.github.io/TCFS/">here</a> </p>
+<h2><a class="anchor" id="autotoc_md5"></a>
 Prerequisites</h2>
 <ul>
 <li>FUSE: Ensure that FUSE and FUSE-dev are installed on your system. You can usually install it using your system's package manager (e.g., apt, yum, dnf, ecc).</li>
 <li>OpenSSl: Install OpenSSL and its development package. </li>
 </ul>
-<h2><a class="anchor" id="autotoc_md5"></a>
+<h2><a class="anchor" id="autotoc_md6"></a>
 Build</h2>
 <ul>
 <li>Clone the TCFS repository to your local machine: <pre>
 <code>
 git clone <a href="https://github.com/carloalbertogiordano/TCFS">https://github.com/carloalbertogiordano/TCFS</a>
 </code>
-</pre></li>
-<li>Compile: Run the Makefile in the userspace-module directory (Only the FUSE module is avilable at the moment, the whole project has not been implemented yet) <pre>
+</pre> ##</li>
+</ul>
+<h1><a class="anchor" id="autotoc_md7"></a>
+Build and run the userpace module</h1>
+<ul>
+<li>Compile: Run the Makefile in the userspace-module directory <pre>
 <code>
 make all
 </code>
 </pre></li>
+<li>Run: Run the compiled file. NOTE: Password must be 256 bit or 32 bytes <pre>
+<code>
+build/fuse-module/tcfs -s "source_dir" -d "dest_dir" -p "password"
+</code>
+</pre></li>
 </ul>
 <p>#</p>
-<h1><a class="anchor" id="autotoc_md6"></a>
-Usage</h1>
-<h3><a class="anchor" id="autotoc_md7"></a>
-Mount an NFS share using TCFS:</h3>
-<p>First, mount the NFS share to a directroy, this directory will be called sourcedir. This will be done by the helper program in a future release. </p><pre>
+<h2><a class="anchor" id="autotoc_md8"></a>
+Build and run the daemon</h2>
+<ul>
+<li>Build and install: To install the daemon run this commands in the tcfs_daemon directory <pre>
+<code>
+make; make install
+</code>
+</pre></li>
+</ul>
+<p>#</p>
+<h2><a class="anchor" id="autotoc_md9"></a>
+Build and run the helper program</h2>
+<ul>
+<li>Compile: Run the Makefile in the user directory <pre>
+<code>
+make
+</code>
+</pre></li>
+<li>Run: Run the compiled file <pre>
+<code>
+build/tcfs_helper/tcfs_helper
+</code>
+</pre></li>
+</ul>
+<p>#</p>
+<h2><a class="anchor" id="autotoc_md10"></a>
+Kernel module</h2>
+<ul>
+<li>This part of the project is not being developed at the moment.</li>
+</ul>
+<h1><a class="anchor" id="autotoc_md11"></a>
+Usage of the fuse module</h1>
+<h2><a class="anchor" id="autotoc_md12"></a>
+This is not raccomended, consider using the tcfs_helper program</h2>
+<h2><a class="anchor" id="autotoc_md13"></a>
+Mount an NFS share using TCFS:</h2>
+<p>First, mount the NFS share to a directory, this directory will be called sourcedir. This will be done by the helper program in a future release. </p><pre>
 <code>
     ./build-fs/tcfs-fuse-module/tcfs -s /fullpath/sourcedir -d /fullpath/destdir -p "your password here"
 </code>
 </pre><p> Access and modify files in the mounted directory as you normally would. TCFS will handle encryption and decryption automatically. NOTE: This behaviour will be changed in the future, the kernel module will handle your password.</p>
-<h3><a class="anchor" id="autotoc_md8"></a>
-Unmount the NFS share when you're done:</h3>
+<h2><a class="anchor" id="autotoc_md14"></a>
+Unmount the NFS share when you're done:</h2>
 <pre>
 <code>
     fusermount -u /fullpath/destdir
 </code>
 </pre><p> then unmount the NFS share.</p>
-<h2><a class="anchor" id="autotoc_md9"></a>
-Contributing</h2>
+<h1><a class="anchor" id="autotoc_md15"></a>
+Contributing</h1>
 <p>Contributions to TCFS are welcome! If you find a bug or have an idea for an improvement, please open an issue or submit a pull request on the TCFS GitHub repository.</p>
-<h2><a class="anchor" id="autotoc_md10"></a>
-License</h2>
+<h1><a class="anchor" id="autotoc_md16"></a>
+License</h1>
 <p>This project is licensed under the GPLv3 License - see the LICENSE file for details.</p>
-<h2><a class="anchor" id="autotoc_md11"></a>
-Acknowledgments</h2>
+<h1><a class="anchor" id="autotoc_md17"></a>
+Acknowledgments</h1>
 <p>TCFS is inspired by the need for secure data storage and transmission in NFS environments. Thanks to the FUSE project for providing a user-friendly way to create custom filesystems.</p>
 <p><b>Inspiration from TCFS (2001):</b> This project draws substantial inspiration from an earlier project named "TCFS" that was developed around 2001. While the original source code for TCFS has unfortunately been lost over time, we have retained valuable documentation and insights from that era. In the "TCFS-2001" folder, you can find historical documentation and design concepts related to the original TCFS project. Although we are unable to directly leverage the source code from the previous project, we have taken lessons learned from its design principles to inform the development of this current TCFS implementation. We would like to express our gratitude to the creators and contributors of TCFS for their pioneering work, which has influenced and inspired our efforts to create a modern TCFS solution. Thank you for your interest in this project as we continue to build upon the foundations set by the original TCFS project.</p>
-<h2><a class="anchor" id="autotoc_md12"></a>
-Roadmap</h2>
+<h1><a class="anchor" id="autotoc_md18"></a>
+Roadmap</h1>
 <ul>
 <li>Key management:<ul>
 <li><strike>Store a per-file key in the extended attributes and use the user key to decipher it.</strike></li>
 <li>Implement a kernel module to rebuild the private key to decipher the files. This module will use a certificate and your key to rebuild the private key</li>
 <li>Implement key recovery.</li>
+<li>Switch to public/private key</li>
 </ul>
 </li>
-<li>Implement threshold sharing files. </li>
+<li>Implement threshold sharing files.</li>
+<li>Daemon:<ul>
+<li><strike>Implement user registration and deregistration</strike></li>
+<li>Implement accessing and creation of shared files</li>
+<li>Update the userspace module to handle the features that the daemon provides </li>
+</ul>
+</li>
 </ul>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Nov 27 2023 17:03:19 for TCFS by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated on Tue Nov 28 2023 12:06:42 for TCFS by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

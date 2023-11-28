@@ -72,7 +72,7 @@
       </node>
       <node id="3">
         <label>daemon/daemon_utils/common_utils/db/redis.c</label>
-        <link refid="redis_8c_source"/>
+        <link refid="redis_8c"/>
       </node>
       <node id="2">
         <label>daemon/daemon_utils/common_utils/db/redis.h</label>
@@ -122,7 +122,7 @@
       </node>
       <node id="7">
         <label>daemon/daemon_utils/message_handler/message_handler.c</label>
-        <link refid="message__handler_8c_source"/>
+        <link refid="message__handler_8c"/>
       </node>
       <node id="14">
         <label>daemon/daemon_utils/message_handler/message_handler.h</label>
@@ -136,7 +136,7 @@
       </node>
       <node id="13">
         <label>daemon/daemon_utils/queue/queue.c</label>
-        <link refid="queue_8c_source"/>
+        <link refid="queue_8c"/>
       </node>
       <node id="8">
         <label>daemon/daemon_utils/queue/queue.h</label>
@@ -161,23 +161,29 @@
         <name>MAX_QM_SIZE</name>
         <initializer>512</initializer>
         <briefdescription>
+<para>Maximum size of a message in bytes. </para>
         </briefdescription>
         <detaileddescription>
+<internal><para>This definition is marked as internal and be used directly </para>
+</internal>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="daemon/daemon_utils/common.h" line="9" column="9" bodyfile="daemon/daemon_utils/common.h" bodystart="9" bodyend="-1"/>
+        <location file="daemon/daemon_utils/common.h" line="14" column="9" bodyfile="daemon/daemon_utils/common.h" bodystart="14" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="common_8h_1af4132207ad49b2d7fd2adb266f295cb4" prot="public" static="no">
         <name>MAX_QM_N</name>
         <initializer>100</initializer>
         <briefdescription>
+<para>Maximum number of messages that can be stored on a queue. </para>
         </briefdescription>
         <detaileddescription>
+<internal><para>_def </para>
+</internal>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="daemon/daemon_utils/common.h" line="10" column="9" bodyfile="daemon/daemon_utils/common.h" bodystart="10" bodyend="-1"/>
+        <location file="daemon/daemon_utils/common.h" line="20" column="9" bodyfile="daemon/daemon_utils/common.h" bodystart="20" bodyend="-1"/>
       </memberdef>
     </sectiondef>
     <sectiondef kind="enum">
@@ -190,6 +196,7 @@
           <briefdescription>
           </briefdescription>
           <detaileddescription>
+<para>Refers to type <ref refid="structqm__user" kindref="compound">qm_user</ref> </para>
           </detaileddescription>
         </enumvalue>
         <enumvalue id="common_8h_1ab2c144fca6129807a9fe4bad66970c4ca9c46e16a4ab019339596acadeefc8c53" prot="public">
@@ -198,6 +205,7 @@
           <briefdescription>
           </briefdescription>
           <detaileddescription>
+<para>Refers to type <ref refid="structqm__shared" kindref="compound">qm_shared</ref> </para>
           </detaileddescription>
         </enumvalue>
         <enumvalue id="common_8h_1ab2c144fca6129807a9fe4bad66970c4ca78386e426adecb3fd26350119a3cb7c2" prot="public">
@@ -206,6 +214,7 @@
           <briefdescription>
           </briefdescription>
           <detaileddescription>
+<para>Refers to type <ref refid="structqm__broad" kindref="compound">qm_broad</ref> </para>
           </detaileddescription>
         </enumvalue>
         <enumvalue id="common_8h_1ab2c144fca6129807a9fe4bad66970c4ca84fb91aba870f3033713d9e4b638f006" prot="public">
@@ -214,15 +223,21 @@
           <briefdescription>
           </briefdescription>
           <detaileddescription>
+<para>This is set in case of error, it means that the structure it is referring to is invalid </para>
           </detaileddescription>
         </enumvalue>
         <briefdescription>
+<para>Describes the type of a given message. <linebreak/>
+USER refers to <ref refid="structqm__user" kindref="compound">qm_user</ref> struct <linebreak/>
+SHARED refers to user_operation struct <linebreak/>
+BROADCAST refers to <ref refid="structqm__broad" kindref="compound">qm_broad</ref> struct <linebreak/>
+QM_TYPE_UNDEFINED is set if there was an error and we cannot determinate the type of the struct. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="daemon/daemon_utils/common.h" line="15" column="1" bodyfile="daemon/daemon_utils/common.h" bodystart="15" bodyend="20"/>
+        <location file="daemon/daemon_utils/common.h" line="33" column="1" bodyfile="daemon/daemon_utils/common.h" bodystart="33" bodyend="38"/>
       </memberdef>
       <memberdef kind="enum" id="common_8h_1ad30dd7f5c8fc3f0027bbddc111c652b8" prot="public" static="no" strong="no">
         <type></type>
@@ -233,6 +248,7 @@
           <briefdescription>
           </briefdescription>
           <detaileddescription>
+<para>User wants to register </para>
           </detaileddescription>
         </enumvalue>
         <enumvalue id="common_8h_1ad30dd7f5c8fc3f0027bbddc111c652b8ad46a7713a16573956ea43782ac970154" prot="public">
@@ -241,15 +257,19 @@
           <briefdescription>
           </briefdescription>
           <detaileddescription>
+<para>User wants to unregister </para>
           </detaileddescription>
         </enumvalue>
         <briefdescription>
+<para>Describes the operation that a user can perform. <linebreak/>
+REGISTER means that the user wants to register to the system. <linebreak/>
+UNREGISTER means that the user wants to unregister from the system. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="daemon/daemon_utils/common.h" line="22" column="1" bodyfile="daemon/daemon_utils/common.h" bodystart="22" bodyend="25"/>
+        <location file="daemon/daemon_utils/common.h" line="46" column="1" bodyfile="daemon/daemon_utils/common.h" bodystart="46" bodyend="49"/>
       </memberdef>
     </sectiondef>
     <sectiondef kind="typedef">
@@ -264,7 +284,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="daemon/daemon_utils/common.h" line="20" column="9"/>
+        <location file="daemon/daemon_utils/common.h" line="38" column="9"/>
       </memberdef>
       <memberdef kind="typedef" id="common_8h_1ac545cb4ff9bc5c45c47224edc797c7b7" prot="public" static="no">
         <type>enum user_operation</type>
@@ -277,7 +297,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="daemon/daemon_utils/common.h" line="25" column="16"/>
+        <location file="daemon/daemon_utils/common.h" line="49" column="16"/>
       </memberdef>
       <memberdef kind="typedef" id="common_8h_1a34ec46bb3c221944f0aa4e967fad5bbc" prot="public" static="no">
         <type>struct <ref refid="structqm__user" kindref="compound">qm_user</ref></type>
@@ -290,7 +310,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="daemon/daemon_utils/common.h" line="32" column="9"/>
+        <location file="daemon/daemon_utils/common.h" line="61" column="9"/>
       </memberdef>
       <memberdef kind="typedef" id="common_8h_1a387ddb907b1a38641170b99cf9d27fde" prot="public" static="no">
         <type>struct <ref refid="structqm__shared" kindref="compound">qm_shared</ref></type>
@@ -303,7 +323,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="daemon/daemon_utils/common.h" line="38" column="11"/>
+        <location file="daemon/daemon_utils/common.h" line="74" column="11"/>
       </memberdef>
       <memberdef kind="typedef" id="common_8h_1aba8be1278efe9d1826ede84584b45873" prot="public" static="no">
         <type>struct <ref refid="structqm__broad" kindref="compound">qm_broad</ref></type>
@@ -316,7 +336,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="daemon/daemon_utils/common.h" line="42" column="10"/>
+        <location file="daemon/daemon_utils/common.h" line="83" column="10"/>
       </memberdef>
     </sectiondef>
     <briefdescription>
@@ -332,42 +352,42 @@
 <codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string.h&gt;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;errno.h&gt;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="8"><highlight class="normal"></highlight></codeline>
-<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>MAX_QM_SIZE<sp/>512<sp/></highlight><highlight class="comment">//Max<sp/>size<sp/>of<sp/>a<sp/>message</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>MAX_QM_N<sp/>100<sp/></highlight><highlight class="comment">//Max<sp/>number<sp/>of<sp/>messages<sp/>that<sp/>can<sp/>be<sp/>enqueued</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="11"><highlight class="normal"></highlight></codeline>
-<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>QUEUE_STRUCTS</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>QUEUE_STRUCTS</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="14"><highlight class="normal"></highlight></codeline>
-<codeline lineno="15"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>qm_type{</highlight></codeline>
-<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/>USER<sp/>=<sp/>0,</highlight></codeline>
-<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/>SHARED<sp/>=<sp/>1,</highlight></codeline>
-<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/>BROADCAST<sp/>=<sp/>2,</highlight></codeline>
-<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/>QM_TYPE_UNDEFINED<sp/>=<sp/>-1,</highlight></codeline>
-<codeline lineno="20"><highlight class="normal">}<sp/>qm_type;</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>MAX_QM_SIZE<sp/>512</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>MAX_QM_N<sp/>100</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="21"><highlight class="normal"></highlight></codeline>
-<codeline lineno="22"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>user_operation{</highlight></codeline>
-<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/>REGISTER<sp/>=<sp/>0,</highlight></codeline>
-<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/>UNREGISTER<sp/>=<sp/>1,</highlight></codeline>
-<codeline lineno="25"><highlight class="normal">}<sp/>user_operation;</highlight></codeline>
-<codeline lineno="26"><highlight class="normal"></highlight></codeline>
-<codeline lineno="27" refid="structqm__user" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structqm__user" kindref="compound">qm_user</ref><sp/>{</highlight></codeline>
-<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/>user_operation<sp/>user_op;</highlight></codeline>
-<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/>pid_t<sp/>pid;</highlight></codeline>
-<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*user;</highlight></codeline>
-<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*pubkey;</highlight></codeline>
-<codeline lineno="32"><highlight class="normal">}<sp/><ref refid="structqm__user" kindref="compound">qm_user</ref>;</highlight></codeline>
-<codeline lineno="33"><highlight class="normal"></highlight></codeline>
-<codeline lineno="34" refid="structqm__shared" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structqm__shared" kindref="compound">qm_shared</ref><sp/>{</highlight></codeline>
-<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>fd;</highlight></codeline>
-<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>**userlist;</highlight></codeline>
-<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*keypart;</highlight></codeline>
-<codeline lineno="38"><highlight class="normal">}<sp/><ref refid="structqm__shared" kindref="compound">qm_shared</ref>;</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>QUEUE_STRUCTS</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>QUEUE_STRUCTS</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>qm_type{</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/>USER<sp/>=<sp/>0,<sp/></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/>SHARED<sp/>=<sp/>1,<sp/></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/>BROADCAST<sp/>=<sp/>2,<sp/></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/>QM_TYPE_UNDEFINED<sp/>=<sp/>-1,<sp/></highlight></codeline>
+<codeline lineno="38"><highlight class="normal">}<sp/>qm_type;</highlight></codeline>
 <codeline lineno="39"><highlight class="normal"></highlight></codeline>
-<codeline lineno="40" refid="structqm__broad" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structqm__broad" kindref="compound">qm_broad</ref><sp/>{</highlight></codeline>
-<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*data;</highlight></codeline>
-<codeline lineno="42"><highlight class="normal">}<sp/><ref refid="structqm__broad" kindref="compound">qm_broad</ref>;</highlight></codeline>
-<codeline lineno="43"><highlight class="normal"></highlight></codeline>
-<codeline lineno="44"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>user_operation{</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/>REGISTER<sp/>=<sp/>0,<sp/></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/>UNREGISTER<sp/>=<sp/>1,<sp/></highlight></codeline>
+<codeline lineno="49"><highlight class="normal">}<sp/>user_operation;</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56" refid="structqm__user" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structqm__user" kindref="compound">qm_user</ref><sp/>{</highlight></codeline>
+<codeline lineno="57" refid="structqm__user_1a4b5bbaaf885c62f44f265eeba461303d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>user_operation<sp/><ref refid="structqm__user_1a4b5bbaaf885c62f44f265eeba461303d" kindref="member">user_op</ref>;<sp/></highlight></codeline>
+<codeline lineno="58" refid="structqm__user_1aa69546c3a6a2124be9f964329c951a84" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>pid_t<sp/><ref refid="structqm__user_1aa69546c3a6a2124be9f964329c951a84" kindref="member">pid</ref>;<sp/></highlight></codeline>
+<codeline lineno="59" refid="structqm__user_1a6c52d68724b65831ba6d95f3d7448ff4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*<ref refid="structqm__user_1a6c52d68724b65831ba6d95f3d7448ff4" kindref="member">user</ref>;<sp/></highlight></codeline>
+<codeline lineno="60" refid="structqm__user_1ad718cfba201afae89c596111bd508d5f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*<ref refid="structqm__user_1ad718cfba201afae89c596111bd508d5f" kindref="member">pubkey</ref>;<sp/></highlight></codeline>
+<codeline lineno="61"><highlight class="normal">}<sp/><ref refid="structqm__user" kindref="compound">qm_user</ref>;</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight></codeline>
+<codeline lineno="70" refid="structqm__shared" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structqm__shared" kindref="compound">qm_shared</ref><sp/>{</highlight></codeline>
+<codeline lineno="71" refid="structqm__shared_1ac6ce7156e06279b3194acb24e4face96" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structqm__shared_1ac6ce7156e06279b3194acb24e4face96" kindref="member">fd</ref>;<sp/></highlight></codeline>
+<codeline lineno="72" refid="structqm__shared_1af2a26858d769e4a816d0567b51ce0ed5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>**<ref refid="structqm__shared_1af2a26858d769e4a816d0567b51ce0ed5" kindref="member">userlist</ref>;<sp/></highlight></codeline>
+<codeline lineno="73" refid="structqm__shared_1afef3f8b7e15af861010c6e0d66de659e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*<ref refid="structqm__shared_1afef3f8b7e15af861010c6e0d66de659e" kindref="member">keypart</ref>;<sp/></highlight></codeline>
+<codeline lineno="74"><highlight class="normal">}<sp/><ref refid="structqm__shared" kindref="compound">qm_shared</ref>;</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight></codeline>
+<codeline lineno="81" refid="structqm__broad" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structqm__broad" kindref="compound">qm_broad</ref><sp/>{</highlight></codeline>
+<codeline lineno="82" refid="structqm__broad_1a59096b6c11d45cf9addecfb629b55978" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*<ref refid="structqm__broad_1a59096b6c11d45cf9addecfb629b55978" kindref="member">data</ref>;<sp/></highlight></codeline>
+<codeline lineno="83"><highlight class="normal">}<sp/><ref refid="structqm__broad" kindref="compound">qm_broad</ref>;</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
     </programlisting>
     <location file="daemon/daemon_utils/common.h"/>
   </compounddef>

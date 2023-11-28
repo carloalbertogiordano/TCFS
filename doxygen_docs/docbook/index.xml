@@ -15,6 +15,7 @@
 <chapter>
     <title>File Documentation</title>
     <xi:include href="common_8h_source.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
+    <xi:include href="redis_8c.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
     <xi:include href="redis_8c_source.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
     <xi:include href="redis_8h_source.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
     <xi:include href="user__db_8c.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
@@ -27,12 +28,15 @@
     <xi:include href="print__utils_8h_source.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
     <xi:include href="tcfs__daemon__tools_8c_source.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
     <xi:include href="tcfs__daemon__tools_8h_source.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
+    <xi:include href="message__handler_8c.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
     <xi:include href="message__handler_8c_source.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
     <xi:include href="message__handler_8h_source.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
+    <xi:include href="queue_8c.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
     <xi:include href="queue_8c_source.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
     <xi:include href="queue_8h_source.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
     <xi:include href="tcfs__daemon_8c.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
     <xi:include href="tcfs__daemon_8c_source.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
+    <xi:include href="tcfs__kmodule_8c.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
     <xi:include href="tcfs__kmodule_8c_source.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
     <xi:include href="tcfs__helper__tools_8c_source.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
     <xi:include href="tcfs__helper__tools_8h_source.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>

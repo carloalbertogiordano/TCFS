@@ -31,10 +31,10 @@
  * QM_TYPE_UNDEFINED is set if there was an error and we cannot determinate the type of the struct
  * */
 typedef enum qm_type{
-    USER = 0,
-    SHARED = 1,
-    BROADCAST = 2,
-    QM_TYPE_UNDEFINED = -1,
+    USER = 0, /**< Refers to type qm_user */
+    SHARED = 1, /**< Refers to type qm_shared */
+    BROADCAST = 2, /**< Refers to type qm_broad */
+    QM_TYPE_UNDEFINED = -1, /**< This is set in case of error, it means that the structure it is referring to is invalid */
 } qm_type;
 
 /**
@@ -44,8 +44,8 @@ typedef enum qm_type{
  * UNREGISTER means that the user wants to unregister from the system.
  * */
 typedef enum user_operation{
-    REGISTER = 0,
-    UNREGISTER = 1,
+    REGISTER = 0, /**< User wants to register */
+    UNREGISTER = 1, /**< User wants to unregister */
 } user_operation;
 
 /**

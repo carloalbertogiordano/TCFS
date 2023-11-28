@@ -1,5 +1,16 @@
 <map id="register_user" name="register_user">
-<area shape="rect" id="Node000001" title="Register or update a user in the db, this relies on the redis.c file." alt="" coords="5,5,103,31"/>
-<area shape="rect" id="Node000002" href="$print__utils_8c.html#a491dc14c94ed8cf706bb54880c50b2d0" title="Format and print data as a message." alt="" coords="151,5,229,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="103,15,135,15,135,21,103,21"/>
+<area shape="rect" id="Node000001" title="Register or update a user in the db, this relies on the redis.c file." alt="" coords="5,80,103,105"/>
+<area shape="rect" id="Node000002" href="$redis_8c.html#a1f6dc2f98a71a88567fe11fd9e2585ea" title="initialize the context for the Redis DB" alt="" coords="157,5,247,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="78,77,149,40,158,36,160,40,152,44,81,82"/>
+<area shape="rect" id="Node000004" href="$redis_8c.html#ac9878ee09b53700eb08c1f175873c30b" title="Insert a new user in the DB." alt="" coords="175,55,229,80"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="103,82,159,72,160,77,104,87"/>
+<area shape="rect" id="Node000005" href="$print__utils_8c.html#a491dc14c94ed8cf706bb54880c50b2d0" title="Format and print data as a message." alt="" coords="301,105,380,131"/>
+<area shape="poly" id="edge8_Node000001_Node000005" title=" " alt="" coords="103,94,286,111,285,116,103,100"/>
+<area shape="rect" id="Node000006" href="$redis_8c.html#a7b5eb746d92734b57a71ce552363283d" title="For debugging only. Prints all the keys in the database." alt="" coords="151,156,253,181"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="82,104,163,146,161,151,79,108"/>
+<area shape="rect" id="Node000003" href="$print__utils_8c.html#a650ab060ffe5dbc6c1a968a9cae3bded" title="Format and print data as an error." alt="" coords="306,31,375,56"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="248,24,291,32,290,37,247,29"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="229,60,290,49,291,55,230,65"/>
+<area shape="poly" id="edge5_Node000004_Node000005" title=" " alt="" coords="230,75,291,97,289,102,229,80"/>
+<area shape="poly" id="edge7_Node000006_Node000005" title=" " alt="" coords="238,153,289,134,291,139,240,158"/>
 </map>

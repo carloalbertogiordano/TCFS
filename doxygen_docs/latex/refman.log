@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/CVE-2023-32700 patched) (preloaded format=pdflatex 2023.11.27)  27 NOV 2023 17:03
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/CVE-2023-32700 patched) (preloaded format=pdflatex 2023.11.27)  28 NOV 2023 11:36
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -869,9 +869,7 @@ LaTeX Font Info:    Font shape `TS1/phv/m/n' will be
 (Font)              scaled to size 8.99994pt on input line 207.
 LaTeX Font Info:    Font shape `T1/phv/b/n' will be
 (Font)              scaled to size 6.29996pt on input line 207.
- [1] [2] [3] [4
-
-]
+ [1] [2] [3] [4]
 Package hyperref Info: Option `pageanchor' set `true' on input line 210.
 
 (./md_README.tex
@@ -888,33 +886,40 @@ LaTeX Font Info:    Font shape `TS1/phv/b/n' will be
 (Font)              scaled to size 8.99994pt on input line 6.
 LaTeX Font Info:    Font shape `T1/phv/b/n' will be
 (Font)              scaled to size 10.79993pt on input line 14.
-[1
-
-]
-LaTeX Font Info:    Trying to load font information for T1+pcr on input line 23
+LaTeX Font Info:    Trying to load font information for T1+pcr on input line 15
 .
- (/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1pcr.fd
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1pcr.fd
 File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
-)
-
-Package hyperref Warning: Difference (2) between bookmark levels is greater 
-(hyperref)                than one, level fixed on input line 39.
+) [1
 
 
-Overfull \hbox (106.35526pt too wide) in paragraph at lines 43--43
+] [2]
+Overfull \hbox (106.35526pt too wide) in paragraph at lines 90--90
 []    \T1/pcr/m/n/9 ./build-fs/tcfs-fuse-module/tcfs -s /fullpath/sourcedir -d 
 /fullpath/destdir -p "your password here"[] 
  []
 
-[2]) (./todo.tex [3] [4
-
-]
+LaTeX Font Info:    Font shape `TS1/phv/b/n' will be
+(Font)              scaled to size 10.79993pt on input line 93.
+[3]) (./todo.tex [4]
 Chapter 2.
-) [5] [6
+) [5
+
+] [6
 
 ]
 Chapter 3.
-(./annotated.tex) [7] [8
+(./annotated.tex
+Underfull \hbox (badness 10000) in paragraph at lines 8--8
+ []  
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 11--11
+ []  
+ []
+
+) [7] [8
 
 ]
 Chapter 4.
@@ -923,61 +928,313 @@ Chapter 4.
 ]
 Chapter 5.
 (./structarguments.tex <./structarguments__coll__graph.pdf>
-<structarguments__coll__graph.pdf, id=681, 202.7575pt x 187.70125pt>
+<structarguments__coll__graph.pdf, id=881, 202.7575pt x 187.70125pt>
 File: structarguments__coll__graph.pdf Graphic file (type pdf)
 <use structarguments__coll__graph.pdf>
-Package pdftex.def Info: structarguments__coll__graph.pdf  used on input line 1
-0.
+Package pdftex.def Info: structarguments__coll__graph.pdf  used on input line 9
+.
 (pdftex.def)             Requested size: 202.0pt x 187.0048pt.
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 7.19995pt on input line 38.
+(Font)              scaled to size 7.19995pt on input line 37.
  [11])
 (./structqm__broad.tex <./structqm__broad__coll__graph.pdf>
-<structqm__broad__coll__graph.pdf, id=716, 139.52126pt x 165.61874pt>
+<structqm__broad__coll__graph.pdf, id=915, 139.52126pt x 165.61874pt>
 File: structqm__broad__coll__graph.pdf Graphic file (type pdf)
 <use structqm__broad__coll__graph.pdf>
 Package pdftex.def Info: structqm__broad__coll__graph.pdf  used on input line 1
-0.
+9.
 (pdftex.def)             Requested size: 139.0pt x 165.00423pt.
  [12])
 (./structqm__shared.tex <./structqm__shared__coll__graph.pdf>
-<structqm__shared__coll__graph.pdf, id=740, 234.8775pt x 165.61874pt>
+<structqm__shared__coll__graph.pdf, id=941, 234.8775pt x 165.61874pt>
 File: structqm__shared__coll__graph.pdf Graphic file (type pdf)
 <use structqm__shared__coll__graph.pdf>
 Package pdftex.def Info: structqm__shared__coll__graph.pdf  used on input line 
-10.
+22.
 (pdftex.def)             Requested size: 234.0pt x 164.99918pt.
- [13])
-(./structqm__user.tex <./structqm__user__coll__graph.pdf>
-<structqm__user__coll__graph.pdf, id=776, 305.14pt x 176.66pt>
+ [13]
+Underfull \hbox (badness 10000) in paragraph at lines 77--78
+
+ []
+
+LaTeX Font Info:    Font shape `T1/phv/bc/n' will be
+(Font)              scaled to size 8.99994pt on input line 78.
+
+Underfull \hbox (badness 10000) detected at line 78
+[][][]
+ []
+
+) (./structqm__user.tex <./structqm__user__coll__graph.pdf>
+<structqm__user__coll__graph.pdf, id=972, 305.14pt x 176.66pt>
 File: structqm__user__coll__graph.pdf Graphic file (type pdf)
 <use structqm__user__coll__graph.pdf>
-Package pdftex.def Info: structqm__user__coll__graph.pdf  used on input line 10
+Package pdftex.def Info: structqm__user__coll__graph.pdf  used on input line 21
 .
 (pdftex.def)             Requested size: 304.0pt x 176.00722pt.
- [14]) [15] [16
+ [14] [15]) [16]
+Chapter 6.
+(./common_8h_source.tex) (./redis_8c.tex <./redis_8c__incl.pdf>
+<redis_8c__incl.pdf, id=1066, 827.09pt x 276.03125pt>
+File: redis_8c__incl.pdf Graphic file (type pdf)
+<use redis_8c__incl.pdf>
+Package pdftex.def Info: redis_8c__incl.pdf  used on input line 17.
+(pdftex.def)             Requested size: 350.0pt x 116.8084pt.
+ [17
 
 ]
-Chapter 6.
-(./common_8h_source.tex) (./redis_8c_source.tex [17] [18])
-(./redis_8h_source.tex [19]) (./user__db_8c.tex <./user__db_8c__incl.pdf>
-<user__db_8c__incl.pdf, id=1100, 779.91376pt x 397.485pt>
+LaTeX Font Info:    Font shape `T1/phv/m/it' in size <9> not available
+(Font)              Font shape `T1/phv/m/sl' tried instead on input line 24.
+LaTeX Font Info:    Font shape `T1/phv/m/sl' will be
+(Font)              scaled to size 8.09995pt on input line 24.
+LaTeX Font Info:    Font shape `T1/phv/m/it' in size <7> not available
+(Font)              Font shape `T1/phv/m/sl' tried instead on input line 35.
+LaTeX Font Info:    Font shape `T1/phv/m/sl' will be
+(Font)              scaled to size 6.29996pt on input line 35.
+ [18]
+Underfull \hbox (badness 10000) detected at line 60
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 101
+[][][]
+ []
+
+ <./redis_8c_ae19d8c90888a6ed078d6e835bb11e67a_icgraph.pdf>
+<redis_8c_ae19d8c90888a6ed078d6e835bb11e67a_icgraph.pdf, id=1159, 268.00125pt x
+ 99.37125pt>
+File: redis_8c_ae19d8c90888a6ed078d6e835bb11e67a_icgraph.pdf Graphic file (type
+ pdf)
+<use redis_8c_ae19d8c90888a6ed078d6e835bb11e67a_icgraph.pdf>
+Package pdftex.def Info: redis_8c_ae19d8c90888a6ed078d6e835bb11e67a_icgraph.pdf
+  used on input line 121.
+(pdftex.def)             Requested size: 267.0pt x 98.99951pt.
+LaTeX Font Info:    Font shape `T1/pcr/m/it' in size <8> not available
+(Font)              Font shape `T1/pcr/m/sl' tried instead on input line 128.
+ [19]
+Underfull \hbox (badness 10000) detected at line 139
+[][][]
+ []
+
+ <./redis_8c_a73711c0a9d0060337409d15dc44f5ad1_cgraph.pdf>
+<redis_8c_a73711c0a9d0060337409d15dc44f5ad1_cgraph.pdf, id=1189, 402.50375pt x 
+175.65625pt>
+File: redis_8c_a73711c0a9d0060337409d15dc44f5ad1_cgraph.pdf Graphic file (type 
+pdf)
+<use redis_8c_a73711c0a9d0060337409d15dc44f5ad1_cgraph.pdf>
+Package pdftex.def Info: redis_8c_a73711c0a9d0060337409d15dc44f5ad1_cgraph.pdf 
+ used on input line 159.
+(pdftex.def)             Requested size: 350.0pt x 152.74196pt.
+ <./redis_8c_a73711c0a9d0060337409d15dc44f5ad1_icgraph.pdf>
+<redis_8c_a73711c0a9d0060337409d15dc44f5ad1_icgraph.pdf, id=1197, 305.14pt x 99
+.37125pt>
+File: redis_8c_a73711c0a9d0060337409d15dc44f5ad1_icgraph.pdf Graphic file (type
+ pdf)
+<use redis_8c_a73711c0a9d0060337409d15dc44f5ad1_icgraph.pdf>
+Package pdftex.def Info: redis_8c_a73711c0a9d0060337409d15dc44f5ad1_icgraph.pdf
+  used on input line 167.
+(pdftex.def)             Requested size: 304.0pt x 99.00406pt.
+
+Overfull \hbox (1.47571pt too wide) in paragraph at lines 1--1
+[]\T1/phv/m/sl/10 pid[] 
+ []
+
+[20] [21]
+Underfull \hbox (badness 10000) detected at line 185
+[][][]
+ []
+
+ <./redis_8c_af0bf1bfc99afc940619371e3c76ab4f9_cgraph.pdf>
+<redis_8c_af0bf1bfc99afc940619371e3c76ab4f9_cgraph.pdf, id=1231, 391.4625pt x 1
+75.65625pt>
+File: redis_8c_af0bf1bfc99afc940619371e3c76ab4f9_cgraph.pdf Graphic file (type 
+pdf)
+<use redis_8c_af0bf1bfc99afc940619371e3c76ab4f9_cgraph.pdf>
+Package pdftex.def Info: redis_8c_af0bf1bfc99afc940619371e3c76ab4f9_cgraph.pdf 
+ used on input line 205.
+(pdftex.def)             Requested size: 350.0pt x 157.05992pt.
+ <./redis_8c_af0bf1bfc99afc940619371e3c76ab4f9_icgraph.pdf>
+<redis_8c_af0bf1bfc99afc940619371e3c76ab4f9_icgraph.pdf, id=1239, 407.5225pt x 
+99.37125pt>
+File: redis_8c_af0bf1bfc99afc940619371e3c76ab4f9_icgraph.pdf Graphic file (type
+ pdf)
+<use redis_8c_af0bf1bfc99afc940619371e3c76ab4f9_icgraph.pdf>
+Package pdftex.def Info: redis_8c_af0bf1bfc99afc940619371e3c76ab4f9_icgraph.pdf
+  used on input line 213.
+(pdftex.def)             Requested size: 350.0pt x 85.34842pt.
+
+Underfull \hbox (badness 10000) detected at line 226
+[][][]
+ []
+
+ <./redis_8c_a1f6dc2f98a71a88567fe11fd9e2585ea_cgraph.pdf>
+<redis_8c_a1f6dc2f98a71a88567fe11fd9e2585ea_cgraph.pdf, id=1253, 235.88126pt x 
+99.37125pt>
+File: redis_8c_a1f6dc2f98a71a88567fe11fd9e2585ea_cgraph.pdf Graphic file (type 
+pdf)
+<use redis_8c_a1f6dc2f98a71a88567fe11fd9e2585ea_cgraph.pdf>
+Package pdftex.def Info: redis_8c_a1f6dc2f98a71a88567fe11fd9e2585ea_cgraph.pdf 
+ used on input line 246.
+(pdftex.def)             Requested size: 235.0pt x 99.00102pt.
+ [22] <./redis_8c_a1f6dc2f98a71a88567fe11fd9e2585ea_icgraph.pdf>
+<redis_8c_a1f6dc2f98a71a88567fe11fd9e2585ea_icgraph.pdf, id=1272, 256.96pt x 99
+.37125pt>
+File: redis_8c_a1f6dc2f98a71a88567fe11fd9e2585ea_icgraph.pdf Graphic file (type
+ pdf)
+<use redis_8c_a1f6dc2f98a71a88567fe11fd9e2585ea_icgraph.pdf>
+Package pdftex.def Info: redis_8c_a1f6dc2f98a71a88567fe11fd9e2585ea_icgraph.pdf
+  used on input line 254.
+(pdftex.def)             Requested size: 256.0pt x 99.00708pt.
+
+Underfull \hbox (badness 10000) detected at line 272
+[][][]
+ []
+
+[23]
+Underfull \hbox (badness 10000) detected at line 275
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 278
+[][][]
+ []
+
+ <./redis_8c_ac9878ee09b53700eb08c1f175873c30b_cgraph.pdf>
+<redis_8c_ac9878ee09b53700eb08c1f175873c30b_cgraph.pdf, id=1303, 216.81pt x 136
+.51pt>
+File: redis_8c_ac9878ee09b53700eb08c1f175873c30b_cgraph.pdf Graphic file (type 
+pdf)
+<use redis_8c_ac9878ee09b53700eb08c1f175873c30b_cgraph.pdf>
+Package pdftex.def Info: redis_8c_ac9878ee09b53700eb08c1f175873c30b_cgraph.pdf 
+ used on input line 300.
+(pdftex.def)             Requested size: 216.0pt x 136.00766pt.
+ <./redis_8c_ac9878ee09b53700eb08c1f175873c30b_icgraph.pdf>
+<redis_8c_ac9878ee09b53700eb08c1f175873c30b_icgraph.pdf, id=1311, 230.8625pt x 
+99.37125pt>
+File: redis_8c_ac9878ee09b53700eb08c1f175873c30b_icgraph.pdf Graphic file (type
+ pdf)
+<use redis_8c_ac9878ee09b53700eb08c1f175873c30b_icgraph.pdf>
+Package pdftex.def Info: redis_8c_ac9878ee09b53700eb08c1f175873c30b_icgraph.pdf
+  used on input line 308.
+(pdftex.def)             Requested size: 230.0pt x 99.00102pt.
+ [24]
+Underfull \hbox (badness 10000) detected at line 326
+[][][]
+ []
+
+ <./redis_8c_a8e6e1687d6351741ac3e353d23425f71_cgraph.pdf>
+<redis_8c_a8e6e1687d6351741ac3e353d23425f71_cgraph.pdf, id=1336, 266.9975pt x 9
+9.37125pt>
+File: redis_8c_a8e6e1687d6351741ac3e353d23425f71_cgraph.pdf Graphic file (type 
+pdf)
+<use redis_8c_a8e6e1687d6351741ac3e353d23425f71_cgraph.pdf>
+Package pdftex.def Info: redis_8c_a8e6e1687d6351741ac3e353d23425f71_cgraph.pdf 
+ used on input line 346.
+(pdftex.def)             Requested size: 266.0pt x 99.01012pt.
+ <./redis_8c_a8e6e1687d6351741ac3e353d23425f71_icgraph.pdf>
+<redis_8c_a8e6e1687d6351741ac3e353d23425f71_icgraph.pdf, id=1344, 552.0625pt x 
+136.51pt>
+File: redis_8c_a8e6e1687d6351741ac3e353d23425f71_icgraph.pdf Graphic file (type
+ pdf)
+<use redis_8c_a8e6e1687d6351741ac3e353d23425f71_icgraph.pdf>
+Package pdftex.def Info: redis_8c_a8e6e1687d6351741ac3e353d23425f71_icgraph.pdf
+  used on input line 354.
+(pdftex.def)             Requested size: 350.0pt x 86.54956pt.
+
+Underfull \hbox (badness 10000) detected at line 367
+[][][]
+ []
+
+ <./redis_8c_a7b5eb746d92734b57a71ce552363283d_cgraph.pdf>
+<redis_8c_a7b5eb746d92734b57a71ce552363283d_cgraph.pdf, id=1358, 252.945pt x 99
+.37125pt>
+File: redis_8c_a7b5eb746d92734b57a71ce552363283d_cgraph.pdf Graphic file (type 
+pdf)
+<use redis_8c_a7b5eb746d92734b57a71ce552363283d_cgraph.pdf>
+Package pdftex.def Info: redis_8c_a7b5eb746d92734b57a71ce552363283d_cgraph.pdf 
+ used on input line 387.
+(pdftex.def)             Requested size: 252.0pt x 99.00253pt.
+ [25] <./redis_8c_a7b5eb746d92734b57a71ce552363283d_icgraph.pdf>
+<redis_8c_a7b5eb746d92734b57a71ce552363283d_icgraph.pdf, id=1375, 277.035pt x 1
+36.51pt>
+File: redis_8c_a7b5eb746d92734b57a71ce552363283d_icgraph.pdf Graphic file (type
+ pdf)
+<use redis_8c_a7b5eb746d92734b57a71ce552363283d_icgraph.pdf>
+Package pdftex.def Info: redis_8c_a7b5eb746d92734b57a71ce552363283d_icgraph.pdf
+  used on input line 395.
+(pdftex.def)             Requested size: 276.0pt x 136.0014pt.
+
+Overfull \hbox (1.47571pt too wide) in paragraph at lines 1--1
+[]\T1/phv/m/sl/10 pid[] 
+ []
+
+[26]
+Underfull \hbox (badness 10000) detected at line 413
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 416
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 419
+[][][]
+ []
+
+ <./redis_8c_a6b18d7ad2f1e8275106a5b39c0c7d216_cgraph.pdf>
+<redis_8c_a6b18d7ad2f1e8275106a5b39c0c7d216_cgraph.pdf, id=1405, 510.90875pt x 
+200.75pt>
+File: redis_8c_a6b18d7ad2f1e8275106a5b39c0c7d216_cgraph.pdf Graphic file (type 
+pdf)
+<use redis_8c_a6b18d7ad2f1e8275106a5b39c0c7d216_cgraph.pdf>
+Package pdftex.def Info: redis_8c_a6b18d7ad2f1e8275106a5b39c0c7d216_cgraph.pdf 
+ used on input line 441.
+(pdftex.def)             Requested size: 350.0pt x 137.5221pt.
+ <./redis_8c_a6b18d7ad2f1e8275106a5b39c0c7d216_icgraph.pdf>
+<redis_8c_a6b18d7ad2f1e8275106a5b39c0c7d216_icgraph.pdf, id=1413, 283.0575pt x 
+99.37125pt>
+File: redis_8c_a6b18d7ad2f1e8275106a5b39c0c7d216_icgraph.pdf Graphic file (type
+ pdf)
+<use redis_8c_a6b18d7ad2f1e8275106a5b39c0c7d216_icgraph.pdf>
+Package pdftex.def Info: redis_8c_a6b18d7ad2f1e8275106a5b39c0c7d216_icgraph.pdf
+  used on input line 449.
+(pdftex.def)             Requested size: 282.0pt x 99.0086pt.
+ [27]
+Underfull \hbox (badness 10000) detected at line 467
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 470
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 473
+[][][]
+ []
+
+ <./redis_8c_a2678c0575f2b6c944fd261255aeaebff_cgraph.pdf>
+<redis_8c_a2678c0575f2b6c944fd261255aeaebff_cgraph.pdf, id=1437, 527.9725pt x 1
+75.65625pt>
+File: redis_8c_a2678c0575f2b6c944fd261255aeaebff_cgraph.pdf Graphic file (type 
+pdf)
+<use redis_8c_a2678c0575f2b6c944fd261255aeaebff_cgraph.pdf>
+Package pdftex.def Info: redis_8c_a2678c0575f2b6c944fd261255aeaebff_cgraph.pdf 
+ used on input line 491.
+(pdftex.def)             Requested size: 350.0pt x 116.44272pt.
+)
+(./redis_8c_source.tex [28] [29] [30]) (./redis_8h_source.tex [31])
+(./user__db_8c.tex <./user__db_8c__incl.pdf>
+<user__db_8c__incl.pdf, id=1810, 779.91376pt x 397.485pt>
 File: user__db_8c__incl.pdf Graphic file (type pdf)
 <use user__db_8c__incl.pdf>
 Package pdftex.def Info: user__db_8c__incl.pdf  used on input line 15.
 (pdftex.def)             Requested size: 350.0pt x 178.37532pt.
-LaTeX Font Info:    Font shape `T1/phv/m/it' in size <9> not available
-(Font)              Font shape `T1/phv/m/sl' tried instead on input line 22.
-LaTeX Font Info:    Font shape `T1/phv/m/sl' will be
-(Font)              scaled to size 8.09995pt on input line 22.
-LaTeX Font Info:    Font shape `T1/phv/m/it' in size <7> not available
-(Font)              Font shape `T1/phv/m/sl' tried instead on input line 22.
-LaTeX Font Info:    Font shape `T1/phv/m/sl' will be
-(Font)              scaled to size 6.29996pt on input line 22.
-LaTeX Font Info:    Font shape `T1/pcr/m/it' in size <8> not available
-(Font)              Font shape `T1/pcr/m/sl' tried instead on input line 43.
-
-[20]
+ [32]
 Underfull \hbox (badness 10000) detected at line 54
 [][][]
  []
@@ -988,59 +1245,69 @@ Underfull \hbox (badness 10000) detected at line 57
  []
 
  <./user__db_8c_ab57ffd0f0b23a847e766e762906af22e_cgraph.pdf>
-<user__db_8c_ab57ffd0f0b23a847e766e762906af22e_cgraph.pdf, id=1148, 255.95625pt
- x 99.37125pt>
+<user__db_8c_ab57ffd0f0b23a847e766e762906af22e_cgraph.pdf, id=1852, 268.00125pt
+ x 136.51pt>
 File: user__db_8c_ab57ffd0f0b23a847e766e762906af22e_cgraph.pdf Graphic file (ty
 pe pdf)
 <use user__db_8c_ab57ffd0f0b23a847e766e762906af22e_cgraph.pdf>
 Package pdftex.def Info: user__db_8c_ab57ffd0f0b23a847e766e762906af22e_cgraph.p
 df  used on input line 73.
-(pdftex.def)             Requested size: 255.0pt x 98.99951pt.
+(pdftex.def)             Requested size: 267.0pt x 135.99933pt.
 LaTeX Font Info:    Font shape `T1/pcr/m/it' in size <7> not available
 (Font)              Font shape `T1/pcr/m/sl' tried instead on input line 80.
- [21]
+ [33]
 Underfull \hbox (badness 10000) detected at line 91
 [][][]
  []
 
+
+Underfull \hbox (badness 10000) detected at line 94
+[][][]
+ []
+
  <./user__db_8c_a2ae8a82033440194ad80949cd4493971_cgraph.pdf>
-<user__db_8c_a2ae8a82033440194ad80949cd4493971_cgraph.pdf, id=1174, 248.93pt x 
-99.37125pt>
+<user__db_8c_a2ae8a82033440194ad80949cd4493971_cgraph.pdf, id=1878, 362.35374pt
+ x 212.795pt>
 File: user__db_8c_a2ae8a82033440194ad80949cd4493971_cgraph.pdf Graphic file (ty
 pe pdf)
 <use user__db_8c_a2ae8a82033440194ad80949cd4493971_cgraph.pdf>
 Package pdftex.def Info: user__db_8c_a2ae8a82033440194ad80949cd4493971_cgraph.p
-df  used on input line 107.
-(pdftex.def)             Requested size: 248.0pt x 99.00253pt.
+df  used on input line 110.
+(pdftex.def)             Requested size: 350.0pt x 205.54393pt.
 
 Overfull \hbox (1.47571pt too wide) in paragraph at lines 1--1
 []\T1/phv/m/sl/10 pid[] 
  []
 
 
-Underfull \hbox (badness 10000) detected at line 125
+Underfull \hbox (badness 10000) detected at line 128
 [][][]
  []
 
- <./user__db_8c_a6e2fcf4aa637e61f69b1b601981663cf_cgraph.pdf>
-<user__db_8c_a6e2fcf4aa637e61f69b1b601981663cf_cgraph.pdf, id=1185, 258.9675pt 
-x 99.37125pt>
+
+Underfull \hbox (badness 10000) detected at line 131
+[][][]
+ []
+
+[34] <./user__db_8c_a6e2fcf4aa637e61f69b1b601981663cf_cgraph.pdf>
+<user__db_8c_a6e2fcf4aa637e61f69b1b601981663cf_cgraph.pdf, id=1901, 630.355pt x
+ 289.08pt>
 File: user__db_8c_a6e2fcf4aa637e61f69b1b601981663cf_cgraph.pdf Graphic file (ty
 pe pdf)
 <use user__db_8c_a6e2fcf4aa637e61f69b1b601981663cf_cgraph.pdf>
 Package pdftex.def Info: user__db_8c_a6e2fcf4aa637e61f69b1b601981663cf_cgraph.p
-df  used on input line 141.
-(pdftex.def)             Requested size: 258.0pt x 99.01012pt.
+df  used on input line 147.
+(pdftex.def)             Requested size: 350.0pt x 160.51187pt.
 )
-(./user__db_8c_source.tex [22]) (./user__db_8h_source.tex)
-(./json__tools_8cpp_source.tex [23]) (./json__tools_8h_source.tex)
+(./user__db_8c_source.tex) (./user__db_8h_source.tex)
+(./json__tools_8cpp_source.tex [35] [36]) (./json__tools_8h_source.tex)
 (./print__utils_8c.tex <./print__utils_8c__incl.pdf>
-<print__utils_8c__incl.pdf, id=1307, 462.72874pt x 231.86626pt>
+<print__utils_8c__incl.pdf, id=2094, 462.72874pt x 231.86626pt>
 File: print__utils_8c__incl.pdf Graphic file (type pdf)
 <use print__utils_8c__incl.pdf>
 Package pdftex.def Info: print__utils_8c__incl.pdf  used on input line 14.
 (pdftex.def)             Requested size: 350.0pt x 175.38167pt.
- [24] [25]
+ [37] [38]
 Underfull \hbox (badness 10000) detected at line 62
 [][][]
  []
@@ -1061,15 +1328,15 @@ Underfull \hbox (badness 10000) detected at line 94
  []
 
  <./print__utils_8c_a650ab060ffe5dbc6c1a968a9cae3bded_icgraph.pdf>
-<print__utils_8c_a650ab060ffe5dbc6c1a968a9cae3bded_icgraph.pdf, id=1406, 206.77
-25pt x 99.37125pt>
+<print__utils_8c_a650ab060ffe5dbc6c1a968a9cae3bded_icgraph.pdf, id=2183, 512.91
+624pt x 427.5975pt>
 File: print__utils_8c_a650ab060ffe5dbc6c1a968a9cae3bded_icgraph.pdf Graphic fil
 e (type pdf)
 <use print__utils_8c_a650ab060ffe5dbc6c1a968a9cae3bded_icgraph.pdf>
 Package pdftex.def Info: print__utils_8c_a650ab060ffe5dbc6c1a968a9cae3bded_icgr
 aph.pdf  used on input line 116.
-(pdftex.def)             Requested size: 206.0pt x 99.00253pt.
- [26]
+(pdftex.def)             Requested size: 350.0pt x 291.78029pt.
+ [39]
 Underfull \hbox (badness 10000) detected at line 136
 [][][]
  []
@@ -1079,16 +1346,21 @@ Underfull \hbox (badness 10000) detected at line 139
 [][][]
  []
 
+
+Underfull \hbox (badness 3439) in paragraph at lines 150--151
+[]\T1/phv/m/n/10 , [], [], [], [], [], [], and
+ []
+
  <./print__utils_8c_a491dc14c94ed8cf706bb54880c50b2d0_icgraph.pdf>
-<print__utils_8c_a491dc14c94ed8cf706bb54880c50b2d0_icgraph.pdf, id=1431, 348.30
-125pt x 249.93375pt>
+<print__utils_8c_a491dc14c94ed8cf706bb54880c50b2d0_icgraph.pdf, id=2219, 654.44
+5pt x 592.2125pt>
 File: print__utils_8c_a491dc14c94ed8cf706bb54880c50b2d0_icgraph.pdf Graphic fil
 e (type pdf)
 <use print__utils_8c_a491dc14c94ed8cf706bb54880c50b2d0_icgraph.pdf>
 Package pdftex.def Info: print__utils_8c_a491dc14c94ed8cf706bb54880c50b2d0_icgr
 aph.pdf  used on input line 157.
-(pdftex.def)             Requested size: 347.0pt x 249.01022pt.
- [27]
+(pdftex.def)             Requested size: 350.0pt x 316.71759pt.
+ [40]
 Underfull \hbox (badness 10000) detected at line 177
 [][][]
  []
@@ -1098,132 +1370,226 @@ Underfull \hbox (badness 10000) detected at line 180
 [][][]
  []
 
-) (./print__utils_8c_source.tex [28] [29]) (./print__utils_8h_source.tex)
-(./tcfs__daemon__tools_8c_source.tex [30]) (./tcfs__daemon__tools_8h_source.tex
-) (./message__handler_8c_source.tex [31]) (./message__handler_8h_source.tex)
-(./queue_8c_source.tex) (./queue_8h_source.tex [32]) (./tcfs__daemon_8c.tex <./
-tcfs__daemon_8c__incl.pdf>
-<tcfs__daemon_8c__incl.pdf, id=1815, 1033.8625pt x 408.52625pt>
+[41]) (./print__utils_8c_source.tex [42]) (./print__utils_8h_source.tex)
+(./tcfs__daemon__tools_8c_source.tex [43]) (./tcfs__daemon__tools_8h_source.tex
+[44]) (./message__handler_8c.tex <./message__handler_8c__incl.pdf>
+<message__handler_8c__incl.pdf, id=2508, 682.55pt x 419.5675pt>
+File: message__handler_8c__incl.pdf Graphic file (type pdf)
+<use message__handler_8c__incl.pdf>
+Package pdftex.def Info: message__handler_8c__incl.pdf  used on input line 17.
+(pdftex.def)             Requested size: 350.0pt x 215.14816pt.
+ [45])
+(./message__handler_8c_source.tex) (./message__handler_8h_source.tex)
+(./queue_8c.tex <./queue_8c__incl.pdf>
+<queue_8c__incl.pdf, id=2561, 774.895pt x 342.27875pt>
+File: queue_8c__incl.pdf Graphic file (type pdf)
+<use queue_8c__incl.pdf>
+Package pdftex.def Info: queue_8c__incl.pdf  used on input line 14.
+(pdftex.def)             Requested size: 350.0pt x 154.5985pt.
+ [46] [47]
+Underfull \hbox (badness 10000) detected at line 80
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 97
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 100
+[][][]
+ []
+
+ <./queue_8c_a1874b6e320d1e54d571c89766d046602_cgraph.pdf>
+<queue_8c_a1874b6e320d1e54d571c89766d046602_cgraph.pdf, id=2639, 228.855pt x 13
+6.51pt>
+File: queue_8c_a1874b6e320d1e54d571c89766d046602_cgraph.pdf Graphic file (type 
+pdf)
+<use queue_8c_a1874b6e320d1e54d571c89766d046602_cgraph.pdf>
+Package pdftex.def Info: queue_8c_a1874b6e320d1e54d571c89766d046602_cgraph.pdf 
+ used on input line 116.
+(pdftex.def)             Requested size: 228.0pt x 136.00557pt.
+ [48]
+Underfull \hbox (badness 10000) detected at line 136
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 145
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 154
+[][][]
+ []
+
+[49]
+Underfull \hbox (badness 10000) detected at line 157
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 160
+[][][]
+ []
+
+ <./queue_8c_ac51f5d595a9d7376eb0448116c99e1f4_cgraph.pdf>
+<queue_8c_ac51f5d595a9d7376eb0448116c99e1f4_cgraph.pdf, id=2676, 228.855pt x 13
+6.51pt>
+File: queue_8c_ac51f5d595a9d7376eb0448116c99e1f4_cgraph.pdf Graphic file (type 
+pdf)
+<use queue_8c_ac51f5d595a9d7376eb0448116c99e1f4_cgraph.pdf>
+Package pdftex.def Info: queue_8c_ac51f5d595a9d7376eb0448116c99e1f4_cgraph.pdf 
+ used on input line 176.
+(pdftex.def)             Requested size: 228.0pt x 136.00557pt.
+
+Underfull \hbox (badness 10000) detected at line 194
+[][][]
+ []
+
+ <./queue_8c_a6997b2cacf3d2e49bc848d0274e24b13_cgraph.pdf>
+<queue_8c_a6997b2cacf3d2e49bc848d0274e24b13_cgraph.pdf, id=2690, 236.885pt x 13
+6.51pt>
+File: queue_8c_a6997b2cacf3d2e49bc848d0274e24b13_cgraph.pdf Graphic file (type 
+pdf)
+<use queue_8c_a6997b2cacf3d2e49bc848d0274e24b13_cgraph.pdf>
+Package pdftex.def Info: queue_8c_a6997b2cacf3d2e49bc848d0274e24b13_cgraph.pdf 
+ used on input line 216.
+(pdftex.def)             Requested size: 236.0pt x 136.0035pt.
+ [50] <./queue_8c_a6997b2cacf3d2e49bc848d0274e24b13_icgraph.pdf>
+<queue_8c_a6997b2cacf3d2e49bc848d0274e24b13_icgraph.pdf, id=2705, 215.80624pt x
+ 99.37125pt>
+File: queue_8c_a6997b2cacf3d2e49bc848d0274e24b13_icgraph.pdf Graphic file (type
+ pdf)
+<use queue_8c_a6997b2cacf3d2e49bc848d0274e24b13_icgraph.pdf>
+Package pdftex.def Info: queue_8c_a6997b2cacf3d2e49bc848d0274e24b13_icgraph.pdf
+  used on input line 224.
+(pdftex.def)             Requested size: 215.0pt x 99.00253pt.
+) (./queue_8c_source.tex [51])
+(./queue_8h_source.tex) (./tcfs__daemon_8c.tex <./tcfs__daemon_8c__incl.pdf>
+<tcfs__daemon_8c__incl.pdf, id=2769, 990.70125pt x 408.52625pt>
 File: tcfs__daemon_8c__incl.pdf Graphic file (type pdf)
 <use tcfs__daemon_8c__incl.pdf>
 Package pdftex.def Info: tcfs__daemon_8c__incl.pdf  used on input line 14.
-(pdftex.def)             Requested size: 350.0pt x 138.29866pt.
+(pdftex.def)             Requested size: 350.0pt x 144.32655pt.
 
+[52]
 Underfull \hbox (badness 10000) detected at line 38
 [][][]
  []
 
-[33] <./tcfs__daemon_8c_a93d1097e4dd3c0735da3da2e89410090_cgraph.pdf>
-<tcfs__daemon_8c_a93d1097e4dd3c0735da3da2e89410090_cgraph.pdf, id=1858, 274.023
+[53] <./tcfs__daemon_8c_a93d1097e4dd3c0735da3da2e89410090_cgraph.pdf>
+<tcfs__daemon_8c_a93d1097e4dd3c0735da3da2e89410090_cgraph.pdf, id=2844, 274.023
 74pt x 99.37125pt>
 File: tcfs__daemon_8c_a93d1097e4dd3c0735da3da2e89410090_cgraph.pdf Graphic file
  (type pdf)
 <use tcfs__daemon_8c_a93d1097e4dd3c0735da3da2e89410090_cgraph.pdf>
 Package pdftex.def Info: tcfs__daemon_8c_a93d1097e4dd3c0735da3da2e89410090_cgra
-ph.pdf  used on input line 88.
+ph.pdf  used on input line 87.
 (pdftex.def)             Requested size: 273.0pt x 99.00708pt.
  <./tcfs__daemon_8c_a93d1097e4dd3c0735da3da2e89410090_icgraph.pdf>
-<tcfs__daemon_8c_a93d1097e4dd3c0735da3da2e89410090_icgraph.pdf, id=1866, 252.94
+<tcfs__daemon_8c_a93d1097e4dd3c0735da3da2e89410090_icgraph.pdf, id=2852, 252.94
 5pt x 99.37125pt>
 File: tcfs__daemon_8c_a93d1097e4dd3c0735da3da2e89410090_icgraph.pdf Graphic fil
 e (type pdf)
 <use tcfs__daemon_8c_a93d1097e4dd3c0735da3da2e89410090_icgraph.pdf>
 Package pdftex.def Info: tcfs__daemon_8c_a93d1097e4dd3c0735da3da2e89410090_icgr
-aph.pdf  used on input line 96.
+aph.pdf  used on input line 94.
 (pdftex.def)             Requested size: 252.0pt x 99.00253pt.
- [34] <./tcfs__daemon_8c_ae66f6b31b5ad750f1fe042a706a4e3d4_cgraph.pdf>
-<tcfs__daemon_8c_ae66f6b31b5ad750f1fe042a706a4e3d4_cgraph.pdf, id=1891, 348.301
-25pt x 175.65625pt>
+ <./tcfs__daemon_8c_ae66f6b31b5ad750f1fe042a706a4e3d4_cgraph.pdf>
+<tcfs__daemon_8c_ae66f6b31b5ad750f1fe042a706a4e3d4_cgraph.pdf, id=2869, 348.301
+25pt x 195.73125pt>
 File: tcfs__daemon_8c_ae66f6b31b5ad750f1fe042a706a4e3d4_cgraph.pdf Graphic file
  (type pdf)
 <use tcfs__daemon_8c_ae66f6b31b5ad750f1fe042a706a4e3d4_cgraph.pdf>
 Package pdftex.def Info: tcfs__daemon_8c_ae66f6b31b5ad750f1fe042a706a4e3d4_cgra
-ph.pdf  used on input line 126.
-(pdftex.def)             Requested size: 347.0pt x 175.00717pt.
- [35])
-(./tcfs__daemon_8c_source.tex [36]) (./tcfs__kmodule_8c_source.tex [37])
-(./tcfs__helper__tools_8c_source.tex [38] [39] [40] [41])
-(./tcfs__helper__tools_8h_source.tex) (./user__tcfs_8c_source.tex [42])
-(./tcfs_8c_source.tex [43] [44] [45] [46] [47] [48] [49] [50] [51])
-(./crypt-utils_8c_source.tex [52] [53] [54]) (./crypt-utils_8h_source.tex
-[55]) (./password__manager_8c_source.tex) (./password__manager_8h_source.tex)
-(./tcfs__utils_8c_source.tex [56]) (./tcfs__utils_8h_source.tex [57]) [58]
-(./refman.ind
+ph.pdf  used on input line 124.
+(pdftex.def)             Requested size: 347.0pt x 195.008pt.
+ [54]) (./tcfs__daemon_8c_source.tex
+[55] [56]) (./tcfs__kmodule_8c_source.tex) (./tcfs__helper__tools_8c_source.tex
+[57] [58] [59] [60] [61]) (./tcfs__helper__tools_8h_source.tex)
+(./user__tcfs_8c_source.tex [62]) (./tcfs_8c_source.tex [63] [64] [65] [66]
+[67] [68] [69] [70] [71]) (./crypt-utils_8c_source.tex [72] [73] [74] [75])
+(./crypt-utils_8h_source.tex [76]) (./password__manager_8c_source.tex)
+(./password__manager_8h_source.tex) (./tcfs__utils_8c_source.tex [77] [78])
+(./tcfs__utils_8h_source.tex) [79] [80
+
+] (./refman.ind
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
 (Font)              scaled to size 22.39185pt on input line 1.
 
-Underfull \hbox (badness 1292) in paragraph at lines 19--21
-[]\T1/phv/m/n/10 daemon/daemon_utils/common_utils/db/user_db.c, [][]20[][],
+Underfull \hbox (badness 1292) in paragraph at lines 22--24
+[]\T1/phv/m/n/10 daemon/daemon_utils/common_utils/db/user_db.c, [][]32[][],
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 25--27
+Underfull \hbox (badness 10000) in paragraph at lines 28--30
 []\T1/phv/m/n/10 daemon/daemon_utils/common_utils/json/json_tools.h,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 27--29
+Underfull \hbox (badness 10000) in paragraph at lines 30--32
 []\T1/phv/m/n/10 daemon/daemon_utils/common_utils/print/print_utils.c,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 29--31
+Underfull \hbox (badness 10000) in paragraph at lines 32--34
 []\T1/phv/m/n/10 daemon/daemon_utils/common_utils/print/print_utils.h,
  []
 
 
-Overfull \hbox (23.0374pt too wide) in paragraph at lines 35--37
+Overfull \hbox (23.0374pt too wide) in paragraph at lines 38--40
 []\T1/phv/m/n/10 daemon/daemon_utils/message_handler/message_handler.c,
  []
 
 
-Overfull \hbox (23.54134pt too wide) in paragraph at lines 37--39
+Overfull \hbox (23.54134pt too wide) in paragraph at lines 40--42
 []\T1/phv/m/n/10 daemon/daemon_utils/message_handler/message_handler.h,
  []
 
-[59
-
+[81
 
 
 ]
-Overfull \hbox (41.29834pt too wide) in paragraph at lines 161--163
+Overfull \hbox (41.29834pt too wide) in paragraph at lines 232--234
 []\T1/phv/m/n/10 userspace-module/utils/password_manager/password_manager.c,
  []
 
 
-Overfull \hbox (41.80228pt too wide) in paragraph at lines 163--165
+Overfull \hbox (41.80228pt too wide) in paragraph at lines 234--236
 []\T1/phv/m/n/10 userspace-module/utils/password_manager/password_manager.h,
  []
 
-[60
-
-]) (./refman.aux)
+[82]) (./refman.aux)
 Package rerunfilecheck Info: File `refman.out' has not changed.
-(rerunfilecheck)             Checksum: F58344FE14E49CB2EA27B9ABC2049D7C;16680.
+(rerunfilecheck)             Checksum: BB14D43E0437349477DF901ACB1F0090;24803.
  ) 
 Here is how much of TeX's memory you used:
- 21171 strings out of 478126
- 376132 string characters out of 5842786
- 1875793 words of memory out of 6000000
- 38054 multiletter control sequences out of 15000+600000
- 568718 words of font info for 103 fonts, out of 8000000 for 9000
+ 21863 strings out of 478126
+ 398480 string characters out of 5842786
+ 1876793 words of memory out of 6000000
+ 38331 multiletter control sequences out of 15000+600000
+ 570794 words of font info for 111 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 99i,16n,117p,1153b,740s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 99i,16n,117p,1150b,740s stack positions out of 10000i,1000n,20000p,200000b,200000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
 e/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texm
 f-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/
 fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/
 type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/p
-ublic/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/cour
-ier/ucrr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/courier/ucrro8a.p
-fb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/sha
-re/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvb8ac.pfb></usr/share/texlive/
-texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/share/texlive/texmf-dist/f
-onts/type1/urw/helvetic/uhvro8a.pfb>
-Output written on refman.pdf (66 pages, 409296 bytes).
+ublic/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/a
+msfonts/cm/cmsy9.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/courier/ucr
+r8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/courier/ucrro8a.pfb></us
+r/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/share/texl
+ive/texmf-dist/fonts/type1/urw/helvetic/uhvb8ac.pfb></usr/share/texlive/texmf-d
+ist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/share/texlive/texmf-dist/fonts/ty
+pe1/urw/helvetic/uhvro8a.pfb>
+Output written on refman.pdf (88 pages, 645811 bytes).
 PDF statistics:
- 4615 PDF objects out of 5155 (max. 8388607)
- 4425 compressed objects within 45 object streams
- 2766 named destinations out of 2984 (max. 500000)
- 844 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 5908 PDF objects out of 6186 (max. 8388607)
+ 5602 compressed objects within 57 object streams
+ 3169 named destinations out of 3580 (max. 500000)
+ 1247 words of extra memory for PDF output out of 10000 (max. 10000000)
 

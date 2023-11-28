@@ -1,11 +1,18 @@
-.TH "qm_user" 3 "Mon Nov 27 2023 17:03:19" "Version 0.2" "TCFS" \" -*- nroff -*-
+.TH "qm_user" 3 "Tue Nov 28 2023 12:06:42" "Version 0.2" "TCFS" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
-qm_user
+qm_user \- Represents a user message\&. 
+.br
+Contains information about the user's operation, process ID, username and public key\&. 
+.br
+\&.  
+
 .SH SYNOPSIS
 .br
 .PP
+.PP
+\fC#include <common\&.h>\fP
 .SS "Public Attributes"
 
 .in +1c
@@ -24,25 +31,35 @@ qm_user
 .in -1c
 .SH "Detailed Description"
 .PP 
-Definition at line \fB27\fP of file \fBcommon\&.h\fP\&.
+Represents a user message\&. 
+.br
+Contains information about the user's operation, process ID, username and public key\&. 
+.br
+\&. 
+.PP
+Definition at line \fB56\fP of file \fBcommon\&.h\fP\&.
 .SH "Member Data Documentation"
 .PP 
 .SS "pid_t qm_user::pid"
-
+The process ID of the user\&. 
 .PP
-Definition at line \fB29\fP of file \fBcommon\&.h\fP\&.
+Definition at line \fB58\fP of file \fBcommon\&.h\fP\&.
+.PP
+Referenced by \fBget_user_by_name()\fP, \fBget_user_by_pid()\fP, \fBinsert()\fP, and \fBremove_by_user()\fP\&.
 .SS "char* qm_user::pubkey"
-
+The public key of the user\&. 
 .PP
-Definition at line \fB31\fP of file \fBcommon\&.h\fP\&.
+Definition at line \fB60\fP of file \fBcommon\&.h\fP\&.
 .SS "char* qm_user::user"
-
+The username of the user\&. 
 .PP
-Definition at line \fB30\fP of file \fBcommon\&.h\fP\&.
+Definition at line \fB59\fP of file \fBcommon\&.h\fP\&.
+.PP
+Referenced by \fBget_user_by_name()\fP, \fBget_user_by_pid()\fP, \fBinsert()\fP, and \fBremove_by_pid()\fP\&.
 .SS "user_operation qm_user::user_op"
-
+The operation that the user wants to perform\&. 
 .PP
-Definition at line \fB28\fP of file \fBcommon\&.h\fP\&.
+Definition at line \fB57\fP of file \fBcommon\&.h\fP\&.
 
 .SH "Author"
 .PP 

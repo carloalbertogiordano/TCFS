@@ -7,8 +7,7 @@ This file contains the functions to interact with the database.
 
 {\ttfamily \#include "{}user\+\_\+db.\+h"{}}\newline
 {\ttfamily \#include "{}redis.\+h"{}}\newline
-Include dependency graph for user\+\_\+db.\+c\+:
-\nopagebreak
+Include dependency graph for user\+\_\+db.\+c\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -19,7 +18,7 @@ Include dependency graph for user\+\_\+db.\+c\+:
 \begin{DoxyCompactItemize}
 \item 
 int \mbox{\hyperlink{user__db_8c_a2ae8a82033440194ad80949cd4493971}{register\+\_\+user}} (\mbox{\hyperlink{structqm__user}{qm\+\_\+user}} \texorpdfstring{$\ast$}{*}user\+\_\+msg)
-\begin{DoxyCompactList}\small\item\em Register or update a user in the db, this relies on the \doxylink{redis_8c_source}{redis.\+c} file. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Register or update a user in the db, this relies on the \doxylink{redis_8c}{redis.\+c} file. \end{DoxyCompactList}\item 
 int \mbox{\hyperlink{user__db_8c_a6e2fcf4aa637e61f69b1b601981663cf}{unregister\+\_\+user}} (pid\+\_\+t pid)
 \begin{DoxyCompactList}\small\item\em Remove a user from the DB. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{user__db_8c_ab57ffd0f0b23a847e766e762906af22e}{disconnect\+\_\+db}} (void)
@@ -59,18 +58,17 @@ If this fails no errors will be printed and no errno will be set, you are on you
 \end{DoxyNote}
 
 
-Definition at line \mbox{\hyperlink{user__db_8c_source_l00041}{41}} of file \mbox{\hyperlink{user__db_8c_source}{user\+\_\+db.\+c}}.
+Definition at line \mbox{\hyperlink{user__db_8c_source_l00045}{45}} of file \mbox{\hyperlink{user__db_8c_source}{user\+\_\+db.\+c}}.
 
 
 
-References \mbox{\hyperlink{print__utils_8c_source_l00089}{print\+\_\+msg()}}.
+References \mbox{\hyperlink{redis_8c_source_l00092}{free\+\_\+context()}}, and \mbox{\hyperlink{print__utils_8c_source_l00101}{print\+\_\+msg()}}.
 
-Here is the call graph for this function\+:
-\nopagebreak
+Here is the call graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=255pt]{user__db_8c_ab57ffd0f0b23a847e766e762906af22e_cgraph}
+\includegraphics[width=267pt]{user__db_8c_ab57ffd0f0b23a847e766e762906af22e_cgraph}
 \end{center}
 \end{figure}
 \Hypertarget{user__db_8c_a2ae8a82033440194ad80949cd4493971}\label{user__db_8c_a2ae8a82033440194ad80949cd4493971} 
@@ -81,7 +79,7 @@ Here is the call graph for this function\+:
 
 
 
-Register or update a user in the db, this relies on the \doxylink{redis_8c_source}{redis.\+c} file. 
+Register or update a user in the db, this relies on the \doxylink{redis_8c}{redis.\+c} file. 
 
 
 \begin{DoxyParams}{Parameters}
@@ -89,22 +87,24 @@ Register or update a user in the db, this relies on the \doxylink{redis_8c_sourc
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-1 if successful, 0 otherwise 
+1 if successful, 0 otherwise. An error might be printen by \doxylink{print__utils_8c_a650ab060ffe5dbc6c1a968a9cae3bded}{print\+\_\+err()} function, 
 \end{DoxyReturn}
+\begin{DoxySeeAlso}{See also}
+\doxylink{print__utils_8c_a650ab060ffe5dbc6c1a968a9cae3bded}{print\+\_\+err} 
+\end{DoxySeeAlso}
 
 
-Definition at line \mbox{\hyperlink{user__db_8c_source_l00014}{14}} of file \mbox{\hyperlink{user__db_8c_source}{user\+\_\+db.\+c}}.
+Definition at line \mbox{\hyperlink{user__db_8c_source_l00015}{15}} of file \mbox{\hyperlink{user__db_8c_source}{user\+\_\+db.\+c}}.
 
 
 
-References \mbox{\hyperlink{print__utils_8c_source_l00089}{print\+\_\+msg()}}.
+References \mbox{\hyperlink{redis_8c_source_l00072}{init\+\_\+context()}}, \mbox{\hyperlink{redis_8c_source_l00211}{insert()}}, \mbox{\hyperlink{redis_8c_source_l00042}{print\+\_\+all\+\_\+keys()}}, and \mbox{\hyperlink{print__utils_8c_source_l00101}{print\+\_\+msg()}}.
 
-Here is the call graph for this function\+:
-\nopagebreak
+Here is the call graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=248pt]{user__db_8c_a2ae8a82033440194ad80949cd4493971_cgraph}
+\includegraphics[width=350pt]{user__db_8c_a2ae8a82033440194ad80949cd4493971_cgraph}
 \end{center}
 \end{figure}
 \Hypertarget{user__db_8c_a6e2fcf4aa637e61f69b1b601981663cf}\label{user__db_8c_a6e2fcf4aa637e61f69b1b601981663cf} 
@@ -123,21 +123,23 @@ Remove a user from the DB.
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-1 if successful, 0 otherwise 
+1 if successful, 0 otherwise. An error might be printen by \doxylink{print__utils_8c_a650ab060ffe5dbc6c1a968a9cae3bded}{print\+\_\+err()} function, 
 \end{DoxyReturn}
+\begin{DoxySeeAlso}{See also}
+\doxylink{print__utils_8c_a650ab060ffe5dbc6c1a968a9cae3bded}{print\+\_\+err} 
+\end{DoxySeeAlso}
 
 
-Definition at line \mbox{\hyperlink{user__db_8c_source_l00029}{29}} of file \mbox{\hyperlink{user__db_8c_source}{user\+\_\+db.\+c}}.
+Definition at line \mbox{\hyperlink{user__db_8c_source_l00031}{31}} of file \mbox{\hyperlink{user__db_8c_source}{user\+\_\+db.\+c}}.
 
 
 
-References \mbox{\hyperlink{print__utils_8c_source_l00089}{print\+\_\+msg()}}.
+References \mbox{\hyperlink{redis_8c_source_l00042}{print\+\_\+all\+\_\+keys()}}, \mbox{\hyperlink{print__utils_8c_source_l00101}{print\+\_\+msg()}}, and \mbox{\hyperlink{redis_8c_source_l00256}{remove\+\_\+by\+\_\+pid()}}.
 
-Here is the call graph for this function\+:
-\nopagebreak
+Here is the call graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=258pt]{user__db_8c_a6e2fcf4aa637e61f69b1b601981663cf_cgraph}
+\includegraphics[width=350pt]{user__db_8c_a6e2fcf4aa637e61f69b1b601981663cf_cgraph}
 \end{center}
 \end{figure}

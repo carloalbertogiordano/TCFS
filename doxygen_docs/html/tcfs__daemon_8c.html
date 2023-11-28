@@ -118,7 +118,7 @@ Variables</h2></td></tr>
 <dl class="section note"><dt>Note</dt><dd>Forking is disable at the moment, this meas it will run as a "normal" program </dd>
 <dd>
 the main function spawns a thread to handle incoming messages on the queue </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000003">Todo:</a></b></dt><dd><p class="startdd">: Enable forking </p>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000007">Todo:</a></b></dt><dd><p class="startdd">: Enable forking </p>
 <p class="enddd">Run the daemon via SystemD </p>
 </dd></dl>
 
@@ -147,13 +147,13 @@ the main function spawns a thread to handle incoming messages on the queue </dd>
   </table>
   </dd>
 </dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000006">Todo:</a></b></dt><dd>: Implement remove_queue() to clear and delete the queue </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000010">Todo:</a></b></dt><dd>: Implement remove_queue() to clear and delete the queue </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="tcfs__daemon_8c_source.html#l00036">36</a> of file <a class="el" href="tcfs__daemon_8c_source.html">tcfs_daemon.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="tcfs__daemon_8c_source.html#l00040">40</a> of file <a class="el" href="tcfs__daemon_8c_source.html">tcfs_daemon.c</a>.</p>
 
-<p class="reference">References <a class="el" href="print__utils_8c_source.html#l00089">print_msg()</a>.</p>
+<p class="reference">References <a class="el" href="print__utils_8c_source.html#l00101">print_msg()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="tcfs__daemon_8c_source.html#l00047">main()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="tcfs__daemon_8c_source.html#l00056">main()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -183,17 +183,17 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 
 <p>main function of the daemon. This will daemonize the program, spawn a thread to handle messages and handle unexpected termination of the thread </p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000007">Todo:</a></b></dt><dd><p class="startdd">: The brief description is basically false advertisement. It only spawn a thread and hangs infinitely </p>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000011">Todo:</a></b></dt><dd><p class="startdd">: The brief description is basically false advertisement. It only spawn a thread and hangs infinitely </p>
 <p class="enddd">: Remove the thread that spawns handle_outgoing_messages. This must not make it into final release </p>
 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="tcfs__daemon_8c_source.html#l00047">47</a> of file <a class="el" href="tcfs__daemon_8c_source.html">tcfs_daemon.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="tcfs__daemon_8c_source.html#l00056">56</a> of file <a class="el" href="tcfs__daemon_8c_source.html">tcfs_daemon.c</a>.</p>
 
-<p class="reference">References <a class="el" href="tcfs__daemon_8c_source.html#l00036">handle_termination()</a>, <a class="el" href="tcfs__daemon_8c_source.html#l00029">MQUEUE</a>, <a class="el" href="print__utils_8c_source.html#l00069">print_err()</a>, <a class="el" href="print__utils_8c_source.html#l00089">print_msg()</a>, and <a class="el" href="tcfs__daemon_8c_source.html#l00017">terminate</a>.</p>
+<p class="reference">References <a class="el" href="tcfs__daemon_8c_source.html#l00040">handle_termination()</a>, <a class="el" href="queue_8c_source.html#l00027">init_queue()</a>, <a class="el" href="tcfs__daemon_8c_source.html#l00032">MQUEUE</a>, <a class="el" href="print__utils_8c_source.html#l00079">print_err()</a>, <a class="el" href="print__utils_8c_source.html#l00101">print_msg()</a>, and <a class="el" href="tcfs__daemon_8c_source.html#l00020">terminate</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="tcfs__daemon_8c_ae66f6b31b5ad750f1fe042a706a4e3d4_cgraph.svg" width="367" height="138"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="tcfs__daemon_8c_ae66f6b31b5ad750f1fe042a706a4e3d4_cgraph.svg" width="367" height="164"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -213,9 +213,9 @@ Here is the call graph for this function:</div>
 
 <p>the queue file location </p>
 
-<p class="definition">Definition at line <a class="el" href="tcfs__daemon_8c_source.html#l00029">29</a> of file <a class="el" href="tcfs__daemon_8c_source.html">tcfs_daemon.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="tcfs__daemon_8c_source.html#l00032">32</a> of file <a class="el" href="tcfs__daemon_8c_source.html">tcfs_daemon.c</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="tcfs__daemon_8c_source.html#l00047">main()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="tcfs__daemon_8c_source.html#l00056">main()</a>.</p>
 
 </div>
 </div>
@@ -232,11 +232,11 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 
 <p>If the spawned threads terminate abruptly they should set this to 1, so that the daemon can terminate. </p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000004">Todo:</a></b></dt><dd>: Implement logic to make this work </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000008">Todo:</a></b></dt><dd>: Implement logic to make this work </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="tcfs__daemon_8c_source.html#l00017">17</a> of file <a class="el" href="tcfs__daemon_8c_source.html">tcfs_daemon.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="tcfs__daemon_8c_source.html#l00020">20</a> of file <a class="el" href="tcfs__daemon_8c_source.html">tcfs_daemon.c</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="tcfs__daemon_8c_source.html#l00047">main()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="tcfs__daemon_8c_source.html#l00056">main()</a>.</p>
 
 </div>
 </div>
@@ -253,16 +253,16 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 
 <p>Mutex needed to set the var terminate to 1 safely. </p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000005">Todo:</a></b></dt><dd>: implement logic to make this work </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000009">Todo:</a></b></dt><dd>: implement logic to make this work </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="tcfs__daemon_8c_source.html#l00023">23</a> of file <a class="el" href="tcfs__daemon_8c_source.html">tcfs_daemon.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="tcfs__daemon_8c_source.html#l00026">26</a> of file <a class="el" href="tcfs__daemon_8c_source.html">tcfs_daemon.c</a>.</p>
 
 </div>
 </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Nov 27 2023 17:03:19 for TCFS by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated on Tue Nov 28 2023 12:06:42 for TCFS by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

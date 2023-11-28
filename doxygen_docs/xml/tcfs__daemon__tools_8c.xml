@@ -5,59 +5,9 @@
     <includes refid="tcfs__daemon__tools_8h" local="yes">tcfs_daemon_tools.h</includes>
     <includes refid="message__handler_8h" local="yes">../message_handler/message_handler.h</includes>
     <incdepgraph>
-      <node id="13">
+      <node id="4">
         <label>../common.h</label>
         <link refid="common_8h_source"/>
-        <childnode refid="9" relation="include">
-        </childnode>
-        <childnode refid="14" relation="include">
-        </childnode>
-        <childnode refid="5" relation="include">
-        </childnode>
-        <childnode refid="15" relation="include">
-        </childnode>
-        <childnode refid="4" relation="include">
-        </childnode>
-        <childnode refid="16" relation="include">
-        </childnode>
-        <childnode refid="17" relation="include">
-        </childnode>
-      </node>
-      <node id="21">
-        <label>../common_utils/json/json_tools.h</label>
-        <link refid="json__tools_8h_source"/>
-        <childnode refid="13" relation="include">
-        </childnode>
-      </node>
-      <node id="18">
-        <label>../common_utils/print/print_utils.h</label>
-        <link refid="print__utils_8h_source"/>
-        <childnode refid="19" relation="include">
-        </childnode>
-        <childnode refid="17" relation="include">
-        </childnode>
-        <childnode refid="20" relation="include">
-        </childnode>
-        <childnode refid="9" relation="include">
-        </childnode>
-        <childnode refid="3" relation="include">
-        </childnode>
-      </node>
-      <node id="1">
-        <label>daemon/daemon_utils/daemon_tools/tcfs_daemon_tools.c</label>
-        <link refid="tcfs__daemon__tools_8c"/>
-        <childnode refid="2" relation="include">
-        </childnode>
-        <childnode refid="22" relation="include">
-        </childnode>
-      </node>
-      <node id="2">
-        <label>tcfs_daemon_tools.h</label>
-        <link refid="tcfs__daemon__tools_8h_source"/>
-        <childnode refid="3" relation="include">
-        </childnode>
-        <childnode refid="4" relation="include">
-        </childnode>
         <childnode refid="5" relation="include">
         </childnode>
         <childnode refid="6" relation="include">
@@ -72,76 +22,126 @@
         </childnode>
         <childnode refid="11" relation="include">
         </childnode>
-        <childnode refid="12" relation="include">
-        </childnode>
-        <childnode refid="22" relation="include">
-        </childnode>
       </node>
-      <node id="22">
-        <label>../message_handler/message_handler.h</label>
-        <link refid="message__handler_8h_source"/>
-        <childnode refid="13" relation="include">
-        </childnode>
-        <childnode refid="18" relation="include">
+      <node id="17">
+        <label>../common_utils/json/json_tools.h</label>
+        <link refid="json__tools_8h_source"/>
+        <childnode refid="4" relation="include">
         </childnode>
       </node>
       <node id="12">
-        <label>../queue/queue.h</label>
-        <link refid="queue_8h_source"/>
+        <label>../common_utils/print/print_utils.h</label>
+        <link refid="print__utils_8h_source"/>
+        <childnode refid="11" relation="include">
+        </childnode>
         <childnode refid="13" relation="include">
         </childnode>
-        <childnode refid="18" relation="include">
+        <childnode refid="14" relation="include">
         </childnode>
-        <childnode refid="21" relation="include">
+        <childnode refid="5" relation="include">
         </childnode>
-        <childnode refid="20" relation="include">
+        <childnode refid="15" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>daemon/daemon_utils/daemon_tools/tcfs_daemon_tools.c</label>
+        <link refid="tcfs__daemon__tools_8c"/>
+        <childnode refid="2" relation="include">
         </childnode>
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="17">
-        <label>errno.h</label>
-      </node>
-      <node id="5">
-        <label>fcntl.h</label>
-      </node>
-      <node id="15">
-        <label>mqueue.h</label>
-      </node>
-      <node id="10">
-        <label>pthread.h</label>
-      </node>
-      <node id="11">
-        <label>signal.h</label>
-      </node>
-      <node id="6">
-        <label>stdbool.h</label>
-      </node>
-      <node id="20">
-        <label>stdio.h</label>
+      <node id="2">
+        <label>tcfs_daemon_tools.h</label>
+        <link refid="tcfs__daemon__tools_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
       </node>
       <node id="3">
-        <label>stdlib.h</label>
+        <label>../message_handler/message_handler.h</label>
+        <link refid="message__handler_8h_source"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
       </node>
       <node id="16">
-        <label>string.h</label>
+        <label>../queue/queue.h</label>
+        <link refid="queue_8h_source"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>errno.h</label>
       </node>
       <node id="7">
-        <label>sys/socket.h</label>
-      </node>
-      <node id="9">
-        <label>sys/stat.h</label>
-      </node>
-      <node id="14">
-        <label>sys/types.h</label>
+        <label>fcntl.h</label>
       </node>
       <node id="8">
-        <label>sys/un.h</label>
+        <label>mqueue.h</label>
+      </node>
+      <node id="18">
+        <label>pthread.h</label>
       </node>
       <node id="19">
+        <label>signal.h</label>
+      </node>
+      <node id="20">
+        <label>stdbool.h</label>
+      </node>
+      <node id="13">
+        <label>stdio.h</label>
+      </node>
+      <node id="14">
+        <label>stdlib.h</label>
+      </node>
+      <node id="10">
+        <label>string.h</label>
+      </node>
+      <node id="21">
+        <label>sys/socket.h</label>
+      </node>
+      <node id="5">
+        <label>sys/stat.h</label>
+      </node>
+      <node id="6">
+        <label>sys/types.h</label>
+      </node>
+      <node id="22">
+        <label>sys/un.h</label>
+      </node>
+      <node id="15">
         <label>systemd/sd-journal.h</label>
       </node>
-      <node id="4">
+      <node id="9">
         <label>unistd.h</label>
       </node>
     </incdepgraph>
@@ -172,7 +172,7 @@
 </simplesect>
 <simplesect kind="note"><para>This function must never return. In case of its return the daemon will stall </para>
 </simplesect>
-<xrefsect id="todo_1_todo000001"><xreftitle>Todo</xreftitle><xrefdescription><para>Handle the case described in note </para>
+<xrefsect id="todo_1_todo000005"><xreftitle>Todo</xreftitle><xrefdescription><para>Handle the case described in note </para>
 </xrefdescription></xrefsect></para>
         </detaileddescription>
         <inbodydescription>
@@ -205,7 +205,7 @@
 </simplesect>
 <simplesect kind="note"><para>THIS FUNCTION IS HERE JUST TEMPORARILY. WILL BE REMOVED, THIS IS NOT WHAT WE WANT THE DAEMON TO DO. PLEASE IGNORE </para>
 </simplesect>
-<xrefsect id="todo_1_todo000002"><xreftitle>Todo</xreftitle><xrefdescription><para>Remove this function from the code </para>
+<xrefsect id="todo_1_todo000006"><xreftitle>Todo</xreftitle><xrefdescription><para>Remove this function from the code </para>
 </xrefdescription></xrefsect></para>
         </detaileddescription>
         <inbodydescription>
@@ -232,7 +232,7 @@
 <codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="print__utils_8c_1a491dc14c94ed8cf706bb54880c50b2d0" kindref="member">print_msg</ref>(</highlight><highlight class="stringliteral">&quot;Starting<sp/>handler<sp/>for<sp/>incoming<sp/>messages&quot;</highlight><highlight class="normal">);</highlight></codeline>
 <codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*tmp_struct;</highlight></codeline>
 <codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(1)<sp/>{</highlight></codeline>
-<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>tmp_struct<sp/>=<sp/>dequeue(*(mqd_t<sp/>*)<sp/>queue_id,<sp/>&amp;qmt);</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>tmp_struct<sp/>=<sp/><ref refid="queue_8c_1a1874b6e320d1e54d571c89766d046602" kindref="member">dequeue</ref>(*(mqd_t<sp/>*)<sp/>queue_id,<sp/>&amp;qmt);</highlight></codeline>
 <codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">switch</highlight><highlight class="normal"><sp/>(qmt)<sp/>{</highlight></codeline>
 <codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>USER:</highlight></codeline>
 <codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="print__utils_8c_1a491dc14c94ed8cf706bb54880c50b2d0" kindref="member">print_msg</ref>(</highlight><highlight class="stringliteral">&quot;Handling<sp/>user<sp/>message&quot;</highlight><highlight class="normal">);</highlight></codeline>
@@ -267,13 +267,13 @@
 <codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>s2[]<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;pubkey&quot;</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="67"><highlight class="normal"></highlight></codeline>
 <codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structqm__user" kindref="compound">qm_user</ref><sp/>test_msg;</highlight></codeline>
-<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/>test_msg.user_op<sp/>=<sp/>REGISTER;</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/>test_msg.<ref refid="structqm__user_1a4b5bbaaf885c62f44f265eeba461303d" kindref="member">user_op</ref><sp/>=<sp/>REGISTER;</highlight></codeline>
 <codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/>test_msg.pid<sp/>=<sp/>104;</highlight></codeline>
 <codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/>test_msg.user<sp/>=<sp/>s1;</highlight></codeline>
 <codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/>test_msg.pubkey<sp/>=<sp/>s2;</highlight></codeline>
 <codeline lineno="73"><highlight class="normal"></highlight></codeline>
 <codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="print__utils_8c_1a491dc14c94ed8cf706bb54880c50b2d0" kindref="member">print_msg</ref>(</highlight><highlight class="stringliteral">&quot;Enqueueing<sp/>test<sp/>registration...&quot;</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>res<sp/>=<sp/>enqueue(*(mqd_t<sp/>*)queue_id,<sp/>USER,<sp/>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*)&amp;test_msg);</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>res<sp/>=<sp/><ref refid="queue_8c_1ac51f5d595a9d7376eb0448116c99e1f4" kindref="member">enqueue</ref>(*(mqd_t<sp/>*)queue_id,<sp/>USER,<sp/>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*)&amp;test_msg);</highlight></codeline>
 <codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="print__utils_8c_1a491dc14c94ed8cf706bb54880c50b2d0" kindref="member">print_msg</ref>(</highlight><highlight class="stringliteral">&quot;TEST<sp/>message<sp/>send<sp/>with<sp/>result<sp/>%d&quot;</highlight><highlight class="normal">,<sp/>res);</highlight></codeline>
 <codeline lineno="77"><highlight class="normal"></highlight></codeline>
 <codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(res<sp/>!=<sp/>1){</highlight></codeline>
@@ -281,7 +281,7 @@
 <codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="81"><highlight class="normal"></highlight></codeline>
 <codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structqm__user" kindref="compound">qm_user</ref><sp/>test_msg2;</highlight></codeline>
-<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/>test_msg2.user_op<sp/>=<sp/>UNREGISTER;</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/>test_msg2.<ref refid="structqm__user_1a4b5bbaaf885c62f44f265eeba461303d" kindref="member">user_op</ref><sp/>=<sp/>UNREGISTER;</highlight></codeline>
 <codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/>test_msg2.pid<sp/>=<sp/>104;</highlight></codeline>
 <codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/>test_msg2.user<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;&quot;</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/>test_msg2.pubkey<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;&quot;</highlight><highlight class="normal">;</highlight></codeline>
@@ -289,7 +289,7 @@
 <codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/>sleep(3);</highlight></codeline>
 <codeline lineno="89"><highlight class="normal"></highlight></codeline>
 <codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="print__utils_8c_1a491dc14c94ed8cf706bb54880c50b2d0" kindref="member">print_msg</ref>(</highlight><highlight class="stringliteral">&quot;Enqueueing<sp/>test<sp/>remove...&quot;</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/>res<sp/>=<sp/>enqueue(*(mqd_t<sp/>*)queue_id,<sp/>USER,<sp/>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*)&amp;test_msg2);</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/>res<sp/>=<sp/><ref refid="queue_8c_1ac51f5d595a9d7376eb0448116c99e1f4" kindref="member">enqueue</ref>(*(mqd_t<sp/>*)queue_id,<sp/>USER,<sp/>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*)&amp;test_msg2);</highlight></codeline>
 <codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="print__utils_8c_1a491dc14c94ed8cf706bb54880c50b2d0" kindref="member">print_msg</ref>(</highlight><highlight class="stringliteral">&quot;TEST<sp/>message<sp/>send<sp/>with<sp/>result<sp/>%d&quot;</highlight><highlight class="normal">,<sp/>res);</highlight></codeline>
 <codeline lineno="93"><highlight class="normal"></highlight></codeline>
 <codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(res<sp/>!=<sp/>1){</highlight></codeline>

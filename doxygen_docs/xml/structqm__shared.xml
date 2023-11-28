@@ -2,6 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
   <compounddef id="structqm__shared" kind="struct" language="C++" prot="public">
     <compoundname>qm_shared</compoundname>
+    <includes refid="common_8h" local="no">common.h</includes>
     <sectiondef kind="public-attrib">
       <memberdef kind="variable" id="structqm__shared_1ac6ce7156e06279b3194acb24e4face96" prot="public" static="no" mutable="no">
         <type>int</type>
@@ -12,10 +13,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>The file descriptor of the shared file. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="daemon/daemon_utils/common.h" line="35" column="9" bodyfile="daemon/daemon_utils/common.h" bodystart="35" bodyend="-1"/>
+        <location file="daemon/daemon_utils/common.h" line="71" column="9" bodyfile="daemon/daemon_utils/common.h" bodystart="71" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structqm__shared_1af2a26858d769e4a816d0567b51ce0ed5" prot="public" static="no" mutable="no">
         <type>char **</type>
@@ -26,10 +28,14 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>The list of users who created the shared file.<linebreak/>
+ <simplesect kind="note"><para>This is really a matrix of chars </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="daemon/daemon_utils/common.h" line="36" column="10" bodyfile="daemon/daemon_utils/common.h" bodystart="36" bodyend="-1"/>
+        <location file="daemon/daemon_utils/common.h" line="72" column="10" bodyfile="daemon/daemon_utils/common.h" bodystart="72" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structqm__shared_1afef3f8b7e15af861010c6e0d66de659e" prot="public" static="no" mutable="no">
         <type>char *</type>
@@ -40,15 +46,22 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>The part of the key given by the caller that is needed to decrypt the shared file. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="daemon/daemon_utils/common.h" line="37" column="10" bodyfile="daemon/daemon_utils/common.h" bodystart="37" bodyend="-1"/>
+        <location file="daemon/daemon_utils/common.h" line="73" column="10" bodyfile="daemon/daemon_utils/common.h" bodystart="73" bodyend="-1"/>
       </memberdef>
     </sectiondef>
     <briefdescription>
+<para>Represents a shared message. <linebreak/>
+Contains information about the file descriptor ti which the TCFS module wants to access,<linebreak/>
+the user list to ask for keyparts and the key part of the caller. <linebreak/>
+. </para>
     </briefdescription>
     <detaileddescription>
+<para><xrefsect id="todo_1_todo000001"><xreftitle>Todo</xreftitle><xrefdescription><para>Handle creation of shared files and not only accessing them. This mey imply a new field </para>
+</xrefdescription></xrefsect></para>
     </detaileddescription>
     <collaborationgraph>
       <node id="4">
@@ -74,7 +87,7 @@
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="daemon/daemon_utils/common.h" line="34" column="1" bodyfile="daemon/daemon_utils/common.h" bodystart="34" bodyend="38"/>
+    <location file="daemon/daemon_utils/common.h" line="70" column="1" bodyfile="daemon/daemon_utils/common.h" bodystart="70" bodyend="74"/>
     <listofallmembers>
       <member refid="structqm__shared_1ac6ce7156e06279b3194acb24e4face96" prot="public" virt="non-virtual"><scope>qm_shared</scope><name>fd</name></member>
       <member refid="structqm__shared_1afef3f8b7e15af861010c6e0d66de659e" prot="public" virt="non-virtual"><scope>qm_shared</scope><name>keypart</name></member>

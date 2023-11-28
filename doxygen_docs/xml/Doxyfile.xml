@@ -42,7 +42,7 @@
   <option  id='SEPARATE_MEMBER_PAGES' default='yes' type='bool'><value>NO</value></option>
   <option  id='TAB_SIZE' default='yes' type='int'><value>4</value></option>
   <option  id='ALIASES' default='no' type='stringlist'>
-    <value><![CDATA["ret=1 if successful, 0 otherwise"]]></value>
+    <value><![CDATA["ret=1 if successful, 0 otherwise. An error might be printen by print_err() function, \see print_err"]]></value>
     <value><![CDATA["p_qmu=qm_user*     A pointer to the allocated qm_user* struct"]]></value>
     <value><![CDATA["_var= This variable is marked as internal and should not be used by the user"]]></value>
     <value><![CDATA["_func= This function is marked as internal and should not be used by the user"]]></value>
@@ -76,7 +76,7 @@
   <option  id='EXTRACT_ALL' default='yes' type='bool'><value>NO</value></option>
   <option  id='EXTRACT_PRIVATE' default='yes' type='bool'><value>NO</value></option>
   <option  id='EXTRACT_PRIV_VIRTUAL' default='yes' type='bool'><value>NO</value></option>
-  <option  id='EXTRACT_PACKAGE' default='yes' type='bool'><value>NO</value></option>
+  <option  id='EXTRACT_PACKAGE' default='no' type='bool'><value>YES</value></option>
   <option  id='EXTRACT_STATIC' default='yes' type='bool'><value>NO</value></option>
   <option  id='EXTRACT_LOCAL_CLASSES' default='yes' type='bool'><value>YES</value></option>
   <option  id='EXTRACT_LOCAL_METHODS' default='yes' type='bool'><value>NO</value></option>
@@ -86,7 +86,7 @@
   <option  id='HIDE_UNDOC_CLASSES' default='yes' type='bool'><value>NO</value></option>
   <option  id='HIDE_FRIEND_COMPOUNDS' default='yes' type='bool'><value>NO</value></option>
   <option  id='HIDE_IN_BODY_DOCS' default='yes' type='bool'><value>NO</value></option>
-  <option  id='INTERNAL_DOCS' default='yes' type='bool'><value>NO</value></option>
+  <option  id='INTERNAL_DOCS' default='no' type='bool'><value>YES</value></option>
   <option  id='CASE_SENSE_NAMES' default='yes' type='string'><value>SYSTEM</value></option>
   <option  id='HIDE_SCOPE_NAMES' default='yes' type='bool'><value>NO</value></option>
   <option  id='HIDE_COMPOUND_REFERENCE' default='yes' type='bool'><value>NO</value></option>
