@@ -5,22 +5,22 @@
 #include "crypt-utils.h"
 
 /**
- * @internal \_def
+ * @internal
  * @def BLOCKSIZE
- * @brief This defines the max size of a block that can be cyphered
+ * @brief This defines the max size of a block that can be cyphered. \_def
  * */
 #define BLOCKSIZE 1024
 /**
- * @internal \_def
+ * @internal
  * @def IV_SIZE
  * @brief The fixed size of the initialization vector \link
- * https://en.wikipedia.org/wiki/Initialization_vector IV \endlink
+ * https://en.wikipedia.org/wiki/Initialization_vector IV \endlink. \_def
  * */
 #define IV_SIZE 32
 /**
- * @internal \_def
+ * @internal
  * @def KEY_SIZE
- * @brief The fixed size of the key
+ * @brief The fixed size of the key. \_def
  * */
 #define KEY_SIZE 32
 
@@ -42,11 +42,11 @@
  * With additional information from Saju Pillai's OpenSSL AES Example \n
  * http://saju.net.in/blog/?p=36 \n
  * http://saju.net.in/code/misc/openssl_aes.c.txt \n
- * @param FILE *in  The input file
- * @param FILE *out The output file
- * @param int action    Defines if the action to do on the input file should be
+ * @param in  The input file
+ * @param out The output file
+ * @param action    Defines if the action to do on the input file should be
  *of encryption or decryption. \see ENCRYPT \see DECRYPT
- * @param unsigned char *key_str The key that must be AES 256
+ * @param key_str The key that must be AES 256
  * @return \ret
  * @note This function cyphers using AES 256 CBC
  * */
@@ -188,8 +188,8 @@ check_entropy (void)
 }
 
 /**
- * @internal \func
- * @brief Force new entropy in /dev/urandom
+ * @internal
+ * @brief Force new entropy in /dev/urandom, \_func
  * @param void
  * @return void
  * @note Very dangerous, if this fails an error will be printed and the program
@@ -224,7 +224,7 @@ add_entropy (void)
 
 /**
  * @brief Generate a new AES 256 key for a file
- * @param unsigned char *destination    Pointer to the string in which the
+ * @param destination Pointer to the string in which the
  * generated key will be saved. If an error occurs it will be set to NULL
  * @return void
  * */
@@ -264,9 +264,9 @@ generate_key (unsigned char *destination)
 
 /**
  * @brief Encrypt the *plaintext string using a AES 256 key
- * @param unsigned char *plaintext  This is the string to encrypt
- * @param const char *key   The AES 256 KEY
- * @paramc int *encrypted_len   This will be set to the encrypted string length
+ * @param plaintext This is the string to encrypt
+ * @param key The AES 256 KEY
+ * @param encrypted_len This will be set to the encrypted string length
  * @return unsigned char *  The encrypted string will be allocated and then
  * returned
  * @note    After the use remember to free the result
@@ -315,8 +315,8 @@ encrypt_string (unsigned char *plaintext, const char *key,
 
 /**
  * @brief Decrypt the *ciphertext string using a AES 256 key
- * @param unsigned char *ciphertext  This is the string to decrypt
- * @param const char *key   The AES 256 KEY
+ * @param ciphertext  This is the string to decrypt
+ * @param key The AES 256 KEY
  * @return unsigned char *  The plaintext string will be allocated and then
  * returned
  * @note    After the use remember to free the result
@@ -352,7 +352,7 @@ decrypt_string (unsigned char *ciphertext, const char *key)
 
 /**
  * @brief Check if a given key is valid
- * @param const unsigned char *key  The key to validate
+ * @param key The key to validate
  * @return \ret
  * @note This function only checks for key length
  * */

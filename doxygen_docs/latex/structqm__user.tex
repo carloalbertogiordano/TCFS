@@ -23,7 +23,7 @@ Collaboration diagram for qm\+\_\+user\+:\nopagebreak
 \doxysubsubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
-user\+\_\+operation \mbox{\hyperlink{structqm__user_a4b5bbaaf885c62f44f265eeba461303d}{user\+\_\+op}}
+\mbox{\hyperlink{common_8h_ad30dd7f5c8fc3f0027bbddc111c652b8}{user\+\_\+operation}} \mbox{\hyperlink{structqm__user_a4b5bbaaf885c62f44f265eeba461303d}{user\+\_\+op}}
 \item 
 pid\+\_\+t \mbox{\hyperlink{structqm__user_aa69546c3a6a2124be9f964329c951a84}{pid}}
 \item 
@@ -38,7 +38,7 @@ Represents a user message. ~\newline
 Contains information about the user\textquotesingle{}s operation, process ID, username and public key. ~\newline
 . 
 
-Definition at line \mbox{\hyperlink{common_8h_source_l00056}{56}} of file \mbox{\hyperlink{common_8h_source}{common.\+h}}.
+Definition at line \mbox{\hyperlink{common_8h_source_l00061}{61}} of file \mbox{\hyperlink{common_8h_source}{common.\+h}}.
 
 
 
@@ -51,11 +51,11 @@ Definition at line \mbox{\hyperlink{common_8h_source_l00056}{56}} of file \mbox{
 
 The process ID of the user. 
 
-Definition at line \mbox{\hyperlink{common_8h_source_l00058}{58}} of file \mbox{\hyperlink{common_8h_source}{common.\+h}}.
+Definition at line \mbox{\hyperlink{common_8h_source_l00063}{63}} of file \mbox{\hyperlink{common_8h_source}{common.\+h}}.
 
 
 
-Referenced by \mbox{\hyperlink{redis_8c_source_l00165}{get\+\_\+user\+\_\+by\+\_\+name()}}, \mbox{\hyperlink{redis_8c_source_l00122}{get\+\_\+user\+\_\+by\+\_\+pid()}}, \mbox{\hyperlink{redis_8c_source_l00211}{insert()}}, and \mbox{\hyperlink{redis_8c_source_l00292}{remove\+\_\+by\+\_\+user()}}.
+Referenced by \mbox{\hyperlink{redis_8c_source_l00165}{get\+\_\+user\+\_\+by\+\_\+name()}}, \mbox{\hyperlink{redis_8c_source_l00122}{get\+\_\+user\+\_\+by\+\_\+pid()}}, \mbox{\hyperlink{tcfs__daemon__tools_8c_source_l00066}{handle\+\_\+outgoing\+\_\+messages()}}, \mbox{\hyperlink{redis_8c_source_l00211}{insert()}}, \mbox{\hyperlink{redis_8c_source_l00292}{remove\+\_\+by\+\_\+user()}}, \mbox{\hyperlink{json__tools_8cpp_source_l00092}{string\+\_\+to\+\_\+struct()}}, and \mbox{\hyperlink{json__tools_8cpp_source_l00027}{struct\+\_\+to\+\_\+json()}}.
 
 \Hypertarget{structqm__user_ad718cfba201afae89c596111bd508d5f}\label{structqm__user_ad718cfba201afae89c596111bd508d5f} 
 \index{qm\_user@{qm\_user}!pubkey@{pubkey}}
@@ -65,7 +65,11 @@ Referenced by \mbox{\hyperlink{redis_8c_source_l00165}{get\+\_\+user\+\_\+by\+\_
 
 The public key of the user. 
 
-Definition at line \mbox{\hyperlink{common_8h_source_l00060}{60}} of file \mbox{\hyperlink{common_8h_source}{common.\+h}}.
+Definition at line \mbox{\hyperlink{common_8h_source_l00065}{65}} of file \mbox{\hyperlink{common_8h_source}{common.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{tcfs__daemon__tools_8c_source_l00066}{handle\+\_\+outgoing\+\_\+messages()}}, \mbox{\hyperlink{json__tools_8cpp_source_l00092}{string\+\_\+to\+\_\+struct()}}, and \mbox{\hyperlink{json__tools_8cpp_source_l00027}{struct\+\_\+to\+\_\+json()}}.
 
 \Hypertarget{structqm__user_a6c52d68724b65831ba6d95f3d7448ff4}\label{structqm__user_a6c52d68724b65831ba6d95f3d7448ff4} 
 \index{qm\_user@{qm\_user}!user@{user}}
@@ -75,24 +79,28 @@ Definition at line \mbox{\hyperlink{common_8h_source_l00060}{60}} of file \mbox{
 
 The username of the user. 
 
-Definition at line \mbox{\hyperlink{common_8h_source_l00059}{59}} of file \mbox{\hyperlink{common_8h_source}{common.\+h}}.
+Definition at line \mbox{\hyperlink{common_8h_source_l00064}{64}} of file \mbox{\hyperlink{common_8h_source}{common.\+h}}.
 
 
 
-Referenced by \mbox{\hyperlink{redis_8c_source_l00165}{get\+\_\+user\+\_\+by\+\_\+name()}}, \mbox{\hyperlink{redis_8c_source_l00122}{get\+\_\+user\+\_\+by\+\_\+pid()}}, \mbox{\hyperlink{redis_8c_source_l00211}{insert()}}, and \mbox{\hyperlink{redis_8c_source_l00256}{remove\+\_\+by\+\_\+pid()}}.
+Referenced by \mbox{\hyperlink{redis_8c_source_l00165}{get\+\_\+user\+\_\+by\+\_\+name()}}, \mbox{\hyperlink{redis_8c_source_l00122}{get\+\_\+user\+\_\+by\+\_\+pid()}}, \mbox{\hyperlink{tcfs__daemon__tools_8c_source_l00066}{handle\+\_\+outgoing\+\_\+messages()}}, \mbox{\hyperlink{redis_8c_source_l00211}{insert()}}, \mbox{\hyperlink{redis_8c_source_l00256}{remove\+\_\+by\+\_\+pid()}}, \mbox{\hyperlink{json__tools_8cpp_source_l00092}{string\+\_\+to\+\_\+struct()}}, and \mbox{\hyperlink{json__tools_8cpp_source_l00027}{struct\+\_\+to\+\_\+json()}}.
 
 \Hypertarget{structqm__user_a4b5bbaaf885c62f44f265eeba461303d}\label{structqm__user_a4b5bbaaf885c62f44f265eeba461303d} 
 \index{qm\_user@{qm\_user}!user\_op@{user\_op}}
 \index{user\_op@{user\_op}!qm\_user@{qm\_user}}
 \doxysubsubsection{\texorpdfstring{user\_op}{user\_op}}
-{\footnotesize\ttfamily user\+\_\+operation qm\+\_\+user\+::user\+\_\+op}
+{\footnotesize\ttfamily \mbox{\hyperlink{common_8h_ad30dd7f5c8fc3f0027bbddc111c652b8}{user\+\_\+operation}} qm\+\_\+user\+::user\+\_\+op}
 
 The operation that the user wants to perform. 
 
-Definition at line \mbox{\hyperlink{common_8h_source_l00057}{57}} of file \mbox{\hyperlink{common_8h_source}{common.\+h}}.
+Definition at line \mbox{\hyperlink{common_8h_source_l00062}{62}} of file \mbox{\hyperlink{common_8h_source}{common.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{tcfs__daemon__tools_8c_source_l00066}{handle\+\_\+outgoing\+\_\+messages()}}, \mbox{\hyperlink{json__tools_8cpp_source_l00092}{string\+\_\+to\+\_\+struct()}}, and \mbox{\hyperlink{json__tools_8cpp_source_l00027}{struct\+\_\+to\+\_\+json()}}.
 
 
 
 The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-daemon/daemon\+\_\+utils/common.\+h\end{DoxyCompactItemize}
+daemon/daemon\+\_\+utils/\mbox{\hyperlink{common_8h}{common.\+h}}\end{DoxyCompactItemize}

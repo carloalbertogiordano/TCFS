@@ -1,4 +1,4 @@
-.TH "daemon/daemon_utils/common_utils/db/redis.c" 3 "Tue Nov 28 2023 12:06:42" "Version 0.2" "TCFS" \" -*- nroff -*-
+.TH "daemon/daemon_utils/common_utils/db/redis.c" 3 "Tue Nov 28 2023 15:14:43" "Version 0.2" "TCFS" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -70,6 +70,7 @@ daemon/daemon_utils/common_utils/db/redis.c \- All the function in this file sho
 .ti -1c
 .RI "const char \fBHOST\fP [] = '127\&.0\&.0\&.1'"
 .br
+.RI "The host address of the redis DB\&. This variable is marked as internal and should not be used by the user\&. "
 .ti -1c
 .RI "redisContext * \fBcontext\fP"
 .br
@@ -94,7 +95,7 @@ Definition in file \fBredis\&.c\fP\&.
 .SS "#define PORT   6380"
 
 .PP
-The port of the redis DB\&. This definition is marked as internal and be used directly
+The port of the redis DB\&. This definition is marked as internal and should not be used directly by the user
 .PP
 \fBTodo\fP
 .RS 4
@@ -130,7 +131,7 @@ Fetch the user on the DB with key name\&. This function is marked as internal an
 .PP
 \fBParameters\fP
 .RS 4
-\fIconst\fP char *name The key of the row 
+\fIname\fP The key of the row 
 .RE
 .PP
 \fBReturns\fP
@@ -152,7 +153,7 @@ Fetch the user on the DB with key pid\&. This function is marked as internal and
 .PP
 \fBParameters\fP
 .RS 4
-\fIpid_t\fP pid The key of the row 
+\fIpid\fP The key of the row 
 .RE
 .PP
 \fBReturns\fP
@@ -181,7 +182,7 @@ initialize the context for the Redis DB This function is marked as internal and 
 .PP
 Definition at line \fB72\fP of file \fBredis\&.c\fP\&.
 .PP
-References \fBcontext\fP, \fBPORT\fP, and \fBprint_err()\fP\&.
+References \fBcontext\fP, \fBHOST\fP, \fBPORT\fP, and \fBprint_err()\fP\&.
 .PP
 Referenced by \fBregister_user()\fP\&.
 .SS "int insert (\fBqm_user\fP * user)"
@@ -191,7 +192,7 @@ Insert a new user in the DB\&. This function is marked as internal and should no
 .PP
 \fBParameters\fP
 .RS 4
-\fIqm_user*\fP A pointer to the allocated qm_user* struct 
+\fIuser\fP qm_user* A pointer to the allocated qm_user* struct 
 .RE
 .PP
 \fBReturns\fP
@@ -215,7 +216,7 @@ If an error is thrown it will be printed by \fBprint_err()\fP function
 .PP
 Definition at line \fB211\fP of file \fBredis\&.c\fP\&.
 .PP
-References \fBcontext\fP, \fBqm_user::pid\fP, \fBprint_err()\fP, \fBprint_msg()\fP, and \fBqm_user::user\fP\&.
+References \fBcontext\fP, \fBqm_user::pid\fP, \fBprint_err()\fP, \fBprint_msg()\fP, \fBstruct_to_json()\fP, \fBUSER\fP, and \fBqm_user::user\fP\&.
 .PP
 Referenced by \fBregister_user()\fP\&.
 .SS "\fBqm_user\fP * json_to_qm_user (char * json)"
@@ -225,7 +226,7 @@ Internal function to simplify the casting of a json to a \fBqm_user\fP struct\&.
 .PP
 \fBParameters\fP
 .RS 4
-\fIchar\fP *json the json string representing the \fBqm_user\fP struct 
+\fIjson\fP the json string representing the \fBqm_user\fP struct 
 .RE
 .PP
 \fBReturns\fP
@@ -237,7 +238,7 @@ qm_user* A pointer to the allocated qm_user* struct
 .PP
 Definition at line \fB104\fP of file \fBredis\&.c\fP\&.
 .PP
-References \fBprint_msg()\fP\&.
+References \fBprint_msg()\fP, and \fBstring_to_struct()\fP\&.
 .PP
 Referenced by \fBget_user_by_name()\fP, and \fBget_user_by_pid()\fP\&.
 .SS "void print_all_keys ()"
@@ -264,7 +265,7 @@ Remove a user from the DB using the PID as key\&. This function is marked as int
 .PP
 \fBParameters\fP
 .RS 4
-\fIpid_t\fP pid The key 
+\fIpid\fP The key 
 .RE
 .PP
 \fBReturns\fP
@@ -298,7 +299,7 @@ Remove a user from the DB using the name as key\&. This function is marked as in
 .PP
 \fBParameters\fP
 .RS 4
-\fIchar\fP *name The key 
+\fIname\fP The key 
 .RE
 .PP
 \fBReturns\fP
@@ -333,10 +334,21 @@ Pointer to the context of Redis DB\&. This variable is marked as internal and sh
 Definition at line \fB34\fP of file \fBredis\&.c\fP\&.
 .PP
 Referenced by \fBfree_context()\fP, \fBget_user_by_name()\fP, \fBget_user_by_pid()\fP, \fBinit_context()\fP, \fBinsert()\fP, \fBprint_all_keys()\fP, \fBremove_by_pid()\fP, and \fBremove_by_user()\fP\&.
-.SS "const char HOST[] = '127\&.0\&.0\&.1'"
+.SS "HOST = '127\&.0\&.0\&.1'"
+
+.PP
+The host address of the redis DB\&. This variable is marked as internal and should not be used by the user\&. 
+.PP
+\fBTodo\fP
+.RS 4
+This should be passed as a parameter to the daemon 
+.RE
+.PP
 
 .PP
 Definition at line \fB20\fP of file \fBredis\&.c\fP\&.
+.PP
+Referenced by \fBinit_context()\fP\&.
 .SH "Author"
 .PP 
 Generated automatically by Doxygen for TCFS from the source code\&.

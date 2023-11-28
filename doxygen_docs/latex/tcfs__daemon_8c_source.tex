@@ -81,7 +81,7 @@
 \DoxyCodeLine{\Hypertarget{tcfs__daemon_8c_source_l00116}00116\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ -\/errno;}
 \DoxyCodeLine{\Hypertarget{tcfs__daemon_8c_source_l00117}00117\ \ \ \ \ \}}
 \DoxyCodeLine{\Hypertarget{tcfs__daemon_8c_source_l00118}00118\ }
-\DoxyCodeLine{\Hypertarget{tcfs__daemon_8c_source_l00119}00119\ \ \ \textcolor{keywordflow}{if}\ (pthread\_create\ (\&thread1,\ NULL,\ handle\_incoming\_messages,\ \&queue\_id)}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon_8c_source_l00119}00119\ \ \ \textcolor{keywordflow}{if}\ (pthread\_create\ (\&thread1,\ NULL,\ \mbox{\hyperlink{tcfs__daemon__tools_8c_a24bb8f1eddd763598165ab8fa40fcdbd}{handle\_incoming\_messages}},\ \&queue\_id)}
 \DoxyCodeLine{\Hypertarget{tcfs__daemon_8c_source_l00120}00120\ \ \ \ \ \ \ !=\ 0)}
 \DoxyCodeLine{\Hypertarget{tcfs__daemon_8c_source_l00121}00121\ \ \ \ \ \{}
 \DoxyCodeLine{\Hypertarget{tcfs__daemon_8c_source_l00122}00122\ \ \ \ \ \ \ \mbox{\hyperlink{print__utils_8c_a650ab060ffe5dbc6c1a968a9cae3bded}{print\_err}}\ (\textcolor{stringliteral}{"{}Failed\ to\ create\ thread1"{}});}
@@ -90,7 +90,7 @@
 \DoxyCodeLine{\Hypertarget{tcfs__daemon_8c_source_l00125}00125\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ -\/errno;}
 \DoxyCodeLine{\Hypertarget{tcfs__daemon_8c_source_l00126}00126\ \ \ \ \ \}}
 \DoxyCodeLine{\Hypertarget{tcfs__daemon_8c_source_l00127}00127\ }
-\DoxyCodeLine{\Hypertarget{tcfs__daemon_8c_source_l00128}00128\ \ \ \textcolor{keywordflow}{if}\ (pthread\_create\ (\&thread2,\ NULL,\ handle\_outgoing\_messages,\ \&queue\_id)}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon_8c_source_l00128}00128\ \ \ \textcolor{keywordflow}{if}\ (pthread\_create\ (\&thread2,\ NULL,\ \mbox{\hyperlink{tcfs__daemon__tools_8c_ab143feba805d6beda83eb69560c3c923}{handle\_outgoing\_messages}},\ \&queue\_id)}
 \DoxyCodeLine{\Hypertarget{tcfs__daemon_8c_source_l00129}00129\ \ \ \ \ \ \ !=\ 0)}
 \DoxyCodeLine{\Hypertarget{tcfs__daemon_8c_source_l00130}00130\ \ \ \ \ \{}
 \DoxyCodeLine{\Hypertarget{tcfs__daemon_8c_source_l00131}00131\ \ \ \ \ \ \ \mbox{\hyperlink{print__utils_8c_a650ab060ffe5dbc6c1a968a9cae3bded}{print\_err}}\ (\textcolor{stringliteral}{"{}Failed\ to\ create\ thread1"{}});}

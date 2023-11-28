@@ -17,9 +17,8 @@ int cleared = 0;
  * @internal \_func
  * @brief Log a message to stdout and to a file. The location is defined by
  * logFile variable
- * @param
- * @return
- * @note
+ * @param log The string that will be logged
+ * @return void
  * */
 void
 log_message (const char *log)
@@ -66,8 +65,8 @@ log_message (const char *log)
 
 /**
  * @brief Format and print data as an error.
- * @param const char *format        the string that will formatted and printed
- * @param [ARGUMENTS]...       Print optional ARGUMENT(s) according to format
+ * @param format  the string that will formatted and printed
+ * @param ...       Print optional ARGUMENT(s) according to format
  * @return void
  * @note Will also log using systemD
  * @note \"ERROR=\" will be prepended to format
@@ -91,8 +90,8 @@ print_err (const char *format, ...)
 }
 /**
  * @brief Format and print data as a message.
- * @param const char *format        the string that will formatted and printed
- * @param [ARGUMENTS]...       Print optional ARGUMENT(s) according to format
+ * @param format  the string that will formatted and printed
+ * @param ...  Print optional ARGUMENT(s) according to format
  * @return void
  * @note Will also log using systemD
  * @note \"MESSAGE=\" will be prepended to format
@@ -113,8 +112,8 @@ print_msg (const char *format, ...)
 
 /**
  * @brief Format and print data as a waring.
- * @param const char *format        the string that will formatted and printed
- * @param [ARGUMENTS]...       Print optional ARGUMENT(s) according to format
+ * @param format  the string that will formatted and printed
+ * @param ...  Print optional ARGUMENT(s) according to format
  * @return void
  * @note Will also log using systemD
  * @note \"WARNING=\" will be prepended to format
@@ -135,8 +134,8 @@ print_warn (const char *format, ...)
 
 /**
  * @brief Format and print data as a debug.
- * @param const char *format        the string that will formatted and printed
- * @param [ARGUMENTS]...       Print optional ARGUMENT(s) according to format
+ * @param format  the string that will formatted and printed
+ * @param ...  Print optional ARGUMENT(s) according to format
  * @return void
  * @note Will also log using systemD
  * @note \"DEBUG=\" will be prepended to format

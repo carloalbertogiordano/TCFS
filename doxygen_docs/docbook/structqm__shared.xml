@@ -41,7 +41,7 @@ Collaboration diagram for qm_shared:<para>
 <para>Handle creation of shared files and not only accessing them. This mey imply a new field </para>
 </para></para>
 <para>
-Definition at line <link linkend="_common_8h_source_1l00070">70</link> of file <link linkend="_common_8h_source">common.h</link>.</para>
+Definition at line <link linkend="_common_8h_source_1l00075">75</link> of file <link linkend="_common_8h_source">common.h</link>.</para>
 </section>
 <section>
 <title>Member Data Documentation</title>
@@ -52,7 +52,9 @@ Definition at line <link linkend="_common_8h_source_1l00070">70</link> of file <
 <para><computeroutput>int qm_shared::fd</computeroutput></para>
 <para>The file descriptor of the shared file. </para>
 <para>
-Definition at line <link linkend="_common_8h_source_1l00071">71</link> of file <link linkend="_common_8h_source">common.h</link>.</para>
+Definition at line <link linkend="_common_8h_source_1l00076">76</link> of file <link linkend="_common_8h_source">common.h</link>.</para>
+<para>
+Referenced by <link linkend="_json__tools_8cpp_source_1l00092">string_to_struct()</link>, and <link linkend="_json__tools_8cpp_source_1l00027">struct_to_json()</link>.</para>
 </section>
 <anchor xml:id="_structqm__shared_1afef3f8b7e15af861010c6e0d66de659e"/><section>
     <title>keypart</title>
@@ -61,7 +63,9 @@ Definition at line <link linkend="_common_8h_source_1l00071">71</link> of file <
 <para><computeroutput>char* qm_shared::keypart</computeroutput></para>
 <para>The part of the key given by the caller that is needed to decrypt the shared file. </para>
 <para>
-Definition at line <link linkend="_common_8h_source_1l00073">73</link> of file <link linkend="_common_8h_source">common.h</link>.</para>
+Definition at line <link linkend="_common_8h_source_1l00078">78</link> of file <link linkend="_common_8h_source">common.h</link>.</para>
+<para>
+Referenced by <link linkend="_json__tools_8cpp_source_1l00092">string_to_struct()</link>, and <link linkend="_json__tools_8cpp_source_1l00027">struct_to_json()</link>.</para>
 </section>
 <anchor xml:id="_structqm__shared_1af2a26858d769e4a816d0567b51ce0ed5"/><section>
     <title>userlist</title>
@@ -74,9 +78,11 @@ Definition at line <link linkend="_common_8h_source_1l00073">73</link> of file <
 </note>
 </para>
 <para>
-Definition at line <link linkend="_common_8h_source_1l00072">72</link> of file <link linkend="_common_8h_source">common.h</link>.</para>
+Definition at line <link linkend="_common_8h_source_1l00077">77</link> of file <link linkend="_common_8h_source">common.h</link>.</para>
+<para>
+Referenced by <link linkend="_json__tools_8cpp_source_1l00092">string_to_struct()</link>, and <link linkend="_json__tools_8cpp_source_1l00027">struct_to_json()</link>.</para>
 </section>
 <para>
 The documentation for this struct was generated from the following file:</para>
-daemon/daemon_utils/common.h</section>
+daemon/daemon_utils/<link linkend="_common_8h">common.h</link></section>
 </section>

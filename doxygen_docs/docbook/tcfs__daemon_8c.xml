@@ -87,8 +87,8 @@ Parameters</title>
                         <colspec colwidth="4*"/>
                         <tbody>
                             <row>
-<entry>int</entry><entry>
-<para>signum Integer corresponding to SIGNUM </para>
+<entry>signum</entry><entry>
+<para>Integer corresponding to SIGNUM </para>
 </entry>
                             </row>
                         </tbody>
@@ -102,7 +102,7 @@ Parameters</title>
 <para>
 Definition at line <link linkend="_tcfs__daemon_8c_source_1l00040">40</link> of file <link linkend="_tcfs__daemon_8c_source">tcfs_daemon.c</link>.</para>
 <para>
-References <link linkend="_print__utils_8c_source_1l00101">print_msg()</link>.</para>
+References <link linkend="_print__utils_8c_source_1l00100">print_msg()</link>.</para>
 <para>
 Referenced by <link linkend="_tcfs__daemon_8c_source_1l00056">main()</link>.</para>
 Here is the call graph for this function:<para>
@@ -141,7 +141,7 @@ Here is the caller graph for this function:<para>
 <para>
 Definition at line <link linkend="_tcfs__daemon_8c_source_1l00056">56</link> of file <link linkend="_tcfs__daemon_8c_source">tcfs_daemon.c</link>.</para>
 <para>
-References <link linkend="_tcfs__daemon_8c_source_1l00040">handle_termination()</link>, <link linkend="_queue_8c_source_1l00027">init_queue()</link>, <link linkend="_tcfs__daemon_8c_source_1l00032">MQUEUE</link>, <link linkend="_print__utils_8c_source_1l00079">print_err()</link>, <link linkend="_print__utils_8c_source_1l00101">print_msg()</link>, and <link linkend="_tcfs__daemon_8c_source_1l00020">terminate</link>.</para>
+References <link linkend="_tcfs__daemon__tools_8c_source_1l00019">handle_incoming_messages()</link>, <link linkend="_tcfs__daemon__tools_8c_source_1l00066">handle_outgoing_messages()</link>, <link linkend="_tcfs__daemon_8c_source_1l00040">handle_termination()</link>, <link linkend="_queue_8c_source_1l00027">init_queue()</link>, <link linkend="_tcfs__daemon_8c_source_1l00032">MQUEUE</link>, <link linkend="_print__utils_8c_source_1l00078">print_err()</link>, <link linkend="_print__utils_8c_source_1l00100">print_msg()</link>, and <link linkend="_tcfs__daemon_8c_source_1l00020">terminate</link>.</para>
 Here is the call graph for this function:<para>
     <informalfigure>
         <mediaobject>

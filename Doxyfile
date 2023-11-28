@@ -288,7 +288,7 @@ ALIASES                += "p_qmu=qm_user*     A pointer to the allocated qm_user
 ALIASES                += "_var= This variable is marked as internal and should not be used by the user"
 ALIASES                += "_func= This function is marked as internal and should not be used by the user"
 ALIASES                += "_file= This file is marked as internal and the corresponding header should not be used by the user.^^ Please refer to the see section"
-ALIASES                += "_def= This definition is marked as internal and be used directly"
+ALIASES                += "_def= This definition is marked as internal and should not be used directly by the user"
 
 
 
@@ -2774,7 +2774,7 @@ DOTFILE_DIRS           =
 # DIA_PATH tag allows you to specify the directory where the dia binary resides.
 # If left empty dia is assumed to be found in the default search path.
 
-DIA_PATH               = "/usr/bin/dot"
+DIA_PATH               = "/usr/bin"
 
 # The DIAFILE_DIRS tag can be used to specify one or more directories that
 # contain dia files that are included in the documentation (see the \diafile

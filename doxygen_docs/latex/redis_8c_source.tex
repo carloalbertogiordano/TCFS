@@ -8,7 +8,7 @@
 \DoxyCodeLine{\Hypertarget{redis_8c_source_l00011}00011\ \textcolor{preprocessor}{\#include\ "{}../print/print\_utils.h"{}}}
 \DoxyCodeLine{\Hypertarget{redis_8c_source_l00012}00012\ \textcolor{preprocessor}{\#include\ <hiredis/hiredis.h>}}
 \DoxyCodeLine{\Hypertarget{redis_8c_source_l00013}00013\ }
-\DoxyCodeLine{\Hypertarget{redis_8c_source_l00020}00020\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ HOST[]\ =\ \textcolor{stringliteral}{"{}127.0.0.1"{}};}
+\DoxyCodeLine{\Hypertarget{redis_8c_source_l00020}\mbox{\hyperlink{redis_8c_ab146e06ef57318f58a840b315626b861}{00020}}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{redis_8c_ab146e06ef57318f58a840b315626b861}{HOST}}[]\ =\ \textcolor{stringliteral}{"{}127.0.0.1"{}};}
 \DoxyCodeLine{\Hypertarget{redis_8c_source_l00027}\mbox{\hyperlink{redis_8c_a614217d263be1fb1a5f76e2ff7be19a2}{00027}}\ \textcolor{preprocessor}{\#define\ PORT\ 6380}}
 \DoxyCodeLine{\Hypertarget{redis_8c_source_l00028}00028\ }
 \DoxyCodeLine{\Hypertarget{redis_8c_source_l00034}\mbox{\hyperlink{redis_8c_a71ea645922f3e5dcc69b644656c79a99}{00034}}\ redisContext\ *\mbox{\hyperlink{redis_8c_a71ea645922f3e5dcc69b644656c79a99}{context}};}
@@ -44,7 +44,7 @@
 \DoxyCodeLine{\Hypertarget{redis_8c_source_l00075}00075\ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{redis_8c_a71ea645922f3e5dcc69b644656c79a99}{context}}\ !=\ NULL)}
 \DoxyCodeLine{\Hypertarget{redis_8c_source_l00076}00076\ \ \ \ \ \textcolor{keywordflow}{return}\ 1;}
 \DoxyCodeLine{\Hypertarget{redis_8c_source_l00077}00077\ }
-\DoxyCodeLine{\Hypertarget{redis_8c_source_l00078}00078\ \ \ \mbox{\hyperlink{redis_8c_a71ea645922f3e5dcc69b644656c79a99}{context}}\ =\ redisConnect\ (HOST,\ \mbox{\hyperlink{redis_8c_a614217d263be1fb1a5f76e2ff7be19a2}{PORT}});}
+\DoxyCodeLine{\Hypertarget{redis_8c_source_l00078}00078\ \ \ \mbox{\hyperlink{redis_8c_a71ea645922f3e5dcc69b644656c79a99}{context}}\ =\ redisConnect\ (\mbox{\hyperlink{redis_8c_ab146e06ef57318f58a840b315626b861}{HOST}},\ \mbox{\hyperlink{redis_8c_a614217d263be1fb1a5f76e2ff7be19a2}{PORT}});}
 \DoxyCodeLine{\Hypertarget{redis_8c_source_l00079}00079\ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{redis_8c_a71ea645922f3e5dcc69b644656c79a99}{context}}-\/>err)}
 \DoxyCodeLine{\Hypertarget{redis_8c_source_l00080}00080\ \ \ \ \ \{}
 \DoxyCodeLine{\Hypertarget{redis_8c_source_l00081}00081\ \ \ \ \ \ \ \mbox{\hyperlink{print__utils_8c_a650ab060ffe5dbc6c1a968a9cae3bded}{print\_err}}\ (\textcolor{stringliteral}{"{}Connection\ error:\ \%s"{}},\ \mbox{\hyperlink{redis_8c_a71ea645922f3e5dcc69b644656c79a99}{context}}-\/>errstr);}
@@ -61,12 +61,12 @@
 \DoxyCodeLine{\Hypertarget{redis_8c_source_l00104}\mbox{\hyperlink{redis_8c_a8e6e1687d6351741ac3e353d23425f71}{00104}}\ \mbox{\hyperlink{redis_8c_a8e6e1687d6351741ac3e353d23425f71}{json\_to\_qm\_user}}\ (\textcolor{keywordtype}{char}\ *json)}
 \DoxyCodeLine{\Hypertarget{redis_8c_source_l00105}00105\ \{}
 \DoxyCodeLine{\Hypertarget{redis_8c_source_l00106}00106\ \ \ \mbox{\hyperlink{print__utils_8c_a491dc14c94ed8cf706bb54880c50b2d0}{print\_msg}}\ (\textcolor{stringliteral}{"{}DEBUG:\ Converting\ \%s"{}},\ json);}
-\DoxyCodeLine{\Hypertarget{redis_8c_source_l00107}00107\ \ \ qm\_type\ type;}
+\DoxyCodeLine{\Hypertarget{redis_8c_source_l00107}00107\ \ \ \mbox{\hyperlink{common_8h_ab2c144fca6129807a9fe4bad66970c4c}{qm\_type}}\ type;}
 \DoxyCodeLine{\Hypertarget{redis_8c_source_l00108}00108\ \ \ \textcolor{comment}{//\ Redis\ return\ the\ value\ as\ json:\{actual\ json\}\ so\ we\ need\ to\ eliminate\ the}}
 \DoxyCodeLine{\Hypertarget{redis_8c_source_l00109}00109\ \ \ \textcolor{comment}{//\ json:\ from\ the\ string}}
 \DoxyCodeLine{\Hypertarget{redis_8c_source_l00110}00110\ \ \ \textcolor{keywordtype}{char}\ *res\ =\ strchr\ (json,\ \textcolor{charliteral}{':'});}
 \DoxyCodeLine{\Hypertarget{redis_8c_source_l00111}00111\ \ \ res++;\ \textcolor{comment}{//\ Skip\ the\ :\ char}}
-\DoxyCodeLine{\Hypertarget{redis_8c_source_l00112}00112\ \ \ \mbox{\hyperlink{structqm__user}{qm\_user}}\ *user\ =\ (\mbox{\hyperlink{structqm__user}{qm\_user}}\ *)string\_to\_struct\ (res,\ \&type);}
+\DoxyCodeLine{\Hypertarget{redis_8c_source_l00112}00112\ \ \ \mbox{\hyperlink{structqm__user}{qm\_user}}\ *user\ =\ (\mbox{\hyperlink{structqm__user}{qm\_user}}\ *)\mbox{\hyperlink{json__tools_8cpp_a513edf914a6a6141c7892d193d0c1f52}{string\_to\_struct}}\ (res,\ \&type);}
 \DoxyCodeLine{\Hypertarget{redis_8c_source_l00113}00113\ \ \ \textcolor{keywordflow}{return}\ user;}
 \DoxyCodeLine{\Hypertarget{redis_8c_source_l00114}00114\ \}}
 \DoxyCodeLine{\Hypertarget{redis_8c_source_l00121}00121\ \mbox{\hyperlink{structqm__user}{qm\_user}}\ *}
@@ -147,7 +147,7 @@
 \DoxyCodeLine{\Hypertarget{redis_8c_source_l00211}\mbox{\hyperlink{redis_8c_ac9878ee09b53700eb08c1f175873c30b}{00211}}\ \mbox{\hyperlink{redis_8c_ac9878ee09b53700eb08c1f175873c30b}{insert}}\ (\mbox{\hyperlink{structqm__user}{qm\_user}}\ *user)}
 \DoxyCodeLine{\Hypertarget{redis_8c_source_l00212}00212\ \{}
 \DoxyCodeLine{\Hypertarget{redis_8c_source_l00213}00213\ \ \ \textcolor{comment}{//\ Convert\ the\ structure\ to\ JSON}}
-\DoxyCodeLine{\Hypertarget{redis_8c_source_l00214}00214\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *json\ =\ struct\_to\_json\ (USER,\ user);}
+\DoxyCodeLine{\Hypertarget{redis_8c_source_l00214}00214\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *json\ =\ \mbox{\hyperlink{json__tools_8cpp_abe22bc6ace23fc8f7e186a824784765f}{struct\_to\_json}}\ (\mbox{\hyperlink{common_8h_ab2c144fca6129807a9fe4bad66970c4cae2d30a195cee6b2961cc2c23ea4b520b}{USER}},\ user);}
 \DoxyCodeLine{\Hypertarget{redis_8c_source_l00215}00215\ \ \ \textcolor{keywordflow}{if}\ (!json)}
 \DoxyCodeLine{\Hypertarget{redis_8c_source_l00216}00216\ \ \ \ \ \{}
 \DoxyCodeLine{\Hypertarget{redis_8c_source_l00217}00217\ \ \ \ \ \ \ \mbox{\hyperlink{print__utils_8c_a650ab060ffe5dbc6c1a968a9cae3bded}{print\_err}}\ (\textcolor{stringliteral}{"{}Error\ converting\ qm\_user\ to\ JSON"{}});}

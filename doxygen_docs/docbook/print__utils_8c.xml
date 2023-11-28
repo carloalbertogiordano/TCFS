@@ -75,12 +75,12 @@ Parameters</title>
                         <colspec colwidth="4*"/>
                         <tbody>
                             <row>
-<entry>const</entry><entry>
-<para>char *format the string that will formatted and printed </para>
+<entry>format</entry><entry>
+<para>the string that will formatted and printed </para>
 </entry>
                             </row>
                             <row>
-<entry>[ARGUMENTS]...</entry><entry>
+<entry>...</entry><entry>
 <para>Print optional ARGUMENT(s) according to format </para>
 </entry>
                             </row>
@@ -101,7 +101,7 @@ Parameters</title>
 </note>
 </para>
 <para>
-Definition at line <link linkend="_print__utils_8c_source_1l00145">145</link> of file <link linkend="_print__utils_8c_source">print_utils.c</link>.</para>
+Definition at line <link linkend="_print__utils_8c_source_1l00144">144</link> of file <link linkend="_print__utils_8c_source">print_utils.c</link>.</para>
 </section>
 <anchor xml:id="_print__utils_8c_1a650ab060ffe5dbc6c1a968a9cae3bded"/><section>
     <title>print_err()</title>
@@ -123,12 +123,12 @@ Parameters</title>
                         <colspec colwidth="4*"/>
                         <tbody>
                             <row>
-<entry>const</entry><entry>
-<para>char *format the string that will formatted and printed </para>
+<entry>format</entry><entry>
+<para>the string that will formatted and printed </para>
 </entry>
                             </row>
                             <row>
-<entry>[ARGUMENTS]...</entry><entry>
+<entry>...</entry><entry>
 <para>Print optional ARGUMENT(s) according to format </para>
 </entry>
                             </row>
@@ -153,9 +153,9 @@ Parameters</title>
 </note>
 </para>
 <para>
-Definition at line <link linkend="_print__utils_8c_source_1l00079">79</link> of file <link linkend="_print__utils_8c_source">print_utils.c</link>.</para>
+Definition at line <link linkend="_print__utils_8c_source_1l00078">78</link> of file <link linkend="_print__utils_8c_source">print_utils.c</link>.</para>
 <para>
-Referenced by <link linkend="_queue_8c_source_1l00095">dequeue()</link>, <link linkend="_queue_8c_source_1l00067">enqueue()</link>, <link linkend="_redis_8c_source_1l00165">get_user_by_name()</link>, <link linkend="_redis_8c_source_1l00122">get_user_by_pid()</link>, <link linkend="_redis_8c_source_1l00072">init_context()</link>, <link linkend="_queue_8c_source_1l00027">init_queue()</link>, <link linkend="_redis_8c_source_1l00211">insert()</link>, <link linkend="_tcfs__daemon_8c_source_1l00056">main()</link>, <link linkend="_redis_8c_source_1l00256">remove_by_pid()</link>, and <link linkend="_redis_8c_source_1l00292">remove_by_user()</link>.</para>
+Referenced by <link linkend="_queue_8c_source_1l00094">dequeue()</link>, <link linkend="_queue_8c_source_1l00066">enqueue()</link>, <link linkend="_redis_8c_source_1l00165">get_user_by_name()</link>, <link linkend="_redis_8c_source_1l00122">get_user_by_pid()</link>, <link linkend="_tcfs__daemon__tools_8c_source_1l00019">handle_incoming_messages()</link>, <link linkend="_tcfs__daemon__tools_8c_source_1l00066">handle_outgoing_messages()</link>, <link linkend="_redis_8c_source_1l00072">init_context()</link>, <link linkend="_queue_8c_source_1l00027">init_queue()</link>, <link linkend="_redis_8c_source_1l00211">insert()</link>, <link linkend="_tcfs__daemon_8c_source_1l00056">main()</link>, <link linkend="_redis_8c_source_1l00256">remove_by_pid()</link>, and <link linkend="_redis_8c_source_1l00292">remove_by_user()</link>.</para>
 Here is the caller graph for this function:<para>
     <informalfigure>
         <mediaobject>
@@ -186,12 +186,12 @@ Parameters</title>
                         <colspec colwidth="4*"/>
                         <tbody>
                             <row>
-<entry>const</entry><entry>
-<para>char *format the string that will formatted and printed </para>
+<entry>format</entry><entry>
+<para>the string that will formatted and printed </para>
 </entry>
                             </row>
                             <row>
-<entry>[ARGUMENTS]...</entry><entry>
+<entry>...</entry><entry>
 <para>Print optional ARGUMENT(s) according to format </para>
 </entry>
                             </row>
@@ -212,9 +212,9 @@ Parameters</title>
 </note>
 </para>
 <para>
-Definition at line <link linkend="_print__utils_8c_source_1l00101">101</link> of file <link linkend="_print__utils_8c_source">print_utils.c</link>.</para>
+Definition at line <link linkend="_print__utils_8c_source_1l00100">100</link> of file <link linkend="_print__utils_8c_source">print_utils.c</link>.</para>
 <para>
-Referenced by <link linkend="_queue_8c_source_1l00095">dequeue()</link>, <link linkend="_user__db_8c_source_1l00045">disconnect_db()</link>, <link linkend="_queue_8c_source_1l00067">enqueue()</link>, <link linkend="_redis_8c_source_1l00165">get_user_by_name()</link>, <link linkend="_redis_8c_source_1l00122">get_user_by_pid()</link>, <link linkend="_tcfs__daemon_8c_source_1l00040">handle_termination()</link>, <link linkend="_queue_8c_source_1l00027">init_queue()</link>, <link linkend="_redis_8c_source_1l00211">insert()</link>, <link linkend="_redis_8c_source_1l00104">json_to_qm_user()</link>, <link linkend="_tcfs__daemon_8c_source_1l00056">main()</link>, <link linkend="_redis_8c_source_1l00042">print_all_keys()</link>, <link linkend="_user__db_8c_source_1l00015">register_user()</link>, <link linkend="_redis_8c_source_1l00256">remove_by_pid()</link>, and <link linkend="_user__db_8c_source_1l00031">unregister_user()</link>.</para>
+Referenced by <link linkend="_queue_8c_source_1l00094">dequeue()</link>, <link linkend="_user__db_8c_source_1l00045">disconnect_db()</link>, <link linkend="_queue_8c_source_1l00066">enqueue()</link>, <link linkend="_redis_8c_source_1l00165">get_user_by_name()</link>, <link linkend="_redis_8c_source_1l00122">get_user_by_pid()</link>, <link linkend="_tcfs__daemon__tools_8c_source_1l00019">handle_incoming_messages()</link>, <link linkend="_tcfs__daemon__tools_8c_source_1l00066">handle_outgoing_messages()</link>, <link linkend="_tcfs__daemon_8c_source_1l00040">handle_termination()</link>, <link linkend="_queue_8c_source_1l00027">init_queue()</link>, <link linkend="_redis_8c_source_1l00211">insert()</link>, <link linkend="_redis_8c_source_1l00104">json_to_qm_user()</link>, <link linkend="_tcfs__daemon_8c_source_1l00056">main()</link>, <link linkend="_redis_8c_source_1l00042">print_all_keys()</link>, <link linkend="_user__db_8c_source_1l00015">register_user()</link>, <link linkend="_redis_8c_source_1l00256">remove_by_pid()</link>, <link linkend="_json__tools_8cpp_source_1l00027">struct_to_json()</link>, and <link linkend="_user__db_8c_source_1l00031">unregister_user()</link>.</para>
 Here is the caller graph for this function:<para>
     <informalfigure>
         <mediaobject>
@@ -245,12 +245,12 @@ Parameters</title>
                         <colspec colwidth="4*"/>
                         <tbody>
                             <row>
-<entry>const</entry><entry>
-<para>char *format the string that will formatted and printed </para>
+<entry>format</entry><entry>
+<para>the string that will formatted and printed </para>
 </entry>
                             </row>
                             <row>
-<entry>[ARGUMENTS]...</entry><entry>
+<entry>...</entry><entry>
 <para>Print optional ARGUMENT(s) according to format </para>
 </entry>
                             </row>
@@ -271,7 +271,7 @@ Parameters</title>
 </note>
 </para>
 <para>
-Definition at line <link linkend="_print__utils_8c_source_1l00123">123</link> of file <link linkend="_print__utils_8c_source">print_utils.c</link>.</para>
+Definition at line <link linkend="_print__utils_8c_source_1l00122">122</link> of file <link linkend="_print__utils_8c_source">print_utils.c</link>.</para>
 </section>
 </section>
 <section>

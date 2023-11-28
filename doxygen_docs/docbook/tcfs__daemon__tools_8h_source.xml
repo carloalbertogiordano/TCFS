@@ -18,8 +18,8 @@
 <anchor xml:id="_tcfs__daemon__tools_8h_source_1l00014"/>00014 <emphasis role="keyword">extern</emphasis>&#32;<emphasis role="keyword">volatile</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>&#32;terminate;
 <anchor xml:id="_tcfs__daemon__tools_8h_source_1l00015"/>00015 <emphasis role="keyword">extern</emphasis>&#32;pthread_mutex_t&#32;terminate_mutex;
 <anchor xml:id="_tcfs__daemon__tools_8h_source_1l00016"/>00016 
-<anchor xml:id="_tcfs__daemon__tools_8h_source_1l00017"/>00017 <emphasis role="keywordtype">void</emphasis>&#32;*handle_incoming_messages&#32;(<emphasis role="keywordtype">void</emphasis>&#32;*queue_id);
-<anchor xml:id="_tcfs__daemon__tools_8h_source_1l00018"/>00018 <emphasis role="keywordtype">void</emphasis>&#32;*handle_outgoing_messages&#32;(<emphasis role="keywordtype">void</emphasis>&#32;*queue_id);
+<anchor xml:id="_tcfs__daemon__tools_8h_source_1l00017"/>00017 <emphasis role="keywordtype">void</emphasis>&#32;*<link linkend="_tcfs__daemon__tools_8c_1a24bb8f1eddd763598165ab8fa40fcdbd">handle_incoming_messages</link>&#32;(<emphasis role="keywordtype">void</emphasis>&#32;*queue_id);
+<anchor xml:id="_tcfs__daemon__tools_8h_source_1l00018"/>00018 <emphasis role="keywordtype">void</emphasis>&#32;*<link linkend="_tcfs__daemon__tools_8c_1ab143feba805d6beda83eb69560c3c923">handle_outgoing_messages</link>&#32;(<emphasis role="keywordtype">void</emphasis>&#32;*queue_id);
 <anchor xml:id="_tcfs__daemon__tools_8h_source_1l00019"/>00019 <emphasis role="keywordtype">void</emphasis>&#32;*monitor_termination&#32;(<emphasis role="keywordtype">void</emphasis>&#32;*queue_id);
 <anchor xml:id="_tcfs__daemon__tools_8h_source_1l00020"/>00020 <emphasis role="keywordtype">void</emphasis>&#32;cleanup_threads&#32;(pthread_t&#32;thread1,&#32;pthread_t&#32;thread2);
 </programlisting></section>

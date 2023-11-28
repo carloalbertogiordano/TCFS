@@ -8,7 +8,7 @@
 
 /**
  * @brief Register or update a user in the db, this relies on the redis.c file
- * @param \p_qmu
+ * @param user_msg \p_qmu
  * @return \ret
  * */
 int
@@ -24,7 +24,7 @@ register_user (qm_user *user_msg)
 }
 /**
  * @brief Remove a user from the DB
- * @param pid_t pid     the key
+ * @param pid the key
  * @return \ret
  * */
 int

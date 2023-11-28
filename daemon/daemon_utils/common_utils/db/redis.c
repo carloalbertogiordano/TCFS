@@ -12,9 +12,9 @@
 #include <hiredis/hiredis.h>
 
 /**
- * @internal \_var
- * @def HOST
- * @brief The host address of the redis DB
+ * @internal
+ * @var HOST
+ * @brief The host address of the redis DB. \_var
  * @todo This should be passed as a parameter to the daemon
  * */
 const char HOST[] = "127.0.0.1";
@@ -97,7 +97,7 @@ free_context ()
  * @internal \_func
  * @brief Internal function to simplify the casting of a json to a qm_user
  * struct
- * @param char *json    the json string representing the qm_user struct
+ * @param json    the json string representing the qm_user struct
  * @return \p_qmu
  * */
 qm_user *
@@ -115,7 +115,7 @@ json_to_qm_user (char *json)
 /**
  * @internal \_func
  * @brief Fetch the user on the DB with key pid
- * @param pid_t pid     The key of the row
+ * @param pid The key of the row
  * @return \p_qmu
  * */
 qm_user *
@@ -158,7 +158,7 @@ get_user_by_pid (pid_t pid)
 /**
  * @internal \_func
  * @brief Fetch the user on the DB with key name
- * @param const char *name     The key of the row
+ * @param name  The key of the row
  * @return \p_qmu
  * */
 qm_user *
@@ -201,7 +201,7 @@ get_user_by_name (const char *name)
 /**
  * @internal \_func
  * @brief Insert a new user in the DB.
- * @param \p_qmu
+ * @param user \p_qmu
  * @return \ret
  * @note The user will be set 2 times, once with key user->pid and once with
  * key user->name
@@ -246,7 +246,7 @@ insert (qm_user *user)
 /**
  * @internal \_func
  * @brief Remove a user from the DB using the PID as key
- * @param pid_t pid     The key
+ * @param pid The key
  * @return \ret
  * @note Will also remove the corresponding entry by name.
  * @note If an error is thrown it will be printed using the print_err()
@@ -282,7 +282,7 @@ remove_by_pid (pid_t pid)
 /**
  * @internal \_func
  * @brief Remove a user from the DB using the name as key
- * @param char *name     The key
+ * @param name  The key
  * @return \ret
  * @note Will also remove the corresponding entry by PID
  * @note If an error is thrown it will be printed using the print_err()

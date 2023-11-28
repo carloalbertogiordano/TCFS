@@ -7,20 +7,20 @@
  * */
 
 /**
- * @def MESSAGE_BUFFER_SIZE \_def
- * @brief This defines the max size of a message on the queue
+ * @def MESSAGE_BUFFER_SIZE
+ * @brief This defines the max size of a message on the queue. \_def
  * */
 #define MESSAGE_BUFFER_SIZE 256
 /**
- * @def MQUEUE_N \_def
- * @brief Max number of messages on a queue
+ * @def MQUEUE_N
+ * @brief Max number of messages on a queue. \def
  * */
 #define MQUEUE_N 256;
 
 /**
  * @brief Initialize the message queue
- * @param char *queue   the path of the queue file
- * @return mqd_t    Message queue descriptor
+ * @param queue the path of the queue file
+ * @return mqd_t  Message queue descriptor
  * @todo Define permissions for mq_open
  * */
 mqd_t
@@ -53,12 +53,11 @@ init_queue (char *queue)
 
 /**
  * @brief Enqueues a message void* message on the queue
- * @param mqd_t q_mess  Message queue descriptor type
- * @param qm_type qmt   enum describing the type of the message. \see qm_type
- * @param void *q_mess Actual message, this must be either \n
- * qm_user \see qm_user \n
- * qm_shared \see qm_shared \n
- * qm_broad \see qm_broad
+ * @param queue_d  Message queue descriptor type
+ * @param qmt enum describing the type of the message. \see qm_type
+ * @param q_mess  Actual message, this must be either \n
+ * qm_user, qm_shared qm_broad
+ * \see qm_user \see qm_shared \n  \see qm_broad
  * @return \ret
  * @note The structure representing the message will be casted to a json and
  * then it will be enqueued
@@ -85,8 +84,8 @@ enqueue (mqd_t queue_d, qm_type qmt, void *q_mess)
  * qm_shared \n qm_broad \see qm_broad \n qm_type *qmt will be set to the
  * corresponding type. You can yse this value to cast the returned value back
  * to a structure
- * @param mqd_t queue_d Message queue descriptor type
- * @param qm_type *qmt  Pointer to a struct indicating the type of the returned
+ * @param queue_d Message queue descriptor type
+ * @param qmt  Pointer to a struct indicating the type of the returned
  * parameter \see qm_type
  * @return A pointer to a structure containing the structured message data. If
  * an error occurs NULL is returned

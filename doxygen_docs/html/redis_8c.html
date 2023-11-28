@@ -134,8 +134,9 @@ Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:a0cc05631b755191d8d1c64c74c77894b" id="r_a0cc05631b755191d8d1c64c74c77894b"><td class="memItemLeft" align="right" valign="top">const char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="redis_8c.html#a0cc05631b755191d8d1c64c74c77894b">HOST</a> [] = &quot;127.0.0.1&quot;</td></tr>
-<tr class="separator:a0cc05631b755191d8d1c64c74c77894b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab146e06ef57318f58a840b315626b861" id="r_ab146e06ef57318f58a840b315626b861"><td class="memItemLeft" align="right" valign="top">const char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="redis_8c.html#ab146e06ef57318f58a840b315626b861">HOST</a> [] = &quot;127.0.0.1&quot;</td></tr>
+<tr class="memdesc:ab146e06ef57318f58a840b315626b861"><td class="mdescLeft">&#160;</td><td class="mdescRight">The host address of the redis DB. This variable is marked as internal and should not be used by the user.  <br /></td></tr>
+<tr class="separator:ab146e06ef57318f58a840b315626b861"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a71ea645922f3e5dcc69b644656c79a99" id="r_a71ea645922f3e5dcc69b644656c79a99"><td class="memItemLeft" align="right" valign="top">redisContext *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="redis_8c.html#a71ea645922f3e5dcc69b644656c79a99">context</a></td></tr>
 <tr class="memdesc:a71ea645922f3e5dcc69b644656c79a99"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer to the context of Redis DB.  <br /></td></tr>
 <tr class="separator:a71ea645922f3e5dcc69b644656c79a99"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -160,8 +161,8 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>The port of the redis DB. </p>
-<p>This definition is marked as internal and be used directly</p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000003">Todo:</a></b></dt><dd>This should be passed as a parameter to the daemon </dd></dl>
+<p>This definition is marked as internal and should not be used directly by the user</p>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000006">Todo:</a></b></dt><dd>This should be passed as a parameter to the daemon </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="redis_8c_source.html#l00027">27</a> of file <a class="el" href="redis_8c_source.html">redis.c</a>.</p>
 
@@ -218,7 +219,7 @@ Here is the caller graph for this function:</div>
 <p>Fetch the user on the DB with key name. </p>
 <p>This function is marked as internal and should not be used by the user </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">const</td><td>char *name The key of the row </td></tr>
+    <tr><td class="paramname">name</td><td>The key of the row </td></tr>
   </table>
   </dd>
 </dl>
@@ -226,13 +227,13 @@ Here is the caller graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="redis_8c_source.html#l00165">165</a> of file <a class="el" href="redis_8c_source.html">redis.c</a>.</p>
 
-<p class="reference">References <a class="el" href="redis_8c_source.html#l00034">context</a>, <a class="el" href="redis_8c_source.html#l00104">json_to_qm_user()</a>, <a class="el" href="common_8h_source.html#l00058">qm_user::pid</a>, <a class="el" href="print__utils_8c_source.html#l00079">print_err()</a>, <a class="el" href="print__utils_8c_source.html#l00101">print_msg()</a>, and <a class="el" href="common_8h_source.html#l00059">qm_user::user</a>.</p>
+<p class="reference">References <a class="el" href="redis_8c_source.html#l00034">context</a>, <a class="el" href="redis_8c_source.html#l00104">json_to_qm_user()</a>, <a class="el" href="common_8h_source.html#l00063">qm_user::pid</a>, <a class="el" href="print__utils_8c_source.html#l00078">print_err()</a>, <a class="el" href="print__utils_8c_source.html#l00100">print_msg()</a>, and <a class="el" href="common_8h_source.html#l00064">qm_user::user</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="redis_8c_source.html#l00292">remove_by_user()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="redis_8c_a73711c0a9d0060337409d15dc44f5ad1_cgraph.svg" width="439" height="138"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="redis_8c_a73711c0a9d0060337409d15dc44f5ad1_cgraph.svg" width="472" height="135"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
@@ -261,7 +262,7 @@ Here is the caller graph for this function:</div>
 <p>Fetch the user on the DB with key pid. </p>
 <p>This function is marked as internal and should not be used by the user </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">pid_t</td><td>pid The key of the row </td></tr>
+    <tr><td class="paramname">pid</td><td>The key of the row </td></tr>
   </table>
   </dd>
 </dl>
@@ -269,13 +270,13 @@ Here is the caller graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="redis_8c_source.html#l00122">122</a> of file <a class="el" href="redis_8c_source.html">redis.c</a>.</p>
 
-<p class="reference">References <a class="el" href="redis_8c_source.html#l00034">context</a>, <a class="el" href="redis_8c_source.html#l00104">json_to_qm_user()</a>, <a class="el" href="common_8h_source.html#l00058">qm_user::pid</a>, <a class="el" href="print__utils_8c_source.html#l00079">print_err()</a>, <a class="el" href="print__utils_8c_source.html#l00101">print_msg()</a>, and <a class="el" href="common_8h_source.html#l00059">qm_user::user</a>.</p>
+<p class="reference">References <a class="el" href="redis_8c_source.html#l00034">context</a>, <a class="el" href="redis_8c_source.html#l00104">json_to_qm_user()</a>, <a class="el" href="common_8h_source.html#l00063">qm_user::pid</a>, <a class="el" href="print__utils_8c_source.html#l00078">print_err()</a>, <a class="el" href="print__utils_8c_source.html#l00100">print_msg()</a>, and <a class="el" href="common_8h_source.html#l00064">qm_user::user</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="redis_8c_source.html#l00256">remove_by_pid()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="redis_8c_af0bf1bfc99afc940619371e3c76ab4f9_cgraph.svg" width="424" height="138"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="redis_8c_af0bf1bfc99afc940619371e3c76ab4f9_cgraph.svg" width="458" height="135"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
@@ -305,7 +306,7 @@ Here is the caller graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="redis_8c_source.html#l00072">72</a> of file <a class="el" href="redis_8c_source.html">redis.c</a>.</p>
 
-<p class="reference">References <a class="el" href="redis_8c_source.html#l00034">context</a>, <a class="el" href="redis_8c_source.html#l00027">PORT</a>, and <a class="el" href="print__utils_8c_source.html#l00079">print_err()</a>.</p>
+<p class="reference">References <a class="el" href="redis_8c_source.html#l00034">context</a>, <a class="el" href="redis_8c_source.html#l00020">HOST</a>, <a class="el" href="redis_8c_source.html#l00027">PORT</a>, and <a class="el" href="print__utils_8c_source.html#l00078">print_err()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="user__db_8c_source.html#l00015">register_user()</a>.</p>
 <div class="dynheader">
@@ -340,7 +341,7 @@ Here is the caller graph for this function:</div>
 <p>Insert a new user in the DB. </p>
 <p>This function is marked as internal and should not be used by the user </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">qm_user*</td><td>A pointer to the allocated qm_user* struct </td></tr>
+    <tr><td class="paramname">user</td><td>qm_user* A pointer to the allocated qm_user* struct </td></tr>
   </table>
   </dd>
 </dl>
@@ -352,13 +353,13 @@ If an error is thrown it will be printed by <a class="el" href="print__utils_8c.
 
 <p class="definition">Definition at line <a class="el" href="redis_8c_source.html#l00211">211</a> of file <a class="el" href="redis_8c_source.html">redis.c</a>.</p>
 
-<p class="reference">References <a class="el" href="redis_8c_source.html#l00034">context</a>, <a class="el" href="common_8h_source.html#l00058">qm_user::pid</a>, <a class="el" href="print__utils_8c_source.html#l00079">print_err()</a>, <a class="el" href="print__utils_8c_source.html#l00101">print_msg()</a>, and <a class="el" href="common_8h_source.html#l00059">qm_user::user</a>.</p>
+<p class="reference">References <a class="el" href="redis_8c_source.html#l00034">context</a>, <a class="el" href="common_8h_source.html#l00063">qm_user::pid</a>, <a class="el" href="print__utils_8c_source.html#l00078">print_err()</a>, <a class="el" href="print__utils_8c_source.html#l00100">print_msg()</a>, <a class="el" href="json__tools_8cpp_source.html#l00027">struct_to_json()</a>, <a class="el" href="common_8h_source.html#l00039">USER</a>, and <a class="el" href="common_8h_source.html#l00064">qm_user::user</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="user__db_8c_source.html#l00015">register_user()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="redis_8c_ac9878ee09b53700eb08c1f175873c30b_cgraph.svg" width="192" height="86"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="redis_8c_ac9878ee09b53700eb08c1f175873c30b_cgraph.svg" width="344" height="138"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
@@ -387,7 +388,7 @@ Here is the caller graph for this function:</div>
 <p>Internal function to simplify the casting of a json to a <a class="el" href="structqm__user.html" title="Represents a user message.  Contains information about the user&#39;s operation, process ID,...">qm_user</a> struct. </p>
 <p>This function is marked as internal and should not be used by the user </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">char</td><td>*json the json string representing the <a class="el" href="structqm__user.html" title="Represents a user message.  Contains information about the user&#39;s operation, process ID,...">qm_user</a> struct </td></tr>
+    <tr><td class="paramname">json</td><td>the json string representing the <a class="el" href="structqm__user.html" title="Represents a user message.  Contains information about the user&#39;s operation, process ID,...">qm_user</a> struct </td></tr>
   </table>
   </dd>
 </dl>
@@ -395,13 +396,13 @@ Here is the caller graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="redis_8c_source.html#l00104">104</a> of file <a class="el" href="redis_8c_source.html">redis.c</a>.</p>
 
-<p class="reference">References <a class="el" href="print__utils_8c_source.html#l00101">print_msg()</a>.</p>
+<p class="reference">References <a class="el" href="print__utils_8c_source.html#l00100">print_msg()</a>, and <a class="el" href="json__tools_8cpp_source.html#l00092">string_to_struct()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="redis_8c_source.html#l00165">get_user_by_name()</a>, and <a class="el" href="redis_8c_source.html#l00122">get_user_by_pid()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="redis_8c_a8e6e1687d6351741ac3e353d23425f71_cgraph.svg" width="259" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="redis_8c_a8e6e1687d6351741ac3e353d23425f71_cgraph.svg" width="292" height="86"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
@@ -431,7 +432,7 @@ Here is the caller graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="redis_8c_source.html#l00042">42</a> of file <a class="el" href="redis_8c_source.html">redis.c</a>.</p>
 
-<p class="reference">References <a class="el" href="redis_8c_source.html#l00034">context</a>, and <a class="el" href="print__utils_8c_source.html#l00101">print_msg()</a>.</p>
+<p class="reference">References <a class="el" href="redis_8c_source.html#l00034">context</a>, and <a class="el" href="print__utils_8c_source.html#l00100">print_msg()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="user__db_8c_source.html#l00015">register_user()</a>, and <a class="el" href="user__db_8c_source.html#l00031">unregister_user()</a>.</p>
 <div class="dynheader">
@@ -466,7 +467,7 @@ Here is the caller graph for this function:</div>
 <p>Remove a user from the DB using the PID as key. </p>
 <p>This function is marked as internal and should not be used by the user </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">pid_t</td><td>pid The key </td></tr>
+    <tr><td class="paramname">pid</td><td>The key </td></tr>
   </table>
   </dd>
 </dl>
@@ -478,13 +479,13 @@ If an error is thrown it will be printed using the <a class="el" href="print__ut
 
 <p class="definition">Definition at line <a class="el" href="redis_8c_source.html#l00256">256</a> of file <a class="el" href="redis_8c_source.html">redis.c</a>.</p>
 
-<p class="reference">References <a class="el" href="redis_8c_source.html#l00034">context</a>, <a class="el" href="redis_8c_source.html#l00122">get_user_by_pid()</a>, <a class="el" href="print__utils_8c_source.html#l00079">print_err()</a>, <a class="el" href="print__utils_8c_source.html#l00101">print_msg()</a>, and <a class="el" href="common_8h_source.html#l00059">qm_user::user</a>.</p>
+<p class="reference">References <a class="el" href="redis_8c_source.html#l00034">context</a>, <a class="el" href="redis_8c_source.html#l00122">get_user_by_pid()</a>, <a class="el" href="print__utils_8c_source.html#l00078">print_err()</a>, <a class="el" href="print__utils_8c_source.html#l00100">print_msg()</a>, and <a class="el" href="common_8h_source.html#l00064">qm_user::user</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="user__db_8c_source.html#l00031">unregister_user()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="redis_8c_a6b18d7ad2f1e8275106a5b39c0c7d216_cgraph.svg" width="583" height="171"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="redis_8c_a6b18d7ad2f1e8275106a5b39c0c7d216_cgraph.svg" width="616" height="136"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
@@ -513,7 +514,7 @@ Here is the caller graph for this function:</div>
 <p>Remove a user from the DB using the name as key. </p>
 <p>This function is marked as internal and should not be used by the user </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">char</td><td>*name The key </td></tr>
+    <tr><td class="paramname">name</td><td>The key </td></tr>
   </table>
   </dd>
 </dl>
@@ -525,11 +526,11 @@ If an error is thrown it will be printed using the <a class="el" href="print__ut
 
 <p class="definition">Definition at line <a class="el" href="redis_8c_source.html#l00292">292</a> of file <a class="el" href="redis_8c_source.html">redis.c</a>.</p>
 
-<p class="reference">References <a class="el" href="redis_8c_source.html#l00034">context</a>, <a class="el" href="redis_8c_source.html#l00165">get_user_by_name()</a>, <a class="el" href="common_8h_source.html#l00058">qm_user::pid</a>, and <a class="el" href="print__utils_8c_source.html#l00079">print_err()</a>.</p>
+<p class="reference">References <a class="el" href="redis_8c_source.html#l00034">context</a>, <a class="el" href="redis_8c_source.html#l00165">get_user_by_name()</a>, <a class="el" href="common_8h_source.html#l00063">qm_user::pid</a>, and <a class="el" href="print__utils_8c_source.html#l00078">print_err()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="redis_8c_a2678c0575f2b6c944fd261255aeaebff_cgraph.svg" width="606" height="138"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="redis_8c_a2678c0575f2b6c944fd261255aeaebff_cgraph.svg" width="639" height="135"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -556,26 +557,31 @@ Here is the call graph for this function:</div>
 
 </div>
 </div>
-<a id="a0cc05631b755191d8d1c64c74c77894b" name="a0cc05631b755191d8d1c64c74c77894b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0cc05631b755191d8d1c64c74c77894b">&#9670;&#160;</a></span>HOST</h2>
+<a id="ab146e06ef57318f58a840b315626b861" name="ab146e06ef57318f58a840b315626b861"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab146e06ef57318f58a840b315626b861">&#9670;&#160;</a></span>HOST</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const char HOST[] = &quot;127.0.0.1&quot;</td>
+          <td class="memname">HOST = &quot;127.0.0.1&quot;</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
+<p>The host address of the redis DB. This variable is marked as internal and should not be used by the user. </p>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000005">Todo:</a></b></dt><dd>This should be passed as a parameter to the daemon </dd></dl>
+
 <p class="definition">Definition at line <a class="el" href="redis_8c_source.html#l00020">20</a> of file <a class="el" href="redis_8c_source.html">redis.c</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="redis_8c_source.html#l00072">init_context()</a>.</p>
 
 </div>
 </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Nov 28 2023 12:06:42 for TCFS by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated on Tue Nov 28 2023 15:14:43 for TCFS by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

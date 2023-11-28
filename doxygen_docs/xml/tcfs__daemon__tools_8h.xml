@@ -18,7 +18,7 @@
     <incdepgraph>
       <node id="3">
         <label>../common.h</label>
-        <link refid="common_8h_source"/>
+        <link refid="common_8h"/>
         <childnode refid="4" relation="include">
         </childnode>
         <childnode refid="5" relation="include">
@@ -151,7 +151,7 @@
     <invincdepgraph>
       <node id="2">
         <label>daemon/daemon_utils/daemon_tools/tcfs_daemon_tools.c</label>
-        <link refid="tcfs__daemon__tools_8c_source"/>
+        <link refid="tcfs__daemon__tools_8c"/>
       </node>
       <node id="1">
         <label>daemon/daemon_utils/daemon_tools/tcfs_daemon_tools.h</label>
@@ -217,10 +217,10 @@
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
-<parametername>void*</parametername>
+<parametername>queue_id</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>queue_id Pointer to mqd_t message queue descriptor </para>
+<para>Pointer to mqd_t message queue descriptor </para>
 </parameterdescription>
 </parameteritem>
 </parameterlist>
@@ -228,12 +228,20 @@
 </simplesect>
 <simplesect kind="note"><para>This function must never return. In case of its return the daemon will stall </para>
 </simplesect>
-<xrefsect id="todo_1_todo000005"><xreftitle>Todo</xreftitle><xrefdescription><para>Handle the case described in note </para>
+<xrefsect id="todo_1_todo000002"><xreftitle>Todo</xreftitle><xrefdescription><para>Handle the case described in note </para>
 </xrefdescription></xrefsect></para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="daemon/daemon_utils/daemon_tools/tcfs_daemon_tools.h" line="17" column="6" bodyfile="daemon/daemon_utils/daemon_tools/tcfs_daemon_tools.c" bodystart="16" bodyend="51" declfile="daemon/daemon_utils/daemon_tools/tcfs_daemon_tools.h" declline="17" declcolumn="6"/>
+        <location file="daemon/daemon_utils/daemon_tools/tcfs_daemon_tools.h" line="17" column="6" bodyfile="daemon/daemon_utils/daemon_tools/tcfs_daemon_tools.c" bodystart="19" bodyend="55" declfile="daemon/daemon_utils/daemon_tools/tcfs_daemon_tools.h" declline="17" declcolumn="6"/>
+        <references refid="common_8h_1ab2c144fca6129807a9fe4bad66970c4ca78386e426adecb3fd26350119a3cb7c2" compoundref="common_8h" startline="41">BROADCAST</references>
+        <references refid="queue_8c_1a1874b6e320d1e54d571c89766d046602" compoundref="queue_8c" startline="94" endline="110">dequeue</references>
+        <references refid="print__utils_8c_1a650ab060ffe5dbc6c1a968a9cae3bded" compoundref="print__utils_8c" startline="78" endline="90">print_err</references>
+        <references refid="print__utils_8c_1a491dc14c94ed8cf706bb54880c50b2d0" compoundref="print__utils_8c" startline="100" endline="111">print_msg</references>
+        <references refid="common_8h_1ab2c144fca6129807a9fe4bad66970c4ca84fb91aba870f3033713d9e4b638f006" compoundref="common_8h" startline="42">QM_TYPE_UNDEFINED</references>
+        <references refid="common_8h_1ab2c144fca6129807a9fe4bad66970c4ca9c46e16a4ab019339596acadeefc8c53" compoundref="common_8h" startline="40">SHARED</references>
+        <references refid="common_8h_1ab2c144fca6129807a9fe4bad66970c4cae2d30a195cee6b2961cc2c23ea4b520b" compoundref="common_8h" startline="39">USER</references>
+        <referencedby refid="tcfs__daemon_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="tcfs__daemon_8c" startline="56" endline="150">main</referencedby>
       </memberdef>
       <memberdef kind="function" id="tcfs__daemon__tools_8h_1ab143feba805d6beda83eb69560c3c923" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void *</type>
@@ -250,10 +258,10 @@
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
-<parametername>void*</parametername>
+<parametername>queue_id</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>queue_id Pointer to mqd_t message queue descriptor </para>
+<para>Pointer to mqd_t message queue descriptor </para>
 </parameterdescription>
 </parameteritem>
 </parameterlist>
@@ -261,12 +269,23 @@
 </simplesect>
 <simplesect kind="note"><para>THIS FUNCTION IS HERE JUST TEMPORARILY. WILL BE REMOVED, THIS IS NOT WHAT WE WANT THE DAEMON TO DO. PLEASE IGNORE </para>
 </simplesect>
-<xrefsect id="todo_1_todo000006"><xreftitle>Todo</xreftitle><xrefdescription><para>Remove this function from the code </para>
+<xrefsect id="todo_1_todo000003"><xreftitle>Todo</xreftitle><xrefdescription><para>Remove this function from the code </para>
 </xrefdescription></xrefsect></para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="daemon/daemon_utils/daemon_tools/tcfs_daemon_tools.h" line="18" column="6" bodyfile="daemon/daemon_utils/daemon_tools/tcfs_daemon_tools.c" bodystart="60" bodyend="99" declfile="daemon/daemon_utils/daemon_tools/tcfs_daemon_tools.h" declline="18" declcolumn="6"/>
+        <location file="daemon/daemon_utils/daemon_tools/tcfs_daemon_tools.h" line="18" column="6" bodyfile="daemon/daemon_utils/daemon_tools/tcfs_daemon_tools.c" bodystart="66" bodyend="107" declfile="daemon/daemon_utils/daemon_tools/tcfs_daemon_tools.h" declline="18" declcolumn="6"/>
+        <references refid="queue_8c_1ac51f5d595a9d7376eb0448116c99e1f4" compoundref="queue_8c" startline="66" endline="79">enqueue</references>
+        <references refid="structqm__user_1aa69546c3a6a2124be9f964329c951a84" compoundref="common_8h" startline="63">qm_user::pid</references>
+        <references refid="print__utils_8c_1a650ab060ffe5dbc6c1a968a9cae3bded" compoundref="print__utils_8c" startline="78" endline="90">print_err</references>
+        <references refid="print__utils_8c_1a491dc14c94ed8cf706bb54880c50b2d0" compoundref="print__utils_8c" startline="100" endline="111">print_msg</references>
+        <references refid="structqm__user_1ad718cfba201afae89c596111bd508d5f" compoundref="common_8h" startline="65">qm_user::pubkey</references>
+        <references refid="common_8h_1ad30dd7f5c8fc3f0027bbddc111c652b8aceb7c305772dab23a260960771180df3" compoundref="common_8h" startline="52">REGISTER</references>
+        <references refid="common_8h_1ad30dd7f5c8fc3f0027bbddc111c652b8ad46a7713a16573956ea43782ac970154" compoundref="common_8h" startline="53">UNREGISTER</references>
+        <references refid="common_8h_1ab2c144fca6129807a9fe4bad66970c4cae2d30a195cee6b2961cc2c23ea4b520b" compoundref="common_8h" startline="39">USER</references>
+        <references refid="structqm__user_1a6c52d68724b65831ba6d95f3d7448ff4" compoundref="common_8h" startline="64">qm_user::user</references>
+        <references refid="structqm__user_1a4b5bbaaf885c62f44f265eeba461303d" compoundref="common_8h" startline="62">qm_user::user_op</references>
+        <referencedby refid="tcfs__daemon_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="tcfs__daemon_8c" startline="56" endline="150">main</referencedby>
       </memberdef>
       <memberdef kind="function" id="tcfs__daemon__tools_8h_1a84712ae28ec7b6e5495704de71b1b1e2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void *</type>
@@ -328,8 +347,8 @@
 <codeline lineno="14"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>terminate;</highlight></codeline>
 <codeline lineno="15"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>pthread_mutex_t<sp/>terminate_mutex;</highlight></codeline>
 <codeline lineno="16"><highlight class="normal"></highlight></codeline>
-<codeline lineno="17"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*handle_incoming_messages<sp/>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*queue_id);</highlight></codeline>
-<codeline lineno="18"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*handle_outgoing_messages<sp/>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*queue_id);</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*<ref refid="tcfs__daemon__tools_8c_1a24bb8f1eddd763598165ab8fa40fcdbd" kindref="member">handle_incoming_messages</ref><sp/>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*queue_id);</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*<ref refid="tcfs__daemon__tools_8c_1ab143feba805d6beda83eb69560c3c923" kindref="member">handle_outgoing_messages</ref><sp/>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*queue_id);</highlight></codeline>
 <codeline lineno="19"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*monitor_termination<sp/>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*queue_id);</highlight></codeline>
 <codeline lineno="20"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>cleanup_threads<sp/>(pthread_t<sp/>thread1,<sp/>pthread_t<sp/>thread2);</highlight></codeline>
     </programlisting>

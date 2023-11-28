@@ -5,7 +5,7 @@
     <includes refid="common_8h" local="no">common.h</includes>
     <sectiondef kind="public-attrib">
       <memberdef kind="variable" id="structqm__user_1a4b5bbaaf885c62f44f265eeba461303d" prot="public" static="no" mutable="no">
-        <type>user_operation</type>
+        <type><ref refid="common_8h_1ad30dd7f5c8fc3f0027bbddc111c652b8" kindref="member">user_operation</ref></type>
         <definition>user_operation qm_user::user_op</definition>
         <argsstring></argsstring>
         <name>user_op</name>
@@ -17,7 +17,10 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="daemon/daemon_utils/common.h" line="57" column="20" bodyfile="daemon/daemon_utils/common.h" bodystart="57" bodyend="-1"/>
+        <location file="daemon/daemon_utils/common.h" line="62" column="20" bodyfile="daemon/daemon_utils/common.h" bodystart="62" bodyend="-1"/>
+        <referencedby refid="tcfs__daemon__tools_8c_1ab143feba805d6beda83eb69560c3c923" compoundref="tcfs__daemon__tools_8c" startline="66" endline="107">handle_outgoing_messages</referencedby>
+        <referencedby refid="json__tools_8cpp_1a513edf914a6a6141c7892d193d0c1f52" compoundref="json__tools_8cpp" startline="92" endline="150">string_to_struct</referencedby>
+        <referencedby refid="json__tools_8cpp_1abe22bc6ace23fc8f7e186a824784765f" compoundref="json__tools_8cpp" startline="27" endline="79">struct_to_json</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structqm__user_1aa69546c3a6a2124be9f964329c951a84" prot="public" static="no" mutable="no">
         <type>pid_t</type>
@@ -32,11 +35,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="daemon/daemon_utils/common.h" line="58" column="11" bodyfile="daemon/daemon_utils/common.h" bodystart="58" bodyend="-1"/>
+        <location file="daemon/daemon_utils/common.h" line="63" column="11" bodyfile="daemon/daemon_utils/common.h" bodystart="63" bodyend="-1"/>
         <referencedby refid="redis_8c_1a73711c0a9d0060337409d15dc44f5ad1" compoundref="redis_8c" startline="165" endline="200">get_user_by_name</referencedby>
         <referencedby refid="redis_8c_1af0bf1bfc99afc940619371e3c76ab4f9" compoundref="redis_8c" startline="122" endline="157">get_user_by_pid</referencedby>
+        <referencedby refid="tcfs__daemon__tools_8c_1ab143feba805d6beda83eb69560c3c923" compoundref="tcfs__daemon__tools_8c" startline="66" endline="107">handle_outgoing_messages</referencedby>
         <referencedby refid="redis_8c_1ac9878ee09b53700eb08c1f175873c30b" compoundref="redis_8c" startline="211" endline="245">insert</referencedby>
         <referencedby refid="redis_8c_1a2678c0575f2b6c944fd261255aeaebff" compoundref="redis_8c" startline="292" endline="316">remove_by_user</referencedby>
+        <referencedby refid="json__tools_8cpp_1a513edf914a6a6141c7892d193d0c1f52" compoundref="json__tools_8cpp" startline="92" endline="150">string_to_struct</referencedby>
+        <referencedby refid="json__tools_8cpp_1abe22bc6ace23fc8f7e186a824784765f" compoundref="json__tools_8cpp" startline="27" endline="79">struct_to_json</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structqm__user_1a6c52d68724b65831ba6d95f3d7448ff4" prot="public" static="no" mutable="no">
         <type>char *</type>
@@ -51,11 +57,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="daemon/daemon_utils/common.h" line="59" column="10" bodyfile="daemon/daemon_utils/common.h" bodystart="59" bodyend="-1"/>
+        <location file="daemon/daemon_utils/common.h" line="64" column="10" bodyfile="daemon/daemon_utils/common.h" bodystart="64" bodyend="-1"/>
         <referencedby refid="redis_8c_1a73711c0a9d0060337409d15dc44f5ad1" compoundref="redis_8c" startline="165" endline="200">get_user_by_name</referencedby>
         <referencedby refid="redis_8c_1af0bf1bfc99afc940619371e3c76ab4f9" compoundref="redis_8c" startline="122" endline="157">get_user_by_pid</referencedby>
+        <referencedby refid="tcfs__daemon__tools_8c_1ab143feba805d6beda83eb69560c3c923" compoundref="tcfs__daemon__tools_8c" startline="66" endline="107">handle_outgoing_messages</referencedby>
         <referencedby refid="redis_8c_1ac9878ee09b53700eb08c1f175873c30b" compoundref="redis_8c" startline="211" endline="245">insert</referencedby>
         <referencedby refid="redis_8c_1a6b18d7ad2f1e8275106a5b39c0c7d216" compoundref="redis_8c" startline="256" endline="281">remove_by_pid</referencedby>
+        <referencedby refid="json__tools_8cpp_1a513edf914a6a6141c7892d193d0c1f52" compoundref="json__tools_8cpp" startline="92" endline="150">string_to_struct</referencedby>
+        <referencedby refid="json__tools_8cpp_1abe22bc6ace23fc8f7e186a824784765f" compoundref="json__tools_8cpp" startline="27" endline="79">struct_to_json</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structqm__user_1ad718cfba201afae89c596111bd508d5f" prot="public" static="no" mutable="no">
         <type>char *</type>
@@ -70,7 +79,10 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="daemon/daemon_utils/common.h" line="60" column="10" bodyfile="daemon/daemon_utils/common.h" bodystart="60" bodyend="-1"/>
+        <location file="daemon/daemon_utils/common.h" line="65" column="10" bodyfile="daemon/daemon_utils/common.h" bodystart="65" bodyend="-1"/>
+        <referencedby refid="tcfs__daemon__tools_8c_1ab143feba805d6beda83eb69560c3c923" compoundref="tcfs__daemon__tools_8c" startline="66" endline="107">handle_outgoing_messages</referencedby>
+        <referencedby refid="json__tools_8cpp_1a513edf914a6a6141c7892d193d0c1f52" compoundref="json__tools_8cpp" startline="92" endline="150">string_to_struct</referencedby>
+        <referencedby refid="json__tools_8cpp_1abe22bc6ace23fc8f7e186a824784765f" compoundref="json__tools_8cpp" startline="27" endline="79">struct_to_json</referencedby>
       </memberdef>
     </sectiondef>
     <briefdescription>
@@ -105,7 +117,7 @@ Contains information about the user&apos;s operation, process ID, username and p
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="daemon/daemon_utils/common.h" line="56" column="1" bodyfile="daemon/daemon_utils/common.h" bodystart="56" bodyend="61"/>
+    <location file="daemon/daemon_utils/common.h" line="61" column="1" bodyfile="daemon/daemon_utils/common.h" bodystart="61" bodyend="66"/>
     <listofallmembers>
       <member refid="structqm__user_1aa69546c3a6a2124be9f964329c951a84" prot="public" virt="non-virtual"><scope>qm_user</scope><name>pid</name></member>
       <member refid="structqm__user_1ad718cfba201afae89c596111bd508d5f" prot="public" virt="non-virtual"><scope>qm_user</scope><name>pubkey</name></member>

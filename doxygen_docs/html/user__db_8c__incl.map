@@ -6,7 +6,7 @@
 <area shape="poly" id="edge21_Node000001_Node000017" title=" " alt="" coords="525,47,483,153,478,151,520,45"/>
 <area shape="rect" id="Node000003" href="$queue_8h_source.html" title=" " alt="" coords="545,167,675,192"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="587,118,601,151,596,153,582,120"/>
-<area shape="rect" id="Node000004" href="$common_8h_source.html" title=" " alt="" coords="344,328,439,353"/>
+<area shape="rect" id="Node000004" href="$common_8h.html" title="This file contains some common definitions and structs used by the daemon." alt="" coords="344,328,439,353"/>
 <area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="545,194,492,212,467,225,444,242,429,258,417,277,401,315,396,312,412,274,425,255,440,238,464,221,490,207,543,189"/>
 <area shape="rect" id="Node000012" href="$json__tools_8h_source.html" title=" " alt="" coords="455,240,597,280"/>
 <area shape="poly" id="edge11_Node000003_Node000012" title=" " alt="" coords="599,194,560,231,556,227,595,191"/>

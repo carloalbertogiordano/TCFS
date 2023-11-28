@@ -53,9 +53,9 @@ Format and print data as a debug.
 
 
 \begin{DoxyParams}{Parameters}
-{\em const} & char \texorpdfstring{$\ast$}{*}format the string that will formatted and printed \\
+{\em format} & the string that will formatted and printed \\
 \hline
-{\em \mbox{[}\+ARGUMENTS\mbox{]}...} & Print optional ARGUMENT(s) according to format \\
+{\em ...} & Print optional ARGUMENT(s) according to format \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
@@ -68,7 +68,7 @@ Will also log using systemD
 \end{DoxyNote}
 
 
-Definition at line \mbox{\hyperlink{print__utils_8c_source_l00145}{145}} of file \mbox{\hyperlink{print__utils_8c_source}{print\+\_\+utils.\+c}}.
+Definition at line \mbox{\hyperlink{print__utils_8c_source_l00144}{144}} of file \mbox{\hyperlink{print__utils_8c_source}{print\+\_\+utils.\+c}}.
 
 \Hypertarget{print__utils_8c_a650ab060ffe5dbc6c1a968a9cae3bded}\label{print__utils_8c_a650ab060ffe5dbc6c1a968a9cae3bded} 
 \index{print\_utils.c@{print\_utils.c}!print\_err@{print\_err}}
@@ -82,9 +82,9 @@ Format and print data as an error.
 
 
 \begin{DoxyParams}{Parameters}
-{\em const} & char \texorpdfstring{$\ast$}{*}format the string that will formatted and printed \\
+{\em format} & the string that will formatted and printed \\
 \hline
-{\em \mbox{[}\+ARGUMENTS\mbox{]}...} & Print optional ARGUMENT(s) according to format \\
+{\em ...} & Print optional ARGUMENT(s) according to format \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
@@ -101,11 +101,11 @@ after Err\+\_\+\+Number "{}-\/\texorpdfstring{$>$}{>} s"{} will be appended prin
 \end{DoxyNote}
 
 
-Definition at line \mbox{\hyperlink{print__utils_8c_source_l00079}{79}} of file \mbox{\hyperlink{print__utils_8c_source}{print\+\_\+utils.\+c}}.
+Definition at line \mbox{\hyperlink{print__utils_8c_source_l00078}{78}} of file \mbox{\hyperlink{print__utils_8c_source}{print\+\_\+utils.\+c}}.
 
 
 
-Referenced by \mbox{\hyperlink{queue_8c_source_l00095}{dequeue()}}, \mbox{\hyperlink{queue_8c_source_l00067}{enqueue()}}, \mbox{\hyperlink{redis_8c_source_l00165}{get\+\_\+user\+\_\+by\+\_\+name()}}, \mbox{\hyperlink{redis_8c_source_l00122}{get\+\_\+user\+\_\+by\+\_\+pid()}}, \mbox{\hyperlink{redis_8c_source_l00072}{init\+\_\+context()}}, \mbox{\hyperlink{queue_8c_source_l00027}{init\+\_\+queue()}}, \mbox{\hyperlink{redis_8c_source_l00211}{insert()}}, \mbox{\hyperlink{tcfs__daemon_8c_source_l00056}{main()}}, \mbox{\hyperlink{redis_8c_source_l00256}{remove\+\_\+by\+\_\+pid()}}, and \mbox{\hyperlink{redis_8c_source_l00292}{remove\+\_\+by\+\_\+user()}}.
+Referenced by \mbox{\hyperlink{queue_8c_source_l00094}{dequeue()}}, \mbox{\hyperlink{queue_8c_source_l00066}{enqueue()}}, \mbox{\hyperlink{redis_8c_source_l00165}{get\+\_\+user\+\_\+by\+\_\+name()}}, \mbox{\hyperlink{redis_8c_source_l00122}{get\+\_\+user\+\_\+by\+\_\+pid()}}, \mbox{\hyperlink{tcfs__daemon__tools_8c_source_l00019}{handle\+\_\+incoming\+\_\+messages()}}, \mbox{\hyperlink{tcfs__daemon__tools_8c_source_l00066}{handle\+\_\+outgoing\+\_\+messages()}}, \mbox{\hyperlink{redis_8c_source_l00072}{init\+\_\+context()}}, \mbox{\hyperlink{queue_8c_source_l00027}{init\+\_\+queue()}}, \mbox{\hyperlink{redis_8c_source_l00211}{insert()}}, \mbox{\hyperlink{tcfs__daemon_8c_source_l00056}{main()}}, \mbox{\hyperlink{redis_8c_source_l00256}{remove\+\_\+by\+\_\+pid()}}, and \mbox{\hyperlink{redis_8c_source_l00292}{remove\+\_\+by\+\_\+user()}}.
 
 Here is the caller graph for this function\+:\nopagebreak
 \begin{figure}[H]
@@ -126,9 +126,9 @@ Format and print data as a message.
 
 
 \begin{DoxyParams}{Parameters}
-{\em const} & char \texorpdfstring{$\ast$}{*}format the string that will formatted and printed \\
+{\em format} & the string that will formatted and printed \\
 \hline
-{\em \mbox{[}\+ARGUMENTS\mbox{]}...} & Print optional ARGUMENT(s) according to format \\
+{\em ...} & Print optional ARGUMENT(s) according to format \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
@@ -141,11 +141,11 @@ Will also log using systemD
 \end{DoxyNote}
 
 
-Definition at line \mbox{\hyperlink{print__utils_8c_source_l00101}{101}} of file \mbox{\hyperlink{print__utils_8c_source}{print\+\_\+utils.\+c}}.
+Definition at line \mbox{\hyperlink{print__utils_8c_source_l00100}{100}} of file \mbox{\hyperlink{print__utils_8c_source}{print\+\_\+utils.\+c}}.
 
 
 
-Referenced by \mbox{\hyperlink{queue_8c_source_l00095}{dequeue()}}, \mbox{\hyperlink{user__db_8c_source_l00045}{disconnect\+\_\+db()}}, \mbox{\hyperlink{queue_8c_source_l00067}{enqueue()}}, \mbox{\hyperlink{redis_8c_source_l00165}{get\+\_\+user\+\_\+by\+\_\+name()}}, \mbox{\hyperlink{redis_8c_source_l00122}{get\+\_\+user\+\_\+by\+\_\+pid()}}, \mbox{\hyperlink{tcfs__daemon_8c_source_l00040}{handle\+\_\+termination()}}, \mbox{\hyperlink{queue_8c_source_l00027}{init\+\_\+queue()}}, \mbox{\hyperlink{redis_8c_source_l00211}{insert()}}, \mbox{\hyperlink{redis_8c_source_l00104}{json\+\_\+to\+\_\+qm\+\_\+user()}}, \mbox{\hyperlink{tcfs__daemon_8c_source_l00056}{main()}}, \mbox{\hyperlink{redis_8c_source_l00042}{print\+\_\+all\+\_\+keys()}}, \mbox{\hyperlink{user__db_8c_source_l00015}{register\+\_\+user()}}, \mbox{\hyperlink{redis_8c_source_l00256}{remove\+\_\+by\+\_\+pid()}}, and \mbox{\hyperlink{user__db_8c_source_l00031}{unregister\+\_\+user()}}.
+Referenced by \mbox{\hyperlink{queue_8c_source_l00094}{dequeue()}}, \mbox{\hyperlink{user__db_8c_source_l00045}{disconnect\+\_\+db()}}, \mbox{\hyperlink{queue_8c_source_l00066}{enqueue()}}, \mbox{\hyperlink{redis_8c_source_l00165}{get\+\_\+user\+\_\+by\+\_\+name()}}, \mbox{\hyperlink{redis_8c_source_l00122}{get\+\_\+user\+\_\+by\+\_\+pid()}}, \mbox{\hyperlink{tcfs__daemon__tools_8c_source_l00019}{handle\+\_\+incoming\+\_\+messages()}}, \mbox{\hyperlink{tcfs__daemon__tools_8c_source_l00066}{handle\+\_\+outgoing\+\_\+messages()}}, \mbox{\hyperlink{tcfs__daemon_8c_source_l00040}{handle\+\_\+termination()}}, \mbox{\hyperlink{queue_8c_source_l00027}{init\+\_\+queue()}}, \mbox{\hyperlink{redis_8c_source_l00211}{insert()}}, \mbox{\hyperlink{redis_8c_source_l00104}{json\+\_\+to\+\_\+qm\+\_\+user()}}, \mbox{\hyperlink{tcfs__daemon_8c_source_l00056}{main()}}, \mbox{\hyperlink{redis_8c_source_l00042}{print\+\_\+all\+\_\+keys()}}, \mbox{\hyperlink{user__db_8c_source_l00015}{register\+\_\+user()}}, \mbox{\hyperlink{redis_8c_source_l00256}{remove\+\_\+by\+\_\+pid()}}, \mbox{\hyperlink{json__tools_8cpp_source_l00027}{struct\+\_\+to\+\_\+json()}}, and \mbox{\hyperlink{user__db_8c_source_l00031}{unregister\+\_\+user()}}.
 
 Here is the caller graph for this function\+:\nopagebreak
 \begin{figure}[H]
@@ -166,9 +166,9 @@ Format and print data as a waring.
 
 
 \begin{DoxyParams}{Parameters}
-{\em const} & char \texorpdfstring{$\ast$}{*}format the string that will formatted and printed \\
+{\em format} & the string that will formatted and printed \\
 \hline
-{\em \mbox{[}\+ARGUMENTS\mbox{]}...} & Print optional ARGUMENT(s) according to format \\
+{\em ...} & Print optional ARGUMENT(s) according to format \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
@@ -181,7 +181,7 @@ Will also log using systemD
 \end{DoxyNote}
 
 
-Definition at line \mbox{\hyperlink{print__utils_8c_source_l00123}{123}} of file \mbox{\hyperlink{print__utils_8c_source}{print\+\_\+utils.\+c}}.
+Definition at line \mbox{\hyperlink{print__utils_8c_source_l00122}{122}} of file \mbox{\hyperlink{print__utils_8c_source}{print\+\_\+utils.\+c}}.
 
 
 

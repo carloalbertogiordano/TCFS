@@ -1,12 +1,18 @@
-.TH "todo" 3 "Tue Nov 28 2023 12:06:42" "Version 0.2" "TCFS" \" -*- nroff -*-
+.TH "todo" 3 "Tue Nov 28 2023 15:14:43" "Version 0.2" "TCFS" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
 todo \- Todo List 
 .PP
 
+.IP "\fBMember \fBhandle_incoming_messages\fP (void *queue_id)\fP" 1c
+Handle the case described in note  
+.IP "\fBMember \fBhandle_outgoing_messages\fP (void *queue_id)\fP" 1c
+Remove this function from the code  
 .IP "\fBMember \fBhandle_termination\fP (int signum)\fP" 1c
 : Implement remove_queue() to clear and delete the queue  
+.IP "\fBMember \fBHOST\fP []\fP" 1c
+This should be passed as a parameter to the daemon  
 .IP "\fBMember \fBinit_queue\fP (char *queue)\fP" 1c
 Define permissions for mq_open  
 .IP "\fBMember \fBmain\fP ()\fP" 1c

@@ -81,7 +81,7 @@ Go to the documentation of this file.<programlisting linenumbering="unnumbered">
 <anchor xml:id="_tcfs__daemon_8c_source_1l00116"/>00116 &#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;-errno;
 <anchor xml:id="_tcfs__daemon_8c_source_1l00117"/>00117 &#32;&#32;&#32;&#32;}
 <anchor xml:id="_tcfs__daemon_8c_source_1l00118"/>00118 
-<anchor xml:id="_tcfs__daemon_8c_source_1l00119"/>00119 &#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(pthread_create&#32;(&amp;thread1,&#32;NULL,&#32;handle_incoming_messages,&#32;&amp;queue_id)
+<anchor xml:id="_tcfs__daemon_8c_source_1l00119"/>00119 &#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(pthread_create&#32;(&amp;thread1,&#32;NULL,&#32;<link linkend="_tcfs__daemon__tools_8c_1a24bb8f1eddd763598165ab8fa40fcdbd">handle_incoming_messages</link>,&#32;&amp;queue_id)
 <anchor xml:id="_tcfs__daemon_8c_source_1l00120"/>00120 &#32;&#32;&#32;&#32;&#32;&#32;!=&#32;0)
 <anchor xml:id="_tcfs__daemon_8c_source_1l00121"/>00121 &#32;&#32;&#32;&#32;{
 <anchor xml:id="_tcfs__daemon_8c_source_1l00122"/>00122 &#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_print__utils_8c_1a650ab060ffe5dbc6c1a968a9cae3bded">print_err</link>&#32;(<emphasis role="stringliteral">&quot;Failed&#32;to&#32;create&#32;thread1&quot;</emphasis>);
@@ -90,7 +90,7 @@ Go to the documentation of this file.<programlisting linenumbering="unnumbered">
 <anchor xml:id="_tcfs__daemon_8c_source_1l00125"/>00125 &#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;-errno;
 <anchor xml:id="_tcfs__daemon_8c_source_1l00126"/>00126 &#32;&#32;&#32;&#32;}
 <anchor xml:id="_tcfs__daemon_8c_source_1l00127"/>00127 
-<anchor xml:id="_tcfs__daemon_8c_source_1l00128"/>00128 &#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(pthread_create&#32;(&amp;thread2,&#32;NULL,&#32;handle_outgoing_messages,&#32;&amp;queue_id)
+<anchor xml:id="_tcfs__daemon_8c_source_1l00128"/>00128 &#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(pthread_create&#32;(&amp;thread2,&#32;NULL,&#32;<link linkend="_tcfs__daemon__tools_8c_1ab143feba805d6beda83eb69560c3c923">handle_outgoing_messages</link>,&#32;&amp;queue_id)
 <anchor xml:id="_tcfs__daemon_8c_source_1l00129"/>00129 &#32;&#32;&#32;&#32;&#32;&#32;!=&#32;0)
 <anchor xml:id="_tcfs__daemon_8c_source_1l00130"/>00130 &#32;&#32;&#32;&#32;{
 <anchor xml:id="_tcfs__daemon_8c_source_1l00131"/>00131 &#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_print__utils_8c_1a650ab060ffe5dbc6c1a968a9cae3bded">print_err</link>&#32;(<emphasis role="stringliteral">&quot;Failed&#32;to&#32;create&#32;thread1&quot;</emphasis>);

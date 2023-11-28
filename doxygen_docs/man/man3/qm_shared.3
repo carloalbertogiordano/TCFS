@@ -1,4 +1,4 @@
-.TH "qm_shared" 3 "Tue Nov 28 2023 12:06:42" "Version 0.2" "TCFS" \" -*- nroff -*-
+.TH "qm_shared" 3 "Tue Nov 28 2023 15:14:43" "Version 0.2" "TCFS" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -47,17 +47,21 @@ Handle creation of shared files and not only accessing them\&. This mey imply a 
 .PP
 
 .PP
-Definition at line \fB70\fP of file \fBcommon\&.h\fP\&.
+Definition at line \fB75\fP of file \fBcommon\&.h\fP\&.
 .SH "Member Data Documentation"
 .PP 
 .SS "int qm_shared::fd"
 The file descriptor of the shared file\&. 
 .PP
-Definition at line \fB71\fP of file \fBcommon\&.h\fP\&.
+Definition at line \fB76\fP of file \fBcommon\&.h\fP\&.
+.PP
+Referenced by \fBstring_to_struct()\fP, and \fBstruct_to_json()\fP\&.
 .SS "char* qm_shared::keypart"
 The part of the key given by the caller that is needed to decrypt the shared file\&. 
 .PP
-Definition at line \fB73\fP of file \fBcommon\&.h\fP\&.
+Definition at line \fB78\fP of file \fBcommon\&.h\fP\&.
+.PP
+Referenced by \fBstring_to_struct()\fP, and \fBstruct_to_json()\fP\&.
 .SS "char** qm_shared::userlist"
 The list of users who created the shared file\&.
 .br
@@ -70,7 +74,9 @@ This is really a matrix of chars
 .PP
 
 .PP
-Definition at line \fB72\fP of file \fBcommon\&.h\fP\&.
+Definition at line \fB77\fP of file \fBcommon\&.h\fP\&.
+.PP
+Referenced by \fBstring_to_struct()\fP, and \fBstruct_to_json()\fP\&.
 
 .SH "Author"
 .PP 

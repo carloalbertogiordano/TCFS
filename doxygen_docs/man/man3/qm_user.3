@@ -1,4 +1,4 @@
-.TH "qm_user" 3 "Tue Nov 28 2023 12:06:42" "Version 0.2" "TCFS" \" -*- nroff -*-
+.TH "qm_user" 3 "Tue Nov 28 2023 15:14:43" "Version 0.2" "TCFS" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -17,7 +17,7 @@ Contains information about the user's operation, process ID, username and public
 
 .in +1c
 .ti -1c
-.RI "user_operation \fBuser_op\fP"
+.RI "\fBuser_operation\fP \fBuser_op\fP"
 .br
 .ti -1c
 .RI "pid_t \fBpid\fP"
@@ -37,29 +37,33 @@ Contains information about the user's operation, process ID, username and public
 .br
 \&. 
 .PP
-Definition at line \fB56\fP of file \fBcommon\&.h\fP\&.
+Definition at line \fB61\fP of file \fBcommon\&.h\fP\&.
 .SH "Member Data Documentation"
 .PP 
 .SS "pid_t qm_user::pid"
 The process ID of the user\&. 
 .PP
-Definition at line \fB58\fP of file \fBcommon\&.h\fP\&.
+Definition at line \fB63\fP of file \fBcommon\&.h\fP\&.
 .PP
-Referenced by \fBget_user_by_name()\fP, \fBget_user_by_pid()\fP, \fBinsert()\fP, and \fBremove_by_user()\fP\&.
+Referenced by \fBget_user_by_name()\fP, \fBget_user_by_pid()\fP, \fBhandle_outgoing_messages()\fP, \fBinsert()\fP, \fBremove_by_user()\fP, \fBstring_to_struct()\fP, and \fBstruct_to_json()\fP\&.
 .SS "char* qm_user::pubkey"
 The public key of the user\&. 
 .PP
-Definition at line \fB60\fP of file \fBcommon\&.h\fP\&.
+Definition at line \fB65\fP of file \fBcommon\&.h\fP\&.
+.PP
+Referenced by \fBhandle_outgoing_messages()\fP, \fBstring_to_struct()\fP, and \fBstruct_to_json()\fP\&.
 .SS "char* qm_user::user"
 The username of the user\&. 
 .PP
-Definition at line \fB59\fP of file \fBcommon\&.h\fP\&.
+Definition at line \fB64\fP of file \fBcommon\&.h\fP\&.
 .PP
-Referenced by \fBget_user_by_name()\fP, \fBget_user_by_pid()\fP, \fBinsert()\fP, and \fBremove_by_pid()\fP\&.
-.SS "user_operation qm_user::user_op"
+Referenced by \fBget_user_by_name()\fP, \fBget_user_by_pid()\fP, \fBhandle_outgoing_messages()\fP, \fBinsert()\fP, \fBremove_by_pid()\fP, \fBstring_to_struct()\fP, and \fBstruct_to_json()\fP\&.
+.SS "\fBuser_operation\fP qm_user::user_op"
 The operation that the user wants to perform\&. 
 .PP
-Definition at line \fB57\fP of file \fBcommon\&.h\fP\&.
+Definition at line \fB62\fP of file \fBcommon\&.h\fP\&.
+.PP
+Referenced by \fBhandle_outgoing_messages()\fP, \fBstring_to_struct()\fP, and \fBstruct_to_json()\fP\&.
 
 .SH "Author"
 .PP 

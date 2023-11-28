@@ -33,7 +33,7 @@ const char MQUEUE[] = "/tcfs_queue";
 
 /**
  * @brief Handle the termination if SIGTERM is received
- * @param int signum        Integer corresponding to SIGNUM
+ * @param signum        Integer corresponding to SIGNUM
  * @todo: Implement remove_queue() to clear and delete the queue
  * */
 void

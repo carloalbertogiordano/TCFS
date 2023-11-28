@@ -42,4 +42,4 @@ build/fuse-module
 .vscode
 daemon/dump.rdb
 Doxyfile.bak
-doxygen_docs
+doxygen_docs/*

@@ -62,7 +62,7 @@ Definition at line \mbox{\hyperlink{user__db_8c_source_l00045}{45}} of file \mbo
 
 
 
-References \mbox{\hyperlink{redis_8c_source_l00092}{free\+\_\+context()}}, and \mbox{\hyperlink{print__utils_8c_source_l00101}{print\+\_\+msg()}}.
+References \mbox{\hyperlink{redis_8c_source_l00092}{free\+\_\+context()}}, and \mbox{\hyperlink{print__utils_8c_source_l00100}{print\+\_\+msg()}}.
 
 Here is the call graph for this function\+:\nopagebreak
 \begin{figure}[H]
@@ -83,7 +83,7 @@ Register or update a user in the db, this relies on the \doxylink{redis_8c}{redi
 
 
 \begin{DoxyParams}{Parameters}
-{\em qm\+\_\+user\texorpdfstring{$\ast$}{*}} & A pointer to the allocated qm\+\_\+user\texorpdfstring{$\ast$}{*} struct \\
+{\em user\+\_\+msg} & qm\+\_\+user\texorpdfstring{$\ast$}{*} A pointer to the allocated qm\+\_\+user\texorpdfstring{$\ast$}{*} struct \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
@@ -98,7 +98,7 @@ Definition at line \mbox{\hyperlink{user__db_8c_source_l00015}{15}} of file \mbo
 
 
 
-References \mbox{\hyperlink{redis_8c_source_l00072}{init\+\_\+context()}}, \mbox{\hyperlink{redis_8c_source_l00211}{insert()}}, \mbox{\hyperlink{redis_8c_source_l00042}{print\+\_\+all\+\_\+keys()}}, and \mbox{\hyperlink{print__utils_8c_source_l00101}{print\+\_\+msg()}}.
+References \mbox{\hyperlink{redis_8c_source_l00072}{init\+\_\+context()}}, \mbox{\hyperlink{redis_8c_source_l00211}{insert()}}, \mbox{\hyperlink{redis_8c_source_l00042}{print\+\_\+all\+\_\+keys()}}, and \mbox{\hyperlink{print__utils_8c_source_l00100}{print\+\_\+msg()}}.
 
 Here is the call graph for this function\+:\nopagebreak
 \begin{figure}[H]
@@ -119,7 +119,7 @@ Remove a user from the DB.
 
 
 \begin{DoxyParams}{Parameters}
-{\em pid\+\_\+t} & pid the key \\
+{\em pid} & the key \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
@@ -134,7 +134,7 @@ Definition at line \mbox{\hyperlink{user__db_8c_source_l00031}{31}} of file \mbo
 
 
 
-References \mbox{\hyperlink{redis_8c_source_l00042}{print\+\_\+all\+\_\+keys()}}, \mbox{\hyperlink{print__utils_8c_source_l00101}{print\+\_\+msg()}}, and \mbox{\hyperlink{redis_8c_source_l00256}{remove\+\_\+by\+\_\+pid()}}.
+References \mbox{\hyperlink{redis_8c_source_l00042}{print\+\_\+all\+\_\+keys()}}, \mbox{\hyperlink{print__utils_8c_source_l00100}{print\+\_\+msg()}}, and \mbox{\hyperlink{redis_8c_source_l00256}{remove\+\_\+by\+\_\+pid()}}.
 
 Here is the call graph for this function\+:\nopagebreak
 \begin{figure}[H]

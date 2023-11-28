@@ -6,7 +6,7 @@
     <incdepgraph>
       <node id="4">
         <label>../common.h</label>
-        <link refid="common_8h_source"/>
+        <link refid="common_8h"/>
         <childnode refid="5" relation="include">
         </childnode>
         <childnode refid="6" relation="include">
@@ -211,10 +211,10 @@
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
-<parametername>int</parametername>
+<parametername>signum</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>signum Integer corresponding to SIGNUM </para>
+<para>Integer corresponding to SIGNUM </para>
 </parameterdescription>
 </parameteritem>
 </parameterlist>
@@ -224,7 +224,7 @@
         <inbodydescription>
         </inbodydescription>
         <location file="daemon/tcfs_daemon.c" line="40" column="1" bodyfile="daemon/tcfs_daemon.c" bodystart="40" bodyend="45"/>
-        <references refid="print__utils_8c_1a491dc14c94ed8cf706bb54880c50b2d0" compoundref="print__utils_8c" startline="101" endline="112">print_msg</references>
+        <references refid="print__utils_8c_1a491dc14c94ed8cf706bb54880c50b2d0" compoundref="print__utils_8c" startline="100" endline="111">print_msg</references>
         <referencedby refid="tcfs__daemon_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="tcfs__daemon_8c" startline="56" endline="150">main</referencedby>
       </memberdef>
       <memberdef kind="function" id="tcfs__daemon_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -243,11 +243,13 @@
         <inbodydescription>
         </inbodydescription>
         <location file="daemon/tcfs_daemon.c" line="56" column="1" bodyfile="daemon/tcfs_daemon.c" bodystart="56" bodyend="150"/>
+        <references refid="tcfs__daemon__tools_8c_1a24bb8f1eddd763598165ab8fa40fcdbd" compoundref="tcfs__daemon__tools_8c" startline="19" endline="55">handle_incoming_messages</references>
+        <references refid="tcfs__daemon__tools_8c_1ab143feba805d6beda83eb69560c3c923" compoundref="tcfs__daemon__tools_8c" startline="66" endline="107">handle_outgoing_messages</references>
         <references refid="tcfs__daemon_8c_1a93d1097e4dd3c0735da3da2e89410090" compoundref="tcfs__daemon_8c" startline="40" endline="45">handle_termination</references>
         <references refid="queue_8c_1a6997b2cacf3d2e49bc848d0274e24b13" compoundref="queue_8c" startline="27" endline="52">init_queue</references>
         <references refid="tcfs__daemon_8c_1a6376ed00be9fd53f7579e9243f3eacde" compoundref="tcfs__daemon_8c" startline="32">MQUEUE</references>
-        <references refid="print__utils_8c_1a650ab060ffe5dbc6c1a968a9cae3bded" compoundref="print__utils_8c" startline="79" endline="91">print_err</references>
-        <references refid="print__utils_8c_1a491dc14c94ed8cf706bb54880c50b2d0" compoundref="print__utils_8c" startline="101" endline="112">print_msg</references>
+        <references refid="print__utils_8c_1a650ab060ffe5dbc6c1a968a9cae3bded" compoundref="print__utils_8c" startline="78" endline="90">print_err</references>
+        <references refid="print__utils_8c_1a491dc14c94ed8cf706bb54880c50b2d0" compoundref="print__utils_8c" startline="100" endline="111">print_msg</references>
         <references refid="tcfs__daemon_8c_1a679ec79d065ad812032851f6872caee6" compoundref="tcfs__daemon_8c" startline="20">terminate</references>
       </memberdef>
     </sectiondef>
@@ -343,7 +345,7 @@
 <codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>-errno;</highlight></codeline>
 <codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="118"><highlight class="normal"></highlight></codeline>
-<codeline lineno="119"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(pthread_create<sp/>(&amp;thread1,<sp/>NULL,<sp/>handle_incoming_messages,<sp/>&amp;queue_id)</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(pthread_create<sp/>(&amp;thread1,<sp/>NULL,<sp/><ref refid="tcfs__daemon__tools_8c_1a24bb8f1eddd763598165ab8fa40fcdbd" kindref="member">handle_incoming_messages</ref>,<sp/>&amp;queue_id)</highlight></codeline>
 <codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>!=<sp/>0)</highlight></codeline>
 <codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
 <codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="print__utils_8c_1a650ab060ffe5dbc6c1a968a9cae3bded" kindref="member">print_err</ref><sp/>(</highlight><highlight class="stringliteral">&quot;Failed<sp/>to<sp/>create<sp/>thread1&quot;</highlight><highlight class="normal">);</highlight></codeline>
@@ -352,7 +354,7 @@
 <codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>-errno;</highlight></codeline>
 <codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="127"><highlight class="normal"></highlight></codeline>
-<codeline lineno="128"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(pthread_create<sp/>(&amp;thread2,<sp/>NULL,<sp/>handle_outgoing_messages,<sp/>&amp;queue_id)</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(pthread_create<sp/>(&amp;thread2,<sp/>NULL,<sp/><ref refid="tcfs__daemon__tools_8c_1ab143feba805d6beda83eb69560c3c923" kindref="member">handle_outgoing_messages</ref>,<sp/>&amp;queue_id)</highlight></codeline>
 <codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>!=<sp/>0)</highlight></codeline>
 <codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
 <codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="print__utils_8c_1a650ab060ffe5dbc6c1a968a9cae3bded" kindref="member">print_err</ref><sp/>(</highlight><highlight class="stringliteral">&quot;Failed<sp/>to<sp/>create<sp/>thread1&quot;</highlight><highlight class="normal">);</highlight></codeline>

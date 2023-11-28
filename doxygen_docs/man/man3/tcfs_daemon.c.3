@@ -1,4 +1,4 @@
-.TH "daemon/tcfs_daemon.c" 3 "Tue Nov 28 2023 12:06:42" "Version 0.2" "TCFS" \" -*- nroff -*-
+.TH "daemon/tcfs_daemon.c" 3 "Tue Nov 28 2023 15:14:43" "Version 0.2" "TCFS" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -70,7 +70,7 @@ Handle the termination if SIGTERM is received\&.
 .PP
 \fBParameters\fP
 .RS 4
-\fIint\fP signum Integer corresponding to SIGNUM 
+\fIsignum\fP Integer corresponding to SIGNUM 
 .RE
 .PP
 \fBTodo\fP
@@ -101,7 +101,7 @@ main function of the daemon\&. This will daemonize the program, spawn a thread t
 .PP
 Definition at line \fB56\fP of file \fBtcfs_daemon\&.c\fP\&.
 .PP
-References \fBhandle_termination()\fP, \fBinit_queue()\fP, \fBMQUEUE\fP, \fBprint_err()\fP, \fBprint_msg()\fP, and \fBterminate\fP\&.
+References \fBhandle_incoming_messages()\fP, \fBhandle_outgoing_messages()\fP, \fBhandle_termination()\fP, \fBinit_queue()\fP, \fBMQUEUE\fP, \fBprint_err()\fP, \fBprint_msg()\fP, and \fBterminate\fP\&.
 .SH "Variable Documentation"
 .PP 
 .SS "MQUEUE = '/tcfs_queue'"

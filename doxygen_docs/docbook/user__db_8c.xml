@@ -83,7 +83,7 @@ Parameters</title>
 <para>
 Definition at line <link linkend="_user__db_8c_source_1l00045">45</link> of file <link linkend="_user__db_8c_source">user_db.c</link>.</para>
 <para>
-References <link linkend="_redis_8c_source_1l00092">free_context()</link>, and <link linkend="_print__utils_8c_source_1l00101">print_msg()</link>.</para>
+References <link linkend="_redis_8c_source_1l00092">free_context()</link>, and <link linkend="_print__utils_8c_source_1l00100">print_msg()</link>.</para>
 Here is the call graph for this function:<para>
     <informalfigure>
         <mediaobject>
@@ -114,8 +114,8 @@ Parameters</title>
                         <colspec colwidth="4*"/>
                         <tbody>
                             <row>
-<entry>qm_user*</entry><entry>
-<para>A pointer to the allocated qm_user* struct </para>
+<entry>user_msg</entry><entry>
+<para>qm_user* A pointer to the allocated qm_user* struct </para>
 </entry>
                             </row>
                         </tbody>
@@ -135,7 +135,7 @@ Parameters</title>
 <para>
 Definition at line <link linkend="_user__db_8c_source_1l00015">15</link> of file <link linkend="_user__db_8c_source">user_db.c</link>.</para>
 <para>
-References <link linkend="_redis_8c_source_1l00072">init_context()</link>, <link linkend="_redis_8c_source_1l00211">insert()</link>, <link linkend="_redis_8c_source_1l00042">print_all_keys()</link>, and <link linkend="_print__utils_8c_source_1l00101">print_msg()</link>.</para>
+References <link linkend="_redis_8c_source_1l00072">init_context()</link>, <link linkend="_redis_8c_source_1l00211">insert()</link>, <link linkend="_redis_8c_source_1l00042">print_all_keys()</link>, and <link linkend="_print__utils_8c_source_1l00100">print_msg()</link>.</para>
 Here is the call graph for this function:<para>
     <informalfigure>
         <mediaobject>
@@ -166,8 +166,8 @@ Parameters</title>
                         <colspec colwidth="4*"/>
                         <tbody>
                             <row>
-<entry>pid_t</entry><entry>
-<para>pid the key </para>
+<entry>pid</entry><entry>
+<para>the key </para>
 </entry>
                             </row>
                         </tbody>
@@ -187,7 +187,7 @@ Parameters</title>
 <para>
 Definition at line <link linkend="_user__db_8c_source_1l00031">31</link> of file <link linkend="_user__db_8c_source">user_db.c</link>.</para>
 <para>
-References <link linkend="_redis_8c_source_1l00042">print_all_keys()</link>, <link linkend="_print__utils_8c_source_1l00101">print_msg()</link>, and <link linkend="_redis_8c_source_1l00256">remove_by_pid()</link>.</para>
+References <link linkend="_redis_8c_source_1l00042">print_all_keys()</link>, <link linkend="_print__utils_8c_source_1l00100">print_msg()</link>, and <link linkend="_redis_8c_source_1l00256">remove_by_pid()</link>.</para>
 Here is the call graph for this function:<para>
     <informalfigure>
         <mediaobject>

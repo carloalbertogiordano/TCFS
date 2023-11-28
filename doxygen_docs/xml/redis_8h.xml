@@ -8,7 +8,7 @@
     <incdepgraph>
       <node id="2">
         <label>../../common.h</label>
-        <link refid="common_8h_source"/>
+        <link refid="common_8h"/>
         <childnode refid="3" relation="include">
         </childnode>
         <childnode refid="4" relation="include">
@@ -89,7 +89,7 @@
         </inbodydescription>
         <location file="daemon/daemon_utils/common_utils/db/redis.h" line="3" column="6" bodyfile="daemon/daemon_utils/common_utils/db/redis.c" bodystart="42" bodyend="64" declfile="daemon/daemon_utils/common_utils/db/redis.h" declline="3" declcolumn="6"/>
         <references refid="redis_8c_1a71ea645922f3e5dcc69b644656c79a99" compoundref="redis_8c" startline="34">context</references>
-        <references refid="print__utils_8c_1a491dc14c94ed8cf706bb54880c50b2d0" compoundref="print__utils_8c" startline="101" endline="112">print_msg</references>
+        <references refid="print__utils_8c_1a491dc14c94ed8cf706bb54880c50b2d0" compoundref="print__utils_8c" startline="100" endline="111">print_msg</references>
         <referencedby refid="user__db_8c_1a2ae8a82033440194ad80949cd4493971" compoundref="user__db_8c" startline="15" endline="24">register_user</referencedby>
         <referencedby refid="user__db_8c_1a6e2fcf4aa637e61f69b1b601981663cf" compoundref="user__db_8c" startline="31" endline="36">unregister_user</referencedby>
       </memberdef>
@@ -111,8 +111,9 @@
         </inbodydescription>
         <location file="daemon/daemon_utils/common_utils/db/redis.h" line="5" column="5" bodyfile="daemon/daemon_utils/common_utils/db/redis.c" bodystart="72" bodyend="85" declfile="daemon/daemon_utils/common_utils/db/redis.h" declline="5" declcolumn="5"/>
         <references refid="redis_8c_1a71ea645922f3e5dcc69b644656c79a99" compoundref="redis_8c" startline="34">context</references>
+        <references refid="redis_8c_1ab146e06ef57318f58a840b315626b861" compoundref="redis_8c" startline="20">HOST</references>
         <references refid="redis_8c_1a614217d263be1fb1a5f76e2ff7be19a2" compoundref="redis_8c" startline="27">PORT</references>
-        <references refid="print__utils_8c_1a650ab060ffe5dbc6c1a968a9cae3bded" compoundref="print__utils_8c" startline="79" endline="91">print_err</references>
+        <references refid="print__utils_8c_1a650ab060ffe5dbc6c1a968a9cae3bded" compoundref="print__utils_8c" startline="78" endline="90">print_err</references>
         <referencedby refid="user__db_8c_1a2ae8a82033440194ad80949cd4493971" compoundref="user__db_8c" startline="15" endline="24">register_user</referencedby>
       </memberdef>
       <memberdef kind="function" id="redis_8h_1a8e6e1687d6351741ac3e353d23425f71" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -130,10 +131,10 @@
         <detaileddescription>
 <internal><para>This function is marked as internal and should not be used by the user <parameterlist kind="param"><parameteritem>
 <parameternamelist>
-<parametername>char</parametername>
+<parametername>json</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>*json the json string representing the <ref refid="structqm__user" kindref="compound">qm_user</ref> struct </para>
+<para>the json string representing the <ref refid="structqm__user" kindref="compound">qm_user</ref> struct </para>
 </parameterdescription>
 </parameteritem>
 </parameterlist>
@@ -145,7 +146,8 @@
         <inbodydescription>
         </inbodydescription>
         <location file="daemon/daemon_utils/common_utils/db/redis.h" line="7" column="9" bodyfile="daemon/daemon_utils/common_utils/db/redis.c" bodystart="104" bodyend="114" declfile="daemon/daemon_utils/common_utils/db/redis.h" declline="7" declcolumn="9"/>
-        <references refid="print__utils_8c_1a491dc14c94ed8cf706bb54880c50b2d0" compoundref="print__utils_8c" startline="101" endline="112">print_msg</references>
+        <references refid="print__utils_8c_1a491dc14c94ed8cf706bb54880c50b2d0" compoundref="print__utils_8c" startline="100" endline="111">print_msg</references>
+        <references refid="json__tools_8cpp_1a513edf914a6a6141c7892d193d0c1f52" compoundref="json__tools_8cpp" startline="92" endline="150">string_to_struct</references>
         <referencedby refid="redis_8c_1a73711c0a9d0060337409d15dc44f5ad1" compoundref="redis_8c" startline="165" endline="200">get_user_by_name</referencedby>
         <referencedby refid="redis_8c_1af0bf1bfc99afc940619371e3c76ab4f9" compoundref="redis_8c" startline="122" endline="157">get_user_by_pid</referencedby>
       </memberdef>
@@ -164,10 +166,10 @@
         <detaileddescription>
 <internal><para>This function is marked as internal and should not be used by the user <parameterlist kind="param"><parameteritem>
 <parameternamelist>
-<parametername>pid_t</parametername>
+<parametername>pid</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>pid The key of the row </para>
+<para>The key of the row </para>
 </parameterdescription>
 </parameteritem>
 </parameterlist>
@@ -181,10 +183,10 @@
         <location file="daemon/daemon_utils/common_utils/db/redis.h" line="9" column="9" bodyfile="daemon/daemon_utils/common_utils/db/redis.c" bodystart="122" bodyend="157" declfile="daemon/daemon_utils/common_utils/db/redis.h" declline="9" declcolumn="9"/>
         <references refid="redis_8c_1a71ea645922f3e5dcc69b644656c79a99" compoundref="redis_8c" startline="34">context</references>
         <references refid="redis_8c_1a8e6e1687d6351741ac3e353d23425f71" compoundref="redis_8c" startline="104" endline="114">json_to_qm_user</references>
-        <references refid="structqm__user_1aa69546c3a6a2124be9f964329c951a84" compoundref="common_8h" startline="58">qm_user::pid</references>
-        <references refid="print__utils_8c_1a650ab060ffe5dbc6c1a968a9cae3bded" compoundref="print__utils_8c" startline="79" endline="91">print_err</references>
-        <references refid="print__utils_8c_1a491dc14c94ed8cf706bb54880c50b2d0" compoundref="print__utils_8c" startline="101" endline="112">print_msg</references>
-        <references refid="structqm__user_1a6c52d68724b65831ba6d95f3d7448ff4" compoundref="common_8h" startline="59">qm_user::user</references>
+        <references refid="structqm__user_1aa69546c3a6a2124be9f964329c951a84" compoundref="common_8h" startline="63">qm_user::pid</references>
+        <references refid="print__utils_8c_1a650ab060ffe5dbc6c1a968a9cae3bded" compoundref="print__utils_8c" startline="78" endline="90">print_err</references>
+        <references refid="print__utils_8c_1a491dc14c94ed8cf706bb54880c50b2d0" compoundref="print__utils_8c" startline="100" endline="111">print_msg</references>
+        <references refid="structqm__user_1a6c52d68724b65831ba6d95f3d7448ff4" compoundref="common_8h" startline="64">qm_user::user</references>
         <referencedby refid="redis_8c_1a6b18d7ad2f1e8275106a5b39c0c7d216" compoundref="redis_8c" startline="256" endline="281">remove_by_pid</referencedby>
       </memberdef>
       <memberdef kind="function" id="redis_8h_1a73711c0a9d0060337409d15dc44f5ad1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -202,10 +204,10 @@
         <detaileddescription>
 <internal><para>This function is marked as internal and should not be used by the user <parameterlist kind="param"><parameteritem>
 <parameternamelist>
-<parametername>const</parametername>
+<parametername>name</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>char *name The key of the row </para>
+<para>The key of the row </para>
 </parameterdescription>
 </parameteritem>
 </parameterlist>
@@ -219,10 +221,10 @@
         <location file="daemon/daemon_utils/common_utils/db/redis.h" line="11" column="9" bodyfile="daemon/daemon_utils/common_utils/db/redis.c" bodystart="165" bodyend="200" declfile="daemon/daemon_utils/common_utils/db/redis.h" declline="11" declcolumn="9"/>
         <references refid="redis_8c_1a71ea645922f3e5dcc69b644656c79a99" compoundref="redis_8c" startline="34">context</references>
         <references refid="redis_8c_1a8e6e1687d6351741ac3e353d23425f71" compoundref="redis_8c" startline="104" endline="114">json_to_qm_user</references>
-        <references refid="structqm__user_1aa69546c3a6a2124be9f964329c951a84" compoundref="common_8h" startline="58">qm_user::pid</references>
-        <references refid="print__utils_8c_1a650ab060ffe5dbc6c1a968a9cae3bded" compoundref="print__utils_8c" startline="79" endline="91">print_err</references>
-        <references refid="print__utils_8c_1a491dc14c94ed8cf706bb54880c50b2d0" compoundref="print__utils_8c" startline="101" endline="112">print_msg</references>
-        <references refid="structqm__user_1a6c52d68724b65831ba6d95f3d7448ff4" compoundref="common_8h" startline="59">qm_user::user</references>
+        <references refid="structqm__user_1aa69546c3a6a2124be9f964329c951a84" compoundref="common_8h" startline="63">qm_user::pid</references>
+        <references refid="print__utils_8c_1a650ab060ffe5dbc6c1a968a9cae3bded" compoundref="print__utils_8c" startline="78" endline="90">print_err</references>
+        <references refid="print__utils_8c_1a491dc14c94ed8cf706bb54880c50b2d0" compoundref="print__utils_8c" startline="100" endline="111">print_msg</references>
+        <references refid="structqm__user_1a6c52d68724b65831ba6d95f3d7448ff4" compoundref="common_8h" startline="64">qm_user::user</references>
         <referencedby refid="redis_8c_1a2678c0575f2b6c944fd261255aeaebff" compoundref="redis_8c" startline="292" endline="316">remove_by_user</referencedby>
       </memberdef>
       <memberdef kind="function" id="redis_8h_1ac9878ee09b53700eb08c1f175873c30b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -240,10 +242,10 @@
         <detaileddescription>
 <internal><para>This function is marked as internal and should not be used by the user <parameterlist kind="param"><parameteritem>
 <parameternamelist>
-<parametername>qm_user*</parametername>
+<parametername>user</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>A pointer to the allocated qm_user* struct </para>
+<para>qm_user* A pointer to the allocated qm_user* struct </para>
 </parameterdescription>
 </parameteritem>
 </parameterlist>
@@ -262,10 +264,12 @@
         </inbodydescription>
         <location file="daemon/daemon_utils/common_utils/db/redis.h" line="13" column="5" bodyfile="daemon/daemon_utils/common_utils/db/redis.c" bodystart="211" bodyend="245" declfile="daemon/daemon_utils/common_utils/db/redis.h" declline="13" declcolumn="5"/>
         <references refid="redis_8c_1a71ea645922f3e5dcc69b644656c79a99" compoundref="redis_8c" startline="34">context</references>
-        <references refid="structqm__user_1aa69546c3a6a2124be9f964329c951a84" compoundref="common_8h" startline="58">qm_user::pid</references>
-        <references refid="print__utils_8c_1a650ab060ffe5dbc6c1a968a9cae3bded" compoundref="print__utils_8c" startline="79" endline="91">print_err</references>
-        <references refid="print__utils_8c_1a491dc14c94ed8cf706bb54880c50b2d0" compoundref="print__utils_8c" startline="101" endline="112">print_msg</references>
-        <references refid="structqm__user_1a6c52d68724b65831ba6d95f3d7448ff4" compoundref="common_8h" startline="59">qm_user::user</references>
+        <references refid="structqm__user_1aa69546c3a6a2124be9f964329c951a84" compoundref="common_8h" startline="63">qm_user::pid</references>
+        <references refid="print__utils_8c_1a650ab060ffe5dbc6c1a968a9cae3bded" compoundref="print__utils_8c" startline="78" endline="90">print_err</references>
+        <references refid="print__utils_8c_1a491dc14c94ed8cf706bb54880c50b2d0" compoundref="print__utils_8c" startline="100" endline="111">print_msg</references>
+        <references refid="json__tools_8cpp_1abe22bc6ace23fc8f7e186a824784765f" compoundref="json__tools_8cpp" startline="27" endline="79">struct_to_json</references>
+        <references refid="common_8h_1ab2c144fca6129807a9fe4bad66970c4cae2d30a195cee6b2961cc2c23ea4b520b" compoundref="common_8h" startline="39">USER</references>
+        <references refid="structqm__user_1a6c52d68724b65831ba6d95f3d7448ff4" compoundref="common_8h" startline="64">qm_user::user</references>
         <referencedby refid="user__db_8c_1a2ae8a82033440194ad80949cd4493971" compoundref="user__db_8c" startline="15" endline="24">register_user</referencedby>
       </memberdef>
       <memberdef kind="function" id="redis_8h_1a6b18d7ad2f1e8275106a5b39c0c7d216" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -283,10 +287,10 @@
         <detaileddescription>
 <internal><para>This function is marked as internal and should not be used by the user <parameterlist kind="param"><parameteritem>
 <parameternamelist>
-<parametername>pid_t</parametername>
+<parametername>pid</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>pid The key </para>
+<para>The key </para>
 </parameterdescription>
 </parameteritem>
 </parameterlist>
@@ -306,9 +310,9 @@
         <location file="daemon/daemon_utils/common_utils/db/redis.h" line="15" column="5" bodyfile="daemon/daemon_utils/common_utils/db/redis.c" bodystart="256" bodyend="281" declfile="daemon/daemon_utils/common_utils/db/redis.h" declline="15" declcolumn="5"/>
         <references refid="redis_8c_1a71ea645922f3e5dcc69b644656c79a99" compoundref="redis_8c" startline="34">context</references>
         <references refid="redis_8c_1af0bf1bfc99afc940619371e3c76ab4f9" compoundref="redis_8c" startline="122" endline="157">get_user_by_pid</references>
-        <references refid="print__utils_8c_1a650ab060ffe5dbc6c1a968a9cae3bded" compoundref="print__utils_8c" startline="79" endline="91">print_err</references>
-        <references refid="print__utils_8c_1a491dc14c94ed8cf706bb54880c50b2d0" compoundref="print__utils_8c" startline="101" endline="112">print_msg</references>
-        <references refid="structqm__user_1a6c52d68724b65831ba6d95f3d7448ff4" compoundref="common_8h" startline="59">qm_user::user</references>
+        <references refid="print__utils_8c_1a650ab060ffe5dbc6c1a968a9cae3bded" compoundref="print__utils_8c" startline="78" endline="90">print_err</references>
+        <references refid="print__utils_8c_1a491dc14c94ed8cf706bb54880c50b2d0" compoundref="print__utils_8c" startline="100" endline="111">print_msg</references>
+        <references refid="structqm__user_1a6c52d68724b65831ba6d95f3d7448ff4" compoundref="common_8h" startline="64">qm_user::user</references>
         <referencedby refid="user__db_8c_1a6e2fcf4aa637e61f69b1b601981663cf" compoundref="user__db_8c" startline="31" endline="36">unregister_user</referencedby>
       </memberdef>
       <memberdef kind="function" id="redis_8h_1a2678c0575f2b6c944fd261255aeaebff" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -326,10 +330,10 @@
         <detaileddescription>
 <internal><para>This function is marked as internal and should not be used by the user <parameterlist kind="param"><parameteritem>
 <parameternamelist>
-<parametername>char</parametername>
+<parametername>name</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>*name The key </para>
+<para>The key </para>
 </parameterdescription>
 </parameteritem>
 </parameterlist>
@@ -349,8 +353,8 @@
         <location file="daemon/daemon_utils/common_utils/db/redis.h" line="17" column="5" bodyfile="daemon/daemon_utils/common_utils/db/redis.c" bodystart="292" bodyend="316" declfile="daemon/daemon_utils/common_utils/db/redis.h" declline="17" declcolumn="5"/>
         <references refid="redis_8c_1a71ea645922f3e5dcc69b644656c79a99" compoundref="redis_8c" startline="34">context</references>
         <references refid="redis_8c_1a73711c0a9d0060337409d15dc44f5ad1" compoundref="redis_8c" startline="165" endline="200">get_user_by_name</references>
-        <references refid="structqm__user_1aa69546c3a6a2124be9f964329c951a84" compoundref="common_8h" startline="58">qm_user::pid</references>
-        <references refid="print__utils_8c_1a650ab060ffe5dbc6c1a968a9cae3bded" compoundref="print__utils_8c" startline="79" endline="91">print_err</references>
+        <references refid="structqm__user_1aa69546c3a6a2124be9f964329c951a84" compoundref="common_8h" startline="63">qm_user::pid</references>
+        <references refid="print__utils_8c_1a650ab060ffe5dbc6c1a968a9cae3bded" compoundref="print__utils_8c" startline="78" endline="90">print_err</references>
       </memberdef>
       <memberdef kind="function" id="redis_8h_1ae19d8c90888a6ed078d6e835bb11e67a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>

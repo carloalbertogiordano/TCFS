@@ -238,7 +238,7 @@
 <!-- Node4 -->
 <g id="Node000004" class="node">
 <title>Node4</title>
-<g id="a_Node000004"><a xlink:href="common_8h_source.html" target="_top" xlink:title=" ">
+<g id="a_Node000004"><a xlink:href="common_8h.html" target="_top" xlink:title="This file contains some common definitions and structs used by the daemon.">
 <polygon fill="white" stroke="#666666" points="432.2,-74 361.2,-74 361.2,-55 432.2,-55 432.2,-74"/>
 <text text-anchor="middle" x="396.7" y="-62" font-family="Helvetica,sans-Serif" font-size="10.00">../common.h</text>
 </a>

@@ -69,7 +69,9 @@
 <simplesect>
     <title>Variables    </title>
         <itemizedlist>
-            <listitem><para>const char <link linkend="_redis_8c_1a0cc05631b755191d8d1c64c74c77894b">HOST</link> [] = &quot;127.0.0.1&quot;</para>
+            <listitem><para>const char <link linkend="_redis_8c_1ab146e06ef57318f58a840b315626b861">HOST</link> [] = &quot;127.0.0.1&quot;</para>
+
+<para>The host address of the redis DB. This variable is marked as internal and should not be used by the user. </para>
 </listitem>
             <listitem><para>redisContext * <link linkend="_redis_8c_1a71ea645922f3e5dcc69b644656c79a99">context</link></para>
 
@@ -103,9 +105,9 @@ Definition in file <link linkend="_redis_8c_source">redis.c</link>.</para>
 <para>The port of the redis DB. </para>
 </para>
 
-<para>This definition is marked as internal and be used directly</para>
+<para>This definition is marked as internal and should not be used directly by the user</para>
 
-<para><para><link linkend="_todo_1_todo000003">Todo</link> 
+<para><para><link linkend="_todo_1_todo000006">Todo</link> 
 <para>This should be passed as a parameter to the daemon </para>
 </para></para>
 <para>
@@ -164,8 +166,8 @@ Parameters</title>
                         <colspec colwidth="4*"/>
                         <tbody>
                             <row>
-<entry>const</entry><entry>
-<para>char *name The key of the row </para>
+<entry>name</entry><entry>
+<para>The key of the row </para>
 </entry>
                             </row>
                         </tbody>
@@ -181,7 +183,7 @@ Parameters</title>
 <para>
 Definition at line <link linkend="_redis_8c_source_1l00165">165</link> of file <link linkend="_redis_8c_source">redis.c</link>.</para>
 <para>
-References <link linkend="_redis_8c_source_1l00034">context</link>, <link linkend="_redis_8c_source_1l00104">json_to_qm_user()</link>, <link linkend="_common_8h_source_1l00058">qm_user::pid</link>, <link linkend="_print__utils_8c_source_1l00079">print_err()</link>, <link linkend="_print__utils_8c_source_1l00101">print_msg()</link>, and <link linkend="_common_8h_source_1l00059">qm_user::user</link>.</para>
+References <link linkend="_redis_8c_source_1l00034">context</link>, <link linkend="_redis_8c_source_1l00104">json_to_qm_user()</link>, <link linkend="_common_8h_source_1l00063">qm_user::pid</link>, <link linkend="_print__utils_8c_source_1l00078">print_err()</link>, <link linkend="_print__utils_8c_source_1l00100">print_msg()</link>, and <link linkend="_common_8h_source_1l00064">qm_user::user</link>.</para>
 <para>
 Referenced by <link linkend="_redis_8c_source_1l00292">remove_by_user()</link>.</para>
 Here is the call graph for this function:<para>
@@ -223,8 +225,8 @@ Parameters</title>
                         <colspec colwidth="4*"/>
                         <tbody>
                             <row>
-<entry>pid_t</entry><entry>
-<para>pid The key of the row </para>
+<entry>pid</entry><entry>
+<para>The key of the row </para>
 </entry>
                             </row>
                         </tbody>
@@ -240,7 +242,7 @@ Parameters</title>
 <para>
 Definition at line <link linkend="_redis_8c_source_1l00122">122</link> of file <link linkend="_redis_8c_source">redis.c</link>.</para>
 <para>
-References <link linkend="_redis_8c_source_1l00034">context</link>, <link linkend="_redis_8c_source_1l00104">json_to_qm_user()</link>, <link linkend="_common_8h_source_1l00058">qm_user::pid</link>, <link linkend="_print__utils_8c_source_1l00079">print_err()</link>, <link linkend="_print__utils_8c_source_1l00101">print_msg()</link>, and <link linkend="_common_8h_source_1l00059">qm_user::user</link>.</para>
+References <link linkend="_redis_8c_source_1l00034">context</link>, <link linkend="_redis_8c_source_1l00104">json_to_qm_user()</link>, <link linkend="_common_8h_source_1l00063">qm_user::pid</link>, <link linkend="_print__utils_8c_source_1l00078">print_err()</link>, <link linkend="_print__utils_8c_source_1l00100">print_msg()</link>, and <link linkend="_common_8h_source_1l00064">qm_user::user</link>.</para>
 <para>
 Referenced by <link linkend="_redis_8c_source_1l00256">remove_by_pid()</link>.</para>
 Here is the call graph for this function:<para>
@@ -279,7 +281,7 @@ Here is the caller graph for this function:<para>
 <para>
 Definition at line <link linkend="_redis_8c_source_1l00072">72</link> of file <link linkend="_redis_8c_source">redis.c</link>.</para>
 <para>
-References <link linkend="_redis_8c_source_1l00034">context</link>, <link linkend="_redis_8c_source_1l00027">PORT</link>, and <link linkend="_print__utils_8c_source_1l00079">print_err()</link>.</para>
+References <link linkend="_redis_8c_source_1l00034">context</link>, <link linkend="_redis_8c_source_1l00020">HOST</link>, <link linkend="_redis_8c_source_1l00027">PORT</link>, and <link linkend="_print__utils_8c_source_1l00078">print_err()</link>.</para>
 <para>
 Referenced by <link linkend="_user__db_8c_source_1l00015">register_user()</link>.</para>
 Here is the call graph for this function:<para>
@@ -321,8 +323,8 @@ Parameters</title>
                         <colspec colwidth="4*"/>
                         <tbody>
                             <row>
-<entry>qm_user*</entry><entry>
-<para>A pointer to the allocated qm_user* struct </para>
+<entry>user</entry><entry>
+<para>qm_user* A pointer to the allocated qm_user* struct </para>
 </entry>
                             </row>
                         </tbody>
@@ -348,7 +350,7 @@ Parameters</title>
 <para>
 Definition at line <link linkend="_redis_8c_source_1l00211">211</link> of file <link linkend="_redis_8c_source">redis.c</link>.</para>
 <para>
-References <link linkend="_redis_8c_source_1l00034">context</link>, <link linkend="_common_8h_source_1l00058">qm_user::pid</link>, <link linkend="_print__utils_8c_source_1l00079">print_err()</link>, <link linkend="_print__utils_8c_source_1l00101">print_msg()</link>, and <link linkend="_common_8h_source_1l00059">qm_user::user</link>.</para>
+References <link linkend="_redis_8c_source_1l00034">context</link>, <link linkend="_common_8h_source_1l00063">qm_user::pid</link>, <link linkend="_print__utils_8c_source_1l00078">print_err()</link>, <link linkend="_print__utils_8c_source_1l00100">print_msg()</link>, <link linkend="_json__tools_8cpp_source_1l00027">struct_to_json()</link>, <link linkend="_common_8h_source_1l00039">USER</link>, and <link linkend="_common_8h_source_1l00064">qm_user::user</link>.</para>
 <para>
 Referenced by <link linkend="_user__db_8c_source_1l00015">register_user()</link>.</para>
 Here is the call graph for this function:<para>
@@ -390,8 +392,8 @@ Parameters</title>
                         <colspec colwidth="4*"/>
                         <tbody>
                             <row>
-<entry>char</entry><entry>
-<para>*json the json string representing the <link linkend="_structqm__user">qm_user</link> struct </para>
+<entry>json</entry><entry>
+<para>the json string representing the <link linkend="_structqm__user">qm_user</link> struct </para>
 </entry>
                             </row>
                         </tbody>
@@ -407,7 +409,7 @@ Parameters</title>
 <para>
 Definition at line <link linkend="_redis_8c_source_1l00104">104</link> of file <link linkend="_redis_8c_source">redis.c</link>.</para>
 <para>
-References <link linkend="_print__utils_8c_source_1l00101">print_msg()</link>.</para>
+References <link linkend="_print__utils_8c_source_1l00100">print_msg()</link>, and <link linkend="_json__tools_8cpp_source_1l00092">string_to_struct()</link>.</para>
 <para>
 Referenced by <link linkend="_redis_8c_source_1l00165">get_user_by_name()</link>, and <link linkend="_redis_8c_source_1l00122">get_user_by_pid()</link>.</para>
 Here is the call graph for this function:<para>
@@ -446,7 +448,7 @@ Here is the caller graph for this function:<para>
 <para>
 Definition at line <link linkend="_redis_8c_source_1l00042">42</link> of file <link linkend="_redis_8c_source">redis.c</link>.</para>
 <para>
-References <link linkend="_redis_8c_source_1l00034">context</link>, and <link linkend="_print__utils_8c_source_1l00101">print_msg()</link>.</para>
+References <link linkend="_redis_8c_source_1l00034">context</link>, and <link linkend="_print__utils_8c_source_1l00100">print_msg()</link>.</para>
 <para>
 Referenced by <link linkend="_user__db_8c_source_1l00015">register_user()</link>, and <link linkend="_user__db_8c_source_1l00031">unregister_user()</link>.</para>
 Here is the call graph for this function:<para>
@@ -488,8 +490,8 @@ Parameters</title>
                         <colspec colwidth="4*"/>
                         <tbody>
                             <row>
-<entry>pid_t</entry><entry>
-<para>pid The key </para>
+<entry>pid</entry><entry>
+<para>The key </para>
 </entry>
                             </row>
                         </tbody>
@@ -515,7 +517,7 @@ Parameters</title>
 <para>
 Definition at line <link linkend="_redis_8c_source_1l00256">256</link> of file <link linkend="_redis_8c_source">redis.c</link>.</para>
 <para>
-References <link linkend="_redis_8c_source_1l00034">context</link>, <link linkend="_redis_8c_source_1l00122">get_user_by_pid()</link>, <link linkend="_print__utils_8c_source_1l00079">print_err()</link>, <link linkend="_print__utils_8c_source_1l00101">print_msg()</link>, and <link linkend="_common_8h_source_1l00059">qm_user::user</link>.</para>
+References <link linkend="_redis_8c_source_1l00034">context</link>, <link linkend="_redis_8c_source_1l00122">get_user_by_pid()</link>, <link linkend="_print__utils_8c_source_1l00078">print_err()</link>, <link linkend="_print__utils_8c_source_1l00100">print_msg()</link>, and <link linkend="_common_8h_source_1l00064">qm_user::user</link>.</para>
 <para>
 Referenced by <link linkend="_user__db_8c_source_1l00031">unregister_user()</link>.</para>
 Here is the call graph for this function:<para>
@@ -557,8 +559,8 @@ Parameters</title>
                         <colspec colwidth="4*"/>
                         <tbody>
                             <row>
-<entry>char</entry><entry>
-<para>*name The key </para>
+<entry>name</entry><entry>
+<para>The key </para>
 </entry>
                             </row>
                         </tbody>
@@ -584,7 +586,7 @@ Parameters</title>
 <para>
 Definition at line <link linkend="_redis_8c_source_1l00292">292</link> of file <link linkend="_redis_8c_source">redis.c</link>.</para>
 <para>
-References <link linkend="_redis_8c_source_1l00034">context</link>, <link linkend="_redis_8c_source_1l00165">get_user_by_name()</link>, <link linkend="_common_8h_source_1l00058">qm_user::pid</link>, and <link linkend="_print__utils_8c_source_1l00079">print_err()</link>.</para>
+References <link linkend="_redis_8c_source_1l00034">context</link>, <link linkend="_redis_8c_source_1l00165">get_user_by_name()</link>, <link linkend="_common_8h_source_1l00063">qm_user::pid</link>, and <link linkend="_print__utils_8c_source_1l00078">print_err()</link>.</para>
 Here is the call graph for this function:<para>
     <informalfigure>
         <mediaobject>
@@ -613,12 +615,22 @@ Definition at line <link linkend="_redis_8c_source_1l00034">34</link> of file <l
 <para>
 Referenced by <link linkend="_redis_8c_source_1l00092">free_context()</link>, <link linkend="_redis_8c_source_1l00165">get_user_by_name()</link>, <link linkend="_redis_8c_source_1l00122">get_user_by_pid()</link>, <link linkend="_redis_8c_source_1l00072">init_context()</link>, <link linkend="_redis_8c_source_1l00211">insert()</link>, <link linkend="_redis_8c_source_1l00042">print_all_keys()</link>, <link linkend="_redis_8c_source_1l00256">remove_by_pid()</link>, and <link linkend="_redis_8c_source_1l00292">remove_by_user()</link>.</para>
 </section>
-<anchor xml:id="_redis_8c_1a0cc05631b755191d8d1c64c74c77894b"/><section>
+<anchor xml:id="_redis_8c_1ab146e06ef57318f58a840b315626b861"/><section>
     <title>HOST</title>
 <indexterm><primary>HOST</primary><secondary>redis.c</secondary></indexterm>
 <indexterm><primary>redis.c</primary><secondary>HOST</secondary></indexterm>
-<para><computeroutput>const char HOST[] = &quot;127.0.0.1&quot;</computeroutput></para><para>
+<para><computeroutput>HOST = &quot;127.0.0.1&quot;</computeroutput></para><para>
+
+<para>The host address of the redis DB. This variable is marked as internal and should not be used by the user. </para>
+</para>
+
+<para><para><link linkend="_todo_1_todo000005">Todo</link> 
+<para>This should be passed as a parameter to the daemon </para>
+</para></para>
+<para>
 Definition at line <link linkend="_redis_8c_source_1l00020">20</link> of file <link linkend="_redis_8c_source">redis.c</link>.</para>
+<para>
+Referenced by <link linkend="_redis_8c_source_1l00072">init_context()</link>.</para>
 </section>
 </section>
 </section>

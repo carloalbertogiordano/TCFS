@@ -8,7 +8,7 @@
 #include <vector>
 
 /**
- * @file json_tools.c
+ * @file json_tools.cpp
  * @brief This file provides function to cast either qm_user, qm_shared or
  * qm_broad to a json string and vice versa
  * @note All the functions here are C++ functions, so we could use
@@ -19,8 +19,8 @@
 /**
  * @brief Cast a qm_user, qm_shared or qm_broad struct to a json string
  * representing the struct
- * @param qm_type qmt       @see common.h
- * @param void* q_mess     The structure from which the json will be built
+ * @param qmt       @see common.h
+ * @param q_mess     The structure from which the json will be built
  * @return char* The json string
  * */
 char *
@@ -80,9 +80,9 @@ struct_to_json (qm_type qmt, void *q_mess)
 
 /**
  * @brief Cast a json string to a struct
- * @param const char * json_string      The string containing the json that
+ * @param json_string      The string containing the json that
  * represents the struct
- * @param qm_type *type     Will be set to the type of the struct
+ * @param type     Will be set to the type of the struct
  * @return void* This is the actual allocated structure, casted to void
  * @note To cast the returned param to the structure you probably need to use a
  * switch(type) and cast it to a struct

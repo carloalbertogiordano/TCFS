@@ -63,7 +63,7 @@
       </node>
       <node id="3">
         <label>daemon/daemon_utils/common_utils/json/json_tools.cpp</label>
-        <link refid="json__tools_8cpp_source"/>
+        <link refid="json__tools_8cpp"/>
       </node>
       <node id="4">
         <label>daemon/daemon_utils/common_utils/print/print_utils.c</label>
@@ -87,7 +87,7 @@
       </node>
       <node id="7">
         <label>daemon/daemon_utils/daemon_tools/tcfs_daemon_tools.c</label>
-        <link refid="tcfs__daemon__tools_8c_source"/>
+        <link refid="tcfs__daemon__tools_8c"/>
       </node>
       <node id="8">
         <label>daemon/daemon_utils/daemon_tools/tcfs_daemon_tools.h</label>
@@ -149,15 +149,15 @@
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
-<parametername>const</parametername>
+<parametername>format</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>char *format the string that will formatted and printed </para>
+<para>the string that will formatted and printed </para>
 </parameterdescription>
 </parameteritem>
 <parameteritem>
 <parameternamelist>
-<parametername>[ARGUMENTS]...</parametername>
+<parametername>...</parametername>
 </parameternamelist>
 <parameterdescription>
 <para>Print optional ARGUMENT(s) according to format </para>
@@ -178,11 +178,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="daemon/daemon_utils/common_utils/print/print_utils.h" line="7" column="6" bodyfile="daemon/daemon_utils/common_utils/print/print_utils.c" bodystart="79" bodyend="91" declfile="daemon/daemon_utils/common_utils/print/print_utils.h" declline="7" declcolumn="6"/>
-        <referencedby refid="queue_8c_1a1874b6e320d1e54d571c89766d046602" compoundref="queue_8c" startline="95" endline="111">dequeue</referencedby>
-        <referencedby refid="queue_8c_1ac51f5d595a9d7376eb0448116c99e1f4" compoundref="queue_8c" startline="67" endline="80">enqueue</referencedby>
+        <location file="daemon/daemon_utils/common_utils/print/print_utils.h" line="7" column="6" bodyfile="daemon/daemon_utils/common_utils/print/print_utils.c" bodystart="78" bodyend="90" declfile="daemon/daemon_utils/common_utils/print/print_utils.h" declline="7" declcolumn="6"/>
+        <referencedby refid="queue_8c_1a1874b6e320d1e54d571c89766d046602" compoundref="queue_8c" startline="94" endline="110">dequeue</referencedby>
+        <referencedby refid="queue_8c_1ac51f5d595a9d7376eb0448116c99e1f4" compoundref="queue_8c" startline="66" endline="79">enqueue</referencedby>
         <referencedby refid="redis_8c_1a73711c0a9d0060337409d15dc44f5ad1" compoundref="redis_8c" startline="165" endline="200">get_user_by_name</referencedby>
         <referencedby refid="redis_8c_1af0bf1bfc99afc940619371e3c76ab4f9" compoundref="redis_8c" startline="122" endline="157">get_user_by_pid</referencedby>
+        <referencedby refid="tcfs__daemon__tools_8c_1a24bb8f1eddd763598165ab8fa40fcdbd" compoundref="tcfs__daemon__tools_8c" startline="19" endline="55">handle_incoming_messages</referencedby>
+        <referencedby refid="tcfs__daemon__tools_8c_1ab143feba805d6beda83eb69560c3c923" compoundref="tcfs__daemon__tools_8c" startline="66" endline="107">handle_outgoing_messages</referencedby>
         <referencedby refid="redis_8c_1a1f6dc2f98a71a88567fe11fd9e2585ea" compoundref="redis_8c" startline="72" endline="85">init_context</referencedby>
         <referencedby refid="queue_8c_1a6997b2cacf3d2e49bc848d0274e24b13" compoundref="queue_8c" startline="27" endline="52">init_queue</referencedby>
         <referencedby refid="redis_8c_1ac9878ee09b53700eb08c1f175873c30b" compoundref="redis_8c" startline="211" endline="245">insert</referencedby>
@@ -208,15 +210,15 @@
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
-<parametername>const</parametername>
+<parametername>format</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>char *format the string that will formatted and printed </para>
+<para>the string that will formatted and printed </para>
 </parameterdescription>
 </parameteritem>
 <parameteritem>
 <parameternamelist>
-<parametername>[ARGUMENTS]...</parametername>
+<parametername>...</parametername>
 </parameternamelist>
 <parameterdescription>
 <para>Print optional ARGUMENT(s) according to format </para>
@@ -233,12 +235,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="daemon/daemon_utils/common_utils/print/print_utils.h" line="8" column="6" bodyfile="daemon/daemon_utils/common_utils/print/print_utils.c" bodystart="101" bodyend="112" declfile="daemon/daemon_utils/common_utils/print/print_utils.h" declline="8" declcolumn="6"/>
-        <referencedby refid="queue_8c_1a1874b6e320d1e54d571c89766d046602" compoundref="queue_8c" startline="95" endline="111">dequeue</referencedby>
+        <location file="daemon/daemon_utils/common_utils/print/print_utils.h" line="8" column="6" bodyfile="daemon/daemon_utils/common_utils/print/print_utils.c" bodystart="100" bodyend="111" declfile="daemon/daemon_utils/common_utils/print/print_utils.h" declline="8" declcolumn="6"/>
+        <referencedby refid="queue_8c_1a1874b6e320d1e54d571c89766d046602" compoundref="queue_8c" startline="94" endline="110">dequeue</referencedby>
         <referencedby refid="user__db_8c_1ab57ffd0f0b23a847e766e762906af22e" compoundref="user__db_8c" startline="45" endline="49">disconnect_db</referencedby>
-        <referencedby refid="queue_8c_1ac51f5d595a9d7376eb0448116c99e1f4" compoundref="queue_8c" startline="67" endline="80">enqueue</referencedby>
+        <referencedby refid="queue_8c_1ac51f5d595a9d7376eb0448116c99e1f4" compoundref="queue_8c" startline="66" endline="79">enqueue</referencedby>
         <referencedby refid="redis_8c_1a73711c0a9d0060337409d15dc44f5ad1" compoundref="redis_8c" startline="165" endline="200">get_user_by_name</referencedby>
         <referencedby refid="redis_8c_1af0bf1bfc99afc940619371e3c76ab4f9" compoundref="redis_8c" startline="122" endline="157">get_user_by_pid</referencedby>
+        <referencedby refid="tcfs__daemon__tools_8c_1a24bb8f1eddd763598165ab8fa40fcdbd" compoundref="tcfs__daemon__tools_8c" startline="19" endline="55">handle_incoming_messages</referencedby>
+        <referencedby refid="tcfs__daemon__tools_8c_1ab143feba805d6beda83eb69560c3c923" compoundref="tcfs__daemon__tools_8c" startline="66" endline="107">handle_outgoing_messages</referencedby>
         <referencedby refid="tcfs__daemon_8c_1a93d1097e4dd3c0735da3da2e89410090" compoundref="tcfs__daemon_8c" startline="40" endline="45">handle_termination</referencedby>
         <referencedby refid="queue_8c_1a6997b2cacf3d2e49bc848d0274e24b13" compoundref="queue_8c" startline="27" endline="52">init_queue</referencedby>
         <referencedby refid="redis_8c_1ac9878ee09b53700eb08c1f175873c30b" compoundref="redis_8c" startline="211" endline="245">insert</referencedby>
@@ -247,6 +251,7 @@
         <referencedby refid="redis_8c_1a7b5eb746d92734b57a71ce552363283d" compoundref="redis_8c" startline="42" endline="64">print_all_keys</referencedby>
         <referencedby refid="user__db_8c_1a2ae8a82033440194ad80949cd4493971" compoundref="user__db_8c" startline="15" endline="24">register_user</referencedby>
         <referencedby refid="redis_8c_1a6b18d7ad2f1e8275106a5b39c0c7d216" compoundref="redis_8c" startline="256" endline="281">remove_by_pid</referencedby>
+        <referencedby refid="json__tools_8cpp_1abe22bc6ace23fc8f7e186a824784765f" compoundref="json__tools_8cpp" startline="27" endline="79">struct_to_json</referencedby>
         <referencedby refid="user__db_8c_1a6e2fcf4aa637e61f69b1b601981663cf" compoundref="user__db_8c" startline="31" endline="36">unregister_user</referencedby>
       </memberdef>
       <memberdef kind="function" id="print__utils_8h_1ae39065df491deead21b0375a8ce1a4d6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -267,15 +272,15 @@
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
-<parametername>const</parametername>
+<parametername>format</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>char *format the string that will formatted and printed </para>
+<para>the string that will formatted and printed </para>
 </parameterdescription>
 </parameteritem>
 <parameteritem>
 <parameternamelist>
-<parametername>[ARGUMENTS]...</parametername>
+<parametername>...</parametername>
 </parameternamelist>
 <parameterdescription>
 <para>Print optional ARGUMENT(s) according to format </para>
@@ -292,7 +297,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="daemon/daemon_utils/common_utils/print/print_utils.h" line="9" column="6" bodyfile="daemon/daemon_utils/common_utils/print/print_utils.c" bodystart="123" bodyend="134" declfile="daemon/daemon_utils/common_utils/print/print_utils.h" declline="9" declcolumn="6"/>
+        <location file="daemon/daemon_utils/common_utils/print/print_utils.h" line="9" column="6" bodyfile="daemon/daemon_utils/common_utils/print/print_utils.c" bodystart="122" bodyend="133" declfile="daemon/daemon_utils/common_utils/print/print_utils.h" declline="9" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="print__utils_8h_1ad808dc3fd801407dcc907bdea848a47e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -312,15 +317,15 @@
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
-<parametername>const</parametername>
+<parametername>format</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>char *format the string that will formatted and printed </para>
+<para>the string that will formatted and printed </para>
 </parameterdescription>
 </parameteritem>
 <parameteritem>
 <parameternamelist>
-<parametername>[ARGUMENTS]...</parametername>
+<parametername>...</parametername>
 </parameternamelist>
 <parameterdescription>
 <para>Print optional ARGUMENT(s) according to format </para>
@@ -337,7 +342,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="daemon/daemon_utils/common_utils/print/print_utils.h" line="10" column="6" bodyfile="daemon/daemon_utils/common_utils/print/print_utils.c" bodystart="145" bodyend="156" declfile="daemon/daemon_utils/common_utils/print/print_utils.h" declline="10" declcolumn="6"/>
+        <location file="daemon/daemon_utils/common_utils/print/print_utils.h" line="10" column="6" bodyfile="daemon/daemon_utils/common_utils/print/print_utils.c" bodystart="144" bodyend="155" declfile="daemon/daemon_utils/common_utils/print/print_utils.h" declline="10" declcolumn="6"/>
       </memberdef>
     </sectiondef>
     <briefdescription>

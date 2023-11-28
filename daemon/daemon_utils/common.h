@@ -7,15 +7,20 @@
 #include <errno.h>
 
 /**
- * @internal \_def
+ * @file common.h
+ * @brief This file contains some common definitions and structs used by the daemon
+ * */
+
+/**
+ * @internal
  * @def MAX_QM_SIZE
- * @brief Maximum size of a message in bytes
+ * @brief Maximum size of a message in bytes. \_def
  * */
 #define MAX_QM_SIZE 512
 /**
- * @internal _def
+ * @internal
  * @def MAX_QM_N
- * @brief Maximum number of messages that can be stored on a queue
+ * @brief Maximum number of messages that can be stored on a queue. \_def
  * */
 #define MAX_QM_N 100
 

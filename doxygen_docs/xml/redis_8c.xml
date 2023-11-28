@@ -9,7 +9,7 @@
     <incdepgraph>
       <node id="3">
         <label>../../common.h</label>
-        <link refid="common_8h_source"/>
+        <link refid="common_8h"/>
         <childnode refid="4" relation="include">
         </childnode>
         <childnode refid="5" relation="include">
@@ -105,8 +105,8 @@
 <para>The port of the redis DB. </para>
         </briefdescription>
         <detaileddescription>
-<internal><para>This definition is marked as internal and be used directly</para>
-<para><xrefsect id="todo_1_todo000003"><xreftitle>Todo</xreftitle><xrefdescription><para>This should be passed as a parameter to the daemon </para>
+<internal><para>This definition is marked as internal and should not be used directly by the user</para>
+<para><xrefsect id="todo_1_todo000006"><xreftitle>Todo</xreftitle><xrefdescription><para>This should be passed as a parameter to the daemon </para>
 </xrefdescription></xrefsect></para>
 </internal>
         </detaileddescription>
@@ -116,19 +116,24 @@
       </memberdef>
     </sectiondef>
     <sectiondef kind="var">
-      <memberdef kind="variable" id="redis_8c_1a0cc05631b755191d8d1c64c74c77894b" prot="public" static="no" mutable="no">
+      <memberdef kind="variable" id="redis_8c_1ab146e06ef57318f58a840b315626b861" prot="public" static="no" mutable="no">
         <type>const char</type>
-        <definition>const char HOST[]</definition>
+        <definition>HOST</definition>
         <argsstring>[]</argsstring>
         <name>HOST</name>
         <initializer>= &quot;127.0.0.1&quot;</initializer>
         <briefdescription>
+<para>The host address of the redis DB. This variable is marked as internal and should not be used by the user. </para>
         </briefdescription>
         <detaileddescription>
+<internal><para><xrefsect id="todo_1_todo000005"><xreftitle>Todo</xreftitle><xrefdescription><para>This should be passed as a parameter to the daemon </para>
+</xrefdescription></xrefsect></para>
+</internal>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
         <location file="daemon/daemon_utils/common_utils/db/redis.c" line="20" column="12" bodyfile="daemon/daemon_utils/common_utils/db/redis.c" bodystart="20" bodyend="-1"/>
+        <referencedby refid="redis_8c_1a1f6dc2f98a71a88567fe11fd9e2585ea" compoundref="redis_8c" startline="72" endline="85">init_context</referencedby>
       </memberdef>
       <memberdef kind="variable" id="redis_8c_1a71ea645922f3e5dcc69b644656c79a99" prot="public" static="no" mutable="no">
         <type>redisContext *</type>
@@ -174,7 +179,7 @@
         </inbodydescription>
         <location file="daemon/daemon_utils/common_utils/db/redis.c" line="42" column="1" bodyfile="daemon/daemon_utils/common_utils/db/redis.c" bodystart="42" bodyend="64"/>
         <references refid="redis_8c_1a71ea645922f3e5dcc69b644656c79a99" compoundref="redis_8c" startline="34">context</references>
-        <references refid="print__utils_8c_1a491dc14c94ed8cf706bb54880c50b2d0" compoundref="print__utils_8c" startline="101" endline="112">print_msg</references>
+        <references refid="print__utils_8c_1a491dc14c94ed8cf706bb54880c50b2d0" compoundref="print__utils_8c" startline="100" endline="111">print_msg</references>
         <referencedby refid="user__db_8c_1a2ae8a82033440194ad80949cd4493971" compoundref="user__db_8c" startline="15" endline="24">register_user</referencedby>
         <referencedby refid="user__db_8c_1a6e2fcf4aa637e61f69b1b601981663cf" compoundref="user__db_8c" startline="31" endline="36">unregister_user</referencedby>
       </memberdef>
@@ -196,8 +201,9 @@
         </inbodydescription>
         <location file="daemon/daemon_utils/common_utils/db/redis.c" line="72" column="1" bodyfile="daemon/daemon_utils/common_utils/db/redis.c" bodystart="72" bodyend="85"/>
         <references refid="redis_8c_1a71ea645922f3e5dcc69b644656c79a99" compoundref="redis_8c" startline="34">context</references>
+        <references refid="redis_8c_1ab146e06ef57318f58a840b315626b861" compoundref="redis_8c" startline="20">HOST</references>
         <references refid="redis_8c_1a614217d263be1fb1a5f76e2ff7be19a2" compoundref="redis_8c" startline="27">PORT</references>
-        <references refid="print__utils_8c_1a650ab060ffe5dbc6c1a968a9cae3bded" compoundref="print__utils_8c" startline="79" endline="91">print_err</references>
+        <references refid="print__utils_8c_1a650ab060ffe5dbc6c1a968a9cae3bded" compoundref="print__utils_8c" startline="78" endline="90">print_err</references>
         <referencedby refid="user__db_8c_1a2ae8a82033440194ad80949cd4493971" compoundref="user__db_8c" startline="15" endline="24">register_user</referencedby>
       </memberdef>
       <memberdef kind="function" id="redis_8c_1ae19d8c90888a6ed078d6e835bb11e67a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -235,10 +241,10 @@
         <detaileddescription>
 <internal><para>This function is marked as internal and should not be used by the user <parameterlist kind="param"><parameteritem>
 <parameternamelist>
-<parametername>char</parametername>
+<parametername>json</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>*json the json string representing the <ref refid="structqm__user" kindref="compound">qm_user</ref> struct </para>
+<para>the json string representing the <ref refid="structqm__user" kindref="compound">qm_user</ref> struct </para>
 </parameterdescription>
 </parameteritem>
 </parameterlist>
@@ -250,7 +256,8 @@
         <inbodydescription>
         </inbodydescription>
         <location file="daemon/daemon_utils/common_utils/db/redis.c" line="104" column="1" bodyfile="daemon/daemon_utils/common_utils/db/redis.c" bodystart="104" bodyend="114"/>
-        <references refid="print__utils_8c_1a491dc14c94ed8cf706bb54880c50b2d0" compoundref="print__utils_8c" startline="101" endline="112">print_msg</references>
+        <references refid="print__utils_8c_1a491dc14c94ed8cf706bb54880c50b2d0" compoundref="print__utils_8c" startline="100" endline="111">print_msg</references>
+        <references refid="json__tools_8cpp_1a513edf914a6a6141c7892d193d0c1f52" compoundref="json__tools_8cpp" startline="92" endline="150">string_to_struct</references>
         <referencedby refid="redis_8c_1a73711c0a9d0060337409d15dc44f5ad1" compoundref="redis_8c" startline="165" endline="200">get_user_by_name</referencedby>
         <referencedby refid="redis_8c_1af0bf1bfc99afc940619371e3c76ab4f9" compoundref="redis_8c" startline="122" endline="157">get_user_by_pid</referencedby>
       </memberdef>
@@ -269,10 +276,10 @@
         <detaileddescription>
 <internal><para>This function is marked as internal and should not be used by the user <parameterlist kind="param"><parameteritem>
 <parameternamelist>
-<parametername>pid_t</parametername>
+<parametername>pid</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>pid The key of the row </para>
+<para>The key of the row </para>
 </parameterdescription>
 </parameteritem>
 </parameterlist>
@@ -286,10 +293,10 @@
         <location file="daemon/daemon_utils/common_utils/db/redis.c" line="122" column="1" bodyfile="daemon/daemon_utils/common_utils/db/redis.c" bodystart="122" bodyend="157"/>
         <references refid="redis_8c_1a71ea645922f3e5dcc69b644656c79a99" compoundref="redis_8c" startline="34">context</references>
         <references refid="redis_8c_1a8e6e1687d6351741ac3e353d23425f71" compoundref="redis_8c" startline="104" endline="114">json_to_qm_user</references>
-        <references refid="structqm__user_1aa69546c3a6a2124be9f964329c951a84" compoundref="common_8h" startline="58">qm_user::pid</references>
-        <references refid="print__utils_8c_1a650ab060ffe5dbc6c1a968a9cae3bded" compoundref="print__utils_8c" startline="79" endline="91">print_err</references>
-        <references refid="print__utils_8c_1a491dc14c94ed8cf706bb54880c50b2d0" compoundref="print__utils_8c" startline="101" endline="112">print_msg</references>
-        <references refid="structqm__user_1a6c52d68724b65831ba6d95f3d7448ff4" compoundref="common_8h" startline="59">qm_user::user</references>
+        <references refid="structqm__user_1aa69546c3a6a2124be9f964329c951a84" compoundref="common_8h" startline="63">qm_user::pid</references>
+        <references refid="print__utils_8c_1a650ab060ffe5dbc6c1a968a9cae3bded" compoundref="print__utils_8c" startline="78" endline="90">print_err</references>
+        <references refid="print__utils_8c_1a491dc14c94ed8cf706bb54880c50b2d0" compoundref="print__utils_8c" startline="100" endline="111">print_msg</references>
+        <references refid="structqm__user_1a6c52d68724b65831ba6d95f3d7448ff4" compoundref="common_8h" startline="64">qm_user::user</references>
         <referencedby refid="redis_8c_1a6b18d7ad2f1e8275106a5b39c0c7d216" compoundref="redis_8c" startline="256" endline="281">remove_by_pid</referencedby>
       </memberdef>
       <memberdef kind="function" id="redis_8c_1a73711c0a9d0060337409d15dc44f5ad1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -307,10 +314,10 @@
         <detaileddescription>
 <internal><para>This function is marked as internal and should not be used by the user <parameterlist kind="param"><parameteritem>
 <parameternamelist>
-<parametername>const</parametername>
+<parametername>name</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>char *name The key of the row </para>
+<para>The key of the row </para>
 </parameterdescription>
 </parameteritem>
 </parameterlist>
@@ -324,10 +331,10 @@
         <location file="daemon/daemon_utils/common_utils/db/redis.c" line="165" column="1" bodyfile="daemon/daemon_utils/common_utils/db/redis.c" bodystart="165" bodyend="200"/>
         <references refid="redis_8c_1a71ea645922f3e5dcc69b644656c79a99" compoundref="redis_8c" startline="34">context</references>
         <references refid="redis_8c_1a8e6e1687d6351741ac3e353d23425f71" compoundref="redis_8c" startline="104" endline="114">json_to_qm_user</references>
-        <references refid="structqm__user_1aa69546c3a6a2124be9f964329c951a84" compoundref="common_8h" startline="58">qm_user::pid</references>
-        <references refid="print__utils_8c_1a650ab060ffe5dbc6c1a968a9cae3bded" compoundref="print__utils_8c" startline="79" endline="91">print_err</references>
-        <references refid="print__utils_8c_1a491dc14c94ed8cf706bb54880c50b2d0" compoundref="print__utils_8c" startline="101" endline="112">print_msg</references>
-        <references refid="structqm__user_1a6c52d68724b65831ba6d95f3d7448ff4" compoundref="common_8h" startline="59">qm_user::user</references>
+        <references refid="structqm__user_1aa69546c3a6a2124be9f964329c951a84" compoundref="common_8h" startline="63">qm_user::pid</references>
+        <references refid="print__utils_8c_1a650ab060ffe5dbc6c1a968a9cae3bded" compoundref="print__utils_8c" startline="78" endline="90">print_err</references>
+        <references refid="print__utils_8c_1a491dc14c94ed8cf706bb54880c50b2d0" compoundref="print__utils_8c" startline="100" endline="111">print_msg</references>
+        <references refid="structqm__user_1a6c52d68724b65831ba6d95f3d7448ff4" compoundref="common_8h" startline="64">qm_user::user</references>
         <referencedby refid="redis_8c_1a2678c0575f2b6c944fd261255aeaebff" compoundref="redis_8c" startline="292" endline="316">remove_by_user</referencedby>
       </memberdef>
       <memberdef kind="function" id="redis_8c_1ac9878ee09b53700eb08c1f175873c30b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -345,10 +352,10 @@
         <detaileddescription>
 <internal><para>This function is marked as internal and should not be used by the user <parameterlist kind="param"><parameteritem>
 <parameternamelist>
-<parametername>qm_user*</parametername>
+<parametername>user</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>A pointer to the allocated qm_user* struct </para>
+<para>qm_user* A pointer to the allocated qm_user* struct </para>
 </parameterdescription>
 </parameteritem>
 </parameterlist>
@@ -367,10 +374,12 @@
         </inbodydescription>
         <location file="daemon/daemon_utils/common_utils/db/redis.c" line="211" column="1" bodyfile="daemon/daemon_utils/common_utils/db/redis.c" bodystart="211" bodyend="245"/>
         <references refid="redis_8c_1a71ea645922f3e5dcc69b644656c79a99" compoundref="redis_8c" startline="34">context</references>
-        <references refid="structqm__user_1aa69546c3a6a2124be9f964329c951a84" compoundref="common_8h" startline="58">qm_user::pid</references>
-        <references refid="print__utils_8c_1a650ab060ffe5dbc6c1a968a9cae3bded" compoundref="print__utils_8c" startline="79" endline="91">print_err</references>
-        <references refid="print__utils_8c_1a491dc14c94ed8cf706bb54880c50b2d0" compoundref="print__utils_8c" startline="101" endline="112">print_msg</references>
-        <references refid="structqm__user_1a6c52d68724b65831ba6d95f3d7448ff4" compoundref="common_8h" startline="59">qm_user::user</references>
+        <references refid="structqm__user_1aa69546c3a6a2124be9f964329c951a84" compoundref="common_8h" startline="63">qm_user::pid</references>
+        <references refid="print__utils_8c_1a650ab060ffe5dbc6c1a968a9cae3bded" compoundref="print__utils_8c" startline="78" endline="90">print_err</references>
+        <references refid="print__utils_8c_1a491dc14c94ed8cf706bb54880c50b2d0" compoundref="print__utils_8c" startline="100" endline="111">print_msg</references>
+        <references refid="json__tools_8cpp_1abe22bc6ace23fc8f7e186a824784765f" compoundref="json__tools_8cpp" startline="27" endline="79">struct_to_json</references>
+        <references refid="common_8h_1ab2c144fca6129807a9fe4bad66970c4cae2d30a195cee6b2961cc2c23ea4b520b" compoundref="common_8h" startline="39">USER</references>
+        <references refid="structqm__user_1a6c52d68724b65831ba6d95f3d7448ff4" compoundref="common_8h" startline="64">qm_user::user</references>
         <referencedby refid="user__db_8c_1a2ae8a82033440194ad80949cd4493971" compoundref="user__db_8c" startline="15" endline="24">register_user</referencedby>
       </memberdef>
       <memberdef kind="function" id="redis_8c_1a6b18d7ad2f1e8275106a5b39c0c7d216" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -388,10 +397,10 @@
         <detaileddescription>
 <internal><para>This function is marked as internal and should not be used by the user <parameterlist kind="param"><parameteritem>
 <parameternamelist>
-<parametername>pid_t</parametername>
+<parametername>pid</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>pid The key </para>
+<para>The key </para>
 </parameterdescription>
 </parameteritem>
 </parameterlist>
@@ -411,9 +420,9 @@
         <location file="daemon/daemon_utils/common_utils/db/redis.c" line="256" column="1" bodyfile="daemon/daemon_utils/common_utils/db/redis.c" bodystart="256" bodyend="281"/>
         <references refid="redis_8c_1a71ea645922f3e5dcc69b644656c79a99" compoundref="redis_8c" startline="34">context</references>
         <references refid="redis_8c_1af0bf1bfc99afc940619371e3c76ab4f9" compoundref="redis_8c" startline="122" endline="157">get_user_by_pid</references>
-        <references refid="print__utils_8c_1a650ab060ffe5dbc6c1a968a9cae3bded" compoundref="print__utils_8c" startline="79" endline="91">print_err</references>
-        <references refid="print__utils_8c_1a491dc14c94ed8cf706bb54880c50b2d0" compoundref="print__utils_8c" startline="101" endline="112">print_msg</references>
-        <references refid="structqm__user_1a6c52d68724b65831ba6d95f3d7448ff4" compoundref="common_8h" startline="59">qm_user::user</references>
+        <references refid="print__utils_8c_1a650ab060ffe5dbc6c1a968a9cae3bded" compoundref="print__utils_8c" startline="78" endline="90">print_err</references>
+        <references refid="print__utils_8c_1a491dc14c94ed8cf706bb54880c50b2d0" compoundref="print__utils_8c" startline="100" endline="111">print_msg</references>
+        <references refid="structqm__user_1a6c52d68724b65831ba6d95f3d7448ff4" compoundref="common_8h" startline="64">qm_user::user</references>
         <referencedby refid="user__db_8c_1a6e2fcf4aa637e61f69b1b601981663cf" compoundref="user__db_8c" startline="31" endline="36">unregister_user</referencedby>
       </memberdef>
       <memberdef kind="function" id="redis_8c_1a2678c0575f2b6c944fd261255aeaebff" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -431,10 +440,10 @@
         <detaileddescription>
 <internal><para>This function is marked as internal and should not be used by the user <parameterlist kind="param"><parameteritem>
 <parameternamelist>
-<parametername>char</parametername>
+<parametername>name</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>*name The key </para>
+<para>The key </para>
 </parameterdescription>
 </parameteritem>
 </parameterlist>
@@ -454,8 +463,8 @@
         <location file="daemon/daemon_utils/common_utils/db/redis.c" line="292" column="1" bodyfile="daemon/daemon_utils/common_utils/db/redis.c" bodystart="292" bodyend="316"/>
         <references refid="redis_8c_1a71ea645922f3e5dcc69b644656c79a99" compoundref="redis_8c" startline="34">context</references>
         <references refid="redis_8c_1a73711c0a9d0060337409d15dc44f5ad1" compoundref="redis_8c" startline="165" endline="200">get_user_by_name</references>
-        <references refid="structqm__user_1aa69546c3a6a2124be9f964329c951a84" compoundref="common_8h" startline="58">qm_user::pid</references>
-        <references refid="print__utils_8c_1a650ab060ffe5dbc6c1a968a9cae3bded" compoundref="print__utils_8c" startline="79" endline="91">print_err</references>
+        <references refid="structqm__user_1aa69546c3a6a2124be9f964329c951a84" compoundref="common_8h" startline="63">qm_user::pid</references>
+        <references refid="print__utils_8c_1a650ab060ffe5dbc6c1a968a9cae3bded" compoundref="print__utils_8c" startline="78" endline="90">print_err</references>
       </memberdef>
     </sectiondef>
     <briefdescription>
@@ -475,7 +484,7 @@
 <codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;../print/print_utils.h&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;hiredis/hiredis.h&gt;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="13"><highlight class="normal"></highlight></codeline>
-<codeline lineno="20"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>HOST[]<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;127.0.0.1&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="20" refid="redis_8c_1ab146e06ef57318f58a840b315626b861" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="redis_8c_1ab146e06ef57318f58a840b315626b861" kindref="member">HOST</ref>[]<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;127.0.0.1&quot;</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="27" refid="redis_8c_1a614217d263be1fb1a5f76e2ff7be19a2" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>PORT<sp/>6380</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="28"><highlight class="normal"></highlight></codeline>
 <codeline lineno="34" refid="redis_8c_1a71ea645922f3e5dcc69b644656c79a99" refkind="member"><highlight class="normal">redisContext<sp/>*<ref refid="redis_8c_1a71ea645922f3e5dcc69b644656c79a99" kindref="member">context</ref>;</highlight></codeline>
@@ -511,7 +520,7 @@
 <codeline lineno="75"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="redis_8c_1a71ea645922f3e5dcc69b644656c79a99" kindref="member">context</ref><sp/>!=<sp/>NULL)</highlight></codeline>
 <codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>1;</highlight></codeline>
 <codeline lineno="77"><highlight class="normal"></highlight></codeline>
-<codeline lineno="78"><highlight class="normal"><sp/><sp/><ref refid="redis_8c_1a71ea645922f3e5dcc69b644656c79a99" kindref="member">context</ref><sp/>=<sp/>redisConnect<sp/>(HOST,<sp/><ref refid="redis_8c_1a614217d263be1fb1a5f76e2ff7be19a2" kindref="member">PORT</ref>);</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><ref refid="redis_8c_1a71ea645922f3e5dcc69b644656c79a99" kindref="member">context</ref><sp/>=<sp/>redisConnect<sp/>(<ref refid="redis_8c_1ab146e06ef57318f58a840b315626b861" kindref="member">HOST</ref>,<sp/><ref refid="redis_8c_1a614217d263be1fb1a5f76e2ff7be19a2" kindref="member">PORT</ref>);</highlight></codeline>
 <codeline lineno="79"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="redis_8c_1a71ea645922f3e5dcc69b644656c79a99" kindref="member">context</ref>-&gt;err)</highlight></codeline>
 <codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
 <codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="print__utils_8c_1a650ab060ffe5dbc6c1a968a9cae3bded" kindref="member">print_err</ref><sp/>(</highlight><highlight class="stringliteral">&quot;Connection<sp/>error:<sp/>%s&quot;</highlight><highlight class="normal">,<sp/><ref refid="redis_8c_1a71ea645922f3e5dcc69b644656c79a99" kindref="member">context</ref>-&gt;errstr);</highlight></codeline>
@@ -528,12 +537,12 @@
 <codeline lineno="104" refid="redis_8c_1a8e6e1687d6351741ac3e353d23425f71" refkind="member"><highlight class="normal"><ref refid="redis_8c_1a8e6e1687d6351741ac3e353d23425f71" kindref="member">json_to_qm_user</ref><sp/>(</highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*json)</highlight></codeline>
 <codeline lineno="105"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="106"><highlight class="normal"><sp/><sp/><ref refid="print__utils_8c_1a491dc14c94ed8cf706bb54880c50b2d0" kindref="member">print_msg</ref><sp/>(</highlight><highlight class="stringliteral">&quot;DEBUG:<sp/>Converting<sp/>%s&quot;</highlight><highlight class="normal">,<sp/>json);</highlight></codeline>
-<codeline lineno="107"><highlight class="normal"><sp/><sp/>qm_type<sp/>type;</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><ref refid="common_8h_1ab2c144fca6129807a9fe4bad66970c4c" kindref="member">qm_type</ref><sp/>type;</highlight></codeline>
 <codeline lineno="108"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Redis<sp/>return<sp/>the<sp/>value<sp/>as<sp/>json:{actual<sp/>json}<sp/>so<sp/>we<sp/>need<sp/>to<sp/>eliminate<sp/>the</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="109"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>json:<sp/>from<sp/>the<sp/>string</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="110"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*res<sp/>=<sp/>strchr<sp/>(json,<sp/></highlight><highlight class="charliteral">&apos;:&apos;</highlight><highlight class="normal">);</highlight></codeline>
 <codeline lineno="111"><highlight class="normal"><sp/><sp/>res++;<sp/></highlight><highlight class="comment">//<sp/>Skip<sp/>the<sp/>:<sp/>char</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="112"><highlight class="normal"><sp/><sp/><ref refid="structqm__user" kindref="compound">qm_user</ref><sp/>*user<sp/>=<sp/>(<ref refid="structqm__user" kindref="compound">qm_user</ref><sp/>*)string_to_struct<sp/>(res,<sp/>&amp;type);</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><ref refid="structqm__user" kindref="compound">qm_user</ref><sp/>*user<sp/>=<sp/>(<ref refid="structqm__user" kindref="compound">qm_user</ref><sp/>*)<ref refid="json__tools_8cpp_1a513edf914a6a6141c7892d193d0c1f52" kindref="member">string_to_struct</ref><sp/>(res,<sp/>&amp;type);</highlight></codeline>
 <codeline lineno="113"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>user;</highlight></codeline>
 <codeline lineno="114"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="121"><highlight class="normal"><ref refid="structqm__user" kindref="compound">qm_user</ref><sp/>*</highlight></codeline>
@@ -614,7 +623,7 @@
 <codeline lineno="211" refid="redis_8c_1ac9878ee09b53700eb08c1f175873c30b" refkind="member"><highlight class="normal"><ref refid="redis_8c_1ac9878ee09b53700eb08c1f175873c30b" kindref="member">insert</ref><sp/>(<ref refid="structqm__user" kindref="compound">qm_user</ref><sp/>*user)</highlight></codeline>
 <codeline lineno="212"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="213"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Convert<sp/>the<sp/>structure<sp/>to<sp/>JSON</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="214"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*json<sp/>=<sp/>struct_to_json<sp/>(USER,<sp/>user);</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*json<sp/>=<sp/><ref refid="json__tools_8cpp_1abe22bc6ace23fc8f7e186a824784765f" kindref="member">struct_to_json</ref><sp/>(<ref refid="common_8h_1ab2c144fca6129807a9fe4bad66970c4cae2d30a195cee6b2961cc2c23ea4b520b" kindref="member">USER</ref>,<sp/>user);</highlight></codeline>
 <codeline lineno="215"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!json)</highlight></codeline>
 <codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
 <codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="print__utils_8c_1a650ab060ffe5dbc6c1a968a9cae3bded" kindref="member">print_err</ref><sp/>(</highlight><highlight class="stringliteral">&quot;Error<sp/>converting<sp/>qm_user<sp/>to<sp/>JSON&quot;</highlight><highlight class="normal">);</highlight></codeline>

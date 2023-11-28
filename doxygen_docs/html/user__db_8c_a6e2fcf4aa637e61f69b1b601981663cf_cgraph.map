@@ -2,19 +2,21 @@
 <area shape="rect" id="Node000001" title="Remove a user from the DB." alt="" coords="5,56,116,81"/>
 <area shape="rect" id="Node000002" href="$redis_8c.html#a7b5eb746d92734b57a71ce552363283d" title="For debugging only. Prints all the keys in the database." alt="" coords="330,5,433,31"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="116,56,164,47,314,24,315,30,164,53,117,61"/>
-<area shape="rect" id="Node000003" href="$print__utils_8c.html#a491dc14c94ed8cf706bb54880c50b2d0" title="Format and print data as a message." alt="" coords="657,107,736,132"/>
-<area shape="poly" id="edge3_Node000001_Node000003" title=" " alt="" coords="117,70,332,85,610,107,642,111,641,116,609,113,332,90,116,75"/>
+<area shape="rect" id="Node000003" href="$print__utils_8c.html#a491dc14c94ed8cf706bb54880c50b2d0" title="Format and print data as a message." alt="" coords="674,107,753,132"/>
+<area shape="poly" id="edge3_Node000001_Node000003" title=" " alt="" coords="117,70,610,107,659,112,658,117,609,113,116,75"/>
 <area shape="rect" id="Node000004" href="$redis_8c.html#a6b18d7ad2f1e8275106a5b39c0c7d216" title="Remove a user from the DB using the PID as key." alt="" coords="164,132,275,157"/>
 <area shape="poly" id="edge4_Node000001_Node000004" title=" " alt="" coords="90,80,179,123,176,127,88,84"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="433,15,518,22,565,32,610,48,646,69,675,94,671,98,643,73,608,52,564,37,517,28,433,20"/>
-<area shape="poly" id="edge11_Node000004_Node000003" title=" " alt="" coords="275,139,642,119,643,125,275,144"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="433,16,517,24,565,33,610,48,652,69,687,94,684,99,649,74,608,52,563,39,517,29,433,21"/>
+<area shape="poly" id="edge12_Node000004_Node000003" title=" " alt="" coords="275,139,658,119,658,125,275,145"/>
 <area shape="rect" id="Node000005" href="$redis_8c.html#af0bf1bfc99afc940619371e3c76ab4f9" title="Fetch the user on the DB with key pid." alt="" coords="323,169,440,195"/>
 <area shape="poly" id="edge5_Node000004_Node000005" title=" " alt="" coords="276,155,309,163,308,168,274,160"/>
-<area shape="rect" id="Node000007" href="$print__utils_8c.html#a650ab060ffe5dbc6c1a968a9cae3bded" title="Format and print data as an error." alt="" coords="514,257,583,283"/>
-<area shape="poly" id="edge10_Node000004_Node000007" title=" " alt="" coords="240,156,278,180,324,204,416,236,500,258,498,263,415,241,322,208,275,184,238,160"/>
-<area shape="poly" id="edge9_Node000005_Node000003" title=" " alt="" coords="440,169,609,135,641,128,643,134,610,141,441,174"/>
+<area shape="rect" id="Node000008" href="$print__utils_8c.html#a650ab060ffe5dbc6c1a968a9cae3bded" title="Format and print data as an error." alt="" coords="514,257,583,283"/>
+<area shape="poly" id="edge11_Node000004_Node000008" title=" " alt="" coords="240,156,278,180,324,204,416,236,500,258,498,263,415,241,322,208,275,184,238,160"/>
+<area shape="poly" id="edge10_Node000005_Node000003" title=" " alt="" coords="440,168,658,127,659,132,441,174"/>
 <area shape="rect" id="Node000006" href="$redis_8c.html#a8e6e1687d6351741ac3e353d23425f71" title="Internal function to simplify the casting of a json to a qm_user struct." alt="" coords="488,208,609,233"/>
 <area shape="poly" id="edge6_Node000005_Node000006" title=" " alt="" coords="440,193,476,201,475,206,439,198"/>
-<area shape="poly" id="edge8_Node000005_Node000007" title=" " alt="" coords="404,193,489,244,501,249,499,254,487,248,401,198"/>
-<area shape="poly" id="edge7_Node000006_Node000003" title=" " alt="" coords="576,205,608,186,668,140,671,145,611,191,579,210"/>
+<area shape="poly" id="edge9_Node000005_Node000008" title=" " alt="" coords="405,193,489,242,502,248,499,253,487,247,402,198"/>
+<area shape="poly" id="edge7_Node000006_Node000003" title=" " alt="" coords="574,205,608,186,680,139,683,143,611,191,577,210"/>
+<area shape="rect" id="Node000007" href="$json__tools_8cpp.html#a513edf914a6a6141c7892d193d0c1f52" title="Cast a json string to a struct." alt="" coords="657,208,769,233"/>
+<area shape="poly" id="edge8_Node000006_Node000007" title=" " alt="" coords="610,218,641,218,641,223,610,223"/>
 </map>

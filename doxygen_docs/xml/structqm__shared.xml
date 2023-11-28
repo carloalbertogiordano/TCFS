@@ -17,7 +17,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="daemon/daemon_utils/common.h" line="71" column="9" bodyfile="daemon/daemon_utils/common.h" bodystart="71" bodyend="-1"/>
+        <location file="daemon/daemon_utils/common.h" line="76" column="9" bodyfile="daemon/daemon_utils/common.h" bodystart="76" bodyend="-1"/>
+        <referencedby refid="json__tools_8cpp_1a513edf914a6a6141c7892d193d0c1f52" compoundref="json__tools_8cpp" startline="92" endline="150">string_to_struct</referencedby>
+        <referencedby refid="json__tools_8cpp_1abe22bc6ace23fc8f7e186a824784765f" compoundref="json__tools_8cpp" startline="27" endline="79">struct_to_json</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structqm__shared_1af2a26858d769e4a816d0567b51ce0ed5" prot="public" static="no" mutable="no">
         <type>char **</type>
@@ -35,7 +37,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="daemon/daemon_utils/common.h" line="72" column="10" bodyfile="daemon/daemon_utils/common.h" bodystart="72" bodyend="-1"/>
+        <location file="daemon/daemon_utils/common.h" line="77" column="10" bodyfile="daemon/daemon_utils/common.h" bodystart="77" bodyend="-1"/>
+        <referencedby refid="json__tools_8cpp_1a513edf914a6a6141c7892d193d0c1f52" compoundref="json__tools_8cpp" startline="92" endline="150">string_to_struct</referencedby>
+        <referencedby refid="json__tools_8cpp_1abe22bc6ace23fc8f7e186a824784765f" compoundref="json__tools_8cpp" startline="27" endline="79">struct_to_json</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structqm__shared_1afef3f8b7e15af861010c6e0d66de659e" prot="public" static="no" mutable="no">
         <type>char *</type>
@@ -50,7 +54,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="daemon/daemon_utils/common.h" line="73" column="10" bodyfile="daemon/daemon_utils/common.h" bodystart="73" bodyend="-1"/>
+        <location file="daemon/daemon_utils/common.h" line="78" column="10" bodyfile="daemon/daemon_utils/common.h" bodystart="78" bodyend="-1"/>
+        <referencedby refid="json__tools_8cpp_1a513edf914a6a6141c7892d193d0c1f52" compoundref="json__tools_8cpp" startline="92" endline="150">string_to_struct</referencedby>
+        <referencedby refid="json__tools_8cpp_1abe22bc6ace23fc8f7e186a824784765f" compoundref="json__tools_8cpp" startline="27" endline="79">struct_to_json</referencedby>
       </memberdef>
     </sectiondef>
     <briefdescription>
@@ -87,7 +93,7 @@ the user list to ask for keyparts and the key part of the caller. <linebreak/>
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="daemon/daemon_utils/common.h" line="70" column="1" bodyfile="daemon/daemon_utils/common.h" bodystart="70" bodyend="74"/>
+    <location file="daemon/daemon_utils/common.h" line="75" column="1" bodyfile="daemon/daemon_utils/common.h" bodystart="75" bodyend="79"/>
     <listofallmembers>
       <member refid="structqm__shared_1ac6ce7156e06279b3194acb24e4face96" prot="public" virt="non-virtual"><scope>qm_shared</scope><name>fd</name></member>
       <member refid="structqm__shared_1afef3f8b7e15af861010c6e0d66de659e" prot="public" virt="non-virtual"><scope>qm_shared</scope><name>keypart</name></member>

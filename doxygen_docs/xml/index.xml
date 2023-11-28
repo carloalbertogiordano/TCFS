@@ -41,7 +41,7 @@
   </compound>
   <compound refid="redis_8c" kind="file"><name>redis.c</name>
     <member refid="redis_8c_1a614217d263be1fb1a5f76e2ff7be19a2" kind="define"><name>PORT</name></member>
-    <member refid="redis_8c_1a0cc05631b755191d8d1c64c74c77894b" kind="variable"><name>HOST</name></member>
+    <member refid="redis_8c_1ab146e06ef57318f58a840b315626b861" kind="variable"><name>HOST</name></member>
     <member refid="redis_8c_1a71ea645922f3e5dcc69b644656c79a99" kind="variable"><name>context</name></member>
     <member refid="redis_8c_1a7b5eb746d92734b57a71ce552363283d" kind="function"><name>print_all_keys</name></member>
     <member refid="redis_8c_1a1f6dc2f98a71a88567fe11fd9e2585ea" kind="function"><name>init_context</name></member>
@@ -167,8 +167,8 @@
     <member refid="tcfs_8c_1a0919197af2e154da2c05727b6d87cbda" kind="define"><name>FUSE_USE_VERSION</name></member>
     <member refid="tcfs_8c_1ace5cb10bf13b2a61c0d3e01b4e0590a2" kind="define"><name>HAVE_SETXATTR</name></member>
     <member refid="tcfs_8c_1a78c99ffd76a7bb3c8c74db76207e9ab4" kind="define"><name>_XOPEN_SOURCE</name></member>
-    <member refid="tcfs_8c_1a19be800a9c760121d66e6c6e938f7993" kind="variable"><name>root_path</name></member>
-    <member refid="tcfs_8c_1a59460a3ff2c12443d1022e5cc0fba85c" kind="variable"><name>password</name></member>
+    <member refid="tcfs_8c_1ab33cf7205359ee0f91488c87df1577a0" kind="variable"><name>root_path</name></member>
+    <member refid="tcfs_8c_1a9dbb300e28bc21c8dab41b01883918eb" kind="variable"><name>password</name></member>
     <member refid="tcfs_8c_1a53c12b201809f3165da8a2779d152b3a" kind="variable"><name>tcfs_oper</name></member>
     <member refid="tcfs_8c_1a62f73ea01c816f1996aed4c66f57c4fb" kind="variable"><name>argp_program_version</name></member>
     <member refid="tcfs_8c_1aaa037e59f26a80a8a2e35e6f2364004d" kind="variable"><name>argp_program_bug_address</name></member>
@@ -254,6 +254,8 @@
   <compound refid="md_README" kind="page"><name>md_README</name>
   </compound>
   <compound refid="todo" kind="page"><name>todo</name>
+  </compound>
+  <compound refid="deprecated" kind="page"><name>deprecated</name>
   </compound>
   <compound refid="dir_ea5ab4308b809761446f4f1849ce8ac1" kind="dir"><name>daemon/daemon_utils/common_utils</name>
   </compound>

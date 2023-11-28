@@ -3,16 +3,16 @@
 
 /**
  * @internal
- * @def WITH_SYS_CALL \_def
+ * @def WITH_SYS_CALL
  * @brief the system aims to be independent from the kernel module. The kernel
- * module is not beeing developed so this is useless
+ * module is not beeing developed so this is useless. \_def
  * */
 #define WITH_SYS_CALL 1
 /**
  * @internal
- * @def WITHOUT_SYS_CALL \_def
+ * @def WITHOUT_SYS_CALL
  * @brief the system aims to be independent from the kernel module. The kernel
- * module is not beeing developed so this is useless
+ * module is not beeing developed so this is useless. \_def
  * */
 #define WITHOUT_SYS_CALL 0
 /*

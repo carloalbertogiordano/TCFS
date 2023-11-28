@@ -47,7 +47,7 @@
     <value><![CDATA["_var= This variable is marked as internal and should not be used by the user"]]></value>
     <value><![CDATA["_func= This function is marked as internal and should not be used by the user"]]></value>
     <value><![CDATA["_file= This file is marked as internal and the corresponding header should not be used by the user.^^ Please refer to the see section"]]></value>
-    <value><![CDATA["_def= This definition is marked as internal and be used directly"]]></value>
+    <value><![CDATA["_def= This definition is marked as internal and should not be used directly by the user"]]></value>
   </option>
   <option  id='OPTIMIZE_OUTPUT_FOR_C' default='yes' type='bool'><value>NO</value></option>
   <option  id='OPTIMIZE_OUTPUT_JAVA' default='yes' type='bool'><value>NO</value></option>
@@ -384,7 +384,7 @@
   <option  id='DOT_PATH' default='yes' type='string'><value><![CDATA[]]></value></option>
   <option  id='DOTFILE_DIRS' default='yes' type='stringlist'>
   </option>
-  <option  id='DIA_PATH' default='no' type='string'><value><![CDATA[/usr/bin/dot]]></value></option>
+  <option  id='DIA_PATH' default='no' type='string'><value><![CDATA[/usr/bin]]></value></option>
   <option  id='DIAFILE_DIRS' default='yes' type='stringlist'>
   </option>
   <option  id='PLANTUML_JAR_PATH' default='yes' type='string'><value><![CDATA[]]></value></option>

@@ -2,7 +2,7 @@
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_json__tools_8cpp_source" xml:lang="en-US">
 <title>json_tools.cpp</title>
 <indexterm><primary>daemon/daemon_utils/common_utils/json/json_tools.cpp</primary></indexterm>
-<programlisting linenumbering="unnumbered"><anchor xml:id="_json__tools_8cpp_source_1l00001"/>00001 <emphasis role="preprocessor">#include&#32;&quot;../../common.h&quot;</emphasis>
+Go to the documentation of this file.<programlisting linenumbering="unnumbered"><anchor xml:id="_json__tools_8cpp_source_1l00001"/>00001 <emphasis role="preprocessor">#include&#32;&quot;../../common.h&quot;</emphasis>
 <anchor xml:id="_json__tools_8cpp_source_1l00002"/>00002 <emphasis role="preprocessor">#include&#32;&quot;../print/print_utils.h&quot;</emphasis>
 <anchor xml:id="_json__tools_8cpp_source_1l00003"/>00003 <emphasis role="preprocessor">#include&#32;&quot;/usr/include/nlohmann/json.hpp&quot;</emphasis>&#32;<emphasis role="comment">//&#32;Assuming&#32;you&apos;re&#32;using&#32;nlohmann&apos;s&#32;JSON&#32;library</emphasis>
 <anchor xml:id="_json__tools_8cpp_source_1l00004"/>00004 <emphasis role="preprocessor">#include&#32;&lt;cstdlib&gt;</emphasis>&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">//&#32;For&#32;malloc&#32;and&#32;free</emphasis>
@@ -12,18 +12,18 @@
 <anchor xml:id="_json__tools_8cpp_source_1l00008"/>00008 <emphasis role="preprocessor">#include&#32;&lt;vector&gt;</emphasis>
 <anchor xml:id="_json__tools_8cpp_source_1l00009"/>00009 
 <anchor xml:id="_json__tools_8cpp_source_1l00026"/>00026 <emphasis role="keywordtype">char</emphasis>&#32;*
-<anchor xml:id="_json__tools_8cpp_source_1l00027"/>00027 struct_to_json&#32;(qm_type&#32;qmt,&#32;<emphasis role="keywordtype">void</emphasis>&#32;*q_mess)
+<anchor xml:id="_json__tools_8cpp_source_1l00027"/><link linkend="_json__tools_8cpp_1abe22bc6ace23fc8f7e186a824784765f">00027</link> <link linkend="_json__tools_8cpp_1abe22bc6ace23fc8f7e186a824784765f">struct_to_json</link>&#32;(<link linkend="_common_8h_1ab2c144fca6129807a9fe4bad66970c4c">qm_type</link>&#32;qmt,&#32;<emphasis role="keywordtype">void</emphasis>&#32;*q_mess)
 <anchor xml:id="_json__tools_8cpp_source_1l00028"/>00028 {
 <anchor xml:id="_json__tools_8cpp_source_1l00029"/>00029 &#32;&#32;nlohmann::json&#32;json_obj;
 <anchor xml:id="_json__tools_8cpp_source_1l00030"/>00030 
 <anchor xml:id="_json__tools_8cpp_source_1l00031"/>00031 &#32;&#32;<emphasis role="keywordflow">switch</emphasis>&#32;(qmt)
 <anchor xml:id="_json__tools_8cpp_source_1l00032"/>00032 &#32;&#32;&#32;&#32;{
-<anchor xml:id="_json__tools_8cpp_source_1l00033"/>00033 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">case</emphasis>&#32;USER:
+<anchor xml:id="_json__tools_8cpp_source_1l00033"/>00033 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">case</emphasis>&#32;<link linkend="_common_8h_1ab2c144fca6129807a9fe4bad66970c4cae2d30a195cee6b2961cc2c23ea4b520b">USER</link>:
 <anchor xml:id="_json__tools_8cpp_source_1l00034"/>00034 &#32;&#32;&#32;&#32;&#32;&#32;{
 <anchor xml:id="_json__tools_8cpp_source_1l00035"/>00035 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_structqm__user">qm_user</link>&#32;*user&#32;=&#32;<emphasis role="keyword">static_cast&lt;</emphasis><link linkend="_structqm__user">qm_user</link>&#32;*<emphasis role="keyword">&gt;</emphasis>&#32;(q_mess);
-<anchor xml:id="_json__tools_8cpp_source_1l00036"/>00036 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(user-&gt;<link linkend="_structqm__user_1a4b5bbaaf885c62f44f265eeba461303d">user_op</link>&#32;==&#32;REGISTER)
+<anchor xml:id="_json__tools_8cpp_source_1l00036"/>00036 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(user-&gt;<link linkend="_structqm__user_1a4b5bbaaf885c62f44f265eeba461303d">user_op</link>&#32;==&#32;<link linkend="_common_8h_1ad30dd7f5c8fc3f0027bbddc111c652b8aceb7c305772dab23a260960771180df3">REGISTER</link>)
 <anchor xml:id="_json__tools_8cpp_source_1l00037"/>00037 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_print__utils_8c_1a491dc14c94ed8cf706bb54880c50b2d0">print_msg</link>&#32;(<emphasis role="stringliteral">&quot;Register&quot;</emphasis>);
-<anchor xml:id="_json__tools_8cpp_source_1l00038"/>00038 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(user-&gt;<link linkend="_structqm__user_1a4b5bbaaf885c62f44f265eeba461303d">user_op</link>&#32;==&#32;UNREGISTER)
+<anchor xml:id="_json__tools_8cpp_source_1l00038"/>00038 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(user-&gt;<link linkend="_structqm__user_1a4b5bbaaf885c62f44f265eeba461303d">user_op</link>&#32;==&#32;<link linkend="_common_8h_1ad30dd7f5c8fc3f0027bbddc111c652b8ad46a7713a16573956ea43782ac970154">UNREGISTER</link>)
 <anchor xml:id="_json__tools_8cpp_source_1l00039"/>00039 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_print__utils_8c_1a491dc14c94ed8cf706bb54880c50b2d0">print_msg</link>&#32;(<emphasis role="stringliteral">&quot;Unregister&quot;</emphasis>);
 <anchor xml:id="_json__tools_8cpp_source_1l00040"/>00040 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;json_obj[<emphasis role="stringliteral">&quot;user_op&quot;</emphasis>]&#32;=&#32;user-&gt;<link linkend="_structqm__user_1a4b5bbaaf885c62f44f265eeba461303d">user_op</link>;
 <anchor xml:id="_json__tools_8cpp_source_1l00041"/>00041 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;json_obj[<emphasis role="stringliteral">&quot;pid&quot;</emphasis>]&#32;=&#32;user-&gt;<link linkend="_structqm__user_1aa69546c3a6a2124be9f964329c951a84">pid</link>;
@@ -31,7 +31,7 @@
 <anchor xml:id="_json__tools_8cpp_source_1l00043"/>00043 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;json_obj[<emphasis role="stringliteral">&quot;pubkey&quot;</emphasis>]&#32;=&#32;user-&gt;<link linkend="_structqm__user_1ad718cfba201afae89c596111bd508d5f">pubkey</link>;
 <anchor xml:id="_json__tools_8cpp_source_1l00044"/>00044 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">break</emphasis>;
 <anchor xml:id="_json__tools_8cpp_source_1l00045"/>00045 &#32;&#32;&#32;&#32;&#32;&#32;}
-<anchor xml:id="_json__tools_8cpp_source_1l00046"/>00046 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">case</emphasis>&#32;SHARED:
+<anchor xml:id="_json__tools_8cpp_source_1l00046"/>00046 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">case</emphasis>&#32;<link linkend="_common_8h_1ab2c144fca6129807a9fe4bad66970c4ca9c46e16a4ab019339596acadeefc8c53">SHARED</link>:
 <anchor xml:id="_json__tools_8cpp_source_1l00047"/>00047 &#32;&#32;&#32;&#32;&#32;&#32;{
 <anchor xml:id="_json__tools_8cpp_source_1l00048"/>00048 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_structqm__shared">qm_shared</link>&#32;*shared&#32;=&#32;<emphasis role="keyword">static_cast&lt;</emphasis><link linkend="_structqm__shared">qm_shared</link>&#32;*<emphasis role="keyword">&gt;</emphasis>&#32;(q_mess);
 <anchor xml:id="_json__tools_8cpp_source_1l00049"/>00049 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;json_obj[<emphasis role="stringliteral">&quot;fd&quot;</emphasis>]&#32;=&#32;shared-&gt;<link linkend="_structqm__shared_1ac6ce7156e06279b3194acb24e4face96">fd</link>;
@@ -47,7 +47,7 @@
 <anchor xml:id="_json__tools_8cpp_source_1l00059"/>00059 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;json_obj[<emphasis role="stringliteral">&quot;keypart&quot;</emphasis>]&#32;=&#32;shared-&gt;<link linkend="_structqm__shared_1afef3f8b7e15af861010c6e0d66de659e">keypart</link>;
 <anchor xml:id="_json__tools_8cpp_source_1l00060"/>00060 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">break</emphasis>;
 <anchor xml:id="_json__tools_8cpp_source_1l00061"/>00061 &#32;&#32;&#32;&#32;&#32;&#32;}
-<anchor xml:id="_json__tools_8cpp_source_1l00062"/>00062 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">case</emphasis>&#32;BROADCAST:
+<anchor xml:id="_json__tools_8cpp_source_1l00062"/>00062 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">case</emphasis>&#32;<link linkend="_common_8h_1ab2c144fca6129807a9fe4bad66970c4ca78386e426adecb3fd26350119a3cb7c2">BROADCAST</link>:
 <anchor xml:id="_json__tools_8cpp_source_1l00063"/>00063 &#32;&#32;&#32;&#32;&#32;&#32;{
 <anchor xml:id="_json__tools_8cpp_source_1l00064"/>00064 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_structqm__broad">qm_broad</link>&#32;*broad&#32;=&#32;<emphasis role="keyword">static_cast&lt;</emphasis><link linkend="_structqm__broad">qm_broad</link>&#32;*<emphasis role="keyword">&gt;</emphasis>&#32;(q_mess);
 <anchor xml:id="_json__tools_8cpp_source_1l00065"/>00065 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;json_obj[<emphasis role="stringliteral">&quot;data&quot;</emphasis>]&#32;=&#32;broad-&gt;<link linkend="_structqm__broad_1a59096b6c11d45cf9addecfb629b55978">data</link>;
@@ -67,7 +67,7 @@
 <anchor xml:id="_json__tools_8cpp_source_1l00079"/>00079 }
 <anchor xml:id="_json__tools_8cpp_source_1l00080"/>00080 
 <anchor xml:id="_json__tools_8cpp_source_1l00091"/>00091 <emphasis role="keywordtype">void</emphasis>&#32;*
-<anchor xml:id="_json__tools_8cpp_source_1l00092"/>00092 string_to_struct&#32;(<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*json_string,&#32;qm_type&#32;*type)
+<anchor xml:id="_json__tools_8cpp_source_1l00092"/><link linkend="_json__tools_8cpp_1a513edf914a6a6141c7892d193d0c1f52">00092</link> <link linkend="_json__tools_8cpp_1a513edf914a6a6141c7892d193d0c1f52">string_to_struct</link>&#32;(<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*json_string,&#32;<link linkend="_common_8h_1ab2c144fca6129807a9fe4bad66970c4c">qm_type</link>&#32;*type)
 <anchor xml:id="_json__tools_8cpp_source_1l00093"/>00093 {
 <anchor xml:id="_json__tools_8cpp_source_1l00094"/>00094 &#32;&#32;<emphasis role="keywordflow">try</emphasis>
 <anchor xml:id="_json__tools_8cpp_source_1l00095"/>00095 &#32;&#32;&#32;&#32;{
@@ -75,7 +75,7 @@
 <anchor xml:id="_json__tools_8cpp_source_1l00097"/>00097 
 <anchor xml:id="_json__tools_8cpp_source_1l00098"/>00098 &#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(json_obj.contains&#32;(<emphasis role="stringliteral">&quot;user_op&quot;</emphasis>))
 <anchor xml:id="_json__tools_8cpp_source_1l00099"/>00099 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
-<anchor xml:id="_json__tools_8cpp_source_1l00100"/>00100 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;*type&#32;=&#32;USER;
+<anchor xml:id="_json__tools_8cpp_source_1l00100"/>00100 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;*type&#32;=&#32;<link linkend="_common_8h_1ab2c144fca6129807a9fe4bad66970c4cae2d30a195cee6b2961cc2c23ea4b520b">USER</link>;
 <anchor xml:id="_json__tools_8cpp_source_1l00101"/>00101 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_structqm__user">qm_user</link>&#32;*user
 <anchor xml:id="_json__tools_8cpp_source_1l00102"/>00102 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;=&#32;<emphasis role="keyword">static_cast&lt;</emphasis><link linkend="_structqm__user">qm_user</link>&#32;*<emphasis role="keyword">&gt;</emphasis>&#32;(std::malloc&#32;(<emphasis role="keyword">sizeof</emphasis>&#32;(<link linkend="_structqm__user">qm_user</link>)));
 <anchor xml:id="_json__tools_8cpp_source_1l00103"/>00103 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;user-&gt;<link linkend="_structqm__user_1a4b5bbaaf885c62f44f265eeba461303d">user_op</link>&#32;=&#32;json_obj[<emphasis role="stringliteral">&quot;user_op&quot;</emphasis>];
@@ -87,7 +87,7 @@
 <anchor xml:id="_json__tools_8cpp_source_1l00109"/>00109 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
 <anchor xml:id="_json__tools_8cpp_source_1l00110"/>00110 &#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">else</emphasis>&#32;<emphasis role="keywordflow">if</emphasis>&#32;(json_obj.contains&#32;(<emphasis role="stringliteral">&quot;fd&quot;</emphasis>))
 <anchor xml:id="_json__tools_8cpp_source_1l00111"/>00111 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
-<anchor xml:id="_json__tools_8cpp_source_1l00112"/>00112 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;*type&#32;=&#32;SHARED;
+<anchor xml:id="_json__tools_8cpp_source_1l00112"/>00112 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;*type&#32;=&#32;<link linkend="_common_8h_1ab2c144fca6129807a9fe4bad66970c4ca9c46e16a4ab019339596acadeefc8c53">SHARED</link>;
 <anchor xml:id="_json__tools_8cpp_source_1l00113"/>00113 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_structqm__shared">qm_shared</link>&#32;*shared
 <anchor xml:id="_json__tools_8cpp_source_1l00114"/>00114 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;=&#32;<emphasis role="keyword">static_cast&lt;</emphasis><link linkend="_structqm__shared">qm_shared</link>&#32;*<emphasis role="keyword">&gt;</emphasis>&#32;(std::malloc&#32;(<emphasis role="keyword">sizeof</emphasis>&#32;(<link linkend="_structqm__shared">qm_shared</link>)));
 <anchor xml:id="_json__tools_8cpp_source_1l00115"/>00115 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;shared-&gt;<link linkend="_structqm__shared_1ac6ce7156e06279b3194acb24e4face96">fd</link>&#32;=&#32;json_obj[<emphasis role="stringliteral">&quot;fd&quot;</emphasis>];
@@ -108,7 +108,7 @@
 <anchor xml:id="_json__tools_8cpp_source_1l00130"/>00130 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
 <anchor xml:id="_json__tools_8cpp_source_1l00131"/>00131 &#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">else</emphasis>&#32;<emphasis role="keywordflow">if</emphasis>&#32;(json_obj.contains&#32;(<emphasis role="stringliteral">&quot;data&quot;</emphasis>))
 <anchor xml:id="_json__tools_8cpp_source_1l00132"/>00132 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
-<anchor xml:id="_json__tools_8cpp_source_1l00133"/>00133 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;*type&#32;=&#32;BROADCAST;
+<anchor xml:id="_json__tools_8cpp_source_1l00133"/>00133 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;*type&#32;=&#32;<link linkend="_common_8h_1ab2c144fca6129807a9fe4bad66970c4ca78386e426adecb3fd26350119a3cb7c2">BROADCAST</link>;
 <anchor xml:id="_json__tools_8cpp_source_1l00134"/>00134 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_structqm__broad">qm_broad</link>&#32;*broad
 <anchor xml:id="_json__tools_8cpp_source_1l00135"/>00135 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;=&#32;<emphasis role="keyword">static_cast&lt;</emphasis><link linkend="_structqm__broad">qm_broad</link>&#32;*<emphasis role="keyword">&gt;</emphasis>&#32;(std::malloc&#32;(<emphasis role="keyword">sizeof</emphasis>&#32;(<link linkend="_structqm__broad">qm_broad</link>)));
 <anchor xml:id="_json__tools_8cpp_source_1l00136"/>00136 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;broad-&gt;<link linkend="_structqm__broad_1a59096b6c11d45cf9addecfb629b55978">data</link>&#32;=&#32;strdup&#32;(json_obj[<emphasis role="stringliteral">&quot;data&quot;</emphasis>].get&lt;std::string&gt;&#32;().c_str&#32;());
@@ -116,7 +116,7 @@
 <anchor xml:id="_json__tools_8cpp_source_1l00138"/>00138 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
 <anchor xml:id="_json__tools_8cpp_source_1l00139"/>00139 &#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">else</emphasis>
 <anchor xml:id="_json__tools_8cpp_source_1l00140"/>00140 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
-<anchor xml:id="_json__tools_8cpp_source_1l00141"/>00141 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;*type&#32;=&#32;QM_TYPE_UNDEFINED;
+<anchor xml:id="_json__tools_8cpp_source_1l00141"/>00141 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;*type&#32;=&#32;<link linkend="_common_8h_1ab2c144fca6129807a9fe4bad66970c4ca84fb91aba870f3033713d9e4b638f006">QM_TYPE_UNDEFINED</link>;
 <anchor xml:id="_json__tools_8cpp_source_1l00142"/>00142 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<emphasis role="keyword">nullptr</emphasis>;
 <anchor xml:id="_json__tools_8cpp_source_1l00143"/>00143 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
 <anchor xml:id="_json__tools_8cpp_source_1l00144"/>00144 &#32;&#32;&#32;&#32;}

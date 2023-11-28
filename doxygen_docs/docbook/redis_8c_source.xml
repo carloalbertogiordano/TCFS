@@ -8,7 +8,7 @@ Go to the documentation of this file.<programlisting linenumbering="unnumbered">
 <anchor xml:id="_redis_8c_source_1l00011"/>00011 <emphasis role="preprocessor">#include&#32;&quot;../print/print_utils.h&quot;</emphasis>
 <anchor xml:id="_redis_8c_source_1l00012"/>00012 <emphasis role="preprocessor">#include&#32;&lt;hiredis/hiredis.h&gt;</emphasis>
 <anchor xml:id="_redis_8c_source_1l00013"/>00013 
-<anchor xml:id="_redis_8c_source_1l00020"/>00020 <emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;HOST[]&#32;=&#32;<emphasis role="stringliteral">&quot;127.0.0.1&quot;</emphasis>;
+<anchor xml:id="_redis_8c_source_1l00020"/><link linkend="_redis_8c_1ab146e06ef57318f58a840b315626b861">00020</link> <emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;<link linkend="_redis_8c_1ab146e06ef57318f58a840b315626b861">HOST</link>[]&#32;=&#32;<emphasis role="stringliteral">&quot;127.0.0.1&quot;</emphasis>;
 <anchor xml:id="_redis_8c_source_1l00027"/><link linkend="_redis_8c_1a614217d263be1fb1a5f76e2ff7be19a2">00027</link> <emphasis role="preprocessor">#define&#32;PORT&#32;6380</emphasis>
 <anchor xml:id="_redis_8c_source_1l00028"/>00028 
 <anchor xml:id="_redis_8c_source_1l00034"/><link linkend="_redis_8c_1a71ea645922f3e5dcc69b644656c79a99">00034</link> redisContext&#32;*<link linkend="_redis_8c_1a71ea645922f3e5dcc69b644656c79a99">context</link>;
@@ -44,7 +44,7 @@ Go to the documentation of this file.<programlisting linenumbering="unnumbered">
 <anchor xml:id="_redis_8c_source_1l00075"/>00075 &#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(<link linkend="_redis_8c_1a71ea645922f3e5dcc69b644656c79a99">context</link>&#32;!=&#32;NULL)
 <anchor xml:id="_redis_8c_source_1l00076"/>00076 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;1;
 <anchor xml:id="_redis_8c_source_1l00077"/>00077 
-<anchor xml:id="_redis_8c_source_1l00078"/>00078 &#32;&#32;<link linkend="_redis_8c_1a71ea645922f3e5dcc69b644656c79a99">context</link>&#32;=&#32;redisConnect&#32;(HOST,&#32;<link linkend="_redis_8c_1a614217d263be1fb1a5f76e2ff7be19a2">PORT</link>);
+<anchor xml:id="_redis_8c_source_1l00078"/>00078 &#32;&#32;<link linkend="_redis_8c_1a71ea645922f3e5dcc69b644656c79a99">context</link>&#32;=&#32;redisConnect&#32;(<link linkend="_redis_8c_1ab146e06ef57318f58a840b315626b861">HOST</link>,&#32;<link linkend="_redis_8c_1a614217d263be1fb1a5f76e2ff7be19a2">PORT</link>);
 <anchor xml:id="_redis_8c_source_1l00079"/>00079 &#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(<link linkend="_redis_8c_1a71ea645922f3e5dcc69b644656c79a99">context</link>-&gt;err)
 <anchor xml:id="_redis_8c_source_1l00080"/>00080 &#32;&#32;&#32;&#32;{
 <anchor xml:id="_redis_8c_source_1l00081"/>00081 &#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_print__utils_8c_1a650ab060ffe5dbc6c1a968a9cae3bded">print_err</link>&#32;(<emphasis role="stringliteral">&quot;Connection&#32;error:&#32;%s&quot;</emphasis>,&#32;<link linkend="_redis_8c_1a71ea645922f3e5dcc69b644656c79a99">context</link>-&gt;errstr);
@@ -61,12 +61,12 @@ Go to the documentation of this file.<programlisting linenumbering="unnumbered">
 <anchor xml:id="_redis_8c_source_1l00104"/><link linkend="_redis_8c_1a8e6e1687d6351741ac3e353d23425f71">00104</link> <link linkend="_redis_8c_1a8e6e1687d6351741ac3e353d23425f71">json_to_qm_user</link>&#32;(<emphasis role="keywordtype">char</emphasis>&#32;*json)
 <anchor xml:id="_redis_8c_source_1l00105"/>00105 {
 <anchor xml:id="_redis_8c_source_1l00106"/>00106 &#32;&#32;<link linkend="_print__utils_8c_1a491dc14c94ed8cf706bb54880c50b2d0">print_msg</link>&#32;(<emphasis role="stringliteral">&quot;DEBUG:&#32;Converting&#32;%s&quot;</emphasis>,&#32;json);
-<anchor xml:id="_redis_8c_source_1l00107"/>00107 &#32;&#32;qm_type&#32;type;
+<anchor xml:id="_redis_8c_source_1l00107"/>00107 &#32;&#32;<link linkend="_common_8h_1ab2c144fca6129807a9fe4bad66970c4c">qm_type</link>&#32;type;
 <anchor xml:id="_redis_8c_source_1l00108"/>00108 &#32;&#32;<emphasis role="comment">//&#32;Redis&#32;return&#32;the&#32;value&#32;as&#32;json:{actual&#32;json}&#32;so&#32;we&#32;need&#32;to&#32;eliminate&#32;the</emphasis>
 <anchor xml:id="_redis_8c_source_1l00109"/>00109 &#32;&#32;<emphasis role="comment">//&#32;json:&#32;from&#32;the&#32;string</emphasis>
 <anchor xml:id="_redis_8c_source_1l00110"/>00110 &#32;&#32;<emphasis role="keywordtype">char</emphasis>&#32;*res&#32;=&#32;strchr&#32;(json,&#32;<emphasis role="charliteral">&apos;:&apos;</emphasis>);
 <anchor xml:id="_redis_8c_source_1l00111"/>00111 &#32;&#32;res++;&#32;<emphasis role="comment">//&#32;Skip&#32;the&#32;:&#32;char</emphasis>
-<anchor xml:id="_redis_8c_source_1l00112"/>00112 &#32;&#32;<link linkend="_structqm__user">qm_user</link>&#32;*user&#32;=&#32;(<link linkend="_structqm__user">qm_user</link>&#32;*)string_to_struct&#32;(res,&#32;&amp;type);
+<anchor xml:id="_redis_8c_source_1l00112"/>00112 &#32;&#32;<link linkend="_structqm__user">qm_user</link>&#32;*user&#32;=&#32;(<link linkend="_structqm__user">qm_user</link>&#32;*)<link linkend="_json__tools_8cpp_1a513edf914a6a6141c7892d193d0c1f52">string_to_struct</link>&#32;(res,&#32;&amp;type);
 <anchor xml:id="_redis_8c_source_1l00113"/>00113 &#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;user;
 <anchor xml:id="_redis_8c_source_1l00114"/>00114 }
 <anchor xml:id="_redis_8c_source_1l00121"/>00121 <link linkend="_structqm__user">qm_user</link>&#32;*
@@ -147,7 +147,7 @@ Go to the documentation of this file.<programlisting linenumbering="unnumbered">
 <anchor xml:id="_redis_8c_source_1l00211"/><link linkend="_redis_8c_1ac9878ee09b53700eb08c1f175873c30b">00211</link> <link linkend="_redis_8c_1ac9878ee09b53700eb08c1f175873c30b">insert</link>&#32;(<link linkend="_structqm__user">qm_user</link>&#32;*user)
 <anchor xml:id="_redis_8c_source_1l00212"/>00212 {
 <anchor xml:id="_redis_8c_source_1l00213"/>00213 &#32;&#32;<emphasis role="comment">//&#32;Convert&#32;the&#32;structure&#32;to&#32;JSON</emphasis>
-<anchor xml:id="_redis_8c_source_1l00214"/>00214 &#32;&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*json&#32;=&#32;struct_to_json&#32;(USER,&#32;user);
+<anchor xml:id="_redis_8c_source_1l00214"/>00214 &#32;&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*json&#32;=&#32;<link linkend="_json__tools_8cpp_1abe22bc6ace23fc8f7e186a824784765f">struct_to_json</link>&#32;(<link linkend="_common_8h_1ab2c144fca6129807a9fe4bad66970c4cae2d30a195cee6b2961cc2c23ea4b520b">USER</link>,&#32;user);
 <anchor xml:id="_redis_8c_source_1l00215"/>00215 &#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(!json)
 <anchor xml:id="_redis_8c_source_1l00216"/>00216 &#32;&#32;&#32;&#32;{
 <anchor xml:id="_redis_8c_source_1l00217"/>00217 &#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_print__utils_8c_1a650ab060ffe5dbc6c1a968a9cae3bded">print_err</link>&#32;(<emphasis role="stringliteral">&quot;Error&#32;converting&#32;qm_user&#32;to&#32;JSON&quot;</emphasis>);

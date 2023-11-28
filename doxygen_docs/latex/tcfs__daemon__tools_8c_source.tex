@@ -1,103 +1,108 @@
 \doxysection{tcfs\+\_\+daemon\+\_\+tools.\+c}
 \hypertarget{tcfs__daemon__tools_8c_source}{}\label{tcfs__daemon__tools_8c_source}\index{daemon/daemon\_utils/daemon\_tools/tcfs\_daemon\_tools.c@{daemon/daemon\_utils/daemon\_tools/tcfs\_daemon\_tools.c}}
-
+\mbox{\hyperlink{tcfs__daemon__tools_8c}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00001}00001\ \textcolor{preprocessor}{\#include\ "{}tcfs\_daemon\_tools.h"{}}}
 \DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00002}00002\ \textcolor{preprocessor}{\#include\ "{}../message\_handler/message\_handler.h"{}}}
 \DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00003}00003\ }
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00016}00016\ \textcolor{keywordtype}{void}\ *handle\_incoming\_messages(\textcolor{keywordtype}{void}\ *queue\_id)}
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00017}00017\ \{}
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00018}00018\ \ \ \ \ qm\_type\ qmt;}
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00019}00019\ \ \ \ \ \mbox{\hyperlink{structqm__user}{qm\_user}}\ *user\_msg;}
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00020}00020\ \ \ \ \ \mbox{\hyperlink{structqm__shared}{qm\_shared}}\ *shared\_msg;}
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00021}00021\ \ \ \ \ \mbox{\hyperlink{structqm__broad}{qm\_broad}}\ *broadcast\_msg;}
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00022}00022\ }
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00023}00023\ }
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00024}00024\ \ \ \ \ \mbox{\hyperlink{print__utils_8c_a491dc14c94ed8cf706bb54880c50b2d0}{print\_msg}}(\textcolor{stringliteral}{"{}Starting\ handler\ for\ incoming\ messages"{}});}
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00025}00025\ \ \ \ \ \textcolor{keywordtype}{void}\ *tmp\_struct;}
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00026}00026\ \ \ \ \ \textcolor{keywordflow}{while}\ (1)\ \{}
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00027}00027\ \ \ \ \ \ \ \ \ tmp\_struct\ =\ \mbox{\hyperlink{queue_8c_a1874b6e320d1e54d571c89766d046602}{dequeue}}(*(mqd\_t\ *)\ queue\_id,\ \&qmt);}
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00028}00028\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}\ (qmt)\ \{}
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00029}00029\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ USER:}
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00030}00030\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{print__utils_8c_a491dc14c94ed8cf706bb54880c50b2d0}{print\_msg}}(\textcolor{stringliteral}{"{}Handling\ user\ message"{}});}
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00031}00031\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ user\_msg\ =\ (\mbox{\hyperlink{structqm__user}{qm\_user}}\ *)\ tmp\_struct;}
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00032}00032\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ handle\_user\_message(user\_msg);}
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00033}00033\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00034}00034\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ SHARED:}
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00035}00035\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{print__utils_8c_a491dc14c94ed8cf706bb54880c50b2d0}{print\_msg}}(\textcolor{stringliteral}{"{}Handling\ shared\ message"{}});}
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00036}00036\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ shared\_msg\ =\ (\mbox{\hyperlink{structqm__shared}{qm\_shared}}\ *)\ tmp\_struct;}
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00037}00037\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//handle\_shared\_message()}}
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00038}00038\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00039}00039\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ BROADCAST:}
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00040}00040\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{print__utils_8c_a491dc14c94ed8cf706bb54880c50b2d0}{print\_msg}}(\textcolor{stringliteral}{"{}Handling\ broadcast\ message"{}});}
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00041}00041\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ broadcast\_msg\ =\ (\mbox{\hyperlink{structqm__broad}{qm\_broad}}\ *)\ tmp\_struct;}
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00042}00042\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//handle\_broadcast\_message()}}
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00043}00043\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00044}00044\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ QM\_TYPE\_UNDEFINED:}
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00045}00045\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{print__utils_8c_a650ab060ffe5dbc6c1a968a9cae3bded}{print\_err}}(\textcolor{stringliteral}{"{}Received\ un\ unknown\ message\ type,\ skipping..."{}});}
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00046}00046\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00047}00047\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00048}00048\ \ \ \ \ \ \ \ \ free(tmp\_struct);}
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00049}00049\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00050}00050\ \ \ \ \ \textcolor{keywordflow}{return}\ NULL;}
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00051}00051\ \}}
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00052}00052\ }
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00060}00060\ \textcolor{keywordtype}{void}\ *handle\_outgoing\_messages(\textcolor{keywordtype}{void}\ *queue\_id)}
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00061}00061\ \{}
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00062}00062\ \ \ \ \ \mbox{\hyperlink{print__utils_8c_a491dc14c94ed8cf706bb54880c50b2d0}{print\_msg}}(\textcolor{stringliteral}{"{}Handling\ outgoing\ messages"{}});}
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00063}00063\ \ \ \ \ \textcolor{comment}{//sleep(1);}}
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00064}00064\ }
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00065}00065\ \ \ \ \ \textcolor{keywordtype}{char}\ s1[]\ =\ \textcolor{stringliteral}{"{}TEST"{}};}
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00066}00066\ \ \ \ \ \textcolor{keywordtype}{char}\ s2[]\ =\ \textcolor{stringliteral}{"{}pubkey"{}};}
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00067}00067\ }
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00068}00068\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structqm__user}{qm\_user}}\ test\_msg;}
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00069}00069\ \ \ \ \ test\_msg.\mbox{\hyperlink{structqm__user_a4b5bbaaf885c62f44f265eeba461303d}{user\_op}}\ =\ REGISTER;}
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00070}00070\ \ \ \ \ test\_msg.pid\ =\ 104;}
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00071}00071\ \ \ \ \ test\_msg.user\ =\ s1;}
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00072}00072\ \ \ \ \ test\_msg.pubkey\ =\ s2;}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00018}00018\ \textcolor{keywordtype}{void}\ *}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00019}\mbox{\hyperlink{tcfs__daemon__tools_8c_a24bb8f1eddd763598165ab8fa40fcdbd}{00019}}\ \mbox{\hyperlink{tcfs__daemon__tools_8c_a24bb8f1eddd763598165ab8fa40fcdbd}{handle\_incoming\_messages}}\ (\textcolor{keywordtype}{void}\ *queue\_id)}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00020}00020\ \{}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00021}00021\ \ \ \mbox{\hyperlink{common_8h_ab2c144fca6129807a9fe4bad66970c4c}{qm\_type}}\ qmt;}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00022}00022\ \ \ \mbox{\hyperlink{structqm__user}{qm\_user}}\ *user\_msg;}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00023}00023\ \ \ \mbox{\hyperlink{structqm__shared}{qm\_shared}}\ *shared\_msg;}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00024}00024\ \ \ \mbox{\hyperlink{structqm__broad}{qm\_broad}}\ *broadcast\_msg;}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00025}00025\ }
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00026}00026\ \ \ \mbox{\hyperlink{print__utils_8c_a491dc14c94ed8cf706bb54880c50b2d0}{print\_msg}}\ (\textcolor{stringliteral}{"{}Starting\ handler\ for\ incoming\ messages"{}});}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00027}00027\ \ \ \textcolor{keywordtype}{void}\ *tmp\_struct;}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00028}00028\ \ \ \textcolor{keywordflow}{while}\ (1)}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00029}00029\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00030}00030\ \ \ \ \ \ \ tmp\_struct\ =\ \mbox{\hyperlink{queue_8c_a1874b6e320d1e54d571c89766d046602}{dequeue}}\ (*(mqd\_t\ *)queue\_id,\ \&qmt);}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00031}00031\ \ \ \ \ \ \ \textcolor{keywordflow}{switch}\ (qmt)}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00032}00032\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00033}00033\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{common_8h_ab2c144fca6129807a9fe4bad66970c4cae2d30a195cee6b2961cc2c23ea4b520b}{USER}}:}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00034}00034\ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{print__utils_8c_a491dc14c94ed8cf706bb54880c50b2d0}{print\_msg}}\ (\textcolor{stringliteral}{"{}Handling\ user\ message"{}});}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00035}00035\ \ \ \ \ \ \ \ \ \ \ user\_msg\ =\ (\mbox{\hyperlink{structqm__user}{qm\_user}}\ *)tmp\_struct;}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00036}00036\ \ \ \ \ \ \ \ \ \ \ handle\_user\_message\ (user\_msg);}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00037}00037\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00038}00038\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{common_8h_ab2c144fca6129807a9fe4bad66970c4ca9c46e16a4ab019339596acadeefc8c53}{SHARED}}:}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00039}00039\ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{print__utils_8c_a491dc14c94ed8cf706bb54880c50b2d0}{print\_msg}}\ (\textcolor{stringliteral}{"{}Handling\ shared\ message"{}});}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00040}00040\ \ \ \ \ \ \ \ \ \ \ shared\_msg\ =\ (\mbox{\hyperlink{structqm__shared}{qm\_shared}}\ *)tmp\_struct;}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00041}00041\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ handle\_shared\_message()}}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00042}00042\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00043}00043\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{common_8h_ab2c144fca6129807a9fe4bad66970c4ca78386e426adecb3fd26350119a3cb7c2}{BROADCAST}}:}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00044}00044\ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{print__utils_8c_a491dc14c94ed8cf706bb54880c50b2d0}{print\_msg}}\ (\textcolor{stringliteral}{"{}Handling\ broadcast\ message"{}});}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00045}00045\ \ \ \ \ \ \ \ \ \ \ broadcast\_msg\ =\ (\mbox{\hyperlink{structqm__broad}{qm\_broad}}\ *)tmp\_struct;}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00046}00046\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ handle\_broadcast\_message()}}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00047}00047\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00048}00048\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{common_8h_ab2c144fca6129807a9fe4bad66970c4ca84fb91aba870f3033713d9e4b638f006}{QM\_TYPE\_UNDEFINED}}:}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00049}00049\ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{print__utils_8c_a650ab060ffe5dbc6c1a968a9cae3bded}{print\_err}}\ (\textcolor{stringliteral}{"{}Received\ un\ unknown\ message\ type,\ skipping..."{}});}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00050}00050\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00051}00051\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00052}00052\ \ \ \ \ \ \ free\ (tmp\_struct);}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00053}00053\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00054}00054\ \ \ \textcolor{keywordflow}{return}\ NULL;}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00055}00055\ \}}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00056}00056\ }
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00065}00065\ \textcolor{keywordtype}{void}\ *}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00066}\mbox{\hyperlink{tcfs__daemon__tools_8c_ab143feba805d6beda83eb69560c3c923}{00066}}\ \mbox{\hyperlink{tcfs__daemon__tools_8c_ab143feba805d6beda83eb69560c3c923}{handle\_outgoing\_messages}}\ (\textcolor{keywordtype}{void}\ *queue\_id)}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00067}00067\ \{}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00068}00068\ \ \ \mbox{\hyperlink{print__utils_8c_a491dc14c94ed8cf706bb54880c50b2d0}{print\_msg}}\ (\textcolor{stringliteral}{"{}Handling\ outgoing\ messages"{}});}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00069}00069\ \ \ \textcolor{comment}{//\ sleep(1);}}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00070}00070\ }
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00071}00071\ \ \ \textcolor{keywordtype}{char}\ s1[]\ =\ \textcolor{stringliteral}{"{}TEST"{}};}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00072}00072\ \ \ \textcolor{keywordtype}{char}\ s2[]\ =\ \textcolor{stringliteral}{"{}pubkey"{}};}
 \DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00073}00073\ }
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00074}00074\ \ \ \ \ \mbox{\hyperlink{print__utils_8c_a491dc14c94ed8cf706bb54880c50b2d0}{print\_msg}}(\textcolor{stringliteral}{"{}Enqueueing\ test\ registration..."{}});}
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00075}00075\ \ \ \ \ \textcolor{keywordtype}{int}\ res\ =\ \mbox{\hyperlink{queue_8c_ac51f5d595a9d7376eb0448116c99e1f4}{enqueue}}(*(mqd\_t\ *)queue\_id,\ USER,\ (\textcolor{keywordtype}{void}\ *)\&test\_msg);}
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00076}00076\ \ \ \ \ \mbox{\hyperlink{print__utils_8c_a491dc14c94ed8cf706bb54880c50b2d0}{print\_msg}}(\textcolor{stringliteral}{"{}TEST\ message\ send\ with\ result\ \%d"{}},\ res);}
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00077}00077\ }
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00078}00078\ \ \ \ \ \textcolor{keywordflow}{if}\ (res\ !=\ 1)\{}
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00079}00079\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{print__utils_8c_a650ab060ffe5dbc6c1a968a9cae3bded}{print\_err}}(\textcolor{stringliteral}{"{}enqueue\ err\ "{}});}
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00080}00080\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00081}00081\ }
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00082}00082\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structqm__user}{qm\_user}}\ test\_msg2;}
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00083}00083\ \ \ \ \ test\_msg2.\mbox{\hyperlink{structqm__user_a4b5bbaaf885c62f44f265eeba461303d}{user\_op}}\ =\ UNREGISTER;}
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00084}00084\ \ \ \ \ test\_msg2.pid\ =\ 104;}
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00085}00085\ \ \ \ \ test\_msg2.user\ =\ \textcolor{stringliteral}{"{}"{}};}
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00086}00086\ \ \ \ \ test\_msg2.pubkey\ =\ \textcolor{stringliteral}{"{}"{}};}
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00087}00087\ }
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00088}00088\ \ \ \ \ sleep(3);}
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00089}00089\ }
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00090}00090\ \ \ \ \ \mbox{\hyperlink{print__utils_8c_a491dc14c94ed8cf706bb54880c50b2d0}{print\_msg}}(\textcolor{stringliteral}{"{}Enqueueing\ test\ remove..."{}});}
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00091}00091\ \ \ \ \ res\ =\ \mbox{\hyperlink{queue_8c_ac51f5d595a9d7376eb0448116c99e1f4}{enqueue}}(*(mqd\_t\ *)queue\_id,\ USER,\ (\textcolor{keywordtype}{void}\ *)\&test\_msg2);}
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00092}00092\ \ \ \ \ \mbox{\hyperlink{print__utils_8c_a491dc14c94ed8cf706bb54880c50b2d0}{print\_msg}}(\textcolor{stringliteral}{"{}TEST\ message\ send\ with\ result\ \%d"{}},\ res);}
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00093}00093\ }
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00094}00094\ \ \ \ \ \textcolor{keywordflow}{if}\ (res\ !=\ 1)\{}
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00095}00095\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{print__utils_8c_a650ab060ffe5dbc6c1a968a9cae3bded}{print\_err}}(\textcolor{stringliteral}{"{}enqueue\ err\ "{}});}
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00096}00096\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00097}00097\ }
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00098}00098\ \ \ \ \ \textcolor{keywordflow}{return}\ NULL;}
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00099}00099\ \}}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00074}00074\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structqm__user}{qm\_user}}\ test\_msg;}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00075}00075\ \ \ test\_msg.\mbox{\hyperlink{structqm__user_a4b5bbaaf885c62f44f265eeba461303d}{user\_op}}\ =\ \mbox{\hyperlink{common_8h_ad30dd7f5c8fc3f0027bbddc111c652b8aceb7c305772dab23a260960771180df3}{REGISTER}};}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00076}00076\ \ \ test\_msg.\mbox{\hyperlink{structqm__user_aa69546c3a6a2124be9f964329c951a84}{pid}}\ =\ 104;}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00077}00077\ \ \ test\_msg.\mbox{\hyperlink{structqm__user_a6c52d68724b65831ba6d95f3d7448ff4}{user}}\ =\ s1;}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00078}00078\ \ \ test\_msg.\mbox{\hyperlink{structqm__user_ad718cfba201afae89c596111bd508d5f}{pubkey}}\ =\ s2;}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00079}00079\ }
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00080}00080\ \ \ \mbox{\hyperlink{print__utils_8c_a491dc14c94ed8cf706bb54880c50b2d0}{print\_msg}}\ (\textcolor{stringliteral}{"{}Enqueueing\ test\ registration..."{}});}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00081}00081\ \ \ \textcolor{keywordtype}{int}\ res\ =\ \mbox{\hyperlink{queue_8c_ac51f5d595a9d7376eb0448116c99e1f4}{enqueue}}\ (*(mqd\_t\ *)queue\_id,\ \mbox{\hyperlink{common_8h_ab2c144fca6129807a9fe4bad66970c4cae2d30a195cee6b2961cc2c23ea4b520b}{USER}},\ (\textcolor{keywordtype}{void}\ *)\&test\_msg);}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00082}00082\ \ \ \mbox{\hyperlink{print__utils_8c_a491dc14c94ed8cf706bb54880c50b2d0}{print\_msg}}\ (\textcolor{stringliteral}{"{}TEST\ message\ send\ with\ result\ \%d"{}},\ res);}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00083}00083\ }
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00084}00084\ \ \ \textcolor{keywordflow}{if}\ (res\ !=\ 1)}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00085}00085\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00086}00086\ \ \ \ \ \ \ \mbox{\hyperlink{print__utils_8c_a650ab060ffe5dbc6c1a968a9cae3bded}{print\_err}}\ (\textcolor{stringliteral}{"{}enqueue\ err\ "{}});}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00087}00087\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00088}00088\ }
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00089}00089\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structqm__user}{qm\_user}}\ test\_msg2;}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00090}00090\ \ \ test\_msg2.\mbox{\hyperlink{structqm__user_a4b5bbaaf885c62f44f265eeba461303d}{user\_op}}\ =\ \mbox{\hyperlink{common_8h_ad30dd7f5c8fc3f0027bbddc111c652b8ad46a7713a16573956ea43782ac970154}{UNREGISTER}};}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00091}00091\ \ \ test\_msg2.\mbox{\hyperlink{structqm__user_aa69546c3a6a2124be9f964329c951a84}{pid}}\ =\ 104;}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00092}00092\ \ \ test\_msg2.\mbox{\hyperlink{structqm__user_a6c52d68724b65831ba6d95f3d7448ff4}{user}}\ =\ \textcolor{stringliteral}{"{}"{}};}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00093}00093\ \ \ test\_msg2.\mbox{\hyperlink{structqm__user_ad718cfba201afae89c596111bd508d5f}{pubkey}}\ =\ \textcolor{stringliteral}{"{}"{}};}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00094}00094\ }
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00095}00095\ \ \ sleep\ (3);}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00096}00096\ }
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00097}00097\ \ \ \mbox{\hyperlink{print__utils_8c_a491dc14c94ed8cf706bb54880c50b2d0}{print\_msg}}\ (\textcolor{stringliteral}{"{}Enqueueing\ test\ remove..."{}});}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00098}00098\ \ \ res\ =\ \mbox{\hyperlink{queue_8c_ac51f5d595a9d7376eb0448116c99e1f4}{enqueue}}\ (*(mqd\_t\ *)queue\_id,\ \mbox{\hyperlink{common_8h_ab2c144fca6129807a9fe4bad66970c4cae2d30a195cee6b2961cc2c23ea4b520b}{USER}},\ (\textcolor{keywordtype}{void}\ *)\&test\_msg2);}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00099}00099\ \ \ \mbox{\hyperlink{print__utils_8c_a491dc14c94ed8cf706bb54880c50b2d0}{print\_msg}}\ (\textcolor{stringliteral}{"{}TEST\ message\ send\ with\ result\ \%d"{}},\ res);}
 \DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00100}00100\ }
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00101}00101\ \textcolor{comment}{/*}}
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00102}00102\ \textcolor{comment}{\ *}}
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00103}00103\ \textcolor{comment}{void*\ monitor\_termination(void*\ queue\_id)\ \{}}
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00104}00104\ \textcolor{comment}{\ \ \ \ while\ (1)\ \{}}
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00105}00105\ \textcolor{comment}{\ \ \ \ \ \ \ \ pthread\_mutex\_lock(\&terminate\_mutex);}}
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00106}00106\ \textcolor{comment}{\ \ \ \ \ \ \ \ if\ (terminate)\ \{}}
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00107}00107\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ pthread\_mutex\_unlock(\&terminate\_mutex);}}
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00108}00108\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ break;}}
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00109}00109\ \textcolor{comment}{\ \ \ \ \ \ \ \ \}}}
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00110}00110\ \textcolor{comment}{\ \ \ \ \ \ \ \ pthread\_mutex\_unlock(\&terminate\_mutex);}}
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00111}00111\ \textcolor{comment}{\ \ \ \ \ \ \ \ sleep(1);}}
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00112}00112\ \textcolor{comment}{\ \ \ \ \}}}
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00113}00113\ \textcolor{comment}{\ \ \ \ print\_err("{}Terminating\ threads"{});}}
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00114}00114\ \textcolor{comment}{\ \ \ \ remove\_empty\_queue(*(int\ *)queue\_id);}}
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00115}00115\ \textcolor{comment}{\ \ \ \ return\ NULL;}}
-\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00116}00116\ \textcolor{comment}{\}*/}}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00101}00101\ \ \ \textcolor{keywordflow}{if}\ (res\ !=\ 1)}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00102}00102\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00103}00103\ \ \ \ \ \ \ \mbox{\hyperlink{print__utils_8c_a650ab060ffe5dbc6c1a968a9cae3bded}{print\_err}}\ (\textcolor{stringliteral}{"{}enqueue\ err\ "{}});}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00104}00104\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00105}00105\ }
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00106}00106\ \ \ \textcolor{keywordflow}{return}\ NULL;}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00107}00107\ \}}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00108}00108\ }
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00109}00109\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00110}00110\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00111}00111\ \textcolor{comment}{void*\ monitor\_termination(void*\ queue\_id)\ \{}}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00112}00112\ \textcolor{comment}{\ \ \ \ while\ (1)\ \{}}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00113}00113\ \textcolor{comment}{\ \ \ \ \ \ \ \ pthread\_mutex\_lock(\&terminate\_mutex);}}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00114}00114\ \textcolor{comment}{\ \ \ \ \ \ \ \ if\ (terminate)\ \{}}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00115}00115\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ pthread\_mutex\_unlock(\&terminate\_mutex);}}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00116}00116\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ break;}}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00117}00117\ \textcolor{comment}{\ \ \ \ \ \ \ \ \}}}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00118}00118\ \textcolor{comment}{\ \ \ \ \ \ \ \ pthread\_mutex\_unlock(\&terminate\_mutex);}}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00119}00119\ \textcolor{comment}{\ \ \ \ \ \ \ \ sleep(1);}}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00120}00120\ \textcolor{comment}{\ \ \ \ \}}}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00121}00121\ \textcolor{comment}{\ \ \ \ print\_err("{}Terminating\ threads"{});}}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00122}00122\ \textcolor{comment}{\ \ \ \ remove\_empty\_queue(*(int\ *)queue\_id);}}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00123}00123\ \textcolor{comment}{\ \ \ \ return\ NULL;}}
+\DoxyCodeLine{\Hypertarget{tcfs__daemon__tools_8c_source_l00124}00124\ \textcolor{comment}{\}*/}}
 
 \end{DoxyCode}

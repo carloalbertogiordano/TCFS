@@ -9,6 +9,6 @@
 <anchor xml:id="_queue_8h_source_1l00005"/>00005 <emphasis role="preprocessor">#include&#32;&lt;stdlib.h&gt;</emphasis>
 <anchor xml:id="_queue_8h_source_1l00006"/>00006 
 <anchor xml:id="_queue_8h_source_1l00007"/>00007 mqd_t&#32;<link linkend="_queue_8c_1a6997b2cacf3d2e49bc848d0274e24b13">init_queue</link>&#32;(<emphasis role="keywordtype">char</emphasis>&#32;*queue);
-<anchor xml:id="_queue_8h_source_1l00008"/>00008 <emphasis role="keywordtype">int</emphasis>&#32;<link linkend="_queue_8c_1ac51f5d595a9d7376eb0448116c99e1f4">enqueue</link>&#32;(mqd_t&#32;queue_d,&#32;qm_type&#32;qmt,&#32;<emphasis role="keywordtype">void</emphasis>&#32;*q_mess);
-<anchor xml:id="_queue_8h_source_1l00009"/>00009 <emphasis role="keywordtype">void</emphasis>&#32;*<link linkend="_queue_8c_1a1874b6e320d1e54d571c89766d046602">dequeue</link>&#32;(mqd_t&#32;queue_d,&#32;qm_type&#32;*qmt);
+<anchor xml:id="_queue_8h_source_1l00008"/>00008 <emphasis role="keywordtype">int</emphasis>&#32;<link linkend="_queue_8c_1ac51f5d595a9d7376eb0448116c99e1f4">enqueue</link>&#32;(mqd_t&#32;queue_d,&#32;<link linkend="_common_8h_1ab2c144fca6129807a9fe4bad66970c4c">qm_type</link>&#32;qmt,&#32;<emphasis role="keywordtype">void</emphasis>&#32;*q_mess);
+<anchor xml:id="_queue_8h_source_1l00009"/>00009 <emphasis role="keywordtype">void</emphasis>&#32;*<link linkend="_queue_8c_1a1874b6e320d1e54d571c89766d046602">dequeue</link>&#32;(mqd_t&#32;queue_d,&#32;<link linkend="_common_8h_1ab2c144fca6129807a9fe4bad66970c4c">qm_type</link>&#32;*qmt);
 </programlisting></section>

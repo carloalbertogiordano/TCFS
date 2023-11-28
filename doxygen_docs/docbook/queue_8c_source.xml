@@ -4,8 +4,8 @@
 <indexterm><primary>daemon/daemon_utils/queue/queue.c</primary></indexterm>
 Go to the documentation of this file.<programlisting linenumbering="unnumbered"><anchor xml:id="_queue_8c_source_1l00001"/>00001 <emphasis role="preprocessor">#include&#32;&quot;queue.h&quot;</emphasis>
 <anchor xml:id="_queue_8c_source_1l00002"/>00002 
-<anchor xml:id="_queue_8c_source_1l00013"/>00013 <emphasis role="preprocessor">#define&#32;MESSAGE_BUFFER_SIZE&#32;256</emphasis>
-<anchor xml:id="_queue_8c_source_1l00018"/>00018 <emphasis role="preprocessor">#define&#32;MQUEUE_N&#32;256;</emphasis>
+<anchor xml:id="_queue_8c_source_1l00013"/><link linkend="_queue_8c_1a69e73620bd8f14313137ac04cf571477">00013</link> <emphasis role="preprocessor">#define&#32;MESSAGE_BUFFER_SIZE&#32;256</emphasis>
+<anchor xml:id="_queue_8c_source_1l00018"/><link linkend="_queue_8c_1a5872868a041bf1b9e1a266271c317876">00018</link> <emphasis role="preprocessor">#define&#32;MQUEUE_N&#32;256;</emphasis>
 <anchor xml:id="_queue_8c_source_1l00019"/>00019 
 <anchor xml:id="_queue_8c_source_1l00026"/>00026 mqd_t
 <anchor xml:id="_queue_8c_source_1l00027"/><link linkend="_queue_8c_1a6997b2cacf3d2e49bc848d0274e24b13">00027</link> <link linkend="_queue_8c_1a6997b2cacf3d2e49bc848d0274e24b13">init_queue</link>&#32;(<emphasis role="keywordtype">char</emphasis>&#32;*queue)
@@ -15,8 +15,8 @@ Go to the documentation of this file.<programlisting linenumbering="unnumbered">
 <anchor xml:id="_queue_8c_source_1l00031"/>00031 
 <anchor xml:id="_queue_8c_source_1l00032"/>00032 &#32;&#32;<emphasis role="comment">//&#32;Initialize&#32;queue&#32;attributes</emphasis>
 <anchor xml:id="_queue_8c_source_1l00033"/>00033 &#32;&#32;attr.mq_flags&#32;=&#32;0;
-<anchor xml:id="_queue_8c_source_1l00034"/>00034 &#32;&#32;attr.mq_maxmsg&#32;=&#32;MAX_QM_N;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">//&#32;Maximum&#32;number&#32;of&#32;messages&#32;in&#32;the&#32;queue</emphasis>
-<anchor xml:id="_queue_8c_source_1l00035"/>00035 &#32;&#32;attr.mq_msgsize&#32;=&#32;MAX_QM_SIZE;&#32;<emphasis role="comment">//&#32;Maximum&#32;size&#32;of&#32;a&#32;single&#32;message</emphasis>
+<anchor xml:id="_queue_8c_source_1l00034"/>00034 &#32;&#32;attr.mq_maxmsg&#32;=&#32;<link linkend="_common_8h_1af4132207ad49b2d7fd2adb266f295cb4">MAX_QM_N</link>;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">//&#32;Maximum&#32;number&#32;of&#32;messages&#32;in&#32;the&#32;queue</emphasis>
+<anchor xml:id="_queue_8c_source_1l00035"/>00035 &#32;&#32;attr.mq_msgsize&#32;=&#32;<link linkend="_common_8h_1acd35d77836b78577da8fff8dcae9e2e1">MAX_QM_SIZE</link>;&#32;<emphasis role="comment">//&#32;Maximum&#32;size&#32;of&#32;a&#32;single&#32;message</emphasis>
 <anchor xml:id="_queue_8c_source_1l00036"/>00036 &#32;&#32;attr.mq_curmsgs&#32;=&#32;0;
 <anchor xml:id="_queue_8c_source_1l00037"/>00037 
 <anchor xml:id="_queue_8c_source_1l00038"/>00038 &#32;&#32;<emphasis role="comment">//&#32;Create&#32;the&#32;message&#32;queue</emphasis>
@@ -35,38 +35,38 @@ Go to the documentation of this file.<programlisting linenumbering="unnumbered">
 <anchor xml:id="_queue_8c_source_1l00051"/>00051 &#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;mq;
 <anchor xml:id="_queue_8c_source_1l00052"/>00052 }
 <anchor xml:id="_queue_8c_source_1l00053"/>00053 
-<anchor xml:id="_queue_8c_source_1l00066"/>00066 <emphasis role="keywordtype">int</emphasis>
-<anchor xml:id="_queue_8c_source_1l00067"/><link linkend="_queue_8c_1ac51f5d595a9d7376eb0448116c99e1f4">00067</link> <link linkend="_queue_8c_1ac51f5d595a9d7376eb0448116c99e1f4">enqueue</link>&#32;(mqd_t&#32;queue_d,&#32;qm_type&#32;qmt,&#32;<emphasis role="keywordtype">void</emphasis>&#32;*q_mess)
-<anchor xml:id="_queue_8c_source_1l00068"/>00068 {
-<anchor xml:id="_queue_8c_source_1l00069"/>00069 &#32;&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*qm_json&#32;=&#32;struct_to_json&#32;(qmt,&#32;q_mess);
-<anchor xml:id="_queue_8c_source_1l00070"/>00070 
-<anchor xml:id="_queue_8c_source_1l00071"/>00071 &#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(mq_send&#32;(queue_d,&#32;qm_json,&#32;strlen&#32;(qm_json)&#32;+&#32;1,&#32;0)&#32;==&#32;-1)
-<anchor xml:id="_queue_8c_source_1l00072"/>00072 &#32;&#32;&#32;&#32;{
-<anchor xml:id="_queue_8c_source_1l00073"/>00073 &#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_print__utils_8c_1a650ab060ffe5dbc6c1a968a9cae3bded">print_err</link>&#32;(<emphasis role="stringliteral">&quot;mq_send&#32;%s&quot;</emphasis>,&#32;qm_json);
-<anchor xml:id="_queue_8c_source_1l00074"/>00074 &#32;&#32;&#32;&#32;&#32;&#32;free&#32;((<emphasis role="keywordtype">void</emphasis>&#32;*)qm_json);
-<anchor xml:id="_queue_8c_source_1l00075"/>00075 &#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;0;
-<anchor xml:id="_queue_8c_source_1l00076"/>00076 &#32;&#32;&#32;&#32;}
-<anchor xml:id="_queue_8c_source_1l00077"/>00077 &#32;&#32;<link linkend="_print__utils_8c_1a491dc14c94ed8cf706bb54880c50b2d0">print_msg</link>&#32;(<emphasis role="stringliteral">&quot;Message&#32;sent&#32;successfully!\n&quot;</emphasis>);
-<anchor xml:id="_queue_8c_source_1l00078"/>00078 &#32;&#32;free&#32;((<emphasis role="keywordtype">void</emphasis>&#32;*)qm_json);
-<anchor xml:id="_queue_8c_source_1l00079"/>00079 &#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;1;
-<anchor xml:id="_queue_8c_source_1l00080"/>00080 }
-<anchor xml:id="_queue_8c_source_1l00081"/>00081 
-<anchor xml:id="_queue_8c_source_1l00094"/>00094 <emphasis role="keywordtype">void</emphasis>&#32;*
-<anchor xml:id="_queue_8c_source_1l00095"/><link linkend="_queue_8c_1a1874b6e320d1e54d571c89766d046602">00095</link> <link linkend="_queue_8c_1a1874b6e320d1e54d571c89766d046602">dequeue</link>&#32;(mqd_t&#32;queue_d,&#32;qm_type&#32;*qmt)
-<anchor xml:id="_queue_8c_source_1l00096"/>00096 {
-<anchor xml:id="_queue_8c_source_1l00097"/>00097 &#32;&#32;<emphasis role="keywordtype">char</emphasis>&#32;*qm_json&#32;=&#32;(<emphasis role="keywordtype">char</emphasis>&#32;*)malloc&#32;(<emphasis role="keyword">sizeof</emphasis>&#32;(<emphasis role="keywordtype">char</emphasis>)&#32;*&#32;MAX_QM_SIZE);
-<anchor xml:id="_queue_8c_source_1l00098"/>00098 
-<anchor xml:id="_queue_8c_source_1l00099"/>00099 &#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(mq_receive&#32;(queue_d,&#32;qm_json,&#32;MAX_QM_SIZE,&#32;0)&#32;==&#32;-1)
-<anchor xml:id="_queue_8c_source_1l00100"/>00100 &#32;&#32;&#32;&#32;{
-<anchor xml:id="_queue_8c_source_1l00101"/>00101 &#32;&#32;&#32;&#32;&#32;&#32;free&#32;((<emphasis role="keywordtype">void</emphasis>&#32;*)qm_json);
-<anchor xml:id="_queue_8c_source_1l00102"/>00102 &#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_print__utils_8c_1a650ab060ffe5dbc6c1a968a9cae3bded">print_err</link>&#32;(<emphasis role="stringliteral">&quot;mq_rec&#32;%d&#32;%s&quot;</emphasis>,&#32;errno,&#32;strerror&#32;(errno));
-<anchor xml:id="_queue_8c_source_1l00103"/>00103 &#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;NULL;
-<anchor xml:id="_queue_8c_source_1l00104"/>00104 &#32;&#32;&#32;&#32;}
-<anchor xml:id="_queue_8c_source_1l00105"/>00105 
-<anchor xml:id="_queue_8c_source_1l00106"/>00106 &#32;&#32;<link linkend="_print__utils_8c_1a491dc14c94ed8cf706bb54880c50b2d0">print_msg</link>&#32;(<emphasis role="stringliteral">&quot;Dequeued&#32;%s&quot;</emphasis>,&#32;qm_json);
-<anchor xml:id="_queue_8c_source_1l00107"/>00107 &#32;&#32;<emphasis role="keywordtype">void</emphasis>&#32;*tmp_struct&#32;=&#32;string_to_struct&#32;(qm_json,&#32;qmt);
-<anchor xml:id="_queue_8c_source_1l00108"/>00108 
-<anchor xml:id="_queue_8c_source_1l00109"/>00109 &#32;&#32;free&#32;((<emphasis role="keywordtype">void</emphasis>&#32;*)qm_json);
-<anchor xml:id="_queue_8c_source_1l00110"/>00110 &#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;tmp_struct;
-<anchor xml:id="_queue_8c_source_1l00111"/>00111 }
+<anchor xml:id="_queue_8c_source_1l00065"/>00065 <emphasis role="keywordtype">int</emphasis>
+<anchor xml:id="_queue_8c_source_1l00066"/><link linkend="_queue_8c_1ac51f5d595a9d7376eb0448116c99e1f4">00066</link> <link linkend="_queue_8c_1ac51f5d595a9d7376eb0448116c99e1f4">enqueue</link>&#32;(mqd_t&#32;queue_d,&#32;<link linkend="_common_8h_1ab2c144fca6129807a9fe4bad66970c4c">qm_type</link>&#32;qmt,&#32;<emphasis role="keywordtype">void</emphasis>&#32;*q_mess)
+<anchor xml:id="_queue_8c_source_1l00067"/>00067 {
+<anchor xml:id="_queue_8c_source_1l00068"/>00068 &#32;&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*qm_json&#32;=&#32;<link linkend="_json__tools_8cpp_1abe22bc6ace23fc8f7e186a824784765f">struct_to_json</link>&#32;(qmt,&#32;q_mess);
+<anchor xml:id="_queue_8c_source_1l00069"/>00069 
+<anchor xml:id="_queue_8c_source_1l00070"/>00070 &#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(mq_send&#32;(queue_d,&#32;qm_json,&#32;strlen&#32;(qm_json)&#32;+&#32;1,&#32;0)&#32;==&#32;-1)
+<anchor xml:id="_queue_8c_source_1l00071"/>00071 &#32;&#32;&#32;&#32;{
+<anchor xml:id="_queue_8c_source_1l00072"/>00072 &#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_print__utils_8c_1a650ab060ffe5dbc6c1a968a9cae3bded">print_err</link>&#32;(<emphasis role="stringliteral">&quot;mq_send&#32;%s&quot;</emphasis>,&#32;qm_json);
+<anchor xml:id="_queue_8c_source_1l00073"/>00073 &#32;&#32;&#32;&#32;&#32;&#32;free&#32;((<emphasis role="keywordtype">void</emphasis>&#32;*)qm_json);
+<anchor xml:id="_queue_8c_source_1l00074"/>00074 &#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;0;
+<anchor xml:id="_queue_8c_source_1l00075"/>00075 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_queue_8c_source_1l00076"/>00076 &#32;&#32;<link linkend="_print__utils_8c_1a491dc14c94ed8cf706bb54880c50b2d0">print_msg</link>&#32;(<emphasis role="stringliteral">&quot;Message&#32;sent&#32;successfully!\n&quot;</emphasis>);
+<anchor xml:id="_queue_8c_source_1l00077"/>00077 &#32;&#32;free&#32;((<emphasis role="keywordtype">void</emphasis>&#32;*)qm_json);
+<anchor xml:id="_queue_8c_source_1l00078"/>00078 &#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;1;
+<anchor xml:id="_queue_8c_source_1l00079"/>00079 }
+<anchor xml:id="_queue_8c_source_1l00080"/>00080 
+<anchor xml:id="_queue_8c_source_1l00093"/>00093 <emphasis role="keywordtype">void</emphasis>&#32;*
+<anchor xml:id="_queue_8c_source_1l00094"/><link linkend="_queue_8c_1a1874b6e320d1e54d571c89766d046602">00094</link> <link linkend="_queue_8c_1a1874b6e320d1e54d571c89766d046602">dequeue</link>&#32;(mqd_t&#32;queue_d,&#32;<link linkend="_common_8h_1ab2c144fca6129807a9fe4bad66970c4c">qm_type</link>&#32;*qmt)
+<anchor xml:id="_queue_8c_source_1l00095"/>00095 {
+<anchor xml:id="_queue_8c_source_1l00096"/>00096 &#32;&#32;<emphasis role="keywordtype">char</emphasis>&#32;*qm_json&#32;=&#32;(<emphasis role="keywordtype">char</emphasis>&#32;*)malloc&#32;(<emphasis role="keyword">sizeof</emphasis>&#32;(<emphasis role="keywordtype">char</emphasis>)&#32;*&#32;<link linkend="_common_8h_1acd35d77836b78577da8fff8dcae9e2e1">MAX_QM_SIZE</link>);
+<anchor xml:id="_queue_8c_source_1l00097"/>00097 
+<anchor xml:id="_queue_8c_source_1l00098"/>00098 &#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(mq_receive&#32;(queue_d,&#32;qm_json,&#32;<link linkend="_common_8h_1acd35d77836b78577da8fff8dcae9e2e1">MAX_QM_SIZE</link>,&#32;0)&#32;==&#32;-1)
+<anchor xml:id="_queue_8c_source_1l00099"/>00099 &#32;&#32;&#32;&#32;{
+<anchor xml:id="_queue_8c_source_1l00100"/>00100 &#32;&#32;&#32;&#32;&#32;&#32;free&#32;((<emphasis role="keywordtype">void</emphasis>&#32;*)qm_json);
+<anchor xml:id="_queue_8c_source_1l00101"/>00101 &#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_print__utils_8c_1a650ab060ffe5dbc6c1a968a9cae3bded">print_err</link>&#32;(<emphasis role="stringliteral">&quot;mq_rec&#32;%d&#32;%s&quot;</emphasis>,&#32;errno,&#32;strerror&#32;(errno));
+<anchor xml:id="_queue_8c_source_1l00102"/>00102 &#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;NULL;
+<anchor xml:id="_queue_8c_source_1l00103"/>00103 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_queue_8c_source_1l00104"/>00104 
+<anchor xml:id="_queue_8c_source_1l00105"/>00105 &#32;&#32;<link linkend="_print__utils_8c_1a491dc14c94ed8cf706bb54880c50b2d0">print_msg</link>&#32;(<emphasis role="stringliteral">&quot;Dequeued&#32;%s&quot;</emphasis>,&#32;qm_json);
+<anchor xml:id="_queue_8c_source_1l00106"/>00106 &#32;&#32;<emphasis role="keywordtype">void</emphasis>&#32;*tmp_struct&#32;=&#32;<link linkend="_json__tools_8cpp_1a513edf914a6a6141c7892d193d0c1f52">string_to_struct</link>&#32;(qm_json,&#32;qmt);
+<anchor xml:id="_queue_8c_source_1l00107"/>00107 
+<anchor xml:id="_queue_8c_source_1l00108"/>00108 &#32;&#32;free&#32;((<emphasis role="keywordtype">void</emphasis>&#32;*)qm_json);
+<anchor xml:id="_queue_8c_source_1l00109"/>00109 &#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;tmp_struct;
+<anchor xml:id="_queue_8c_source_1l00110"/>00110 }
 </programlisting></section>

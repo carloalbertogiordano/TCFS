@@ -24,7 +24,7 @@
 <area shape="poly" id="edge29_Node000002_Node000021" title=" " alt="" coords="784,115,1008,164,1018,167,1016,172,1007,169,783,120"/>
 <area shape="rect" id="Node000022" title=" " alt="" coords="1142,174,1214,199"/>
 <area shape="poly" id="edge31_Node000002_Node000022" title=" " alt="" coords="784,105,947,126,1040,143,1131,164,1137,166,1136,171,1130,169,1039,148,946,132,783,111"/>
-<area shape="rect" id="Node000004" href="$common_8h_source.html" title=" " alt="" coords="487,343,582,368"/>
+<area shape="rect" id="Node000004" href="$common_8h.html" title="This file contains some common definitions and structs used by the daemon." alt="" coords="487,343,582,368"/>
 <area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="546,206,561,254,563,275,561,295,550,329,545,328,556,294,558,275,556,255,540,208"/>
 <area shape="rect" id="Node000012" href="$print__utils_8h_source.html" title=" " alt="" coords="190,255,334,295"/>
 <area shape="poly" id="edge11_Node000003_Node000012" title=" " alt="" coords="474,210,339,252,337,247,472,205"/>

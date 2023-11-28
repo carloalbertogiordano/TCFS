@@ -15,7 +15,6 @@
     <includes refid="tcfs__utils_8h" local="yes">../tcfs_utils/tcfs_utils.h</includes>
     <includedby refid="tcfs_8c" local="yes">userspace-module/tcfs.c</includedby>
     <includedby refid="crypt-utils_8c" local="yes">userspace-module/utils/crypt-utils/crypt-utils.c</includedby>
-    <includedby refid="password__manager_8c" local="yes">userspace-module/utils/password_manager/password_manager.c</includedby>
     <includedby refid="tcfs__utils_8c" local="yes">userspace-module/utils/tcfs_utils/tcfs_utils.c</includedby>
     <incdepgraph>
       <node id="1">
@@ -47,22 +46,22 @@
       <node id="12">
         <label>../tcfs_utils/tcfs_utils.h</label>
         <link refid="tcfs__utils_8h_source"/>
-        <childnode refid="4" relation="include">
-        </childnode>
-        <childnode refid="2" relation="include">
-        </childnode>
         <childnode refid="13" relation="include">
-        </childnode>
-        <childnode refid="6" relation="include">
         </childnode>
         <childnode refid="14" relation="include">
         </childnode>
+        <childnode refid="2" relation="include">
+        </childnode>
         <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
         </childnode>
         <childnode refid="15" relation="include">
         </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
       </node>
-      <node id="15">
+      <node id="13">
         <label>errno.h</label>
       </node>
       <node id="7">
@@ -80,7 +79,7 @@
       <node id="11">
         <label>openssl/rand.h</label>
       </node>
-      <node id="13">
+      <node id="14">
         <label>pwd.h</label>
       </node>
       <node id="2">
@@ -95,7 +94,7 @@
       <node id="5">
         <label>sys/mman.h</label>
       </node>
-      <node id="14">
+      <node id="15">
         <label>sys/xattr.h</label>
       </node>
       <node id="6">
@@ -120,16 +119,10 @@
         </childnode>
         <childnode refid="4" relation="include">
         </childnode>
-        <childnode refid="5" relation="include">
-        </childnode>
       </node>
       <node id="4">
-        <label>userspace-module/utils/password_manager/password_manager.c</label>
-        <link refid="password__manager_8c_source"/>
-      </node>
-      <node id="5">
         <label>userspace-module/utils/tcfs_utils/tcfs_utils.c</label>
-        <link refid="tcfs__utils_8c_source"/>
+        <link refid="tcfs__utils_8c"/>
       </node>
     </invincdepgraph>
     <sectiondef kind="define">
@@ -210,26 +203,26 @@ Derived from OpenSSL.org EVP_Encrypt_* Manpage Examples <linebreak/>
  <ulink url="http://saju.net.in/code/misc/openssl_aes.c.txt">http://saju.net.in/code/misc/openssl_aes.c.txt</ulink> <linebreak/>
 <parameterlist kind="param"><parameteritem>
 <parameternamelist>
-<parametername>FILE</parametername>
+<parametername>in</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>*in The input file </para>
+<para>The input file </para>
 </parameterdescription>
 </parameteritem>
 <parameteritem>
 <parameternamelist>
-<parametername>FILE</parametername>
+<parametername>out</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>*out The output file </para>
+<para>The output file </para>
 </parameterdescription>
 </parameteritem>
 <parameteritem>
 <parameternamelist>
-<parametername>int</parametername>
+<parametername>action</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>action Defines if the action to do on the input file should be of encryption or decryption. </para>
+<para>Defines if the action to do on the input file should be of encryption or decryption. </para>
 </parameterdescription>
 </parameteritem>
 </parameterlist>
@@ -239,10 +232,10 @@ Derived from OpenSSL.org EVP_Encrypt_* Manpage Examples <linebreak/>
 </simplesect>
 <parameterlist kind="param"><parameteritem>
 <parameternamelist>
-<parametername>unsigned</parametername>
+<parametername>key_str</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>char *key_str The key that must be AES 256 </para>
+<para>The key that must be AES 256 </para>
 </parameterdescription>
 </parameteritem>
 </parameterlist>
@@ -256,7 +249,7 @@ Derived from OpenSSL.org EVP_Encrypt_* Manpage Examples <linebreak/>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="userspace-module/utils/crypt-utils/crypt-utils.h" line="35" column="12" bodyfile="userspace-module/utils/crypt-utils/crypt-utils.c" bodystart="52" bodyend="155" declfile="userspace-module/utils/crypt-utils/crypt-utils.h" declline="35" declcolumn="12"/>
+        <location file="userspace-module/utils/crypt-utils/crypt-utils.h" line="27" column="12" bodyfile="userspace-module/utils/crypt-utils/crypt-utils.c" bodystart="54" bodyend="157" declfile="userspace-module/utils/crypt-utils/crypt-utils.h" declline="27" declcolumn="12"/>
       </memberdef>
       <memberdef kind="function" id="crypt-utils_8h_1a8845f5705eaafda836aac91d5881876f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -268,29 +261,25 @@ Derived from OpenSSL.org EVP_Encrypt_* Manpage Examples <linebreak/>
           <declname>destination</declname>
         </param>
         <briefdescription>
+<para>Generate a new AES 256 key for a file. </para>
         </briefdescription>
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
+<parametername>destination</parametername>
 </parameternamelist>
 <parameterdescription>
+<para>Pointer to the string in which the generated key will be saved. If an error occurs it will be set to NULL </para>
 </parameterdescription>
 </parameteritem>
 </parameterlist>
-param <parameterlist kind="param"><parameteritem>
-<parameternamelist>
-</parameternamelist>
-<parameterdescription>
-</parameterdescription>
-</parameteritem>
-</parameterlist>
-return <simplesect kind="note"><para></para>
+<simplesect kind="return"><para>void </para>
 </simplesect>
 </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="userspace-module/utils/crypt-utils/crypt-utils.h" line="43" column="6" bodyfile="userspace-module/utils/crypt-utils/crypt-utils.c" bodystart="234" bodyend="265" declfile="userspace-module/utils/crypt-utils/crypt-utils.h" declline="43" declcolumn="6"/>
+        <location file="userspace-module/utils/crypt-utils/crypt-utils.h" line="29" column="6" bodyfile="userspace-module/utils/crypt-utils/crypt-utils.c" bodystart="232" bodyend="263" declfile="userspace-module/utils/crypt-utils/crypt-utils.h" declline="29" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="crypt-utils_8h_1a8bf9483dae26e9c0a1c45d77b8f1dce8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>unsigned char *</type>
@@ -311,29 +300,43 @@ return <simplesect kind="note"><para></para>
           <defname>encrypted_key_len</defname>
         </param>
         <briefdescription>
+<para>Encrypt the *plaintext string using a AES 256 key. </para>
         </briefdescription>
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
+<parametername>plaintext</parametername>
 </parameternamelist>
 <parameterdescription>
+<para>This is the string to encrypt </para>
 </parameterdescription>
 </parameteritem>
-</parameterlist>
-param <parameterlist kind="param"><parameteritem>
+<parameteritem>
 <parameternamelist>
+<parametername>key</parametername>
 </parameternamelist>
 <parameterdescription>
+<para>The AES 256 KEY </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>encrypted_len</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>This will be set to the encrypted string length </para>
 </parameterdescription>
 </parameteritem>
 </parameterlist>
-return <simplesect kind="note"><para></para>
+<simplesect kind="return"><para>unsigned char * The encrypted string will be allocated and then returned </para>
+</simplesect>
+<simplesect kind="note"><para>After the use remember to free the result </para>
 </simplesect>
 </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="userspace-module/utils/crypt-utils/crypt-utils.h" line="52" column="15" bodyfile="userspace-module/utils/crypt-utils/crypt-utils.c" bodystart="276" bodyend="315" declfile="userspace-module/utils/crypt-utils/crypt-utils.h" declline="52" declcolumn="15"/>
+        <location file="userspace-module/utils/crypt-utils/crypt-utils.h" line="31" column="15" bodyfile="userspace-module/utils/crypt-utils/crypt-utils.c" bodystart="275" bodyend="314" declfile="userspace-module/utils/crypt-utils/crypt-utils.h" declline="31" declcolumn="15"/>
       </memberdef>
       <memberdef kind="function" id="crypt-utils_8h_1a02ee5ac64d2d2d441edcca915e480503" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>unsigned char *</type>
@@ -350,29 +353,35 @@ return <simplesect kind="note"><para></para>
           <declname>key</declname>
         </param>
         <briefdescription>
+<para>Decrypt the *ciphertext string using a AES 256 key. </para>
         </briefdescription>
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
+<parametername>ciphertext</parametername>
 </parameternamelist>
 <parameterdescription>
+<para>This is the string to decrypt </para>
 </parameterdescription>
 </parameteritem>
-</parameterlist>
-param <parameterlist kind="param"><parameteritem>
+<parameteritem>
 <parameternamelist>
+<parametername>key</parametername>
 </parameternamelist>
 <parameterdescription>
+<para>The AES 256 KEY </para>
 </parameterdescription>
 </parameteritem>
 </parameterlist>
-return <simplesect kind="note"><para></para>
+<simplesect kind="return"><para>unsigned char * The plaintext string will be allocated and then returned </para>
+</simplesect>
+<simplesect kind="note"><para>After the use remember to free the result </para>
 </simplesect>
 </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="userspace-module/utils/crypt-utils/crypt-utils.h" line="61" column="15" bodyfile="userspace-module/utils/crypt-utils/crypt-utils.c" bodystart="326" bodyend="352" declfile="userspace-module/utils/crypt-utils/crypt-utils.h" declline="61" declcolumn="15"/>
+        <location file="userspace-module/utils/crypt-utils/crypt-utils.h" line="34" column="15" bodyfile="userspace-module/utils/crypt-utils/crypt-utils.c" bodystart="325" bodyend="351" declfile="userspace-module/utils/crypt-utils/crypt-utils.h" declline="34" declcolumn="15"/>
       </memberdef>
       <memberdef kind="function" id="crypt-utils_8h_1a36c2342a7c47b8f41bf628bf473b1c97" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -384,29 +393,29 @@ return <simplesect kind="note"><para></para>
           <declname>key</declname>
         </param>
         <briefdescription>
+<para>Check if a given key is valid. </para>
         </briefdescription>
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
+<parametername>key</parametername>
 </parameternamelist>
 <parameterdescription>
+<para>The key to validate </para>
 </parameterdescription>
 </parameteritem>
 </parameterlist>
-param <parameterlist kind="param"><parameteritem>
-<parameternamelist>
-</parameternamelist>
-<parameterdescription>
-</parameterdescription>
-</parameteritem>
-</parameterlist>
-return <simplesect kind="note"><para></para>
+<simplesect kind="return"><para>1 if successful, 0 otherwise. An error might be printen by <ref refid="print__utils_8c_1a650ab060ffe5dbc6c1a968a9cae3bded" kindref="member">print_err()</ref> function, </para>
+</simplesect>
+<simplesect kind="see"><para><ref refid="print__utils_8c_1a650ab060ffe5dbc6c1a968a9cae3bded" kindref="member">print_err</ref> </para>
+</simplesect>
+<simplesect kind="note"><para>This function only checks for key length </para>
 </simplesect>
 </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="userspace-module/utils/crypt-utils/crypt-utils.h" line="69" column="5" bodyfile="userspace-module/utils/crypt-utils/crypt-utils.c" bodystart="363" bodyend="370" declfile="userspace-module/utils/crypt-utils/crypt-utils.h" declline="69" declcolumn="5"/>
+        <location file="userspace-module/utils/crypt-utils/crypt-utils.h" line="37" column="5" bodyfile="userspace-module/utils/crypt-utils/crypt-utils.c" bodystart="360" bodyend="367" declfile="userspace-module/utils/crypt-utils/crypt-utils.h" declline="37" declcolumn="5"/>
       </memberdef>
     </sectiondef>
     <briefdescription>
@@ -432,53 +441,21 @@ return <simplesect kind="note"><para></para>
 <codeline lineno="20"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ENCRYPT<sp/>1</highlight></codeline>
 <codeline lineno="25"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>DECRYPT<sp/>0</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="26"><highlight class="normal"></highlight></codeline>
-<codeline lineno="27"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>int<sp/>do_crypt(FILE*<sp/>in,<sp/>FILE*<sp/>out,<sp/>int<sp/>action,<sp/>char*<sp/>key_str)</highlight></codeline>
-<codeline lineno="28"><highlight class="comment"><sp/>*<sp/>Purpose:<sp/>Perform<sp/>cipher<sp/>on<sp/>in<sp/>File*<sp/>and<sp/>place<sp/>result<sp/>in<sp/>out<sp/>File*</highlight></codeline>
-<codeline lineno="29"><highlight class="comment"><sp/>*<sp/>Args:<sp/>FILE*<sp/>in<sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>Input<sp/>File<sp/>Pointer</highlight></codeline>
-<codeline lineno="30"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/><sp/>FILE*<sp/>out<sp/><sp/><sp/><sp/><sp/>:<sp/>Output<sp/>File<sp/>Pointer</highlight></codeline>
-<codeline lineno="31"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/><sp/>int<sp/>action<sp/><sp/><sp/><sp/>:<sp/>Cipher<sp/>action<sp/>(1=encrypt,<sp/>0=decrypt,<sp/>-1=pass-through</highlight></codeline>
-<codeline lineno="32"><highlight class="comment"><sp/>*(copy))<sp/>unsigned<sp/>char<sp/>*key_str<sp/>:<sp/>C-string<sp/>containing<sp/>passphrase<sp/>from<sp/>which</highlight></codeline>
-<codeline lineno="33"><highlight class="comment"><sp/>*key<sp/>is<sp/>derived<sp/>Return:<sp/>0<sp/>on<sp/>error,<sp/>1<sp/>on<sp/>success</highlight></codeline>
-<codeline lineno="34"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="35"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>do_crypt<sp/>(FILE<sp/>*in,<sp/>FILE<sp/>*out,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>action,<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*key_str);</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>do_crypt<sp/>(FILE<sp/>*in,<sp/>FILE<sp/>*out,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>action,<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*key_str);</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>generate_key<sp/>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*destination);</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*encrypt_string<sp/>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*plaintext,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*key,</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>*encrypted_len);</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*decrypt_string<sp/>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*base64_ciphertext,</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*key);</highlight></codeline>
 <codeline lineno="36"><highlight class="normal"></highlight></codeline>
-<codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>void<sp/>generate_key(unsigned<sp/>char<sp/>*destination)</highlight></codeline>
-<codeline lineno="38"><highlight class="comment"><sp/>*<sp/>Purpose:<sp/>Generate<sp/>an<sp/>AES<sp/>256<sp/>key<sp/>of<sp/>size<sp/>32<sp/>bytes</highlight></codeline>
-<codeline lineno="39"><highlight class="comment"><sp/>*<sp/>Args:<sp/>unsigned<sp/>char<sp/>*destination<sp/><sp/><sp/><sp/>:<sp/>The<sp/>destination<sp/>for<sp/>the<sp/>generated<sp/>key.</highlight></codeline>
-<codeline lineno="40"><highlight class="comment"><sp/>*<sp/>it<sp/>must<sp/>be<sp/>33<sp/>bytes<sp/>long<sp/>to<sp/>account<sp/>for<sp/>a<sp/>\0<sp/>Return:<sp/>void,<sp/>if<sp/>the<sp/>generation</highlight></codeline>
-<codeline lineno="41"><highlight class="comment"><sp/>*<sp/>failed<sp/>an<sp/>error<sp/>will<sp/>be<sp/>thrown</highlight></codeline>
-<codeline lineno="42"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="43"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>generate_key<sp/>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*destination);</highlight></codeline>
-<codeline lineno="44"><highlight class="normal"></highlight></codeline>
-<codeline lineno="45"><highlight class="normal"></highlight><highlight class="comment">/*unsigned<sp/>char*<sp/>encrypt_string(unsigned<sp/>char*<sp/>plaintext,<sp/>const<sp/>char*<sp/>key,<sp/>int</highlight></codeline>
-<codeline lineno="46"><highlight class="comment"><sp/>*<sp/>*encrypted_len)<sp/>Purpose:<sp/>Encrypt<sp/>a<sp/>string<sp/>with<sp/>AES-256<sp/>Args:<sp/>unsigned<sp/>char*</highlight></codeline>
-<codeline lineno="47"><highlight class="comment"><sp/>*<sp/>plaintext<sp/><sp/><sp/>:<sp/>The<sp/>plaintext<sp/>to<sp/>be<sp/>encrypted<sp/>const<sp/>char*<sp/>key<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>The</highlight></codeline>
-<codeline lineno="48"><highlight class="comment"><sp/>*<sp/>key<sp/>for<sp/>the<sp/>encryption<sp/>int<sp/>*encrypted_len<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>This<sp/>will<sp/>be<sp/>filled<sp/>with</highlight></codeline>
-<codeline lineno="49"><highlight class="comment"><sp/>*<sp/>the<sp/>encrypted<sp/>text<sp/>length<sp/>Return:<sp/>The<sp/>encrypted<sp/>string<sp/>+<sp/>\0.<sp/>On<sp/>error<sp/>null</highlight></codeline>
-<codeline lineno="50"><highlight class="comment"><sp/>*<sp/>is<sp/>returned</highlight></codeline>
-<codeline lineno="51"><highlight class="comment"><sp/>*<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="52"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*encrypt_string<sp/>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*plaintext,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*key,</highlight></codeline>
-<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>*encrypted_len);</highlight></codeline>
-<codeline lineno="54"><highlight class="normal"></highlight></codeline>
-<codeline lineno="55"><highlight class="normal"></highlight><highlight class="comment">/*unsigned<sp/>char*<sp/>decrypt_string(unsigned<sp/>char*<sp/>base64_ciphertext,<sp/>const<sp/>char*</highlight></codeline>
-<codeline lineno="56"><highlight class="comment"><sp/>*<sp/>key);<sp/>Purpose:<sp/>Decrypt<sp/>a<sp/>string<sp/>with<sp/>AES-256<sp/>Args:<sp/>unsigned<sp/>char*</highlight></codeline>
-<codeline lineno="57"><highlight class="comment"><sp/>*<sp/>base64_ciphertext<sp/><sp/><sp/>:<sp/>The<sp/>cyphertext<sp/>to<sp/>be<sp/>decrypted<sp/>const<sp/>char*<sp/>key<sp/>:<sp/>The</highlight></codeline>
-<codeline lineno="58"><highlight class="comment"><sp/>*<sp/>key<sp/>for<sp/>the<sp/>decryption<sp/>Return:<sp/>The<sp/>decrypted<sp/>string<sp/>+<sp/>\0.<sp/>On<sp/>error<sp/>null<sp/>is</highlight></codeline>
-<codeline lineno="59"><highlight class="comment"><sp/>*<sp/>returned</highlight></codeline>
-<codeline lineno="60"><highlight class="comment"><sp/>*<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="61"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*decrypt_string<sp/>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*base64_ciphertext,</highlight></codeline>
-<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*key);</highlight></codeline>
-<codeline lineno="63"><highlight class="normal"></highlight></codeline>
-<codeline lineno="64"><highlight class="normal"></highlight><highlight class="comment">/*int<sp/>is_valid_key(const<sp/>unsigned<sp/>char*<sp/>key);</highlight></codeline>
-<codeline lineno="65"><highlight class="comment"><sp/>*<sp/>Purpose:<sp/>Check<sp/>if<sp/>a<sp/>AES-256<sp/>key<sp/>is<sp/>valid</highlight></codeline>
-<codeline lineno="66"><highlight class="comment"><sp/>*<sp/>Args:<sp/>unsigned<sp/>char*<sp/>key<sp/><sp/><sp/>:<sp/>The<sp/>key<sp/>to<sp/>be<sp/>checked</highlight></codeline>
-<codeline lineno="67"><highlight class="comment"><sp/>*<sp/>Return:<sp/>1<sp/>if<sp/>the<sp/>key<sp/>is<sp/>valid,<sp/>0<sp/>if<sp/>it<sp/>is<sp/>invalid</highlight></codeline>
-<codeline lineno="68"><highlight class="comment"><sp/>*<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="69"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>is_valid_key<sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*key);</highlight></codeline>
-<codeline lineno="70"><highlight class="normal"></highlight></codeline>
-<codeline lineno="71"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
-<codeline lineno="72"><highlight class="comment">int<sp/>rebuild_key(char<sp/>*key,<sp/>char<sp/>*cert,<sp/>char<sp/>*dest);</highlight></codeline>
-<codeline lineno="73"><highlight class="comment">*/</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>is_valid_key<sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*key);</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="40"><highlight class="comment">int<sp/>rebuild_key(char<sp/>*key,<sp/>char<sp/>*cert,<sp/>char<sp/>*dest);</highlight></codeline>
+<codeline lineno="41"><highlight class="comment">*/</highlight></codeline>
     </programlisting>
     <location file="userspace-module/utils/crypt-utils/crypt-utils.h"/>
   </compounddef>

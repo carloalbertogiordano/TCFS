@@ -4,9 +4,21 @@
 <indexterm><primary>Todo List</primary></indexterm>
 
 <para><variablelist>
+<varlistentry><term>Member <link linkend="_tcfs__daemon__tools_8c_1a24bb8f1eddd763598165ab8fa40fcdbd">handle_incoming_messages</link>  (void *queue_id)</term>
+<listitem>
+<para><anchor xml:id="_todo_1_todo000002"/>Handle the case described in note  </para>
+</listitem></varlistentry>
+<varlistentry><term>Member <link linkend="_tcfs__daemon__tools_8c_1ab143feba805d6beda83eb69560c3c923">handle_outgoing_messages</link>  (void *queue_id)</term>
+<listitem>
+<para><anchor xml:id="_todo_1_todo000003"/>Remove this function from the code  </para>
+</listitem></varlistentry>
 <varlistentry><term>Member <link linkend="_tcfs__daemon_8c_1a93d1097e4dd3c0735da3da2e89410090">handle_termination</link>  (int signum)</term>
 <listitem>
 <para><anchor xml:id="_todo_1_todo000010"/>: Implement remove_queue() to clear and delete the queue  </para>
+</listitem></varlistentry>
+<varlistentry><term>Member <link linkend="_redis_8c_1ab146e06ef57318f58a840b315626b861">HOST</link>  []</term>
+<listitem>
+<para><anchor xml:id="_todo_1_todo000005"/>This should be passed as a parameter to the daemon  </para>
 </listitem></varlistentry>
 <varlistentry><term>Member <link linkend="_queue_8c_1a6997b2cacf3d2e49bc848d0274e24b13">init_queue</link>  (char *queue)</term>
 <listitem>
@@ -22,7 +34,7 @@
 </listitem></varlistentry>
 <varlistentry><term>Member <link linkend="_redis_8c_1a614217d263be1fb1a5f76e2ff7be19a2">PORT</link>  </term>
 <listitem>
-<para><anchor xml:id="_todo_1_todo000003"/>This should be passed as a parameter to the daemon  </para>
+<para><anchor xml:id="_todo_1_todo000006"/>This should be passed as a parameter to the daemon  </para>
 </listitem></varlistentry>
 <varlistentry><term>Struct <link linkend="_structqm__shared">qm_shared</link>  </term>
 <listitem>

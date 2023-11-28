@@ -7,7 +7,7 @@
     <incdepgraph>
       <node id="4">
         <label>../common.h</label>
-        <link refid="common_8h_source"/>
+        <link refid="common_8h"/>
         <childnode refid="5" relation="include">
         </childnode>
         <childnode refid="6" relation="include">
@@ -124,10 +124,10 @@
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
-<parametername>qm_user*</parametername>
+<parametername>user_msg</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>A pointer to the allocated qm_user* struct </para>
+<para>qm_user* A pointer to the allocated qm_user* struct </para>
 </parameterdescription>
 </parameteritem>
 </parameterlist>
@@ -143,7 +143,7 @@
         <references refid="redis_8c_1a1f6dc2f98a71a88567fe11fd9e2585ea" compoundref="redis_8c" startline="72" endline="85">init_context</references>
         <references refid="redis_8c_1ac9878ee09b53700eb08c1f175873c30b" compoundref="redis_8c" startline="211" endline="245">insert</references>
         <references refid="redis_8c_1a7b5eb746d92734b57a71ce552363283d" compoundref="redis_8c" startline="42" endline="64">print_all_keys</references>
-        <references refid="print__utils_8c_1a491dc14c94ed8cf706bb54880c50b2d0" compoundref="print__utils_8c" startline="101" endline="112">print_msg</references>
+        <references refid="print__utils_8c_1a491dc14c94ed8cf706bb54880c50b2d0" compoundref="print__utils_8c" startline="100" endline="111">print_msg</references>
       </memberdef>
       <memberdef kind="function" id="user__db_8c_1a6e2fcf4aa637e61f69b1b601981663cf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -160,10 +160,10 @@
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
-<parametername>pid_t</parametername>
+<parametername>pid</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>pid the key </para>
+<para>the key </para>
 </parameterdescription>
 </parameteritem>
 </parameterlist>
@@ -177,7 +177,7 @@
         </inbodydescription>
         <location file="daemon/daemon_utils/common_utils/db/user_db.c" line="31" column="1" bodyfile="daemon/daemon_utils/common_utils/db/user_db.c" bodystart="31" bodyend="36"/>
         <references refid="redis_8c_1a7b5eb746d92734b57a71ce552363283d" compoundref="redis_8c" startline="42" endline="64">print_all_keys</references>
-        <references refid="print__utils_8c_1a491dc14c94ed8cf706bb54880c50b2d0" compoundref="print__utils_8c" startline="101" endline="112">print_msg</references>
+        <references refid="print__utils_8c_1a491dc14c94ed8cf706bb54880c50b2d0" compoundref="print__utils_8c" startline="100" endline="111">print_msg</references>
         <references refid="redis_8c_1a6b18d7ad2f1e8275106a5b39c0c7d216" compoundref="redis_8c" startline="256" endline="281">remove_by_pid</references>
       </memberdef>
       <memberdef kind="function" id="user__db_8c_1ab57ffd0f0b23a847e766e762906af22e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -211,7 +211,7 @@
         </inbodydescription>
         <location file="daemon/daemon_utils/common_utils/db/user_db.c" line="45" column="1" bodyfile="daemon/daemon_utils/common_utils/db/user_db.c" bodystart="45" bodyend="49"/>
         <references refid="redis_8c_1ae19d8c90888a6ed078d6e835bb11e67a" compoundref="redis_8c" startline="92" endline="95">free_context</references>
-        <references refid="print__utils_8c_1a491dc14c94ed8cf706bb54880c50b2d0" compoundref="print__utils_8c" startline="101" endline="112">print_msg</references>
+        <references refid="print__utils_8c_1a491dc14c94ed8cf706bb54880c50b2d0" compoundref="print__utils_8c" startline="100" endline="111">print_msg</references>
       </memberdef>
     </sectiondef>
     <briefdescription>

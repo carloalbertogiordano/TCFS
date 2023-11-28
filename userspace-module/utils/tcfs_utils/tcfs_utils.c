@@ -2,9 +2,14 @@
 #include "../crypt-utils/crypt-utils.h"
 
 /**
+ * @file tcfs_utils.c
+ * @brief This file contains an assortment of functions used by tcfs.c \see tcfs.c
+ * */
+
+/**
  * @brief  Fetch the username of the current user
- * @param char *buf The username will be written to this buffer
- * @param size_t size   The size of the buffer
+ * @param buf The username will be written to this buffer
+ * @param size  The size of the buffer
  * @return void
  * @note If an error occurs it will be printed and the buffer will not be modified
  * */
@@ -21,7 +26,7 @@ get_user_name (char *buf, size_t size)
 
 /**
  * @brief Check if a file is encrypted by TCFS
- * @param const char *path  The fullpath of the file
+ * @param path  The fullpath of the file
  * @return \ret
  * */
 int
@@ -43,8 +48,8 @@ is_encrypted (const char *path)
  */
 /**
  * @brief Prefix the realpath to the fuse path
- * @param char *path    The fuse path
- * @param char *realpath  The realpath to the directory mounted by TCFS
+ * @param path  The fuse path
+ * @param realpath  The realpath to the directory mounted by TCFS
  * @return char * An allocated string containing the fullpath to the file
  * @note Please free the result after use
  * */
@@ -82,7 +87,7 @@ prefix_path (const char *path, const char *realpath)
 /**
  * @deprecated Currently it has no use
  * @brief Read a file, useful for debugging tmpfiles
- * @param FILE *file    The file to read
+ * @param file  The file to read
  * @return 0
  * @note It will print "file was empty" if the file was empty
  * */
@@ -117,8 +122,8 @@ read_file (FILE *file)
 /**
  * @brief Get the xattr value describing the key of a file
  * @deprecated There is no use currenly for this function. It was once used for debugging
- * @param char *filepath    The full-path of the file
- * @param char *encrypted_key   The buffer to save the encrypted key to
+ * @param filepath  The full-path of the file
+ * @param encrypted_key The buffer to save the encrypted key to
  * @return \ret
  * */
 int
@@ -158,7 +163,7 @@ get_encrypted_key (char *filepath, unsigned char *encrypted_key)
  * @brief Print the value of an aes key
  * @deprecated There is currently no use for this function
  * @warning THIS WILL PRINT THE AES KEY TO STDOUT. TCFS trusts the user by design, but this is excessive
- * @param unsigned char *key    The string containing the key
+ * @param key The string containing the key
  * @return void
  * */
 void
