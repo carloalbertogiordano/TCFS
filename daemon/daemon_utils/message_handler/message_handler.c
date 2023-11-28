@@ -4,7 +4,8 @@
 
 /**
  * @file message_handler.c
- * @brief This file contains the logic implementation for handling every kink of message
+ * @brief This file contains the logic implementation for handling every kink
+ * of message
  * */
 
 int
@@ -18,7 +19,7 @@ handle_user_message (qm_user *user_msg)
     {
       unregister_user (user_msg->pid);
       // TODO: next line is a test, remove it
-      free_context ();
+      disconnect_db ();
     }
   else
     {
