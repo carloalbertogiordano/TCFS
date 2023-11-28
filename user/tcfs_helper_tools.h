@@ -1,11 +1,11 @@
+#include <limits.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <limits.h>
+#include <string.h>
 #include <sys/stat.h>
 #include <sys/types.h>
-#include <unistd.h>
-#include <time.h>
-#include <string.h>
 #include <termios.h>
+#include <time.h>
+#include <unistd.h>
 
-int do_mount();
+int do_mount ();

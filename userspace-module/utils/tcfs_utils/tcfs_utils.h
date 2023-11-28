@@ -37,4 +37,4 @@ int read_file(FILE *file);
 int get_encrypted_key(char *filepath, unsigned char *encrypted_key);
 
 /*For debugging only*/
-void print_aes_key(unsigned char *key);
+void print_aes_key (unsigned char *key);

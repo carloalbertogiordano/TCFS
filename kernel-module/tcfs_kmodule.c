@@ -1,8 +1,8 @@
 /*
 #include <linux/kernel.h>
 #include <linux/module.h>
-#include <linux/syscalls.h>
 #include <linux/slab.h>
+#include <linux/syscalls.h>
 
 MODULE_LICENSE("GPL");
 
