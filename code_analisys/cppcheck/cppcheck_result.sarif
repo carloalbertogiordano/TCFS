@@ -172,9 +172,6 @@ userspace-module/utils/tcfs_utils/tcfs_utils.c:38:16: warning:inconclusive: Foun
 userspace-module/utils/tcfs_utils/tcfs_utils.c:35:7: style: Unused variable: ret [unusedVariable]
   int ret;
       ^
-daemon/daemon_utils/common_utils/db/user_db.c:45:0: style: The function 'disconnect_db' is never used. [unusedFunction]
-
-^
 userspace-module/utils/tcfs_utils/tcfs_utils.c:130:0: style: The function 'get_encrypted_key' is never used. [unusedFunction]
 
 ^
