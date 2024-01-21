@@ -29,7 +29,7 @@ type daemonConfig struct {
 func main() {
 	// Parse command-line flags for the Server port
 	var configFile string
-	flag.StringVar(&configFile, "config-file", "/tmp/tcfsd.yaml", "The location of the rest server config file")
+	flag.StringVar(&configFile, "config-file", "/tmp/tcfsserver.yaml", "The location of the rest server config file")
 	flag.Parse()
 
 	// Read the YAML file

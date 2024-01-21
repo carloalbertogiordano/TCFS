@@ -23,20 +23,22 @@ To achieve our goal many different auxiliary programs and tech has found its way
 - Securing the encryption Key
   - GPG
 - Database management
-  - Redis
+  - MariaDB
 - Documentation
   - Generated using Doxygen
+  - Some documentation is currently missing
 - Versioning
   - GitHub
 - Code analysis
   - See the GitHub actions
 - Code formatting
-  - clang-format
+  - clang-format for C/C++ files
 
 ## Features
 - Transparent Encryption: TCFS operates silently in the background, encrypting and 
 decrypting files on-the-fly as they are accessed or modified. Users don't need to worry
-about managing encryption keys or performing manual cryptographic operations.
+about managing encryption keys or performing manual cryptographic operations. Now, the
+encryption keys are managed by a REST server that integrates with the database and publishes the public keys of the users.
 - FUSE Integration: TCFS leverages the FUSE framework to create a virtual filesystem that
 integrates seamlessly with the existing file hierarchy. This allows users to interact 
 with their files just like any other files on their system.
@@ -51,6 +53,8 @@ Documentation is lacking but it can be found [here](https://carloalbertogiordano
 - FUSE: Ensure that FUSE and FUSE-dev are installed on your system. You can usually install it using
 your system's package manager (e.g., apt, yum, dnf, ecc).
 - OpenSSl: Install OpenSSL and its development package.
+- MariaDB: Install and start MariaDB
+- Go: Install a compiler for go
 ### Build
 - Clone the TCFS repository to your local machine:
 <pre>
@@ -72,11 +76,11 @@ build/fuse-module/tcfs -s "source_dir" -d "dest_dir" -p "password"
 </code>
 </pre>
 
-#### Build and run the daemon
-- Build and install: To install the daemon run this commands in the tcfs_daemon directory
+#### Build and run the REST server
+- Build and install: To install the daemon run this commands in the DaemonREST directory
 <pre>
 <code>
-make; make install
+go build server
 </code>
 </pre>
 
@@ -148,9 +152,9 @@ as we continue to build upon the foundations set by the original TCFS project.
   - ~~Store a per-file key in the extended attributes and use the user key to decipher it.~~
   - Implement a kernel module to rebuild the private key to decipher the files. This module will use a certificate and your key to rebuild the private key
   - Implement key recovery.
-  - Switch to public/private key
-- Implement threshold sharing files.
-- Daemon:
+  - Switch to public/private key (done in the server, fuse module is missing this feature at the moment)
+- Implement threshold sharing files (done in the server, fuse module is missing this feature at the moment).
+- Server:
   - ~~Implement user registration and deregistration~~
-  - Implement accessing and creation of shared files
+  - ~~Implement accessing and creation of shared files~~
   - Update the userspace module to handle the features that the daemon provides 
