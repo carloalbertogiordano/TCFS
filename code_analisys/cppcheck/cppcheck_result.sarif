@@ -1,67 +1,40 @@
-daemon/daemon_utils/common_utils/print/print_utils.c:60:12: warning: Either the condition 'file==NULL' is redundant or there is possible null pointer dereference: file. [nullPointerRedundantCheck]
-  fprintf (file, "%s\n", log);
-           ^
-daemon/daemon_utils/common_utils/print/print_utils.c:54:12: note: Assuming that condition 'file==NULL' is not redundant
-  if (file == NULL)
-           ^
-daemon/daemon_utils/common_utils/print/print_utils.c:60:12: note: Null pointer dereference
-  fprintf (file, "%s\n", log);
-           ^
-daemon/daemon_utils/common_utils/print/print_utils.c:63:11: warning: Either the condition 'file==NULL' is redundant or there is possible null pointer dereference: file. [nullPointerRedundantCheck]
-  fclose (file);
-          ^
-daemon/daemon_utils/common_utils/print/print_utils.c:54:12: note: Assuming that condition 'file==NULL' is not redundant
-  if (file == NULL)
-           ^
-daemon/daemon_utils/common_utils/print/print_utils.c:63:11: note: Null pointer dereference
-  fclose (file);
-          ^
-daemon/daemon_utils/daemon_tools/tcfs_daemon_tools.c:23:14: style: The scope of the variable 'shared_msg' can be reduced. [variableScope]
-  qm_shared *shared_msg;
-             ^
-daemon/daemon_utils/daemon_tools/tcfs_daemon_tools.c:24:13: style: The scope of the variable 'broadcast_msg' can be reduced. [variableScope]
-  qm_broad *broadcast_msg;
-            ^
-daemon/daemon_utils/daemon_tools/tcfs_daemon_tools.c:27:9: style: The scope of the variable 'tmp_struct' can be reduced. [variableScope]
-  void *tmp_struct;
-        ^
-user/tcfs_helper_tools.c:164:3: warning: scanf() without field width limits can crash with huge input data. [invalidscanf]
+user/old_stuff/tcfs_helper_tools.c:207:3: warning: scanf() without field width limits can crash with huge input data. [invalidscanf]
   scanf ("%s", source);
   ^
-user/tcfs_helper_tools.c:167:3: warning: scanf() without field width limits can crash with huge input data. [invalidscanf]
+user/old_stuff/tcfs_helper_tools.c:210:3: warning: scanf() without field width limits can crash with huge input data. [invalidscanf]
   scanf ("%s", dest);
   ^
-user/tcfs_helper_tools.c:76:7: error: Memory leak: tcfs_path [memleak]
+user/old_stuff/tcfs_helper_tools.c:109:7: error: Memory leak: tcfs_path [memleak]
       return 0;
       ^
-user/tcfs_helper_tools.c:225:7: error: Memory leak: tcfs_command [memleak]
+user/old_stuff/tcfs_helper_tools.c:266:7: error: Memory leak: tcfs_command [memleak]
       return 0;
       ^
-user/tcfs_helper_tools.c:264:7: error: Memory leak: command [memleak]
+user/old_stuff/tcfs_helper_tools.c:305:7: error: Memory leak: command [memleak]
       return 0;
       ^
-user/tcfs_helper_tools.c:269:5: error: Memory leak: command [memleak]
+user/old_stuff/tcfs_helper_tools.c:310:5: error: Memory leak: command [memleak]
     return 0;
     ^
-user/tcfs_helper_tools.c:66:25: warning: Either the condition 'home==NULL' is redundant or there is possible null pointer dereference: home. [nullPointerRedundantCheck]
+user/old_stuff/tcfs_helper_tools.c:99:25: warning: Either the condition 'home==NULL' is redundant or there is possible null pointer dereference: home. [nullPointerRedundantCheck]
   printf ("$HOME=%s\n", home);
                         ^
-user/tcfs_helper_tools.c:73:12: note: Assuming that condition 'home==NULL' is not redundant
+user/old_stuff/tcfs_helper_tools.c:106:12: note: Assuming that condition 'home==NULL' is not redundant
   if (home == NULL)
            ^
-user/tcfs_helper_tools.c:66:25: note: Null pointer dereference
+user/old_stuff/tcfs_helper_tools.c:99:25: note: Null pointer dereference
   printf ("$HOME=%s\n", home);
                         ^
-user/tcfs_helper_tools.c:69:26: warning: Either the condition 'home==NULL' is redundant or there is possible null pointer dereference: home. [nullPointerRedundantCheck]
+user/old_stuff/tcfs_helper_tools.c:102:26: warning: Either the condition 'home==NULL' is redundant or there is possible null pointer dereference: home. [nullPointerRedundantCheck]
       = malloc ((strlen (home) + strlen ("/.tcfs\0")) * sizeof (char));
                          ^
-user/tcfs_helper_tools.c:73:12: note: Assuming that condition 'home==NULL' is not redundant
+user/old_stuff/tcfs_helper_tools.c:106:12: note: Assuming that condition 'home==NULL' is not redundant
   if (home == NULL)
            ^
-user/tcfs_helper_tools.c:69:26: note: Null pointer dereference
+user/old_stuff/tcfs_helper_tools.c:102:26: note: Null pointer dereference
       = malloc ((strlen (home) + strlen ("/.tcfs\0")) * sizeof (char));
                          ^
-user/tcfs_helper_tools.c:127:10: style: Variable 'ch' is assigned a value that is never used. [unreadVariable]
+user/old_stuff/tcfs_helper_tools.c:166:10: style: Variable 'ch' is assigned a value that is never used. [unreadVariable]
   int ch = 0;
          ^
 userspace-module/tcfs.c:383:7: error: Resource leak: path_ptr [resourceLeak]
@@ -175,17 +148,8 @@ userspace-module/utils/tcfs_utils/tcfs_utils.c:35:7: style: Unused variable: ret
 userspace-module/utils/tcfs_utils/tcfs_utils.c:130:0: style: The function 'get_encrypted_key' is never used. [unusedFunction]
 
 ^
-daemon/daemon_utils/common_utils/print/print_utils.c:144:0: style: The function 'print_debug' is never used. [unusedFunction]
-
-^
-daemon/daemon_utils/common_utils/print/print_utils.c:122:0: style: The function 'print_warn' is never used. [unusedFunction]
-
-^
 userspace-module/utils/tcfs_utils/tcfs_utils.c:95:0: style: The function 'read_file' is never used. [unusedFunction]
 
 ^
-daemon/daemon_utils/common_utils/db/redis.c:292:0: style: The function 'remove_by_user' is never used. [unusedFunction]
-
-^
-nofile:0:0: information: Cppcheck cannot find all the include files (use --check-config for details) [missingInclude]
+nofile:0:0: information: Cppcheck cannot find all the include files (use --check-config for details) [missingIncludeSystem]
 
