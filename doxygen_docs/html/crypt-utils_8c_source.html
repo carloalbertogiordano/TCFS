@@ -82,26 +82,27 @@ $(document).ready(function() { init_codefold(0); });
   <div class="headertitle"><div class="title">crypt-utils.c</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">/***</span></div>
+<a href="crypt-utils_8c.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">/***</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment"></span> </div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment"> *</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment"> **/</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;crypt-utils.h&quot;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;<a class="code" href="crypt-utils_8h.html">crypt-utils.h</a>&quot;</span></div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#define BLOCKSIZE 1024</span></div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#define IV_SIZE 32</span></div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="preprocessor">#define KEY_SIZE 32</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno"><a class="line" href="crypt-utils_8c.html#afcf795f5a96fd55561abe69f56224630">   12</a></span><span class="preprocessor">#define BLOCKSIZE 1024</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="crypt-utils_8c.html#ad7bb30dbf5882fdf05331918e8a0cc84">   19</a></span><span class="preprocessor">#define IV_SIZE 32</span></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="crypt-utils_8c.html#a2d996237e082b78b41771b5aa1a6eae1">   25</a></span><span class="preprocessor">#define KEY_SIZE 32</span></div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="keyword">extern</span> <span class="keywordtype">int</span></div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>do_crypt (FILE *in, FILE *out, <span class="keywordtype">int</span> action, <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *key_str)</div>
+<div class="foldopen" id="foldopen00054" data-start="{" data-end="}">
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno"><a class="line" href="crypt-utils_8c.html#a94b5b388b3f00982ccee72b192077e76">   54</a></span><a class="code hl_function" href="crypt-utils_8c.html#a94b5b388b3f00982ccee72b192077e76">do_crypt</a> (FILE *in, FILE *out, <span class="keywordtype">int</span> action, <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *key_str)</div>
 <div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>{</div>
 <div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>  <span class="comment">/* Local Vars */</span></div>
 <div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>  <span class="comment">/* Buffers */</span></div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>  <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> inbuf[BLOCKSIZE];</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>  <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> inbuf[<a class="code hl_define" href="crypt-utils_8c.html#afcf795f5a96fd55561abe69f56224630">BLOCKSIZE</a>];</div>
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>  <span class="keywordtype">int</span> inlen;</div>
 <div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>  <span class="comment">/* Allow enough space in output buffer for additional cipher block */</span></div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>  <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> outbuf[BLOCKSIZE + EVP_MAX_BLOCK_LENGTH];</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>  <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> outbuf[<a class="code hl_define" href="crypt-utils_8c.html#afcf795f5a96fd55561abe69f56224630">BLOCKSIZE</a> + EVP_MAX_BLOCK_LENGTH];</div>
 <div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>  <span class="keywordtype">int</span> outlen;</div>
 <div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>  <span class="keywordtype">int</span> writelen;</div>
 <div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
@@ -109,8 +110,8 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>  EVP_CIPHER_CTX *ctx;</div>
 <div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>  ctx = EVP_CIPHER_CTX_new ();</div>
 <div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>  <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> key[KEY_SIZE];</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>  <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> iv[IV_SIZE];</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>  <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> key[<a class="code hl_define" href="crypt-utils_8c.html#a2d996237e082b78b41771b5aa1a6eae1">KEY_SIZE</a>];</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>  <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> iv[<a class="code hl_define" href="crypt-utils_8c.html#ad7bb30dbf5882fdf05331918e8a0cc84">IV_SIZE</a>];</div>
 <div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>  <span class="keywordtype">int</span> nrounds = 5;</div>
 <div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
 <div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>  <span class="comment">/* tmp vars */</span></div>
@@ -144,7 +145,7 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>  <span class="keywordflow">for</span> (;;)</div>
 <div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    {</div>
 <div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>      <span class="comment">/* Read Block */</span></div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>      inlen = fread (inbuf, <span class="keyword">sizeof</span> (*inbuf), BLOCKSIZE, in);</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>      inlen = fread (inbuf, <span class="keyword">sizeof</span> (*inbuf), <a class="code hl_define" href="crypt-utils_8c.html#afcf795f5a96fd55561abe69f56224630">BLOCKSIZE</a>, in);</div>
 <div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>      <span class="keywordflow">if</span> (inlen &lt;= 0)</div>
 <div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>        {</div>
 <div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>          <span class="comment">/* EOF -&gt; Break Loop */</span></div>
@@ -197,9 +198,11 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>  <span class="comment">/* Success */</span></div>
 <div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>  <span class="keywordflow">return</span> 1;</div>
 <div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>}</div>
+</div>
 <div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span> </div>
 <div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span><span class="keywordtype">int</span></div>
-<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>check_entropy (<span class="keywordtype">void</span>)</div>
+<div class="foldopen" id="foldopen00169" data-start="{" data-end="}">
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno"><a class="line" href="crypt-utils_8c.html#aa377df016f593aa771013264acc9b86b">  169</a></span><a class="code hl_function" href="crypt-utils_8c.html#aa377df016f593aa771013264acc9b86b">check_entropy</a> (<span class="keywordtype">void</span>)</div>
 <div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>{</div>
 <div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>  FILE *entropy_file = fopen (<span class="stringliteral">&quot;/proc/sys/kernel/random/entropy_avail&quot;</span>, <span class="stringliteral">&quot;r&quot;</span>);</div>
 <div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>  <span class="keywordflow">if</span> (entropy_file == NULL)</div>
@@ -219,9 +222,11 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>  fclose (entropy_file);</div>
 <div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>  <span class="keywordflow">return</span> entropy_value;</div>
 <div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>}</div>
+</div>
 <div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span> </div>
 <div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span><span class="keywordtype">void</span></div>
-<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>add_entropy (<span class="keywordtype">void</span>)</div>
+<div class="foldopen" id="foldopen00199" data-start="{" data-end="}">
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno"><a class="line" href="crypt-utils_8c.html#a53b5762e00daafcc3644c03e2fd9b2c4">  199</a></span><a class="code hl_function" href="crypt-utils_8c.html#a53b5762e00daafcc3644c03e2fd9b2c4">add_entropy</a> (<span class="keywordtype">void</span>)</div>
 <div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>{</div>
 <div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>  FILE *urandom = fopen (<span class="stringliteral">&quot;/dev/urandom&quot;</span>, <span class="stringliteral">&quot;rb&quot;</span>);</div>
 <div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>  <span class="keywordflow">if</span> (urandom == NULL)</div>
@@ -246,9 +251,11 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span> </div>
 <div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>  fprintf (stdout, <span class="stringliteral">&quot;Entropy added successfully!\n&quot;</span>);</div>
 <div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>}</div>
+</div>
 <div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span> </div>
 <div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span><span class="keywordtype">void</span></div>
-<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>generate_key (<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *destination)</div>
+<div class="foldopen" id="foldopen00232" data-start="{" data-end="}">
+<div class="line"><a id="l00232" name="l00232"></a><span class="lineno"><a class="line" href="crypt-utils_8c.html#a8845f5705eaafda836aac91d5881876f">  232</a></span><a class="code hl_function" href="crypt-utils_8c.html#a8845f5705eaafda836aac91d5881876f">generate_key</a> (<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *destination)</div>
 <div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>{</div>
 <div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>  fprintf (stdout, <span class="stringliteral">&quot;Generating a new key...\n&quot;</span>);</div>
 <div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span> </div>
@@ -256,11 +263,11 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>  <span class="comment">// be enough random bytes in the system to generate a key</span></div>
 <div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; 10; i++)</div>
 <div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span>    {</div>
-<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>      <span class="keywordtype">int</span> entropy = check_entropy ();</div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>      <span class="keywordtype">int</span> entropy = <a class="code hl_function" href="crypt-utils_8c.html#aa377df016f593aa771013264acc9b86b">check_entropy</a> ();</div>
 <div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>      <span class="keywordflow">if</span> (entropy &lt; 128)</div>
 <div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>        {</div>
 <div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>          fprintf (stderr, <span class="stringliteral">&quot;WARN: not enough entropy, creating some...\n&quot;</span>);</div>
-<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>          add_entropy ();</div>
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>          <a class="code hl_function" href="crypt-utils_8c.html#a53b5762e00daafcc3644c03e2fd9b2c4">add_entropy</a> ();</div>
 <div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>        }</div>
 <div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span> </div>
 <div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span>      <span class="keywordflow">if</span> (RAND_bytes (destination, 32) != 1)</div>
@@ -273,16 +280,18 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span>        <span class="keywordflow">break</span>;</div>
 <div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span>    }</div>
 <div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span> </div>
-<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span>  <span class="keywordflow">if</span> (is_valid_key (destination) == 0)</div>
+<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span>  <span class="keywordflow">if</span> (<a class="code hl_function" href="crypt-utils_8c.html#a36c2342a7c47b8f41bf628bf473b1c97">is_valid_key</a> (destination) == 0)</div>
 <div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span>    {</div>
 <div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span>      fprintf (stderr, <span class="stringliteral">&quot;Err: Generated key is inval1d\n&quot;</span>);</div>
 <div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span>      <a class="code hl_function" href="tcfs__utils_8c.html#a8c1c24299a2b01f6157b051cb56ebc52">print_aes_key</a> (destination);</div>
 <div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span>      destination = NULL;</div>
 <div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span>    }</div>
 <div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span>}</div>
+</div>
 <div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span> </div>
 <div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span><span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *</div>
-<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span>encrypt_string (<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *plaintext, <span class="keyword">const</span> <span class="keywordtype">char</span> *key,</div>
+<div class="foldopen" id="foldopen00275" data-start="{" data-end="}">
+<div class="line"><a id="l00275" name="l00275"></a><span class="lineno"><a class="line" href="crypt-utils_8c.html#aa926098a8843cf0ab6bd7eb8b3bbd2e6">  275</a></span><a class="code hl_function" href="crypt-utils_8c.html#aa926098a8843cf0ab6bd7eb8b3bbd2e6">encrypt_string</a> (<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *plaintext, <span class="keyword">const</span> <span class="keywordtype">char</span> *key,</div>
 <div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span>                <span class="keywordtype">int</span> *encrypted_key_len)</div>
 <div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span>{</div>
 <div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span>  EVP_CIPHER_CTX *ctx;</div>
@@ -322,9 +331,11 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span>  *encrypted_key_len = len * 2;</div>
 <div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span>  <span class="keywordflow">return</span> encoded_string;</div>
 <div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span>}</div>
+</div>
 <div class="line"><a id="l00315" name="l00315"></a><span class="lineno">  315</span> </div>
 <div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span><span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *</div>
-<div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span>decrypt_string (<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *ciphertext, <span class="keyword">const</span> <span class="keywordtype">char</span> *key)</div>
+<div class="foldopen" id="foldopen00325" data-start="{" data-end="}">
+<div class="line"><a id="l00325" name="l00325"></a><span class="lineno"><a class="line" href="crypt-utils_8c.html#a22f528907ee4f078e333501b747d5435">  325</a></span><a class="code hl_function" href="crypt-utils_8c.html#a22f528907ee4f078e333501b747d5435">decrypt_string</a> (<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *ciphertext, <span class="keyword">const</span> <span class="keywordtype">char</span> *key)</div>
 <div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span>{</div>
 <div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span>  EVP_CIPHER_CTX *ctx;</div>
 <div class="line"><a id="l00328" name="l00328"></a><span class="lineno">  328</span>  <span class="keyword">const</span> EVP_CIPHER *cipher</div>
@@ -351,9 +362,11 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00349" name="l00349"></a><span class="lineno">  349</span> </div>
 <div class="line"><a id="l00350" name="l00350"></a><span class="lineno">  350</span>  <span class="keywordflow">return</span> decrypted_string;</div>
 <div class="line"><a id="l00351" name="l00351"></a><span class="lineno">  351</span>}</div>
+</div>
 <div class="line"><a id="l00352" name="l00352"></a><span class="lineno">  352</span> </div>
 <div class="line"><a id="l00359" name="l00359"></a><span class="lineno">  359</span><span class="keywordtype">int</span></div>
-<div class="line"><a id="l00360" name="l00360"></a><span class="lineno">  360</span>is_valid_key (<span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *key)</div>
+<div class="foldopen" id="foldopen00360" data-start="{" data-end="}">
+<div class="line"><a id="l00360" name="l00360"></a><span class="lineno"><a class="line" href="crypt-utils_8c.html#a36c2342a7c47b8f41bf628bf473b1c97">  360</a></span><a class="code hl_function" href="crypt-utils_8c.html#a36c2342a7c47b8f41bf628bf473b1c97">is_valid_key</a> (<span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *key)</div>
 <div class="line"><a id="l00361" name="l00361"></a><span class="lineno">  361</span>{</div>
 <div class="line"><a id="l00362" name="l00362"></a><span class="lineno">  362</span>  <span class="keywordtype">char</span> str[33];</div>
 <div class="line"><a id="l00363" name="l00363"></a><span class="lineno">  363</span>  memcpy (str, key, 32);</div>
@@ -361,16 +374,28 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00365" name="l00365"></a><span class="lineno">  365</span>  <span class="keywordtype">size_t</span> key_length = strlen (str);</div>
 <div class="line"><a id="l00366" name="l00366"></a><span class="lineno">  366</span>  <span class="keywordflow">return</span> key_length != 32 ? 0 : 1;</div>
 <div class="line"><a id="l00367" name="l00367"></a><span class="lineno">  367</span>}</div>
+</div>
 <div class="line"><a id="l00368" name="l00368"></a><span class="lineno">  368</span> </div>
 <div class="line"><a id="l00369" name="l00369"></a><span class="lineno">  369</span><span class="comment">/*</span></div>
 <div class="line"><a id="l00370" name="l00370"></a><span class="lineno">  370</span><span class="comment">int rebuild_key(char *key, char *cert, char *dest){</span></div>
 <div class="line"><a id="l00371" name="l00371"></a><span class="lineno">  371</span><span class="comment">    return -1;</span></div>
 <div class="line"><a id="l00372" name="l00372"></a><span class="lineno">  372</span><span class="comment">}*/</span></div>
+<div class="ttc" id="acrypt-utils_8c_html_a22f528907ee4f078e333501b747d5435"><div class="ttname"><a href="crypt-utils_8c.html#a22f528907ee4f078e333501b747d5435">decrypt_string</a></div><div class="ttdeci">unsigned char * decrypt_string(unsigned char *ciphertext, const char *key)</div><div class="ttdoc">Decrypt the *ciphertext string using a AES 256 key.</div><div class="ttdef"><b>Definition</b> <a href="crypt-utils_8c_source.html#l00325">crypt-utils.c:325</a></div></div>
+<div class="ttc" id="acrypt-utils_8c_html_a2d996237e082b78b41771b5aa1a6eae1"><div class="ttname"><a href="crypt-utils_8c.html#a2d996237e082b78b41771b5aa1a6eae1">KEY_SIZE</a></div><div class="ttdeci">#define KEY_SIZE</div><div class="ttdoc">The fixed size of the key. This definition is marked as internal and should not be used directly by t...</div><div class="ttdef"><b>Definition</b> <a href="crypt-utils_8c_source.html#l00025">crypt-utils.c:25</a></div></div>
+<div class="ttc" id="acrypt-utils_8c_html_a36c2342a7c47b8f41bf628bf473b1c97"><div class="ttname"><a href="crypt-utils_8c.html#a36c2342a7c47b8f41bf628bf473b1c97">is_valid_key</a></div><div class="ttdeci">int is_valid_key(const unsigned char *key)</div><div class="ttdoc">Check if a given key is valid.</div><div class="ttdef"><b>Definition</b> <a href="crypt-utils_8c_source.html#l00360">crypt-utils.c:360</a></div></div>
+<div class="ttc" id="acrypt-utils_8c_html_a53b5762e00daafcc3644c03e2fd9b2c4"><div class="ttname"><a href="crypt-utils_8c.html#a53b5762e00daafcc3644c03e2fd9b2c4">add_entropy</a></div><div class="ttdeci">void add_entropy(void)</div><div class="ttdoc">Force new entropy in /dev/urandom, This function is marked as internal and should not be used by the ...</div><div class="ttdef"><b>Definition</b> <a href="crypt-utils_8c_source.html#l00199">crypt-utils.c:199</a></div></div>
+<div class="ttc" id="acrypt-utils_8c_html_a8845f5705eaafda836aac91d5881876f"><div class="ttname"><a href="crypt-utils_8c.html#a8845f5705eaafda836aac91d5881876f">generate_key</a></div><div class="ttdeci">void generate_key(unsigned char *destination)</div><div class="ttdoc">Generate a new AES 256 key for a file.</div><div class="ttdef"><b>Definition</b> <a href="crypt-utils_8c_source.html#l00232">crypt-utils.c:232</a></div></div>
+<div class="ttc" id="acrypt-utils_8c_html_a94b5b388b3f00982ccee72b192077e76"><div class="ttname"><a href="crypt-utils_8c.html#a94b5b388b3f00982ccee72b192077e76">do_crypt</a></div><div class="ttdeci">int do_crypt(FILE *in, FILE *out, int action, unsigned char *key_str)</div><div class="ttdoc">High level function interface for performing AES encryption on FILE pointers Uses OpenSSL libcrypto E...</div><div class="ttdef"><b>Definition</b> <a href="crypt-utils_8c_source.html#l00054">crypt-utils.c:54</a></div></div>
+<div class="ttc" id="acrypt-utils_8c_html_aa377df016f593aa771013264acc9b86b"><div class="ttname"><a href="crypt-utils_8c.html#aa377df016f593aa771013264acc9b86b">check_entropy</a></div><div class="ttdeci">int check_entropy(void)</div><div class="ttdoc">Verify if there is enough entropy in the system to generate a key.</div><div class="ttdef"><b>Definition</b> <a href="crypt-utils_8c_source.html#l00169">crypt-utils.c:169</a></div></div>
+<div class="ttc" id="acrypt-utils_8c_html_aa926098a8843cf0ab6bd7eb8b3bbd2e6"><div class="ttname"><a href="crypt-utils_8c.html#aa926098a8843cf0ab6bd7eb8b3bbd2e6">encrypt_string</a></div><div class="ttdeci">unsigned char * encrypt_string(unsigned char *plaintext, const char *key, int *encrypted_key_len)</div><div class="ttdoc">Encrypt the *plaintext string using a AES 256 key.</div><div class="ttdef"><b>Definition</b> <a href="crypt-utils_8c_source.html#l00275">crypt-utils.c:275</a></div></div>
+<div class="ttc" id="acrypt-utils_8c_html_ad7bb30dbf5882fdf05331918e8a0cc84"><div class="ttname"><a href="crypt-utils_8c.html#ad7bb30dbf5882fdf05331918e8a0cc84">IV_SIZE</a></div><div class="ttdeci">#define IV_SIZE</div><div class="ttdoc">The fixed size of the initialization vector IV . This definition is marked as internal and should not...</div><div class="ttdef"><b>Definition</b> <a href="crypt-utils_8c_source.html#l00019">crypt-utils.c:19</a></div></div>
+<div class="ttc" id="acrypt-utils_8c_html_afcf795f5a96fd55561abe69f56224630"><div class="ttname"><a href="crypt-utils_8c.html#afcf795f5a96fd55561abe69f56224630">BLOCKSIZE</a></div><div class="ttdeci">#define BLOCKSIZE</div><div class="ttdoc">This defines the max size of a block that can be cyphered. This definition is marked as internal and ...</div><div class="ttdef"><b>Definition</b> <a href="crypt-utils_8c_source.html#l00012">crypt-utils.c:12</a></div></div>
+<div class="ttc" id="acrypt-utils_8h_html"><div class="ttname"><a href="crypt-utils_8h.html">crypt-utils.h</a></div></div>
 <div class="ttc" id="atcfs__utils_8c_html_a8c1c24299a2b01f6157b051cb56ebc52"><div class="ttname"><a href="tcfs__utils_8c.html#a8c1c24299a2b01f6157b051cb56ebc52">print_aes_key</a></div><div class="ttdeci">void print_aes_key(unsigned char *key)</div><div class="ttdoc">Print the value of an aes key.</div><div class="ttdef"><b>Definition</b> <a href="tcfs__utils_8c_source.html#l00170">tcfs_utils.c:170</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Nov 28 2023 15:14:43 for TCFS by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated on Sun Jan 21 2024 18:41:36 for TCFS by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

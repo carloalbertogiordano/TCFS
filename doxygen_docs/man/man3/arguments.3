@@ -1,8 +1,9 @@
-.TH "arguments" 3 "Tue Nov 28 2023 15:14:43" "Version 0.2" "TCFS" \" -*- nroff -*-
+.TH "arguments" 3 "Sun Jan 21 2024 18:41:36" "Version 0.2" "TCFS" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
-arguments
+arguments \- Structure to hold the parsed arguments\&.  
+
 .SH SYNOPSIS
 .br
 .PP
@@ -12,6 +13,7 @@ arguments
 .ti -1c
 .RI "int \fBoperation\fP"
 .br
+.RI "Decribes the operation that will be executed by the main function\&. "
 .ti -1c
 .RI "char * \fBsource\fP"
 .br
@@ -24,25 +26,37 @@ arguments
 .in -1c
 .SH "Detailed Description"
 .PP 
-Definition at line \fB20\fP of file \fBuser_tcfs\&.c\fP\&.
+Structure to hold the parsed arguments\&. 
+.PP
+Definition at line \fB48\fP of file \fBuser_tcfs\&.c\fP\&.
 .SH "Member Data Documentation"
 .PP 
 .SS "char* arguments::destination"
 
 .PP
 Definition at line \fB736\fP of file \fBtcfs\&.c\fP\&.
+.PP
+Referenced by \fBmain()\fP, and \fBparse_opt()\fP\&.
 .SS "int arguments::operation"
 
 .PP
-Definition at line \fB22\fP of file \fBuser_tcfs\&.c\fP\&.
+Decribes the operation that will be executed by the main function\&. 
+.PP
+Definition at line \fB50\fP of file \fBuser_tcfs\&.c\fP\&.
+.PP
+Referenced by \fBmain()\fP, and \fBparse_opt()\fP\&.
 .SS "char* arguments::password"
 
 .PP
 Definition at line \fB737\fP of file \fBtcfs\&.c\fP\&.
+.PP
+Referenced by \fBmain()\fP, and \fBparse_opt()\fP\&.
 .SS "char* arguments::source"
 
 .PP
 Definition at line \fB735\fP of file \fBtcfs\&.c\fP\&.
+.PP
+Referenced by \fBmain()\fP, and \fBparse_opt()\fP\&.
 
 .SH "Author"
 .PP 

@@ -1,9 +1,6 @@
 var searchData=
 [
-  ['acknowledgments_0',['Acknowledgments',['../md_README.html#autotoc_md17',1,'']]],
-  ['an_20nfs_20share_20using_20tcfs_3a_1',['Mount an NFS share using TCFS:',['../md_README.html#autotoc_md13',1,'']]],
-  ['and_20run_20the_20daemon_2',['Build and run the daemon',['../md_README.html#autotoc_md8',1,'']]],
-  ['and_20run_20the_20helper_20program_3',['Build and run the helper program',['../md_README.html#autotoc_md9',1,'']]],
-  ['and_20run_20the_20userpace_20module_4',['Build and run the userpace module',['../md_README.html#autotoc_md7',1,'']]],
-  ['arguments_5',['arguments',['../structarguments.html',1,'']]]
+  ['_5f_5finit_5f_5f_0',['__init__',['../classui_1_1main__window_1_1Window.html#a75bf25c45091f2edb8aaeffe62b922d5',1,'ui::main_window::Window']]],
+  ['_5f_5finit_5f_5f_2epy_1',['__init__.py',['../command__handler_2____init_____8py.html',1,'(Global Namespace)'],['../ui_2____init_____8py.html',1,'(Global Namespace)']]],
+  ['_5fxopen_5fsource_2',['_XOPEN_SOURCE',['../tcfs_8c.html#a78c99ffd76a7bb3c8c74db76207e9ab4',1,'tcfs.c']]]
 ];

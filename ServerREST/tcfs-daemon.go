@@ -1,8 +1,11 @@
 package main
 
+/**
+ * @file main.go
+ * @brief Main file for the TCFS server.
+ */
+
 import (
-	restfunctions "daemon/daemonTools"
-	DB "daemon/db"
 	"flag"
 	"fmt"
 	"gopkg.in/yaml.v2"
@@ -11,8 +14,14 @@ import (
 	"log"
 	"net/http"
 	"os"
+	DB "serverTCFS/db"
+	restfunctions "serverTCFS/serverTools"
 )
 
+/**
+ * @struct serverConfig
+ * @brief Configuration structure for the server.
+ */
 type serverConfig struct {
 	Server struct {
 		Port string `yaml:"port"`
@@ -26,10 +35,13 @@ type serverConfig struct {
 	} `yaml:"db"`
 }
 
+/**
+ * @brief Main function to start the TCFS server.
+ */
 func main() {
 	// Parse command-line flags for the Server port
 	var configFile string
-	flag.StringVar(&configFile, "config-file", "/tmp/tcfsserver.yaml", "The location of the rest server config file")
+	flag.StringVar(&configFile, "config-file", "config.yaml", "The location of the rest server config file")
 	flag.Parse()
 
 	// Read the YAML file

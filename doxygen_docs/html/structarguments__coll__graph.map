@@ -1,7 +1,7 @@
 <map id="arguments" name="arguments">
-<area shape="rect" id="Node000001" title=" " alt="" coords="27,123,110,148"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="5,5,44,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="22,46,22,72,28,98,37,110,50,120,46,124,34,114,24,100,17,73,17,46"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="85,5,141,31"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="106,46,86,100,76,123,71,121,81,98,101,45"/>
+<area shape="rect" id="Node000001" title="Structure to hold the parsed arguments." alt="" coords="27,128,110,155"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,5,44,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="22,46,22,75,29,103,37,115,49,126,46,130,33,119,24,105,16,75,17,46"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="85,5,140,32"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="106,47,86,105,76,128,71,126,81,103,101,45"/>
 </map>

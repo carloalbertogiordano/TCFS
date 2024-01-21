@@ -27,10 +27,27 @@
 <codeline><highlight class="normal">Thank<sp/>you<sp/>for<sp/>your<sp/>interest<sp/>and<sp/>understanding<sp/>as<sp/>we<sp/>work<sp/>to<sp/>improve<sp/>the<sp/>project<sp/>and<sp/>make<sp/></highlight></codeline>
 <codeline><highlight class="normal">it<sp/>stable<sp/>and<sp/>complete<sp/>:-).</highlight></codeline>
 <codeline></codeline>
+<codeline><highlight class="normal">##<sp/>Technologies<sp/>used</highlight></codeline>
+<codeline><highlight class="normal">To<sp/>achieve<sp/>our<sp/>goal<sp/>many<sp/>different<sp/>auxiliary<sp/>programs<sp/>and<sp/>tech<sp/>has<sp/>found<sp/>its<sp/>way<sp/>in<sp/>TCFS</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>Securing<sp/>the<sp/>encryption<sp/>Key</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>-<sp/>GPG</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>Database<sp/>management</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>-<sp/>MariaDB</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>Documentation</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>-<sp/>Generated<sp/>using<sp/>Doxygen</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>-<sp/>Some<sp/>documentation<sp/>is<sp/>currently<sp/>missing</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>Versioning</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>-<sp/>GitHub</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>Code<sp/>analysis</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>-<sp/>See<sp/>the<sp/>GitHub<sp/>actions</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>Code<sp/>formatting</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>-<sp/>clang-format<sp/>for<sp/>C/C++<sp/>files</highlight></codeline>
+<codeline></codeline>
 <codeline><highlight class="normal">##<sp/>Features</highlight></codeline>
 <codeline><highlight class="normal">-<sp/>Transparent<sp/>Encryption:<sp/>TCFS<sp/>operates<sp/>silently<sp/>in<sp/>the<sp/>background,<sp/>encrypting<sp/>and<sp/></highlight></codeline>
 <codeline><highlight class="normal">decrypting<sp/>files<sp/>on-the-fly<sp/>as<sp/>they<sp/>are<sp/>accessed<sp/>or<sp/>modified.<sp/>Users<sp/>don&apos;t<sp/>need<sp/>to<sp/>worry</highlight></codeline>
-<codeline><highlight class="normal">about<sp/>managing<sp/>encryption<sp/>keys<sp/>or<sp/>performing<sp/>manual<sp/>cryptographic<sp/>operations.</highlight></codeline>
+<codeline><highlight class="normal">about<sp/>managing<sp/>encryption<sp/>keys<sp/>or<sp/>performing<sp/>manual<sp/>cryptographic<sp/>operations.<sp/>Now,<sp/>the</highlight></codeline>
+<codeline><highlight class="normal">encryption<sp/>keys<sp/>are<sp/>managed<sp/>by<sp/>a<sp/>REST<sp/>server<sp/>that<sp/>integrates<sp/>with<sp/>the<sp/>database<sp/>and<sp/>publishes<sp/>the<sp/>public<sp/>keys<sp/>of<sp/>the<sp/>users.</highlight></codeline>
 <codeline><highlight class="normal">-<sp/>FUSE<sp/>Integration:<sp/>TCFS<sp/>leverages<sp/>the<sp/>FUSE<sp/>framework<sp/>to<sp/>create<sp/>a<sp/>virtual<sp/>filesystem<sp/>that</highlight></codeline>
 <codeline><highlight class="normal">integrates<sp/>seamlessly<sp/>with<sp/>the<sp/>existing<sp/>file<sp/>hierarchy.<sp/>This<sp/>allows<sp/>users<sp/>to<sp/>interact<sp/></highlight></codeline>
 <codeline><highlight class="normal">with<sp/>their<sp/>files<sp/>just<sp/>like<sp/>any<sp/>other<sp/>files<sp/>on<sp/>their<sp/>system.</highlight></codeline>
@@ -45,6 +62,8 @@
 <codeline><highlight class="normal">-<sp/>FUSE:<sp/>Ensure<sp/>that<sp/>FUSE<sp/>and<sp/>FUSE-dev<sp/>are<sp/>installed<sp/>on<sp/>your<sp/>system.<sp/>You<sp/>can<sp/>usually<sp/>install<sp/>it<sp/>using</highlight></codeline>
 <codeline><highlight class="normal">your<sp/>system&apos;s<sp/>package<sp/>manager<sp/>(e.g.,<sp/>apt,<sp/>yum,<sp/>dnf,<sp/>ecc).</highlight></codeline>
 <codeline><highlight class="normal">-<sp/>OpenSSl:<sp/>Install<sp/>OpenSSL<sp/>and<sp/>its<sp/>development<sp/>package.</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>MariaDB:<sp/>Install<sp/>and<sp/>start<sp/>MariaDB</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>Go:<sp/>Install<sp/>a<sp/>compiler<sp/>for<sp/>go</highlight></codeline>
 <codeline><highlight class="normal">###<sp/>Build</highlight></codeline>
 <codeline><highlight class="normal">-<sp/>Clone<sp/>the<sp/>TCFS<sp/>repository<sp/>to<sp/>your<sp/>local<sp/>machine:</highlight></codeline>
 <codeline><highlight class="normal">&lt;pre&gt;</highlight></codeline>
@@ -66,11 +85,11 @@
 <codeline><highlight class="normal">&lt;/code&gt;</highlight></codeline>
 <codeline><highlight class="normal">&lt;/pre&gt;</highlight></codeline>
 <codeline></codeline>
-<codeline><highlight class="normal">####<sp/>Build<sp/>and<sp/>run<sp/>the<sp/>daemon</highlight></codeline>
-<codeline><highlight class="normal">-<sp/>Build<sp/>and<sp/>install:<sp/>To<sp/>install<sp/>the<sp/>daemon<sp/>run<sp/>this<sp/>commands<sp/>in<sp/>the<sp/>tcfs_daemon<sp/>directory</highlight></codeline>
+<codeline><highlight class="normal">####<sp/>Build<sp/>and<sp/>run<sp/>the<sp/>REST<sp/>server</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>Build<sp/>and<sp/>install:<sp/>To<sp/>install<sp/>the<sp/>daemon<sp/>run<sp/>this<sp/>commands<sp/>in<sp/>the<sp/>DaemonREST<sp/>directory</highlight></codeline>
 <codeline><highlight class="normal">&lt;pre&gt;</highlight></codeline>
 <codeline><highlight class="normal">&lt;code&gt;</highlight></codeline>
-<codeline><highlight class="normal">make;<sp/>make<sp/>install</highlight></codeline>
+<codeline><highlight class="normal">go<sp/>build<sp/>server</highlight></codeline>
 <codeline><highlight class="normal">&lt;/code&gt;</highlight></codeline>
 <codeline><highlight class="normal">&lt;/pre&gt;</highlight></codeline>
 <codeline></codeline>
@@ -142,11 +161,11 @@
 <codeline><highlight class="normal"><sp/><sp/>-<sp/>~~Store<sp/>a<sp/>per-file<sp/>key<sp/>in<sp/>the<sp/>extended<sp/>attributes<sp/>and<sp/>use<sp/>the<sp/>user<sp/>key<sp/>to<sp/>decipher<sp/>it.~~</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>-<sp/>Implement<sp/>a<sp/>kernel<sp/>module<sp/>to<sp/>rebuild<sp/>the<sp/>private<sp/>key<sp/>to<sp/>decipher<sp/>the<sp/>files.<sp/>This<sp/>module<sp/>will<sp/>use<sp/>a<sp/>certificate<sp/>and<sp/>your<sp/>key<sp/>to<sp/>rebuild<sp/>the<sp/>private<sp/>key</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>-<sp/>Implement<sp/>key<sp/>recovery.</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/>-<sp/>Switch<sp/>to<sp/>public/private<sp/>key</highlight></codeline>
-<codeline><highlight class="normal">-<sp/>Implement<sp/>threshold<sp/>sharing<sp/>files.</highlight></codeline>
-<codeline><highlight class="normal">-<sp/>Daemon:</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>-<sp/>Switch<sp/>to<sp/>public/private<sp/>key<sp/>(done<sp/>in<sp/>the<sp/>server,<sp/>fuse<sp/>module<sp/>is<sp/>missing<sp/>this<sp/>feature<sp/>at<sp/>the<sp/>moment)</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>Implement<sp/>threshold<sp/>sharing<sp/>files<sp/>(done<sp/>in<sp/>the<sp/>server,<sp/>fuse<sp/>module<sp/>is<sp/>missing<sp/>this<sp/>feature<sp/>at<sp/>the<sp/>moment).</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>Server:</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>-<sp/>~~Implement<sp/>user<sp/>registration<sp/>and<sp/>deregistration~~</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/>-<sp/>Implement<sp/>accessing<sp/>and<sp/>creation<sp/>of<sp/>shared<sp/>files</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>-<sp/>~~Implement<sp/>accessing<sp/>and<sp/>creation<sp/>of<sp/>shared<sp/>files~~</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>-<sp/>Update<sp/>the<sp/>userspace<sp/>module<sp/>to<sp/>handle<sp/>the<sp/>features<sp/>that<sp/>the<sp/>daemon<sp/>provides<sp/></highlight></codeline>
     </programlisting>
     <location file="README.md"/>

@@ -74,40 +74,16 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><dl class="reflist">
-<dt>Member <a class="el" href="tcfs__daemon__tools_8c.html#a24bb8f1eddd763598165ab8fa40fcdbd">handle_incoming_messages</a>  (void *queue_id)</dt>
-<dd><a class="anchor" id="_todo000002"></a>Handle the case described in note  </dd>
-<dt>Member <a class="el" href="tcfs__daemon__tools_8c.html#ab143feba805d6beda83eb69560c3c923">handle_outgoing_messages</a>  (void *queue_id)</dt>
-<dd><a class="anchor" id="_todo000003"></a>Remove this function from the code  </dd>
-<dt>Member <a class="el" href="tcfs__daemon_8c.html#a93d1097e4dd3c0735da3da2e89410090">handle_termination</a>  (int signum)</dt>
-<dd><a class="anchor" id="_todo000010"></a>: Implement remove_queue() to clear and delete the queue  </dd>
-<dt>Member <a class="el" href="redis_8c.html#ab146e06ef57318f58a840b315626b861">HOST</a>  []</dt>
-<dd><a class="anchor" id="_todo000005"></a>This should be passed as a parameter to the daemon  </dd>
-<dt>Member <a class="el" href="queue_8c.html#a6997b2cacf3d2e49bc848d0274e24b13">init_queue</a>  (char *queue)</dt>
-<dd><a class="anchor" id="_todo000004"></a>Define permissions for mq_open  </dd>
-<dt>Member <a class="el" href="tcfs__daemon_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main</a>  ()</dt>
-<dd><p class="startdd"><a class="anchor" id="_todo000011"></a>: The brief description is basically false advertisement. It only spawn a thread and hangs infinitely </p>
-<p class="interdd"></p>
-<p class="enddd">: Remove the thread that spawns handle_outgoing_messages. This must not make it into final release  </p>
-</dd>
-<dt>Member <a class="el" href="redis_8c.html#a614217d263be1fb1a5f76e2ff7be19a2">PORT</a>  </dt>
-<dd><a class="anchor" id="_todo000006"></a>This should be passed as a parameter to the daemon  </dd>
-<dt>Struct <a class="el" href="structqm__shared.html">qm_shared</a>  </dt>
-<dd><a class="anchor" id="_todo000001"></a>Handle creation of shared files and not only accessing them. This mey imply a new field  </dd>
-<dt>File <a class="el" href="tcfs__daemon_8c.html">tcfs_daemon.c</a>  </dt>
-<dd><p class="startdd"><a class="anchor" id="_todo000007"></a>: Enable forking </p>
-<p class="interdd"></p>
-<p class="enddd">Run the daemon via SystemD  </p>
-</dd>
-<dt>Member <a class="el" href="tcfs__daemon_8c.html#a679ec79d065ad812032851f6872caee6">terminate</a>  </dt>
-<dd><a class="anchor" id="_todo000008"></a>: Implement logic to make this work  </dd>
-<dt>Member <a class="el" href="tcfs__daemon_8c.html#af7e1db76e3a69a4b0484910b1f7562da">terminate_mutex</a>  </dt>
-<dd><a class="anchor" id="_todo000009"></a>: implement logic to make this work </dd>
+<dt>Member <a class="el" href="tcfs__helper__tools_8c.html#a1bef5d2cdd74c07b3ae025c6424dfbd5">get_pass</a>  (char *pw)</dt>
+<dd><a class="anchor" id="_todo000001"></a>This will be changed when a public/private key model will be avilable to TCFS userspace module  </dd>
+<dt>Member <a class="el" href="tcfs_8c.html#a92ebab5be45b159c2850a47a5072b58d">tcfs_opendir</a>  (const char *fuse_path, struct fuse_file_info *fi)</dt>
+<dd><a class="anchor" id="_todo000002"></a>Implement the opendir function </dd>
 </dl>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Nov 28 2023 15:14:43 for TCFS by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated on Sun Jan 21 2024 18:41:36 for TCFS by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

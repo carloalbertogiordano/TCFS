@@ -1,12 +1,12 @@
 var searchData=
 [
-  ['main_0',['main',['../tcfs__daemon_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4',1,'tcfs_daemon.c']]],
-  ['max_5fqm_5fn_1',['MAX_QM_N',['../common_8h.html#af4132207ad49b2d7fd2adb266f295cb4',1,'common.h']]],
-  ['max_5fqm_5fsize_2',['MAX_QM_SIZE',['../common_8h.html#acd35d77836b78577da8fff8dcae9e2e1',1,'common.h']]],
-  ['message_5fbuffer_5fsize_3',['MESSAGE_BUFFER_SIZE',['../queue_8c.html#a69e73620bd8f14313137ac04cf571477',1,'queue.c']]],
-  ['message_5fhandler_2ec_4',['message_handler.c',['../message__handler_8c.html',1,'']]],
-  ['module_5',['module',['../md_README.html#autotoc_md7',1,'Build and run the userpace module'],['../md_README.html#autotoc_md10',1,'Kernel module'],['../md_README.html#autotoc_md11',1,'Usage of the fuse module']]],
-  ['mount_20an_20nfs_20share_20using_20tcfs_3a_6',['Mount an NFS share using TCFS:',['../md_README.html#autotoc_md13',1,'']]],
-  ['mqueue_7',['MQUEUE',['../tcfs__daemon_8c.html#a6376ed00be9fd53f7579e9243f3eacde',1,'tcfs_daemon.c']]],
-  ['mqueue_5fn_8',['MQUEUE_N',['../queue_8c.html#a5872868a041bf1b9e1a266271c317876',1,'queue.c']]]
+  ['main_0',['main',['../namespacemain.html',1,'main'],['../user__tcfs_8c.html#a0ddf1224851353fc92bfbff6f499fa97',1,'main(int argc, char *argv[]):&#160;user_tcfs.c'],['../tcfs_8c.html#a0ddf1224851353fc92bfbff6f499fa97',1,'main(int argc, char *argv[]):&#160;tcfs.c']]],
+  ['main_2epy_1',['main.py',['../main_8py.html',1,'']]],
+  ['main_5ftest_2ego_2',['main_test.go',['../main__test_8go.html',1,'']]],
+  ['main_5fwindow_2epy_3',['main_window.py',['../main__window_8py.html',1,'']]],
+  ['modify_5fbutton_5fallign_4',['modify_button_allign',['../namespaceui_1_1main__window.html#ae9c066a65238b3103c5bd44f4950a9c9',1,'ui::main_window']]],
+  ['module_5',['module',['../md_README.html#autotoc_md8',1,'Build and run the userpace module'],['../md_README.html#autotoc_md11',1,'Kernel module'],['../md_README.html#autotoc_md12',1,'Usage of the fuse module']]],
+  ['mount_20an_20nfs_20share_20using_20tcfs_3a_6',['Mount an NFS share using TCFS:',['../md_README.html#autotoc_md14',1,'']]],
+  ['mount_5fbutt_7',['mount_butt',['../namespacemain.html#a8f55266ef83cf13a1c30d1bf8bd065b0',1,'main']]],
+  ['mount_5ftcfs_5ffolder_8',['mount_tcfs_folder',['../tcfs__helper__tools_8c.html#a26931b8bdf24be94e03f4d77e991d063',1,'tcfs_helper_tools.c']]]
 ];

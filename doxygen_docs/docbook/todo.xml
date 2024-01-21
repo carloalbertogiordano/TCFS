@@ -4,57 +4,13 @@
 <indexterm><primary>Todo List</primary></indexterm>
 
 <para><variablelist>
-<varlistentry><term>Member <link linkend="_tcfs__daemon__tools_8c_1a24bb8f1eddd763598165ab8fa40fcdbd">handle_incoming_messages</link>  (void *queue_id)</term>
+<varlistentry><term>Member <link linkend="_tcfs__helper__tools_8c_1a1bef5d2cdd74c07b3ae025c6424dfbd5">get_pass</link>  (char *pw)</term>
 <listitem>
-<para><anchor xml:id="_todo_1_todo000002"/>Handle the case described in note  </para>
+<para><anchor xml:id="_todo_1_todo000001"/>This will be changed when a public/private key model will be avilable to TCFS userspace module  </para>
 </listitem></varlistentry>
-<varlistentry><term>Member <link linkend="_tcfs__daemon__tools_8c_1ab143feba805d6beda83eb69560c3c923">handle_outgoing_messages</link>  (void *queue_id)</term>
+<varlistentry><term>Member <link linkend="_tcfs_8c_1a92ebab5be45b159c2850a47a5072b58d">tcfs_opendir</link>  (const char *fuse_path, struct fuse_file_info *fi)</term>
 <listitem>
-<para><anchor xml:id="_todo_1_todo000003"/>Remove this function from the code  </para>
-</listitem></varlistentry>
-<varlistentry><term>Member <link linkend="_tcfs__daemon_8c_1a93d1097e4dd3c0735da3da2e89410090">handle_termination</link>  (int signum)</term>
-<listitem>
-<para><anchor xml:id="_todo_1_todo000010"/>: Implement remove_queue() to clear and delete the queue  </para>
-</listitem></varlistentry>
-<varlistentry><term>Member <link linkend="_redis_8c_1ab146e06ef57318f58a840b315626b861">HOST</link>  []</term>
-<listitem>
-<para><anchor xml:id="_todo_1_todo000005"/>This should be passed as a parameter to the daemon  </para>
-</listitem></varlistentry>
-<varlistentry><term>Member <link linkend="_queue_8c_1a6997b2cacf3d2e49bc848d0274e24b13">init_queue</link>  (char *queue)</term>
-<listitem>
-<para><anchor xml:id="_todo_1_todo000004"/>Define permissions for mq_open  </para>
-</listitem></varlistentry>
-<varlistentry><term>Member <link linkend="_tcfs__daemon_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4">main</link>  ()</term>
-<listitem>
-<para><anchor xml:id="_todo_1_todo000011"/>: The brief description is basically false advertisement. It only spawn a thread and hangs infinitely </para>
-
-<para></para>
-
-<para>: Remove the thread that spawns handle_outgoing_messages. This must not make it into final release  </para>
-</listitem></varlistentry>
-<varlistentry><term>Member <link linkend="_redis_8c_1a614217d263be1fb1a5f76e2ff7be19a2">PORT</link>  </term>
-<listitem>
-<para><anchor xml:id="_todo_1_todo000006"/>This should be passed as a parameter to the daemon  </para>
-</listitem></varlistentry>
-<varlistentry><term>Struct <link linkend="_structqm__shared">qm_shared</link>  </term>
-<listitem>
-<para><anchor xml:id="_todo_1_todo000001"/>Handle creation of shared files and not only accessing them. This mey imply a new field  </para>
-</listitem></varlistentry>
-<varlistentry><term>File <link linkend="_tcfs__daemon_8c">tcfs_daemon.c</link>  </term>
-<listitem>
-<para><anchor xml:id="_todo_1_todo000007"/>: Enable forking </para>
-
-<para></para>
-
-<para>Run the daemon via SystemD  </para>
-</listitem></varlistentry>
-<varlistentry><term>Member <link linkend="_tcfs__daemon_8c_1a679ec79d065ad812032851f6872caee6">terminate</link>  </term>
-<listitem>
-<para><anchor xml:id="_todo_1_todo000008"/>: Implement logic to make this work  </para>
-</listitem></varlistentry>
-<varlistentry><term>Member <link linkend="_tcfs__daemon_8c_1af7e1db76e3a69a4b0484910b1f7562da">terminate_mutex</link>  </term>
-<listitem>
-<para><anchor xml:id="_todo_1_todo000009"/>: implement logic to make this work </para>
+<para><anchor xml:id="_todo_1_todo000002"/>Implement the opendir function </para>
 </listitem></varlistentry>
 </variablelist>
 </para>

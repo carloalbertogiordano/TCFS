@@ -5,12 +5,12 @@ import (
 	"crypto/rsa"
 	"crypto/sha256"
 	"crypto/x509"
-	TCFSTypes "daemon/types"
 	"encoding/hex"
 	"encoding/pem"
 	"errors"
 	"fmt"
 	"github.com/corvus-ch/shamir"
+	TCFSTypes "serverTCFS/types"
 )
 
 // GenerateKey Generate a AES 256 key

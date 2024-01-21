@@ -1,15 +1,12 @@
 var searchData=
 [
-  ['raccomended_20consider_20using_20the_20tcfs_5fhelper_20program_0',['This is not raccomended, consider using the tcfs_helper program',['../md_README.html#autotoc_md12',1,'']]],
-  ['re_20done_3a_1',['Unmount the NFS share when you&apos;re done:',['../md_README.html#autotoc_md14',1,'']]],
-  ['read_5ffile_2',['read_file',['../tcfs__utils_8c.html#a42623317bb0b1ff095b4d946dc085bd6',1,'tcfs_utils.c']]],
-  ['redis_2ec_3',['redis.c',['../redis_8c.html',1,'']]],
-  ['register_4',['REGISTER',['../common_8h.html#ad30dd7f5c8fc3f0027bbddc111c652b8aceb7c305772dab23a260960771180df3',1,'common.h']]],
-  ['register_5fuser_5',['register_user',['../user__db_8c.html#a2ae8a82033440194ad80949cd4493971',1,'user_db.c']]],
-  ['remove_5fby_5fpid_6',['remove_by_pid',['../redis_8c.html#a6b18d7ad2f1e8275106a5b39c0c7d216',1,'redis.c']]],
-  ['remove_5fby_5fuser_7',['remove_by_user',['../redis_8c.html#a2678c0575f2b6c944fd261255aeaebff',1,'redis.c']]],
-  ['roadmap_8',['Roadmap',['../md_README.html#autotoc_md18',1,'']]],
-  ['run_20the_20daemon_9',['Build and run the daemon',['../md_README.html#autotoc_md8',1,'']]],
-  ['run_20the_20helper_20program_10',['Build and run the helper program',['../md_README.html#autotoc_md9',1,'']]],
-  ['run_20the_20userpace_20module_11',['Build and run the userpace module',['../md_README.html#autotoc_md7',1,'']]]
+  ['server_0',['Build and run the REST server',['../md_README.html#autotoc_md9',1,'']]],
+  ['setup_5ftcfs_5fenv_1',['setup_tcfs_env',['../tcfs__helper__tools_8c.html#abe60a9bd3f55341eb2496670553f9d26',1,'setup_tcfs_env():&#160;tcfs_helper_tools.c'],['../tcfs__helper__tools_8h.html#abe60a9bd3f55341eb2496670553f9d26',1,'setup_tcfs_env():&#160;tcfs_helper_tools.c']]],
+  ['setup_5ftcfs_5fmount_5ffolder_2',['setup_tcfs_mount_folder',['../tcfs__helper__tools_8c.html#a3644c45d6131fe1528ce36163e299fd9',1,'tcfs_helper_tools.c']]],
+  ['share_20using_20tcfs_3a_3',['Mount an NFS share using TCFS:',['../md_README.html#autotoc_md14',1,'']]],
+  ['share_20when_20you_20re_20done_3a_4',['Unmount the NFS share when you&apos;re done:',['../md_README.html#autotoc_md15',1,'']]],
+  ['shared_5fbutt_5',['shared_butt',['../namespacemain.html#a7adbb7f4a582ed0929b7db6fd0991278',1,'main']]],
+  ['source_6',['source',['../structarguments.html#a53fda996abfaa79d9c6376292bcbd5da',1,'arguments']]],
+  ['start_5fwindow_7',['start_window',['../classui_1_1main__window_1_1Window.html#aa4cd7c3b0514d223feac32a3aedea325',1,'ui::main_window::Window']]],
+  ['started_8',['Getting Started',['../md_README.html#autotoc_md4',1,'']]]
 ];

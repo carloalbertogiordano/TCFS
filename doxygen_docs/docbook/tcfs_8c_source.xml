@@ -2,8 +2,8 @@
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_tcfs_8c_source" xml:lang="en-US">
 <title>tcfs.c</title>
 <indexterm><primary>userspace-module/tcfs.c</primary></indexterm>
-<programlisting linenumbering="unnumbered"><anchor xml:id="_tcfs_8c_source_1l00001"/>00001 <emphasis role="preprocessor">#define&#32;FUSE_USE_VERSION&#32;30</emphasis>
-<anchor xml:id="_tcfs_8c_source_1l00002"/>00002 <emphasis role="preprocessor">#define&#32;HAVE_SETXATTR</emphasis>
+Go to the documentation of this file.<programlisting linenumbering="unnumbered"><anchor xml:id="_tcfs_8c_source_1l00001"/><link linkend="_tcfs_8c_1a0919197af2e154da2c05727b6d87cbda">00001</link> <emphasis role="preprocessor">#define&#32;FUSE_USE_VERSION&#32;30</emphasis>
+<anchor xml:id="_tcfs_8c_source_1l00002"/><link linkend="_tcfs_8c_1ace5cb10bf13b2a61c0d3e01b4e0590a2">00002</link> <emphasis role="preprocessor">#define&#32;HAVE_SETXATTR</emphasis>
 <anchor xml:id="_tcfs_8c_source_1l00003"/>00003 
 <anchor xml:id="_tcfs_8c_source_1l00004"/>00004 <emphasis role="preprocessor">#ifdef&#32;HAVE_CONFIG_H</emphasis>
 <anchor xml:id="_tcfs_8c_source_1l00005"/>00005 <emphasis role="preprocessor">#include&#32;&lt;config.h&gt;</emphasis>
@@ -13,11 +13,11 @@
 <anchor xml:id="_tcfs_8c_source_1l00009"/>00009 <emphasis role="preprocessor">#if&#32;__STDC_VERSION__&#32;&gt;=&#32;199901L</emphasis>
 <anchor xml:id="_tcfs_8c_source_1l00010"/>00010 <emphasis role="preprocessor">#define&#32;_XOPEN_SOURCE&#32;600</emphasis>
 <anchor xml:id="_tcfs_8c_source_1l00011"/>00011 <emphasis role="preprocessor">#else</emphasis>
-<anchor xml:id="_tcfs_8c_source_1l00012"/>00012 <emphasis role="preprocessor">#define&#32;_XOPEN_SOURCE&#32;500</emphasis>
+<anchor xml:id="_tcfs_8c_source_1l00012"/><link linkend="_tcfs_8c_1a78c99ffd76a7bb3c8c74db76207e9ab4">00012</link> <emphasis role="preprocessor">#define&#32;_XOPEN_SOURCE&#32;500</emphasis>
 <anchor xml:id="_tcfs_8c_source_1l00013"/>00013 <emphasis role="preprocessor">#endif&#32;</emphasis><emphasis role="comment">/*&#32;__STDC_VERSION__&#32;*/</emphasis><emphasis role="preprocessor"></emphasis>
 <anchor xml:id="_tcfs_8c_source_1l00014"/>00014 
-<anchor xml:id="_tcfs_8c_source_1l00015"/>00015 <emphasis role="preprocessor">#include&#32;&quot;utils/crypt-utils/crypt-utils.h&quot;</emphasis>
-<anchor xml:id="_tcfs_8c_source_1l00016"/>00016 <emphasis role="preprocessor">#include&#32;&quot;utils/tcfs_utils/tcfs_utils.h&quot;</emphasis>
+<anchor xml:id="_tcfs_8c_source_1l00015"/>00015 <emphasis role="preprocessor">#include&#32;&quot;<link linkend="_crypt-utils_8h">utils/crypt-utils/crypt-utils.h</link>&quot;</emphasis>
+<anchor xml:id="_tcfs_8c_source_1l00016"/>00016 <emphasis role="preprocessor">#include&#32;&quot;<link linkend="_tcfs__utils_8h">utils/tcfs_utils/tcfs_utils.h</link>&quot;</emphasis>
 <anchor xml:id="_tcfs_8c_source_1l00017"/>00017 <emphasis role="preprocessor">#include&#32;&lt;argp.h&gt;</emphasis>
 <anchor xml:id="_tcfs_8c_source_1l00018"/>00018 <emphasis role="preprocessor">#include&#32;&lt;assert.h&gt;</emphasis>
 <anchor xml:id="_tcfs_8c_source_1l00019"/>00019 <emphasis role="preprocessor">#include&#32;&lt;dirent.h&gt;</emphasis>
@@ -35,14 +35,14 @@
 <anchor xml:id="_tcfs_8c_source_1l00031"/>00031 <emphasis role="preprocessor">#include&#32;&lt;time.h&gt;</emphasis>
 <anchor xml:id="_tcfs_8c_source_1l00032"/>00032 <emphasis role="preprocessor">#include&#32;&lt;unistd.h&gt;</emphasis>
 <anchor xml:id="_tcfs_8c_source_1l00033"/>00033 
-<anchor xml:id="_tcfs_8c_source_1l00038"/>00038 <emphasis role="keywordtype">char</emphasis>&#32;*root_path;
-<anchor xml:id="_tcfs_8c_source_1l00043"/>00043 <emphasis role="keywordtype">char</emphasis>&#32;*password;
+<anchor xml:id="_tcfs_8c_source_1l00038"/><link linkend="_tcfs_8c_1ab33cf7205359ee0f91488c87df1577a0">00038</link> <emphasis role="keywordtype">char</emphasis>&#32;*<link linkend="_tcfs_8c_1ab33cf7205359ee0f91488c87df1577a0">root_path</link>;
+<anchor xml:id="_tcfs_8c_source_1l00043"/><link linkend="_tcfs_8c_1a9dbb300e28bc21c8dab41b01883918eb">00043</link> <emphasis role="keywordtype">char</emphasis>&#32;*<link linkend="_tcfs_8c_1a9dbb300e28bc21c8dab41b01883918eb">password</link>;
 <anchor xml:id="_tcfs_8c_source_1l00044"/>00044 
-<anchor xml:id="_tcfs_8c_source_1l00045"/>00045 <emphasis role="keyword">static</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>&#32;tcfs_getxattr&#32;(<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*fuse_path,&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*name,&#32;<emphasis role="keywordtype">char</emphasis>&#32;*value,
+<anchor xml:id="_tcfs_8c_source_1l00045"/>00045 <emphasis role="keyword">static</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>&#32;<link linkend="_tcfs_8c_1a6a031c4e3c6dd59051c09789c4666657">tcfs_getxattr</link>&#32;(<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*fuse_path,&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*name,&#32;<emphasis role="keywordtype">char</emphasis>&#32;*value,
 <anchor xml:id="_tcfs_8c_source_1l00046"/>00046 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">size_t</emphasis>&#32;size);
 <anchor xml:id="_tcfs_8c_source_1l00047"/>00047 
 <anchor xml:id="_tcfs_8c_source_1l00051"/>00051 <emphasis role="keyword">static</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>
-<anchor xml:id="_tcfs_8c_source_1l00052"/>00052 tcfs_opendir&#32;(<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*fuse_path,&#32;<emphasis role="keyword">struct</emphasis>&#32;fuse_file_info&#32;*fi)
+<anchor xml:id="_tcfs_8c_source_1l00052"/><link linkend="_tcfs_8c_1a92ebab5be45b159c2850a47a5072b58d">00052</link> <link linkend="_tcfs_8c_1a92ebab5be45b159c2850a47a5072b58d">tcfs_opendir</link>&#32;(<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*fuse_path,&#32;<emphasis role="keyword">struct</emphasis>&#32;fuse_file_info&#32;*fi)
 <anchor xml:id="_tcfs_8c_source_1l00053"/>00053 {
 <anchor xml:id="_tcfs_8c_source_1l00054"/>00054 &#32;&#32;(void)fuse_path;
 <anchor xml:id="_tcfs_8c_source_1l00055"/>00055 &#32;&#32;(void)fi;
@@ -64,10 +64,10 @@
 <anchor xml:id="_tcfs_8c_source_1l00071"/>00071 }
 <anchor xml:id="_tcfs_8c_source_1l00072"/>00072 
 <anchor xml:id="_tcfs_8c_source_1l00073"/>00073 <emphasis role="keyword">static</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>
-<anchor xml:id="_tcfs_8c_source_1l00074"/>00074 tcfs_getattr&#32;(<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*fuse_path,&#32;<emphasis role="keyword">struct</emphasis>&#32;stat&#32;*stbuf)
+<anchor xml:id="_tcfs_8c_source_1l00074"/><link linkend="_tcfs_8c_1a89f96e6b13b109a368c0d3d2adc99b9a">00074</link> <link linkend="_tcfs_8c_1a89f96e6b13b109a368c0d3d2adc99b9a">tcfs_getattr</link>&#32;(<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*fuse_path,&#32;<emphasis role="keyword">struct</emphasis>&#32;stat&#32;*stbuf)
 <anchor xml:id="_tcfs_8c_source_1l00075"/>00075 {
 <anchor xml:id="_tcfs_8c_source_1l00076"/>00076 &#32;&#32;printf&#32;(<emphasis role="stringliteral">&quot;Called&#32;getattr\n&quot;</emphasis>);
-<anchor xml:id="_tcfs_8c_source_1l00077"/>00077 &#32;&#32;<emphasis role="keywordtype">char</emphasis>&#32;*path&#32;=&#32;<link linkend="_tcfs__utils_8c_1ac4ff59963f4a122c9f802c0c2bf2abc8">prefix_path</link>&#32;(fuse_path,&#32;root_path);
+<anchor xml:id="_tcfs_8c_source_1l00077"/>00077 &#32;&#32;<emphasis role="keywordtype">char</emphasis>&#32;*path&#32;=&#32;<link linkend="_tcfs__utils_8c_1ac4ff59963f4a122c9f802c0c2bf2abc8">prefix_path</link>&#32;(fuse_path,&#32;<link linkend="_tcfs_8c_1ab33cf7205359ee0f91488c87df1577a0">root_path</link>);
 <anchor xml:id="_tcfs_8c_source_1l00078"/>00078 
 <anchor xml:id="_tcfs_8c_source_1l00079"/>00079 &#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;res;
 <anchor xml:id="_tcfs_8c_source_1l00080"/>00080 
@@ -79,10 +79,10 @@
 <anchor xml:id="_tcfs_8c_source_1l00086"/>00086 }
 <anchor xml:id="_tcfs_8c_source_1l00087"/>00087 
 <anchor xml:id="_tcfs_8c_source_1l00088"/>00088 <emphasis role="keyword">static</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>
-<anchor xml:id="_tcfs_8c_source_1l00089"/>00089 tcfs_access&#32;(<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*fuse_path,&#32;<emphasis role="keywordtype">int</emphasis>&#32;mask)
+<anchor xml:id="_tcfs_8c_source_1l00089"/><link linkend="_tcfs_8c_1a76af7857833338c73b9cafdce59ca01d">00089</link> <link linkend="_tcfs_8c_1a76af7857833338c73b9cafdce59ca01d">tcfs_access</link>&#32;(<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*fuse_path,&#32;<emphasis role="keywordtype">int</emphasis>&#32;mask)
 <anchor xml:id="_tcfs_8c_source_1l00090"/>00090 {
 <anchor xml:id="_tcfs_8c_source_1l00091"/>00091 &#32;&#32;printf&#32;(<emphasis role="stringliteral">&quot;Callen&#32;access\n&quot;</emphasis>);
-<anchor xml:id="_tcfs_8c_source_1l00092"/>00092 &#32;&#32;<emphasis role="keywordtype">char</emphasis>&#32;*path&#32;=&#32;<link linkend="_tcfs__utils_8c_1ac4ff59963f4a122c9f802c0c2bf2abc8">prefix_path</link>&#32;(fuse_path,&#32;root_path);
+<anchor xml:id="_tcfs_8c_source_1l00092"/>00092 &#32;&#32;<emphasis role="keywordtype">char</emphasis>&#32;*path&#32;=&#32;<link linkend="_tcfs__utils_8c_1ac4ff59963f4a122c9f802c0c2bf2abc8">prefix_path</link>&#32;(fuse_path,&#32;<link linkend="_tcfs_8c_1ab33cf7205359ee0f91488c87df1577a0">root_path</link>);
 <anchor xml:id="_tcfs_8c_source_1l00093"/>00093 
 <anchor xml:id="_tcfs_8c_source_1l00094"/>00094 &#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;res;
 <anchor xml:id="_tcfs_8c_source_1l00095"/>00095 
@@ -94,9 +94,9 @@
 <anchor xml:id="_tcfs_8c_source_1l00101"/>00101 }
 <anchor xml:id="_tcfs_8c_source_1l00102"/>00102 
 <anchor xml:id="_tcfs_8c_source_1l00103"/>00103 <emphasis role="keyword">static</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>
-<anchor xml:id="_tcfs_8c_source_1l00104"/>00104 tcfs_readlink&#32;(<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*fuse_path,&#32;<emphasis role="keywordtype">char</emphasis>&#32;*buf,&#32;<emphasis role="keywordtype">size_t</emphasis>&#32;size)
+<anchor xml:id="_tcfs_8c_source_1l00104"/><link linkend="_tcfs_8c_1acb1e081efcbf61b6f34e8bbdf7af8979">00104</link> <link linkend="_tcfs_8c_1acb1e081efcbf61b6f34e8bbdf7af8979">tcfs_readlink</link>&#32;(<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*fuse_path,&#32;<emphasis role="keywordtype">char</emphasis>&#32;*buf,&#32;<emphasis role="keywordtype">size_t</emphasis>&#32;size)
 <anchor xml:id="_tcfs_8c_source_1l00105"/>00105 {
-<anchor xml:id="_tcfs_8c_source_1l00106"/>00106 &#32;&#32;<emphasis role="keywordtype">char</emphasis>&#32;*path&#32;=&#32;<link linkend="_tcfs__utils_8c_1ac4ff59963f4a122c9f802c0c2bf2abc8">prefix_path</link>&#32;(fuse_path,&#32;root_path);
+<anchor xml:id="_tcfs_8c_source_1l00106"/>00106 &#32;&#32;<emphasis role="keywordtype">char</emphasis>&#32;*path&#32;=&#32;<link linkend="_tcfs__utils_8c_1ac4ff59963f4a122c9f802c0c2bf2abc8">prefix_path</link>&#32;(fuse_path,&#32;<link linkend="_tcfs_8c_1ab33cf7205359ee0f91488c87df1577a0">root_path</link>);
 <anchor xml:id="_tcfs_8c_source_1l00107"/>00107 
 <anchor xml:id="_tcfs_8c_source_1l00108"/>00108 &#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;res;
 <anchor xml:id="_tcfs_8c_source_1l00109"/>00109 
@@ -109,14 +109,14 @@
 <anchor xml:id="_tcfs_8c_source_1l00116"/>00116 }
 <anchor xml:id="_tcfs_8c_source_1l00117"/>00117 
 <anchor xml:id="_tcfs_8c_source_1l00118"/>00118 <emphasis role="keyword">static</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>
-<anchor xml:id="_tcfs_8c_source_1l00119"/>00119 tcfs_readdir&#32;(<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*fuse_path,&#32;<emphasis role="keywordtype">void</emphasis>&#32;*buf,&#32;fuse_fill_dir_t&#32;filler,
+<anchor xml:id="_tcfs_8c_source_1l00119"/><link linkend="_tcfs_8c_1aaba999686e55ada0fe9acc15eec92c0c">00119</link> <link linkend="_tcfs_8c_1aaba999686e55ada0fe9acc15eec92c0c">tcfs_readdir</link>&#32;(<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*fuse_path,&#32;<emphasis role="keywordtype">void</emphasis>&#32;*buf,&#32;fuse_fill_dir_t&#32;filler,
 <anchor xml:id="_tcfs_8c_source_1l00120"/>00120 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;off_t&#32;offset,&#32;<emphasis role="keyword">struct</emphasis>&#32;fuse_file_info&#32;*fi)
 <anchor xml:id="_tcfs_8c_source_1l00121"/>00121 {
 <anchor xml:id="_tcfs_8c_source_1l00122"/>00122 &#32;&#32;(void)offset;
 <anchor xml:id="_tcfs_8c_source_1l00123"/>00123 &#32;&#32;(void)fi;
 <anchor xml:id="_tcfs_8c_source_1l00124"/>00124 
 <anchor xml:id="_tcfs_8c_source_1l00125"/>00125 &#32;&#32;printf&#32;(<emphasis role="stringliteral">&quot;Called&#32;readdir&#32;%s\n&quot;</emphasis>,&#32;fuse_path);
-<anchor xml:id="_tcfs_8c_source_1l00126"/>00126 &#32;&#32;<emphasis role="keywordtype">char</emphasis>&#32;*path&#32;=&#32;<link linkend="_tcfs__utils_8c_1ac4ff59963f4a122c9f802c0c2bf2abc8">prefix_path</link>&#32;(fuse_path,&#32;root_path);
+<anchor xml:id="_tcfs_8c_source_1l00126"/>00126 &#32;&#32;<emphasis role="keywordtype">char</emphasis>&#32;*path&#32;=&#32;<link linkend="_tcfs__utils_8c_1ac4ff59963f4a122c9f802c0c2bf2abc8">prefix_path</link>&#32;(fuse_path,&#32;<link linkend="_tcfs_8c_1ab33cf7205359ee0f91488c87df1577a0">root_path</link>);
 <anchor xml:id="_tcfs_8c_source_1l00127"/>00127 
 <anchor xml:id="_tcfs_8c_source_1l00128"/>00128 &#32;&#32;DIR&#32;*dp;
 <anchor xml:id="_tcfs_8c_source_1l00129"/>00129 &#32;&#32;<emphasis role="keyword">struct&#32;</emphasis>dirent&#32;*de;
@@ -143,10 +143,10 @@
 <anchor xml:id="_tcfs_8c_source_1l00150"/>00150 }
 <anchor xml:id="_tcfs_8c_source_1l00151"/>00151 
 <anchor xml:id="_tcfs_8c_source_1l00152"/>00152 <emphasis role="keyword">static</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>
-<anchor xml:id="_tcfs_8c_source_1l00153"/>00153 tcfs_mknod&#32;(<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*fuse_path,&#32;mode_t&#32;mode,&#32;dev_t&#32;rdev)
+<anchor xml:id="_tcfs_8c_source_1l00153"/><link linkend="_tcfs_8c_1a151f53359474a95c52f5e79d438869bd">00153</link> <link linkend="_tcfs_8c_1a151f53359474a95c52f5e79d438869bd">tcfs_mknod</link>&#32;(<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*fuse_path,&#32;mode_t&#32;mode,&#32;dev_t&#32;rdev)
 <anchor xml:id="_tcfs_8c_source_1l00154"/>00154 {
 <anchor xml:id="_tcfs_8c_source_1l00155"/>00155 &#32;&#32;printf&#32;(<emphasis role="stringliteral">&quot;Called&#32;mknod\n&quot;</emphasis>);
-<anchor xml:id="_tcfs_8c_source_1l00156"/>00156 &#32;&#32;<emphasis role="keywordtype">char</emphasis>&#32;*path&#32;=&#32;<link linkend="_tcfs__utils_8c_1ac4ff59963f4a122c9f802c0c2bf2abc8">prefix_path</link>&#32;(fuse_path,&#32;root_path);
+<anchor xml:id="_tcfs_8c_source_1l00156"/>00156 &#32;&#32;<emphasis role="keywordtype">char</emphasis>&#32;*path&#32;=&#32;<link linkend="_tcfs__utils_8c_1ac4ff59963f4a122c9f802c0c2bf2abc8">prefix_path</link>&#32;(fuse_path,&#32;<link linkend="_tcfs_8c_1ab33cf7205359ee0f91488c87df1577a0">root_path</link>);
 <anchor xml:id="_tcfs_8c_source_1l00157"/>00157 
 <anchor xml:id="_tcfs_8c_source_1l00158"/>00158 &#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;res;
 <anchor xml:id="_tcfs_8c_source_1l00159"/>00159 
@@ -169,10 +169,10 @@
 <anchor xml:id="_tcfs_8c_source_1l00176"/>00176 }
 <anchor xml:id="_tcfs_8c_source_1l00177"/>00177 
 <anchor xml:id="_tcfs_8c_source_1l00178"/>00178 <emphasis role="keyword">static</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>
-<anchor xml:id="_tcfs_8c_source_1l00179"/>00179 tcfs_mkdir&#32;(<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*fuse_path,&#32;mode_t&#32;mode)
+<anchor xml:id="_tcfs_8c_source_1l00179"/><link linkend="_tcfs_8c_1a682b553345b6d872453d1ace7339bb9e">00179</link> <link linkend="_tcfs_8c_1a682b553345b6d872453d1ace7339bb9e">tcfs_mkdir</link>&#32;(<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*fuse_path,&#32;mode_t&#32;mode)
 <anchor xml:id="_tcfs_8c_source_1l00180"/>00180 {
 <anchor xml:id="_tcfs_8c_source_1l00181"/>00181 &#32;&#32;printf&#32;(<emphasis role="stringliteral">&quot;Called&#32;mkdir\n&quot;</emphasis>);
-<anchor xml:id="_tcfs_8c_source_1l00182"/>00182 &#32;&#32;<emphasis role="keywordtype">char</emphasis>&#32;*path&#32;=&#32;<link linkend="_tcfs__utils_8c_1ac4ff59963f4a122c9f802c0c2bf2abc8">prefix_path</link>&#32;(fuse_path,&#32;root_path);
+<anchor xml:id="_tcfs_8c_source_1l00182"/>00182 &#32;&#32;<emphasis role="keywordtype">char</emphasis>&#32;*path&#32;=&#32;<link linkend="_tcfs__utils_8c_1ac4ff59963f4a122c9f802c0c2bf2abc8">prefix_path</link>&#32;(fuse_path,&#32;<link linkend="_tcfs_8c_1ab33cf7205359ee0f91488c87df1577a0">root_path</link>);
 <anchor xml:id="_tcfs_8c_source_1l00183"/>00183 
 <anchor xml:id="_tcfs_8c_source_1l00184"/>00184 &#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;res;
 <anchor xml:id="_tcfs_8c_source_1l00185"/>00185 
@@ -184,10 +184,10 @@
 <anchor xml:id="_tcfs_8c_source_1l00191"/>00191 }
 <anchor xml:id="_tcfs_8c_source_1l00192"/>00192 
 <anchor xml:id="_tcfs_8c_source_1l00193"/>00193 <emphasis role="keyword">static</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>
-<anchor xml:id="_tcfs_8c_source_1l00194"/>00194 tcfs_unlink&#32;(<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*fuse_path)
+<anchor xml:id="_tcfs_8c_source_1l00194"/><link linkend="_tcfs_8c_1ac6d3a8a626363a6f98de64e585968b09">00194</link> <link linkend="_tcfs_8c_1ac6d3a8a626363a6f98de64e585968b09">tcfs_unlink</link>&#32;(<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*fuse_path)
 <anchor xml:id="_tcfs_8c_source_1l00195"/>00195 {
 <anchor xml:id="_tcfs_8c_source_1l00196"/>00196 &#32;&#32;printf&#32;(<emphasis role="stringliteral">&quot;Called&#32;unlink\n&quot;</emphasis>);
-<anchor xml:id="_tcfs_8c_source_1l00197"/>00197 &#32;&#32;<emphasis role="keywordtype">char</emphasis>&#32;*path&#32;=&#32;<link linkend="_tcfs__utils_8c_1ac4ff59963f4a122c9f802c0c2bf2abc8">prefix_path</link>&#32;(fuse_path,&#32;root_path);
+<anchor xml:id="_tcfs_8c_source_1l00197"/>00197 &#32;&#32;<emphasis role="keywordtype">char</emphasis>&#32;*path&#32;=&#32;<link linkend="_tcfs__utils_8c_1ac4ff59963f4a122c9f802c0c2bf2abc8">prefix_path</link>&#32;(fuse_path,&#32;<link linkend="_tcfs_8c_1ab33cf7205359ee0f91488c87df1577a0">root_path</link>);
 <anchor xml:id="_tcfs_8c_source_1l00198"/>00198 
 <anchor xml:id="_tcfs_8c_source_1l00199"/>00199 &#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;res;
 <anchor xml:id="_tcfs_8c_source_1l00200"/>00200 
@@ -199,10 +199,10 @@
 <anchor xml:id="_tcfs_8c_source_1l00206"/>00206 }
 <anchor xml:id="_tcfs_8c_source_1l00207"/>00207 
 <anchor xml:id="_tcfs_8c_source_1l00208"/>00208 <emphasis role="keyword">static</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>
-<anchor xml:id="_tcfs_8c_source_1l00209"/>00209 tcfs_rmdir&#32;(<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*fuse_path)
+<anchor xml:id="_tcfs_8c_source_1l00209"/><link linkend="_tcfs_8c_1a2853593dded66a922afbdc36afb15a50">00209</link> <link linkend="_tcfs_8c_1a2853593dded66a922afbdc36afb15a50">tcfs_rmdir</link>&#32;(<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*fuse_path)
 <anchor xml:id="_tcfs_8c_source_1l00210"/>00210 {
 <anchor xml:id="_tcfs_8c_source_1l00211"/>00211 &#32;&#32;printf&#32;(<emphasis role="stringliteral">&quot;Called&#32;rmdir\n&quot;</emphasis>);
-<anchor xml:id="_tcfs_8c_source_1l00212"/>00212 &#32;&#32;<emphasis role="keywordtype">char</emphasis>&#32;*path&#32;=&#32;<link linkend="_tcfs__utils_8c_1ac4ff59963f4a122c9f802c0c2bf2abc8">prefix_path</link>&#32;(fuse_path,&#32;root_path);
+<anchor xml:id="_tcfs_8c_source_1l00212"/>00212 &#32;&#32;<emphasis role="keywordtype">char</emphasis>&#32;*path&#32;=&#32;<link linkend="_tcfs__utils_8c_1ac4ff59963f4a122c9f802c0c2bf2abc8">prefix_path</link>&#32;(fuse_path,&#32;<link linkend="_tcfs_8c_1ab33cf7205359ee0f91488c87df1577a0">root_path</link>);
 <anchor xml:id="_tcfs_8c_source_1l00213"/>00213 
 <anchor xml:id="_tcfs_8c_source_1l00214"/>00214 &#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;res;
 <anchor xml:id="_tcfs_8c_source_1l00215"/>00215 
@@ -214,7 +214,7 @@
 <anchor xml:id="_tcfs_8c_source_1l00221"/>00221 }
 <anchor xml:id="_tcfs_8c_source_1l00222"/>00222 
 <anchor xml:id="_tcfs_8c_source_1l00223"/>00223 <emphasis role="keyword">static</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>
-<anchor xml:id="_tcfs_8c_source_1l00224"/>00224 tcfs_symlink&#32;(<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*from,&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*to)
+<anchor xml:id="_tcfs_8c_source_1l00224"/><link linkend="_tcfs_8c_1ac1d223f9b998d5af6bec3947d03be0fc">00224</link> <link linkend="_tcfs_8c_1ac1d223f9b998d5af6bec3947d03be0fc">tcfs_symlink</link>&#32;(<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*from,&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*to)
 <anchor xml:id="_tcfs_8c_source_1l00225"/>00225 {
 <anchor xml:id="_tcfs_8c_source_1l00226"/>00226 &#32;&#32;printf&#32;(<emphasis role="stringliteral">&quot;Called&#32;symlink\n&quot;</emphasis>);
 <anchor xml:id="_tcfs_8c_source_1l00227"/>00227 &#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;res;
@@ -227,7 +227,7 @@
 <anchor xml:id="_tcfs_8c_source_1l00234"/>00234 }
 <anchor xml:id="_tcfs_8c_source_1l00235"/>00235 
 <anchor xml:id="_tcfs_8c_source_1l00236"/>00236 <emphasis role="keyword">static</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>
-<anchor xml:id="_tcfs_8c_source_1l00237"/>00237 tcfs_rename&#32;(<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*from,&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*to)
+<anchor xml:id="_tcfs_8c_source_1l00237"/><link linkend="_tcfs_8c_1a441263abfa4130471a29b06ece28fe55">00237</link> <link linkend="_tcfs_8c_1a441263abfa4130471a29b06ece28fe55">tcfs_rename</link>&#32;(<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*from,&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*to)
 <anchor xml:id="_tcfs_8c_source_1l00238"/>00238 {
 <anchor xml:id="_tcfs_8c_source_1l00239"/>00239 &#32;&#32;printf&#32;(<emphasis role="stringliteral">&quot;Called&#32;rename\n&quot;</emphasis>);
 <anchor xml:id="_tcfs_8c_source_1l00240"/>00240 &#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;res;
@@ -240,7 +240,7 @@
 <anchor xml:id="_tcfs_8c_source_1l00247"/>00247 }
 <anchor xml:id="_tcfs_8c_source_1l00248"/>00248 
 <anchor xml:id="_tcfs_8c_source_1l00249"/>00249 <emphasis role="keyword">static</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>
-<anchor xml:id="_tcfs_8c_source_1l00250"/>00250 tcfs_link&#32;(<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*from,&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*to)
+<anchor xml:id="_tcfs_8c_source_1l00250"/><link linkend="_tcfs_8c_1a271df7bd878f5ed132e1f98487e8aebd">00250</link> <link linkend="_tcfs_8c_1a271df7bd878f5ed132e1f98487e8aebd">tcfs_link</link>&#32;(<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*from,&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*to)
 <anchor xml:id="_tcfs_8c_source_1l00251"/>00251 {
 <anchor xml:id="_tcfs_8c_source_1l00252"/>00252 &#32;&#32;printf&#32;(<emphasis role="stringliteral">&quot;Called&#32;link\n&quot;</emphasis>);
 <anchor xml:id="_tcfs_8c_source_1l00253"/>00253 &#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;res;
@@ -253,10 +253,10 @@
 <anchor xml:id="_tcfs_8c_source_1l00260"/>00260 }
 <anchor xml:id="_tcfs_8c_source_1l00261"/>00261 
 <anchor xml:id="_tcfs_8c_source_1l00262"/>00262 <emphasis role="keyword">static</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>
-<anchor xml:id="_tcfs_8c_source_1l00263"/>00263 tcfs_chmod&#32;(<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*fuse_path,&#32;mode_t&#32;mode)
+<anchor xml:id="_tcfs_8c_source_1l00263"/><link linkend="_tcfs_8c_1a1001153b56bc9f871f8d93db179db8b8">00263</link> <link linkend="_tcfs_8c_1a1001153b56bc9f871f8d93db179db8b8">tcfs_chmod</link>&#32;(<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*fuse_path,&#32;mode_t&#32;mode)
 <anchor xml:id="_tcfs_8c_source_1l00264"/>00264 {
 <anchor xml:id="_tcfs_8c_source_1l00265"/>00265 &#32;&#32;printf&#32;(<emphasis role="stringliteral">&quot;Called&#32;chmod\n&quot;</emphasis>);
-<anchor xml:id="_tcfs_8c_source_1l00266"/>00266 &#32;&#32;<emphasis role="keywordtype">char</emphasis>&#32;*path&#32;=&#32;<link linkend="_tcfs__utils_8c_1ac4ff59963f4a122c9f802c0c2bf2abc8">prefix_path</link>&#32;(fuse_path,&#32;root_path);
+<anchor xml:id="_tcfs_8c_source_1l00266"/>00266 &#32;&#32;<emphasis role="keywordtype">char</emphasis>&#32;*path&#32;=&#32;<link linkend="_tcfs__utils_8c_1ac4ff59963f4a122c9f802c0c2bf2abc8">prefix_path</link>&#32;(fuse_path,&#32;<link linkend="_tcfs_8c_1ab33cf7205359ee0f91488c87df1577a0">root_path</link>);
 <anchor xml:id="_tcfs_8c_source_1l00267"/>00267 
 <anchor xml:id="_tcfs_8c_source_1l00268"/>00268 &#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;res;
 <anchor xml:id="_tcfs_8c_source_1l00269"/>00269 
@@ -268,10 +268,10 @@
 <anchor xml:id="_tcfs_8c_source_1l00275"/>00275 }
 <anchor xml:id="_tcfs_8c_source_1l00276"/>00276 
 <anchor xml:id="_tcfs_8c_source_1l00277"/>00277 <emphasis role="keyword">static</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>
-<anchor xml:id="_tcfs_8c_source_1l00278"/>00278 tcfs_chown&#32;(<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*fuse_path,&#32;uid_t&#32;uid,&#32;gid_t&#32;gid)
+<anchor xml:id="_tcfs_8c_source_1l00278"/><link linkend="_tcfs_8c_1ac61b7c854ca2634d258fe18046cdb7e0">00278</link> <link linkend="_tcfs_8c_1ac61b7c854ca2634d258fe18046cdb7e0">tcfs_chown</link>&#32;(<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*fuse_path,&#32;uid_t&#32;uid,&#32;gid_t&#32;gid)
 <anchor xml:id="_tcfs_8c_source_1l00279"/>00279 {
 <anchor xml:id="_tcfs_8c_source_1l00280"/>00280 &#32;&#32;printf&#32;(<emphasis role="stringliteral">&quot;Called&#32;chown\n&quot;</emphasis>);
-<anchor xml:id="_tcfs_8c_source_1l00281"/>00281 &#32;&#32;<emphasis role="keywordtype">char</emphasis>&#32;*path&#32;=&#32;<link linkend="_tcfs__utils_8c_1ac4ff59963f4a122c9f802c0c2bf2abc8">prefix_path</link>&#32;(fuse_path,&#32;root_path);
+<anchor xml:id="_tcfs_8c_source_1l00281"/>00281 &#32;&#32;<emphasis role="keywordtype">char</emphasis>&#32;*path&#32;=&#32;<link linkend="_tcfs__utils_8c_1ac4ff59963f4a122c9f802c0c2bf2abc8">prefix_path</link>&#32;(fuse_path,&#32;<link linkend="_tcfs_8c_1ab33cf7205359ee0f91488c87df1577a0">root_path</link>);
 <anchor xml:id="_tcfs_8c_source_1l00282"/>00282 
 <anchor xml:id="_tcfs_8c_source_1l00283"/>00283 &#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;res;
 <anchor xml:id="_tcfs_8c_source_1l00284"/>00284 
@@ -283,10 +283,10 @@
 <anchor xml:id="_tcfs_8c_source_1l00290"/>00290 }
 <anchor xml:id="_tcfs_8c_source_1l00291"/>00291 
 <anchor xml:id="_tcfs_8c_source_1l00292"/>00292 <emphasis role="keyword">static</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>
-<anchor xml:id="_tcfs_8c_source_1l00293"/>00293 tcfs_truncate&#32;(<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*fuse_path,&#32;off_t&#32;size)
+<anchor xml:id="_tcfs_8c_source_1l00293"/><link linkend="_tcfs_8c_1a6cae4aad7da3e604ce08e14a83708e65">00293</link> <link linkend="_tcfs_8c_1a6cae4aad7da3e604ce08e14a83708e65">tcfs_truncate</link>&#32;(<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*fuse_path,&#32;off_t&#32;size)
 <anchor xml:id="_tcfs_8c_source_1l00294"/>00294 {
 <anchor xml:id="_tcfs_8c_source_1l00295"/>00295 &#32;&#32;printf&#32;(<emphasis role="stringliteral">&quot;Called&#32;truncate\n&quot;</emphasis>);
-<anchor xml:id="_tcfs_8c_source_1l00296"/>00296 &#32;&#32;<emphasis role="keywordtype">char</emphasis>&#32;*path&#32;=&#32;<link linkend="_tcfs__utils_8c_1ac4ff59963f4a122c9f802c0c2bf2abc8">prefix_path</link>&#32;(fuse_path,&#32;root_path);
+<anchor xml:id="_tcfs_8c_source_1l00296"/>00296 &#32;&#32;<emphasis role="keywordtype">char</emphasis>&#32;*path&#32;=&#32;<link linkend="_tcfs__utils_8c_1ac4ff59963f4a122c9f802c0c2bf2abc8">prefix_path</link>&#32;(fuse_path,&#32;<link linkend="_tcfs_8c_1ab33cf7205359ee0f91488c87df1577a0">root_path</link>);
 <anchor xml:id="_tcfs_8c_source_1l00297"/>00297 
 <anchor xml:id="_tcfs_8c_source_1l00298"/>00298 &#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;res;
 <anchor xml:id="_tcfs_8c_source_1l00299"/>00299 
@@ -299,10 +299,10 @@
 <anchor xml:id="_tcfs_8c_source_1l00306"/>00306 
 <anchor xml:id="_tcfs_8c_source_1l00307"/>00307 <emphasis role="comment">//&#32;#ifdef&#32;HAVE_UTIMENSAT</emphasis>
 <anchor xml:id="_tcfs_8c_source_1l00308"/>00308 <emphasis role="keyword">static</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>
-<anchor xml:id="_tcfs_8c_source_1l00309"/>00309 tcfs_utimens&#32;(<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*fuse_path,&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keyword">struct</emphasis>&#32;timespec&#32;ts[2])
+<anchor xml:id="_tcfs_8c_source_1l00309"/><link linkend="_tcfs_8c_1a3e2dc5aa998e01e0269fa1e267a9253b">00309</link> <link linkend="_tcfs_8c_1a3e2dc5aa998e01e0269fa1e267a9253b">tcfs_utimens</link>&#32;(<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*fuse_path,&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keyword">struct</emphasis>&#32;timespec&#32;ts[2])
 <anchor xml:id="_tcfs_8c_source_1l00310"/>00310 {
 <anchor xml:id="_tcfs_8c_source_1l00311"/>00311 &#32;&#32;printf&#32;(<emphasis role="stringliteral">&quot;Called&#32;utimens\n&quot;</emphasis>);
-<anchor xml:id="_tcfs_8c_source_1l00312"/>00312 &#32;&#32;<emphasis role="keywordtype">char</emphasis>&#32;*path&#32;=&#32;<link linkend="_tcfs__utils_8c_1ac4ff59963f4a122c9f802c0c2bf2abc8">prefix_path</link>&#32;(fuse_path,&#32;root_path);
+<anchor xml:id="_tcfs_8c_source_1l00312"/>00312 &#32;&#32;<emphasis role="keywordtype">char</emphasis>&#32;*path&#32;=&#32;<link linkend="_tcfs__utils_8c_1ac4ff59963f4a122c9f802c0c2bf2abc8">prefix_path</link>&#32;(fuse_path,&#32;<link linkend="_tcfs_8c_1ab33cf7205359ee0f91488c87df1577a0">root_path</link>);
 <anchor xml:id="_tcfs_8c_source_1l00313"/>00313 
 <anchor xml:id="_tcfs_8c_source_1l00314"/>00314 &#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;res;
 <anchor xml:id="_tcfs_8c_source_1l00315"/>00315 &#32;&#32;<emphasis role="keyword">struct&#32;</emphasis>timeval&#32;tv[2];
@@ -321,10 +321,10 @@
 <anchor xml:id="_tcfs_8c_source_1l00328"/>00328 <emphasis role="comment">//&#32;#endif</emphasis>
 <anchor xml:id="_tcfs_8c_source_1l00329"/>00329 
 <anchor xml:id="_tcfs_8c_source_1l00330"/>00330 <emphasis role="keyword">static</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>
-<anchor xml:id="_tcfs_8c_source_1l00331"/>00331 tcfs_open&#32;(<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*fuse_path,&#32;<emphasis role="keyword">struct</emphasis>&#32;fuse_file_info&#32;*fi)
+<anchor xml:id="_tcfs_8c_source_1l00331"/><link linkend="_tcfs_8c_1af0c6a7d66189cc1e9fbfafba5255e60d">00331</link> <link linkend="_tcfs_8c_1af0c6a7d66189cc1e9fbfafba5255e60d">tcfs_open</link>&#32;(<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*fuse_path,&#32;<emphasis role="keyword">struct</emphasis>&#32;fuse_file_info&#32;*fi)
 <anchor xml:id="_tcfs_8c_source_1l00332"/>00332 {
 <anchor xml:id="_tcfs_8c_source_1l00333"/>00333 &#32;&#32;printf&#32;(<emphasis role="stringliteral">&quot;Called&#32;open\n&quot;</emphasis>);
-<anchor xml:id="_tcfs_8c_source_1l00334"/>00334 &#32;&#32;<emphasis role="keywordtype">char</emphasis>&#32;*path&#32;=&#32;<link linkend="_tcfs__utils_8c_1ac4ff59963f4a122c9f802c0c2bf2abc8">prefix_path</link>&#32;(fuse_path,&#32;root_path);
+<anchor xml:id="_tcfs_8c_source_1l00334"/>00334 &#32;&#32;<emphasis role="keywordtype">char</emphasis>&#32;*path&#32;=&#32;<link linkend="_tcfs__utils_8c_1ac4ff59963f4a122c9f802c0c2bf2abc8">prefix_path</link>&#32;(fuse_path,&#32;<link linkend="_tcfs_8c_1ab33cf7205359ee0f91488c87df1577a0">root_path</link>);
 <anchor xml:id="_tcfs_8c_source_1l00335"/>00335 &#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;res;
 <anchor xml:id="_tcfs_8c_source_1l00336"/>00336 
 <anchor xml:id="_tcfs_8c_source_1l00337"/>00337 &#32;&#32;res&#32;=&#32;open&#32;(path,&#32;fi-&gt;flags);
@@ -336,7 +336,7 @@
 <anchor xml:id="_tcfs_8c_source_1l00343"/>00343 }
 <anchor xml:id="_tcfs_8c_source_1l00344"/>00344 
 <anchor xml:id="_tcfs_8c_source_1l00345"/>00345 <emphasis role="keyword">static</emphasis>&#32;<emphasis role="keyword">inline</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>
-<anchor xml:id="_tcfs_8c_source_1l00346"/>00346 file_size&#32;(FILE&#32;*file)
+<anchor xml:id="_tcfs_8c_source_1l00346"/><link linkend="_tcfs_8c_1a996d4e078d075e74e800288e6c92fd59">00346</link> <link linkend="_tcfs_8c_1a996d4e078d075e74e800288e6c92fd59">file_size</link>&#32;(FILE&#32;*file)
 <anchor xml:id="_tcfs_8c_source_1l00347"/>00347 {
 <anchor xml:id="_tcfs_8c_source_1l00348"/>00348 &#32;&#32;<emphasis role="keyword">struct&#32;</emphasis>stat&#32;st;
 <anchor xml:id="_tcfs_8c_source_1l00349"/>00349 
@@ -347,7 +347,7 @@
 <anchor xml:id="_tcfs_8c_source_1l00354"/>00354 }
 <anchor xml:id="_tcfs_8c_source_1l00355"/>00355 
 <anchor xml:id="_tcfs_8c_source_1l00356"/>00356 <emphasis role="keyword">static</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>
-<anchor xml:id="_tcfs_8c_source_1l00357"/>00357 tcfs_read&#32;(<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*fuse_path,&#32;<emphasis role="keywordtype">char</emphasis>&#32;*buf,&#32;<emphasis role="keywordtype">size_t</emphasis>&#32;size,&#32;off_t&#32;offset,
+<anchor xml:id="_tcfs_8c_source_1l00357"/><link linkend="_tcfs_8c_1a745384a010e20b082db26e16702a0129">00357</link> <link linkend="_tcfs_8c_1a745384a010e20b082db26e16702a0129">tcfs_read</link>&#32;(<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*fuse_path,&#32;<emphasis role="keywordtype">char</emphasis>&#32;*buf,&#32;<emphasis role="keywordtype">size_t</emphasis>&#32;size,&#32;off_t&#32;offset,
 <anchor xml:id="_tcfs_8c_source_1l00358"/>00358 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">struct</emphasis>&#32;fuse_file_info&#32;*fi)
 <anchor xml:id="_tcfs_8c_source_1l00359"/>00359 {
 <anchor xml:id="_tcfs_8c_source_1l00360"/>00360 &#32;&#32;(void)size;
@@ -363,14 +363,14 @@
 <anchor xml:id="_tcfs_8c_source_1l00370"/>00370 &#32;&#32;<emphasis role="keywordtype">size_t</emphasis>&#32;username_buf_size&#32;=&#32;1024;
 <anchor xml:id="_tcfs_8c_source_1l00371"/>00371 &#32;&#32;<link linkend="_tcfs__utils_8c_1aac1b7fab3a13b4cfcc0b34eb7511df55">get_user_name</link>&#32;(username_buf,&#32;username_buf_size);
 <anchor xml:id="_tcfs_8c_source_1l00372"/>00372 
-<anchor xml:id="_tcfs_8c_source_1l00373"/>00373 &#32;&#32;path&#32;=&#32;<link linkend="_tcfs__utils_8c_1ac4ff59963f4a122c9f802c0c2bf2abc8">prefix_path</link>&#32;(fuse_path,&#32;root_path);
+<anchor xml:id="_tcfs_8c_source_1l00373"/>00373 &#32;&#32;path&#32;=&#32;<link linkend="_tcfs__utils_8c_1ac4ff59963f4a122c9f802c0c2bf2abc8">prefix_path</link>&#32;(fuse_path,&#32;<link linkend="_tcfs_8c_1ab33cf7205359ee0f91488c87df1577a0">root_path</link>);
 <anchor xml:id="_tcfs_8c_source_1l00374"/>00374 
 <anchor xml:id="_tcfs_8c_source_1l00375"/>00375 &#32;&#32;path_ptr&#32;=&#32;fopen&#32;(path,&#32;<emphasis role="stringliteral">&quot;r&quot;</emphasis>);
 <anchor xml:id="_tcfs_8c_source_1l00376"/>00376 &#32;&#32;tmpf&#32;=&#32;tmpfile&#32;();
 <anchor xml:id="_tcfs_8c_source_1l00377"/>00377 
 <anchor xml:id="_tcfs_8c_source_1l00378"/>00378 &#32;&#32;<emphasis role="comment">//&#32;Get&#32;key&#32;size</emphasis>
 <anchor xml:id="_tcfs_8c_source_1l00379"/>00379 &#32;&#32;<emphasis role="keywordtype">char</emphasis>&#32;*size_key_char&#32;=&#32;malloc&#32;(<emphasis role="keyword">sizeof</emphasis>&#32;(<emphasis role="keywordtype">char</emphasis>)&#32;*&#32;20);
-<anchor xml:id="_tcfs_8c_source_1l00380"/>00380 &#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(tcfs_getxattr&#32;(fuse_path,&#32;<emphasis role="stringliteral">&quot;user.key_len&quot;</emphasis>,&#32;size_key_char,&#32;20)&#32;==&#32;-1)
+<anchor xml:id="_tcfs_8c_source_1l00380"/>00380 &#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(<link linkend="_tcfs_8c_1a6a031c4e3c6dd59051c09789c4666657">tcfs_getxattr</link>&#32;(fuse_path,&#32;<emphasis role="stringliteral">&quot;user.key_len&quot;</emphasis>,&#32;size_key_char,&#32;20)&#32;==&#32;-1)
 <anchor xml:id="_tcfs_8c_source_1l00381"/>00381 &#32;&#32;&#32;&#32;{
 <anchor xml:id="_tcfs_8c_source_1l00382"/>00382 &#32;&#32;&#32;&#32;&#32;&#32;perror&#32;(<emphasis role="stringliteral">&quot;Could&#32;not&#32;get&#32;file&#32;key&#32;size&quot;</emphasis>);
 <anchor xml:id="_tcfs_8c_source_1l00383"/>00383 &#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;-errno;
@@ -380,7 +380,7 @@
 <anchor xml:id="_tcfs_8c_source_1l00387"/>00387 &#32;&#32;<emphasis role="comment">//&#32;Retrive&#32;the&#32;file&#32;key</emphasis>
 <anchor xml:id="_tcfs_8c_source_1l00388"/>00388 &#32;&#32;<emphasis role="keywordtype">unsigned</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*encrypted_key&#32;=&#32;malloc&#32;((size_key&#32;+&#32;1)&#32;*&#32;<emphasis role="keyword">sizeof</emphasis>&#32;(<emphasis role="keywordtype">char</emphasis>));
 <anchor xml:id="_tcfs_8c_source_1l00389"/>00389 &#32;&#32;encrypted_key[size_key]&#32;=&#32;<emphasis role="charliteral">&apos;\0&apos;</emphasis>;
-<anchor xml:id="_tcfs_8c_source_1l00390"/>00390 &#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(tcfs_getxattr&#32;(fuse_path,&#32;<emphasis role="stringliteral">&quot;user.key&quot;</emphasis>,&#32;(<emphasis role="keywordtype">char</emphasis>&#32;*)encrypted_key,&#32;size_key)
+<anchor xml:id="_tcfs_8c_source_1l00390"/>00390 &#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(<link linkend="_tcfs_8c_1a6a031c4e3c6dd59051c09789c4666657">tcfs_getxattr</link>&#32;(fuse_path,&#32;<emphasis role="stringliteral">&quot;user.key&quot;</emphasis>,&#32;(<emphasis role="keywordtype">char</emphasis>&#32;*)encrypted_key,&#32;size_key)
 <anchor xml:id="_tcfs_8c_source_1l00391"/>00391 &#32;&#32;&#32;&#32;&#32;&#32;==&#32;-1)
 <anchor xml:id="_tcfs_8c_source_1l00392"/>00392 &#32;&#32;&#32;&#32;{
 <anchor xml:id="_tcfs_8c_source_1l00393"/>00393 &#32;&#32;&#32;&#32;&#32;&#32;perror&#32;(<emphasis role="stringliteral">&quot;Could&#32;not&#32;get&#32;encrypted&#32;key&#32;for&#32;file&#32;in&#32;tcfs_read&quot;</emphasis>);
@@ -389,10 +389,10 @@
 <anchor xml:id="_tcfs_8c_source_1l00396"/>00396 
 <anchor xml:id="_tcfs_8c_source_1l00397"/>00397 &#32;&#32;<emphasis role="comment">//&#32;Decrypt&#32;the&#32;file&#32;key</emphasis>
 <anchor xml:id="_tcfs_8c_source_1l00398"/>00398 &#32;&#32;<emphasis role="keywordtype">unsigned</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*decrypted_key;
-<anchor xml:id="_tcfs_8c_source_1l00399"/>00399 &#32;&#32;decrypted_key&#32;=&#32;decrypt_string&#32;(encrypted_key,&#32;password);
+<anchor xml:id="_tcfs_8c_source_1l00399"/>00399 &#32;&#32;decrypted_key&#32;=&#32;<link linkend="_crypt-utils_8c_1a22f528907ee4f078e333501b747d5435">decrypt_string</link>&#32;(encrypted_key,&#32;<link linkend="_tcfs_8c_1a9dbb300e28bc21c8dab41b01883918eb">password</link>);
 <anchor xml:id="_tcfs_8c_source_1l00400"/>00400 
 <anchor xml:id="_tcfs_8c_source_1l00401"/>00401 &#32;&#32;<emphasis role="comment">/*&#32;Decrypt*/</emphasis>
-<anchor xml:id="_tcfs_8c_source_1l00402"/>00402 &#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(do_crypt&#32;(path_ptr,&#32;tmpf,&#32;DECRYPT,&#32;decrypted_key)&#32;!=&#32;1)
+<anchor xml:id="_tcfs_8c_source_1l00402"/>00402 &#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(<link linkend="_crypt-utils_8c_1a94b5b388b3f00982ccee72b192077e76">do_crypt</link>&#32;(path_ptr,&#32;tmpf,&#32;<link linkend="_crypt-utils_8h_1a36fab47015485191712a579a059a7c20">DECRYPT</link>,&#32;decrypted_key)&#32;!=&#32;1)
 <anchor xml:id="_tcfs_8c_source_1l00403"/>00403 &#32;&#32;&#32;&#32;{
 <anchor xml:id="_tcfs_8c_source_1l00404"/>00404 &#32;&#32;&#32;&#32;&#32;&#32;perror&#32;(<emphasis role="stringliteral">&quot;Err:&#32;do_crypt&#32;cannot&#32;decrypt&#32;file&quot;</emphasis>);
 <anchor xml:id="_tcfs_8c_source_1l00405"/>00405 &#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;-errno;
@@ -414,7 +414,7 @@
 <anchor xml:id="_tcfs_8c_source_1l00421"/>00421 &#32;&#32;&#32;&#32;}
 <anchor xml:id="_tcfs_8c_source_1l00422"/>00422 
 <anchor xml:id="_tcfs_8c_source_1l00423"/>00423 &#32;&#32;<emphasis role="comment">/*&#32;Read&#32;our&#32;tmpfile&#32;into&#32;the&#32;buffer.&#32;*/</emphasis>
-<anchor xml:id="_tcfs_8c_source_1l00424"/>00424 &#32;&#32;res&#32;=&#32;fread&#32;(buf,&#32;1,&#32;file_size&#32;(tmpf),&#32;tmpf);
+<anchor xml:id="_tcfs_8c_source_1l00424"/>00424 &#32;&#32;res&#32;=&#32;fread&#32;(buf,&#32;1,&#32;<link linkend="_tcfs_8c_1a996d4e078d075e74e800288e6c92fd59">file_size</link>&#32;(tmpf),&#32;tmpf);
 <anchor xml:id="_tcfs_8c_source_1l00425"/>00425 &#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(res&#32;==&#32;-1)
 <anchor xml:id="_tcfs_8c_source_1l00426"/>00426 &#32;&#32;&#32;&#32;{
 <anchor xml:id="_tcfs_8c_source_1l00427"/>00427 &#32;&#32;&#32;&#32;&#32;&#32;perror&#32;(<emphasis role="stringliteral">&quot;Err:&#32;cannot&#32;fread&#32;whine&#32;in&#32;read&quot;</emphasis>);
@@ -429,7 +429,7 @@
 <anchor xml:id="_tcfs_8c_source_1l00436"/>00436 }
 <anchor xml:id="_tcfs_8c_source_1l00437"/>00437 
 <anchor xml:id="_tcfs_8c_source_1l00438"/>00438 <emphasis role="keyword">static</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>
-<anchor xml:id="_tcfs_8c_source_1l00439"/>00439 tcfs_write&#32;(<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*fuse_path,&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*buf,&#32;<emphasis role="keywordtype">size_t</emphasis>&#32;size,&#32;off_t&#32;offset,
+<anchor xml:id="_tcfs_8c_source_1l00439"/><link linkend="_tcfs_8c_1adaba2baa5a036b8f77ec187599498a66">00439</link> <link linkend="_tcfs_8c_1adaba2baa5a036b8f77ec187599498a66">tcfs_write</link>&#32;(<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*fuse_path,&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*buf,&#32;<emphasis role="keywordtype">size_t</emphasis>&#32;size,&#32;off_t&#32;offset,
 <anchor xml:id="_tcfs_8c_source_1l00440"/>00440 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">struct</emphasis>&#32;fuse_file_info&#32;*fi)
 <anchor xml:id="_tcfs_8c_source_1l00441"/>00441 {
 <anchor xml:id="_tcfs_8c_source_1l00442"/>00442 &#32;&#32;(void)fi;
@@ -440,14 +440,14 @@
 <anchor xml:id="_tcfs_8c_source_1l00447"/>00447 &#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;res;
 <anchor xml:id="_tcfs_8c_source_1l00448"/>00448 &#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;tmpf_descriptor;
 <anchor xml:id="_tcfs_8c_source_1l00449"/>00449 
-<anchor xml:id="_tcfs_8c_source_1l00450"/>00450 &#32;&#32;path&#32;=&#32;<link linkend="_tcfs__utils_8c_1ac4ff59963f4a122c9f802c0c2bf2abc8">prefix_path</link>&#32;(fuse_path,&#32;root_path);
+<anchor xml:id="_tcfs_8c_source_1l00450"/>00450 &#32;&#32;path&#32;=&#32;<link linkend="_tcfs__utils_8c_1ac4ff59963f4a122c9f802c0c2bf2abc8">prefix_path</link>&#32;(fuse_path,&#32;<link linkend="_tcfs_8c_1ab33cf7205359ee0f91488c87df1577a0">root_path</link>);
 <anchor xml:id="_tcfs_8c_source_1l00451"/>00451 &#32;&#32;path_ptr&#32;=&#32;fopen&#32;(path,&#32;<emphasis role="stringliteral">&quot;r+&quot;</emphasis>);
 <anchor xml:id="_tcfs_8c_source_1l00452"/>00452 &#32;&#32;tmpf&#32;=&#32;tmpfile&#32;();
 <anchor xml:id="_tcfs_8c_source_1l00453"/>00453 &#32;&#32;tmpf_descriptor&#32;=&#32;fileno&#32;(tmpf);
 <anchor xml:id="_tcfs_8c_source_1l00454"/>00454 
 <anchor xml:id="_tcfs_8c_source_1l00455"/>00455 &#32;&#32;<emphasis role="comment">//&#32;Get&#32;the&#32;key&#32;size</emphasis>
 <anchor xml:id="_tcfs_8c_source_1l00456"/>00456 &#32;&#32;<emphasis role="keywordtype">char</emphasis>&#32;*size_key_char&#32;=&#32;malloc&#32;(<emphasis role="keyword">sizeof</emphasis>&#32;(<emphasis role="keywordtype">char</emphasis>)&#32;*&#32;20);
-<anchor xml:id="_tcfs_8c_source_1l00457"/>00457 &#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(tcfs_getxattr&#32;(fuse_path,&#32;<emphasis role="stringliteral">&quot;user.key_len&quot;</emphasis>,&#32;size_key_char,&#32;20)&#32;==&#32;-1)
+<anchor xml:id="_tcfs_8c_source_1l00457"/>00457 &#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(<link linkend="_tcfs_8c_1a6a031c4e3c6dd59051c09789c4666657">tcfs_getxattr</link>&#32;(fuse_path,&#32;<emphasis role="stringliteral">&quot;user.key_len&quot;</emphasis>,&#32;size_key_char,&#32;20)&#32;==&#32;-1)
 <anchor xml:id="_tcfs_8c_source_1l00458"/>00458 &#32;&#32;&#32;&#32;{
 <anchor xml:id="_tcfs_8c_source_1l00459"/>00459 &#32;&#32;&#32;&#32;&#32;&#32;perror&#32;(<emphasis role="stringliteral">&quot;Could&#32;not&#32;get&#32;file&#32;key&#32;size&quot;</emphasis>);
 <anchor xml:id="_tcfs_8c_source_1l00460"/>00460 &#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;-errno;
@@ -458,7 +458,7 @@
 <anchor xml:id="_tcfs_8c_source_1l00465"/>00465 &#32;&#32;<emphasis role="keywordtype">unsigned</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*encrypted_key
 <anchor xml:id="_tcfs_8c_source_1l00466"/>00466 &#32;&#32;&#32;&#32;&#32;&#32;=&#32;malloc&#32;(<emphasis role="keyword">sizeof</emphasis>&#32;(<emphasis role="keywordtype">unsigned</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>)&#32;*&#32;(size_key&#32;+&#32;1));
 <anchor xml:id="_tcfs_8c_source_1l00467"/>00467 &#32;&#32;encrypted_key[size_key]&#32;=&#32;<emphasis role="charliteral">&apos;\0&apos;</emphasis>;
-<anchor xml:id="_tcfs_8c_source_1l00468"/>00468 &#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(tcfs_getxattr&#32;(fuse_path,&#32;<emphasis role="stringliteral">&quot;user.key&quot;</emphasis>,&#32;(<emphasis role="keywordtype">char</emphasis>&#32;*)encrypted_key,&#32;size_key)
+<anchor xml:id="_tcfs_8c_source_1l00468"/>00468 &#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(<link linkend="_tcfs_8c_1a6a031c4e3c6dd59051c09789c4666657">tcfs_getxattr</link>&#32;(fuse_path,&#32;<emphasis role="stringliteral">&quot;user.key&quot;</emphasis>,&#32;(<emphasis role="keywordtype">char</emphasis>&#32;*)encrypted_key,&#32;size_key)
 <anchor xml:id="_tcfs_8c_source_1l00469"/>00469 &#32;&#32;&#32;&#32;&#32;&#32;==&#32;-1)
 <anchor xml:id="_tcfs_8c_source_1l00470"/>00470 &#32;&#32;&#32;&#32;{
 <anchor xml:id="_tcfs_8c_source_1l00471"/>00471 &#32;&#32;&#32;&#32;&#32;&#32;perror&#32;(<emphasis role="stringliteral">&quot;Could&#32;not&#32;get&#32;file&#32;encrypted&#32;key&#32;in&#32;tcfs&#32;write&quot;</emphasis>);
@@ -468,7 +468,7 @@
 <anchor xml:id="_tcfs_8c_source_1l00475"/>00475 &#32;&#32;<emphasis role="comment">//&#32;Decrypt&#32;the&#32;file&#32;key</emphasis>
 <anchor xml:id="_tcfs_8c_source_1l00476"/>00476 &#32;&#32;<emphasis role="keywordtype">unsigned</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*decrypted_key&#32;=&#32;malloc&#32;(<emphasis role="keyword">sizeof</emphasis>&#32;(<emphasis role="keywordtype">unsigned</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>)&#32;*&#32;33);
 <anchor xml:id="_tcfs_8c_source_1l00477"/>00477 &#32;&#32;decrypted_key[32]&#32;=&#32;<emphasis role="charliteral">&apos;\0&apos;</emphasis>;
-<anchor xml:id="_tcfs_8c_source_1l00478"/>00478 &#32;&#32;decrypted_key&#32;=&#32;decrypt_string&#32;(encrypted_key,&#32;password);
+<anchor xml:id="_tcfs_8c_source_1l00478"/>00478 &#32;&#32;decrypted_key&#32;=&#32;<link linkend="_crypt-utils_8c_1a22f528907ee4f078e333501b747d5435">decrypt_string</link>&#32;(encrypted_key,&#32;<link linkend="_tcfs_8c_1a9dbb300e28bc21c8dab41b01883918eb">password</link>);
 <anchor xml:id="_tcfs_8c_source_1l00479"/>00479 
 <anchor xml:id="_tcfs_8c_source_1l00480"/>00480 &#32;&#32;<emphasis role="comment">/*&#32;Something&#32;went&#32;terribly&#32;wrong&#32;if&#32;this&#32;is&#32;the&#32;case.&#32;*/</emphasis>
 <anchor xml:id="_tcfs_8c_source_1l00481"/>00481 &#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(path_ptr&#32;==&#32;NULL&#32;||&#32;tmpf&#32;==&#32;NULL)
@@ -479,9 +479,9 @@
 <anchor xml:id="_tcfs_8c_source_1l00486"/>00486 &#32;&#32;&#32;&#32;}
 <anchor xml:id="_tcfs_8c_source_1l00487"/>00487 
 <anchor xml:id="_tcfs_8c_source_1l00488"/>00488 &#32;&#32;<emphasis role="comment">/*&#32;if&#32;the&#32;file&#32;to&#32;write&#32;to&#32;exists,&#32;read&#32;it&#32;into&#32;the&#32;tempfile&#32;*/</emphasis>
-<anchor xml:id="_tcfs_8c_source_1l00489"/>00489 &#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(tcfs_access&#32;(fuse_path,&#32;R_OK)&#32;==&#32;0&#32;&amp;&amp;&#32;file_size&#32;(path_ptr)&#32;&gt;&#32;0)
+<anchor xml:id="_tcfs_8c_source_1l00489"/>00489 &#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(<link linkend="_tcfs_8c_1a76af7857833338c73b9cafdce59ca01d">tcfs_access</link>&#32;(fuse_path,&#32;R_OK)&#32;==&#32;0&#32;&amp;&amp;&#32;<link linkend="_tcfs_8c_1a996d4e078d075e74e800288e6c92fd59">file_size</link>&#32;(path_ptr)&#32;&gt;&#32;0)
 <anchor xml:id="_tcfs_8c_source_1l00490"/>00490 &#32;&#32;&#32;&#32;{
-<anchor xml:id="_tcfs_8c_source_1l00491"/>00491 &#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(do_crypt&#32;(path_ptr,&#32;tmpf,&#32;DECRYPT,&#32;decrypted_key)&#32;==&#32;0)
+<anchor xml:id="_tcfs_8c_source_1l00491"/>00491 &#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(<link linkend="_crypt-utils_8c_1a94b5b388b3f00982ccee72b192077e76">do_crypt</link>&#32;(path_ptr,&#32;tmpf,&#32;<link linkend="_crypt-utils_8h_1a36fab47015485191712a579a059a7c20">DECRYPT</link>,&#32;decrypted_key)&#32;==&#32;0)
 <anchor xml:id="_tcfs_8c_source_1l00492"/>00492 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
 <anchor xml:id="_tcfs_8c_source_1l00493"/>00493 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;perror&#32;(<emphasis role="stringliteral">&quot;do_crypt:&#32;Cannot&#32;cypher&#32;file\n&quot;</emphasis>);
 <anchor xml:id="_tcfs_8c_source_1l00494"/>00494 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;--errno;
@@ -500,7 +500,7 @@
 <anchor xml:id="_tcfs_8c_source_1l00507"/>00507 &#32;&#32;&#32;&#32;}
 <anchor xml:id="_tcfs_8c_source_1l00508"/>00508 
 <anchor xml:id="_tcfs_8c_source_1l00509"/>00509 &#32;&#32;<emphasis role="comment">/*&#32;Encrypt*/</emphasis>
-<anchor xml:id="_tcfs_8c_source_1l00510"/>00510 &#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(do_crypt&#32;(tmpf,&#32;path_ptr,&#32;ENCRYPT,&#32;decrypted_key)&#32;==&#32;0)
+<anchor xml:id="_tcfs_8c_source_1l00510"/>00510 &#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(<link linkend="_crypt-utils_8c_1a94b5b388b3f00982ccee72b192077e76">do_crypt</link>&#32;(tmpf,&#32;path_ptr,&#32;<link linkend="_crypt-utils_8h_1a1cb0c60ca582db30ae87362ca43e8c19">ENCRYPT</link>,&#32;decrypted_key)&#32;==&#32;0)
 <anchor xml:id="_tcfs_8c_source_1l00511"/>00511 &#32;&#32;&#32;&#32;{
 <anchor xml:id="_tcfs_8c_source_1l00512"/>00512 &#32;&#32;&#32;&#32;&#32;&#32;perror&#32;(<emphasis role="stringliteral">&quot;do_crypt&#32;2:&#32;cannot&#32;cypher&#32;file\n&quot;</emphasis>);
 <anchor xml:id="_tcfs_8c_source_1l00513"/>00513 &#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;-errno;
@@ -515,10 +515,10 @@
 <anchor xml:id="_tcfs_8c_source_1l00522"/>00522 }
 <anchor xml:id="_tcfs_8c_source_1l00523"/>00523 
 <anchor xml:id="_tcfs_8c_source_1l00524"/>00524 <emphasis role="keyword">static</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>
-<anchor xml:id="_tcfs_8c_source_1l00525"/>00525 tcfs_statfs&#32;(<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*fuse_path,&#32;<emphasis role="keyword">struct</emphasis>&#32;statvfs&#32;*stbuf)
+<anchor xml:id="_tcfs_8c_source_1l00525"/><link linkend="_tcfs_8c_1ae14ebf4581d4cbc45737ae75af82a887">00525</link> <link linkend="_tcfs_8c_1ae14ebf4581d4cbc45737ae75af82a887">tcfs_statfs</link>&#32;(<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*fuse_path,&#32;<emphasis role="keyword">struct</emphasis>&#32;statvfs&#32;*stbuf)
 <anchor xml:id="_tcfs_8c_source_1l00526"/>00526 {
 <anchor xml:id="_tcfs_8c_source_1l00527"/>00527 &#32;&#32;printf&#32;(<emphasis role="stringliteral">&quot;Called&#32;statfs\n&quot;</emphasis>);
-<anchor xml:id="_tcfs_8c_source_1l00528"/>00528 &#32;&#32;<emphasis role="keywordtype">char</emphasis>&#32;*path&#32;=&#32;<link linkend="_tcfs__utils_8c_1ac4ff59963f4a122c9f802c0c2bf2abc8">prefix_path</link>&#32;(fuse_path,&#32;root_path);
+<anchor xml:id="_tcfs_8c_source_1l00528"/>00528 &#32;&#32;<emphasis role="keywordtype">char</emphasis>&#32;*path&#32;=&#32;<link linkend="_tcfs__utils_8c_1ac4ff59963f4a122c9f802c0c2bf2abc8">prefix_path</link>&#32;(fuse_path,&#32;<link linkend="_tcfs_8c_1ab33cf7205359ee0f91488c87df1577a0">root_path</link>);
 <anchor xml:id="_tcfs_8c_source_1l00529"/>00529 
 <anchor xml:id="_tcfs_8c_source_1l00530"/>00530 &#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;res;
 <anchor xml:id="_tcfs_8c_source_1l00531"/>00531 
@@ -530,10 +530,10 @@
 <anchor xml:id="_tcfs_8c_source_1l00537"/>00537 }
 <anchor xml:id="_tcfs_8c_source_1l00538"/>00538 
 <anchor xml:id="_tcfs_8c_source_1l00539"/>00539 <emphasis role="keyword">static</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>
-<anchor xml:id="_tcfs_8c_source_1l00540"/>00540 tcfs_setxattr&#32;(<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*fuse_path,&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*name,&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*value,
+<anchor xml:id="_tcfs_8c_source_1l00540"/><link linkend="_tcfs_8c_1ad3c328fdcd93c8203e1ce9c785fd3a14">00540</link> <link linkend="_tcfs_8c_1ad3c328fdcd93c8203e1ce9c785fd3a14">tcfs_setxattr</link>&#32;(<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*fuse_path,&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*name,&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*value,
 <anchor xml:id="_tcfs_8c_source_1l00541"/>00541 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">size_t</emphasis>&#32;size,&#32;<emphasis role="keywordtype">int</emphasis>&#32;flags)
 <anchor xml:id="_tcfs_8c_source_1l00542"/>00542 {
-<anchor xml:id="_tcfs_8c_source_1l00543"/>00543 &#32;&#32;<emphasis role="keywordtype">char</emphasis>&#32;*path&#32;=&#32;<link linkend="_tcfs__utils_8c_1ac4ff59963f4a122c9f802c0c2bf2abc8">prefix_path</link>&#32;(fuse_path,&#32;root_path);
+<anchor xml:id="_tcfs_8c_source_1l00543"/>00543 &#32;&#32;<emphasis role="keywordtype">char</emphasis>&#32;*path&#32;=&#32;<link linkend="_tcfs__utils_8c_1ac4ff59963f4a122c9f802c0c2bf2abc8">prefix_path</link>&#32;(fuse_path,&#32;<link linkend="_tcfs_8c_1ab33cf7205359ee0f91488c87df1577a0">root_path</link>);
 <anchor xml:id="_tcfs_8c_source_1l00544"/>00544 &#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;res&#32;=&#32;1;
 <anchor xml:id="_tcfs_8c_source_1l00545"/>00545 &#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;((res&#32;=&#32;lsetxattr&#32;(path,&#32;name,&#32;value,&#32;size,&#32;flags))&#32;==&#32;-1)
 <anchor xml:id="_tcfs_8c_source_1l00546"/>00546 &#32;&#32;&#32;&#32;perror&#32;(<emphasis role="stringliteral">&quot;tcfs_lsetxattr&quot;</emphasis>);
@@ -543,19 +543,19 @@
 <anchor xml:id="_tcfs_8c_source_1l00550"/>00550 }
 <anchor xml:id="_tcfs_8c_source_1l00551"/>00551 
 <anchor xml:id="_tcfs_8c_source_1l00552"/>00552 <emphasis role="keyword">static</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>
-<anchor xml:id="_tcfs_8c_source_1l00553"/>00553 tcfs_create&#32;(<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*fuse_path,&#32;mode_t&#32;mode,&#32;<emphasis role="keyword">struct</emphasis>&#32;fuse_file_info&#32;*fi)
+<anchor xml:id="_tcfs_8c_source_1l00553"/><link linkend="_tcfs_8c_1ad973ad9d6ab7d6276bf85cd8fecd0657">00553</link> <link linkend="_tcfs_8c_1ad973ad9d6ab7d6276bf85cd8fecd0657">tcfs_create</link>&#32;(<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*fuse_path,&#32;mode_t&#32;mode,&#32;<emphasis role="keyword">struct</emphasis>&#32;fuse_file_info&#32;*fi)
 <anchor xml:id="_tcfs_8c_source_1l00554"/>00554 {
 <anchor xml:id="_tcfs_8c_source_1l00555"/>00555 &#32;&#32;(void)fi;
 <anchor xml:id="_tcfs_8c_source_1l00556"/>00556 &#32;&#32;(void)mode;
 <anchor xml:id="_tcfs_8c_source_1l00557"/>00557 &#32;&#32;printf&#32;(<emphasis role="stringliteral">&quot;Called&#32;create\n&quot;</emphasis>);
 <anchor xml:id="_tcfs_8c_source_1l00558"/>00558 
 <anchor xml:id="_tcfs_8c_source_1l00559"/>00559 &#32;&#32;FILE&#32;*res;
-<anchor xml:id="_tcfs_8c_source_1l00560"/>00560 &#32;&#32;res&#32;=&#32;fopen&#32;(<link linkend="_tcfs__utils_8c_1ac4ff59963f4a122c9f802c0c2bf2abc8">prefix_path</link>&#32;(fuse_path,&#32;root_path),&#32;<emphasis role="stringliteral">&quot;w&quot;</emphasis>);
+<anchor xml:id="_tcfs_8c_source_1l00560"/>00560 &#32;&#32;res&#32;=&#32;fopen&#32;(<link linkend="_tcfs__utils_8c_1ac4ff59963f4a122c9f802c0c2bf2abc8">prefix_path</link>&#32;(fuse_path,&#32;<link linkend="_tcfs_8c_1ab33cf7205359ee0f91488c87df1577a0">root_path</link>),&#32;<emphasis role="stringliteral">&quot;w&quot;</emphasis>);
 <anchor xml:id="_tcfs_8c_source_1l00561"/>00561 &#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(res&#32;==&#32;NULL)
 <anchor xml:id="_tcfs_8c_source_1l00562"/>00562 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;-errno;
 <anchor xml:id="_tcfs_8c_source_1l00563"/>00563 
 <anchor xml:id="_tcfs_8c_source_1l00564"/>00564 &#32;&#32;<emphasis role="comment">//&#32;Flag&#32;file&#32;as&#32;encrypted</emphasis>
-<anchor xml:id="_tcfs_8c_source_1l00565"/>00565 &#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(tcfs_setxattr&#32;(fuse_path,&#32;<emphasis role="stringliteral">&quot;user.encrypted&quot;</emphasis>,&#32;<emphasis role="stringliteral">&quot;true&quot;</emphasis>,&#32;4,&#32;0)
+<anchor xml:id="_tcfs_8c_source_1l00565"/>00565 &#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(<link linkend="_tcfs_8c_1ad3c328fdcd93c8203e1ce9c785fd3a14">tcfs_setxattr</link>&#32;(fuse_path,&#32;<emphasis role="stringliteral">&quot;user.encrypted&quot;</emphasis>,&#32;<emphasis role="stringliteral">&quot;true&quot;</emphasis>,&#32;4,&#32;0)
 <anchor xml:id="_tcfs_8c_source_1l00566"/>00566 &#32;&#32;&#32;&#32;&#32;&#32;!=&#32;0)&#32;<emphasis role="comment">//(fsetxattr(fileno(res),&#32;&quot;user.encrypted&quot;,&#32;&quot;true&quot;,&#32;4,&#32;0)&#32;!=&#32;0)</emphasis>
 <anchor xml:id="_tcfs_8c_source_1l00567"/>00567 &#32;&#32;&#32;&#32;{
 <anchor xml:id="_tcfs_8c_source_1l00568"/>00568 &#32;&#32;&#32;&#32;&#32;&#32;fclose&#32;(res);
@@ -565,14 +565,14 @@
 <anchor xml:id="_tcfs_8c_source_1l00572"/>00572 &#32;&#32;<emphasis role="comment">//&#32;Generate&#32;and&#32;set&#32;a&#32;new&#32;encrypted&#32;key&#32;for&#32;the&#32;file</emphasis>
 <anchor xml:id="_tcfs_8c_source_1l00573"/>00573 &#32;&#32;<emphasis role="keywordtype">unsigned</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*key&#32;=&#32;malloc&#32;(<emphasis role="keyword">sizeof</emphasis>&#32;(<emphasis role="keywordtype">unsigned</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>)&#32;*&#32;33);
 <anchor xml:id="_tcfs_8c_source_1l00574"/>00574 &#32;&#32;key[32]&#32;=&#32;<emphasis role="charliteral">&apos;\0&apos;</emphasis>;
-<anchor xml:id="_tcfs_8c_source_1l00575"/>00575 &#32;&#32;generate_key&#32;(key);
+<anchor xml:id="_tcfs_8c_source_1l00575"/>00575 &#32;&#32;<link linkend="_crypt-utils_8c_1a8845f5705eaafda836aac91d5881876f">generate_key</link>&#32;(key);
 <anchor xml:id="_tcfs_8c_source_1l00576"/>00576 
 <anchor xml:id="_tcfs_8c_source_1l00577"/>00577 &#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(key&#32;==&#32;NULL)
 <anchor xml:id="_tcfs_8c_source_1l00578"/>00578 &#32;&#32;&#32;&#32;{
 <anchor xml:id="_tcfs_8c_source_1l00579"/>00579 &#32;&#32;&#32;&#32;&#32;&#32;perror&#32;(<emphasis role="stringliteral">&quot;cannot&#32;generate&#32;file&#32;key&quot;</emphasis>);
 <anchor xml:id="_tcfs_8c_source_1l00580"/>00580 &#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;-errno;
 <anchor xml:id="_tcfs_8c_source_1l00581"/>00581 &#32;&#32;&#32;&#32;}
-<anchor xml:id="_tcfs_8c_source_1l00582"/>00582 &#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(is_valid_key&#32;(key)&#32;==&#32;0)
+<anchor xml:id="_tcfs_8c_source_1l00582"/>00582 &#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(<link linkend="_crypt-utils_8c_1a36c2342a7c47b8f41bf628bf473b1c97">is_valid_key</link>&#32;(key)&#32;==&#32;0)
 <anchor xml:id="_tcfs_8c_source_1l00583"/>00583 &#32;&#32;&#32;&#32;{
 <anchor xml:id="_tcfs_8c_source_1l00584"/>00584 &#32;&#32;&#32;&#32;&#32;&#32;fprintf&#32;(stderr,&#32;<emphasis role="stringliteral">&quot;Generated&#32;key&#32;size&#32;invalid\n&quot;</emphasis>);
 <anchor xml:id="_tcfs_8c_source_1l00585"/>00585 &#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;-1;
@@ -581,10 +581,10 @@
 <anchor xml:id="_tcfs_8c_source_1l00588"/>00588 &#32;&#32;<emphasis role="comment">//&#32;Encrypt&#32;the&#32;generated&#32;key</emphasis>
 <anchor xml:id="_tcfs_8c_source_1l00589"/>00589 &#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;encrypted_key_len;
 <anchor xml:id="_tcfs_8c_source_1l00590"/>00590 &#32;&#32;<emphasis role="keywordtype">unsigned</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*encrypted_key
-<anchor xml:id="_tcfs_8c_source_1l00591"/>00591 &#32;&#32;&#32;&#32;&#32;&#32;=&#32;encrypt_string&#32;(key,&#32;password,&#32;&amp;encrypted_key_len);
+<anchor xml:id="_tcfs_8c_source_1l00591"/>00591 &#32;&#32;&#32;&#32;&#32;&#32;=&#32;<link linkend="_crypt-utils_8c_1aa926098a8843cf0ab6bd7eb8b3bbd2e6">encrypt_string</link>&#32;(key,&#32;<link linkend="_tcfs_8c_1a9dbb300e28bc21c8dab41b01883918eb">password</link>,&#32;&amp;encrypted_key_len);
 <anchor xml:id="_tcfs_8c_source_1l00592"/>00592 
 <anchor xml:id="_tcfs_8c_source_1l00593"/>00593 &#32;&#32;<emphasis role="comment">//&#32;Set&#32;the&#32;file&#32;key</emphasis>
-<anchor xml:id="_tcfs_8c_source_1l00594"/>00594 &#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(tcfs_setxattr&#32;(fuse_path,&#32;<emphasis role="stringliteral">&quot;user.key&quot;</emphasis>,&#32;(<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*)encrypted_key,
+<anchor xml:id="_tcfs_8c_source_1l00594"/>00594 &#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(<link linkend="_tcfs_8c_1ad3c328fdcd93c8203e1ce9c785fd3a14">tcfs_setxattr</link>&#32;(fuse_path,&#32;<emphasis role="stringliteral">&quot;user.key&quot;</emphasis>,&#32;(<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*)encrypted_key,
 <anchor xml:id="_tcfs_8c_source_1l00595"/>00595 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;encrypted_key_len,&#32;0)
 <anchor xml:id="_tcfs_8c_source_1l00596"/>00596 &#32;&#32;&#32;&#32;&#32;&#32;!=&#32;0)&#32;<emphasis role="comment">//(fsetxattr(fileno(res),&#32;&quot;user.key&quot;,&#32;encrypted_key,&#32;32,&#32;0)&#32;!=&#32;0)</emphasis>
 <anchor xml:id="_tcfs_8c_source_1l00597"/>00597 &#32;&#32;&#32;&#32;{
@@ -595,7 +595,7 @@
 <anchor xml:id="_tcfs_8c_source_1l00602"/>00602 &#32;&#32;<emphasis role="keywordtype">char</emphasis>&#32;encrypted_key_len_char[20];
 <anchor xml:id="_tcfs_8c_source_1l00603"/>00603 &#32;&#32;snprintf&#32;(encrypted_key_len_char,&#32;<emphasis role="keyword">sizeof</emphasis>&#32;(encrypted_key_len_char),&#32;<emphasis role="stringliteral">&quot;%d&quot;</emphasis>,
 <anchor xml:id="_tcfs_8c_source_1l00604"/>00604 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;encrypted_key_len);
-<anchor xml:id="_tcfs_8c_source_1l00605"/>00605 &#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(tcfs_setxattr&#32;(fuse_path,&#32;<emphasis role="stringliteral">&quot;user.key_len&quot;</emphasis>,&#32;encrypted_key_len_char,
+<anchor xml:id="_tcfs_8c_source_1l00605"/>00605 &#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(<link linkend="_tcfs_8c_1ad3c328fdcd93c8203e1ce9c785fd3a14">tcfs_setxattr</link>&#32;(fuse_path,&#32;<emphasis role="stringliteral">&quot;user.key_len&quot;</emphasis>,&#32;encrypted_key_len_char,
 <anchor xml:id="_tcfs_8c_source_1l00606"/>00606 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">sizeof</emphasis>&#32;(encrypted_key_len_char),&#32;0)
 <anchor xml:id="_tcfs_8c_source_1l00607"/>00607 &#32;&#32;&#32;&#32;&#32;&#32;!=&#32;0)&#32;<emphasis role="comment">//(fsetxattr(fileno(res),&#32;&quot;user.key&quot;,&#32;encrypted_key,&#32;32,&#32;0)&#32;!=&#32;0)</emphasis>
 <anchor xml:id="_tcfs_8c_source_1l00608"/>00608 &#32;&#32;&#32;&#32;{
@@ -610,11 +610,11 @@
 <anchor xml:id="_tcfs_8c_source_1l00617"/>00617 }
 <anchor xml:id="_tcfs_8c_source_1l00618"/>00618 
 <anchor xml:id="_tcfs_8c_source_1l00619"/>00619 <emphasis role="keyword">static</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>
-<anchor xml:id="_tcfs_8c_source_1l00620"/>00620 tcfs_release&#32;(<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*fuse_path,&#32;<emphasis role="keyword">struct</emphasis>&#32;fuse_file_info&#32;*fi)
+<anchor xml:id="_tcfs_8c_source_1l00620"/><link linkend="_tcfs_8c_1a1241e1fcfe6bb4a5d49d8c8d4e737bcd">00620</link> <link linkend="_tcfs_8c_1a1241e1fcfe6bb4a5d49d8c8d4e737bcd">tcfs_release</link>&#32;(<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*fuse_path,&#32;<emphasis role="keyword">struct</emphasis>&#32;fuse_file_info&#32;*fi)
 <anchor xml:id="_tcfs_8c_source_1l00621"/>00621 {
 <anchor xml:id="_tcfs_8c_source_1l00622"/>00622 &#32;&#32;<emphasis role="comment">/*&#32;Just&#32;a&#32;stub.&#32;&#32;&#32;&#32;This&#32;method&#32;is&#32;optional&#32;and&#32;can&#32;safely&#32;be&#32;left</emphasis>
 <anchor xml:id="_tcfs_8c_source_1l00623"/>00623 <emphasis role="comment">&#32;&#32;&#32;&#32;&#32;unimplemented&#32;*/</emphasis>
-<anchor xml:id="_tcfs_8c_source_1l00624"/>00624 &#32;&#32;<emphasis role="keywordtype">char</emphasis>&#32;*path&#32;=&#32;<link linkend="_tcfs__utils_8c_1ac4ff59963f4a122c9f802c0c2bf2abc8">prefix_path</link>&#32;(fuse_path,&#32;root_path);
+<anchor xml:id="_tcfs_8c_source_1l00624"/>00624 &#32;&#32;<emphasis role="keywordtype">char</emphasis>&#32;*path&#32;=&#32;<link linkend="_tcfs__utils_8c_1ac4ff59963f4a122c9f802c0c2bf2abc8">prefix_path</link>&#32;(fuse_path,&#32;<link linkend="_tcfs_8c_1ab33cf7205359ee0f91488c87df1577a0">root_path</link>);
 <anchor xml:id="_tcfs_8c_source_1l00625"/>00625 
 <anchor xml:id="_tcfs_8c_source_1l00626"/>00626 &#32;&#32;(void)path;
 <anchor xml:id="_tcfs_8c_source_1l00627"/>00627 &#32;&#32;(void)fi;
@@ -622,11 +622,11 @@
 <anchor xml:id="_tcfs_8c_source_1l00629"/>00629 }
 <anchor xml:id="_tcfs_8c_source_1l00630"/>00630 
 <anchor xml:id="_tcfs_8c_source_1l00631"/>00631 <emphasis role="keyword">static</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>
-<anchor xml:id="_tcfs_8c_source_1l00632"/>00632 tcfs_fsync&#32;(<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*fuse_path,&#32;<emphasis role="keywordtype">int</emphasis>&#32;isdatasync,&#32;<emphasis role="keyword">struct</emphasis>&#32;fuse_file_info&#32;*fi)
+<anchor xml:id="_tcfs_8c_source_1l00632"/><link linkend="_tcfs_8c_1a014853840814f4d5225e2e28e129f9e5">00632</link> <link linkend="_tcfs_8c_1a014853840814f4d5225e2e28e129f9e5">tcfs_fsync</link>&#32;(<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*fuse_path,&#32;<emphasis role="keywordtype">int</emphasis>&#32;isdatasync,&#32;<emphasis role="keyword">struct</emphasis>&#32;fuse_file_info&#32;*fi)
 <anchor xml:id="_tcfs_8c_source_1l00633"/>00633 {
 <anchor xml:id="_tcfs_8c_source_1l00634"/>00634 &#32;&#32;<emphasis role="comment">/*&#32;Just&#32;a&#32;stub.&#32;&#32;&#32;&#32;This&#32;method&#32;is&#32;optional&#32;and&#32;can&#32;safely&#32;be&#32;left</emphasis>
 <anchor xml:id="_tcfs_8c_source_1l00635"/>00635 <emphasis role="comment">&#32;&#32;&#32;&#32;&#32;unimplemented&#32;*/</emphasis>
-<anchor xml:id="_tcfs_8c_source_1l00636"/>00636 &#32;&#32;<emphasis role="keywordtype">char</emphasis>&#32;*path&#32;=&#32;<link linkend="_tcfs__utils_8c_1ac4ff59963f4a122c9f802c0c2bf2abc8">prefix_path</link>&#32;(fuse_path,&#32;root_path);
+<anchor xml:id="_tcfs_8c_source_1l00636"/>00636 &#32;&#32;<emphasis role="keywordtype">char</emphasis>&#32;*path&#32;=&#32;<link linkend="_tcfs__utils_8c_1ac4ff59963f4a122c9f802c0c2bf2abc8">prefix_path</link>&#32;(fuse_path,&#32;<link linkend="_tcfs_8c_1ab33cf7205359ee0f91488c87df1577a0">root_path</link>);
 <anchor xml:id="_tcfs_8c_source_1l00637"/>00637 
 <anchor xml:id="_tcfs_8c_source_1l00638"/>00638 &#32;&#32;(void)path;
 <anchor xml:id="_tcfs_8c_source_1l00639"/>00639 &#32;&#32;(void)isdatasync;
@@ -635,10 +635,10 @@
 <anchor xml:id="_tcfs_8c_source_1l00642"/>00642 }
 <anchor xml:id="_tcfs_8c_source_1l00643"/>00643 
 <anchor xml:id="_tcfs_8c_source_1l00644"/>00644 <emphasis role="keyword">static</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>
-<anchor xml:id="_tcfs_8c_source_1l00645"/>00645 tcfs_getxattr&#32;(<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*fuse_path,&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*name,&#32;<emphasis role="keywordtype">char</emphasis>&#32;*value,
+<anchor xml:id="_tcfs_8c_source_1l00645"/><link linkend="_tcfs_8c_1a6a031c4e3c6dd59051c09789c4666657">00645</link> <link linkend="_tcfs_8c_1a6a031c4e3c6dd59051c09789c4666657">tcfs_getxattr</link>&#32;(<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*fuse_path,&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*name,&#32;<emphasis role="keywordtype">char</emphasis>&#32;*value,
 <anchor xml:id="_tcfs_8c_source_1l00646"/>00646 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">size_t</emphasis>&#32;size)
 <anchor xml:id="_tcfs_8c_source_1l00647"/>00647 {
-<anchor xml:id="_tcfs_8c_source_1l00648"/>00648 &#32;&#32;<emphasis role="keywordtype">char</emphasis>&#32;*path&#32;=&#32;<link linkend="_tcfs__utils_8c_1ac4ff59963f4a122c9f802c0c2bf2abc8">prefix_path</link>&#32;(fuse_path,&#32;root_path);
+<anchor xml:id="_tcfs_8c_source_1l00648"/>00648 &#32;&#32;<emphasis role="keywordtype">char</emphasis>&#32;*path&#32;=&#32;<link linkend="_tcfs__utils_8c_1ac4ff59963f4a122c9f802c0c2bf2abc8">prefix_path</link>&#32;(fuse_path,&#32;<link linkend="_tcfs_8c_1ab33cf7205359ee0f91488c87df1577a0">root_path</link>);
 <anchor xml:id="_tcfs_8c_source_1l00649"/>00649 &#32;&#32;printf&#32;(<emphasis role="stringliteral">&quot;Called&#32;getxattr&#32;on&#32;%s&#32;name:%s&#32;size:%zu\n&quot;</emphasis>,&#32;path,&#32;name,&#32;size);
 <anchor xml:id="_tcfs_8c_source_1l00650"/>00650 
 <anchor xml:id="_tcfs_8c_source_1l00651"/>00651 &#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(strcmp&#32;(name,&#32;<emphasis role="stringliteral">&quot;security.capability&quot;</emphasis>)
@@ -656,10 +656,10 @@
 <anchor xml:id="_tcfs_8c_source_1l00663"/>00663 }
 <anchor xml:id="_tcfs_8c_source_1l00664"/>00664 
 <anchor xml:id="_tcfs_8c_source_1l00665"/>00665 <emphasis role="keyword">static</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>
-<anchor xml:id="_tcfs_8c_source_1l00666"/>00666 tcfs_listxattr&#32;(<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*fuse_path,&#32;<emphasis role="keywordtype">char</emphasis>&#32;*list,&#32;<emphasis role="keywordtype">size_t</emphasis>&#32;size)
+<anchor xml:id="_tcfs_8c_source_1l00666"/><link linkend="_tcfs_8c_1ae6edcf6a80467925a9a2112172395de1">00666</link> <link linkend="_tcfs_8c_1ae6edcf6a80467925a9a2112172395de1">tcfs_listxattr</link>&#32;(<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*fuse_path,&#32;<emphasis role="keywordtype">char</emphasis>&#32;*list,&#32;<emphasis role="keywordtype">size_t</emphasis>&#32;size)
 <anchor xml:id="_tcfs_8c_source_1l00667"/>00667 {
 <anchor xml:id="_tcfs_8c_source_1l00668"/>00668 &#32;&#32;printf&#32;(<emphasis role="stringliteral">&quot;Called&#32;listxattr\n&quot;</emphasis>);
-<anchor xml:id="_tcfs_8c_source_1l00669"/>00669 &#32;&#32;<emphasis role="keywordtype">char</emphasis>&#32;*path&#32;=&#32;<link linkend="_tcfs__utils_8c_1ac4ff59963f4a122c9f802c0c2bf2abc8">prefix_path</link>&#32;(fuse_path,&#32;root_path);
+<anchor xml:id="_tcfs_8c_source_1l00669"/>00669 &#32;&#32;<emphasis role="keywordtype">char</emphasis>&#32;*path&#32;=&#32;<link linkend="_tcfs__utils_8c_1ac4ff59963f4a122c9f802c0c2bf2abc8">prefix_path</link>&#32;(fuse_path,&#32;<link linkend="_tcfs_8c_1ab33cf7205359ee0f91488c87df1577a0">root_path</link>);
 <anchor xml:id="_tcfs_8c_source_1l00670"/>00670 
 <anchor xml:id="_tcfs_8c_source_1l00671"/>00671 &#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;res&#32;=&#32;llistxattr&#32;(path,&#32;list,&#32;size);
 <anchor xml:id="_tcfs_8c_source_1l00672"/>00672 &#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(res&#32;==&#32;-1)
@@ -668,10 +668,10 @@
 <anchor xml:id="_tcfs_8c_source_1l00675"/>00675 }
 <anchor xml:id="_tcfs_8c_source_1l00676"/>00676 
 <anchor xml:id="_tcfs_8c_source_1l00677"/>00677 <emphasis role="keyword">static</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>
-<anchor xml:id="_tcfs_8c_source_1l00678"/>00678 tcfs_removexattr&#32;(<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*fuse_path,&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*name)
+<anchor xml:id="_tcfs_8c_source_1l00678"/><link linkend="_tcfs_8c_1acfe2c6a9467bd25a5ba6dc1a65209262">00678</link> <link linkend="_tcfs_8c_1acfe2c6a9467bd25a5ba6dc1a65209262">tcfs_removexattr</link>&#32;(<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*fuse_path,&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*name)
 <anchor xml:id="_tcfs_8c_source_1l00679"/>00679 {
 <anchor xml:id="_tcfs_8c_source_1l00680"/>00680 &#32;&#32;printf&#32;(<emphasis role="stringliteral">&quot;Called&#32;removexattr\n&quot;</emphasis>);
-<anchor xml:id="_tcfs_8c_source_1l00681"/>00681 &#32;&#32;<emphasis role="keywordtype">char</emphasis>&#32;*path&#32;=&#32;<link linkend="_tcfs__utils_8c_1ac4ff59963f4a122c9f802c0c2bf2abc8">prefix_path</link>&#32;(fuse_path,&#32;root_path);
+<anchor xml:id="_tcfs_8c_source_1l00681"/>00681 &#32;&#32;<emphasis role="keywordtype">char</emphasis>&#32;*path&#32;=&#32;<link linkend="_tcfs__utils_8c_1ac4ff59963f4a122c9f802c0c2bf2abc8">prefix_path</link>&#32;(fuse_path,&#32;<link linkend="_tcfs_8c_1ab33cf7205359ee0f91488c87df1577a0">root_path</link>);
 <anchor xml:id="_tcfs_8c_source_1l00682"/>00682 
 <anchor xml:id="_tcfs_8c_source_1l00683"/>00683 &#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;res&#32;=&#32;lremovexattr&#32;(path,&#32;name);
 <anchor xml:id="_tcfs_8c_source_1l00684"/>00684 &#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(res&#32;==&#32;-1)
@@ -679,45 +679,45 @@
 <anchor xml:id="_tcfs_8c_source_1l00686"/>00686 &#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;0;
 <anchor xml:id="_tcfs_8c_source_1l00687"/>00687 }
 <anchor xml:id="_tcfs_8c_source_1l00688"/>00688 
-<anchor xml:id="_tcfs_8c_source_1l00689"/>00689 <emphasis role="keyword">static</emphasis>&#32;<emphasis role="keyword">struct&#32;</emphasis>fuse_operations&#32;tcfs_oper&#32;=&#32;{
-<anchor xml:id="_tcfs_8c_source_1l00690"/>00690 &#32;&#32;.opendir&#32;=&#32;tcfs_opendir,
-<anchor xml:id="_tcfs_8c_source_1l00691"/>00691 &#32;&#32;.getattr&#32;=&#32;tcfs_getattr,
-<anchor xml:id="_tcfs_8c_source_1l00692"/>00692 &#32;&#32;.access&#32;=&#32;tcfs_access,
-<anchor xml:id="_tcfs_8c_source_1l00693"/>00693 &#32;&#32;.readlink&#32;=&#32;tcfs_readlink,
-<anchor xml:id="_tcfs_8c_source_1l00694"/>00694 &#32;&#32;.readdir&#32;=&#32;tcfs_readdir,
-<anchor xml:id="_tcfs_8c_source_1l00695"/>00695 &#32;&#32;.mknod&#32;=&#32;tcfs_mknod,
-<anchor xml:id="_tcfs_8c_source_1l00696"/>00696 &#32;&#32;.mkdir&#32;=&#32;tcfs_mkdir,
-<anchor xml:id="_tcfs_8c_source_1l00697"/>00697 &#32;&#32;.symlink&#32;=&#32;tcfs_symlink,
-<anchor xml:id="_tcfs_8c_source_1l00698"/>00698 &#32;&#32;.unlink&#32;=&#32;tcfs_unlink,
-<anchor xml:id="_tcfs_8c_source_1l00699"/>00699 &#32;&#32;.rmdir&#32;=&#32;tcfs_rmdir,
-<anchor xml:id="_tcfs_8c_source_1l00700"/>00700 &#32;&#32;.rename&#32;=&#32;tcfs_rename,
-<anchor xml:id="_tcfs_8c_source_1l00701"/>00701 &#32;&#32;.link&#32;=&#32;tcfs_link,
-<anchor xml:id="_tcfs_8c_source_1l00702"/>00702 &#32;&#32;.chmod&#32;=&#32;tcfs_chmod,
-<anchor xml:id="_tcfs_8c_source_1l00703"/>00703 &#32;&#32;.chown&#32;=&#32;tcfs_chown,
-<anchor xml:id="_tcfs_8c_source_1l00704"/>00704 &#32;&#32;.truncate&#32;=&#32;tcfs_truncate,
-<anchor xml:id="_tcfs_8c_source_1l00705"/>00705 &#32;&#32;.utimens&#32;=&#32;tcfs_utimens,
-<anchor xml:id="_tcfs_8c_source_1l00706"/>00706 &#32;&#32;.open&#32;=&#32;tcfs_open,
-<anchor xml:id="_tcfs_8c_source_1l00707"/>00707 &#32;&#32;.read&#32;=&#32;tcfs_read,
-<anchor xml:id="_tcfs_8c_source_1l00708"/>00708 &#32;&#32;.write&#32;=&#32;tcfs_write,
-<anchor xml:id="_tcfs_8c_source_1l00709"/>00709 &#32;&#32;.statfs&#32;=&#32;tcfs_statfs,
-<anchor xml:id="_tcfs_8c_source_1l00710"/>00710 &#32;&#32;.create&#32;=&#32;tcfs_create,
-<anchor xml:id="_tcfs_8c_source_1l00711"/>00711 &#32;&#32;.release&#32;=&#32;tcfs_release,
-<anchor xml:id="_tcfs_8c_source_1l00712"/>00712 &#32;&#32;.fsync&#32;=&#32;tcfs_fsync,
-<anchor xml:id="_tcfs_8c_source_1l00713"/>00713 &#32;&#32;.setxattr&#32;=&#32;tcfs_setxattr,
-<anchor xml:id="_tcfs_8c_source_1l00714"/>00714 &#32;&#32;.getxattr&#32;=&#32;tcfs_getxattr,
-<anchor xml:id="_tcfs_8c_source_1l00715"/>00715 &#32;&#32;.listxattr&#32;=&#32;tcfs_listxattr,
-<anchor xml:id="_tcfs_8c_source_1l00716"/>00716 &#32;&#32;.removexattr&#32;=&#32;tcfs_removexattr,
+<anchor xml:id="_tcfs_8c_source_1l00689"/><link linkend="_tcfs_8c_1a53c12b201809f3165da8a2779d152b3a">00689</link> <emphasis role="keyword">static</emphasis>&#32;<emphasis role="keyword">struct&#32;</emphasis>fuse_operations&#32;<link linkend="_tcfs_8c_1a53c12b201809f3165da8a2779d152b3a">tcfs_oper</link>&#32;=&#32;{
+<anchor xml:id="_tcfs_8c_source_1l00690"/>00690 &#32;&#32;.opendir&#32;=&#32;<link linkend="_tcfs_8c_1a92ebab5be45b159c2850a47a5072b58d">tcfs_opendir</link>,
+<anchor xml:id="_tcfs_8c_source_1l00691"/>00691 &#32;&#32;.getattr&#32;=&#32;<link linkend="_tcfs_8c_1a89f96e6b13b109a368c0d3d2adc99b9a">tcfs_getattr</link>,
+<anchor xml:id="_tcfs_8c_source_1l00692"/>00692 &#32;&#32;.access&#32;=&#32;<link linkend="_tcfs_8c_1a76af7857833338c73b9cafdce59ca01d">tcfs_access</link>,
+<anchor xml:id="_tcfs_8c_source_1l00693"/>00693 &#32;&#32;.readlink&#32;=&#32;<link linkend="_tcfs_8c_1acb1e081efcbf61b6f34e8bbdf7af8979">tcfs_readlink</link>,
+<anchor xml:id="_tcfs_8c_source_1l00694"/>00694 &#32;&#32;.readdir&#32;=&#32;<link linkend="_tcfs_8c_1aaba999686e55ada0fe9acc15eec92c0c">tcfs_readdir</link>,
+<anchor xml:id="_tcfs_8c_source_1l00695"/>00695 &#32;&#32;.mknod&#32;=&#32;<link linkend="_tcfs_8c_1a151f53359474a95c52f5e79d438869bd">tcfs_mknod</link>,
+<anchor xml:id="_tcfs_8c_source_1l00696"/>00696 &#32;&#32;.mkdir&#32;=&#32;<link linkend="_tcfs_8c_1a682b553345b6d872453d1ace7339bb9e">tcfs_mkdir</link>,
+<anchor xml:id="_tcfs_8c_source_1l00697"/>00697 &#32;&#32;.symlink&#32;=&#32;<link linkend="_tcfs_8c_1ac1d223f9b998d5af6bec3947d03be0fc">tcfs_symlink</link>,
+<anchor xml:id="_tcfs_8c_source_1l00698"/>00698 &#32;&#32;.unlink&#32;=&#32;<link linkend="_tcfs_8c_1ac6d3a8a626363a6f98de64e585968b09">tcfs_unlink</link>,
+<anchor xml:id="_tcfs_8c_source_1l00699"/>00699 &#32;&#32;.rmdir&#32;=&#32;<link linkend="_tcfs_8c_1a2853593dded66a922afbdc36afb15a50">tcfs_rmdir</link>,
+<anchor xml:id="_tcfs_8c_source_1l00700"/>00700 &#32;&#32;.rename&#32;=&#32;<link linkend="_tcfs_8c_1a441263abfa4130471a29b06ece28fe55">tcfs_rename</link>,
+<anchor xml:id="_tcfs_8c_source_1l00701"/>00701 &#32;&#32;.link&#32;=&#32;<link linkend="_tcfs_8c_1a271df7bd878f5ed132e1f98487e8aebd">tcfs_link</link>,
+<anchor xml:id="_tcfs_8c_source_1l00702"/>00702 &#32;&#32;.chmod&#32;=&#32;<link linkend="_tcfs_8c_1a1001153b56bc9f871f8d93db179db8b8">tcfs_chmod</link>,
+<anchor xml:id="_tcfs_8c_source_1l00703"/>00703 &#32;&#32;.chown&#32;=&#32;<link linkend="_tcfs_8c_1ac61b7c854ca2634d258fe18046cdb7e0">tcfs_chown</link>,
+<anchor xml:id="_tcfs_8c_source_1l00704"/>00704 &#32;&#32;.truncate&#32;=&#32;<link linkend="_tcfs_8c_1a6cae4aad7da3e604ce08e14a83708e65">tcfs_truncate</link>,
+<anchor xml:id="_tcfs_8c_source_1l00705"/>00705 &#32;&#32;.utimens&#32;=&#32;<link linkend="_tcfs_8c_1a3e2dc5aa998e01e0269fa1e267a9253b">tcfs_utimens</link>,
+<anchor xml:id="_tcfs_8c_source_1l00706"/>00706 &#32;&#32;.open&#32;=&#32;<link linkend="_tcfs_8c_1af0c6a7d66189cc1e9fbfafba5255e60d">tcfs_open</link>,
+<anchor xml:id="_tcfs_8c_source_1l00707"/>00707 &#32;&#32;.read&#32;=&#32;<link linkend="_tcfs_8c_1a745384a010e20b082db26e16702a0129">tcfs_read</link>,
+<anchor xml:id="_tcfs_8c_source_1l00708"/>00708 &#32;&#32;.write&#32;=&#32;<link linkend="_tcfs_8c_1adaba2baa5a036b8f77ec187599498a66">tcfs_write</link>,
+<anchor xml:id="_tcfs_8c_source_1l00709"/>00709 &#32;&#32;.statfs&#32;=&#32;<link linkend="_tcfs_8c_1ae14ebf4581d4cbc45737ae75af82a887">tcfs_statfs</link>,
+<anchor xml:id="_tcfs_8c_source_1l00710"/>00710 &#32;&#32;.create&#32;=&#32;<link linkend="_tcfs_8c_1ad973ad9d6ab7d6276bf85cd8fecd0657">tcfs_create</link>,
+<anchor xml:id="_tcfs_8c_source_1l00711"/>00711 &#32;&#32;.release&#32;=&#32;<link linkend="_tcfs_8c_1a1241e1fcfe6bb4a5d49d8c8d4e737bcd">tcfs_release</link>,
+<anchor xml:id="_tcfs_8c_source_1l00712"/>00712 &#32;&#32;.fsync&#32;=&#32;<link linkend="_tcfs_8c_1a014853840814f4d5225e2e28e129f9e5">tcfs_fsync</link>,
+<anchor xml:id="_tcfs_8c_source_1l00713"/>00713 &#32;&#32;.setxattr&#32;=&#32;<link linkend="_tcfs_8c_1ad3c328fdcd93c8203e1ce9c785fd3a14">tcfs_setxattr</link>,
+<anchor xml:id="_tcfs_8c_source_1l00714"/>00714 &#32;&#32;.getxattr&#32;=&#32;<link linkend="_tcfs_8c_1a6a031c4e3c6dd59051c09789c4666657">tcfs_getxattr</link>,
+<anchor xml:id="_tcfs_8c_source_1l00715"/>00715 &#32;&#32;.listxattr&#32;=&#32;<link linkend="_tcfs_8c_1ae6edcf6a80467925a9a2112172395de1">tcfs_listxattr</link>,
+<anchor xml:id="_tcfs_8c_source_1l00716"/>00716 &#32;&#32;.removexattr&#32;=&#32;<link linkend="_tcfs_8c_1acfe2c6a9467bd25a5ba6dc1a65209262">tcfs_removexattr</link>,
 <anchor xml:id="_tcfs_8c_source_1l00717"/>00717 };
 <anchor xml:id="_tcfs_8c_source_1l00718"/>00718 
-<anchor xml:id="_tcfs_8c_source_1l00719"/>00719 <emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*argp_program_version&#32;=&#32;<emphasis role="stringliteral">&quot;TCFS&#32;Alpha&quot;</emphasis>;
-<anchor xml:id="_tcfs_8c_source_1l00720"/>00720 <emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*argp_program_bug_address&#32;=&#32;<emphasis role="stringliteral">&quot;carloalbertogiordano@duck.com&quot;</emphasis>;
+<anchor xml:id="_tcfs_8c_source_1l00719"/><link linkend="_tcfs_8c_1a62f73ea01c816f1996aed4c66f57c4fb">00719</link> <emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*<link linkend="_tcfs_8c_1a62f73ea01c816f1996aed4c66f57c4fb">argp_program_version</link>&#32;=&#32;<emphasis role="stringliteral">&quot;TCFS&#32;Alpha&quot;</emphasis>;
+<anchor xml:id="_tcfs_8c_source_1l00720"/><link linkend="_tcfs_8c_1aaa037e59f26a80a8a2e35e6f2364004d">00720</link> <emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*<link linkend="_tcfs_8c_1aaa037e59f26a80a8a2e35e6f2364004d">argp_program_bug_address</link>&#32;=&#32;<emphasis role="stringliteral">&quot;carloalbertogiordano@duck.com&quot;</emphasis>;
 <anchor xml:id="_tcfs_8c_source_1l00721"/>00721 
-<anchor xml:id="_tcfs_8c_source_1l00722"/>00722 <emphasis role="keyword">static</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;doc[]&#32;=&#32;<emphasis role="stringliteral">&quot;This&#32;is&#32;an&#32;implementation&#32;on&#32;TCFS\ntcfs&#32;-s&#32;&lt;source_path&gt;&#32;&quot;</emphasis>
+<anchor xml:id="_tcfs_8c_source_1l00722"/><link linkend="_tcfs_8c_1af6164deb8a824f8cb2b9147cfc3174f5">00722</link> <emphasis role="keyword">static</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;<link linkend="_tcfs_8c_1af6164deb8a824f8cb2b9147cfc3174f5">doc</link>[]&#32;=&#32;<emphasis role="stringliteral">&quot;This&#32;is&#32;an&#32;implementation&#32;on&#32;TCFS\ntcfs&#32;-s&#32;&lt;source_path&gt;&#32;&quot;</emphasis>
 <anchor xml:id="_tcfs_8c_source_1l00723"/>00723 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;-d&#32;&lt;dest_path&gt;&#32;-p&#32;&lt;password&gt;&#32;[fuse&#32;arguments]&quot;</emphasis>;
 <anchor xml:id="_tcfs_8c_source_1l00724"/>00724 
-<anchor xml:id="_tcfs_8c_source_1l00725"/>00725 <emphasis role="keyword">static</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;args_doc[]&#32;=&#32;<emphasis role="stringliteral">&quot;&quot;</emphasis>;
+<anchor xml:id="_tcfs_8c_source_1l00725"/><link linkend="_tcfs_8c_1a91b08784b3668a8a1fbe2eec1947fb9d">00725</link> <emphasis role="keyword">static</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;<link linkend="_tcfs_8c_1a91b08784b3668a8a1fbe2eec1947fb9d">args_doc</link>[]&#32;=&#32;<emphasis role="stringliteral">&quot;&quot;</emphasis>;
 <anchor xml:id="_tcfs_8c_source_1l00726"/>00726 
-<anchor xml:id="_tcfs_8c_source_1l00727"/>00727 <emphasis role="keyword">static</emphasis>&#32;<emphasis role="keyword">struct&#32;</emphasis>argp_option&#32;options[]
+<anchor xml:id="_tcfs_8c_source_1l00727"/><link linkend="_tcfs_8c_1abc1fd3a47aea6a8944038c9100eb9135">00727</link> <emphasis role="keyword">static</emphasis>&#32;<emphasis role="keyword">struct&#32;</emphasis>argp_option&#32;<link linkend="_tcfs_8c_1abc1fd3a47aea6a8944038c9100eb9135">options</link>[]
 <anchor xml:id="_tcfs_8c_source_1l00728"/>00728 &#32;&#32;&#32;&#32;=&#32;{&#32;{&#32;<emphasis role="stringliteral">&quot;source&quot;</emphasis>,&#32;<emphasis role="charliteral">&apos;s&apos;</emphasis>,&#32;<emphasis role="stringliteral">&quot;SOURCE&quot;</emphasis>,&#32;0,&#32;<emphasis role="stringliteral">&quot;Source&#32;file&#32;path&quot;</emphasis>,&#32;-1&#32;},
 <anchor xml:id="_tcfs_8c_source_1l00729"/>00729 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{&#32;<emphasis role="stringliteral">&quot;destination&quot;</emphasis>,&#32;<emphasis role="charliteral">&apos;d&apos;</emphasis>,&#32;<emphasis role="stringliteral">&quot;DESTINATION&quot;</emphasis>,&#32;0,&#32;<emphasis role="stringliteral">&quot;Destination&#32;file&#32;path&quot;</emphasis>,&#32;-1&#32;},
 <anchor xml:id="_tcfs_8c_source_1l00730"/>00730 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{&#32;<emphasis role="stringliteral">&quot;password&quot;</emphasis>,&#32;<emphasis role="charliteral">&apos;p&apos;</emphasis>,&#32;<emphasis role="stringliteral">&quot;PASSWORD&quot;</emphasis>,&#32;0,&#32;<emphasis role="stringliteral">&quot;Password&quot;</emphasis>,&#32;-1&#32;},
@@ -725,26 +725,26 @@
 <anchor xml:id="_tcfs_8c_source_1l00732"/>00732 
 <anchor xml:id="_tcfs_8c_source_1l00733"/>00733 <emphasis role="keyword">struct&#32;</emphasis><link linkend="_structarguments">arguments</link>
 <anchor xml:id="_tcfs_8c_source_1l00734"/>00734 {
-<anchor xml:id="_tcfs_8c_source_1l00735"/>00735 &#32;&#32;<emphasis role="keywordtype">char</emphasis>&#32;*source;
-<anchor xml:id="_tcfs_8c_source_1l00736"/>00736 &#32;&#32;<emphasis role="keywordtype">char</emphasis>&#32;*destination;
-<anchor xml:id="_tcfs_8c_source_1l00737"/>00737 &#32;&#32;<emphasis role="keywordtype">char</emphasis>&#32;*password;
+<anchor xml:id="_tcfs_8c_source_1l00735"/><link linkend="_structarguments_1a53fda996abfaa79d9c6376292bcbd5da">00735</link> &#32;&#32;<emphasis role="keywordtype">char</emphasis>&#32;*<link linkend="_structarguments_1a53fda996abfaa79d9c6376292bcbd5da">source</link>;
+<anchor xml:id="_tcfs_8c_source_1l00736"/><link linkend="_structarguments_1a29ff8292026649ead806d06e83728699">00736</link> &#32;&#32;<emphasis role="keywordtype">char</emphasis>&#32;*<link linkend="_structarguments_1a29ff8292026649ead806d06e83728699">destination</link>;
+<anchor xml:id="_tcfs_8c_source_1l00737"/><link linkend="_structarguments_1a1efc30f669fcaf8c5943cbb3e8124ee7">00737</link> &#32;&#32;<emphasis role="keywordtype">char</emphasis>&#32;*<link linkend="_structarguments_1a1efc30f669fcaf8c5943cbb3e8124ee7">password</link>;
 <anchor xml:id="_tcfs_8c_source_1l00738"/>00738 };
 <anchor xml:id="_tcfs_8c_source_1l00739"/>00739 
 <anchor xml:id="_tcfs_8c_source_1l00740"/>00740 <emphasis role="keyword">static</emphasis>&#32;error_t
-<anchor xml:id="_tcfs_8c_source_1l00741"/>00741 parse_opt&#32;(<emphasis role="keywordtype">int</emphasis>&#32;key,&#32;<emphasis role="keywordtype">char</emphasis>&#32;*arg,&#32;<emphasis role="keyword">struct</emphasis>&#32;argp_state&#32;*state)
+<anchor xml:id="_tcfs_8c_source_1l00741"/><link linkend="_tcfs_8c_1a35ee63236273ebb9325c444cacf00159">00741</link> <link linkend="_tcfs_8c_1a35ee63236273ebb9325c444cacf00159">parse_opt</link>&#32;(<emphasis role="keywordtype">int</emphasis>&#32;key,&#32;<emphasis role="keywordtype">char</emphasis>&#32;*arg,&#32;<emphasis role="keyword">struct</emphasis>&#32;argp_state&#32;*state)
 <anchor xml:id="_tcfs_8c_source_1l00742"/>00742 {
 <anchor xml:id="_tcfs_8c_source_1l00743"/>00743 &#32;&#32;<emphasis role="keyword">struct&#32;</emphasis><link linkend="_structarguments">arguments</link>&#32;*<link linkend="_structarguments">arguments</link>&#32;=&#32;state-&gt;input;
 <anchor xml:id="_tcfs_8c_source_1l00744"/>00744 
 <anchor xml:id="_tcfs_8c_source_1l00745"/>00745 &#32;&#32;<emphasis role="keywordflow">switch</emphasis>&#32;(key)
 <anchor xml:id="_tcfs_8c_source_1l00746"/>00746 &#32;&#32;&#32;&#32;{
 <anchor xml:id="_tcfs_8c_source_1l00747"/>00747 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">case</emphasis>&#32;<emphasis role="charliteral">&apos;s&apos;</emphasis>:
-<anchor xml:id="_tcfs_8c_source_1l00748"/>00748 &#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_structarguments">arguments</link>-&gt;source&#32;=&#32;arg;
+<anchor xml:id="_tcfs_8c_source_1l00748"/>00748 &#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_structarguments">arguments</link>-&gt;<link linkend="_structarguments_1a53fda996abfaa79d9c6376292bcbd5da">source</link>&#32;=&#32;arg;
 <anchor xml:id="_tcfs_8c_source_1l00749"/>00749 &#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">break</emphasis>;
 <anchor xml:id="_tcfs_8c_source_1l00750"/>00750 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">case</emphasis>&#32;<emphasis role="charliteral">&apos;d&apos;</emphasis>:
-<anchor xml:id="_tcfs_8c_source_1l00751"/>00751 &#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_structarguments">arguments</link>-&gt;destination&#32;=&#32;arg;
+<anchor xml:id="_tcfs_8c_source_1l00751"/>00751 &#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_structarguments">arguments</link>-&gt;<link linkend="_structarguments_1a29ff8292026649ead806d06e83728699">destination</link>&#32;=&#32;arg;
 <anchor xml:id="_tcfs_8c_source_1l00752"/>00752 &#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">break</emphasis>;
 <anchor xml:id="_tcfs_8c_source_1l00753"/>00753 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">case</emphasis>&#32;<emphasis role="charliteral">&apos;p&apos;</emphasis>:
-<anchor xml:id="_tcfs_8c_source_1l00754"/>00754 &#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_structarguments">arguments</link>-&gt;password&#32;=&#32;arg;
+<anchor xml:id="_tcfs_8c_source_1l00754"/>00754 &#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_structarguments">arguments</link>-&gt;<link linkend="_structarguments_1a1efc30f669fcaf8c5943cbb3e8124ee7">password</link>&#32;=&#32;arg;
 <anchor xml:id="_tcfs_8c_source_1l00755"/>00755 &#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">break</emphasis>;
 <anchor xml:id="_tcfs_8c_source_1l00756"/>00756 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">case</emphasis>&#32;ARGP_KEY_ARG:
 <anchor xml:id="_tcfs_8c_source_1l00757"/>00757 &#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;ARGP_ERR_UNKNOWN;
@@ -755,33 +755,33 @@
 <anchor xml:id="_tcfs_8c_source_1l00762"/>00762 &#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;0;
 <anchor xml:id="_tcfs_8c_source_1l00763"/>00763 }
 <anchor xml:id="_tcfs_8c_source_1l00764"/>00764 
-<anchor xml:id="_tcfs_8c_source_1l00765"/>00765 <emphasis role="keyword">static</emphasis>&#32;<emphasis role="keyword">struct&#32;</emphasis>argp&#32;argp&#32;=&#32;{&#32;options,&#32;parse_opt,&#32;args_doc,&#32;doc,&#32;0,&#32;NULL,&#32;NULL&#32;};
+<anchor xml:id="_tcfs_8c_source_1l00765"/><link linkend="_tcfs_8c_1ab70c96531b1b652d70c221cfaf3207f3">00765</link> <emphasis role="keyword">static</emphasis>&#32;<emphasis role="keyword">struct&#32;</emphasis><link linkend="_structargp">argp</link>&#32;<link linkend="_structargp">argp</link>&#32;=&#32;{&#32;<link linkend="_tcfs_8c_1abc1fd3a47aea6a8944038c9100eb9135">options</link>,&#32;<link linkend="_tcfs_8c_1a35ee63236273ebb9325c444cacf00159">parse_opt</link>,&#32;<link linkend="_tcfs_8c_1a91b08784b3668a8a1fbe2eec1947fb9d">args_doc</link>,&#32;<link linkend="_tcfs_8c_1af6164deb8a824f8cb2b9147cfc3174f5">doc</link>,&#32;0,&#32;NULL,&#32;NULL&#32;};
 <anchor xml:id="_tcfs_8c_source_1l00766"/>00766 
 <anchor xml:id="_tcfs_8c_source_1l00767"/>00767 <emphasis role="keywordtype">int</emphasis>
-<anchor xml:id="_tcfs_8c_source_1l00768"/>00768 <link linkend="_tcfs__daemon_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4">main</link>&#32;(<emphasis role="keywordtype">int</emphasis>&#32;argc,&#32;<emphasis role="keywordtype">char</emphasis>&#32;*argv[])
+<anchor xml:id="_tcfs_8c_source_1l00768"/><link linkend="_tcfs_8c_1a0ddf1224851353fc92bfbff6f499fa97">00768</link> <link linkend="_namespacemain">main</link>&#32;(<emphasis role="keywordtype">int</emphasis>&#32;argc,&#32;<emphasis role="keywordtype">char</emphasis>&#32;*argv[])
 <anchor xml:id="_tcfs_8c_source_1l00769"/>00769 {
 <anchor xml:id="_tcfs_8c_source_1l00770"/>00770 &#32;&#32;umask&#32;(0);
 <anchor xml:id="_tcfs_8c_source_1l00771"/>00771 
 <anchor xml:id="_tcfs_8c_source_1l00772"/>00772 &#32;&#32;<emphasis role="keyword">struct&#32;</emphasis><link linkend="_structarguments">arguments</link>&#32;<link linkend="_structarguments">arguments</link>;
 <anchor xml:id="_tcfs_8c_source_1l00773"/>00773 
-<anchor xml:id="_tcfs_8c_source_1l00774"/>00774 &#32;&#32;<link linkend="_structarguments">arguments</link>.source&#32;=&#32;NULL;
-<anchor xml:id="_tcfs_8c_source_1l00775"/>00775 &#32;&#32;<link linkend="_structarguments">arguments</link>.destination&#32;=&#32;NULL;
-<anchor xml:id="_tcfs_8c_source_1l00776"/>00776 &#32;&#32;<link linkend="_structarguments">arguments</link>.password&#32;=&#32;NULL;
+<anchor xml:id="_tcfs_8c_source_1l00774"/>00774 &#32;&#32;<link linkend="_structarguments">arguments</link>.<link linkend="_structarguments_1a53fda996abfaa79d9c6376292bcbd5da">source</link>&#32;=&#32;NULL;
+<anchor xml:id="_tcfs_8c_source_1l00775"/>00775 &#32;&#32;<link linkend="_structarguments">arguments</link>.<link linkend="_structarguments_1a29ff8292026649ead806d06e83728699">destination</link>&#32;=&#32;NULL;
+<anchor xml:id="_tcfs_8c_source_1l00776"/>00776 &#32;&#32;<link linkend="_structarguments">arguments</link>.<link linkend="_structarguments_1a1efc30f669fcaf8c5943cbb3e8124ee7">password</link>&#32;=&#32;NULL;
 <anchor xml:id="_tcfs_8c_source_1l00777"/>00777 
-<anchor xml:id="_tcfs_8c_source_1l00778"/>00778 &#32;&#32;argp_parse&#32;(&amp;argp,&#32;argc,&#32;argv,&#32;0,&#32;0,&#32;&amp;<link linkend="_structarguments">arguments</link>);
+<anchor xml:id="_tcfs_8c_source_1l00778"/>00778 &#32;&#32;argp_parse&#32;(&amp;<link linkend="_structargp">argp</link>,&#32;argc,&#32;argv,&#32;0,&#32;0,&#32;&amp;<link linkend="_structarguments">arguments</link>);
 <anchor xml:id="_tcfs_8c_source_1l00779"/>00779 
-<anchor xml:id="_tcfs_8c_source_1l00780"/>00780 &#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(<link linkend="_structarguments">arguments</link>.source&#32;==&#32;NULL&#32;||&#32;<link linkend="_structarguments">arguments</link>.destination&#32;==&#32;NULL
-<anchor xml:id="_tcfs_8c_source_1l00781"/>00781 &#32;&#32;&#32;&#32;&#32;&#32;||&#32;<link linkend="_structarguments">arguments</link>.password&#32;==&#32;NULL)
+<anchor xml:id="_tcfs_8c_source_1l00780"/>00780 &#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(<link linkend="_structarguments">arguments</link>.<link linkend="_structarguments_1a53fda996abfaa79d9c6376292bcbd5da">source</link>&#32;==&#32;NULL&#32;||&#32;<link linkend="_structarguments">arguments</link>.<link linkend="_structarguments_1a29ff8292026649ead806d06e83728699">destination</link>&#32;==&#32;NULL
+<anchor xml:id="_tcfs_8c_source_1l00781"/>00781 &#32;&#32;&#32;&#32;&#32;&#32;||&#32;<link linkend="_structarguments">arguments</link>.<link linkend="_structarguments_1a1efc30f669fcaf8c5943cbb3e8124ee7">password</link>&#32;==&#32;NULL)
 <anchor xml:id="_tcfs_8c_source_1l00782"/>00782 &#32;&#32;&#32;&#32;{
 <anchor xml:id="_tcfs_8c_source_1l00783"/>00783 &#32;&#32;&#32;&#32;&#32;&#32;printf&#32;(<emphasis role="stringliteral">&quot;Err:&#32;You&#32;need&#32;to&#32;specify&#32;at&#32;least&#32;3&#32;arguments\n&quot;</emphasis>);
 <anchor xml:id="_tcfs_8c_source_1l00784"/>00784 &#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;-1;
 <anchor xml:id="_tcfs_8c_source_1l00785"/>00785 &#32;&#32;&#32;&#32;}
 <anchor xml:id="_tcfs_8c_source_1l00786"/>00786 
-<anchor xml:id="_tcfs_8c_source_1l00787"/>00787 &#32;&#32;printf&#32;(<emphasis role="stringliteral">&quot;Source:&#32;%s\n&quot;</emphasis>,&#32;<link linkend="_structarguments">arguments</link>.source);
-<anchor xml:id="_tcfs_8c_source_1l00788"/>00788 &#32;&#32;printf&#32;(<emphasis role="stringliteral">&quot;Destination:&#32;%s\n&quot;</emphasis>,&#32;<link linkend="_structarguments">arguments</link>.destination);
-<anchor xml:id="_tcfs_8c_source_1l00789"/>00789 &#32;&#32;root_path&#32;=&#32;<link linkend="_structarguments">arguments</link>.source;
+<anchor xml:id="_tcfs_8c_source_1l00787"/>00787 &#32;&#32;printf&#32;(<emphasis role="stringliteral">&quot;Source:&#32;%s\n&quot;</emphasis>,&#32;<link linkend="_structarguments">arguments</link>.<link linkend="_structarguments_1a53fda996abfaa79d9c6376292bcbd5da">source</link>);
+<anchor xml:id="_tcfs_8c_source_1l00788"/>00788 &#32;&#32;printf&#32;(<emphasis role="stringliteral">&quot;Destination:&#32;%s\n&quot;</emphasis>,&#32;<link linkend="_structarguments">arguments</link>.<link linkend="_structarguments_1a29ff8292026649ead806d06e83728699">destination</link>);
+<anchor xml:id="_tcfs_8c_source_1l00789"/>00789 &#32;&#32;<link linkend="_tcfs_8c_1ab33cf7205359ee0f91488c87df1577a0">root_path</link>&#32;=&#32;<link linkend="_structarguments">arguments</link>.<link linkend="_structarguments_1a53fda996abfaa79d9c6376292bcbd5da">source</link>;
 <anchor xml:id="_tcfs_8c_source_1l00790"/>00790 
-<anchor xml:id="_tcfs_8c_source_1l00791"/>00791 &#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(is_valid_key&#32;((<emphasis role="keywordtype">unsigned</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*)<link linkend="_structarguments">arguments</link>.password)&#32;==&#32;0)
+<anchor xml:id="_tcfs_8c_source_1l00791"/>00791 &#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(<link linkend="_crypt-utils_8c_1a36c2342a7c47b8f41bf628bf473b1c97">is_valid_key</link>&#32;((<emphasis role="keywordtype">unsigned</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*)<link linkend="_structarguments">arguments</link>.<link linkend="_structarguments_1a1efc30f669fcaf8c5943cbb3e8124ee7">password</link>)&#32;==&#32;0)
 <anchor xml:id="_tcfs_8c_source_1l00792"/>00792 &#32;&#32;&#32;&#32;{
 <anchor xml:id="_tcfs_8c_source_1l00793"/>00793 &#32;&#32;&#32;&#32;&#32;&#32;fprintf&#32;(stderr,&#32;<emphasis role="stringliteral">&quot;Inserted&#32;key&#32;not&#32;valid\n&quot;</emphasis>);
 <anchor xml:id="_tcfs_8c_source_1l00794"/>00794 &#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;1;
@@ -789,7 +789,7 @@
 <anchor xml:id="_tcfs_8c_source_1l00796"/>00796 
 <anchor xml:id="_tcfs_8c_source_1l00797"/>00797 &#32;&#32;<emphasis role="keyword">struct&#32;</emphasis>fuse_args&#32;args_fuse&#32;=&#32;FUSE_ARGS_INIT&#32;(0,&#32;NULL);
 <anchor xml:id="_tcfs_8c_source_1l00798"/>00798 &#32;&#32;fuse_opt_add_arg&#32;(&amp;args_fuse,&#32;<emphasis role="stringliteral">&quot;./tcfs&quot;</emphasis>);
-<anchor xml:id="_tcfs_8c_source_1l00799"/>00799 &#32;&#32;fuse_opt_add_arg&#32;(&amp;args_fuse,&#32;<link linkend="_structarguments">arguments</link>.destination);
+<anchor xml:id="_tcfs_8c_source_1l00799"/>00799 &#32;&#32;fuse_opt_add_arg&#32;(&amp;args_fuse,&#32;<link linkend="_structarguments">arguments</link>.<link linkend="_structarguments_1a29ff8292026649ead806d06e83728699">destination</link>);
 <anchor xml:id="_tcfs_8c_source_1l00800"/>00800 &#32;&#32;fuse_opt_add_arg&#32;(&amp;args_fuse,
 <anchor xml:id="_tcfs_8c_source_1l00801"/>00801 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;-f&quot;</emphasis>);&#32;<emphasis role="comment">//&#32;TODO:&#32;this&#32;is&#32;forced&#32;for&#32;now,&#32;but&#32;will&#32;be&#32;passed</emphasis>
 <anchor xml:id="_tcfs_8c_source_1l00802"/>00802 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">//&#32;via&#32;options&#32;in&#32;the&#32;future</emphasis>
@@ -811,8 +811,8 @@
 <anchor xml:id="_tcfs_8c_source_1l00818"/>00818 <emphasis role="comment">&#32;&#32;get_user_name(buf,&#32;buf_size);</emphasis>
 <anchor xml:id="_tcfs_8c_source_1l00819"/>00819 <emphasis role="comment">&#32;&#32;*/</emphasis>
 <anchor xml:id="_tcfs_8c_source_1l00820"/>00820 
-<anchor xml:id="_tcfs_8c_source_1l00821"/>00821 &#32;&#32;password&#32;=&#32;<link linkend="_structarguments">arguments</link>.password;
+<anchor xml:id="_tcfs_8c_source_1l00821"/>00821 &#32;&#32;<link linkend="_tcfs_8c_1a9dbb300e28bc21c8dab41b01883918eb">password</link>&#32;=&#32;<link linkend="_structarguments">arguments</link>.<link linkend="_structarguments_1a1efc30f669fcaf8c5943cbb3e8124ee7">password</link>;
 <anchor xml:id="_tcfs_8c_source_1l00822"/>00822 
-<anchor xml:id="_tcfs_8c_source_1l00823"/>00823 &#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;fuse_main&#32;(args_fuse.argc,&#32;args_fuse.argv,&#32;&amp;tcfs_oper,&#32;NULL);
+<anchor xml:id="_tcfs_8c_source_1l00823"/>00823 &#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;fuse_main&#32;(args_fuse.argc,&#32;args_fuse.argv,&#32;&amp;<link linkend="_tcfs_8c_1a53c12b201809f3165da8a2779d152b3a">tcfs_oper</link>,&#32;NULL);
 <anchor xml:id="_tcfs_8c_source_1l00824"/>00824 }
 </programlisting></section>

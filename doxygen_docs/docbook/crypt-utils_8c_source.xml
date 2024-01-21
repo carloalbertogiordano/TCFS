@@ -2,26 +2,26 @@
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_crypt-utils_8c_source" xml:lang="en-US">
 <title>crypt-utils.c</title>
 <indexterm><primary>userspace-module/utils/crypt-utils/crypt-utils.c</primary></indexterm>
-<programlisting linenumbering="unnumbered"><anchor xml:id="_crypt-utils_8c_source_1l00001"/>00001 <emphasis role="comment">/***</emphasis>
+Go to the documentation of this file.<programlisting linenumbering="unnumbered"><anchor xml:id="_crypt-utils_8c_source_1l00001"/>00001 <emphasis role="comment">/***</emphasis>
 <anchor xml:id="_crypt-utils_8c_source_1l00002"/>00002 <emphasis role="comment"></emphasis>
 <anchor xml:id="_crypt-utils_8c_source_1l00003"/>00003 <emphasis role="comment">&#32;*</emphasis>
 <anchor xml:id="_crypt-utils_8c_source_1l00004"/>00004 <emphasis role="comment">&#32;**/</emphasis>
-<anchor xml:id="_crypt-utils_8c_source_1l00005"/>00005 <emphasis role="preprocessor">#include&#32;&quot;crypt-utils.h&quot;</emphasis>
+<anchor xml:id="_crypt-utils_8c_source_1l00005"/>00005 <emphasis role="preprocessor">#include&#32;&quot;<link linkend="_crypt-utils_8h">crypt-utils.h</link>&quot;</emphasis>
 <anchor xml:id="_crypt-utils_8c_source_1l00006"/>00006 
-<anchor xml:id="_crypt-utils_8c_source_1l00012"/>00012 <emphasis role="preprocessor">#define&#32;BLOCKSIZE&#32;1024</emphasis>
-<anchor xml:id="_crypt-utils_8c_source_1l00019"/>00019 <emphasis role="preprocessor">#define&#32;IV_SIZE&#32;32</emphasis>
-<anchor xml:id="_crypt-utils_8c_source_1l00025"/>00025 <emphasis role="preprocessor">#define&#32;KEY_SIZE&#32;32</emphasis>
+<anchor xml:id="_crypt-utils_8c_source_1l00012"/><link linkend="_crypt-utils_8c_1afcf795f5a96fd55561abe69f56224630">00012</link> <emphasis role="preprocessor">#define&#32;BLOCKSIZE&#32;1024</emphasis>
+<anchor xml:id="_crypt-utils_8c_source_1l00019"/><link linkend="_crypt-utils_8c_1ad7bb30dbf5882fdf05331918e8a0cc84">00019</link> <emphasis role="preprocessor">#define&#32;IV_SIZE&#32;32</emphasis>
+<anchor xml:id="_crypt-utils_8c_source_1l00025"/><link linkend="_crypt-utils_8c_1a2d996237e082b78b41771b5aa1a6eae1">00025</link> <emphasis role="preprocessor">#define&#32;KEY_SIZE&#32;32</emphasis>
 <anchor xml:id="_crypt-utils_8c_source_1l00026"/>00026 
 <anchor xml:id="_crypt-utils_8c_source_1l00053"/>00053 <emphasis role="keyword">extern</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>
-<anchor xml:id="_crypt-utils_8c_source_1l00054"/>00054 do_crypt&#32;(FILE&#32;*in,&#32;FILE&#32;*out,&#32;<emphasis role="keywordtype">int</emphasis>&#32;action,&#32;<emphasis role="keywordtype">unsigned</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*key_str)
+<anchor xml:id="_crypt-utils_8c_source_1l00054"/><link linkend="_crypt-utils_8c_1a94b5b388b3f00982ccee72b192077e76">00054</link> <link linkend="_crypt-utils_8c_1a94b5b388b3f00982ccee72b192077e76">do_crypt</link>&#32;(FILE&#32;*in,&#32;FILE&#32;*out,&#32;<emphasis role="keywordtype">int</emphasis>&#32;action,&#32;<emphasis role="keywordtype">unsigned</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*key_str)
 <anchor xml:id="_crypt-utils_8c_source_1l00055"/>00055 {
 <anchor xml:id="_crypt-utils_8c_source_1l00056"/>00056 &#32;&#32;<emphasis role="comment">/*&#32;Local&#32;Vars&#32;*/</emphasis>
 <anchor xml:id="_crypt-utils_8c_source_1l00057"/>00057 
 <anchor xml:id="_crypt-utils_8c_source_1l00058"/>00058 &#32;&#32;<emphasis role="comment">/*&#32;Buffers&#32;*/</emphasis>
-<anchor xml:id="_crypt-utils_8c_source_1l00059"/>00059 &#32;&#32;<emphasis role="keywordtype">unsigned</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;inbuf[BLOCKSIZE];
+<anchor xml:id="_crypt-utils_8c_source_1l00059"/>00059 &#32;&#32;<emphasis role="keywordtype">unsigned</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;inbuf[<link linkend="_crypt-utils_8c_1afcf795f5a96fd55561abe69f56224630">BLOCKSIZE</link>];
 <anchor xml:id="_crypt-utils_8c_source_1l00060"/>00060 &#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;inlen;
 <anchor xml:id="_crypt-utils_8c_source_1l00061"/>00061 &#32;&#32;<emphasis role="comment">/*&#32;Allow&#32;enough&#32;space&#32;in&#32;output&#32;buffer&#32;for&#32;additional&#32;cipher&#32;block&#32;*/</emphasis>
-<anchor xml:id="_crypt-utils_8c_source_1l00062"/>00062 &#32;&#32;<emphasis role="keywordtype">unsigned</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;outbuf[BLOCKSIZE&#32;+&#32;EVP_MAX_BLOCK_LENGTH];
+<anchor xml:id="_crypt-utils_8c_source_1l00062"/>00062 &#32;&#32;<emphasis role="keywordtype">unsigned</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;outbuf[<link linkend="_crypt-utils_8c_1afcf795f5a96fd55561abe69f56224630">BLOCKSIZE</link>&#32;+&#32;EVP_MAX_BLOCK_LENGTH];
 <anchor xml:id="_crypt-utils_8c_source_1l00063"/>00063 &#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;outlen;
 <anchor xml:id="_crypt-utils_8c_source_1l00064"/>00064 &#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;writelen;
 <anchor xml:id="_crypt-utils_8c_source_1l00065"/>00065 
@@ -29,8 +29,8 @@
 <anchor xml:id="_crypt-utils_8c_source_1l00067"/>00067 &#32;&#32;EVP_CIPHER_CTX&#32;*ctx;
 <anchor xml:id="_crypt-utils_8c_source_1l00068"/>00068 &#32;&#32;ctx&#32;=&#32;EVP_CIPHER_CTX_new&#32;();
 <anchor xml:id="_crypt-utils_8c_source_1l00069"/>00069 
-<anchor xml:id="_crypt-utils_8c_source_1l00070"/>00070 &#32;&#32;<emphasis role="keywordtype">unsigned</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;key[KEY_SIZE];
-<anchor xml:id="_crypt-utils_8c_source_1l00071"/>00071 &#32;&#32;<emphasis role="keywordtype">unsigned</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;iv[IV_SIZE];
+<anchor xml:id="_crypt-utils_8c_source_1l00070"/>00070 &#32;&#32;<emphasis role="keywordtype">unsigned</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;key[<link linkend="_crypt-utils_8c_1a2d996237e082b78b41771b5aa1a6eae1">KEY_SIZE</link>];
+<anchor xml:id="_crypt-utils_8c_source_1l00071"/>00071 &#32;&#32;<emphasis role="keywordtype">unsigned</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;iv[<link linkend="_crypt-utils_8c_1ad7bb30dbf5882fdf05331918e8a0cc84">IV_SIZE</link>];
 <anchor xml:id="_crypt-utils_8c_source_1l00072"/>00072 &#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;nrounds&#32;=&#32;5;
 <anchor xml:id="_crypt-utils_8c_source_1l00073"/>00073 
 <anchor xml:id="_crypt-utils_8c_source_1l00074"/>00074 &#32;&#32;<emphasis role="comment">/*&#32;tmp&#32;vars&#32;*/</emphasis>
@@ -64,7 +64,7 @@
 <anchor xml:id="_crypt-utils_8c_source_1l00102"/>00102 &#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;(;;)
 <anchor xml:id="_crypt-utils_8c_source_1l00103"/>00103 &#32;&#32;&#32;&#32;{
 <anchor xml:id="_crypt-utils_8c_source_1l00104"/>00104 &#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">/*&#32;Read&#32;Block&#32;*/</emphasis>
-<anchor xml:id="_crypt-utils_8c_source_1l00105"/>00105 &#32;&#32;&#32;&#32;&#32;&#32;inlen&#32;=&#32;fread&#32;(inbuf,&#32;<emphasis role="keyword">sizeof</emphasis>&#32;(*inbuf),&#32;BLOCKSIZE,&#32;in);
+<anchor xml:id="_crypt-utils_8c_source_1l00105"/>00105 &#32;&#32;&#32;&#32;&#32;&#32;inlen&#32;=&#32;fread&#32;(inbuf,&#32;<emphasis role="keyword">sizeof</emphasis>&#32;(*inbuf),&#32;<link linkend="_crypt-utils_8c_1afcf795f5a96fd55561abe69f56224630">BLOCKSIZE</link>,&#32;in);
 <anchor xml:id="_crypt-utils_8c_source_1l00106"/>00106 &#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(inlen&#32;&lt;=&#32;0)
 <anchor xml:id="_crypt-utils_8c_source_1l00107"/>00107 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
 <anchor xml:id="_crypt-utils_8c_source_1l00108"/>00108 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">/*&#32;EOF&#32;-&gt;&#32;Break&#32;Loop&#32;*/</emphasis>
@@ -119,7 +119,7 @@
 <anchor xml:id="_crypt-utils_8c_source_1l00157"/>00157 }
 <anchor xml:id="_crypt-utils_8c_source_1l00158"/>00158 
 <anchor xml:id="_crypt-utils_8c_source_1l00168"/>00168 <emphasis role="keywordtype">int</emphasis>
-<anchor xml:id="_crypt-utils_8c_source_1l00169"/>00169 check_entropy&#32;(<emphasis role="keywordtype">void</emphasis>)
+<anchor xml:id="_crypt-utils_8c_source_1l00169"/><link linkend="_crypt-utils_8c_1aa377df016f593aa771013264acc9b86b">00169</link> <link linkend="_crypt-utils_8c_1aa377df016f593aa771013264acc9b86b">check_entropy</link>&#32;(<emphasis role="keywordtype">void</emphasis>)
 <anchor xml:id="_crypt-utils_8c_source_1l00170"/>00170 {
 <anchor xml:id="_crypt-utils_8c_source_1l00171"/>00171 &#32;&#32;FILE&#32;*entropy_file&#32;=&#32;fopen&#32;(<emphasis role="stringliteral">&quot;/proc/sys/kernel/random/entropy_avail&quot;</emphasis>,&#32;<emphasis role="stringliteral">&quot;r&quot;</emphasis>);
 <anchor xml:id="_crypt-utils_8c_source_1l00172"/>00172 &#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(entropy_file&#32;==&#32;NULL)
@@ -141,7 +141,7 @@
 <anchor xml:id="_crypt-utils_8c_source_1l00188"/>00188 }
 <anchor xml:id="_crypt-utils_8c_source_1l00189"/>00189 
 <anchor xml:id="_crypt-utils_8c_source_1l00198"/>00198 <emphasis role="keywordtype">void</emphasis>
-<anchor xml:id="_crypt-utils_8c_source_1l00199"/>00199 add_entropy&#32;(<emphasis role="keywordtype">void</emphasis>)
+<anchor xml:id="_crypt-utils_8c_source_1l00199"/><link linkend="_crypt-utils_8c_1a53b5762e00daafcc3644c03e2fd9b2c4">00199</link> <link linkend="_crypt-utils_8c_1a53b5762e00daafcc3644c03e2fd9b2c4">add_entropy</link>&#32;(<emphasis role="keywordtype">void</emphasis>)
 <anchor xml:id="_crypt-utils_8c_source_1l00200"/>00200 {
 <anchor xml:id="_crypt-utils_8c_source_1l00201"/>00201 &#32;&#32;FILE&#32;*urandom&#32;=&#32;fopen&#32;(<emphasis role="stringliteral">&quot;/dev/urandom&quot;</emphasis>,&#32;<emphasis role="stringliteral">&quot;rb&quot;</emphasis>);
 <anchor xml:id="_crypt-utils_8c_source_1l00202"/>00202 &#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(urandom&#32;==&#32;NULL)
@@ -168,7 +168,7 @@
 <anchor xml:id="_crypt-utils_8c_source_1l00223"/>00223 }
 <anchor xml:id="_crypt-utils_8c_source_1l00224"/>00224 
 <anchor xml:id="_crypt-utils_8c_source_1l00231"/>00231 <emphasis role="keywordtype">void</emphasis>
-<anchor xml:id="_crypt-utils_8c_source_1l00232"/>00232 generate_key&#32;(<emphasis role="keywordtype">unsigned</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*destination)
+<anchor xml:id="_crypt-utils_8c_source_1l00232"/><link linkend="_crypt-utils_8c_1a8845f5705eaafda836aac91d5881876f">00232</link> <link linkend="_crypt-utils_8c_1a8845f5705eaafda836aac91d5881876f">generate_key</link>&#32;(<emphasis role="keywordtype">unsigned</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*destination)
 <anchor xml:id="_crypt-utils_8c_source_1l00233"/>00233 {
 <anchor xml:id="_crypt-utils_8c_source_1l00234"/>00234 &#32;&#32;fprintf&#32;(stdout,&#32;<emphasis role="stringliteral">&quot;Generating&#32;a&#32;new&#32;key...\n&quot;</emphasis>);
 <anchor xml:id="_crypt-utils_8c_source_1l00235"/>00235 
@@ -176,11 +176,11 @@
 <anchor xml:id="_crypt-utils_8c_source_1l00237"/>00237 &#32;&#32;<emphasis role="comment">//&#32;be&#32;enough&#32;random&#32;bytes&#32;in&#32;the&#32;system&#32;to&#32;generate&#32;a&#32;key</emphasis>
 <anchor xml:id="_crypt-utils_8c_source_1l00238"/>00238 &#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;(<emphasis role="keywordtype">int</emphasis>&#32;i&#32;=&#32;0;&#32;i&#32;&lt;&#32;10;&#32;i++)
 <anchor xml:id="_crypt-utils_8c_source_1l00239"/>00239 &#32;&#32;&#32;&#32;{
-<anchor xml:id="_crypt-utils_8c_source_1l00240"/>00240 &#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;entropy&#32;=&#32;check_entropy&#32;();
+<anchor xml:id="_crypt-utils_8c_source_1l00240"/>00240 &#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;entropy&#32;=&#32;<link linkend="_crypt-utils_8c_1aa377df016f593aa771013264acc9b86b">check_entropy</link>&#32;();
 <anchor xml:id="_crypt-utils_8c_source_1l00241"/>00241 &#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(entropy&#32;&lt;&#32;128)
 <anchor xml:id="_crypt-utils_8c_source_1l00242"/>00242 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
 <anchor xml:id="_crypt-utils_8c_source_1l00243"/>00243 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;fprintf&#32;(stderr,&#32;<emphasis role="stringliteral">&quot;WARN:&#32;not&#32;enough&#32;entropy,&#32;creating&#32;some...\n&quot;</emphasis>);
-<anchor xml:id="_crypt-utils_8c_source_1l00244"/>00244 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;add_entropy&#32;();
+<anchor xml:id="_crypt-utils_8c_source_1l00244"/>00244 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_crypt-utils_8c_1a53b5762e00daafcc3644c03e2fd9b2c4">add_entropy</link>&#32;();
 <anchor xml:id="_crypt-utils_8c_source_1l00245"/>00245 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
 <anchor xml:id="_crypt-utils_8c_source_1l00246"/>00246 
 <anchor xml:id="_crypt-utils_8c_source_1l00247"/>00247 &#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(RAND_bytes&#32;(destination,&#32;32)&#32;!=&#32;1)
@@ -193,7 +193,7 @@
 <anchor xml:id="_crypt-utils_8c_source_1l00254"/>00254 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">break</emphasis>;
 <anchor xml:id="_crypt-utils_8c_source_1l00255"/>00255 &#32;&#32;&#32;&#32;}
 <anchor xml:id="_crypt-utils_8c_source_1l00256"/>00256 
-<anchor xml:id="_crypt-utils_8c_source_1l00257"/>00257 &#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(is_valid_key&#32;(destination)&#32;==&#32;0)
+<anchor xml:id="_crypt-utils_8c_source_1l00257"/>00257 &#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(<link linkend="_crypt-utils_8c_1a36c2342a7c47b8f41bf628bf473b1c97">is_valid_key</link>&#32;(destination)&#32;==&#32;0)
 <anchor xml:id="_crypt-utils_8c_source_1l00258"/>00258 &#32;&#32;&#32;&#32;{
 <anchor xml:id="_crypt-utils_8c_source_1l00259"/>00259 &#32;&#32;&#32;&#32;&#32;&#32;fprintf&#32;(stderr,&#32;<emphasis role="stringliteral">&quot;Err:&#32;Generated&#32;key&#32;is&#32;inval1d\n&quot;</emphasis>);
 <anchor xml:id="_crypt-utils_8c_source_1l00260"/>00260 &#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_tcfs__utils_8c_1a8c1c24299a2b01f6157b051cb56ebc52">print_aes_key</link>&#32;(destination);
@@ -202,7 +202,7 @@
 <anchor xml:id="_crypt-utils_8c_source_1l00263"/>00263 }
 <anchor xml:id="_crypt-utils_8c_source_1l00264"/>00264 
 <anchor xml:id="_crypt-utils_8c_source_1l00274"/>00274 <emphasis role="keywordtype">unsigned</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*
-<anchor xml:id="_crypt-utils_8c_source_1l00275"/>00275 encrypt_string&#32;(<emphasis role="keywordtype">unsigned</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*plaintext,&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*key,
+<anchor xml:id="_crypt-utils_8c_source_1l00275"/><link linkend="_crypt-utils_8c_1aa926098a8843cf0ab6bd7eb8b3bbd2e6">00275</link> <link linkend="_crypt-utils_8c_1aa926098a8843cf0ab6bd7eb8b3bbd2e6">encrypt_string</link>&#32;(<emphasis role="keywordtype">unsigned</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*plaintext,&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*key,
 <anchor xml:id="_crypt-utils_8c_source_1l00276"/>00276 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;*encrypted_key_len)
 <anchor xml:id="_crypt-utils_8c_source_1l00277"/>00277 {
 <anchor xml:id="_crypt-utils_8c_source_1l00278"/>00278 &#32;&#32;EVP_CIPHER_CTX&#32;*ctx;
@@ -244,7 +244,7 @@
 <anchor xml:id="_crypt-utils_8c_source_1l00314"/>00314 }
 <anchor xml:id="_crypt-utils_8c_source_1l00315"/>00315 
 <anchor xml:id="_crypt-utils_8c_source_1l00324"/>00324 <emphasis role="keywordtype">unsigned</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*
-<anchor xml:id="_crypt-utils_8c_source_1l00325"/>00325 decrypt_string&#32;(<emphasis role="keywordtype">unsigned</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*ciphertext,&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*key)
+<anchor xml:id="_crypt-utils_8c_source_1l00325"/><link linkend="_crypt-utils_8c_1a22f528907ee4f078e333501b747d5435">00325</link> <link linkend="_crypt-utils_8c_1a22f528907ee4f078e333501b747d5435">decrypt_string</link>&#32;(<emphasis role="keywordtype">unsigned</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*ciphertext,&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*key)
 <anchor xml:id="_crypt-utils_8c_source_1l00326"/>00326 {
 <anchor xml:id="_crypt-utils_8c_source_1l00327"/>00327 &#32;&#32;EVP_CIPHER_CTX&#32;*ctx;
 <anchor xml:id="_crypt-utils_8c_source_1l00328"/>00328 &#32;&#32;<emphasis role="keyword">const</emphasis>&#32;EVP_CIPHER&#32;*cipher
@@ -273,7 +273,7 @@
 <anchor xml:id="_crypt-utils_8c_source_1l00351"/>00351 }
 <anchor xml:id="_crypt-utils_8c_source_1l00352"/>00352 
 <anchor xml:id="_crypt-utils_8c_source_1l00359"/>00359 <emphasis role="keywordtype">int</emphasis>
-<anchor xml:id="_crypt-utils_8c_source_1l00360"/>00360 is_valid_key&#32;(<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">unsigned</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*key)
+<anchor xml:id="_crypt-utils_8c_source_1l00360"/><link linkend="_crypt-utils_8c_1a36c2342a7c47b8f41bf628bf473b1c97">00360</link> <link linkend="_crypt-utils_8c_1a36c2342a7c47b8f41bf628bf473b1c97">is_valid_key</link>&#32;(<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">unsigned</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*key)
 <anchor xml:id="_crypt-utils_8c_source_1l00361"/>00361 {
 <anchor xml:id="_crypt-utils_8c_source_1l00362"/>00362 &#32;&#32;<emphasis role="keywordtype">char</emphasis>&#32;str[33];
 <anchor xml:id="_crypt-utils_8c_source_1l00363"/>00363 &#32;&#32;memcpy&#32;(str,&#32;key,&#32;32);

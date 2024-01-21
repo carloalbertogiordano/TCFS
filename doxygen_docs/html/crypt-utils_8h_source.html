@@ -82,7 +82,7 @@ $(document).ready(function() { init_codefold(0); });
   <div class="headertitle"><div class="title">crypt-utils.h</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;stdio.h&gt;</span></div>
+<a href="crypt-utils_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;stdio.h&gt;</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#include &lt;stdlib.h&gt;</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;string.h&gt;</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;sys/mman.h&gt;</span></div>
@@ -96,29 +96,34 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &quot;../tcfs_utils/tcfs_utils.h&quot;</span> <span class="comment">//TODO: Remove, for debugging only</span></div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#define BLOCKSIZE 1024</span></div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#define ENCRYPT 1</span></div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="preprocessor">#define DECRYPT 0</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="crypt-utils_8h.html#afcf795f5a96fd55561abe69f56224630">   15</a></span><span class="preprocessor">#define BLOCKSIZE 1024</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="crypt-utils_8h.html#a1cb0c60ca582db30ae87362ca43e8c19">   20</a></span><span class="preprocessor">#define ENCRYPT 1</span></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="crypt-utils_8h.html#a36fab47015485191712a579a059a7c20">   25</a></span><span class="preprocessor">#define DECRYPT 0</span></div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="keyword">extern</span> <span class="keywordtype">int</span> do_crypt (FILE *in, FILE *out, <span class="keywordtype">int</span> action, <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *key_str);</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="keyword">extern</span> <span class="keywordtype">int</span> <a class="code hl_function" href="crypt-utils_8h.html#a94b5b388b3f00982ccee72b192077e76">do_crypt</a> (FILE *in, FILE *out, <span class="keywordtype">int</span> action, <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *key_str);</div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="keywordtype">void</span> generate_key (<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *destination);</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="keywordtype">void</span> <a class="code hl_function" href="crypt-utils_8h.html#a8845f5705eaafda836aac91d5881876f">generate_key</a> (<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *destination);</div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *encrypt_string (<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *plaintext, <span class="keyword">const</span> <span class="keywordtype">char</span> *key,</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *<a class="code hl_function" href="crypt-utils_8h.html#a8bf9483dae26e9c0a1c45d77b8f1dce8">encrypt_string</a> (<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *plaintext, <span class="keyword">const</span> <span class="keywordtype">char</span> *key,</div>
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>                               <span class="keywordtype">int</span> *encrypted_len);</div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *decrypt_string (<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *base64_ciphertext,</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *<a class="code hl_function" href="crypt-utils_8h.html#a02ee5ac64d2d2d441edcca915e480503">decrypt_string</a> (<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *base64_ciphertext,</div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>                               <span class="keyword">const</span> <span class="keywordtype">char</span> *key);</div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="keywordtype">int</span> is_valid_key (<span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *key);</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="keywordtype">int</span> <a class="code hl_function" href="crypt-utils_8h.html#a36c2342a7c47b8f41bf628bf473b1c97">is_valid_key</a> (<span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *key);</div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="comment">/*</span></div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="comment">int rebuild_key(char *key, char *cert, char *dest);</span></div>
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="comment">*/</span></div>
+<div class="ttc" id="acrypt-utils_8h_html_a02ee5ac64d2d2d441edcca915e480503"><div class="ttname"><a href="crypt-utils_8h.html#a02ee5ac64d2d2d441edcca915e480503">decrypt_string</a></div><div class="ttdeci">unsigned char * decrypt_string(unsigned char *base64_ciphertext, const char *key)</div><div class="ttdoc">Decrypt the *ciphertext string using a AES 256 key.</div><div class="ttdef"><b>Definition</b> <a href="crypt-utils_8c_source.html#l00325">crypt-utils.c:325</a></div></div>
+<div class="ttc" id="acrypt-utils_8h_html_a36c2342a7c47b8f41bf628bf473b1c97"><div class="ttname"><a href="crypt-utils_8h.html#a36c2342a7c47b8f41bf628bf473b1c97">is_valid_key</a></div><div class="ttdeci">int is_valid_key(const unsigned char *key)</div><div class="ttdoc">Check if a given key is valid.</div><div class="ttdef"><b>Definition</b> <a href="crypt-utils_8c_source.html#l00360">crypt-utils.c:360</a></div></div>
+<div class="ttc" id="acrypt-utils_8h_html_a8845f5705eaafda836aac91d5881876f"><div class="ttname"><a href="crypt-utils_8h.html#a8845f5705eaafda836aac91d5881876f">generate_key</a></div><div class="ttdeci">void generate_key(unsigned char *destination)</div><div class="ttdoc">Generate a new AES 256 key for a file.</div><div class="ttdef"><b>Definition</b> <a href="crypt-utils_8c_source.html#l00232">crypt-utils.c:232</a></div></div>
+<div class="ttc" id="acrypt-utils_8h_html_a8bf9483dae26e9c0a1c45d77b8f1dce8"><div class="ttname"><a href="crypt-utils_8h.html#a8bf9483dae26e9c0a1c45d77b8f1dce8">encrypt_string</a></div><div class="ttdeci">unsigned char * encrypt_string(unsigned char *plaintext, const char *key, int *encrypted_len)</div><div class="ttdoc">Encrypt the *plaintext string using a AES 256 key.</div><div class="ttdef"><b>Definition</b> <a href="crypt-utils_8c_source.html#l00275">crypt-utils.c:275</a></div></div>
+<div class="ttc" id="acrypt-utils_8h_html_a94b5b388b3f00982ccee72b192077e76"><div class="ttname"><a href="crypt-utils_8h.html#a94b5b388b3f00982ccee72b192077e76">do_crypt</a></div><div class="ttdeci">int do_crypt(FILE *in, FILE *out, int action, unsigned char *key_str)</div><div class="ttdoc">High level function interface for performing AES encryption on FILE pointers Uses OpenSSL libcrypto E...</div><div class="ttdef"><b>Definition</b> <a href="crypt-utils_8c_source.html#l00054">crypt-utils.c:54</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Nov 28 2023 15:14:43 for TCFS by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
+Generated on Sun Jan 21 2024 18:41:36 for TCFS by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8
 </small></address>
 </body>
 </html>

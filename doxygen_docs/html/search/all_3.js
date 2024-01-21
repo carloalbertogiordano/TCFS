@@ -1,11 +1,14 @@
 var searchData=
 [
-  ['daemon_0',['Build and run the daemon',['../md_README.html#autotoc_md8',1,'']]],
-  ['data_1',['data',['../structqm__broad.html#a59096b6c11d45cf9addecfb629b55978',1,'qm_broad']]],
-  ['deprecated_20list_2',['Deprecated List',['../deprecated.html',1,'']]],
-  ['dequeue_3',['dequeue',['../queue_8c.html#a1874b6e320d1e54d571c89766d046602',1,'queue.c']]],
-  ['disclamer_4',['Disclamer',['../md_README.html#autotoc_md1',1,'']]],
-  ['disconnect_5fdb_5',['disconnect_db',['../user__db_8c.html#ab57ffd0f0b23a847e766e762906af22e',1,'user_db.c']]],
-  ['documentation_6',['Documentation',['../md_README.html#autotoc_md4',1,'']]],
-  ['done_3a_7',['Unmount the NFS share when you&apos;re done:',['../md_README.html#autotoc_md14',1,'']]]
+  ['check_5fentropy_0',['check_entropy',['../crypt-utils_8c.html#aa377df016f593aa771013264acc9b86b',1,'crypt-utils.c']]],
+  ['clearkeyboardbuffer_1',['clearKeyboardBuffer',['../tcfs__helper__tools_8c.html#acfa06becac8f67e9f278cfcbf91cc51b',1,'tcfs_helper_tools.c']]],
+  ['command_5fhandler_2',['command_handler',['../namespacecommand__handler.html',1,'']]],
+  ['command_5fhandler_3a_3aenviroinment_3',['enviroinment',['../namespacecommand__handler_1_1enviroinment.html',1,'command_handler']]],
+  ['consider_20using_20the_20tcfs_5fhelper_20program_4',['This is not raccomended, consider using the tcfs_helper program',['../md_README.html#autotoc_md13',1,'']]],
+  ['contributing_5',['Contributing',['../md_README.html#autotoc_md16',1,'']]],
+  ['countdown_6',['countdown',['../namespacecommand__handler_1_1enviroinment.html#a8036811b5b79bce2e21a023ef33d4786',1,'command_handler::enviroinment']]],
+  ['create_5ftcfs_5fmount_5flocal_5ffolder_7',['create_tcfs_mount_local_folder',['../tcfs__helper__tools_8c.html#ae930b52ef70f640efde8bda574b6b234',1,'tcfs_helper_tools.c']]],
+  ['crypt_2dutils_2ec_8',['crypt-utils.c',['../crypt-utils_8c.html',1,'']]],
+  ['crypt_2dutils_2eh_9',['crypt-utils.h',['../crypt-utils_8h.html',1,'']]],
+  ['cryptographic_20filesystem_10',['TCFS - Transparent Cryptographic Filesystem',['../md_README.html',1,'']]]
 ];

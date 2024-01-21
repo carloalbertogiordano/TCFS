@@ -4,55 +4,68 @@
     <title>TCFS</title>
     </info>
     <xi:include href="md_README.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
-    <xi:include href="todo.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
     <xi:include href="deprecated.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
+    <xi:include href="todo.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
+<chapter>
+    <title>Namespace Documentation</title>
+<xi:include href="namespacecommand__handler.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
+<xi:include href="namespacecommand__handler_1_1enviroinment.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
+<xi:include href="namespacemain.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
+<xi:include href="namespaceui.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
+<xi:include href="namespaceui_1_1main__window.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
+</chapter>
 <chapter>
     <title>Class Documentation</title>
+    <xi:include href="structargp.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
     <xi:include href="structarguments.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
-    <xi:include href="structqm__broad.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
-    <xi:include href="structqm__shared.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
-    <xi:include href="structqm__user.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
+    <xi:include href="classui_1_1main__window_1_1Window.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
 </chapter>
 <chapter>
     <title>File Documentation</title>
-    <xi:include href="common_8h.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
-    <xi:include href="common_8h_source.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
-    <xi:include href="redis_8c.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
-    <xi:include href="redis_8c_source.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
-    <xi:include href="redis_8h_source.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
-    <xi:include href="user__db_8c.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
-    <xi:include href="user__db_8c_source.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
-    <xi:include href="user__db_8h_source.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
-    <xi:include href="json__tools_8cpp.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
-    <xi:include href="json__tools_8cpp_source.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
-    <xi:include href="json__tools_8h_source.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
-    <xi:include href="print__utils_8c.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
-    <xi:include href="print__utils_8c_source.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
-    <xi:include href="print__utils_8h_source.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
-    <xi:include href="tcfs__daemon__tools_8c.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
-    <xi:include href="tcfs__daemon__tools_8c_source.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
-    <xi:include href="tcfs__daemon__tools_8h_source.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
-    <xi:include href="message__handler_8c.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
-    <xi:include href="message__handler_8c_source.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
-    <xi:include href="message__handler_8h_source.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
-    <xi:include href="queue_8c.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
-    <xi:include href="queue_8c_source.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
-    <xi:include href="queue_8h_source.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
-    <xi:include href="tcfs__daemon_8c.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
-    <xi:include href="tcfs__daemon_8c_source.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
     <xi:include href="tcfs__kmodule_8c.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
     <xi:include href="tcfs__kmodule_8c_source.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
+    <xi:include href="README_8md.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
+    <xi:include href="key-tools_8go.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
+    <xi:include href="key-tools_8go_source.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
+    <xi:include href="db_8go.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
+    <xi:include href="db_8go_source.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
+    <xi:include href="main__test_8go.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
+    <xi:include href="main__test_8go_source.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
+    <xi:include href="REST__functions_8go.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
+    <xi:include href="REST__functions_8go_source.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
+    <xi:include href="tcfs-daemon_8go.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
+    <xi:include href="tcfs-daemon_8go_source.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
+    <xi:include href="tcfs-user_8go.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
+    <xi:include href="tcfs-user_8go_source.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
+    <xi:include href="enviroinment_8py.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
+    <xi:include href="enviroinment_8py_source.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
+    <xi:include href="main_8py.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
+    <xi:include href="main_8py_source.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
+    <xi:include href="tcfs__helper__tools_8c.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
     <xi:include href="tcfs__helper__tools_8c_source.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
+    <xi:include href="tcfs__helper__tools_8h.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
     <xi:include href="tcfs__helper__tools_8h_source.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
+    <xi:include href="user__tcfs_8c.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
     <xi:include href="user__tcfs_8c_source.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
+    <xi:include href="command__handler_2____init_____8py.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
+    <xi:include href="command__handler_2____init_____8py_source.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
+    <xi:include href="ui_2____init_____8py.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
+    <xi:include href="ui_2____init_____8py_source.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
+    <xi:include href="main__window_8py.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
+    <xi:include href="main__window_8py_source.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
+    <xi:include href="tcfs_8c.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
     <xi:include href="tcfs_8c_source.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
+    <xi:include href="crypt-utils_8c.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
     <xi:include href="crypt-utils_8c_source.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
+    <xi:include href="crypt-utils_8h.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
     <xi:include href="crypt-utils_8h_source.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
     <xi:include href="password__manager_8c.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
     <xi:include href="password__manager_8c_source.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
+    <xi:include href="password__manager_8h.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
     <xi:include href="password__manager_8h_source.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
     <xi:include href="tcfs__utils_8c.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
     <xi:include href="tcfs__utils_8c_source.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
+    <xi:include href="tcfs__utils_8h.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
     <xi:include href="tcfs__utils_8h_source.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
 </chapter>
 <index/>

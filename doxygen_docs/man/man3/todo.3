@@ -1,37 +1,13 @@
-.TH "todo" 3 "Tue Nov 28 2023 15:14:43" "Version 0.2" "TCFS" \" -*- nroff -*-
+.TH "todo" 3 "Sun Jan 21 2024 18:41:36" "Version 0.2" "TCFS" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
 todo \- Todo List 
 .PP
 
-.IP "\fBMember \fBhandle_incoming_messages\fP (void *queue_id)\fP" 1c
-Handle the case described in note  
-.IP "\fBMember \fBhandle_outgoing_messages\fP (void *queue_id)\fP" 1c
-Remove this function from the code  
-.IP "\fBMember \fBhandle_termination\fP (int signum)\fP" 1c
-: Implement remove_queue() to clear and delete the queue  
-.IP "\fBMember \fBHOST\fP []\fP" 1c
-This should be passed as a parameter to the daemon  
-.IP "\fBMember \fBinit_queue\fP (char *queue)\fP" 1c
-Define permissions for mq_open  
-.IP "\fBMember \fBmain\fP ()\fP" 1c
-: The brief description is basically false advertisement\&. It only spawn a thread and hangs infinitely 
-.PP
-.PP
-: Remove the thread that spawns handle_outgoing_messages\&. This must not make it into final release  
-.IP "\fBMember \fBPORT\fP \fP" 1c
-This should be passed as a parameter to the daemon  
-.IP "\fBStruct \fBqm_shared\fP \fP" 1c
-Handle creation of shared files and not only accessing them\&. This mey imply a new field  
-.IP "\fBFile \fBtcfs_daemon\&.c\fP \fP" 1c
-: Enable forking 
-.PP
-.PP
-Run the daemon via SystemD  
-.IP "\fBMember \fBterminate\fP \fP" 1c
-: Implement logic to make this work  
-.IP "\fBMember \fBterminate_mutex\fP \fP" 1c
-: implement logic to make this work 
+.IP "\fBMember \fBget_pass\fP (char *pw)\fP" 1c
+This will be changed when a public/private key model will be avilable to TCFS userspace module  
+.IP "\fBMember \fBtcfs_opendir\fP (const char *fuse_path, struct fuse_file_info *fi)\fP" 1c
+Implement the opendir function 
 .PP
 

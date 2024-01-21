@@ -1,11 +1,11 @@
 package DB
 
 import (
-	TCFSTypes "daemon/types"
 	"database/sql"
 	"errors"
 	"fmt"
 	_ "github.com/go-sql-driver/mysql"
+	TCFSTypes "serverTCFS/types"
 )
 
 var db *sql.DB
@@ -96,19 +96,19 @@ func InsertSharedFile(username string, fileID int, keypart string) error {
 func GetNewFileID() (int, error) {
 	var lastFileID int
 
-	// Esegui la stored procedure GetLastFileID
+	// Execute stored procedure GetLastFileID
 	_, err := db.Exec("CALL GetLastFileID(@output);")
 	if err != nil {
 		return 0, fmt.Errorf("failed to execute GetLastFileID: %w", err)
 	}
 
-	// Recupera il valore di output
+	// Fetch the output
 	err = db.QueryRow("SELECT @output").Scan(&lastFileID)
 	if err != nil {
 		return 0, fmt.Errorf("failed to get last file ID: %w", err)
 	}
 
-	// Esegui la stored procedure IncrementLastFileID
+	// Execute the stored procedure IncrementLastFileID
 	_, err = db.Exec("CALL IncrementLastFileID();")
 	if err != nil {
 		return 0, fmt.Errorf("failed to increment last file ID: %w", err)

@@ -1,4 +1,4 @@
-module daemon
+module serverTCFS
 
 go 1.20
 

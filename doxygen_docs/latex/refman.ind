@@ -1,309 +1,433 @@
 \begin{theindex}
 
-  \item {arguments}, \hyperpage{13}
-    \subitem {destination}, \hyperpage{14}
-    \subitem {operation}, \hyperpage{14}
-    \subitem {password}, \hyperpage{14}
-    \subitem {source}, \hyperpage{14}
+  \item {\_XOPEN\_SOURCE}
+    \subitem {tcfs.c}, \hyperpage{59}
+  \item {\_\_init\_\_}
+    \subitem {ui.main\_window.Window}, \hyperpage{21}
 
   \indexspace
 
-  \item {BROADCAST}
-    \subitem {common.h}, \hyperpage{22}
+  \item {add\_button}
+    \subitem {ui.main\_window.Window}, \hyperpage{21}
+  \item {add\_entropy}
+    \subitem {crypt-\/utils.c}, \hyperpage{86}
+  \item {argp}, \hyperpage{19}
+    \subitem {tcfs.c}, \hyperpage{73}
+    \subitem {user\_tcfs.c}, \hyperpage{54}
+  \item {argp\_program\_bug\_address}
+    \subitem {tcfs.c}, \hyperpage{73}
+    \subitem {user\_tcfs.c}, \hyperpage{54}
+  \item {argp\_program\_version}
+    \subitem {tcfs.c}, \hyperpage{73}
+    \subitem {user\_tcfs.c}, \hyperpage{54}
+  \item {args\_doc}
+    \subitem {tcfs.c}, \hyperpage{73}
+  \item {arguments}, \hyperpage{19}
+    \subitem {destination}, \hyperpage{20}
+    \subitem {operation}, \hyperpage{20}
+    \subitem {password}, \hyperpage{20}
+    \subitem {source}, \hyperpage{20}
 
   \indexspace
 
-  \item {cleared}
-    \subitem {print\_utils.c}, \hyperpage{50}
-  \item {common.h}
-    \subitem {BROADCAST}, \hyperpage{22}
-    \subitem {MAX\_QM\_N}, \hyperpage{21}
-    \subitem {MAX\_QM\_SIZE}, \hyperpage{21}
-    \subitem {qm\_type}, \hyperpage{21}
-    \subitem {QM\_TYPE\_UNDEFINED}, \hyperpage{22}
-    \subitem {REGISTER}, \hyperpage{22}
-    \subitem {SHARED}, \hyperpage{22}
-    \subitem {UNREGISTER}, \hyperpage{22}
-    \subitem {USER}, \hyperpage{22}
-    \subitem {user\_operation}, \hyperpage{22}
-  \item {context}
-    \subitem {redis.c}, \hyperpage{33}
+  \item {BLOCKSIZE}
+    \subitem {crypt-\/utils.c}, \hyperpage{85}
+    \subitem {crypt-\/utils.h}, \hyperpage{97}
 
   \indexspace
 
-  \item {daemon/daemon\_utils/common.h}, \hyperpage{19}, \hyperpage{22}
-  \item {daemon/daemon\_utils/common\_utils/db/redis.c}, \hyperpage{23}, 
-		\hyperpage{34}
-  \item {daemon/daemon\_utils/common\_utils/db/redis.h}, \hyperpage{36}
-  \item {daemon/daemon\_utils/common\_utils/db/user\_db.c}, 
-		\hyperpage{37}, \hyperpage{40}
-  \item {daemon/daemon\_utils/common\_utils/db/user\_db.h}, 
-		\hyperpage{40}
-  \item {daemon/daemon\_utils/common\_utils/json/json\_tools.cpp}, 
-		\hyperpage{40}, \hyperpage{43}
-  \item {daemon/daemon\_utils/common\_utils/json/json\_tools.h}, 
-		\hyperpage{45}
-  \item {daemon/daemon\_utils/common\_utils/print/print\_utils.c}, 
-		\hyperpage{45}, \hyperpage{50}
-  \item {daemon/daemon\_utils/common\_utils/print/print\_utils.h}, 
-		\hyperpage{51}
-  \item {daemon/daemon\_utils/daemon\_tools/tcfs\_daemon\_tools.c}, 
-		\hyperpage{52}, \hyperpage{55}
-  \item {daemon/daemon\_utils/daemon\_tools/tcfs\_daemon\_tools.h}, 
-		\hyperpage{56}
-  \item {daemon/daemon\_utils/message\_handler/message\_handler.c}, 
-		\hyperpage{56, 57}
-  \item {daemon/daemon\_utils/message\_handler/message\_handler.h}, 
-		\hyperpage{58}
-  \item {daemon/daemon\_utils/queue/queue.c}, \hyperpage{58}, 
-		\hyperpage{63}
-  \item {daemon/daemon\_utils/queue/queue.h}, \hyperpage{64}
-  \item {daemon/tcfs\_daemon.c}, \hyperpage{64}, \hyperpage{68}
-  \item {data}
-    \subitem {qm\_broad}, \hyperpage{15}
-  \item {Deprecated List}, \hyperpage{7}
-  \item {dequeue}
-    \subitem {queue.c}, \hyperpage{59}
+  \item {check\_entropy}
+    \subitem {crypt-\/utils.c}, \hyperpage{86}
+  \item {clearKeyboardBuffer}
+    \subitem {tcfs\_helper\_tools.c}, \hyperpage{37}
+  \item {command\_handler}, \hyperpage{15}
+  \item {command\_handler.enviroinment}, \hyperpage{15}
+    \subitem {countdown}, \hyperpage{15}
+    \subitem {init\_env}, \hyperpage{15}
+  \item {countdown}
+    \subitem {command\_handler.enviroinment}, \hyperpage{15}
+  \item {create\_tcfs\_mount\_local\_folder}
+    \subitem {tcfs\_helper\_tools.c}, \hyperpage{37}
+  \item {crypt-\/utils.c}
+    \subitem {add\_entropy}, \hyperpage{86}
+    \subitem {BLOCKSIZE}, \hyperpage{85}
+    \subitem {check\_entropy}, \hyperpage{86}
+    \subitem {decrypt\_string}, \hyperpage{87}
+    \subitem {do\_crypt}, \hyperpage{88}
+    \subitem {encrypt\_string}, \hyperpage{89}
+    \subitem {generate\_key}, \hyperpage{90}
+    \subitem {is\_valid\_key}, \hyperpage{91}
+    \subitem {IV\_SIZE}, \hyperpage{85}
+    \subitem {KEY\_SIZE}, \hyperpage{86}
+  \item {crypt-\/utils.h}
+    \subitem {BLOCKSIZE}, \hyperpage{97}
+    \subitem {DECRYPT}, \hyperpage{97}
+    \subitem {decrypt\_string}, \hyperpage{97}
+    \subitem {do\_crypt}, \hyperpage{98}
+    \subitem {ENCRYPT}, \hyperpage{97}
+    \subitem {encrypt\_string}, \hyperpage{99}
+    \subitem {generate\_key}, \hyperpage{100}
+    \subitem {is\_valid\_key}, \hyperpage{101}
+
+  \indexspace
+
+  \item {DECRYPT}
+    \subitem {crypt-\/utils.h}, \hyperpage{97}
+  \item {decrypt\_string}
+    \subitem {crypt-\/utils.c}, \hyperpage{87}
+    \subitem {crypt-\/utils.h}, \hyperpage{97}
+  \item {Deprecated List}, \hyperpage{5}
   \item {destination}
-    \subitem {arguments}, \hyperpage{14}
-  \item {disconnect\_db}
-    \subitem {user\_db.c}, \hyperpage{37}
+    \subitem {arguments}, \hyperpage{20}
+  \item {directory\_exists}
+    \subitem {tcfs\_helper\_tools.c}, \hyperpage{38}
+  \item {do\_crypt}
+    \subitem {crypt-\/utils.c}, \hyperpage{88}
+    \subitem {crypt-\/utils.h}, \hyperpage{98}
+  \item {do\_mount}
+    \subitem {tcfs\_helper\_tools.c}, \hyperpage{39}
+    \subitem {tcfs\_helper\_tools.h}, \hyperpage{50}
+  \item {doc}
+    \subitem {tcfs.c}, \hyperpage{73}
+    \subitem {user\_tcfs.c}, \hyperpage{54}
 
   \indexspace
 
-  \item {enqueue}
-    \subitem {queue.c}, \hyperpage{60}
+  \item {ENCRYPT}
+    \subitem {crypt-\/utils.h}, \hyperpage{97}
+  \item {encrypt\_string}
+    \subitem {crypt-\/utils.c}, \hyperpage{89}
+    \subitem {crypt-\/utils.h}, \hyperpage{99}
 
   \indexspace
 
-  \item {fd}
-    \subitem {qm\_shared}, \hyperpage{16}
-  \item {free\_context}
-    \subitem {redis.c}, \hyperpage{24}
+  \item {file\_size}
+    \subitem {tcfs.c}, \hyperpage{59}
+  \item {foo}
+    \subitem {main}, \hyperpage{16}
+  \item {FUSE\_USE\_VERSION}
+    \subitem {tcfs.c}, \hyperpage{59}
 
   \indexspace
 
+  \item {generate\_key}
+    \subitem {crypt-\/utils.c}, \hyperpage{90}
+    \subitem {crypt-\/utils.h}, \hyperpage{100}
+  \item {generate\_random\_string}
+    \subitem {tcfs\_helper\_tools.c}, \hyperpage{39}
   \item {get\_encrypted\_key}
-    \subitem {tcfs\_utils.c}, \hyperpage{90}
-  \item {get\_user\_by\_name}
-    \subitem {redis.c}, \hyperpage{25}
-  \item {get\_user\_by\_pid}
-    \subitem {redis.c}, \hyperpage{26}
+    \subitem {tcfs\_utils.c}, \hyperpage{105}
+    \subitem {tcfs\_utils.h}, \hyperpage{113}
+  \item {get\_pass}
+    \subitem {tcfs\_helper\_tools.c}, \hyperpage{40}
+  \item {get\_source\_dest}
+    \subitem {tcfs\_helper\_tools.c}, \hyperpage{41}
   \item {get\_user\_name}
-    \subitem {tcfs\_utils.c}, \hyperpage{91}
+    \subitem {tcfs\_utils.c}, \hyperpage{106}
+    \subitem {tcfs\_utils.h}, \hyperpage{114}
 
   \indexspace
 
-  \item {handle\_incoming\_messages}
-    \subitem {tcfs\_daemon\_tools.c}, \hyperpage{52}
-  \item {handle\_outgoing\_messages}
-    \subitem {tcfs\_daemon\_tools.c}, \hyperpage{53}
-  \item {handle\_termination}
-    \subitem {tcfs\_daemon.c}, \hyperpage{65}
-  \item {handle\_user\_message}
-    \subitem {message\_handler.c}, \hyperpage{57}
-  \item {HOST}
-    \subitem {redis.c}, \hyperpage{33}
+  \item {handle\_folder\_mount}
+    \subitem {tcfs\_helper\_tools.c}, \hyperpage{41}
+  \item {handle\_local\_mount}
+    \subitem {tcfs\_helper\_tools.c}, \hyperpage{42}
+  \item {handle\_remote\_mount}
+    \subitem {tcfs\_helper\_tools.c}, \hyperpage{43}
+  \item {HAVE\_SETXATTR}
+    \subitem {tcfs.c}, \hyperpage{59}
 
   \indexspace
 
-  \item {init\_context}
-    \subitem {redis.c}, \hyperpage{27}
-  \item {init\_queue}
-    \subitem {queue.c}, \hyperpage{62}
-  \item {insert}
-    \subitem {redis.c}, \hyperpage{28}
+  \item {init\_env}
+    \subitem {command\_handler.enviroinment}, \hyperpage{15}
+  \item {init\_env\_butt}
+    \subitem {main}, \hyperpage{16}
   \item {is\_encrypted}
-    \subitem {tcfs\_utils.c}, \hyperpage{91}
+    \subitem {tcfs\_utils.c}, \hyperpage{106}
+    \subitem {tcfs\_utils.h}, \hyperpage{115}
+  \item {is\_valid\_key}
+    \subitem {crypt-\/utils.c}, \hyperpage{91}
+    \subitem {crypt-\/utils.h}, \hyperpage{101}
+  \item {IV\_SIZE}
+    \subitem {crypt-\/utils.c}, \hyperpage{85}
 
   \indexspace
 
-  \item {json\_to\_qm\_user}
-    \subitem {redis.c}, \hyperpage{29}
-  \item {json\_tools.cpp}
-    \subitem {string\_to\_struct}, \hyperpage{41}
-    \subitem {struct\_to\_json}, \hyperpage{42}
+  \item {kernel-\/module/tcfs\_kmodule.c}, \hyperpage{23}
+  \item {KEY\_SIZE}
+    \subitem {crypt-\/utils.c}, \hyperpage{86}
 
   \indexspace
 
-  \item {kernel-\/module/tcfs\_kmodule.c}, \hyperpage{69}
-  \item {keypart}
-    \subitem {qm\_shared}, \hyperpage{16}
+  \item {logout\_butt}
+    \subitem {main}, \hyperpage{16}
 
   \indexspace
 
-  \item {main}
-    \subitem {tcfs\_daemon.c}, \hyperpage{66}
-  \item {MAX\_QM\_N}
-    \subitem {common.h}, \hyperpage{21}
-  \item {MAX\_QM\_SIZE}
-    \subitem {common.h}, \hyperpage{21}
-  \item {MESSAGE\_BUFFER\_SIZE}
-    \subitem {queue.c}, \hyperpage{59}
-  \item {message\_handler.c}
-    \subitem {handle\_user\_message}, \hyperpage{57}
-  \item {MQUEUE}
-    \subitem {tcfs\_daemon.c}, \hyperpage{67}
-  \item {MQUEUE\_N}
-    \subitem {queue.c}, \hyperpage{59}
+  \item {main}, \hyperpage{16}
+    \subitem {foo}, \hyperpage{16}
+    \subitem {init\_env\_butt}, \hyperpage{16}
+    \subitem {logout\_butt}, \hyperpage{16}
+    \subitem {mount\_butt}, \hyperpage{17}
+    \subitem {shared\_butt}, \hyperpage{17}
+    \subitem {tcfs.c}, \hyperpage{59}
+    \subitem {umount\_butt}, \hyperpage{17}
+    \subitem {user\_tcfs.c}, \hyperpage{53}
+    \subitem {win}, \hyperpage{17}
+  \item {modify\_button\_allign}
+    \subitem {ui.main\_window}, \hyperpage{17}
+  \item {mount\_butt}
+    \subitem {main}, \hyperpage{17}
+  \item {mount\_tcfs\_folder}
+    \subitem {tcfs\_helper\_tools.c}, \hyperpage{43}
 
   \indexspace
 
   \item {operation}
-    \subitem {arguments}, \hyperpage{14}
+    \subitem {arguments}, \hyperpage{20}
+  \item {options}
+    \subitem {tcfs.c}, \hyperpage{74}
+    \subitem {user\_tcfs.c}, \hyperpage{55}
 
   \indexspace
 
+  \item {parse\_opt}
+    \subitem {tcfs.c}, \hyperpage{60}
+    \subitem {user\_tcfs.c}, \hyperpage{53}
+  \item {PASS\_SIZE}
+    \subitem {tcfs\_helper\_tools.c}, \hyperpage{37}
   \item {password}
-    \subitem {arguments}, \hyperpage{14}
-  \item {pid}
-    \subitem {qm\_user}, \hyperpage{17}
-  \item {PORT}
-    \subitem {redis.c}, \hyperpage{24}
+    \subitem {arguments}, \hyperpage{20}
+    \subitem {tcfs.c}, \hyperpage{74}
+  \item {password\_manager.h}
+    \subitem {WITH\_SYS\_CALL}, \hyperpage{104}
+    \subitem {WITHOUT\_SYS\_CALL}, \hyperpage{104}
   \item {prefix\_path}
-    \subitem {tcfs\_utils.c}, \hyperpage{92}
+    \subitem {tcfs\_utils.c}, \hyperpage{107}
+    \subitem {tcfs\_utils.h}, \hyperpage{115}
   \item {print\_aes\_key}
-    \subitem {tcfs\_utils.c}, \hyperpage{93}
-  \item {print\_all\_keys}
-    \subitem {redis.c}, \hyperpage{30}
-  \item {print\_debug}
-    \subitem {print\_utils.c}, \hyperpage{46}
-  \item {print\_err}
-    \subitem {print\_utils.c}, \hyperpage{46}
-  \item {print\_msg}
-    \subitem {print\_utils.c}, \hyperpage{47}
-  \item {print\_utils.c}
-    \subitem {cleared}, \hyperpage{50}
-    \subitem {print\_debug}, \hyperpage{46}
-    \subitem {print\_err}, \hyperpage{46}
-    \subitem {print\_msg}, \hyperpage{47}
-    \subitem {print\_warn}, \hyperpage{48}
-  \item {print\_warn}
-    \subitem {print\_utils.c}, \hyperpage{48}
-  \item {pubkey}
-    \subitem {qm\_user}, \hyperpage{17}
-
-  \indexspace
-
-  \item {qm\_broad}, \hyperpage{14}
-    \subitem {data}, \hyperpage{15}
-  \item {qm\_shared}, \hyperpage{15}
-    \subitem {fd}, \hyperpage{16}
-    \subitem {keypart}, \hyperpage{16}
-    \subitem {userlist}, \hyperpage{16}
-  \item {qm\_type}
-    \subitem {common.h}, \hyperpage{21}
-  \item {QM\_TYPE\_UNDEFINED}
-    \subitem {common.h}, \hyperpage{22}
-  \item {qm\_user}, \hyperpage{17}
-    \subitem {pid}, \hyperpage{17}
-    \subitem {pubkey}, \hyperpage{17}
-    \subitem {user}, \hyperpage{18}
-    \subitem {user\_op}, \hyperpage{18}
-  \item {queue.c}
-    \subitem {dequeue}, \hyperpage{59}
-    \subitem {enqueue}, \hyperpage{60}
-    \subitem {init\_queue}, \hyperpage{62}
-    \subitem {MESSAGE\_BUFFER\_SIZE}, \hyperpage{59}
-    \subitem {MQUEUE\_N}, \hyperpage{59}
+    \subitem {tcfs\_utils.c}, \hyperpage{109}
+    \subitem {tcfs\_utils.h}, \hyperpage{117}
 
   \indexspace
 
   \item {read\_file}
-    \subitem {tcfs\_utils.c}, \hyperpage{93}
-  \item {redis.c}
-    \subitem {context}, \hyperpage{33}
-    \subitem {free\_context}, \hyperpage{24}
-    \subitem {get\_user\_by\_name}, \hyperpage{25}
-    \subitem {get\_user\_by\_pid}, \hyperpage{26}
-    \subitem {HOST}, \hyperpage{33}
-    \subitem {init\_context}, \hyperpage{27}
-    \subitem {insert}, \hyperpage{28}
-    \subitem {json\_to\_qm\_user}, \hyperpage{29}
-    \subitem {PORT}, \hyperpage{24}
-    \subitem {print\_all\_keys}, \hyperpage{30}
-    \subitem {remove\_by\_pid}, \hyperpage{31}
-    \subitem {remove\_by\_user}, \hyperpage{32}
-  \item {REGISTER}
-    \subitem {common.h}, \hyperpage{22}
-  \item {register\_user}
-    \subitem {user\_db.c}, \hyperpage{38}
-  \item {remove\_by\_pid}
-    \subitem {redis.c}, \hyperpage{31}
-  \item {remove\_by\_user}
-    \subitem {redis.c}, \hyperpage{32}
+    \subitem {tcfs\_utils.c}, \hyperpage{110}
+    \subitem {tcfs\_utils.h}, \hyperpage{118}
+  \item {README.md}, \hyperpage{24}
+  \item {root\_path}
+    \subitem {tcfs.c}, \hyperpage{74}
 
   \indexspace
 
-  \item {SHARED}
-    \subitem {common.h}, \hyperpage{22}
+  \item {ServerREST/crypt-\/utils/key-\/tools.go}, \hyperpage{24}
+  \item {ServerREST/db/db.go}, \hyperpage{25}
+  \item {ServerREST/main\_test.go}, \hyperpage{27}
+  \item {ServerREST/serverTools/REST\_functions.go}, \hyperpage{30}
+  \item {ServerREST/tcfs-\/daemon.go}, \hyperpage{33}
+  \item {ServerREST/types/tcfs-\/user.go}, \hyperpage{34}
+  \item {setup\_tcfs\_env}
+    \subitem {tcfs\_helper\_tools.c}, \hyperpage{44}
+    \subitem {tcfs\_helper\_tools.h}, \hyperpage{51}
+  \item {setup\_tcfs\_mount\_folder}
+    \subitem {tcfs\_helper\_tools.c}, \hyperpage{44}
+  \item {shared\_butt}
+    \subitem {main}, \hyperpage{17}
   \item {source}
-    \subitem {arguments}, \hyperpage{14}
-  \item {string\_to\_struct}
-    \subitem {json\_tools.cpp}, \hyperpage{41}
-  \item {struct\_to\_json}
-    \subitem {json\_tools.cpp}, \hyperpage{42}
+    \subitem {arguments}, \hyperpage{20}
+  \item {start\_window}
+    \subitem {ui.main\_window.Window}, \hyperpage{21}
 
   \indexspace
 
   \item {TCFS -\/ Transparent Cryptographic Filesystem}, \hyperpage{1}
-  \item {tcfs\_daemon.c}
-    \subitem {handle\_termination}, \hyperpage{65}
-    \subitem {main}, \hyperpage{66}
-    \subitem {MQUEUE}, \hyperpage{67}
-    \subitem {terminate}, \hyperpage{67}
-    \subitem {terminate\_mutex}, \hyperpage{67}
-  \item {tcfs\_daemon\_tools.c}
-    \subitem {handle\_incoming\_messages}, \hyperpage{52}
-    \subitem {handle\_outgoing\_messages}, \hyperpage{53}
+  \item {tcfs.c}
+    \subitem {\_XOPEN\_SOURCE}, \hyperpage{59}
+    \subitem {argp}, \hyperpage{73}
+    \subitem {argp\_program\_bug\_address}, \hyperpage{73}
+    \subitem {argp\_program\_version}, \hyperpage{73}
+    \subitem {args\_doc}, \hyperpage{73}
+    \subitem {doc}, \hyperpage{73}
+    \subitem {file\_size}, \hyperpage{59}
+    \subitem {FUSE\_USE\_VERSION}, \hyperpage{59}
+    \subitem {HAVE\_SETXATTR}, \hyperpage{59}
+    \subitem {main}, \hyperpage{59}
+    \subitem {options}, \hyperpage{74}
+    \subitem {parse\_opt}, \hyperpage{60}
+    \subitem {password}, \hyperpage{74}
+    \subitem {root\_path}, \hyperpage{74}
+    \subitem {tcfs\_access}, \hyperpage{60}
+    \subitem {tcfs\_chmod}, \hyperpage{61}
+    \subitem {tcfs\_chown}, \hyperpage{61}
+    \subitem {tcfs\_create}, \hyperpage{61}
+    \subitem {tcfs\_fsync}, \hyperpage{62}
+    \subitem {tcfs\_getattr}, \hyperpage{62}
+    \subitem {tcfs\_getxattr}, \hyperpage{63}
+    \subitem {tcfs\_link}, \hyperpage{64}
+    \subitem {tcfs\_listxattr}, \hyperpage{64}
+    \subitem {tcfs\_mkdir}, \hyperpage{64}
+    \subitem {tcfs\_mknod}, \hyperpage{65}
+    \subitem {tcfs\_open}, \hyperpage{65}
+    \subitem {tcfs\_opendir}, \hyperpage{66}
+    \subitem {tcfs\_oper}, \hyperpage{74}
+    \subitem {tcfs\_read}, \hyperpage{66}
+    \subitem {tcfs\_readdir}, \hyperpage{67}
+    \subitem {tcfs\_readlink}, \hyperpage{67}
+    \subitem {tcfs\_release}, \hyperpage{68}
+    \subitem {tcfs\_removexattr}, \hyperpage{68}
+    \subitem {tcfs\_rename}, \hyperpage{69}
+    \subitem {tcfs\_rmdir}, \hyperpage{69}
+    \subitem {tcfs\_setxattr}, \hyperpage{69}
+    \subitem {tcfs\_statfs}, \hyperpage{70}
+    \subitem {tcfs\_symlink}, \hyperpage{70}
+    \subitem {tcfs\_truncate}, \hyperpage{71}
+    \subitem {tcfs\_unlink}, \hyperpage{71}
+    \subitem {tcfs\_utimens}, \hyperpage{71}
+    \subitem {tcfs\_write}, \hyperpage{72}
+  \item {tcfs\_access}
+    \subitem {tcfs.c}, \hyperpage{60}
+  \item {tcfs\_chmod}
+    \subitem {tcfs.c}, \hyperpage{61}
+  \item {tcfs\_chown}
+    \subitem {tcfs.c}, \hyperpage{61}
+  \item {tcfs\_create}
+    \subitem {tcfs.c}, \hyperpage{61}
+  \item {tcfs\_fsync}
+    \subitem {tcfs.c}, \hyperpage{62}
+  \item {tcfs\_getattr}
+    \subitem {tcfs.c}, \hyperpage{62}
+  \item {tcfs\_getxattr}
+    \subitem {tcfs.c}, \hyperpage{63}
+  \item {tcfs\_helper\_tools.c}
+    \subitem {clearKeyboardBuffer}, \hyperpage{37}
+    \subitem {create\_tcfs\_mount\_local\_folder}, \hyperpage{37}
+    \subitem {directory\_exists}, \hyperpage{38}
+    \subitem {do\_mount}, \hyperpage{39}
+    \subitem {generate\_random\_string}, \hyperpage{39}
+    \subitem {get\_pass}, \hyperpage{40}
+    \subitem {get\_source\_dest}, \hyperpage{41}
+    \subitem {handle\_folder\_mount}, \hyperpage{41}
+    \subitem {handle\_local\_mount}, \hyperpage{42}
+    \subitem {handle\_remote\_mount}, \hyperpage{43}
+    \subitem {mount\_tcfs\_folder}, \hyperpage{43}
+    \subitem {PASS\_SIZE}, \hyperpage{37}
+    \subitem {setup\_tcfs\_env}, \hyperpage{44}
+    \subitem {setup\_tcfs\_mount\_folder}, \hyperpage{44}
+  \item {tcfs\_helper\_tools.h}
+    \subitem {do\_mount}, \hyperpage{50}
+    \subitem {setup\_tcfs\_env}, \hyperpage{51}
+  \item {tcfs\_link}
+    \subitem {tcfs.c}, \hyperpage{64}
+  \item {tcfs\_listxattr}
+    \subitem {tcfs.c}, \hyperpage{64}
+  \item {tcfs\_mkdir}
+    \subitem {tcfs.c}, \hyperpage{64}
+  \item {tcfs\_mknod}
+    \subitem {tcfs.c}, \hyperpage{65}
+  \item {tcfs\_open}
+    \subitem {tcfs.c}, \hyperpage{65}
+  \item {tcfs\_opendir}
+    \subitem {tcfs.c}, \hyperpage{66}
+  \item {tcfs\_oper}
+    \subitem {tcfs.c}, \hyperpage{74}
+  \item {tcfs\_read}
+    \subitem {tcfs.c}, \hyperpage{66}
+  \item {tcfs\_readdir}
+    \subitem {tcfs.c}, \hyperpage{67}
+  \item {tcfs\_readlink}
+    \subitem {tcfs.c}, \hyperpage{67}
+  \item {tcfs\_release}
+    \subitem {tcfs.c}, \hyperpage{68}
+  \item {tcfs\_removexattr}
+    \subitem {tcfs.c}, \hyperpage{68}
+  \item {tcfs\_rename}
+    \subitem {tcfs.c}, \hyperpage{69}
+  \item {tcfs\_rmdir}
+    \subitem {tcfs.c}, \hyperpage{69}
+  \item {tcfs\_setxattr}
+    \subitem {tcfs.c}, \hyperpage{69}
+  \item {tcfs\_statfs}
+    \subitem {tcfs.c}, \hyperpage{70}
+  \item {tcfs\_symlink}
+    \subitem {tcfs.c}, \hyperpage{70}
+  \item {tcfs\_truncate}
+    \subitem {tcfs.c}, \hyperpage{71}
+  \item {tcfs\_unlink}
+    \subitem {tcfs.c}, \hyperpage{71}
   \item {tcfs\_utils.c}
-    \subitem {get\_encrypted\_key}, \hyperpage{90}
-    \subitem {get\_user\_name}, \hyperpage{91}
-    \subitem {is\_encrypted}, \hyperpage{91}
-    \subitem {prefix\_path}, \hyperpage{92}
-    \subitem {print\_aes\_key}, \hyperpage{93}
-    \subitem {read\_file}, \hyperpage{93}
-  \item {terminate}
-    \subitem {tcfs\_daemon.c}, \hyperpage{67}
-  \item {terminate\_mutex}
-    \subitem {tcfs\_daemon.c}, \hyperpage{67}
-  \item {Todo List}, \hyperpage{5}
+    \subitem {get\_encrypted\_key}, \hyperpage{105}
+    \subitem {get\_user\_name}, \hyperpage{106}
+    \subitem {is\_encrypted}, \hyperpage{106}
+    \subitem {prefix\_path}, \hyperpage{107}
+    \subitem {print\_aes\_key}, \hyperpage{109}
+    \subitem {read\_file}, \hyperpage{110}
+  \item {tcfs\_utils.h}
+    \subitem {get\_encrypted\_key}, \hyperpage{113}
+    \subitem {get\_user\_name}, \hyperpage{114}
+    \subitem {is\_encrypted}, \hyperpage{115}
+    \subitem {prefix\_path}, \hyperpage{115}
+    \subitem {print\_aes\_key}, \hyperpage{117}
+    \subitem {read\_file}, \hyperpage{118}
+  \item {tcfs\_utimens}
+    \subitem {tcfs.c}, \hyperpage{71}
+  \item {tcfs\_write}
+    \subitem {tcfs.c}, \hyperpage{72}
+  \item {Todo List}, \hyperpage{7}
 
   \indexspace
 
-  \item {UNREGISTER}
-    \subitem {common.h}, \hyperpage{22}
-  \item {unregister\_user}
-    \subitem {user\_db.c}, \hyperpage{39}
-  \item {USER}
-    \subitem {common.h}, \hyperpage{22}
-  \item {user}
-    \subitem {qm\_user}, \hyperpage{18}
-  \item {user/tcfs\_helper\_tools.c}, \hyperpage{70}
-  \item {user/tcfs\_helper\_tools.h}, \hyperpage{74}
-  \item {user/user\_tcfs.c}, \hyperpage{74}
-  \item {user\_db.c}
-    \subitem {disconnect\_db}, \hyperpage{37}
-    \subitem {register\_user}, \hyperpage{38}
-    \subitem {unregister\_user}, \hyperpage{39}
-  \item {user\_op}
-    \subitem {qm\_user}, \hyperpage{18}
-  \item {user\_operation}
-    \subitem {common.h}, \hyperpage{22}
-  \item {userlist}
-    \subitem {qm\_shared}, \hyperpage{16}
-  \item {userspace-\/module/tcfs.c}, \hyperpage{75}
+  \item {ui}, \hyperpage{17}
+  \item {ui.main\_window}, \hyperpage{17}
+    \subitem {modify\_button\_allign}, \hyperpage{17}
+  \item {ui.main\_window.Window}, \hyperpage{21}
+    \subitem {\_\_init\_\_}, \hyperpage{21}
+    \subitem {add\_button}, \hyperpage{21}
+    \subitem {start\_window}, \hyperpage{21}
+    \subitem {window}, \hyperpage{22}
+  \item {umount\_butt}
+    \subitem {main}, \hyperpage{17}
+  \item {user/command\_handler/\_\_init\_\_.py}, \hyperpage{56}
+  \item {user/command\_handler/enviroinment.py}, \hyperpage{34, 35}
+  \item {user/main.py}, \hyperpage{35}
+  \item {user/old\_stuff/tcfs\_helper\_tools.c}, \hyperpage{36}, 
+		\hyperpage{45}
+  \item {user/old\_stuff/tcfs\_helper\_tools.h}, \hyperpage{50}, 
+		\hyperpage{52}
+  \item {user/old\_stuff/user\_tcfs.c}, \hyperpage{52}, \hyperpage{55}
+  \item {user/ui/\_\_init\_\_.py}, \hyperpage{56}
+  \item {user/ui/main\_window.py}, \hyperpage{57}
+  \item {user\_tcfs.c}
+    \subitem {argp}, \hyperpage{54}
+    \subitem {argp\_program\_bug\_address}, \hyperpage{54}
+    \subitem {argp\_program\_version}, \hyperpage{54}
+    \subitem {doc}, \hyperpage{54}
+    \subitem {main}, \hyperpage{53}
+    \subitem {options}, \hyperpage{55}
+    \subitem {parse\_opt}, \hyperpage{53}
+  \item {userspace-\/module/tcfs.c}, \hyperpage{57}, \hyperpage{75}
   \item {userspace-\/module/utils/crypt-\/utils/crypt-\/utils.c}, 
-		\hyperpage{85}
+		\hyperpage{85}, \hyperpage{92}
   \item {userspace-\/module/utils/crypt-\/utils/crypt-\/utils.h}, 
-		\hyperpage{88}
+		\hyperpage{95}, \hyperpage{102}
   \item {userspace-\/module/utils/password\_manager/password\_manager.c}, 
-		\hyperpage{89}
+		\hyperpage{102, 103}
   \item {userspace-\/module/utils/password\_manager/password\_manager.h}, 
-		\hyperpage{89}
+		\hyperpage{103, 104}
   \item {userspace-\/module/utils/tcfs\_utils/tcfs\_utils.c}, 
-		\hyperpage{89}, \hyperpage{94}
+		\hyperpage{104}, \hyperpage{111}
   \item {userspace-\/module/utils/tcfs\_utils/tcfs\_utils.h}, 
-		\hyperpage{95}
+		\hyperpage{112}, \hyperpage{119}
+
+  \indexspace
+
+  \item {win}
+    \subitem {main}, \hyperpage{17}
+  \item {window}
+    \subitem {ui.main\_window.Window}, \hyperpage{22}
+  \item {WITH\_SYS\_CALL}
+    \subitem {password\_manager.h}, \hyperpage{104}
+  \item {WITHOUT\_SYS\_CALL}
+    \subitem {password\_manager.h}, \hyperpage{104}
 
 \end{theindex}

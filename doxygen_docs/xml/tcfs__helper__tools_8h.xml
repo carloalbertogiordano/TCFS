@@ -11,11 +11,11 @@
     <includes local="no">termios.h</includes>
     <includes local="no">time.h</includes>
     <includes local="no">unistd.h</includes>
-    <includedby refid="tcfs__helper__tools_8c" local="yes">user/tcfs_helper_tools.c</includedby>
-    <includedby refid="user__tcfs_8c" local="yes">user/user_tcfs.c</includedby>
+    <includedby refid="tcfs__helper__tools_8c" local="yes">user/old_stuff/tcfs_helper_tools.c</includedby>
+    <includedby refid="user__tcfs_8c" local="yes">user/old_stuff/user_tcfs.c</includedby>
     <incdepgraph>
       <node id="1">
-        <label>user/tcfs_helper_tools.h</label>
+        <label>user/old_stuff/tcfs_helper_tools.h</label>
         <link refid="tcfs__helper__tools_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
@@ -66,11 +66,11 @@
     </incdepgraph>
     <invincdepgraph>
       <node id="2">
-        <label>user/tcfs_helper_tools.c</label>
-        <link refid="tcfs__helper__tools_8c_source"/>
+        <label>user/old_stuff/tcfs_helper_tools.c</label>
+        <link refid="tcfs__helper__tools_8c"/>
       </node>
       <node id="1">
-        <label>user/tcfs_helper_tools.h</label>
+        <label>user/old_stuff/tcfs_helper_tools.h</label>
         <link refid="tcfs__helper__tools_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
@@ -78,8 +78,8 @@
         </childnode>
       </node>
       <node id="3">
-        <label>user/user_tcfs.c</label>
-        <link refid="user__tcfs_8c_source"/>
+        <label>user/old_stuff/user_tcfs.c</label>
+        <link refid="user__tcfs_8c"/>
       </node>
     </invincdepgraph>
     <sectiondef kind="func">
@@ -89,12 +89,34 @@
         <argsstring>()</argsstring>
         <name>do_mount</name>
         <briefdescription>
+<para>Execute the mount of either a Network FS (for ex NFS), Local FS (for ex a block device), Local folder (a folder of the system) </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>_ret </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="user/old_stuff/tcfs_helper_tools.h" line="11" column="5" bodyfile="user/old_stuff/tcfs_helper_tools.c" bodystart="25" bodyend="55" declfile="user/old_stuff/tcfs_helper_tools.h" declline="11" declcolumn="5"/>
+        <references refid="tcfs__helper__tools_8c_1afaed41fa1136b829eb00a7de26a3739b" compoundref="tcfs__helper__tools_8c" startline="318" endline="336">handle_folder_mount</references>
+        <references refid="tcfs__helper__tools_8c_1a816c2bcaa3d059abc79cb9b021957dbf" compoundref="tcfs__helper__tools_8c" startline="274" endline="315">handle_local_mount</references>
+        <references refid="tcfs__helper__tools_8c_1aa5b1203d82818e149ae3ad3fd3840a40" compoundref="tcfs__helper__tools_8c" startline="347" endline="402">handle_remote_mount</references>
+        <referencedby refid="user__tcfs_8c_1a0ddf1224851353fc92bfbff6f499fa97" compoundref="user__tcfs_8c" startline="104" endline="147">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="tcfs__helper__tools_8h_1abe60a9bd3f55341eb2496670553f9d26" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int setup_tcfs_env</definition>
+        <argsstring>()</argsstring>
+        <name>setup_tcfs_env</name>
+        <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="user/tcfs_helper_tools.h" line="11" column="5" bodyfile="user/tcfs_helper_tools.c" bodystart="10" bodyend="40" declfile="user/tcfs_helper_tools.h" declline="11" declcolumn="5"/>
+        <location file="user/old_stuff/tcfs_helper_tools.h" line="12" column="5" bodyfile="user/old_stuff/tcfs_helper_tools.c" bodystart="405" bodyend="408" declfile="user/old_stuff/tcfs_helper_tools.h" declline="12" declcolumn="5"/>
+        <referencedby refid="user__tcfs_8c_1a0ddf1224851353fc92bfbff6f499fa97" compoundref="user__tcfs_8c" startline="104" endline="147">main</referencedby>
       </memberdef>
     </sectiondef>
     <briefdescription>
@@ -112,8 +134,9 @@
 <codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;time.h&gt;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;unistd.h&gt;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="10"><highlight class="normal"></highlight></codeline>
-<codeline lineno="11"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>do_mount<sp/>();</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="tcfs__helper__tools_8h_1a769edcf066efb97f5ae3a81e3507a793" kindref="member">do_mount</ref><sp/>();</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="tcfs__helper__tools_8h_1abe60a9bd3f55341eb2496670553f9d26" kindref="member">setup_tcfs_env</ref><sp/>();</highlight></codeline>
     </programlisting>
-    <location file="user/tcfs_helper_tools.h"/>
+    <location file="user/old_stuff/tcfs_helper_tools.h"/>
   </compounddef>
 </doxygen>

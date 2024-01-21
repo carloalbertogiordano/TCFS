@@ -1,8 +1,8 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_tcfs__helper__tools_8h_source" xml:lang="en-US">
 <title>tcfs_helper_tools.h</title>
-<indexterm><primary>user/tcfs_helper_tools.h</primary></indexterm>
-<programlisting linenumbering="unnumbered"><anchor xml:id="_tcfs__helper__tools_8h_source_1l00001"/>00001 <emphasis role="preprocessor">#include&#32;&lt;limits.h&gt;</emphasis>
+<indexterm><primary>user/old_stuff/tcfs_helper_tools.h</primary></indexterm>
+Go to the documentation of this file.<programlisting linenumbering="unnumbered"><anchor xml:id="_tcfs__helper__tools_8h_source_1l00001"/>00001 <emphasis role="preprocessor">#include&#32;&lt;limits.h&gt;</emphasis>
 <anchor xml:id="_tcfs__helper__tools_8h_source_1l00002"/>00002 <emphasis role="preprocessor">#include&#32;&lt;stdio.h&gt;</emphasis>
 <anchor xml:id="_tcfs__helper__tools_8h_source_1l00003"/>00003 <emphasis role="preprocessor">#include&#32;&lt;stdlib.h&gt;</emphasis>
 <anchor xml:id="_tcfs__helper__tools_8h_source_1l00004"/>00004 <emphasis role="preprocessor">#include&#32;&lt;string.h&gt;</emphasis>
@@ -12,5 +12,6 @@
 <anchor xml:id="_tcfs__helper__tools_8h_source_1l00008"/>00008 <emphasis role="preprocessor">#include&#32;&lt;time.h&gt;</emphasis>
 <anchor xml:id="_tcfs__helper__tools_8h_source_1l00009"/>00009 <emphasis role="preprocessor">#include&#32;&lt;unistd.h&gt;</emphasis>
 <anchor xml:id="_tcfs__helper__tools_8h_source_1l00010"/>00010 
-<anchor xml:id="_tcfs__helper__tools_8h_source_1l00011"/>00011 <emphasis role="keywordtype">int</emphasis>&#32;do_mount&#32;();
+<anchor xml:id="_tcfs__helper__tools_8h_source_1l00011"/>00011 <emphasis role="keywordtype">int</emphasis>&#32;<link linkend="_tcfs__helper__tools_8h_1a769edcf066efb97f5ae3a81e3507a793">do_mount</link>&#32;();
+<anchor xml:id="_tcfs__helper__tools_8h_source_1l00012"/>00012 <emphasis role="keywordtype">int</emphasis>&#32;<link linkend="_tcfs__helper__tools_8h_1abe60a9bd3f55341eb2496670553f9d26">setup_tcfs_env</link>&#32;();
 </programlisting></section>

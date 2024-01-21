@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['handle_5fincoming_5fmessages_0',['handle_incoming_messages',['../tcfs__daemon__tools_8c.html#a24bb8f1eddd763598165ab8fa40fcdbd',1,'tcfs_daemon_tools.c']]],
-  ['handle_5foutgoing_5fmessages_1',['handle_outgoing_messages',['../tcfs__daemon__tools_8c.html#ab143feba805d6beda83eb69560c3c923',1,'tcfs_daemon_tools.c']]],
-  ['handle_5ftermination_2',['handle_termination',['../tcfs__daemon_8c.html#a93d1097e4dd3c0735da3da2e89410090',1,'tcfs_daemon.c']]]
+  ['encrypt_5fstring_0',['encrypt_string',['../crypt-utils_8c.html#aa926098a8843cf0ab6bd7eb8b3bbd2e6',1,'encrypt_string(unsigned char *plaintext, const char *key, int *encrypted_key_len):&#160;crypt-utils.c'],['../crypt-utils_8h.html#a8bf9483dae26e9c0a1c45d77b8f1dce8',1,'encrypt_string(unsigned char *plaintext, const char *key, int *encrypted_len):&#160;crypt-utils.c']]]
 ];

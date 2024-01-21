@@ -1,140 +1,60 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
 <doxygenindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd" version="1.9.8" xml:lang="en-US">
+  <compound refid="structargp" kind="struct"><name>argp</name>
+  </compound>
   <compound refid="structarguments" kind="struct"><name>arguments</name>
     <member refid="structarguments_1a0dbf3970b8b18964140f0397c22a3711" kind="variable"><name>operation</name></member>
     <member refid="structarguments_1a53fda996abfaa79d9c6376292bcbd5da" kind="variable"><name>source</name></member>
     <member refid="structarguments_1a29ff8292026649ead806d06e83728699" kind="variable"><name>destination</name></member>
     <member refid="structarguments_1a1efc30f669fcaf8c5943cbb3e8124ee7" kind="variable"><name>password</name></member>
   </compound>
-  <compound refid="structqm__broad" kind="struct"><name>qm_broad</name>
-    <member refid="structqm__broad_1a59096b6c11d45cf9addecfb629b55978" kind="variable"><name>data</name></member>
+  <compound refid="classui_1_1main__window_1_1Window" kind="class"><name>ui::main_window::Window</name>
+    <member refid="classui_1_1main__window_1_1Window_1a42aa4b5e9230c0c16b1ba2a922332375" kind="variable"><name>window</name></member>
+    <member refid="classui_1_1main__window_1_1Window_1a75bf25c45091f2edb8aaeffe62b922d5" kind="function"><name>__init__</name></member>
+    <member refid="classui_1_1main__window_1_1Window_1a61bcd34a3ad36ae9edf579ca78eee795" kind="function"><name>add_button</name></member>
+    <member refid="classui_1_1main__window_1_1Window_1aa4cd7c3b0514d223feac32a3aedea325" kind="function"><name>start_window</name></member>
   </compound>
-  <compound refid="structqm__shared" kind="struct"><name>qm_shared</name>
-    <member refid="structqm__shared_1ac6ce7156e06279b3194acb24e4face96" kind="variable"><name>fd</name></member>
-    <member refid="structqm__shared_1af2a26858d769e4a816d0567b51ce0ed5" kind="variable"><name>userlist</name></member>
-    <member refid="structqm__shared_1afef3f8b7e15af861010c6e0d66de659e" kind="variable"><name>keypart</name></member>
+  <compound refid="namespacecommand__handler" kind="namespace"><name>command_handler</name>
   </compound>
-  <compound refid="structqm__user" kind="struct"><name>qm_user</name>
-    <member refid="structqm__user_1a4b5bbaaf885c62f44f265eeba461303d" kind="variable"><name>user_op</name></member>
-    <member refid="structqm__user_1aa69546c3a6a2124be9f964329c951a84" kind="variable"><name>pid</name></member>
-    <member refid="structqm__user_1a6c52d68724b65831ba6d95f3d7448ff4" kind="variable"><name>user</name></member>
-    <member refid="structqm__user_1ad718cfba201afae89c596111bd508d5f" kind="variable"><name>pubkey</name></member>
+  <compound refid="namespacecommand__handler_1_1enviroinment" kind="namespace"><name>command_handler::enviroinment</name>
+    <member refid="namespacecommand__handler_1_1enviroinment_1a8036811b5b79bce2e21a023ef33d4786" kind="function"><name>countdown</name></member>
+    <member refid="namespacecommand__handler_1_1enviroinment_1a79405ba6d662be42ecaacf8469b76494" kind="function"><name>init_env</name></member>
+  </compound>
+  <compound refid="namespacemain" kind="namespace"><name>main</name>
+    <member refid="namespacemain_1a57bcba58678fbd9dd73e9c194bdf38c0" kind="variable"><name>win</name></member>
+    <member refid="namespacemain_1a9e90a5249dbf0270acae944b9a31b8c0" kind="variable"><name>init_env_butt</name></member>
+    <member refid="namespacemain_1a8f55266ef83cf13a1c30d1bf8bd065b0" kind="variable"><name>mount_butt</name></member>
+    <member refid="namespacemain_1a30b47e625be9d65c53cd3cef9926f704" kind="variable"><name>umount_butt</name></member>
+    <member refid="namespacemain_1a7adbb7f4a582ed0929b7db6fd0991278" kind="variable"><name>shared_butt</name></member>
+    <member refid="namespacemain_1a4b95678c3a22414574c3b2dd83d89c83" kind="variable"><name>logout_butt</name></member>
+    <member refid="namespacemain_1a63aa822869c78f66d4bbcc9fbf8ee0e7" kind="function"><name>foo</name></member>
   </compound>
   <compound refid="namespacestd" kind="namespace"><name>std</name>
   </compound>
-  <compound refid="common_8h" kind="file"><name>common.h</name>
-    <member refid="common_8h_1acd35d77836b78577da8fff8dcae9e2e1" kind="define"><name>MAX_QM_SIZE</name></member>
-    <member refid="common_8h_1af4132207ad49b2d7fd2adb266f295cb4" kind="define"><name>MAX_QM_N</name></member>
-    <member refid="common_8h_1ab2c144fca6129807a9fe4bad66970c4c" kind="enum"><name>qm_type</name></member>
-    <member refid="common_8h_1ab2c144fca6129807a9fe4bad66970c4cae2d30a195cee6b2961cc2c23ea4b520b" kind="enumvalue"><name>USER</name></member>
-    <member refid="common_8h_1ab2c144fca6129807a9fe4bad66970c4ca9c46e16a4ab019339596acadeefc8c53" kind="enumvalue"><name>SHARED</name></member>
-    <member refid="common_8h_1ab2c144fca6129807a9fe4bad66970c4ca78386e426adecb3fd26350119a3cb7c2" kind="enumvalue"><name>BROADCAST</name></member>
-    <member refid="common_8h_1ab2c144fca6129807a9fe4bad66970c4ca84fb91aba870f3033713d9e4b638f006" kind="enumvalue"><name>QM_TYPE_UNDEFINED</name></member>
-    <member refid="common_8h_1ad30dd7f5c8fc3f0027bbddc111c652b8" kind="enum"><name>user_operation</name></member>
-    <member refid="common_8h_1ad30dd7f5c8fc3f0027bbddc111c652b8aceb7c305772dab23a260960771180df3" kind="enumvalue"><name>REGISTER</name></member>
-    <member refid="common_8h_1ad30dd7f5c8fc3f0027bbddc111c652b8ad46a7713a16573956ea43782ac970154" kind="enumvalue"><name>UNREGISTER</name></member>
-    <member refid="common_8h_1a44bb09275166cece70878e4f6c9cfbbd" kind="typedef"><name>qm_type</name></member>
-    <member refid="common_8h_1ac545cb4ff9bc5c45c47224edc797c7b7" kind="typedef"><name>user_operation</name></member>
-    <member refid="common_8h_1a34ec46bb3c221944f0aa4e967fad5bbc" kind="typedef"><name>qm_user</name></member>
-    <member refid="common_8h_1a387ddb907b1a38641170b99cf9d27fde" kind="typedef"><name>qm_shared</name></member>
-    <member refid="common_8h_1aba8be1278efe9d1826ede84584b45873" kind="typedef"><name>qm_broad</name></member>
+  <compound refid="namespaceui" kind="namespace"><name>ui</name>
   </compound>
-  <compound refid="redis_8c" kind="file"><name>redis.c</name>
-    <member refid="redis_8c_1a614217d263be1fb1a5f76e2ff7be19a2" kind="define"><name>PORT</name></member>
-    <member refid="redis_8c_1ab146e06ef57318f58a840b315626b861" kind="variable"><name>HOST</name></member>
-    <member refid="redis_8c_1a71ea645922f3e5dcc69b644656c79a99" kind="variable"><name>context</name></member>
-    <member refid="redis_8c_1a7b5eb746d92734b57a71ce552363283d" kind="function"><name>print_all_keys</name></member>
-    <member refid="redis_8c_1a1f6dc2f98a71a88567fe11fd9e2585ea" kind="function"><name>init_context</name></member>
-    <member refid="redis_8c_1ae19d8c90888a6ed078d6e835bb11e67a" kind="function"><name>free_context</name></member>
-    <member refid="redis_8c_1a8e6e1687d6351741ac3e353d23425f71" kind="function"><name>json_to_qm_user</name></member>
-    <member refid="redis_8c_1af0bf1bfc99afc940619371e3c76ab4f9" kind="function"><name>get_user_by_pid</name></member>
-    <member refid="redis_8c_1a73711c0a9d0060337409d15dc44f5ad1" kind="function"><name>get_user_by_name</name></member>
-    <member refid="redis_8c_1ac9878ee09b53700eb08c1f175873c30b" kind="function"><name>insert</name></member>
-    <member refid="redis_8c_1a6b18d7ad2f1e8275106a5b39c0c7d216" kind="function"><name>remove_by_pid</name></member>
-    <member refid="redis_8c_1a2678c0575f2b6c944fd261255aeaebff" kind="function"><name>remove_by_user</name></member>
-  </compound>
-  <compound refid="redis_8h" kind="file"><name>redis.h</name>
-    <member refid="redis_8h_1a7b5eb746d92734b57a71ce552363283d" kind="function"><name>print_all_keys</name></member>
-    <member refid="redis_8h_1a1f6dc2f98a71a88567fe11fd9e2585ea" kind="function"><name>init_context</name></member>
-    <member refid="redis_8h_1a8e6e1687d6351741ac3e353d23425f71" kind="function"><name>json_to_qm_user</name></member>
-    <member refid="redis_8h_1af0bf1bfc99afc940619371e3c76ab4f9" kind="function"><name>get_user_by_pid</name></member>
-    <member refid="redis_8h_1a73711c0a9d0060337409d15dc44f5ad1" kind="function"><name>get_user_by_name</name></member>
-    <member refid="redis_8h_1ac9878ee09b53700eb08c1f175873c30b" kind="function"><name>insert</name></member>
-    <member refid="redis_8h_1a6b18d7ad2f1e8275106a5b39c0c7d216" kind="function"><name>remove_by_pid</name></member>
-    <member refid="redis_8h_1a2678c0575f2b6c944fd261255aeaebff" kind="function"><name>remove_by_user</name></member>
-    <member refid="redis_8h_1ae19d8c90888a6ed078d6e835bb11e67a" kind="function"><name>free_context</name></member>
-  </compound>
-  <compound refid="user__db_8c" kind="file"><name>user_db.c</name>
-    <member refid="user__db_8c_1a2ae8a82033440194ad80949cd4493971" kind="function"><name>register_user</name></member>
-    <member refid="user__db_8c_1a6e2fcf4aa637e61f69b1b601981663cf" kind="function"><name>unregister_user</name></member>
-    <member refid="user__db_8c_1ab57ffd0f0b23a847e766e762906af22e" kind="function"><name>disconnect_db</name></member>
-  </compound>
-  <compound refid="user__db_8h" kind="file"><name>user_db.h</name>
-    <member refid="user__db_8h_1a2ae8a82033440194ad80949cd4493971" kind="function"><name>register_user</name></member>
-    <member refid="user__db_8h_1a6e2fcf4aa637e61f69b1b601981663cf" kind="function"><name>unregister_user</name></member>
-    <member refid="user__db_8h_1ab57ffd0f0b23a847e766e762906af22e" kind="function"><name>disconnect_db</name></member>
-  </compound>
-  <compound refid="json__tools_8cpp" kind="file"><name>json_tools.cpp</name>
-    <member refid="json__tools_8cpp_1abe22bc6ace23fc8f7e186a824784765f" kind="function"><name>struct_to_json</name></member>
-    <member refid="json__tools_8cpp_1a513edf914a6a6141c7892d193d0c1f52" kind="function"><name>string_to_struct</name></member>
-  </compound>
-  <compound refid="json__tools_8h" kind="file"><name>json_tools.h</name>
-    <member refid="json__tools_8h_1a6d8f7b16cc20fb98cb9a3feda51705be" kind="function"><name>struct_to_json</name></member>
-    <member refid="json__tools_8h_1a513edf914a6a6141c7892d193d0c1f52" kind="function"><name>string_to_struct</name></member>
-  </compound>
-  <compound refid="print__utils_8c" kind="file"><name>print_utils.c</name>
-    <member refid="print__utils_8c_1a887e8bdd9deeb0866ce86067cdba5fcc" kind="variable"><name>cleared</name></member>
-    <member refid="print__utils_8c_1a650ab060ffe5dbc6c1a968a9cae3bded" kind="function"><name>print_err</name></member>
-    <member refid="print__utils_8c_1a491dc14c94ed8cf706bb54880c50b2d0" kind="function"><name>print_msg</name></member>
-    <member refid="print__utils_8c_1ae39065df491deead21b0375a8ce1a4d6" kind="function"><name>print_warn</name></member>
-    <member refid="print__utils_8c_1ad808dc3fd801407dcc907bdea848a47e" kind="function"><name>print_debug</name></member>
-  </compound>
-  <compound refid="print__utils_8h" kind="file"><name>print_utils.h</name>
-    <member refid="print__utils_8h_1a650ab060ffe5dbc6c1a968a9cae3bded" kind="function"><name>print_err</name></member>
-    <member refid="print__utils_8h_1a491dc14c94ed8cf706bb54880c50b2d0" kind="function"><name>print_msg</name></member>
-    <member refid="print__utils_8h_1ae39065df491deead21b0375a8ce1a4d6" kind="function"><name>print_warn</name></member>
-    <member refid="print__utils_8h_1ad808dc3fd801407dcc907bdea848a47e" kind="function"><name>print_debug</name></member>
-  </compound>
-  <compound refid="tcfs__daemon__tools_8c" kind="file"><name>tcfs_daemon_tools.c</name>
-    <member refid="tcfs__daemon__tools_8c_1a24bb8f1eddd763598165ab8fa40fcdbd" kind="function"><name>handle_incoming_messages</name></member>
-    <member refid="tcfs__daemon__tools_8c_1ab143feba805d6beda83eb69560c3c923" kind="function"><name>handle_outgoing_messages</name></member>
-  </compound>
-  <compound refid="tcfs__daemon__tools_8h" kind="file"><name>tcfs_daemon_tools.h</name>
-    <member refid="tcfs__daemon__tools_8h_1aec5be3bc0478d81d80ff9237feb310de" kind="variable"><name>terminate</name></member>
-    <member refid="tcfs__daemon__tools_8h_1a5d1ba976b969bc0f0cff3bccdc1424a2" kind="variable"><name>terminate_mutex</name></member>
-    <member refid="tcfs__daemon__tools_8h_1a24bb8f1eddd763598165ab8fa40fcdbd" kind="function"><name>handle_incoming_messages</name></member>
-    <member refid="tcfs__daemon__tools_8h_1ab143feba805d6beda83eb69560c3c923" kind="function"><name>handle_outgoing_messages</name></member>
-    <member refid="tcfs__daemon__tools_8h_1a84712ae28ec7b6e5495704de71b1b1e2" kind="function"><name>monitor_termination</name></member>
-    <member refid="tcfs__daemon__tools_8h_1a913189f36d7c030e25f8e7540d99975f" kind="function"><name>cleanup_threads</name></member>
-  </compound>
-  <compound refid="message__handler_8c" kind="file"><name>message_handler.c</name>
-    <member refid="message__handler_8c_1a5e10c17633a6a0b06bcf09cc28467542" kind="function"><name>handle_user_message</name></member>
-  </compound>
-  <compound refid="message__handler_8h" kind="file"><name>message_handler.h</name>
-    <member refid="message__handler_8h_1a5e10c17633a6a0b06bcf09cc28467542" kind="function"><name>handle_user_message</name></member>
-  </compound>
-  <compound refid="queue_8c" kind="file"><name>queue.c</name>
-    <member refid="queue_8c_1a69e73620bd8f14313137ac04cf571477" kind="define"><name>MESSAGE_BUFFER_SIZE</name></member>
-    <member refid="queue_8c_1a5872868a041bf1b9e1a266271c317876" kind="define"><name>MQUEUE_N</name></member>
-    <member refid="queue_8c_1a6997b2cacf3d2e49bc848d0274e24b13" kind="function"><name>init_queue</name></member>
-    <member refid="queue_8c_1ac51f5d595a9d7376eb0448116c99e1f4" kind="function"><name>enqueue</name></member>
-    <member refid="queue_8c_1a1874b6e320d1e54d571c89766d046602" kind="function"><name>dequeue</name></member>
-  </compound>
-  <compound refid="queue_8h" kind="file"><name>queue.h</name>
-    <member refid="queue_8h_1a6997b2cacf3d2e49bc848d0274e24b13" kind="function"><name>init_queue</name></member>
-    <member refid="queue_8h_1ac51f5d595a9d7376eb0448116c99e1f4" kind="function"><name>enqueue</name></member>
-    <member refid="queue_8h_1a1874b6e320d1e54d571c89766d046602" kind="function"><name>dequeue</name></member>
-  </compound>
-  <compound refid="tcfs__daemon_8c" kind="file"><name>tcfs_daemon.c</name>
-    <member refid="tcfs__daemon_8c_1a679ec79d065ad812032851f6872caee6" kind="variable"><name>terminate</name></member>
-    <member refid="tcfs__daemon_8c_1af7e1db76e3a69a4b0484910b1f7562da" kind="variable"><name>terminate_mutex</name></member>
-    <member refid="tcfs__daemon_8c_1a6376ed00be9fd53f7579e9243f3eacde" kind="variable"><name>MQUEUE</name></member>
-    <member refid="tcfs__daemon_8c_1a93d1097e4dd3c0735da3da2e89410090" kind="function"><name>handle_termination</name></member>
-    <member refid="tcfs__daemon_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" kind="function"><name>main</name></member>
+  <compound refid="namespaceui_1_1main__window" kind="namespace"><name>ui::main_window</name>
+    <member refid="namespaceui_1_1main__window_1ae9c066a65238b3103c5bd44f4950a9c9" kind="function"><name>modify_button_allign</name></member>
   </compound>
   <compound refid="tcfs__kmodule_8c" kind="file"><name>tcfs_kmodule.c</name>
   </compound>
   <compound refid="README_8md" kind="file"><name>README.md</name>
+  </compound>
+  <compound refid="key-tools_8go" kind="file"><name>key-tools.go</name>
+  </compound>
+  <compound refid="db_8go" kind="file"><name>db.go</name>
+  </compound>
+  <compound refid="main__test_8go" kind="file"><name>main_test.go</name>
+  </compound>
+  <compound refid="REST__functions_8go" kind="file"><name>REST_functions.go</name>
+  </compound>
+  <compound refid="tcfs-daemon_8go" kind="file"><name>tcfs-daemon.go</name>
+  </compound>
+  <compound refid="tcfs-user_8go" kind="file"><name>tcfs-user.go</name>
+  </compound>
+  <compound refid="enviroinment_8py" kind="file"><name>enviroinment.py</name>
+  </compound>
+  <compound refid="main_8py" kind="file"><name>main.py</name>
   </compound>
   <compound refid="tcfs__helper__tools_8c" kind="file"><name>tcfs_helper_tools.c</name>
     <member refid="tcfs__helper__tools_8c_1afc6f770387ff27f9a3cf832b785d28dc" kind="define"><name>PASS_SIZE</name></member>
@@ -144,24 +64,32 @@
     <member refid="tcfs__helper__tools_8c_1a769edcf066efb97f5ae3a81e3507a793" kind="function"><name>do_mount</name></member>
     <member refid="tcfs__helper__tools_8c_1a8ef1473d59fd1cfc680fe1b227604a02" kind="function"><name>generate_random_string</name></member>
     <member refid="tcfs__helper__tools_8c_1ab3cdcc12b3bc92a382784027c94a2027" kind="function"><name>directory_exists</name></member>
-    <member refid="tcfs__helper__tools_8c_1a9f73a19240578549c8be16f5de2b79aa" kind="function"><name>setup_env</name></member>
+    <member refid="tcfs__helper__tools_8c_1a3644c45d6131fe1528ce36163e299fd9" kind="function"><name>setup_tcfs_mount_folder</name></member>
     <member refid="tcfs__helper__tools_8c_1a1bef5d2cdd74c07b3ae025c6424dfbd5" kind="function"><name>get_pass</name></member>
     <member refid="tcfs__helper__tools_8c_1ae1746adb62f9476a6d8166b62faa7a91" kind="function"><name>get_source_dest</name></member>
-    <member refid="tcfs__helper__tools_8c_1ae2d4151f1b1bea87001241eb59489c06" kind="function"><name>create_tcfs_mount_folder</name></member>
+    <member refid="tcfs__helper__tools_8c_1ae930b52ef70f640efde8bda574b6b234" kind="function"><name>create_tcfs_mount_local_folder</name></member>
     <member refid="tcfs__helper__tools_8c_1a26931b8bdf24be94e03f4d77e991d063" kind="function"><name>mount_tcfs_folder</name></member>
     <member refid="tcfs__helper__tools_8c_1acfa06becac8f67e9f278cfcbf91cc51b" kind="function"><name>clearKeyboardBuffer</name></member>
+    <member refid="tcfs__helper__tools_8c_1abe60a9bd3f55341eb2496670553f9d26" kind="function"><name>setup_tcfs_env</name></member>
   </compound>
   <compound refid="tcfs__helper__tools_8h" kind="file"><name>tcfs_helper_tools.h</name>
     <member refid="tcfs__helper__tools_8h_1a769edcf066efb97f5ae3a81e3507a793" kind="function"><name>do_mount</name></member>
+    <member refid="tcfs__helper__tools_8h_1abe60a9bd3f55341eb2496670553f9d26" kind="function"><name>setup_tcfs_env</name></member>
   </compound>
   <compound refid="user__tcfs_8c" kind="file"><name>user_tcfs.c</name>
-    <member refid="user__tcfs_8c_1a62f73ea01c816f1996aed4c66f57c4fb" kind="variable"><name>argp_program_version</name></member>
-    <member refid="user__tcfs_8c_1aaa037e59f26a80a8a2e35e6f2364004d" kind="variable"><name>argp_program_bug_address</name></member>
-    <member refid="user__tcfs_8c_1af6164deb8a824f8cb2b9147cfc3174f5" kind="variable"><name>doc</name></member>
-    <member refid="user__tcfs_8c_1abc1fd3a47aea6a8944038c9100eb9135" kind="variable"><name>options</name></member>
+    <member refid="user__tcfs_8c_1a2026b95fe28c77f392e54ca5b26a0899" kind="variable"><name>argp_program_version</name></member>
+    <member refid="user__tcfs_8c_1a794b57947d8e4dc6456b6a8a31de2579" kind="variable"><name>argp_program_bug_address</name></member>
+    <member refid="user__tcfs_8c_1a3a72da5720995770156f9f9879ce6fa9" kind="variable"><name>doc</name></member>
+    <member refid="user__tcfs_8c_1ac88b371bbf7f89ab6440cb9fe629288c" kind="variable"><name>options</name></member>
     <member refid="user__tcfs_8c_1ab70c96531b1b652d70c221cfaf3207f3" kind="variable"><name>argp</name></member>
     <member refid="user__tcfs_8c_1a35ee63236273ebb9325c444cacf00159" kind="function"><name>parse_opt</name></member>
     <member refid="user__tcfs_8c_1a0ddf1224851353fc92bfbff6f499fa97" kind="function"><name>main</name></member>
+  </compound>
+  <compound refid="command__handler_2____init_____8py" kind="file"><name>__init__.py</name>
+  </compound>
+  <compound refid="ui_2____init_____8py" kind="file"><name>__init__.py</name>
+  </compound>
+  <compound refid="main__window_8py" kind="file"><name>main_window.py</name>
   </compound>
   <compound refid="tcfs_8c" kind="file"><name>tcfs.c</name>
     <member refid="tcfs_8c_1a0919197af2e154da2c05727b6d87cbda" kind="define"><name>FUSE_USE_VERSION</name></member>
@@ -253,35 +181,33 @@
   </compound>
   <compound refid="md_README" kind="page"><name>md_README</name>
   </compound>
-  <compound refid="todo" kind="page"><name>todo</name>
-  </compound>
   <compound refid="deprecated" kind="page"><name>deprecated</name>
   </compound>
-  <compound refid="dir_ea5ab4308b809761446f4f1849ce8ac1" kind="dir"><name>daemon/daemon_utils/common_utils</name>
+  <compound refid="todo" kind="page"><name>todo</name>
+  </compound>
+  <compound refid="dir_eb0b66e006e4855153937e7046cf622c" kind="dir"><name>user/command_handler</name>
+  </compound>
+  <compound refid="dir_6cd5dedd230e9204c326d207525703ce" kind="dir"><name>ServerREST/crypt-utils</name>
   </compound>
   <compound refid="dir_264e18e2f09578f9dd15f7a7044abb57" kind="dir"><name>userspace-module/utils/crypt-utils</name>
   </compound>
-  <compound refid="dir_39030b11ec2f66a58a20203c6f23f032" kind="dir"><name>daemon</name>
-  </compound>
-  <compound refid="dir_73a9821ccf69e2c7405f74a135316c29" kind="dir"><name>daemon/daemon_utils/daemon_tools</name>
-  </compound>
-  <compound refid="dir_64aaafd85f269f243004f341e5206216" kind="dir"><name>daemon/daemon_utils</name>
-  </compound>
-  <compound refid="dir_56f77a2c749fe387668165452ef89e5b" kind="dir"><name>daemon/daemon_utils/common_utils/db</name>
-  </compound>
-  <compound refid="dir_ceb7717feb72345a4d66a9159ce3c403" kind="dir"><name>daemon/daemon_utils/common_utils/json</name>
+  <compound refid="dir_4ba660e7e42715687809dca61486f6bc" kind="dir"><name>ServerREST/db</name>
   </compound>
   <compound refid="dir_0478bae25ca005df124f4d801fb1b428" kind="dir"><name>kernel-module</name>
   </compound>
-  <compound refid="dir_04d219c746e56ffc7e35d4e5c96914d1" kind="dir"><name>daemon/daemon_utils/message_handler</name>
+  <compound refid="dir_be9ae40358cfd0b3633ecd24f4ddab18" kind="dir"><name>user/old_stuff</name>
   </compound>
   <compound refid="dir_b81a58de3bb52b393027480da145ec9d" kind="dir"><name>userspace-module/utils/password_manager</name>
   </compound>
-  <compound refid="dir_289c40418fa5a084b011f3d85190dd97" kind="dir"><name>daemon/daemon_utils/common_utils/print</name>
+  <compound refid="dir_1917edc18bb215964ab4fb6299169e30" kind="dir"><name>ServerREST</name>
   </compound>
-  <compound refid="dir_c5b5ac82090b72e74d2549aae5cfebb7" kind="dir"><name>daemon/daemon_utils/queue</name>
+  <compound refid="dir_b6f0bc9e6a73bc96ea137102d94121a7" kind="dir"><name>ServerREST/serverTools</name>
   </compound>
   <compound refid="dir_d95211408bd77596fd6790cd8f43ad0b" kind="dir"><name>userspace-module/utils/tcfs_utils</name>
+  </compound>
+  <compound refid="dir_b228d1183f6a9446da9c28454f9272ea" kind="dir"><name>ServerREST/types</name>
+  </compound>
+  <compound refid="dir_4aa3637474ce650d6302885fe35ba584" kind="dir"><name>user/ui</name>
   </compound>
   <compound refid="dir_111cd2f11cffd6d6d28d89ee0389ee9e" kind="dir"><name>user</name>
   </compound>

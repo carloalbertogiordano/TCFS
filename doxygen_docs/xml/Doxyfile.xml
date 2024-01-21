@@ -33,7 +33,7 @@
   <option  id='STRIP_FROM_INC_PATH' default='yes' type='stringlist'>
   </option>
   <option  id='SHORT_NAMES' default='yes' type='bool'><value>NO</value></option>
-  <option  id='JAVADOC_AUTOBRIEF' default='yes' type='bool'><value>NO</value></option>
+  <option  id='JAVADOC_AUTOBRIEF' default='no' type='bool'><value>YES</value></option>
   <option  id='JAVADOC_BANNER' default='yes' type='bool'><value>NO</value></option>
   <option  id='QT_AUTOBRIEF' default='yes' type='bool'><value>NO</value></option>
   <option  id='MULTILINE_CPP_IS_BRIEF' default='yes' type='bool'><value>NO</value></option>
@@ -54,7 +54,8 @@
   <option  id='OPTIMIZE_FOR_FORTRAN' default='yes' type='bool'><value>NO</value></option>
   <option  id='OPTIMIZE_OUTPUT_VHDL' default='yes' type='bool'><value>NO</value></option>
   <option  id='OPTIMIZE_OUTPUT_SLICE' default='yes' type='bool'><value>NO</value></option>
-  <option  id='EXTENSION_MAPPING' default='yes' type='stringlist'>
+  <option  id='EXTENSION_MAPPING' default='no' type='stringlist'>
+    <value><![CDATA[go=GO]]></value>
   </option>
   <option  id='MARKDOWN_SUPPORT' default='yes' type='bool'><value>YES</value></option>
   <option  id='TOC_INCLUDE_HEADINGS' default='yes' type='int'><value>5</value></option>
@@ -73,14 +74,14 @@
   <option  id='LOOKUP_CACHE_SIZE' default='yes' type='int'><value>0</value></option>
   <option  id='NUM_PROC_THREADS' default='no' type='int'><value>0</value></option>
   <option  id='TIMESTAMP' default='no' type='string'><value>DATETIME</value></option>
-  <option  id='EXTRACT_ALL' default='yes' type='bool'><value>NO</value></option>
-  <option  id='EXTRACT_PRIVATE' default='yes' type='bool'><value>NO</value></option>
-  <option  id='EXTRACT_PRIV_VIRTUAL' default='yes' type='bool'><value>NO</value></option>
+  <option  id='EXTRACT_ALL' default='no' type='bool'><value>YES</value></option>
+  <option  id='EXTRACT_PRIVATE' default='no' type='bool'><value>YES</value></option>
+  <option  id='EXTRACT_PRIV_VIRTUAL' default='no' type='bool'><value>YES</value></option>
   <option  id='EXTRACT_PACKAGE' default='no' type='bool'><value>YES</value></option>
-  <option  id='EXTRACT_STATIC' default='yes' type='bool'><value>NO</value></option>
+  <option  id='EXTRACT_STATIC' default='no' type='bool'><value>YES</value></option>
   <option  id='EXTRACT_LOCAL_CLASSES' default='yes' type='bool'><value>YES</value></option>
-  <option  id='EXTRACT_LOCAL_METHODS' default='yes' type='bool'><value>NO</value></option>
-  <option  id='EXTRACT_ANON_NSPACES' default='yes' type='bool'><value>NO</value></option>
+  <option  id='EXTRACT_LOCAL_METHODS' default='no' type='bool'><value>YES</value></option>
+  <option  id='EXTRACT_ANON_NSPACES' default='no' type='bool'><value>YES</value></option>
   <option  id='RESOLVE_UNNAMED_PARAMS' default='yes' type='bool'><value>YES</value></option>
   <option  id='HIDE_UNDOC_MEMBERS' default='yes' type='bool'><value>NO</value></option>
   <option  id='HIDE_UNDOC_CLASSES' default='yes' type='bool'><value>NO</value></option>
@@ -131,9 +132,10 @@
   <option  id='INPUT_ENCODING' default='yes' type='string'><value><![CDATA[UTF-8]]></value></option>
   <option  id='INPUT_FILE_ENCODING' default='yes' type='stringlist'>
   </option>
-  <option  id='FILE_PATTERNS' default='yes' type='stringlist'>
+  <option  id='FILE_PATTERNS' default='no' type='stringlist'>
     <value><![CDATA[*.c]]></value>
     <value><![CDATA[*.cc]]></value>
+    <value><![CDATA[*.go]]></value>
     <value><![CDATA[*.cxx]]></value>
     <value><![CDATA[*.cxxm]]></value>
     <value><![CDATA[*.cpp]]></value>

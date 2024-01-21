@@ -1,10 +1,8 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
 <section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_annotated" xml:lang="en-US">
 <title>Class List</title>
-Here are the classes, structs, unions and interfaces with brief descriptions:<link linkend="_structarguments">arguments</link><link linkend="_structqm__broad">qm_broad</link>
-<para>Represents a broadcast message. Contains the data that is broadcasted to all users </para>
-<link linkend="_structqm__shared">qm_shared</link>
-<para>Represents a shared message. <?linebreak?>Contains information about the file descriptor ti which the TCFS module wants to access,<?linebreak?>the user list to ask for keyparts and the key part of the caller. <?linebreak?></para>
-<link linkend="_structqm__user">qm_user</link>
-<para>Represents a user message. <?linebreak?>Contains information about the user&apos;s operation, process ID, username and public key. <?linebreak?></para>
-</section>
+Here are the classes, structs, unions and interfaces with brief descriptions:<link linkend="_structargp">argp</link>
+<para>The struct used by argp </para>
+<link linkend="_structarguments">arguments</link>
+<para>Structure to hold the parsed arguments </para>
+<link linkend="_classui_1_1main__window_1_1Window">ui.main_window.Window</link></section>

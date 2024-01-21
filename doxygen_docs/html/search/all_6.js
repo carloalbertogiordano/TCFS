@@ -1,8 +1,9 @@
 var searchData=
 [
-  ['get_5fencrypted_5fkey_0',['get_encrypted_key',['../tcfs__utils_8c.html#a4316eb58a0cb5afb4e90e75a55c9b3ea',1,'tcfs_utils.c']]],
-  ['get_5fuser_5fby_5fname_1',['get_user_by_name',['../redis_8c.html#a73711c0a9d0060337409d15dc44f5ad1',1,'redis.c']]],
-  ['get_5fuser_5fby_5fpid_2',['get_user_by_pid',['../redis_8c.html#af0bf1bfc99afc940619371e3c76ab4f9',1,'redis.c']]],
-  ['get_5fuser_5fname_3',['get_user_name',['../tcfs__utils_8c.html#aac1b7fab3a13b4cfcc0b34eb7511df55',1,'tcfs_utils.c']]],
-  ['getting_20started_4',['Getting Started',['../md_README.html#autotoc_md3',1,'']]]
+  ['features_0',['Features',['../md_README.html#autotoc_md3',1,'']]],
+  ['file_5fsize_1',['file_size',['../tcfs_8c.html#a996d4e078d075e74e800288e6c92fd59',1,'tcfs.c']]],
+  ['filesystem_2',['TCFS - Transparent Cryptographic Filesystem',['../md_README.html',1,'']]],
+  ['foo_3',['foo',['../namespacemain.html#a63aa822869c78f66d4bbcc9fbf8ee0e7',1,'main']]],
+  ['fuse_20module_4',['Usage of the fuse module',['../md_README.html#autotoc_md12',1,'']]],
+  ['fuse_5fuse_5fversion_5',['FUSE_USE_VERSION',['../tcfs_8c.html#a0919197af2e154da2c05727b6d87cbda',1,'tcfs.c']]]
 ];

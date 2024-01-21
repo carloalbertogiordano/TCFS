@@ -45,7 +45,7 @@
       </node>
       <node id="12">
         <label>../tcfs_utils/tcfs_utils.h</label>
-        <link refid="tcfs__utils_8h_source"/>
+        <link refid="tcfs__utils_8h"/>
         <childnode refid="13" relation="include">
         </childnode>
         <childnode refid="14" relation="include">
@@ -104,11 +104,11 @@
     <invincdepgraph>
       <node id="2">
         <label>userspace-module/tcfs.c</label>
-        <link refid="tcfs_8c_source"/>
+        <link refid="tcfs_8c"/>
       </node>
       <node id="3">
         <label>userspace-module/utils/crypt-utils/crypt-utils.c</label>
-        <link refid="crypt-utils_8c_source"/>
+        <link refid="crypt-utils_8c"/>
       </node>
       <node id="1">
         <label>userspace-module/utils/crypt-utils/crypt-utils.h</label>
@@ -226,9 +226,9 @@ Derived from OpenSSL.org EVP_Encrypt_* Manpage Examples <linebreak/>
 </parameterdescription>
 </parameteritem>
 </parameterlist>
-<simplesect kind="see"><para>ENCRYPT </para>
+<simplesect kind="see"><para><ref refid="crypt-utils_8h_1a1cb0c60ca582db30ae87362ca43e8c19" kindref="member">ENCRYPT</ref> </para>
 </simplesect>
-<simplesect kind="see"><para>DECRYPT </para>
+<simplesect kind="see"><para><ref refid="crypt-utils_8h_1a36fab47015485191712a579a059a7c20" kindref="member">DECRYPT</ref> </para>
 </simplesect>
 <parameterlist kind="param"><parameteritem>
 <parameternamelist>
@@ -239,9 +239,9 @@ Derived from OpenSSL.org EVP_Encrypt_* Manpage Examples <linebreak/>
 </parameterdescription>
 </parameteritem>
 </parameterlist>
-<simplesect kind="return"><para>1 if successful, 0 otherwise. An error might be printen by <ref refid="print__utils_8c_1a650ab060ffe5dbc6c1a968a9cae3bded" kindref="member">print_err()</ref> function, </para>
+<simplesect kind="return"><para>1 if successful, 0 otherwise. An error might be printen by print_err() function, </para>
 </simplesect>
-<simplesect kind="see"><para><ref refid="print__utils_8c_1a650ab060ffe5dbc6c1a968a9cae3bded" kindref="member">print_err</ref> </para>
+<simplesect kind="see"><para>print_err </para>
 </simplesect>
 <simplesect kind="note"><para>This function cyphers using AES 256 CBC </para>
 </simplesect>
@@ -250,6 +250,11 @@ Derived from OpenSSL.org EVP_Encrypt_* Manpage Examples <linebreak/>
         <inbodydescription>
         </inbodydescription>
         <location file="userspace-module/utils/crypt-utils/crypt-utils.h" line="27" column="12" bodyfile="userspace-module/utils/crypt-utils/crypt-utils.c" bodystart="54" bodyend="157" declfile="userspace-module/utils/crypt-utils/crypt-utils.h" declline="27" declcolumn="12"/>
+        <references refid="crypt-utils_8c_1afcf795f5a96fd55561abe69f56224630" compoundref="crypt-utils_8c" startline="12">BLOCKSIZE</references>
+        <references refid="crypt-utils_8c_1ad7bb30dbf5882fdf05331918e8a0cc84" compoundref="crypt-utils_8c" startline="19">IV_SIZE</references>
+        <references refid="crypt-utils_8c_1a2d996237e082b78b41771b5aa1a6eae1" compoundref="crypt-utils_8c" startline="25">KEY_SIZE</references>
+        <referencedby refid="tcfs_8c_1a745384a010e20b082db26e16702a0129" compoundref="tcfs_8c" startline="357" endline="436">tcfs_read</referencedby>
+        <referencedby refid="tcfs_8c_1adaba2baa5a036b8f77ec187599498a66" compoundref="tcfs_8c" startline="439" endline="522">tcfs_write</referencedby>
       </memberdef>
       <memberdef kind="function" id="crypt-utils_8h_1a8845f5705eaafda836aac91d5881876f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -280,6 +285,11 @@ Derived from OpenSSL.org EVP_Encrypt_* Manpage Examples <linebreak/>
         <inbodydescription>
         </inbodydescription>
         <location file="userspace-module/utils/crypt-utils/crypt-utils.h" line="29" column="6" bodyfile="userspace-module/utils/crypt-utils/crypt-utils.c" bodystart="232" bodyend="263" declfile="userspace-module/utils/crypt-utils/crypt-utils.h" declline="29" declcolumn="6"/>
+        <references refid="crypt-utils_8c_1a53b5762e00daafcc3644c03e2fd9b2c4" compoundref="crypt-utils_8c" startline="199" endline="223">add_entropy</references>
+        <references refid="crypt-utils_8c_1aa377df016f593aa771013264acc9b86b" compoundref="crypt-utils_8c" startline="169" endline="188">check_entropy</references>
+        <references refid="crypt-utils_8c_1a36c2342a7c47b8f41bf628bf473b1c97" compoundref="crypt-utils_8c" startline="360" endline="367">is_valid_key</references>
+        <references refid="tcfs__utils_8c_1a8c1c24299a2b01f6157b051cb56ebc52" compoundref="tcfs__utils_8c" startline="170" endline="178">print_aes_key</references>
+        <referencedby refid="tcfs_8c_1ad973ad9d6ab7d6276bf85cd8fecd0657" compoundref="tcfs_8c" startline="553" endline="617">tcfs_create</referencedby>
       </memberdef>
       <memberdef kind="function" id="crypt-utils_8h_1a8bf9483dae26e9c0a1c45d77b8f1dce8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>unsigned char *</type>
@@ -337,6 +347,7 @@ Derived from OpenSSL.org EVP_Encrypt_* Manpage Examples <linebreak/>
         <inbodydescription>
         </inbodydescription>
         <location file="userspace-module/utils/crypt-utils/crypt-utils.h" line="31" column="15" bodyfile="userspace-module/utils/crypt-utils/crypt-utils.c" bodystart="275" bodyend="314" declfile="userspace-module/utils/crypt-utils/crypt-utils.h" declline="31" declcolumn="15"/>
+        <referencedby refid="tcfs_8c_1ad973ad9d6ab7d6276bf85cd8fecd0657" compoundref="tcfs_8c" startline="553" endline="617">tcfs_create</referencedby>
       </memberdef>
       <memberdef kind="function" id="crypt-utils_8h_1a02ee5ac64d2d2d441edcca915e480503" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>unsigned char *</type>
@@ -382,6 +393,8 @@ Derived from OpenSSL.org EVP_Encrypt_* Manpage Examples <linebreak/>
         <inbodydescription>
         </inbodydescription>
         <location file="userspace-module/utils/crypt-utils/crypt-utils.h" line="34" column="15" bodyfile="userspace-module/utils/crypt-utils/crypt-utils.c" bodystart="325" bodyend="351" declfile="userspace-module/utils/crypt-utils/crypt-utils.h" declline="34" declcolumn="15"/>
+        <referencedby refid="tcfs_8c_1a745384a010e20b082db26e16702a0129" compoundref="tcfs_8c" startline="357" endline="436">tcfs_read</referencedby>
+        <referencedby refid="tcfs_8c_1adaba2baa5a036b8f77ec187599498a66" compoundref="tcfs_8c" startline="439" endline="522">tcfs_write</referencedby>
       </memberdef>
       <memberdef kind="function" id="crypt-utils_8h_1a36c2342a7c47b8f41bf628bf473b1c97" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -405,9 +418,9 @@ Derived from OpenSSL.org EVP_Encrypt_* Manpage Examples <linebreak/>
 </parameterdescription>
 </parameteritem>
 </parameterlist>
-<simplesect kind="return"><para>1 if successful, 0 otherwise. An error might be printen by <ref refid="print__utils_8c_1a650ab060ffe5dbc6c1a968a9cae3bded" kindref="member">print_err()</ref> function, </para>
+<simplesect kind="return"><para>1 if successful, 0 otherwise. An error might be printen by print_err() function, </para>
 </simplesect>
-<simplesect kind="see"><para><ref refid="print__utils_8c_1a650ab060ffe5dbc6c1a968a9cae3bded" kindref="member">print_err</ref> </para>
+<simplesect kind="see"><para>print_err </para>
 </simplesect>
 <simplesect kind="note"><para>This function only checks for key length </para>
 </simplesect>
@@ -416,6 +429,9 @@ Derived from OpenSSL.org EVP_Encrypt_* Manpage Examples <linebreak/>
         <inbodydescription>
         </inbodydescription>
         <location file="userspace-module/utils/crypt-utils/crypt-utils.h" line="37" column="5" bodyfile="userspace-module/utils/crypt-utils/crypt-utils.c" bodystart="360" bodyend="367" declfile="userspace-module/utils/crypt-utils/crypt-utils.h" declline="37" declcolumn="5"/>
+        <referencedby refid="crypt-utils_8c_1a8845f5705eaafda836aac91d5881876f" compoundref="crypt-utils_8c" startline="232" endline="263">generate_key</referencedby>
+        <referencedby refid="tcfs_8c_1a0ddf1224851353fc92bfbff6f499fa97" compoundref="tcfs_8c" startline="768" endline="824">main</referencedby>
+        <referencedby refid="tcfs_8c_1ad973ad9d6ab7d6276bf85cd8fecd0657" compoundref="tcfs_8c" startline="553" endline="617">tcfs_create</referencedby>
       </memberdef>
     </sectiondef>
     <briefdescription>
@@ -437,21 +453,21 @@ Derived from OpenSSL.org EVP_Encrypt_* Manpage Examples <linebreak/>
 <codeline lineno="12"><highlight class="normal"></highlight></codeline>
 <codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;../tcfs_utils/tcfs_utils.h&quot;</highlight><highlight class="normal"><sp/></highlight><highlight class="comment">//TODO:<sp/>Remove,<sp/>for<sp/>debugging<sp/>only</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="14"><highlight class="normal"></highlight></codeline>
-<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BLOCKSIZE<sp/>1024</highlight></codeline>
-<codeline lineno="20"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ENCRYPT<sp/>1</highlight></codeline>
-<codeline lineno="25"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>DECRYPT<sp/>0</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15" refid="crypt-utils_8h_1afcf795f5a96fd55561abe69f56224630" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BLOCKSIZE<sp/>1024</highlight></codeline>
+<codeline lineno="20" refid="crypt-utils_8h_1a1cb0c60ca582db30ae87362ca43e8c19" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ENCRYPT<sp/>1</highlight></codeline>
+<codeline lineno="25" refid="crypt-utils_8h_1a36fab47015485191712a579a059a7c20" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>DECRYPT<sp/>0</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="26"><highlight class="normal"></highlight></codeline>
-<codeline lineno="27"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>do_crypt<sp/>(FILE<sp/>*in,<sp/>FILE<sp/>*out,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>action,<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*key_str);</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="crypt-utils_8h_1a94b5b388b3f00982ccee72b192077e76" kindref="member">do_crypt</ref><sp/>(FILE<sp/>*in,<sp/>FILE<sp/>*out,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>action,<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*key_str);</highlight></codeline>
 <codeline lineno="28"><highlight class="normal"></highlight></codeline>
-<codeline lineno="29"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>generate_key<sp/>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*destination);</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="crypt-utils_8h_1a8845f5705eaafda836aac91d5881876f" kindref="member">generate_key</ref><sp/>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*destination);</highlight></codeline>
 <codeline lineno="30"><highlight class="normal"></highlight></codeline>
-<codeline lineno="31"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*encrypt_string<sp/>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*plaintext,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*key,</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*<ref refid="crypt-utils_8h_1a8bf9483dae26e9c0a1c45d77b8f1dce8" kindref="member">encrypt_string</ref><sp/>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*plaintext,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*key,</highlight></codeline>
 <codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>*encrypted_len);</highlight></codeline>
 <codeline lineno="33"><highlight class="normal"></highlight></codeline>
-<codeline lineno="34"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*decrypt_string<sp/>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*base64_ciphertext,</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*<ref refid="crypt-utils_8h_1a02ee5ac64d2d2d441edcca915e480503" kindref="member">decrypt_string</ref><sp/>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*base64_ciphertext,</highlight></codeline>
 <codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*key);</highlight></codeline>
 <codeline lineno="36"><highlight class="normal"></highlight></codeline>
-<codeline lineno="37"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>is_valid_key<sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*key);</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="crypt-utils_8h_1a36c2342a7c47b8f41bf628bf473b1c97" kindref="member">is_valid_key</ref><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*key);</highlight></codeline>
 <codeline lineno="38"><highlight class="normal"></highlight></codeline>
 <codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
 <codeline lineno="40"><highlight class="comment">int<sp/>rebuild_key(char<sp/>*key,<sp/>char<sp/>*cert,<sp/>char<sp/>*dest);</highlight></codeline>

@@ -1,8 +1,8 @@
 var searchData=
 [
-  ['init_5fcontext_0',['init_context',['../redis_8c.html#a1f6dc2f98a71a88567fe11fd9e2585ea',1,'redis.c']]],
-  ['init_5fqueue_1',['init_queue',['../queue_8c.html#a6997b2cacf3d2e49bc848d0274e24b13',1,'queue.c']]],
-  ['insert_2',['insert',['../redis_8c.html#ac9878ee09b53700eb08c1f175873c30b',1,'redis.c']]],
-  ['is_20not_20raccomended_20consider_20using_20the_20tcfs_5fhelper_20program_3',['This is not raccomended, consider using the tcfs_helper program',['../md_README.html#autotoc_md12',1,'']]],
-  ['is_5fencrypted_4',['is_encrypted',['../tcfs__utils_8c.html#a71e44dc105c7af8349bc3e7eb9edf2b0',1,'tcfs_utils.c']]]
+  ['handle_5ffolder_5fmount_0',['handle_folder_mount',['../tcfs__helper__tools_8c.html#afaed41fa1136b829eb00a7de26a3739b',1,'tcfs_helper_tools.c']]],
+  ['handle_5flocal_5fmount_1',['handle_local_mount',['../tcfs__helper__tools_8c.html#a816c2bcaa3d059abc79cb9b021957dbf',1,'tcfs_helper_tools.c']]],
+  ['handle_5fremote_5fmount_2',['handle_remote_mount',['../tcfs__helper__tools_8c.html#aa5b1203d82818e149ae3ad3fd3840a40',1,'tcfs_helper_tools.c']]],
+  ['have_5fsetxattr_3',['HAVE_SETXATTR',['../tcfs_8c.html#ace5cb10bf13b2a61c0d3e01b4e0590a2',1,'tcfs.c']]],
+  ['helper_20program_4',['Build and run the helper program',['../md_README.html#autotoc_md10',1,'']]]
 ];

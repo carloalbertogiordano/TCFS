@@ -7,7 +7,7 @@
     <incdepgraph>
       <node id="10">
         <label>../crypt-utils/crypt-utils.h</label>
-        <link refid="crypt-utils_8h_source"/>
+        <link refid="crypt-utils_8h"/>
         <childnode refid="5" relation="include">
         </childnode>
         <childnode refid="6" relation="include">
@@ -41,7 +41,7 @@
       </node>
       <node id="2">
         <label>tcfs_utils.h</label>
-        <link refid="tcfs__utils_8h_source"/>
+        <link refid="tcfs__utils_8h"/>
         <childnode refid="3" relation="include">
         </childnode>
         <childnode refid="4" relation="include">
@@ -141,6 +141,7 @@
         <inbodydescription>
         </inbodydescription>
         <location file="userspace-module/utils/tcfs_utils/tcfs_utils.c" line="17" column="1" bodyfile="userspace-module/utils/tcfs_utils/tcfs_utils.c" bodystart="17" bodyend="25"/>
+        <referencedby refid="tcfs_8c_1a745384a010e20b082db26e16702a0129" compoundref="tcfs_8c" startline="357" endline="436">tcfs_read</referencedby>
       </memberdef>
       <memberdef kind="function" id="tcfs__utils_8c_1a71e44dc105c7af8349bc3e7eb9edf2b0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -164,9 +165,9 @@
 </parameterdescription>
 </parameteritem>
 </parameterlist>
-<simplesect kind="return"><para>1 if successful, 0 otherwise. An error might be printen by <ref refid="print__utils_8c_1a650ab060ffe5dbc6c1a968a9cae3bded" kindref="member">print_err()</ref> function, </para>
+<simplesect kind="return"><para>1 if successful, 0 otherwise. An error might be printen by print_err() function, </para>
 </simplesect>
-<simplesect kind="see"><para><ref refid="print__utils_8c_1a650ab060ffe5dbc6c1a968a9cae3bded" kindref="member">print_err</ref> </para>
+<simplesect kind="see"><para>print_err </para>
 </simplesect>
 </para>
         </detaileddescription>
@@ -218,6 +219,29 @@
         <inbodydescription>
         </inbodydescription>
         <location file="userspace-module/utils/tcfs_utils/tcfs_utils.c" line="57" column="1" bodyfile="userspace-module/utils/tcfs_utils/tcfs_utils.c" bodystart="57" bodyend="85"/>
+        <referencedby refid="tcfs_8c_1a76af7857833338c73b9cafdce59ca01d" compoundref="tcfs_8c" startline="89" endline="101">tcfs_access</referencedby>
+        <referencedby refid="tcfs_8c_1a1001153b56bc9f871f8d93db179db8b8" compoundref="tcfs_8c" startline="263" endline="275">tcfs_chmod</referencedby>
+        <referencedby refid="tcfs_8c_1ac61b7c854ca2634d258fe18046cdb7e0" compoundref="tcfs_8c" startline="278" endline="290">tcfs_chown</referencedby>
+        <referencedby refid="tcfs_8c_1ad973ad9d6ab7d6276bf85cd8fecd0657" compoundref="tcfs_8c" startline="553" endline="617">tcfs_create</referencedby>
+        <referencedby refid="tcfs_8c_1a014853840814f4d5225e2e28e129f9e5" compoundref="tcfs_8c" startline="632" endline="642">tcfs_fsync</referencedby>
+        <referencedby refid="tcfs_8c_1a89f96e6b13b109a368c0d3d2adc99b9a" compoundref="tcfs_8c" startline="74" endline="86">tcfs_getattr</referencedby>
+        <referencedby refid="tcfs_8c_1a6a031c4e3c6dd59051c09789c4666657" compoundref="tcfs_8c" startline="645" endline="663">tcfs_getxattr</referencedby>
+        <referencedby refid="tcfs_8c_1ae6edcf6a80467925a9a2112172395de1" compoundref="tcfs_8c" startline="666" endline="675">tcfs_listxattr</referencedby>
+        <referencedby refid="tcfs_8c_1a682b553345b6d872453d1ace7339bb9e" compoundref="tcfs_8c" startline="179" endline="191">tcfs_mkdir</referencedby>
+        <referencedby refid="tcfs_8c_1a151f53359474a95c52f5e79d438869bd" compoundref="tcfs_8c" startline="153" endline="176">tcfs_mknod</referencedby>
+        <referencedby refid="tcfs_8c_1af0c6a7d66189cc1e9fbfafba5255e60d" compoundref="tcfs_8c" startline="331" endline="343">tcfs_open</referencedby>
+        <referencedby refid="tcfs_8c_1a745384a010e20b082db26e16702a0129" compoundref="tcfs_8c" startline="357" endline="436">tcfs_read</referencedby>
+        <referencedby refid="tcfs_8c_1aaba999686e55ada0fe9acc15eec92c0c" compoundref="tcfs_8c" startline="119" endline="150">tcfs_readdir</referencedby>
+        <referencedby refid="tcfs_8c_1acb1e081efcbf61b6f34e8bbdf7af8979" compoundref="tcfs_8c" startline="104" endline="116">tcfs_readlink</referencedby>
+        <referencedby refid="tcfs_8c_1a1241e1fcfe6bb4a5d49d8c8d4e737bcd" compoundref="tcfs_8c" startline="620" endline="629">tcfs_release</referencedby>
+        <referencedby refid="tcfs_8c_1acfe2c6a9467bd25a5ba6dc1a65209262" compoundref="tcfs_8c" startline="678" endline="687">tcfs_removexattr</referencedby>
+        <referencedby refid="tcfs_8c_1a2853593dded66a922afbdc36afb15a50" compoundref="tcfs_8c" startline="209" endline="221">tcfs_rmdir</referencedby>
+        <referencedby refid="tcfs_8c_1ad3c328fdcd93c8203e1ce9c785fd3a14" compoundref="tcfs_8c" startline="540" endline="550">tcfs_setxattr</referencedby>
+        <referencedby refid="tcfs_8c_1ae14ebf4581d4cbc45737ae75af82a887" compoundref="tcfs_8c" startline="525" endline="537">tcfs_statfs</referencedby>
+        <referencedby refid="tcfs_8c_1a6cae4aad7da3e604ce08e14a83708e65" compoundref="tcfs_8c" startline="293" endline="305">tcfs_truncate</referencedby>
+        <referencedby refid="tcfs_8c_1ac6d3a8a626363a6f98de64e585968b09" compoundref="tcfs_8c" startline="194" endline="206">tcfs_unlink</referencedby>
+        <referencedby refid="tcfs_8c_1a3e2dc5aa998e01e0269fa1e267a9253b" compoundref="tcfs_8c" startline="309" endline="327">tcfs_utimens</referencedby>
+        <referencedby refid="tcfs_8c_1adaba2baa5a036b8f77ec187599498a66" compoundref="tcfs_8c" startline="439" endline="522">tcfs_write</referencedby>
       </memberdef>
       <memberdef kind="function" id="tcfs__utils_8c_1a42623317bb0b1ff095b4d946dc085bd6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
@@ -287,9 +311,9 @@
 </parameterdescription>
 </parameteritem>
 </parameterlist>
-<simplesect kind="return"><para>1 if successful, 0 otherwise. An error might be printen by <ref refid="print__utils_8c_1a650ab060ffe5dbc6c1a968a9cae3bded" kindref="member">print_err()</ref> function, </para>
+<simplesect kind="return"><para>1 if successful, 0 otherwise. An error might be printen by print_err() function, </para>
 </simplesect>
-<simplesect kind="see"><para><ref refid="print__utils_8c_1a650ab060ffe5dbc6c1a968a9cae3bded" kindref="member">print_err</ref> </para>
+<simplesect kind="see"><para>print_err </para>
 </simplesect>
 </para>
         </detaileddescription>
@@ -330,18 +354,19 @@
         <inbodydescription>
         </inbodydescription>
         <location file="userspace-module/utils/tcfs_utils/tcfs_utils.c" line="170" column="1" bodyfile="userspace-module/utils/tcfs_utils/tcfs_utils.c" bodystart="170" bodyend="178"/>
+        <referencedby refid="crypt-utils_8c_1a8845f5705eaafda836aac91d5881876f" compoundref="crypt-utils_8c" startline="232" endline="263">generate_key</referencedby>
       </memberdef>
     </sectiondef>
     <briefdescription>
-<para>This file contains an assortment of functions used by <ref refid="tcfs_8c_source" kindref="compound">tcfs.c</ref>. </para>
+<para>This file contains an assortment of functions used by <ref refid="tcfs_8c" kindref="compound">tcfs.c</ref>. </para>
     </briefdescription>
     <detaileddescription>
-<para><simplesect kind="see"><para><ref refid="tcfs_8c_source" kindref="compound">tcfs.c</ref> </para>
+<para><simplesect kind="see"><para><ref refid="tcfs_8c" kindref="compound">tcfs.c</ref> </para>
 </simplesect>
 </para>
     </detaileddescription>
     <programlisting>
-<codeline lineno="1"><highlight class="preprocessor">#include<sp/>&quot;tcfs_utils.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="1"><highlight class="preprocessor">#include<sp/>&quot;<ref refid="tcfs__utils_8h" kindref="compound">tcfs_utils.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;../crypt-utils/crypt-utils.h&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="3"><highlight class="normal"></highlight></codeline>
 <codeline lineno="16"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"></highlight></codeline>
