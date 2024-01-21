@@ -1,7 +1,7 @@
 package main
 
 import (
-	REST_Functions "daemon/daemonTools"
+	restfunctions "daemon/daemonTools"
 	DB "daemon/db"
 	"flag"
 	"fmt"
@@ -13,8 +13,8 @@ import (
 	"os"
 )
 
-type daemonConfig struct {
-	Daemon struct {
+type serverConfig struct {
+	Server struct {
 		Port string `yaml:"port"`
 	} `yaml:"Server"`
 	DB struct {
@@ -39,7 +39,7 @@ func main() {
 	}
 
 	// Unmarshal the YAML data into a Config struct
-	var config daemonConfig
+	var config serverConfig
 	err = yaml.Unmarshal(data, &config)
 	if err != nil {
 		log.Fatal(err)
@@ -63,13 +63,13 @@ func main() {
 		fmt.Printf("Err initializing the DB: %v", err)
 		return
 	}
-	http.HandleFunc("/register", REST_Functions.Register)
-	http.HandleFunc("/login", REST_Functions.Login)
-	http.HandleFunc("/logout", REST_Functions.Logout)
-	http.HandleFunc("/createSharedFile", REST_Functions.CreateSharedFile)
-	fmt.Printf("serving on %v\n", config.Daemon.Port)
-	log.Fatal(http.ListenAndServe(":"+config.Daemon.Port, nil))
+	http.HandleFunc("/register", restfunctions.Register)
+	http.HandleFunc("/login", restfunctions.Login)
+	http.HandleFunc("/logout", restfunctions.Logout)
+	http.HandleFunc("/createSharedFile", restfunctions.CreateSharedFile)
+	fmt.Printf("serving on %v\n", config.Server.Port)
+	log.Fatal(http.ListenAndServe(":"+config.Server.Port, nil))
 
 	// Terminate the program
-	logger.Println("Daemon is exiting")
+	logger.Println("Server is exiting")
 }
