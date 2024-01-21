@@ -18,6 +18,21 @@ If you decide to use this software, please **don't do it**.
 Thank you for your interest and understanding as we work to improve the project and make 
 it stable and complete :-).
 
+## Technologies used
+To achieve our goal many different auxiliary programs and tech has found its way in TCFS
+- Securing the encryption Key
+  - GPG
+- Database management
+  - Redis
+- Documentation
+  - Generated using Doxygen
+- Versioning
+  - GitHub
+- Code analysis
+  - See the GitHub actions
+- Code formatting
+  - clang-format
+
 ## Features
 - Transparent Encryption: TCFS operates silently in the background, encrypting and 
 decrypting files on-the-fly as they are accessed or modified. Users don't need to worry
