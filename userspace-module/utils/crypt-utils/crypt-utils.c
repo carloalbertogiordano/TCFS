@@ -1,7 +1,16 @@
-/***
-
+/**
+ * @file crypt-utils.c
+ * @brief Implementation file for cryptographic utility functions.
  *
- **/
+ * This file contains the implementation of various cryptographic utility
+ * functions, including AES encryption and decryption, key generation,
+ * entropy checks, and path encryption/decryption.
+ *
+ * @author
+ * By Carlo Alberto Giordnano \n
+ * Created 18/10/23 by [Carlo Alberto Giordano] \n
+ */
+
 #include "crypt-utils.h"
 
 /**
@@ -53,8 +62,6 @@
 extern int
 do_crypt (FILE *in, FILE *out, int action, unsigned char *key_str)
 {
-  /* Local Vars */
-
   /* Buffers */
   unsigned char inbuf[BLOCKSIZE];
   int inlen;
@@ -157,9 +164,7 @@ do_crypt (FILE *in, FILE *out, int action, unsigned char *key_str)
 }
 
 /**
- * @internal \_func
  * @brief Verify if there is enough entropy in the system to generate a key
- * @param void
  * @return A value greater than 0 corresponding to the entropy level, if an
  * error occurs -1 is returned
  * @note This function evaluates the entropy by checking the
@@ -188,9 +193,7 @@ check_entropy (void)
 }
 
 /**
- * @internal
- * @brief Force new entropy in /dev/urandom, \_func
- * @param void
+ * @brief Force new entropy in /dev/urandom
  * @return void
  * @note Very dangerous, if this fails an error will be printed and the program
  * will exit with EXIT_FAILURE
@@ -338,12 +341,15 @@ decrypt_string (unsigned char *ciphertext, const char *key)
   size_t ciphertext_len = strlen ((const char *)ciphertext) / 2;
   unsigned char *decoded_ciphertext = malloc (ciphertext_len);
 
-  for (size_t i = 0; i < ciphertext_len; i++) {
-      char hex[3] = {(char)ciphertext[i * 2], (char)ciphertext[i * 2 + 1], '\0'};
+  for (size_t i = 0; i < ciphertext_len; i++)
+    {
+      char hex[3]
+          = { (char)ciphertext[i * 2], (char)ciphertext[i * 2 + 1], '\0' };
       char *endptr;
-      unsigned long byte = strtoul(hex, &endptr, 16);
+      unsigned long byte = strtoul (hex, &endptr, 16);
 
-      if (*endptr != '\0' || byte > UCHAR_MAX) {
+      if (*endptr != '\0' || byte > UCHAR_MAX)
+        {
           perror ("decrypt string error");
           return NULL;
         }
@@ -365,7 +371,8 @@ decrypt_string (unsigned char *ciphertext, const char *key)
   memcpy (decrypted_string, plaintext, len + padding_len);
   decrypted_string[len + padding_len] = '\0';
 
-  printf("\t\tdecoded_ciphertext %s, decrypted_string %s\n", decoded_ciphertext, decrypted_string);
+  printf ("\t\tdecoded_ciphertext %s, decrypted_string %s\n",
+          decoded_ciphertext, decrypted_string);
   free (decoded_ciphertext);
 
   return decrypted_string;
@@ -404,11 +411,6 @@ decrypt_file_name_with_hex (const char *enc_file, const char *key)
 
 /**
  * @brief Encrypts each part of the given path using a specified key.
- *
- * This function takes a path, divides it into segments separated by '/',
- * and encrypts each segment using the provided encryption key. Directories
- * ".", ".." and "/" are excluded from encryption.
- *
  * @param path The input path to be encrypted.
  * @param key The encryption key.
  * @return A dynamically allocated string containing the encrypted path.
@@ -520,11 +522,6 @@ encrypt_path (const char *path, const char *key)
 
 /**
  * @brief Encrypts the given filename with its path using a specified key.
- *
- * This function takes a filename with its path, divides it into segments
- * separated by '/', and encrypts each segment using the provided encryption
- * key. Directories ".", ".." and "/" are excluded from encryption.
- *
  * @param path The input path to be encrypted.
  * @param key The encryption key.
  * @return A dynamically allocated string containing the encrypted path with
@@ -639,12 +636,6 @@ encrypt_path_and_filename (const char *path, const char *key)
 
 /**
  * @brief Decrypts each part of the given encrypted path using a specified key.
- *
- * This function takes an encrypted path, divides it into segments separated by
- * '/', and decrypts each segment using the provided decryption key.
- * Directories
- * ".", ".." and "/" are excluded from decryption.
- *
  * @param encrypted_path The input encrypted path to be decrypted.
  * @param key The decryption key.
  * @return A dynamically allocated string containing the decrypted path.
@@ -758,11 +749,6 @@ decrypt_path (const char *encrypted_path, const char *key)
 /**
  * @brief Decrypts the given encrypted filename with its path using a specified
  * key.
- *
- * This function takes an encrypted filename with its path, divides it into
- * segments separated by '/', and decrypts each segment using the provided
- * decryption key. Directories ".", ".." and "/" are excluded from decryption.
- *
  * @param encrypted_path The input encrypted path to be decrypted.
  * @param key The decryption key.
  * @return A dynamically allocated string containing the decrypted path with

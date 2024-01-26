@@ -1,3 +1,9 @@
+/**
+* @file crypt-utils.h
+* @brief Header file for crypt-utils.c, which provides functions for encryption
+*        and decryption using AES-256, as well as other utility functions.
+*/
+
 #include <ctype.h>
 #include <libgen.h>
 #include <stdio.h>
@@ -14,7 +20,6 @@
 
 #include "../tcfs_utils/tcfs_utils.h" //TODO: Remove, for debugging only
 
-#define BLOCKSIZE 1024
 /**
  * @def ENCRYPT
  * @brief Signifies that the selected action is encryption

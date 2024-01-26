@@ -1,3 +1,9 @@
+/**
+* @file tcfs_utils.h
+* @brief Header file containing utility functions used by TCFS (Transparent Cryptographic Filesystem)
+* @see tcfs_utils.c
+*/
+
 #include <errno.h>
 #include <pwd.h>
 #include <stdio.h>
@@ -12,17 +18,7 @@ int is_encrypted (const char *path);
 
 char *prefix_path (const char *path, const char *realpath);
 
-int read_file (FILE *file);
-
-int get_encrypted_key (char *filepath, unsigned char *encrypted_key);
-
 void print_aes_key (unsigned char *key);
-
-const char *get_name_from_path(const char *path);
-
-const char *get_directory_path(const char *path);
-
-int is_encrypted_name(const char *name);
 
 char *string_to_hex(const char *input);
 

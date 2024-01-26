@@ -8,13 +8,12 @@
  * */
 
 /**
- * @brief  Fetch the username of the current user
- * @param buf The username will be written to this buffer
- * @param size  The size of the buffer
+ * @brief Fetch the username of the current user.
+ * @param buf The buffer where the username will be written.
+ * @param size The size of the buffer.
  * @return void
- * @note If an error occurs it will be printed and the buffer will not be
- * modified
- * */
+ * @note If an error occurs, it will be printed, and the buffer will not be modified.
+ */
 void
 get_user_name (char *buf, size_t size)
 {
@@ -27,10 +26,10 @@ get_user_name (char *buf, size_t size)
 }
 
 /**
- * @brief Check if a file is encrypted by TCFS
- * @param path  The fullpath of the file
+ * @brief Check if a file is encrypted by TCFS.
+ * @param path The full path of the file.
  * @return \ret
- * */
+ */
 int
 is_encrypted (const char *path)
 {
@@ -42,19 +41,13 @@ is_encrypted (const char *path)
   return strcmp (xattr_val, "true") == 0 ? 1 : 0;
 }
 
-/* char *prefix_path(const char *path))
- * Purpose:
- * Args:
- *
- * Return: NULL on error, char* on success
- */
 /**
- * @brief Prefix the realpath to the fuse path
- * @param path  The fuse path
- * @param realpath  The realpath to the directory mounted by TCFS
- * @return char * An allocated string containing the fullpath to the file
- * @note Please free the result after use
- * */
+ * @brief Prefix the realpath to the fuse path.
+ * @param path The fuse path.
+ * @param realpath The realpath to the directory mounted by TCFS.
+ * @return char * An allocated string containing the full path to the file.
+ * @note Please free the result after use.
+ */
 char *
 prefix_path (const char *path, const char *realpath)
 {
@@ -89,12 +82,12 @@ prefix_path (const char *path, const char *realpath)
 }
 
 /**
- * @deprecated Currently it has no use
- * @brief Read a file, useful for debugging tmpfiles
- * @param file  The file to read
+ * @deprecated Currently has no use.
+ * @brief Read a file, useful for debugging tmpfiles.
+ * @param file The file to read.
  * @return 0
- * @note It will print "file was empty" if the file was empty
- * */
+ * @note It will print "file was empty" if the file was empty.
+ */
 int
 read_file (FILE *file)
 {
@@ -116,21 +109,13 @@ read_file (FILE *file)
   return 0;
 }
 
-/*
- * */
-/* int get_encrypted_key(char *filepath, void *encrypted_key)
- * Purpose: Get the encrypted file key from its xattrs
- * Args:
- *
- */
 /**
- * @brief Get the xattr value describing the key of a file
- * @deprecated There is no use currenly for this function. It was once used for
- * debugging
- * @param filepath  The full-path of the file
- * @param encrypted_key The buffer to save the encrypted key to
+ * @brief Get the xattr value describing the key of a file.
+ * @deprecated Currently has no use. Was once used for debugging.
+ * @param filepath The full path of the file.
+ * @param encrypted_key The buffer to save the encrypted key to.
  * @return \ret
- * */
+ */
 int
 get_encrypted_key (char *filepath, unsigned char *encrypted_key)
 {
@@ -165,13 +150,12 @@ get_encrypted_key (char *filepath, unsigned char *encrypted_key)
 }
 
 /**
- * @brief Print the value of an aes key
- * @deprecated There is currently no use for this function
- * @warning THIS WILL PRINT THE AES KEY TO STDOUT. TCFS trusts the user by
- * design, but this is excessive
- * @param key The string containing the key
+ * @brief Print the value of an AES key.
+ * @deprecated Currently has no use. Printing the AES key is considered excessive.
+ * @warning THIS WILL PRINT THE AES KEY TO STDOUT. TCFS trusts the user by design, but this is excessive.
+ * @param key The string containing the key.
  * @return void
- * */
+ */
 void
 print_aes_key (unsigned char *key)
 {
@@ -183,10 +167,17 @@ print_aes_key (unsigned char *key)
   printf ("\n");
 }
 
+/**
+ * @brief Convert a string to its hexadecimal representation.
+ * @param input The input string.
+ * @return char * The hexadecimal representation of the input string.
+ * @note Remember to free the result after use.
+ */
 char *string_to_hex(const char *input) {
   printf ("\t\tSTRING TO HEX GOT %s\n", input);
 
-  int i, len = strlen(input);
+  int i;
+  size_t len = strlen(input);
   char hex[3];
   char *output = (char *)malloc(2 * len + 1);
 
@@ -195,7 +186,9 @@ char *string_to_hex(const char *input) {
       return NULL;
     }
 
-  output[0] = '\0'; // Assicura che la stringa risultante sia vuota all'inizio
+  // ensure that the resulting string is empty at the start.
+  // Maybe it is not necessary, but some testing is required
+  output[0] = '\0';
 
   for (i = 0; i < len; i++) {
       sprintf(hex, "%02X", input[i]);
@@ -206,7 +199,12 @@ char *string_to_hex(const char *input) {
   return output;
 }
 
-// Funzione per convertire esadecimale in una stringa
+/**
+ * @brief Convert a hexadecimal string to its ASCII representation.
+ * @param input The input hexadecimal string.
+ * @return char * The ASCII representation of the input hexadecimal string.
+ * @note Remember to free the result after use.
+ */
 char *hex_to_string(const char *input) {
   printf ("\tHEX TO STRING GOT %s\n", input);
   int i, len = strlen(input) / 2;
@@ -217,7 +215,9 @@ char *hex_to_string(const char *input) {
       return NULL;
     }
 
-  output[0] = '\0'; // Assicura che la stringa risultante sia vuota all'inizio
+  // ensure that the resulting string is empty at the start.
+  // Maybe it is not necessary, but some testing is required
+  output[0] = '\0';
 
   for (i = 0; i < len; i++) {
       char hex[3];
@@ -231,7 +231,7 @@ char *hex_to_string(const char *input) {
       output[i] = (char)decimal;
     }
 
-  output[len] = '\0'; // Aggiungi il terminatore null alla fine della stringa
+  output[len] = '\0'; // Add a \0 terminator
 
   printf ("\tHEX TO STRING WILL RETURN %s\n", output);
   return output;
