@@ -370,3 +370,510 @@ is_valid_key (const unsigned char *key)
 int rebuild_key(char *key, char *cert, char *dest){
     return -1;
 }*/
+
+/**
+ * @brief Verifica se la stringa fornita è una stringa esadecimale valida
+ * @param str La stringa da verificare
+ * @return true se la stringa è esadecimale, false altrimenti
+ */
+int
+is_hex_string (const char *str)
+{
+  while (*str)
+    {
+      if (!isxdigit (*str))
+        {
+          return 1;
+        }
+      str++;
+    }
+  return 0;
+}
+
+const char *
+encrypt_file_name_with_hex (const char *file, const char *key)
+{
+  int len = -1;
+  return (const char *)encrypt_string ((unsigned char *)string_to_hex (file),
+                                       key, &len);
+}
+
+const char *
+decrypt_file_name_with_hex (const char *enc_file, const char *key)
+{
+  return (const char *)hex_to_string ((const char *)decrypt_string (
+      (unsigned char *)hex_to_string (enc_file), key));
+}
+
+/**
+ * @brief Encrypts each part of the given path using a specified key.
+ *
+ * This function takes a path, divides it into segments separated by '/',
+ * and encrypts each segment using the provided encryption key. Directories
+ * ".", ".." and "/" are excluded from encryption.
+ *
+ * @param path The input path to be encrypted.
+ * @param key The encryption key.
+ * @return A dynamically allocated string containing the encrypted path.
+ *         It is the responsibility of the caller to free this memory.
+ */
+const char *
+encrypt_path (const char *path, const char *key)
+{
+  char *result = NULL;
+  char *token, *saveptr;
+
+  // Check if the path is ".", ".."
+  if (strcmp (path, ".") == 0 || strcmp (path, "..") == 0)
+    {
+      // If it is, no encryption is applied
+      result = strdup (path);
+      if (!result)
+        {
+          perror ("Error allocating memory");
+          exit (EXIT_FAILURE);
+        }
+      printf ("\tencrypt path got a special case, returning %s\n", result);
+      return result;
+    }
+  // Check if the path is /
+  else if (strcmp (path, "/") == 0)
+    {
+      printf ("\tgot root path\n");
+      return "";
+    }
+
+  // Copy the original path
+  char *path_copy = strdup (path);
+  if (!path_copy)
+    {
+      perror ("Error allocating memory");
+      exit (EXIT_FAILURE);
+    }
+
+  // Start encryption
+  token = strtok_r (path_copy, "/", &saveptr);
+  while (token != NULL)
+    {
+      // Check if the directory is "." or ".."
+      if (strcmp (token, ".") == 0 || strcmp (token, "..") == 0)
+        {
+          // If it is, no encryption is applied
+        }
+      else
+        {
+          // Encrypt each part of the path
+          const char *encrypted_part = encrypt_file_name_with_hex (token, key);
+          printf ("\tEncrypted %s --> %s\n", token, encrypted_part);
+
+          // Concatenate to the result string
+          if (result == NULL)
+            {
+              // Check if the first character of encrypted_part is '/'
+              if (encrypted_part[0] != '/')
+                {
+                  result = malloc (strlen (encrypted_part) + 2);
+                  if (!result)
+                    {
+                      perror ("Error allocating memory");
+                      exit (EXIT_FAILURE);
+                    }
+                  strcpy (result, "/");
+                  strcat (result, encrypted_part);
+                }
+              else
+                {
+                  result = strdup (encrypted_part);
+                }
+            }
+          else
+            {
+              size_t result_len = strlen (result);
+              size_t encrypted_len = strlen (encrypted_part);
+
+              result = realloc (result, result_len + 1 + encrypted_len + 1);
+              if (!result)
+                {
+                  perror ("Error allocating memory");
+                  exit (EXIT_FAILURE);
+                }
+
+              // Check if the first character of encrypted_part is '/'
+              if (encrypted_part[0] != '/')
+                {
+                  strcat (result, "/");
+                }
+
+              strcat (result, encrypted_part);
+              printf ("\t\tTempresult: %s\n", result);
+            }
+        }
+
+      // Move to the next part of the path
+      token = strtok_r (NULL, "/", &saveptr);
+    }
+
+  // Free the memory allocated for the path copy
+  printf ("\t\tpathcopy %s\n", path_copy);
+  free (path_copy);
+
+  printf ("\tencrypt_path will return %s\n", result);
+  return result;
+}
+
+/**
+ * @brief Encrypts the given filename with its path using a specified key.
+ *
+ * This function takes a filename with its path, divides it into segments
+ * separated by '/', and encrypts each segment using the provided encryption
+ * key. Directories ".", ".." and "/" are excluded from encryption.
+ *
+ * @param path The input path to be encrypted.
+ * @param key The encryption key.
+ * @return A dynamically allocated string containing the encrypted path with
+ * the encrypted filename. It is the responsibility of the caller to free this
+ * memory.
+ */
+const char *
+encrypt_path_and_filename (const char *path, const char *key)
+{
+  char *result = NULL;
+  char *token, *saveptr;
+
+  // Check if the path is ".", ".."
+  if (strcmp (path, ".") == 0 || strcmp (path, "..") == 0)
+    {
+      // If it is, no encryption is applied
+      result = strdup (path);
+      if (!result)
+        {
+          perror ("Error allocating memory");
+          exit (EXIT_FAILURE);
+        }
+      printf (
+          "\tencrypt_filename_with_path got a special case, returning %s\n",
+          result);
+      return result;
+    }
+  // Check if the path is /
+  else if (strcmp (path, "/") == 0)
+    {
+      printf ("\tgot root path\n");
+      return "";
+    }
+
+  // Copy the original path
+  char *path_copy = strdup (path);
+  if (!path_copy)
+    {
+      perror ("Error allocating memory");
+      exit (EXIT_FAILURE);
+    }
+
+  // Start encryption
+  token = strtok_r (path_copy, "/", &saveptr);
+  while (token != NULL)
+    {
+      // Check if the directory is "." or ".."
+      if (strcmp (token, ".") == 0 || strcmp (token, "..") == 0)
+        {
+          // If it is, no encryption is applied
+        }
+      else
+        {
+          // Encrypt each part of the path
+          const char *encrypted_part = encrypt_file_name_with_hex (token, key);
+          printf ("\tEncrypted %s --> %s\n", token, encrypted_part);
+
+          // Concatenate to the result string
+          if (result == NULL)
+            {
+              // Check if the first character of encrypted_part is '/'
+              if (encrypted_part[0] != '/')
+                {
+                  result = malloc (strlen (encrypted_part) + 2);
+                  if (!result)
+                    {
+                      perror ("Error allocating memory");
+                      exit (EXIT_FAILURE);
+                    }
+                  strcpy (result, "/");
+                  strcat (result, encrypted_part);
+                }
+              else
+                {
+                  result = strdup (encrypted_part);
+                }
+            }
+          else
+            {
+              size_t result_len = strlen (result);
+              size_t encrypted_len = strlen (encrypted_part);
+
+              result = realloc (result, result_len + 1 + encrypted_len + 1);
+              if (!result)
+                {
+                  perror ("Error allocating memory");
+                  exit (EXIT_FAILURE);
+                }
+
+              // Check if the first character of encrypted_part is '/'
+              if (encrypted_part[0] != '/')
+                {
+                  strcat (result, "/");
+                }
+
+              strcat (result, encrypted_part);
+              printf ("\t\tTempresult: %s\n", result);
+            }
+        }
+
+      // Move to the next part of the path
+      token = strtok_r (NULL, "/", &saveptr);
+    }
+
+  // Free the memory allocated for the path copy
+  printf ("\t\tpathcopy %s\n", path_copy);
+  free (path_copy);
+
+  printf ("\tencrypt_filename_with_path will return %s\n", result);
+  return result;
+}
+
+/**
+ * @brief Decrypts each part of the given encrypted path using a specified key.
+ *
+ * This function takes an encrypted path, divides it into segments separated by
+ * '/', and decrypts each segment using the provided decryption key.
+ * Directories
+ * ".", ".." and "/" are excluded from decryption.
+ *
+ * @param encrypted_path The input encrypted path to be decrypted.
+ * @param key The decryption key.
+ * @return A dynamically allocated string containing the decrypted path.
+ *         It is the responsibility of the caller to free this memory.
+ */
+const char *
+decrypt_path (const char *encrypted_path, const char *key)
+{
+  printf ("decrypt path got %s\n", encrypted_path);
+  char *result = NULL;
+  char *token, *saveptr;
+
+  // Check if the encrypted_path is ".", ".."
+  if (strcmp (encrypted_path, ".") == 0 || strcmp (encrypted_path, "..") == 0)
+    {
+      // If it is, no decryption is applied
+      result = strdup (encrypted_path);
+      if (!result)
+        {
+          perror ("Error allocating memory");
+          exit (EXIT_FAILURE);
+        }
+      printf ("\tdecrypt_path got a special case, returning %s\n", result);
+      return result;
+    }
+  // Check if the encrypted_path is /
+  else if (strcmp (encrypted_path, "/") == 0)
+    {
+      printf ("\tgot root path\n");
+      return "";
+    }
+
+  // Copy the original encrypted_path
+  char *encrypted_path_copy = strdup (encrypted_path);
+  if (!encrypted_path_copy)
+    {
+      perror ("Error allocating memory");
+      exit (EXIT_FAILURE);
+    }
+
+  // Start decryption
+  token = strtok_r (encrypted_path_copy, "/", &saveptr);
+  while (token != NULL)
+    {
+      // Check if the directory is "." or ".."
+      if (strcmp (token, ".") == 0 || strcmp (token, "..") == 0)
+        {
+          // If it is, no decryption is applied
+        }
+      else
+        {
+          // Decrypt each part of the path
+          const char *decrypted_part = decrypt_file_name_with_hex (token, key);
+          printf ("\tDecrypted %s --> %s\n", token, decrypted_part);
+
+          // Concatenate to the result string
+          if (result == NULL)
+            {
+              // Check if the first character of decrypted_part is '/'
+              if (decrypted_part[0] != '/')
+                {
+                  result = malloc (strlen (decrypted_part) + 2);
+                  if (!result)
+                    {
+                      perror ("Error allocating memory");
+                      exit (EXIT_FAILURE);
+                    }
+                  strcpy (result, "/");
+                  strcat (result, decrypted_part);
+                }
+              else
+                {
+                  result = strdup (decrypted_part);
+                }
+            }
+          else
+            {
+              size_t result_len = strlen (result);
+              size_t decrypted_len = strlen (decrypted_part);
+
+              result = realloc (result, result_len + 1 + decrypted_len + 1);
+              if (!result)
+                {
+                  perror ("Error allocating memory");
+                  exit (EXIT_FAILURE);
+                }
+
+              // Check if the first character of decrypted_part is '/'
+              if (decrypted_part[0] != '/')
+                {
+                  strcat (result, "/");
+                }
+
+              strcat (result, decrypted_part);
+              printf ("\t\tTempresult: %s\n", result);
+            }
+        }
+
+      // Move to the next part of the encrypted_path
+      token = strtok_r (NULL, "/", &saveptr);
+    }
+
+  // Free the memory allocated for the encrypted_path copy
+  printf ("\t\tencrypted_path_copy %s\n", encrypted_path_copy);
+  free (encrypted_path_copy);
+
+  printf ("\tdecrypt_path will return %s\n", result);
+  return result;
+}
+
+/**
+ * @brief Decrypts the given encrypted filename with its path using a specified
+ * key.
+ *
+ * This function takes an encrypted filename with its path, divides it into
+ * segments separated by '/', and decrypts each segment using the provided
+ * decryption key. Directories ".", ".." and "/" are excluded from decryption.
+ *
+ * @param encrypted_path The input encrypted path to be decrypted.
+ * @param key The decryption key.
+ * @return A dynamically allocated string containing the decrypted path with
+ * the decrypted filename. It is the responsibility of the caller to free this
+ * memory.
+ */
+const char *
+decrypt_path_and_filename (const char *encrypted_path, const char *key)
+{
+  char *result = NULL;
+  char *token, *saveptr;
+
+  // Check if the encrypted_path is ".", ".."
+  if (strcmp (encrypted_path, ".") == 0 || strcmp (encrypted_path, "..") == 0)
+    {
+      // If it is, no decryption is applied
+      result = strdup (encrypted_path);
+      if (!result)
+        {
+          perror ("Error allocating memory");
+          exit (EXIT_FAILURE);
+        }
+      printf (
+          "\tdecrypt_filename_with_path got a special case, returning %s\n",
+          result);
+      return result;
+    }
+  // Check if the encrypted_path is /
+  else if (strcmp (encrypted_path, "/") == 0)
+    {
+      printf ("\tgot root path\n");
+      return "";
+    }
+
+  // Copy the original encrypted_path
+  char *encrypted_path_copy = strdup (encrypted_path);
+  if (!encrypted_path_copy)
+    {
+      perror ("Error allocating memory");
+      exit (EXIT_FAILURE);
+    }
+
+  // Start decryption
+  token = strtok_r (encrypted_path_copy, "/", &saveptr);
+  while (token != NULL)
+    {
+      // Check if the directory is "." or ".."
+      if (strcmp (token, ".") == 0 || strcmp (token, "..") == 0)
+        {
+          // If it is, no decryption is applied
+        }
+      else
+        {
+          // Decrypt each part of the path
+          const char *decrypted_part = decrypt_file_name_with_hex (token, key);
+          printf ("\tDecrypted %s --> %s\n", token, decrypted_part);
+
+          // Concatenate to the result string
+          if (result == NULL)
+            {
+              // Check if the first character of decrypted_part is '/'
+              if (decrypted_part[0] != '/')
+                {
+                  result = malloc (strlen (decrypted_part) + 2);
+                  if (!result)
+                    {
+                      perror ("Error allocating memory");
+                      exit (EXIT_FAILURE);
+                    }
+                  strcpy (result, "/");
+                  strcat (result, decrypted_part);
+                }
+              else
+                {
+                  result = strdup (decrypted_part);
+                }
+            }
+          else
+            {
+              size_t result_len = strlen (result);
+              size_t decrypted_len = strlen (decrypted_part);
+
+              result = realloc (result, result_len + 1 + decrypted_len + 1);
+              if (!result)
+                {
+                  perror ("Error allocating memory");
+                  exit (EXIT_FAILURE);
+                }
+
+              // Check if the first character of decrypted_part is '/'
+              if (decrypted_part[0] != '/')
+                {
+                  strcat (result, "/");
+                }
+
+              strcat (result, decrypted_part);
+              printf ("\t\tTempresult: %s\n", result);
+            }
+        }
+
+      // Move to the next part of the encrypted_path
+      token = strtok_r (NULL, "/", &saveptr);
+    }
+
+  // Free the memory allocated for the encrypted_path copy
+  printf ("\t\tencrypted_path_copy %s\n", encrypted_path_copy);
+  free (encrypted_path_copy);
+
+  printf ("\tdecrypt_filename_with_path will return %s\n", result);
+  return result;
+}

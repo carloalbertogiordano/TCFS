@@ -1,3 +1,5 @@
+#include <ctype.h>
+#include <libgen.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -36,6 +38,15 @@ unsigned char *decrypt_string (unsigned char *base64_ciphertext,
 
 int is_valid_key (const unsigned char *key);
 
-/*
-int rebuild_key(char *key, char *cert, char *dest);
-*/
+const char *encrypt_file_name_with_hex (const char *file, const char *key);
+
+const char *decrypt_file_name_with_hex (const char *enc_file, const char *key);
+
+const char *encrypt_path (const char *path, const char *key);
+
+const char *encrypt_path_and_filename (const char *path, const char *key);
+
+const char *decrypt_path (const char *encrypted_path, const char *key);
+
+const char *decrypt_path_and_filename (const char *encrypted_path,
+                                       const char *key);

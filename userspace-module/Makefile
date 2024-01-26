@@ -1,8 +1,8 @@
 DESTDIR = ../build/fuse-module
 UTILS_DIR = utils
 CC = gcc
-CFLAGS = -Wall -Wextra -std=c11 -pedantic -D_FILE_OFFSET_BITS=64
-LDFLAGS = -lfuse -lssl -lcrypto -lz -ldl
+CFLAGS = -Wall -Wextra -std=c11 -pedantic -D_FILE_OFFSET_BITS=64 -D_DEFAULT_SOURCE
+LDFLAGS = -lfuse3 -lssl -lcrypto -lz -ldl
 
 .PHONY : all password_manager crypt_utils tcfs_utils tcfs
 

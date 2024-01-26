@@ -3,7 +3,8 @@
 
 /**
  * @file tcfs_utils.c
- * @brief This file contains an assortment of functions used by tcfs.c \see tcfs.c
+ * @brief This file contains an assortment of functions used by tcfs.c \see
+ * tcfs.c
  * */
 
 /**
@@ -11,7 +12,8 @@
  * @param buf The username will be written to this buffer
  * @param size  The size of the buffer
  * @return void
- * @note If an error occurs it will be printed and the buffer will not be modified
+ * @note If an error occurs it will be printed and the buffer will not be
+ * modified
  * */
 void
 get_user_name (char *buf, size_t size)
@@ -58,7 +60,9 @@ prefix_path (const char *path, const char *realpath)
 {
   if (path == NULL || realpath == NULL)
     {
-      perror ("Err: path or realpath is NULL");
+      fprintf (stderr, "WARN: path or realpath is null\n");
+      if (path != NULL) return (char *)path;
+      if (realpath != NULL) return (char *) realpath;
       return NULL;
     }
 
@@ -121,7 +125,8 @@ read_file (FILE *file)
  */
 /**
  * @brief Get the xattr value describing the key of a file
- * @deprecated There is no use currenly for this function. It was once used for debugging
+ * @deprecated There is no use currenly for this function. It was once used for
+ * debugging
  * @param filepath  The full-path of the file
  * @param encrypted_key The buffer to save the encrypted key to
  * @return \ret
@@ -162,7 +167,8 @@ get_encrypted_key (char *filepath, unsigned char *encrypted_key)
 /**
  * @brief Print the value of an aes key
  * @deprecated There is currently no use for this function
- * @warning THIS WILL PRINT THE AES KEY TO STDOUT. TCFS trusts the user by design, but this is excessive
+ * @warning THIS WILL PRINT THE AES KEY TO STDOUT. TCFS trusts the user by
+ * design, but this is excessive
  * @param key The string containing the key
  * @return void
  * */
@@ -175,4 +181,58 @@ print_aes_key (unsigned char *key)
       printf ("%02x", key[i]);
     }
   printf ("\n");
+}
+
+char *string_to_hex(const char *input) {
+  printf ("\t\tSTRING TO HEX GOT %s\n", input);
+
+  int i, len = strlen(input);
+  char hex[3];
+  char *output = (char *)malloc(2 * len + 1);
+
+  if (!output) {
+      perror("Errore di allocazione di memoria");
+      return NULL;
+    }
+
+  output[0] = '\0'; // Assicura che la stringa risultante sia vuota all'inizio
+
+  for (i = 0; i < len; i++) {
+      sprintf(hex, "%02X", input[i]);
+      strcat(output, hex);
+    }
+
+  printf ("\t\tSTRING TO HEX WILL RETURN %s\n", output);
+  return output;
+}
+
+// Funzione per convertire esadecimale in una stringa
+char *hex_to_string(const char *input) {
+  printf ("\tHEX TO STRING GOT %s\n", input);
+  int i, len = strlen(input) / 2;
+  char *output = (char *)malloc(len + 1);
+
+  if (!output) {
+      perror("Errore di allocazione di memoria");
+      return NULL;
+    }
+
+  output[0] = '\0'; // Assicura che la stringa risultante sia vuota all'inizio
+
+  for (i = 0; i < len; i++) {
+      char hex[3];
+      hex[0] = input[2 * i];
+      hex[1] = input[2 * i + 1];
+      hex[2] = '\0';
+
+      int decimal;
+      sscanf(hex, "%X", &decimal);
+
+      output[i] = (char)decimal;
+    }
+
+  output[len] = '\0'; // Aggiungi il terminatore null alla fine della stringa
+
+  printf ("\tHEX TO STRING WILL RETURN %s\n", output);
+  return output;
 }

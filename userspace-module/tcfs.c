@@ -19,7 +19,7 @@
 #include <dirent.h>
 #include <errno.h>
 #include <fcntl.h> /* Definition of AT_* constants */
-#include <fuse.h>
+#include <fuse3/fuse.h>
 #include <limits.h>
 #include <linux/limits.h>
 #include <pwd.h>
@@ -45,42 +45,49 @@ char *password;
 static int tcfs_getxattr (const char *fuse_path, const char *name, char *value,
                           size_t size);
 
-/**
- * @todo Implement the opendir function
- * */
 static int
 tcfs_opendir (const char *fuse_path, struct fuse_file_info *fi)
 {
-  (void)fuse_path;
   (void)fi;
-  printf ("Called opendir UNIMPLEMENTED\n");
-  /*int res = 0;
-  DIR *dp;
-  char path[PATH_MAX];
 
-  *path = prefix_path(fuse_path);
+  printf ("Called opendir %s\n", fuse_path);
 
-  dp = opendir(path);
+  const char *enc_fuse_path = encrypt_path (fuse_path, password);
+  const char *new_path = prefix_path (enc_fuse_path, root_path);
+  printf ("\topendir new_path %s\n", new_path);
+
+  DIR *dp = opendir (new_path);
   if (dp == NULL)
-      res = -errno;
+    {
+      perror ("Could not open the directory");
+      return -errno;
+    }
 
-  fi->fh = (intptr_t) dp;
-
-  return res;*/
+  closedir (dp);
   return 0;
 }
 
 static int
-tcfs_getattr (const char *fuse_path, struct stat *stbuf)
+tcfs_getattr (const char *fuse_path, struct stat *stbuf,
+              struct fuse_file_info *fi)
 {
-  printf ("Called getattr\n");
-  char *path = prefix_path (fuse_path, root_path);
+  (void)fi;
+  printf ("Called getattr on %s   %s\n", root_path, fuse_path);
 
   int res;
 
-  res = stat (path, stbuf);
+  const char *enc_fuse_path = encrypt_path (fuse_path, password);
+  printf ("\tgetattr enc_fuse_path: %s\n", enc_fuse_path);
+  const char *new_path = prefix_path (enc_fuse_path, root_path);
+  printf ("\tgetattr new_path on %s\n", new_path);
+
+  res = stat (new_path, stbuf);
   if (res == -1)
-    return -errno;
+    {
+      printf ("\taccess: Stat returned -1, err:%d\n", -errno);
+      perror ("getattr err");
+      return -errno;
+    }
 
   return 0;
 }
@@ -88,14 +95,19 @@ tcfs_getattr (const char *fuse_path, struct stat *stbuf)
 static int
 tcfs_access (const char *fuse_path, int mask)
 {
-  printf ("Callen access\n");
-  char *path = prefix_path (fuse_path, root_path);
-
+  printf ("Callen access on %s\n", fuse_path);
   int res;
 
-  res = access (path, mask);
+  const char *enc_fuse_path = encrypt_path (fuse_path, password);
+  const char *full_path = prefix_path (enc_fuse_path, root_path);
+  printf ("\taccess encrypt_path %s\n", full_path);
+
+  res = access (full_path, mask);
   if (res == -1)
-    return -errno;
+    {
+      perror ("access error");
+      return -errno;
+    }
 
   return 0;
 }
@@ -103,13 +115,19 @@ tcfs_access (const char *fuse_path, int mask)
 static int
 tcfs_readlink (const char *fuse_path, char *buf, size_t size)
 {
-  char *path = prefix_path (fuse_path, root_path);
+  printf ("called readlink\n");
 
-  int res;
+  const char *enc_fuse_path = encrypt_path (fuse_path, password);
+  char *path = prefix_path (enc_fuse_path, root_path);
+  printf ("\treadlink on %s\n", path);
 
+  size_t res;
   res = readlink (path, buf, size - 1);
-  if (res == -1)
-    return -errno;
+  if (res == -1UL)
+    {
+      perror ("readlink error");
+      return -errno;
+    }
 
   buf[res] = '\0';
   return 0;
@@ -117,15 +135,19 @@ tcfs_readlink (const char *fuse_path, char *buf, size_t size)
 
 static int
 tcfs_readdir (const char *fuse_path, void *buf, fuse_fill_dir_t filler,
-              off_t offset, struct fuse_file_info *fi)
+              off_t offset, struct fuse_file_info *fi,
+              enum fuse_readdir_flags frdf)
 {
   (void)offset;
   (void)fi;
+  (void)frdf;
 
   printf ("Called readdir %s\n", fuse_path);
-  char *path = prefix_path (fuse_path, root_path);
+  const char *enc_path = encrypt_path (fuse_path, password);
+  char *path = prefix_path (enc_path, root_path);
+  printf ("readdir on %s\n", path);
 
-  DIR *dp;
+  DIR *dp = NULL;
   struct dirent *de;
 
   dp = opendir (path);
@@ -134,6 +156,7 @@ tcfs_readdir (const char *fuse_path, void *buf, fuse_fill_dir_t filler,
       perror ("Could not open the directory");
       return -errno;
     }
+  printf ("Dir %s opened\n", path);
 
   while ((de = readdir (dp)) != NULL)
     {
@@ -141,8 +164,47 @@ tcfs_readdir (const char *fuse_path, void *buf, fuse_fill_dir_t filler,
       memset (&st, 0, sizeof (st));
       st.st_ino = de->d_ino;
       st.st_mode = de->d_type << 12;
-      if (filler (buf, de->d_name, &st, 0))
-        break;
+
+      int filler_res = -1, can_break = 0;
+
+      if ((strcmp (de->d_name, ".") == 0 || strcmp (de->d_name, "..") == 0
+           || strcmp (de->d_name, "/") == 0))
+        {
+          printf ("ONE\n");
+          filler_res = filler (buf, de->d_name, &st, 0, 0);
+          if (filler_res != 0)
+            {
+              can_break = 1;
+            }
+        }
+      else
+        {
+          printf ("\tchecking for %s is %s\n", de->d_name,
+                  decrypt_file_name_with_hex (de->d_name, password));
+
+          const char *dec_dirname = decrypt_path (de->d_name, password);
+          if (dec_dirname == NULL){
+              fprintf (stderr, "Could not decipher dir name");
+              return -1;
+            }
+
+          //We must avoid the initial / of dec_dirname
+          filler_res = filler (buf, dec_dirname+1, &st, 0, 0);
+          if (filler_res != 0)
+            {
+              can_break = 1;
+            }
+        }
+
+      printf ("FILLER RES: %d, CAN BREAK %d\n", filler_res, can_break);
+      if (can_break == 1)
+        {
+          printf ("Breaking out\n");
+          perror ("readdir error");
+          closedir (dp);
+          return -errno;
+          break;
+        }
     }
 
   closedir (dp);
@@ -153,7 +215,10 @@ static int
 tcfs_mknod (const char *fuse_path, mode_t mode, dev_t rdev)
 {
   printf ("Called mknod\n");
-  char *path = prefix_path (fuse_path, root_path);
+
+  const char *enc_fuse_path = encrypt_path (fuse_path, password);
+  char *path = prefix_path (enc_fuse_path, root_path);
+  printf ("\tmknod on %s\n", path);
 
   int res;
 
@@ -178,11 +243,15 @@ tcfs_mknod (const char *fuse_path, mode_t mode, dev_t rdev)
 static int
 tcfs_mkdir (const char *fuse_path, mode_t mode)
 {
-  printf ("Called mkdir\n");
-  char *path = prefix_path (fuse_path, root_path);
+  printf ("!!! Called mkdir on %s\n", fuse_path);
+
+  const char *enc_path = encrypt_path (fuse_path, password);
+
+  printf ("\tmkdir prefix_path (%s, %s)\n", enc_path, root_path);
+  char *path = prefix_path (enc_path, root_path);
+  printf ("\tmkdir %s\n", path);
 
   int res;
-
   res = mkdir (path, mode);
   if (res == -1)
     return -errno;
@@ -194,7 +263,10 @@ static int
 tcfs_unlink (const char *fuse_path)
 {
   printf ("Called unlink\n");
-  char *path = prefix_path (fuse_path, root_path);
+
+  const char *enc_fuse_path = encrypt_path (fuse_path, password);
+  char *path = prefix_path (enc_fuse_path, root_path);
+  printf ("\tunlink on %s\n", path);
 
   int res;
 
@@ -209,7 +281,10 @@ static int
 tcfs_rmdir (const char *fuse_path)
 {
   printf ("Called rmdir\n");
-  char *path = prefix_path (fuse_path, root_path);
+
+  const char *enc_fuse_path = encrypt_path (fuse_path, password);
+  char *path = prefix_path (enc_fuse_path, root_path);
+  printf ("\trmdir on %s\n", path);
 
   int res;
 
@@ -223,23 +298,39 @@ tcfs_rmdir (const char *fuse_path)
 static int
 tcfs_symlink (const char *from, const char *to)
 {
-  printf ("Called symlink\n");
+  printf ("Called symlink %s->%s\n", from, to);
   int res;
 
-  res = symlink (from, to);
+  const char *enc_from_path = encrypt_path_and_filename (from, password);
+  char *enc_from = prefix_path (enc_from_path, root_path);
+  const char *enc_to_path = encrypt_path_and_filename (to, password);
+  char *enc_to = prefix_path (enc_to_path, root_path);
+  printf ("\trmdir from %s to %s\n", enc_from_path, enc_to_path);
+
+  res = symlink (enc_from, enc_to);
   if (res == -1)
-    return -errno;
+    {
+      perror ("symlink error");
+      return -errno;
+    }
 
   return 0;
 }
 
 static int
-tcfs_rename (const char *from, const char *to)
+tcfs_rename (const char *from, const char *to, unsigned int flags)
 {
+  (void)flags; // FUSE does not use this parameter
   printf ("Called rename\n");
   int res;
 
-  res = rename (from, to);
+  const char *enc_from_path = encrypt_path_and_filename (from, password);
+  char *enc_from = prefix_path (enc_from_path, root_path);
+  const char *enc_to_path = encrypt_path_and_filename (to, password);
+  char *enc_to = prefix_path (enc_to_path, root_path);
+  printf ("\trmdir from %s to %s\n", enc_from_path, enc_to_path);
+
+  res = rename (enc_from, enc_to);
   if (res == -1)
     return -errno;
 
@@ -252,36 +343,55 @@ tcfs_link (const char *from, const char *to)
   printf ("Called link\n");
   int res;
 
-  res = link (from, to);
+  const char *enc_from_path = encrypt_path_and_filename (from, password);
+  char *enc_from = prefix_path (enc_from_path, root_path);
+  const char *enc_to_path = encrypt_path_and_filename (to, password);
+  char *enc_to = prefix_path (enc_to_path, root_path);
+  printf ("\trmdir from %s to %s\n", enc_from, enc_to);
+
+  res = link (enc_from, enc_to);
   if (res == -1)
-    return -errno;
+    {
+      perror ("link error");
+      return -errno;
+    }
 
   return 0;
 }
-
 static int
-tcfs_chmod (const char *fuse_path, mode_t mode)
+tcfs_chmod (const char *fuse_path, mode_t mode, struct fuse_file_info *fi)
 {
-  printf ("Called chmod\n");
-  char *path = prefix_path (fuse_path, root_path);
-
+  (void)fi;
   int res;
+
+  printf ("Called chmod\n");
+
+  const char *enc_fuse_path = encrypt_path (fuse_path, password);
+  const char *path = prefix_path (enc_fuse_path, root_path);
+  printf ("\taccess encrypt_path %s\n", path);
 
   res = chmod (path, mode);
   if (res == -1)
-    return -errno;
+    {
+      perror ("chmod error");
+      return -errno;
+    }
 
   return 0;
 }
 
 static int
-tcfs_chown (const char *fuse_path, uid_t uid, gid_t gid)
+tcfs_chown (const char *fuse_path, uid_t uid, gid_t gid,
+            struct fuse_file_info *fi)
 {
+  (void)fi;
   printf ("Called chown\n");
-  char *path = prefix_path (fuse_path, root_path);
+
+  const char *enc_fuse_path = encrypt_path (fuse_path, password);
+  const char *path = prefix_path (enc_fuse_path, root_path);
+  printf ("\tchown encrypt_path %s\n", path);
 
   int res;
-
   res = lchown (path, uid, gid);
   if (res == -1)
     return -errno;
@@ -290,26 +400,37 @@ tcfs_chown (const char *fuse_path, uid_t uid, gid_t gid)
 }
 
 static int
-tcfs_truncate (const char *fuse_path, off_t size)
+tcfs_truncate (const char *fuse_path, off_t size, struct fuse_file_info *fi)
 {
+  (void)fi;
   printf ("Called truncate\n");
-  char *path = prefix_path (fuse_path, root_path);
+
+  const char *enc_fuse_path = encrypt_path (fuse_path, password);
+  const char *path = prefix_path (enc_fuse_path, root_path);
+  printf ("\ttruncate encrypt_path %s\n", path);
 
   int res;
-
   res = truncate (path, size);
   if (res == -1)
-    return -errno;
+    {
+      perror ("truncate error");
+      return -errno;
+    }
 
   return 0;
 }
 
 // #ifdef HAVE_UTIMENSAT
 static int
-tcfs_utimens (const char *fuse_path, const struct timespec ts[2])
+tcfs_utimens (const char *fuse_path, const struct timespec ts[2],
+              struct fuse_file_info *fi)
 {
+  (void)fi;
   printf ("Called utimens\n");
-  char *path = prefix_path (fuse_path, root_path);
+
+  const char *enc_fuse_path = encrypt_path (fuse_path, password);
+  char *path = prefix_path (enc_fuse_path, root_path);
+  printf ("\tutimesns on %s\n", path);
 
   int res;
   struct timeval tv[2];
@@ -321,7 +442,10 @@ tcfs_utimens (const char *fuse_path, const struct timespec ts[2])
 
   res = utimes (path, tv);
   if (res == -1)
-    return -errno;
+    {
+      perror ("utimes error");
+      return -errno;
+    }
 
   return 0;
 }
@@ -331,12 +455,19 @@ static int
 tcfs_open (const char *fuse_path, struct fuse_file_info *fi)
 {
   printf ("Called open\n");
-  char *path = prefix_path (fuse_path, root_path);
+
+  const char *enc_fuse_path = encrypt_path (fuse_path, password);
+  char *path = prefix_path (enc_fuse_path, root_path);
+  printf ("\topen on %s\n", path);
+
   int res;
 
   res = open (path, fi->flags);
   if (res == -1)
-    return -errno;
+    {
+      perror ("open error");
+      return -errno;
+    }
 
   close (res);
   return 0;
@@ -370,7 +501,9 @@ tcfs_read (const char *fuse_path, char *buf, size_t size, off_t offset,
   size_t username_buf_size = 1024;
   get_user_name (username_buf, username_buf_size);
 
-  path = prefix_path (fuse_path, root_path);
+  const char *enc_fuse_path = encrypt_path (fuse_path, password);
+  path = prefix_path (enc_fuse_path, root_path);
+  printf ("\tread on %s\n", path);
 
   path_ptr = fopen (path, "r");
   tmpf = tmpfile ();
@@ -447,7 +580,10 @@ tcfs_write (const char *fuse_path, const char *buf, size_t size, off_t offset,
   int res;
   int tmpf_descriptor;
 
-  path = prefix_path (fuse_path, root_path);
+  const char *enc_fuse_path = encrypt_path (fuse_path, password);
+  path = prefix_path (enc_fuse_path, root_path);
+  printf ("\twrite on %s\n", path);
+
   path_ptr = fopen (path, "r+");
   tmpf = tmpfile ();
   tmpf_descriptor = fileno (tmpf);
@@ -540,7 +676,10 @@ static int
 tcfs_setxattr (const char *fuse_path, const char *name, const char *value,
                size_t size, int flags)
 {
-  char *path = prefix_path (fuse_path, root_path);
+  const char *enc_fuse_path = encrypt_path (fuse_path, password);
+  const char *path = prefix_path (enc_fuse_path, root_path);
+  printf ("\tsetxattr encrypt_path %s\n", path);
+
   int res = 1;
   if ((res = lsetxattr (path, name, value, size, flags)) == -1)
     perror ("tcfs_lsetxattr");
@@ -554,10 +693,14 @@ tcfs_create (const char *fuse_path, mode_t mode, struct fuse_file_info *fi)
 {
   (void)fi;
   (void)mode;
-  printf ("Called create\n");
+  printf ("Called create on %s\n", fuse_path);
+
+  const char *enc_fuse_path = encrypt_path_and_filename (fuse_path, password);
+  const char *fullpath = prefix_path (enc_fuse_path, root_path);
+  printf ("\tcreating %s\n", fullpath);
 
   FILE *res;
-  res = fopen (prefix_path (fuse_path, root_path), "w");
+  res = fopen (fullpath, "w");
   if (res == NULL)
     return -errno;
 
@@ -619,25 +762,43 @@ tcfs_create (const char *fuse_path, mode_t mode, struct fuse_file_info *fi)
 static int
 tcfs_release (const char *fuse_path, struct fuse_file_info *fi)
 {
-  /* Just a stub.	 This method is optional and can safely be left
-     unimplemented */
-  char *path = prefix_path (fuse_path, root_path);
+  const char *enc_fuse_path = encrypt_path_and_filename (fuse_path, password);
+  const char *path = prefix_path (enc_fuse_path, root_path);
+  printf ("\trelease %s\n", path);
 
-  (void)path;
-  (void)fi;
+  /* Close the file */
+  int res = close (fi->fh);
+  if (res == -1)
+    return -errno;
+
+  /* Free the path */
+  free ((void *)path);
+  free ((void *)enc_fuse_path);
+
   return 0;
 }
 
 static int
 tcfs_fsync (const char *fuse_path, int isdatasync, struct fuse_file_info *fi)
 {
-  /* Just a stub.	 This method is optional and can safely be left
-     unimplemented */
-  char *path = prefix_path (fuse_path, root_path);
+  /* Get the real path */
+  const char *enc_fuse_path = encrypt_path_and_filename (fuse_path, password);
+  const char *path = prefix_path (enc_fuse_path, root_path);
+  printf ("\tfsync %s\n", path);
 
-  (void)path;
-  (void)isdatasync;
-  (void)fi;
+  /* Synchronize the file's in-core state with storage device */
+  int res;
+  if (isdatasync)
+    res = fdatasync ((int)fi->fh); // God, please do not let this overflow
+  else
+    res = fsync ((int)fi->fh); // Also this
+
+  if (res == -1)
+    return -errno;
+
+  /* Free the path */
+  free ((void *)path);
+
   return 0;
 }
 
@@ -645,13 +806,11 @@ static int
 tcfs_getxattr (const char *fuse_path, const char *name, char *value,
                size_t size)
 {
-  char *path = prefix_path (fuse_path, root_path);
-  printf ("Called getxattr on %s name:%s size:%zu\n", path, name, size);
+  const char *enc_fuse_path = encrypt_path_and_filename (fuse_path, password);
+  const char *path = prefix_path (enc_fuse_path, root_path);
+  printf ("\tgetxattr %s\n", path);
 
-  if (strcmp (name, "security.capability")
-      == 0) // TODO: I don't know why this is called every time, understand why
-            // and handle this
-    return 0;
+  printf ("Called getxattr on %s name:%s size:%zu\n", path, name, size);
 
   int res = (int)lgetxattr (path, name, value, size);
   if (res == -1)
@@ -666,23 +825,33 @@ static int
 tcfs_listxattr (const char *fuse_path, char *list, size_t size)
 {
   printf ("Called listxattr\n");
-  char *path = prefix_path (fuse_path, root_path);
+  const char *enc_fuse_path = encrypt_path_and_filename (fuse_path, password);
+  const char *path = prefix_path (enc_fuse_path, root_path);
+  printf ("\tlistxattr %s\n", path);
 
-  int res = llistxattr (path, list, size);
-  if (res == -1)
-    return -errno;
-  return res;
+  ssize_t res = llistxattr (path, list, size);
+  if (res == -1L)
+    {
+      perror ("listxattr error");
+      return -errno;
+    }
+  return (int)res; // FUSE wants an int back
 }
 
 static int
 tcfs_removexattr (const char *fuse_path, const char *name)
 {
   printf ("Called removexattr\n");
-  char *path = prefix_path (fuse_path, root_path);
+  const char *enc_fuse_path = encrypt_path_and_filename (fuse_path, password);
+  const char *path = prefix_path (enc_fuse_path, root_path);
+  printf ("\tremovexattr %s\n", path);
 
   int res = lremovexattr (path, name);
   if (res == -1)
-    return -errno;
+    {
+      perror ("removexattr error");
+      return -errno;
+    }
   return 0;
 }
 
