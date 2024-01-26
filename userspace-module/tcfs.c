@@ -15,7 +15,6 @@
 #include "utils/crypt-utils/crypt-utils.h"
 #include "utils/tcfs_utils/tcfs_utils.h"
 #include <argp.h>
-#include <assert.h>
 #include <dirent.h>
 #include <errno.h>
 #include <fcntl.h> /* Definition of AT_* constants */
@@ -72,10 +71,9 @@ tcfs_getattr (const char *fuse_path, struct stat *stbuf,
               struct fuse_file_info *fi)
 {
   (void)fi;
-  printf ("Called getattr on %s   %s\n", root_path, fuse_path);
+  printf ("Called getattr on %s%s\n", root_path, fuse_path);
 
   int res;
-
   const char *enc_fuse_path = encrypt_path (fuse_path, password);
   printf ("\tgetattr enc_fuse_path: %s\n", enc_fuse_path);
   const char *new_path = prefix_path (enc_fuse_path, root_path);
@@ -180,7 +178,7 @@ tcfs_readdir (const char *fuse_path, void *buf, fuse_fill_dir_t filler,
       else
         {
           printf ("\tchecking for %s is %s\n", de->d_name,
-                  decrypt_file_name_with_hex (de->d_name, password));
+                  decrypt_file_name_with_hex((const char *)de->d_name, password));
 
           const char *dec_dirname = decrypt_path (de->d_name, password);
           if (dec_dirname == NULL){

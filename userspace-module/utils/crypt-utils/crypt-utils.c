@@ -292,30 +292,32 @@ encrypt_string (unsigned char *plaintext, const char *key,
   unsigned char ciphertext[plaintext_len + AES_BLOCK_SIZE];
   memset (ciphertext, 0, sizeof (ciphertext));
 
-  int len;
-  EVP_EncryptUpdate (ctx, ciphertext, &len, plaintext, plaintext_len);
-  EVP_EncryptFinal_ex (ctx, ciphertext + len, &len);
+  int len, total_len = 0;
+  EVP_EncryptUpdate (ctx, ciphertext, &len, plaintext, (int)plaintext_len);
+  total_len += len;
+  EVP_EncryptFinal_ex (ctx, ciphertext + total_len, &len);
+  total_len += len;
   EVP_CIPHER_CTX_free (ctx);
 
-  unsigned char *encoded_string = malloc (len * 2 + 1);
+  unsigned char *encoded_string = malloc (total_len * 2 + 1);
   if (!encoded_string)
     {
       return NULL;
     }
 
-  for (int i = 0; i < len; i++)
+  for (int i = 0; i < total_len; i++)
     {
       sprintf ((char *)&encoded_string[i * 2], "%02x", ciphertext[i]);
     }
-  encoded_string[len * 2] = '\0';
+  encoded_string[total_len * 2] = '\0';
 
-  *encrypted_key_len = len * 2;
+  *encrypted_key_len = total_len * 2;
   return encoded_string;
 }
 
 /**
  * @brief Decrypt the *ciphertext string using a AES 256 key
- * @param ciphertext  This is the string to decrypt
+ * @param ciphertext  This is the string to decrypt in HEX format
  * @param key The AES 256 KEY
  * @return unsigned char *  The plaintext string will be allocated and then
  * returned
@@ -324,28 +326,47 @@ encrypt_string (unsigned char *plaintext, const char *key,
 unsigned char *
 decrypt_string (unsigned char *ciphertext, const char *key)
 {
+  printf ("\t\tHEX TO STRING GOT %s\n", ciphertext);
   EVP_CIPHER_CTX *ctx;
-  const EVP_CIPHER *cipher
-      = EVP_aes_256_cbc (); // Choose the correct algorithm
+  const EVP_CIPHER *cipher = EVP_aes_256_cbc ();
   unsigned char iv[AES_BLOCK_SIZE];
   memset (iv, 0, AES_BLOCK_SIZE);
 
   ctx = EVP_CIPHER_CTX_new ();
   EVP_DecryptInit_ex (ctx, cipher, NULL, (const unsigned char *)key, iv);
 
-  size_t decoded_len = strlen ((const char *)ciphertext);
+  size_t ciphertext_len = strlen ((const char *)ciphertext) / 2;
+  unsigned char *decoded_ciphertext = malloc (ciphertext_len);
 
-  unsigned char plaintext[decoded_len];
+  for (size_t i = 0; i < ciphertext_len; i++) {
+      char hex[3] = {(char)ciphertext[i * 2], (char)ciphertext[i * 2 + 1], '\0'};
+      char *endptr;
+      unsigned long byte = strtoul(hex, &endptr, 16);
+
+      if (*endptr != '\0' || byte > UCHAR_MAX) {
+          perror ("decrypt string error");
+          return NULL;
+        }
+      decoded_ciphertext[i] = byte;
+    }
+
+  unsigned char plaintext[ciphertext_len + AES_BLOCK_SIZE + 1];
   memset (plaintext, 0, sizeof (plaintext));
 
   int len;
-  EVP_DecryptUpdate (ctx, plaintext, &len, ciphertext, (int)decoded_len);
-  EVP_DecryptFinal_ex (ctx, plaintext + len, &len);
+  EVP_DecryptUpdate (ctx, plaintext, &len, decoded_ciphertext,
+                     (int)ciphertext_len);
+  int padding_len;
+  EVP_DecryptFinal_ex (ctx, plaintext + len, &padding_len);
   EVP_CIPHER_CTX_free (ctx);
 
-  unsigned char *decrypted_string = (unsigned char *)malloc (decoded_len + 1);
-  memcpy (decrypted_string, plaintext, decoded_len);
-  decrypted_string[decoded_len] = '\0';
+  unsigned char *decrypted_string
+      = (unsigned char *)malloc (len + padding_len + 1);
+  memcpy (decrypted_string, plaintext, len + padding_len);
+  decrypted_string[len + padding_len] = '\0';
+
+  printf("\t\tdecoded_ciphertext %s, decrypted_string %s\n", decoded_ciphertext, decrypted_string);
+  free (decoded_ciphertext);
 
   return decrypted_string;
 }
@@ -366,30 +387,6 @@ is_valid_key (const unsigned char *key)
   return key_length != 32 ? 0 : 1;
 }
 
-/*
-int rebuild_key(char *key, char *cert, char *dest){
-    return -1;
-}*/
-
-/**
- * @brief Verifica se la stringa fornita è una stringa esadecimale valida
- * @param str La stringa da verificare
- * @return true se la stringa è esadecimale, false altrimenti
- */
-int
-is_hex_string (const char *str)
-{
-  while (*str)
-    {
-      if (!isxdigit (*str))
-        {
-          return 1;
-        }
-      str++;
-    }
-  return 0;
-}
-
 const char *
 encrypt_file_name_with_hex (const char *file, const char *key)
 {
@@ -401,8 +398,8 @@ encrypt_file_name_with_hex (const char *file, const char *key)
 const char *
 decrypt_file_name_with_hex (const char *enc_file, const char *key)
 {
-  return (const char *)hex_to_string ((const char *)decrypt_string (
-      (unsigned char *)hex_to_string (enc_file), key));
+  return (const char *)hex_to_string (
+      (const char *)decrypt_string ((unsigned char *)enc_file, key));
 }
 
 /**
