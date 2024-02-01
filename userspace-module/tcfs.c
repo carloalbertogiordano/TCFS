@@ -4,11 +4,6 @@
  */
 
 #define FUSE_USE_VERSION 30
-#define HAVE_SETXATTR
-
-#ifdef HAVE_CONFIG_H
-#include <config.h>
-#endif
 
 /* For pread()/pwrite() */
 #if __STDC_VERSION__ >= 199901L
@@ -29,15 +24,11 @@
 #include <errno.h>
 #include <fcntl.h> /* Definition of AT_* constants */
 #include <fuse3/fuse.h>
-#include <limits.h>
-#include <linux/limits.h>
-#include <pwd.h>
 #include <stdio.h>
 #include <string.h>
 #include <sys/stat.h>
 #include <sys/time.h>
 #include <sys/xattr.h>
-#include <time.h>
 #include <unistd.h>
 
 /**
@@ -576,7 +567,6 @@ tcfs_truncate (const char *fuse_path, off_t size, struct fuse_file_info *fi)
   return TCFS_SUCCESS;
 }
 
-// #ifdef HAVE_UTIMENSAT
 /**
  * @brief Modify the access and modification timestamps of a file in the TCFS
  * file system.
@@ -596,13 +586,6 @@ tcfs_truncate (const char *fuse_path, off_t size, struct fuse_file_info *fi)
  * timestamps of a file within the TCFS. It decodes the encrypted file path,
  * translates it into the actual file path on the underlying file system, and
  * then uses the `utimes` function to apply the changes to the file timestamps.
- *
- * @param fuse_path The path of the encrypted file within the TCFS.
- * @param ts An array containing two timespec structures. The first structure
- * represents the new access timestamp, and the second represents the new
- * modification timestamp.
- * @param fi File information provided by FUSE, which may be used to obtain
- * additional details about the file if needed.
  *
  * @return true on success. On failure, it returns a negative error code
  * representing the type of error encountered.
@@ -636,7 +619,6 @@ tcfs_utimens (const char *fuse_path, const struct timespec ts[2],
 
   return TCFS_SUCCESS;
 }
-// #endif
 
 /**
  * @brief Opens a file.
@@ -675,37 +657,28 @@ tcfs_open (const char *fuse_path, struct fuse_file_info *fi)
  * This function is called when the `getattr` operation is performed on a file
  * in the TCFS to obtain file attributes.
  *
- * @param fuse_path The path of the encrypted file for which the size is
- * requested.
- * @param stbuf Buffer to store the file attributes, including the size.
- * @param fi File information structure provided by FUSE.
- * @return TCFS_SUCCESS on success, negative error code on failure.
- *
- * @details
- * The `tcfs_file_size` function is invoked to retrieve the size of a file
- * within the TCFS. It decodes the encrypted file path, translates it into the
- * actual file path on the underlying file system, and then uses the `getattr`
- * function to obtain the file attributes, including the file size.
- *
  * @param fuse_path The path of the encrypted file within the TCFS.
  * @param stbuf Buffer to store the file attributes, including the file size.
  * @param fi File information provided by FUSE, which may be used to obtain
  * additional details about the file if needed.
  *
+ * @details
+ * The `file_size` function is invoked to retrieve the size of a file
+ * within the TCFS. It decodes the encrypted file path, translates it into the
+ * actual file path on the underlying file system, and then uses the `getattr`
+ * function to obtain the file attributes, including the file size.
+ *
+ *
  * @return true on success. On failure, it returns a negative error code
  * representing the type of error encountered.
  *
  * @note
- * - The function is a crucial part of file attribute retrieval, and the size
- * is a fundamental attribute of a file.
  * - The correct functioning of this function is essential for providing
  * accurate information about the file size.
  *
  * @warning
  * - Ensure that the function correctly translates the encrypted file path into
  * the actual file path on the underlying file system.
- * - Verify that the file attributes, especially the size, are accurately
- * retrieved and reported in the `stbuf` buffer.
  */
 static inline int
 file_size (FILE *file)
@@ -920,8 +893,7 @@ tcfs_write (const char *fuse_path, const char *buf, size_t size, off_t offset,
  * This function is called when the `statfs` operation is performed to obtain
  * statistics about the TCFS file system.
  *
- * @param fuse_path The path of the file system for which statistics are
- * requested.
+ * @param fuse_path The path of the file system within the TCFS.
  * @param stbuf Buffer to store file system statistics.
  * @return TCFS_SUCCESS on success, negative error code on failure.
  *
@@ -930,21 +902,14 @@ tcfs_write (const char *fuse_path, const char *buf, size_t size, off_t offset,
  * file system. It may include information such as the total size, free space,
  * and available space.
  *
- * @param fuse_path The path of the file system within the TCFS.
- * @param stbuf Buffer to store the file system statistics.
- *
  * @return true on success. On failure, it returns a negative error code
  * representing the type of error encountered.
  *
  * @note
  * - The function is essential for providing information about the overall
  * status of the TCFS file system.
- * - Ensure that the file system statistics are accurately retrieved and
- * reported in the `stbuf` buffer.
  *
  * @warning
- * - Verify that the function correctly handles errors and returns the
- * appropriate error codes.
  * - The accuracy of the reported statistics is crucial for applications that
  * rely on file system information.
  */
@@ -996,9 +961,10 @@ tcfs_setxattr (const char *fuse_path, const char *name, const char *value,
  *
  * This function is called when a new file is created in the TCFS file system.
  *
- * @param fuse_path The path of the file to be created.
- * @param mode The mode of the file (permissions).
- * @param fi File information, including flags and an open file handle.
+ * @param fuse_path The path of the file within the TCFS.
+ * @param mode The mode of the file, specifying permissions and other
+ * attributes.
+ * @param fi File information containing flags and an open file handle.
  * @return TCFS_SUCCESS on success, negative error code on failure.
  *
  * @details
@@ -1007,13 +973,6 @@ tcfs_setxattr (const char *fuse_path, const char *name, const char *value,
  * allocating resources, and opening the file for subsequent read and write
  * operations.
  *
- * @param fuse_path The path of the file within the TCFS.
- * @param mode The mode of the file, specifying permissions and other
- * attributes.
- * @param fi File information containing flags and an open file handle.
- *
- * @return true on success. On failure, it returns a negative error code
- * representing the type of error encountered.
  *
  * @note
  * - The function must create the file and return an open file handle in the
@@ -1022,10 +981,7 @@ tcfs_setxattr (const char *fuse_path, const char *name, const char *value,
  * other relevant attributes.
  *
  * @warning
- * - Verify that the function correctly handles errors and returns the
- * appropriate error codes.
- * - Implement necessary checks to ensure the file is created successfully and
- * is ready for subsequent operations.
+ * - Verify that the function correctly handles errors
  */
 static int
 tcfs_create (const char *fuse_path, mode_t mode, struct fuse_file_info *fi)
@@ -1167,7 +1123,7 @@ tcfs_fsync (const char *fuse_path, int isdatasync, struct fuse_file_info *fi)
  * specified file or directory.
  *
  * @param fuse_path The path of the file or directory within the TCFS.
- * @param name The name of the extended attribute.
+ * @param name The name of the extended attribute to retrieve.
  * @param value Buffer to store the value of the extended attribute.
  * @param size The size of the buffer.
  * @return Size of the extended attribute value on success, negative error code
@@ -1179,13 +1135,8 @@ tcfs_fsync (const char *fuse_path, int isdatasync, struct fuse_file_info *fi)
  * The attribute value is stored in the provided buffer (`value`) with a
  * specified size.
  *
- * @param fuse_path The path of the file or directory.
- * @param name The name of the extended attribute to retrieve.
- * @param value Buffer to store the value of the extended attribute.
- * @param size The size of the buffer.
- *
- * @return On success, the function returns the size of the extended attribute
- * value. On failure, it returns a negative error code representing the type of
+ * @return On success, the function returns the extended attribute value.
+ * On failure, it returns a negative error code representing the type of
  * error encountered.
  *
  * @note
@@ -1256,17 +1207,12 @@ tcfs_listxattr (const char *fuse_path, char *list, size_t size)
  * The `removexattr` function is invoked to remove the specified extended
  * attribute associated with a file or directory within the TCFS file system.
  *
- * @param fuse_path The path of the file or directory.
- * @param name The name of the extended attribute to remove.
- *
- * @return On success, the function returns TCFS_SUCCESS.
- *         On failure, it returns a negative error code representing the type
- * of error encountered.
+ * @return On success, the function returns TCFS_SUCCESS. On failure, it
+ * returns a negative error code representing the type of error encountered.
  *
  * @note
  * - The function must ensure the proper removal of the specified extended
  * attribute.
- * - Verify that the correct error codes are returned in case of failures.
  * - Implement appropriate checks to handle different scenarios and edge cases.
  */
 static int

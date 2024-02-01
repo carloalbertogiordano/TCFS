@@ -23,8 +23,6 @@
 
 void get_user_name (char *buf, size_t size);
 
-int is_encrypted (const char *path);
-
 char *prefix_path (const char *path, const char *realpath);
 
 void print_aes_key (unsigned char *key);
