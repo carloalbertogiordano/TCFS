@@ -37,49 +37,49 @@ user/old_stuff/tcfs_helper_tools.c:102:26: note: Null pointer dereference
 user/old_stuff/tcfs_helper_tools.c:166:10: style: Variable 'ch' is assigned a value that is never used. [unreadVariable]
   int ch = 0;
          ^
-userspace-module/tcfs.c:757:7: error: Resource leak: path_ptr [resourceLeak]
+userspace-module/tcfs.c:762:7: error: Resource leak: path_ptr [resourceLeak]
       return -errno;
       ^
-userspace-module/tcfs.c:757:7: error: Resource leak: tmpf [resourceLeak]
+userspace-module/tcfs.c:762:7: error: Resource leak: tmpf [resourceLeak]
       return -errno;
       ^
-userspace-module/tcfs.c:768:7: error: Resource leak: path_ptr [resourceLeak]
+userspace-module/tcfs.c:773:7: error: Resource leak: path_ptr [resourceLeak]
       return -errno;
       ^
-userspace-module/tcfs.c:768:7: error: Resource leak: tmpf [resourceLeak]
+userspace-module/tcfs.c:773:7: error: Resource leak: tmpf [resourceLeak]
       return -errno;
       ^
-userspace-module/tcfs.c:849:7: error: Resource leak: path_ptr [resourceLeak]
+userspace-module/tcfs.c:854:7: error: Resource leak: path_ptr [resourceLeak]
       return -errno;
       ^
-userspace-module/tcfs.c:861:7: error: Resource leak: path_ptr [resourceLeak]
+userspace-module/tcfs.c:866:7: error: Resource leak: path_ptr [resourceLeak]
       return -errno;
       ^
-userspace-module/tcfs.c:867:3: error: Memory leak: decrypted_key [memleak]
+userspace-module/tcfs.c:872:3: error: Memory leak: decrypted_key [memleak]
   decrypted_key = decrypt_string (encrypted_key, password);
   ^
-userspace-module/tcfs.c:1057:7: error: Resource leak: res [resourceLeak]
+userspace-module/tcfs.c:1062:7: error: Resource leak: res [resourceLeak]
       return -errno;
       ^
-userspace-module/tcfs.c:1062:7: error: Resource leak: res [resourceLeak]
+userspace-module/tcfs.c:1067:7: error: Resource leak: res [resourceLeak]
       return -1;
       ^
-userspace-module/tcfs.c:1076:7: error: Resource leak: res [resourceLeak]
+userspace-module/tcfs.c:1081:7: error: Resource leak: res [resourceLeak]
       return -errno;
       ^
-userspace-module/tcfs.c:1087:7: error: Resource leak: res [resourceLeak]
+userspace-module/tcfs.c:1092:7: error: Resource leak: res [resourceLeak]
       return -errno;
       ^
-userspace-module/tcfs.c:1051:3: warning: Either the condition 'key==NULL' is redundant or there is possible null pointer dereference: key. [nullPointerRedundantCheck]
+userspace-module/tcfs.c:1056:3: warning: Either the condition 'key==NULL' is redundant or there is possible null pointer dereference: key. [nullPointerRedundantCheck]
   key[32] = '\0';
   ^
-userspace-module/tcfs.c:1054:11: note: Assuming that condition 'key==NULL' is not redundant
+userspace-module/tcfs.c:1059:11: note: Assuming that condition 'key==NULL' is not redundant
   if (key == NULL)
           ^
-userspace-module/tcfs.c:1051:3: note: Null pointer dereference
+userspace-module/tcfs.c:1056:3: note: Null pointer dereference
   key[32] = '\0';
   ^
-userspace-module/tcfs.c:262:11: style: Consecutive return, break, continue, goto or throw statements are unnecessary. [duplicateBreak]
+userspace-module/tcfs.c:267:11: style: Consecutive return, break, continue, goto or throw statements are unnecessary. [duplicateBreak]
           break;
           ^
 userspace-module/utils/crypt-utils/crypt-utils.c:264:7: warning: Assignment of function parameter has no effect outside the function. Did you forget dereferencing it? [uselessAssignmentPtrArg]
