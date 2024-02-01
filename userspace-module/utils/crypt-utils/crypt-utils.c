@@ -87,7 +87,7 @@ do_crypt (FILE *in, FILE *out, int action, unsigned char *key_str)
         {
           /* Error */
           fprintf (stderr, "Key_str must not be NULL\n");
-          return 0;
+          return false;
         }
       /* Build Key from String */
       i = EVP_BytesToKey (EVP_aes_256_cbc (), EVP_sha1 (), NULL, key_str,
@@ -98,7 +98,7 @@ do_crypt (FILE *in, FILE *out, int action, unsigned char *key_str)
           /* Error */
           fprintf (stderr, "Key size is %d bits - should be 256 bits\n",
                    i * 8);
-          return 0;
+          return false;
         }
       /* Init Engine */
       EVP_CIPHER_CTX_init (ctx);
@@ -123,7 +123,7 @@ do_crypt (FILE *in, FILE *out, int action, unsigned char *key_str)
             {
               /* Error */
               EVP_CIPHER_CTX_cleanup (ctx);
-              return 0;
+              return false;
             }
         }
       /* If in pass-through mode. copy block as is */
@@ -140,7 +140,7 @@ do_crypt (FILE *in, FILE *out, int action, unsigned char *key_str)
           /* Error */
           perror ("fwrite error");
           EVP_CIPHER_CTX_cleanup (ctx);
-          return 0;
+          return false;
         }
     }
 
@@ -152,7 +152,7 @@ do_crypt (FILE *in, FILE *out, int action, unsigned char *key_str)
         {
           /* Error */
           EVP_CIPHER_CTX_cleanup (ctx);
-          return 0;
+          return false;
         }
       /* Write remainign cipher block + padding*/
       fwrite (outbuf, sizeof (*inbuf), outlen, out);
@@ -160,13 +160,13 @@ do_crypt (FILE *in, FILE *out, int action, unsigned char *key_str)
     }
 
   /* Success */
-  return 1;
+  return true;
 }
 
 /**
  * @brief Verify if there is enough entropy in the system to generate a key
  * @return A value greater than 0 corresponding to the entropy level, if an
- * error occurs -1 is returned
+ * error occurs false is returned
  * @note This function evaluates the entropy by checking the
  * /proc/sys/kernel/random/entropy_avail file. \see man page 4 for random
  * */
@@ -177,15 +177,15 @@ check_entropy (void)
   if (entropy_file == NULL)
     {
       perror ("Err: Cannot open entropy file");
-      return -1;
+      return false;
     }
 
   int entropy_value;
-  if (fscanf (entropy_file, "%d", &entropy_value) != 1)
+  if (fscanf (entropy_file, "%d", &entropy_value) != true)
     {
       perror ("Err: Cannot estimate entropy");
       fclose (entropy_file);
-      return -1;
+      return false;
     }
 
   fclose (entropy_file);
@@ -218,9 +218,9 @@ add_entropy (void)
       exit (EXIT_FAILURE);
     }
 
-  // Usa i dati casuali per aggiungere entropia
+  // Use random data to fill up entropy
   RAND_add (random_data, sizeof (random_data),
-            0.5); // 0.5 è un peso arbitrario
+            0.5); // 0.5 is an arbitrary weight
 
   fprintf (stdout, "Entropy added successfully!\n");
 }
@@ -247,7 +247,7 @@ generate_key (unsigned char *destination)
           add_entropy ();
         }
 
-      if (RAND_bytes (destination, 32) != 1)
+      if (RAND_bytes (destination, 32) != true)
         {
           fprintf (stderr, "Err: Cannot generate key\n");
           destination = NULL;
@@ -257,9 +257,9 @@ generate_key (unsigned char *destination)
         break;
     }
 
-  if (is_valid_key (destination) == 0)
+  if (is_valid_key (destination) == false)
     {
-      fprintf (stderr, "Err: Generated key is inval1d\n");
+      logMessage("ERR: Generated key is invalid\n");
       print_aes_key (destination);
       destination = NULL;
     }
@@ -391,7 +391,7 @@ is_valid_key (const unsigned char *key)
   memcpy (str, key, 32);
   str[32] = '\0';
   size_t key_length = strlen (str);
-  return key_length != 32 ? 0 : 1;
+  return key_length != 32 ? false : true;
 }
 
 const char *

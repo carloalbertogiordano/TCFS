@@ -39,7 +39,7 @@ is_encrypted (const char *path)
   getxattr (path, "user.encrypted", xattr_val, sizeof (char) * 5);
   xattr_val[4] == '\n';
 
-  return strcmp (xattr_val, "true") == 0 ? 1 : 0;
+  return strcmp (xattr_val, "true") == 0 ? true : false;
 }
 
 /**
@@ -88,7 +88,7 @@ prefix_path (const char *path, const char *realpath)
  * @deprecated Currently has no use.
  * @brief Read a file, useful for debugging tmpfiles.
  * @param file The file to read.
- * @return 0
+ * @return true
  * @note It will print "file was empty" if the file was empty.
  */
 int
@@ -109,7 +109,7 @@ read_file (FILE *file)
     fprintf (stderr, "file was empty\n");
   rewind (file);
   /* fseek(tmpf, offset, SEEK_END); */
-  return 0;
+  return true;
 }
 
 /**
@@ -146,10 +146,10 @@ get_encrypted_key (char *filepath, unsigned char *encrypted_key)
       if (fgetxattr (src_fd, "user.key", encrypted_key, 33) != -1)
         {
           fclose (src_file);
-          return 1;
+          return false;
         }
     }
-  return 0;
+  return true;
 }
 
 /**

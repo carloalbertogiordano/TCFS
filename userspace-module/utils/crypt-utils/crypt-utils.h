@@ -24,12 +24,12 @@
  * @def ENCRYPT
  * @brief Signifies that the selected action is encryption
  * */
-#define ENCRYPT 1
+#define ENCRYPT true
 /**
  * @def DECRYPT
  * @brief Signifies that the selected action is decryption
  * */
-#define DECRYPT 0
+#define DECRYPT false
 
 extern int do_crypt (FILE *in, FILE *out, int action, unsigned char *key_str);
 

@@ -17,6 +17,11 @@
 #define _XOPEN_SOURCE 500
 #endif /* __STDC_VERSION__ */
 
+#define TCFS_SUCCESS 0
+#define ERR_inval_arg_len 1
+#define ERR_inval_key 2
+#define ERR_invalid_enc_dir_name 3
+
 #include "utils/crypt-utils/crypt-utils.h"
 #include "utils/tcfs_utils/tcfs_utils.h"
 #include <argp.h>
@@ -56,7 +61,7 @@ static int tcfs_getxattr (const char *fuse_path, const char *name, char *value,
  *
  * @param fuse_path The path to the directory.
  * @param fi File information.
- * @return 0 on success, a negative error code on failure.
+ * @return TCFS_SUCCESS on success, a negative error code on failure.
  */
 static int
 tcfs_opendir (const char *fuse_path, struct fuse_file_info *fi)
@@ -77,7 +82,7 @@ tcfs_opendir (const char *fuse_path, struct fuse_file_info *fi)
     }
 
   closedir (dp);
-  return 0;
+  return TCFS_SUCCESS;
 }
 
 /**
@@ -88,7 +93,7 @@ tcfs_opendir (const char *fuse_path, struct fuse_file_info *fi)
  * @param fuse_path The path to the file/directory.
  * @param stbuf Buffer to fill with attributes.
  * @param fi File information.
- * @return 0 on success, a negative error code on failure.
+ * @return TCFS_SUCCESS on success, a negative error code on failure.
  */
 static int
 tcfs_getattr (const char *fuse_path, struct stat *stbuf,
@@ -111,7 +116,7 @@ tcfs_getattr (const char *fuse_path, struct stat *stbuf,
       return -errno;
     }
 
-  return 0;
+  return TCFS_SUCCESS;
 }
 
 /**
@@ -121,7 +126,7 @@ tcfs_getattr (const char *fuse_path, struct stat *stbuf,
  *
  * @param fuse_path The path to the file/directory.
  * @param mask The requested access permissions.
- * @return 0 on success, a negative error code on failure.
+ * @return true on success, a negative error code on failure.
  */
 static int
 tcfs_access (const char *fuse_path, int mask)
@@ -140,7 +145,7 @@ tcfs_access (const char *fuse_path, int mask)
       return -errno;
     }
 
-  return 0;
+  return TCFS_SUCCESS;
 }
 
 /**
@@ -151,7 +156,7 @@ tcfs_access (const char *fuse_path, int mask)
  * @param fuse_path The path to the symbolic link.
  * @param buf Buffer to fill with the link target.
  * @param size The size of the buffer.
- * @return 0 on success, a negative error code on failure.
+ * @return true on success, a negative error code on failure.
  */
 static int
 tcfs_readlink (const char *fuse_path, char *buf, size_t size)
@@ -171,7 +176,7 @@ tcfs_readlink (const char *fuse_path, char *buf, size_t size)
     }
 
   buf[res] = '\0';
-  return 0;
+  return TCFS_SUCCESS;
 }
 
 /**
@@ -185,7 +190,7 @@ tcfs_readlink (const char *fuse_path, char *buf, size_t size)
  * @param offset The offset within the directory.
  * @param fi File information.
  * @param frdf Additional flags for readdir operation.
- * @return 0 on success, a negative error code on failure.
+ * @return true on success, a negative error code on failure.
  */
 static int
 tcfs_readdir (const char *fuse_path, void *buf, fuse_fill_dir_t filler,
@@ -219,7 +224,7 @@ tcfs_readdir (const char *fuse_path, void *buf, fuse_fill_dir_t filler,
       st.st_ino = de->d_ino;
       st.st_mode = de->d_type << 12;
 
-      int filler_res = -1, can_break = 0;
+      int filler_res = -1, can_break = false;
 
       if ((strcmp (de->d_name, ".") == 0 || strcmp (de->d_name, "..") == 0
            || strcmp (de->d_name, "/") == 0))
@@ -228,7 +233,7 @@ tcfs_readdir (const char *fuse_path, void *buf, fuse_fill_dir_t filler,
           filler_res = filler (buf, de->d_name, &st, 0, 0);
           if (filler_res != 0)
             {
-              can_break = 1;
+              can_break = true;
             }
         }
       else
@@ -241,19 +246,19 @@ tcfs_readdir (const char *fuse_path, void *buf, fuse_fill_dir_t filler,
           if (dec_dirname == NULL)
             {
               perror ("Could not decipher dir name");
-              return -1;
+              return -ERR_invalid_enc_dir_name;
             }
 
           // We must avoid the initial / of dec_dirname
           filler_res = filler (buf, dec_dirname + 1, &st, 0, 0);
           if (filler_res != 0)
             {
-              can_break = 1;
+              can_break = true;
             }
         }
 
       logMessage ("FILLER RES: %d, CAN BREAK %d\n", filler_res, can_break);
-      if (can_break == 1)
+      if (can_break)
         {
           logMessage ("Breaking out\n");
           perror ("readdir error");
@@ -264,7 +269,7 @@ tcfs_readdir (const char *fuse_path, void *buf, fuse_fill_dir_t filler,
     }
 
   closedir (dp);
-  return 0;
+  return TCFS_SUCCESS;
 }
 
 /**
@@ -275,7 +280,7 @@ tcfs_readdir (const char *fuse_path, void *buf, fuse_fill_dir_t filler,
  * @param fuse_path The path to the file.
  * @param mode File mode.
  * @param rdev Device numbers (if the file is a special file).
- * @return 0 on success, a negative error code on failure.
+ * @return true on success, a negative error code on failure.
  */
 static int
 tcfs_mknod (const char *fuse_path, mode_t mode, dev_t rdev)
@@ -303,7 +308,7 @@ tcfs_mknod (const char *fuse_path, mode_t mode, dev_t rdev)
   if (res == -1)
     return -errno;
 
-  return 0;
+  return TCFS_SUCCESS;
 }
 
 /**
@@ -313,7 +318,7 @@ tcfs_mknod (const char *fuse_path, mode_t mode, dev_t rdev)
  *
  * @param fuse_path The path to the directory.
  * @param mode Directory mode.
- * @return 0 on success, a negative error code on failure.
+ * @return true on success, a negative error code on failure.
  */
 static int
 tcfs_mkdir (const char *fuse_path, mode_t mode)
@@ -331,7 +336,7 @@ tcfs_mkdir (const char *fuse_path, mode_t mode)
   if (res == -1)
     return -errno;
 
-  return 0;
+  return TCFS_SUCCESS;
 }
 
 /**
@@ -340,7 +345,7 @@ tcfs_mkdir (const char *fuse_path, mode_t mode)
  * This function is called to remove a file.
  *
  * @param fuse_path The path to the file.
- * @return 0 on success, a negative error code on failure.
+ * @return true on success, a negative error code on failure.
  */
 static int
 tcfs_unlink (const char *fuse_path)
@@ -357,7 +362,7 @@ tcfs_unlink (const char *fuse_path)
   if (res == -1)
     return -errno;
 
-  return 0;
+  return TCFS_SUCCESS;
 }
 
 /**
@@ -366,7 +371,7 @@ tcfs_unlink (const char *fuse_path)
  * This function is called to remove a directory.
  *
  * @param fuse_path The path to the directory.
- * @return 0 on success, a negative error code on failure.
+ * @return true on success, a negative error code on failure.
  */
 static int
 tcfs_rmdir (const char *fuse_path)
@@ -383,7 +388,7 @@ tcfs_rmdir (const char *fuse_path)
   if (res == -1)
     return -errno;
 
-  return 0;
+  return TCFS_SUCCESS;
 }
 
 /**
@@ -393,7 +398,7 @@ tcfs_rmdir (const char *fuse_path)
  *
  * @param from Source path of the symbolic link.
  * @param to Target path of the symbolic link.
- * @return 0 on success, a negative error code on failure.
+ * @return true on success, a negative error code on failure.
  */
 static int
 tcfs_symlink (const char *from, const char *to)
@@ -414,7 +419,7 @@ tcfs_symlink (const char *from, const char *to)
       return -errno;
     }
 
-  return 0;
+  return TCFS_SUCCESS;
 }
 
 /**
@@ -425,7 +430,7 @@ tcfs_symlink (const char *from, const char *to)
  * @param from Source path.
  * @param to Target path.
  * @param flags Flags for the rename operation.
- * @return 0 on success, a negative error code on failure.
+ * @return true on success, a negative error code on failure.
  */
 static int
 tcfs_rename (const char *from, const char *to, unsigned int flags)
@@ -444,7 +449,7 @@ tcfs_rename (const char *from, const char *to, unsigned int flags)
   if (res == -1)
     return -errno;
 
-  return 0;
+  return TCFS_SUCCESS;
 }
 
 /**
@@ -454,7 +459,7 @@ tcfs_rename (const char *from, const char *to, unsigned int flags)
  *
  * @param from Source path.
  * @param to Target path.
- * @return 0 on success, a negative error code on failure.
+ * @return true on success, a negative error code on failure.
  */
 static int
 tcfs_link (const char *from, const char *to)
@@ -475,7 +480,7 @@ tcfs_link (const char *from, const char *to)
       return -errno;
     }
 
-  return 0;
+  return TCFS_SUCCESS;
 }
 
 /**
@@ -486,7 +491,7 @@ tcfs_link (const char *from, const char *to)
  * @param fuse_path The path to the file.
  * @param mode New file mode.
  * @param fi File information.
- * @return 0 on success, a negative error code on failure.
+ * @return true on success, a negative error code on failure.
  */
 static int
 tcfs_chmod (const char *fuse_path, mode_t mode, struct fuse_file_info *fi)
@@ -507,7 +512,7 @@ tcfs_chmod (const char *fuse_path, mode_t mode, struct fuse_file_info *fi)
       return -errno;
     }
 
-  return 0;
+  return TCFS_SUCCESS;
 }
 
 /**
@@ -519,7 +524,7 @@ tcfs_chmod (const char *fuse_path, mode_t mode, struct fuse_file_info *fi)
  * @param uid New user ID.
  * @param gid New group ID.
  * @param fi File information.
- * @return 0 on success, a negative error code on failure.
+ * @return true on success, a negative error code on failure.
  */
 static int
 tcfs_chown (const char *fuse_path, uid_t uid, gid_t gid,
@@ -537,7 +542,7 @@ tcfs_chown (const char *fuse_path, uid_t uid, gid_t gid,
   if (res == -1)
     return -errno;
 
-  return 0;
+  return TCFS_SUCCESS;
 }
 
 /**
@@ -548,7 +553,7 @@ tcfs_chown (const char *fuse_path, uid_t uid, gid_t gid,
  * @param fuse_path The path to the file.
  * @param size New size of the file.
  * @param fi File information.
- * @return 0 on success, a negative error code on failure.
+ * @return true on success, a negative error code on failure.
  */
 static int
 tcfs_truncate (const char *fuse_path, off_t size, struct fuse_file_info *fi)
@@ -568,7 +573,7 @@ tcfs_truncate (const char *fuse_path, off_t size, struct fuse_file_info *fi)
       return -errno;
     }
 
-  return 0;
+  return TCFS_SUCCESS;
 }
 
 // #ifdef HAVE_UTIMENSAT
@@ -584,7 +589,7 @@ tcfs_truncate (const char *fuse_path, off_t size, struct fuse_file_info *fi)
  * @param ts An array of two timespec structures containing the new access and
  * modification timestamps.
  * @param fi File information structure provided by FUSE.
- * @return 0 on success, negative error code on failure.
+ * @return TCFS_SUCCESS on success, negative error code on failure.
  *
  * @details
  * The `tcfs_utimens` function is invoked to modify the access and modification
@@ -599,7 +604,7 @@ tcfs_truncate (const char *fuse_path, off_t size, struct fuse_file_info *fi)
  * @param fi File information provided by FUSE, which may be used to obtain
  * additional details about the file if needed.
  *
- * @return 0 on success. On failure, it returns a negative error code
+ * @return true on success. On failure, it returns a negative error code
  * representing the type of error encountered.
  *
  */
@@ -629,7 +634,7 @@ tcfs_utimens (const char *fuse_path, const struct timespec ts[2],
       return -errno;
     }
 
-  return 0;
+  return TCFS_SUCCESS;
 }
 // #endif
 
@@ -640,7 +645,7 @@ tcfs_utimens (const char *fuse_path, const struct timespec ts[2],
  *
  * @param fuse_path The path to the file.
  * @param fi File information.
- * @return 0 on success, a negative error code on failure.
+ * @return true on success, a negative error code on failure.
  */
 static int
 tcfs_open (const char *fuse_path, struct fuse_file_info *fi)
@@ -661,7 +666,7 @@ tcfs_open (const char *fuse_path, struct fuse_file_info *fi)
     }
 
   close (res);
-  return 0;
+  return TCFS_SUCCESS;
 }
 
 /**
@@ -674,7 +679,7 @@ tcfs_open (const char *fuse_path, struct fuse_file_info *fi)
  * requested.
  * @param stbuf Buffer to store the file attributes, including the size.
  * @param fi File information structure provided by FUSE.
- * @return 0 on success, negative error code on failure.
+ * @return TCFS_SUCCESS on success, negative error code on failure.
  *
  * @details
  * The `tcfs_file_size` function is invoked to retrieve the size of a file
@@ -687,7 +692,7 @@ tcfs_open (const char *fuse_path, struct fuse_file_info *fi)
  * @param fi File information provided by FUSE, which may be used to obtain
  * additional details about the file if needed.
  *
- * @return 0 on success. On failure, it returns a negative error code
+ * @return true on success. On failure, it returns a negative error code
  * representing the type of error encountered.
  *
  * @note
@@ -773,7 +778,7 @@ tcfs_read (const char *fuse_path, char *buf, size_t size, off_t offset,
   decrypted_key = decrypt_string (encrypted_key, password);
 
   /* Decrypt*/
-  if (do_crypt (path_ptr, tmpf, DECRYPT, decrypted_key) != 1)
+  if (do_crypt (path_ptr, tmpf, DECRYPT, decrypted_key) != true)
     {
       perror ("Err: do_crypt cannot decrypt file");
       return -errno;
@@ -874,9 +879,9 @@ tcfs_write (const char *fuse_path, const char *buf, size_t size, off_t offset,
     }
 
   /* if the file to write to exists, read it into the tempfile */
-  if (tcfs_access (fuse_path, R_OK) == 0 && file_size (path_ptr) > 0)
+  if (tcfs_access (fuse_path, R_OK) == TCFS_SUCCESS && file_size (path_ptr) > 0)
     {
-      if (do_crypt (path_ptr, tmpf, DECRYPT, decrypted_key) == 0)
+      if (do_crypt (path_ptr, tmpf, DECRYPT, decrypted_key) == false)
         {
           perror ("do_crypt: Cannot cypher file\n");
           return --errno;
@@ -895,7 +900,7 @@ tcfs_write (const char *fuse_path, const char *buf, size_t size, off_t offset,
     }
 
   /* Encrypt*/
-  if (do_crypt (tmpf, path_ptr, ENCRYPT, decrypted_key) == 0)
+  if (do_crypt (tmpf, path_ptr, ENCRYPT, decrypted_key) == false)
     {
       perror ("do_crypt 2: cannot cypher file\n");
       return -errno;
@@ -918,7 +923,7 @@ tcfs_write (const char *fuse_path, const char *buf, size_t size, off_t offset,
  * @param fuse_path The path of the file system for which statistics are
  * requested.
  * @param stbuf Buffer to store file system statistics.
- * @return 0 on success, negative error code on failure.
+ * @return TCFS_SUCCESS on success, negative error code on failure.
  *
  * @details
  * The `tcfs_statfs` function is invoked to retrieve statistics about the TCFS
@@ -928,7 +933,7 @@ tcfs_write (const char *fuse_path, const char *buf, size_t size, off_t offset,
  * @param fuse_path The path of the file system within the TCFS.
  * @param stbuf Buffer to store the file system statistics.
  *
- * @return 0 on success. On failure, it returns a negative error code
+ * @return true on success. On failure, it returns a negative error code
  * representing the type of error encountered.
  *
  * @note
@@ -955,7 +960,7 @@ tcfs_statfs (const char *fuse_path, struct statvfs *stbuf)
   if (res == -1)
     return -errno;
 
-  return 0;
+  return TCFS_SUCCESS;
 }
 
 /**
@@ -968,7 +973,7 @@ tcfs_statfs (const char *fuse_path, struct statvfs *stbuf)
  * @param value Attribute value.
  * @param size Size of the value.
  * @param flags Flags for the setxattr operation.
- * @return 0 on success, a negative error code on failure.
+ * @return true on success, a negative error code on failure.
  */
 static int
 tcfs_setxattr (const char *fuse_path, const char *name, const char *value,
@@ -983,7 +988,7 @@ tcfs_setxattr (const char *fuse_path, const char *name, const char *value,
     perror ("tcfs_lsetxattr");
   if (res == -1)
     return -errno;
-  return 0;
+  return TCFS_SUCCESS;
 }
 
 /**
@@ -994,7 +999,7 @@ tcfs_setxattr (const char *fuse_path, const char *name, const char *value,
  * @param fuse_path The path of the file to be created.
  * @param mode The mode of the file (permissions).
  * @param fi File information, including flags and an open file handle.
- * @return 0 on success, negative error code on failure.
+ * @return TCFS_SUCCESS on success, negative error code on failure.
  *
  * @details
  * The `create` function is invoked when a new file is created in the TCFS file
@@ -1007,7 +1012,7 @@ tcfs_setxattr (const char *fuse_path, const char *name, const char *value,
  * attributes.
  * @param fi File information containing flags and an open file handle.
  *
- * @return 0 on success. On failure, it returns a negative error code
+ * @return true on success. On failure, it returns a negative error code
  * representing the type of error encountered.
  *
  * @note
@@ -1040,7 +1045,7 @@ tcfs_create (const char *fuse_path, mode_t mode, struct fuse_file_info *fi)
 
   // Flag file as encrypted
   if (tcfs_setxattr (fuse_path, "user.encrypted", "true", 4, 0)
-      != 0) //(fsetxattr(fileno(res), "user.encrypted", "true", 4, 0) != 0)
+      != TCFS_SUCCESS) //(fsetxattr(fileno(res), "user.encrypted", "true", 4, 0) != 0)
     {
       fclose (res);
       return -errno;
@@ -1056,7 +1061,7 @@ tcfs_create (const char *fuse_path, mode_t mode, struct fuse_file_info *fi)
       perror ("cannot generate file key");
       return -errno;
     }
-  if (is_valid_key (key) == 0)
+  if (is_valid_key (key) == false)
     {
       perror ("Generated key size invalid\n");
       return -1;
@@ -1081,7 +1086,7 @@ tcfs_create (const char *fuse_path, mode_t mode, struct fuse_file_info *fi)
                 encrypted_key_len);
   if (tcfs_setxattr (fuse_path, "user.key_len", encrypted_key_len_char,
                      sizeof (encrypted_key_len_char), 0)
-      != 0) //(fsetxattr(fileno(res), "user.key", encrypted_key, 32, 0) != 0)
+      != TCFS_SUCCESS) //(fsetxattr(fileno(res), "user.key", encrypted_key, 32, 0) != 0)
     {
       perror ("Err setting key_len xattr");
       return -errno;
@@ -1090,7 +1095,7 @@ tcfs_create (const char *fuse_path, mode_t mode, struct fuse_file_info *fi)
   free (encrypted_key);
   free (key);
   fclose (res);
-  return 0;
+  return TCFS_SUCCESS;
 }
 
 /**
@@ -1100,7 +1105,7 @@ tcfs_create (const char *fuse_path, mode_t mode, struct fuse_file_info *fi)
  *
  * @param fuse_path The path to the file.
  * @param fi File information.
- * @return 0 on success, a negative error code on failure.
+ * @return true on success, a negative error code on failure.
  */
 static int
 tcfs_release (const char *fuse_path, struct fuse_file_info *fi)
@@ -1118,7 +1123,7 @@ tcfs_release (const char *fuse_path, struct fuse_file_info *fi)
   free ((void *)path);
   free ((void *)enc_fuse_path);
 
-  return 0;
+  return TCFS_SUCCESS;
 }
 
 /**
@@ -1129,7 +1134,7 @@ tcfs_release (const char *fuse_path, struct fuse_file_info *fi)
  * @param fuse_path The path to the file.
  * @param datasync Flag indicating whether to sync only data.
  * @param fi File information.
- * @return 0 on success, a negative error code on failure.
+ * @return true on success, a negative error code on failure.
  */
 static int
 tcfs_fsync (const char *fuse_path, int isdatasync, struct fuse_file_info *fi)
@@ -1152,7 +1157,7 @@ tcfs_fsync (const char *fuse_path, int isdatasync, struct fuse_file_info *fi)
   /* Free the path */
   free ((void *)path);
 
-  return 0;
+  return TCFS_SUCCESS;
 }
 
 /**
@@ -1245,7 +1250,7 @@ tcfs_listxattr (const char *fuse_path, char *list, size_t size)
  *
  * @param fuse_path The path of the file or directory within the TCFS.
  * @param name The name of the extended attribute to remove.
- * @return 0 on success, negative error code on failure.
+ * @return TCFS_SUCCESS on success, negative error code on failure.
  *
  * @details
  * The `removexattr` function is invoked to remove the specified extended
@@ -1254,7 +1259,7 @@ tcfs_listxattr (const char *fuse_path, char *list, size_t size)
  * @param fuse_path The path of the file or directory.
  * @param name The name of the extended attribute to remove.
  *
- * @return On success, the function returns 0.
+ * @return On success, the function returns TCFS_SUCCESS.
  *         On failure, it returns a negative error code representing the type
  * of error encountered.
  *
@@ -1278,7 +1283,7 @@ tcfs_removexattr (const char *fuse_path, const char *name)
       perror ("removexattr error");
       return -errno;
     }
-  return 0;
+  return TCFS_SUCCESS;
 }
 
 /**
@@ -1387,7 +1392,7 @@ parse_opt (int key, char *arg, struct argp_state *state)
       return ARGP_ERR_UNKNOWN;
     }
 
-  return 0;
+  return TCFS_SUCCESS;
 }
 
 /**
@@ -1420,17 +1425,17 @@ main (int argc, char *argv[])
       || arguments.password == NULL)
     {
       logMessage ("Err: You need to specify at least 3 arguments\n");
-      return -1;
+      return -ERR_inval_arg_len;
     }
 
   logMessage ("Source: %s\n", arguments.source);
   logMessage ("Destination: %s\n", arguments.destination);
   root_path = arguments.source;
 
-  if (is_valid_key ((unsigned char *)arguments.password) == 0)
+  if (is_valid_key ((unsigned char *)arguments.password) == TCFS_SUCCESS)
     {
       logMessage ("ERR: Inserted key not valid\n");
-      return 1;
+      return -ERR_inval_key;
     }
 
   struct fuse_args args_fuse = FUSE_ARGS_INIT (0, NULL);

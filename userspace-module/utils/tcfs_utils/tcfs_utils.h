@@ -11,6 +11,7 @@
 #include <string.h>
 #include <sys/xattr.h>
 #include <unistd.h>
+#include <stdbool.h>
 
 /**
  * @def LOGFILE
