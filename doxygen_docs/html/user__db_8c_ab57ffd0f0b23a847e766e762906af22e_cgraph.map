@@ -1,7 +1,0 @@
-<map id="disconnect_db" name="disconnect_db">
-<area shape="rect" id="Node000001" title="Free the context of the DB." alt="" coords="5,31,112,56"/>
-<area shape="rect" id="Node000002" href="$redis_8c.html#ae19d8c90888a6ed078d6e835bb11e67a" title="Free the hiredis context variable." alt="" coords="160,5,255,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="112,32,144,26,145,31,113,37"/>
-<area shape="rect" id="Node000003" href="$print__utils_8c.html#a491dc14c94ed8cf706bb54880c50b2d0" title="Format and print data as a message." alt="" coords="168,55,247,80"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="113,49,153,56,152,61,112,55"/>
-</map>

@@ -1,9 +1,0 @@
-<map id="qm_shared" name="qm_shared">
-<area shape="rect" id="Node000001" title="Represents a shared message. &#160;Contains information about the file descriptor ti which the TCFS module..." alt="" coords="56,93,143,119"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="5,5,44,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="47,41,91,91,87,95,43,44"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="69,5,130,31"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="102,46,102,93,97,93,97,46"/>
-<area shape="rect" id="Node000004" title=" " alt="" coords="154,5,210,31"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="172,46,153,71,123,95,120,91,149,67,167,43"/>
-</map>

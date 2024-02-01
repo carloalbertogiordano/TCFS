@@ -43,3 +43,10 @@ build/fuse-module
 daemon/dump.rdb
 Doxyfile.bak
 doxygen_docs/*
+doxygen*
+*.tex
+*.pdf
+*.md5
+*/docbook
+doxygen_docs
+

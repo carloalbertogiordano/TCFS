@@ -329,7 +329,7 @@ encrypt_string (unsigned char *plaintext, const char *key,
 unsigned char *
 decrypt_string (unsigned char *ciphertext, const char *key)
 {
-  printf ("\t\tHEX TO STRING GOT %s\n", ciphertext);
+  logMessage ("\t\tHEX TO STRING GOT %s\n", ciphertext);
   EVP_CIPHER_CTX *ctx;
   const EVP_CIPHER *cipher = EVP_aes_256_cbc ();
   unsigned char iv[AES_BLOCK_SIZE];
@@ -371,7 +371,7 @@ decrypt_string (unsigned char *ciphertext, const char *key)
   memcpy (decrypted_string, plaintext, len + padding_len);
   decrypted_string[len + padding_len] = '\0';
 
-  printf ("\t\tdecoded_ciphertext %s, decrypted_string %s\n",
+  logMessage ("\t\tdecoded_ciphertext %s, decrypted_string %s\n",
           decoded_ciphertext, decrypted_string);
   free (decoded_ciphertext);
 
@@ -432,13 +432,13 @@ encrypt_path (const char *path, const char *key)
           perror ("Error allocating memory");
           exit (EXIT_FAILURE);
         }
-      printf ("\tencrypt path got a special case, returning %s\n", result);
+      logMessage ("\tencrypt path got a special case, returning %s\n", result);
       return result;
     }
   // Check if the path is /
   else if (strcmp (path, "/") == 0)
     {
-      printf ("\tgot root path\n");
+      logMessage ("\tgot root path\n");
       return "";
     }
 
@@ -463,7 +463,7 @@ encrypt_path (const char *path, const char *key)
         {
           // Encrypt each part of the path
           const char *encrypted_part = encrypt_file_name_with_hex (token, key);
-          printf ("\tEncrypted %s --> %s\n", token, encrypted_part);
+          logMessage ("\tEncrypted %s --> %s\n", token, encrypted_part);
 
           // Concatenate to the result string
           if (result == NULL)
@@ -504,7 +504,7 @@ encrypt_path (const char *path, const char *key)
                 }
 
               strcat (result, encrypted_part);
-              printf ("\t\tTempresult: %s\n", result);
+              logMessage ("\t\tTempresult: %s\n", result);
             }
         }
 
@@ -513,10 +513,10 @@ encrypt_path (const char *path, const char *key)
     }
 
   // Free the memory allocated for the path copy
-  printf ("\t\tpathcopy %s\n", path_copy);
+  logMessage ("\t\tpathcopy %s\n", path_copy);
   free (path_copy);
 
-  printf ("\tencrypt_path will return %s\n", result);
+  logMessage ("\tencrypt_path will return %s\n", result);
   return result;
 }
 
@@ -544,7 +544,7 @@ encrypt_path_and_filename (const char *path, const char *key)
           perror ("Error allocating memory");
           exit (EXIT_FAILURE);
         }
-      printf (
+      logMessage (
           "\tencrypt_filename_with_path got a special case, returning %s\n",
           result);
       return result;
@@ -552,7 +552,7 @@ encrypt_path_and_filename (const char *path, const char *key)
   // Check if the path is /
   else if (strcmp (path, "/") == 0)
     {
-      printf ("\tgot root path\n");
+      logMessage ("\tgot root path\n");
       return "";
     }
 
@@ -577,7 +577,7 @@ encrypt_path_and_filename (const char *path, const char *key)
         {
           // Encrypt each part of the path
           const char *encrypted_part = encrypt_file_name_with_hex (token, key);
-          printf ("\tEncrypted %s --> %s\n", token, encrypted_part);
+          logMessage ("\tEncrypted %s --> %s\n", token, encrypted_part);
 
           // Concatenate to the result string
           if (result == NULL)
@@ -618,7 +618,7 @@ encrypt_path_and_filename (const char *path, const char *key)
                 }
 
               strcat (result, encrypted_part);
-              printf ("\t\tTempresult: %s\n", result);
+              logMessage ("\t\tTempresult: %s\n", result);
             }
         }
 
@@ -627,10 +627,10 @@ encrypt_path_and_filename (const char *path, const char *key)
     }
 
   // Free the memory allocated for the path copy
-  printf ("\t\tpathcopy %s\n", path_copy);
+  logMessage ("\t\tpathcopy %s\n", path_copy);
   free (path_copy);
 
-  printf ("\tencrypt_filename_with_path will return %s\n", result);
+  logMessage ("\tencrypt_filename_with_path will return %s\n", result);
   return result;
 }
 
@@ -644,7 +644,7 @@ encrypt_path_and_filename (const char *path, const char *key)
 const char *
 decrypt_path (const char *encrypted_path, const char *key)
 {
-  printf ("decrypt path got %s\n", encrypted_path);
+  logMessage ("decrypt path got %s\n", encrypted_path);
   char *result = NULL;
   char *token, *saveptr;
 
@@ -658,13 +658,13 @@ decrypt_path (const char *encrypted_path, const char *key)
           perror ("Error allocating memory");
           exit (EXIT_FAILURE);
         }
-      printf ("\tdecrypt_path got a special case, returning %s\n", result);
+      logMessage ("\tdecrypt_path got a special case, returning %s\n", result);
       return result;
     }
   // Check if the encrypted_path is /
   else if (strcmp (encrypted_path, "/") == 0)
     {
-      printf ("\tgot root path\n");
+      logMessage ("\tgot root path\n");
       return "";
     }
 
@@ -689,7 +689,7 @@ decrypt_path (const char *encrypted_path, const char *key)
         {
           // Decrypt each part of the path
           const char *decrypted_part = decrypt_file_name_with_hex (token, key);
-          printf ("\tDecrypted %s --> %s\n", token, decrypted_part);
+          logMessage ("\tDecrypted %s --> %s\n", token, decrypted_part);
 
           // Concatenate to the result string
           if (result == NULL)
@@ -730,7 +730,7 @@ decrypt_path (const char *encrypted_path, const char *key)
                 }
 
               strcat (result, decrypted_part);
-              printf ("\t\tTempresult: %s\n", result);
+              logMessage ("\t\tTempresult: %s\n", result);
             }
         }
 
@@ -739,10 +739,10 @@ decrypt_path (const char *encrypted_path, const char *key)
     }
 
   // Free the memory allocated for the encrypted_path copy
-  printf ("\t\tencrypted_path_copy %s\n", encrypted_path_copy);
+  logMessage ("\t\tencrypted_path_copy %s\n", encrypted_path_copy);
   free (encrypted_path_copy);
 
-  printf ("\tdecrypt_path will return %s\n", result);
+  logMessage ("\tdecrypt_path will return %s\n", result);
   return result;
 }
 
@@ -771,7 +771,7 @@ decrypt_path_and_filename (const char *encrypted_path, const char *key)
           perror ("Error allocating memory");
           exit (EXIT_FAILURE);
         }
-      printf (
+      logMessage (
           "\tdecrypt_filename_with_path got a special case, returning %s\n",
           result);
       return result;
@@ -779,7 +779,7 @@ decrypt_path_and_filename (const char *encrypted_path, const char *key)
   // Check if the encrypted_path is /
   else if (strcmp (encrypted_path, "/") == 0)
     {
-      printf ("\tgot root path\n");
+      logMessage ("\tgot root path\n");
       return "";
     }
 
@@ -804,7 +804,7 @@ decrypt_path_and_filename (const char *encrypted_path, const char *key)
         {
           // Decrypt each part of the path
           const char *decrypted_part = decrypt_file_name_with_hex (token, key);
-          printf ("\tDecrypted %s --> %s\n", token, decrypted_part);
+          logMessage ("\tDecrypted %s --> %s\n", token, decrypted_part);
 
           // Concatenate to the result string
           if (result == NULL)
@@ -845,7 +845,7 @@ decrypt_path_and_filename (const char *encrypted_path, const char *key)
                 }
 
               strcat (result, decrypted_part);
-              printf ("\t\tTempresult: %s\n", result);
+              logMessage ("\t\tTempresult: %s\n", result);
             }
         }
 
@@ -854,9 +854,9 @@ decrypt_path_and_filename (const char *encrypted_path, const char *key)
     }
 
   // Free the memory allocated for the encrypted_path copy
-  printf ("\t\tencrypted_path_copy %s\n", encrypted_path_copy);
+  logMessage ("\t\tencrypted_path_copy %s\n", encrypted_path_copy);
   free (encrypted_path_copy);
 
-  printf ("\tdecrypt_filename_with_path will return %s\n", result);
+  logMessage ("\tdecrypt_filename_with_path will return %s\n", result);
   return result;
 }

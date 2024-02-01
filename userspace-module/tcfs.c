@@ -1,7 +1,7 @@
 /**
-* @file tcfs_operations.c
-* @brief Implementation of TCFS file system operations
-*/
+ * @file tcfs_operations.c
+ * @brief Implementation of TCFS file system operations
+ */
 
 #define FUSE_USE_VERSION 30
 #define HAVE_SETXATTR
@@ -63,11 +63,11 @@ tcfs_opendir (const char *fuse_path, struct fuse_file_info *fi)
 {
   (void)fi;
 
-  printf ("Called opendir %s\n", fuse_path);
+  logMessage ("Called opendir %s\n", fuse_path);
 
   const char *enc_fuse_path = encrypt_path (fuse_path, password);
   const char *new_path = prefix_path (enc_fuse_path, root_path);
-  printf ("\topendir new_path %s\n", new_path);
+  logMessage ("\topendir new_path %s\n", new_path);
 
   DIR *dp = opendir (new_path);
   if (dp == NULL)
@@ -95,18 +95,18 @@ tcfs_getattr (const char *fuse_path, struct stat *stbuf,
               struct fuse_file_info *fi)
 {
   (void)fi;
-  printf ("Called getattr on %s%s\n", root_path, fuse_path);
+  logMessage ("Called getattr on %s%s\n", root_path, fuse_path);
 
   int res;
   const char *enc_fuse_path = encrypt_path (fuse_path, password);
-  printf ("\tgetattr enc_fuse_path: %s\n", enc_fuse_path);
+  logMessage ("\tgetattr enc_fuse_path: %s\n", enc_fuse_path);
   const char *new_path = prefix_path (enc_fuse_path, root_path);
-  printf ("\tgetattr new_path on %s\n", new_path);
+  logMessage ("\tgetattr new_path on %s\n", new_path);
 
   res = stat (new_path, stbuf);
   if (res == -1)
     {
-      printf ("\taccess: Stat returned -1, err:%d\n", -errno);
+      logMessage ("\taccess: Stat returned -1, err:%d\n", -errno);
       perror ("getattr err");
       return -errno;
     }
@@ -126,12 +126,12 @@ tcfs_getattr (const char *fuse_path, struct stat *stbuf,
 static int
 tcfs_access (const char *fuse_path, int mask)
 {
-  printf ("Callen access on %s\n", fuse_path);
+  logMessage ("Callen access on %s\n", fuse_path);
   int res;
 
   const char *enc_fuse_path = encrypt_path (fuse_path, password);
   const char *full_path = prefix_path (enc_fuse_path, root_path);
-  printf ("\taccess encrypt_path %s\n", full_path);
+  logMessage ("\taccess encrypt_path %s\n", full_path);
 
   res = access (full_path, mask);
   if (res == -1)
@@ -156,11 +156,11 @@ tcfs_access (const char *fuse_path, int mask)
 static int
 tcfs_readlink (const char *fuse_path, char *buf, size_t size)
 {
-  printf ("called readlink\n");
+  logMessage ("called readlink\n");
 
   const char *enc_fuse_path = encrypt_path (fuse_path, password);
   char *path = prefix_path (enc_fuse_path, root_path);
-  printf ("\treadlink on %s\n", path);
+  logMessage ("\treadlink on %s\n", path);
 
   size_t res;
   res = readlink (path, buf, size - 1);
@@ -196,10 +196,10 @@ tcfs_readdir (const char *fuse_path, void *buf, fuse_fill_dir_t filler,
   (void)fi;
   (void)frdf;
 
-  printf ("Called readdir %s\n", fuse_path);
+  logMessage ("Called readdir %s\n", fuse_path);
   const char *enc_path = encrypt_path (fuse_path, password);
   char *path = prefix_path (enc_path, root_path);
-  printf ("readdir on %s\n", path);
+  logMessage ("readdir on %s\n", path);
 
   DIR *dp = NULL;
   struct dirent *de;
@@ -210,7 +210,7 @@ tcfs_readdir (const char *fuse_path, void *buf, fuse_fill_dir_t filler,
       perror ("Could not open the directory");
       return -errno;
     }
-  printf ("Dir %s opened\n", path);
+  logMessage ("Dir %s opened\n", path);
 
   while ((de = readdir (dp)) != NULL)
     {
@@ -224,7 +224,7 @@ tcfs_readdir (const char *fuse_path, void *buf, fuse_fill_dir_t filler,
       if ((strcmp (de->d_name, ".") == 0 || strcmp (de->d_name, "..") == 0
            || strcmp (de->d_name, "/") == 0))
         {
-          printf ("ONE\n");
+          logMessage ("ONE\n");
           filler_res = filler (buf, de->d_name, &st, 0, 0);
           if (filler_res != 0)
             {
@@ -233,27 +233,29 @@ tcfs_readdir (const char *fuse_path, void *buf, fuse_fill_dir_t filler,
         }
       else
         {
-          printf ("\tchecking for %s is %s\n", de->d_name,
-                  decrypt_file_name_with_hex((const char *)de->d_name, password));
+          logMessage (
+              "\tchecking for %s is %s\n", de->d_name,
+              decrypt_file_name_with_hex ((const char *)de->d_name, password));
 
           const char *dec_dirname = decrypt_path (de->d_name, password);
-          if (dec_dirname == NULL){
-              fprintf (stderr, "Could not decipher dir name");
+          if (dec_dirname == NULL)
+            {
+              perror ("Could not decipher dir name");
               return -1;
             }
 
-          //We must avoid the initial / of dec_dirname
-          filler_res = filler (buf, dec_dirname+1, &st, 0, 0);
+          // We must avoid the initial / of dec_dirname
+          filler_res = filler (buf, dec_dirname + 1, &st, 0, 0);
           if (filler_res != 0)
             {
               can_break = 1;
             }
         }
 
-      printf ("FILLER RES: %d, CAN BREAK %d\n", filler_res, can_break);
+      logMessage ("FILLER RES: %d, CAN BREAK %d\n", filler_res, can_break);
       if (can_break == 1)
         {
-          printf ("Breaking out\n");
+          logMessage ("Breaking out\n");
           perror ("readdir error");
           closedir (dp);
           return -errno;
@@ -278,11 +280,11 @@ tcfs_readdir (const char *fuse_path, void *buf, fuse_fill_dir_t filler,
 static int
 tcfs_mknod (const char *fuse_path, mode_t mode, dev_t rdev)
 {
-  printf ("Called mknod\n");
+  logMessage ("Called mknod\n");
 
   const char *enc_fuse_path = encrypt_path (fuse_path, password);
   char *path = prefix_path (enc_fuse_path, root_path);
-  printf ("\tmknod on %s\n", path);
+  logMessage ("\tmknod on %s\n", path);
 
   int res;
 
@@ -304,7 +306,6 @@ tcfs_mknod (const char *fuse_path, mode_t mode, dev_t rdev)
   return 0;
 }
 
-
 /**
  * @brief Creates a directory.
  *
@@ -317,13 +318,13 @@ tcfs_mknod (const char *fuse_path, mode_t mode, dev_t rdev)
 static int
 tcfs_mkdir (const char *fuse_path, mode_t mode)
 {
-  printf ("!!! Called mkdir on %s\n", fuse_path);
+  logMessage ("!!! Called mkdir on %s\n", fuse_path);
 
   const char *enc_path = encrypt_path (fuse_path, password);
 
-  printf ("\tmkdir prefix_path (%s, %s)\n", enc_path, root_path);
+  logMessage ("\tmkdir prefix_path (%s, %s)\n", enc_path, root_path);
   char *path = prefix_path (enc_path, root_path);
-  printf ("\tmkdir %s\n", path);
+  logMessage ("\tmkdir %s\n", path);
 
   int res;
   res = mkdir (path, mode);
@@ -344,11 +345,11 @@ tcfs_mkdir (const char *fuse_path, mode_t mode)
 static int
 tcfs_unlink (const char *fuse_path)
 {
-  printf ("Called unlink\n");
+  logMessage ("Called unlink\n");
 
   const char *enc_fuse_path = encrypt_path (fuse_path, password);
   char *path = prefix_path (enc_fuse_path, root_path);
-  printf ("\tunlink on %s\n", path);
+  logMessage ("\tunlink on %s\n", path);
 
   int res;
 
@@ -370,11 +371,11 @@ tcfs_unlink (const char *fuse_path)
 static int
 tcfs_rmdir (const char *fuse_path)
 {
-  printf ("Called rmdir\n");
+  logMessage ("Called rmdir\n");
 
   const char *enc_fuse_path = encrypt_path (fuse_path, password);
   char *path = prefix_path (enc_fuse_path, root_path);
-  printf ("\trmdir on %s\n", path);
+  logMessage ("\trmdir on %s\n", path);
 
   int res;
 
@@ -384,7 +385,6 @@ tcfs_rmdir (const char *fuse_path)
 
   return 0;
 }
-
 
 /**
  * @brief Creates a symbolic link.
@@ -398,14 +398,14 @@ tcfs_rmdir (const char *fuse_path)
 static int
 tcfs_symlink (const char *from, const char *to)
 {
-  printf ("Called symlink %s->%s\n", from, to);
+  logMessage ("Called symlink %s->%s\n", from, to);
   int res;
 
   const char *enc_from_path = encrypt_path_and_filename (from, password);
   char *enc_from = prefix_path (enc_from_path, root_path);
   const char *enc_to_path = encrypt_path_and_filename (to, password);
   char *enc_to = prefix_path (enc_to_path, root_path);
-  printf ("\trmdir from %s to %s\n", enc_from_path, enc_to_path);
+  logMessage ("\trmdir from %s to %s\n", enc_from_path, enc_to_path);
 
   res = symlink (enc_from, enc_to);
   if (res == -1)
@@ -431,14 +431,14 @@ static int
 tcfs_rename (const char *from, const char *to, unsigned int flags)
 {
   (void)flags; // FUSE does not use this parameter
-  printf ("Called rename\n");
+  logMessage ("Called rename\n");
   int res;
 
   const char *enc_from_path = encrypt_path_and_filename (from, password);
   char *enc_from = prefix_path (enc_from_path, root_path);
   const char *enc_to_path = encrypt_path_and_filename (to, password);
   char *enc_to = prefix_path (enc_to_path, root_path);
-  printf ("\trmdir from %s to %s\n", enc_from_path, enc_to_path);
+  logMessage ("\trmdir from %s to %s\n", enc_from_path, enc_to_path);
 
   res = rename (enc_from, enc_to);
   if (res == -1)
@@ -459,14 +459,14 @@ tcfs_rename (const char *from, const char *to, unsigned int flags)
 static int
 tcfs_link (const char *from, const char *to)
 {
-  printf ("Called link\n");
+  logMessage ("Called link\n");
   int res;
 
   const char *enc_from_path = encrypt_path_and_filename (from, password);
   char *enc_from = prefix_path (enc_from_path, root_path);
   const char *enc_to_path = encrypt_path_and_filename (to, password);
   char *enc_to = prefix_path (enc_to_path, root_path);
-  printf ("\trmdir from %s to %s\n", enc_from, enc_to);
+  logMessage ("\trmdir from %s to %s\n", enc_from, enc_to);
 
   res = link (enc_from, enc_to);
   if (res == -1)
@@ -494,11 +494,11 @@ tcfs_chmod (const char *fuse_path, mode_t mode, struct fuse_file_info *fi)
   (void)fi;
   int res;
 
-  printf ("Called chmod\n");
+  logMessage ("Called chmod\n");
 
   const char *enc_fuse_path = encrypt_path (fuse_path, password);
   const char *path = prefix_path (enc_fuse_path, root_path);
-  printf ("\taccess encrypt_path %s\n", path);
+  logMessage ("\taccess encrypt_path %s\n", path);
 
   res = chmod (path, mode);
   if (res == -1)
@@ -526,11 +526,11 @@ tcfs_chown (const char *fuse_path, uid_t uid, gid_t gid,
             struct fuse_file_info *fi)
 {
   (void)fi;
-  printf ("Called chown\n");
+  logMessage ("Called chown\n");
 
   const char *enc_fuse_path = encrypt_path (fuse_path, password);
   const char *path = prefix_path (enc_fuse_path, root_path);
-  printf ("\tchown encrypt_path %s\n", path);
+  logMessage ("\tchown encrypt_path %s\n", path);
 
   int res;
   res = lchown (path, uid, gid);
@@ -554,11 +554,11 @@ static int
 tcfs_truncate (const char *fuse_path, off_t size, struct fuse_file_info *fi)
 {
   (void)fi;
-  printf ("Called truncate\n");
+  logMessage ("Called truncate\n");
 
   const char *enc_fuse_path = encrypt_path (fuse_path, password);
   const char *path = prefix_path (enc_fuse_path, root_path);
-  printf ("\ttruncate encrypt_path %s\n", path);
+  logMessage ("\ttruncate encrypt_path %s\n", path);
 
   int res;
   res = truncate (path, size);
@@ -573,26 +573,34 @@ tcfs_truncate (const char *fuse_path, off_t size, struct fuse_file_info *fi)
 
 // #ifdef HAVE_UTIMENSAT
 /**
- * @brief Modify the access and modification timestamps of a file in the TCFS file system.
+ * @brief Modify the access and modification timestamps of a file in the TCFS
+ * file system.
  *
- * This function is called when the `utimens` operation is performed on a file in the TCFS.
+ * This function is called when the `utimens` operation is performed on a file
+ * in the TCFS.
  *
- * @param fuse_path The path of the encrypted file for which timestamps need to be modified.
- * @param ts An array of two timespec structures containing the new access and modification timestamps.
+ * @param fuse_path The path of the encrypted file for which timestamps need to
+ * be modified.
+ * @param ts An array of two timespec structures containing the new access and
+ * modification timestamps.
  * @param fi File information structure provided by FUSE.
  * @return 0 on success, negative error code on failure.
  *
  * @details
- * The `tcfs_utimens` function is invoked to modify the access and modification timestamps of a file within the TCFS.
- * It decodes the encrypted file path, translates it into the actual file path on the underlying file system,
- * and then uses the `utimes` function to apply the changes to the file timestamps.
+ * The `tcfs_utimens` function is invoked to modify the access and modification
+ * timestamps of a file within the TCFS. It decodes the encrypted file path,
+ * translates it into the actual file path on the underlying file system, and
+ * then uses the `utimes` function to apply the changes to the file timestamps.
  *
  * @param fuse_path The path of the encrypted file within the TCFS.
- * @param ts An array containing two timespec structures. The first structure represents the new access timestamp,
- *           and the second represents the new modification timestamp.
- * @param fi File information provided by FUSE, which may be used to obtain additional details about the file if needed.
+ * @param ts An array containing two timespec structures. The first structure
+ * represents the new access timestamp, and the second represents the new
+ * modification timestamp.
+ * @param fi File information provided by FUSE, which may be used to obtain
+ * additional details about the file if needed.
  *
- * @return 0 on success. On failure, it returns a negative error code representing the type of error encountered.
+ * @return 0 on success. On failure, it returns a negative error code
+ * representing the type of error encountered.
  *
  */
 static int
@@ -600,11 +608,11 @@ tcfs_utimens (const char *fuse_path, const struct timespec ts[2],
               struct fuse_file_info *fi)
 {
   (void)fi;
-  printf ("Called utimens\n");
+  logMessage ("Called utimens\n");
 
   const char *enc_fuse_path = encrypt_path (fuse_path, password);
   char *path = prefix_path (enc_fuse_path, root_path);
-  printf ("\tutimesns on %s\n", path);
+  logMessage ("\tutimesns on %s\n", path);
 
   int res;
   struct timeval tv[2];
@@ -637,11 +645,11 @@ tcfs_utimens (const char *fuse_path, const struct timespec ts[2],
 static int
 tcfs_open (const char *fuse_path, struct fuse_file_info *fi)
 {
-  printf ("Called open\n");
+  logMessage ("Called open\n");
 
   const char *enc_fuse_path = encrypt_path (fuse_path, password);
   char *path = prefix_path (enc_fuse_path, root_path);
-  printf ("\topen on %s\n", path);
+  logMessage ("\topen on %s\n", path);
 
   int res;
 
@@ -659,31 +667,40 @@ tcfs_open (const char *fuse_path, struct fuse_file_info *fi)
 /**
  * @brief Get the size of a file in the TCFS file system.
  *
- * This function is called when the `getattr` operation is performed on a file in the TCFS to obtain file attributes.
+ * This function is called when the `getattr` operation is performed on a file
+ * in the TCFS to obtain file attributes.
  *
- * @param fuse_path The path of the encrypted file for which the size is requested.
+ * @param fuse_path The path of the encrypted file for which the size is
+ * requested.
  * @param stbuf Buffer to store the file attributes, including the size.
  * @param fi File information structure provided by FUSE.
  * @return 0 on success, negative error code on failure.
  *
  * @details
- * The `tcfs_file_size` function is invoked to retrieve the size of a file within the TCFS.
- * It decodes the encrypted file path, translates it into the actual file path on the underlying file system,
- * and then uses the `getattr` function to obtain the file attributes, including the file size.
+ * The `tcfs_file_size` function is invoked to retrieve the size of a file
+ * within the TCFS. It decodes the encrypted file path, translates it into the
+ * actual file path on the underlying file system, and then uses the `getattr`
+ * function to obtain the file attributes, including the file size.
  *
  * @param fuse_path The path of the encrypted file within the TCFS.
  * @param stbuf Buffer to store the file attributes, including the file size.
- * @param fi File information provided by FUSE, which may be used to obtain additional details about the file if needed.
+ * @param fi File information provided by FUSE, which may be used to obtain
+ * additional details about the file if needed.
  *
- * @return 0 on success. On failure, it returns a negative error code representing the type of error encountered.
+ * @return 0 on success. On failure, it returns a negative error code
+ * representing the type of error encountered.
  *
  * @note
- * - The function is a crucial part of file attribute retrieval, and the size is a fundamental attribute of a file.
- * - The correct functioning of this function is essential for providing accurate information about the file size.
+ * - The function is a crucial part of file attribute retrieval, and the size
+ * is a fundamental attribute of a file.
+ * - The correct functioning of this function is essential for providing
+ * accurate information about the file size.
  *
  * @warning
- * - Ensure that the function correctly translates the encrypted file path into the actual file path on the underlying file system.
- * - Verify that the file attributes, especially the size, are accurately retrieved and reported in the `stbuf` buffer.
+ * - Ensure that the function correctly translates the encrypted file path into
+ * the actual file path on the underlying file system.
+ * - Verify that the file attributes, especially the size, are accurately
+ * retrieved and reported in the `stbuf` buffer.
  */
 static inline int
 file_size (FILE *file)
@@ -715,7 +732,7 @@ tcfs_read (const char *fuse_path, char *buf, size_t size, off_t offset,
   (void)size;
   (void)fi;
 
-  printf ("Calling read\n");
+  logMessage ("Calling read\n");
   FILE *path_ptr, *tmpf;
   char *path;
   int res;
@@ -727,7 +744,7 @@ tcfs_read (const char *fuse_path, char *buf, size_t size, off_t offset,
 
   const char *enc_fuse_path = encrypt_path (fuse_path, password);
   path = prefix_path (enc_fuse_path, root_path);
-  printf ("\tread on %s\n", path);
+  logMessage ("\tread on %s\n", path);
 
   path_ptr = fopen (path, "r");
   tmpf = tmpfile ();
@@ -809,7 +826,7 @@ tcfs_write (const char *fuse_path, const char *buf, size_t size, off_t offset,
             struct fuse_file_info *fi)
 {
   (void)fi;
-  printf ("Called write\n");
+  logMessage ("Called write\n");
 
   FILE *path_ptr, *tmpf;
   char *path;
@@ -818,7 +835,7 @@ tcfs_write (const char *fuse_path, const char *buf, size_t size, off_t offset,
 
   const char *enc_fuse_path = encrypt_path (fuse_path, password);
   path = prefix_path (enc_fuse_path, root_path);
-  printf ("\twrite on %s\n", path);
+  logMessage ("\twrite on %s\n", path);
 
   path_ptr = fopen (path, "r+");
   tmpf = tmpfile ();
@@ -852,8 +869,7 @@ tcfs_write (const char *fuse_path, const char *buf, size_t size, off_t offset,
   /* Something went terribly wrong if this is the case. */
   if (path_ptr == NULL || tmpf == NULL)
     {
-      fprintf (stderr,
-               "Something went terribly wrong, cannot create new files\n");
+      perror ("Something went terribly wrong, cannot create new files");
       return -errno;
     }
 
@@ -873,7 +889,7 @@ tcfs_write (const char *fuse_path, const char *buf, size_t size, off_t offset,
   res = pwrite (tmpf_descriptor, buf, size, offset);
   if (res == -1)
     {
-      printf ("%d\n", res);
+      logMessage ("%d\n", res);
       perror ("pwrite: cannot read tmpfile into the buffer\n");
       res = -errno;
     }
@@ -896,33 +912,41 @@ tcfs_write (const char *fuse_path, const char *buf, size_t size, off_t offset,
 /**
  * @brief Get file system statistics.
  *
- * This function is called when the `statfs` operation is performed to obtain statistics about the TCFS file system.
+ * This function is called when the `statfs` operation is performed to obtain
+ * statistics about the TCFS file system.
  *
- * @param fuse_path The path of the file system for which statistics are requested.
+ * @param fuse_path The path of the file system for which statistics are
+ * requested.
  * @param stbuf Buffer to store file system statistics.
  * @return 0 on success, negative error code on failure.
  *
  * @details
- * The `tcfs_statfs` function is invoked to retrieve statistics about the TCFS file system.
- * It may include information such as the total size, free space, and available space.
+ * The `tcfs_statfs` function is invoked to retrieve statistics about the TCFS
+ * file system. It may include information such as the total size, free space,
+ * and available space.
  *
  * @param fuse_path The path of the file system within the TCFS.
  * @param stbuf Buffer to store the file system statistics.
  *
- * @return 0 on success. On failure, it returns a negative error code representing the type of error encountered.
+ * @return 0 on success. On failure, it returns a negative error code
+ * representing the type of error encountered.
  *
  * @note
- * - The function is essential for providing information about the overall status of the TCFS file system.
- * - Ensure that the file system statistics are accurately retrieved and reported in the `stbuf` buffer.
+ * - The function is essential for providing information about the overall
+ * status of the TCFS file system.
+ * - Ensure that the file system statistics are accurately retrieved and
+ * reported in the `stbuf` buffer.
  *
  * @warning
- * - Verify that the function correctly handles errors and returns the appropriate error codes.
- * - The accuracy of the reported statistics is crucial for applications that rely on file system information.
+ * - Verify that the function correctly handles errors and returns the
+ * appropriate error codes.
+ * - The accuracy of the reported statistics is crucial for applications that
+ * rely on file system information.
  */
 static int
 tcfs_statfs (const char *fuse_path, struct statvfs *stbuf)
 {
-  printf ("Called statfs\n");
+  logMessage ("Called statfs\n");
   char *path = prefix_path (fuse_path, root_path);
 
   int res;
@@ -933,7 +957,6 @@ tcfs_statfs (const char *fuse_path, struct statvfs *stbuf)
 
   return 0;
 }
-
 
 /**
  * @brief Sets extended attributes.
@@ -953,7 +976,7 @@ tcfs_setxattr (const char *fuse_path, const char *name, const char *value,
 {
   const char *enc_fuse_path = encrypt_path (fuse_path, password);
   const char *path = prefix_path (enc_fuse_path, root_path);
-  printf ("\tsetxattr encrypt_path %s\n", path);
+  logMessage ("\tsetxattr encrypt_path %s\n", path);
 
   int res = 1;
   if ((res = lsetxattr (path, name, value, size, flags)) == -1)
@@ -974,34 +997,41 @@ tcfs_setxattr (const char *fuse_path, const char *name, const char *value,
  * @return 0 on success, negative error code on failure.
  *
  * @details
- * The `create` function is invoked when a new file is created in the TCFS file system.
- * It is responsible for setting up the necessary data structures, allocating resources,
- * and opening the file for subsequent read and write operations.
+ * The `create` function is invoked when a new file is created in the TCFS file
+ * system. It is responsible for setting up the necessary data structures,
+ * allocating resources, and opening the file for subsequent read and write
+ * operations.
  *
  * @param fuse_path The path of the file within the TCFS.
- * @param mode The mode of the file, specifying permissions and other attributes.
+ * @param mode The mode of the file, specifying permissions and other
+ * attributes.
  * @param fi File information containing flags and an open file handle.
  *
- * @return 0 on success. On failure, it returns a negative error code representing the type of error encountered.
+ * @return 0 on success. On failure, it returns a negative error code
+ * representing the type of error encountered.
  *
  * @note
- * - The function must create the file and return an open file handle in the `fi` structure.
- * - Ensure proper handling of file permissions, resource allocation, and any other relevant attributes.
+ * - The function must create the file and return an open file handle in the
+ * `fi` structure.
+ * - Ensure proper handling of file permissions, resource allocation, and any
+ * other relevant attributes.
  *
  * @warning
- * - Verify that the function correctly handles errors and returns the appropriate error codes.
- * - Implement necessary checks to ensure the file is created successfully and is ready for subsequent operations.
+ * - Verify that the function correctly handles errors and returns the
+ * appropriate error codes.
+ * - Implement necessary checks to ensure the file is created successfully and
+ * is ready for subsequent operations.
  */
 static int
 tcfs_create (const char *fuse_path, mode_t mode, struct fuse_file_info *fi)
 {
   (void)fi;
   (void)mode;
-  printf ("Called create on %s\n", fuse_path);
+  logMessage ("Called create on %s\n", fuse_path);
 
   const char *enc_fuse_path = encrypt_path_and_filename (fuse_path, password);
   const char *fullpath = prefix_path (enc_fuse_path, root_path);
-  printf ("\tcreating %s\n", fullpath);
+  logMessage ("\tcreating %s\n", fullpath);
 
   FILE *res;
   res = fopen (fullpath, "w");
@@ -1028,7 +1058,7 @@ tcfs_create (const char *fuse_path, mode_t mode, struct fuse_file_info *fi)
     }
   if (is_valid_key (key) == 0)
     {
-      fprintf (stderr, "Generated key size invalid\n");
+      perror ("Generated key size invalid\n");
       return -1;
     }
 
@@ -1048,7 +1078,7 @@ tcfs_create (const char *fuse_path, mode_t mode, struct fuse_file_info *fi)
   // Set key size
   char encrypted_key_len_char[20];
   snprintf (encrypted_key_len_char, sizeof (encrypted_key_len_char), "%d",
-            encrypted_key_len);
+                encrypted_key_len);
   if (tcfs_setxattr (fuse_path, "user.key_len", encrypted_key_len_char,
                      sizeof (encrypted_key_len_char), 0)
       != 0) //(fsetxattr(fileno(res), "user.key", encrypted_key, 32, 0) != 0)
@@ -1062,7 +1092,6 @@ tcfs_create (const char *fuse_path, mode_t mode, struct fuse_file_info *fi)
   fclose (res);
   return 0;
 }
-
 
 /**
  * @brief Releases an open file.
@@ -1078,7 +1107,7 @@ tcfs_release (const char *fuse_path, struct fuse_file_info *fi)
 {
   const char *enc_fuse_path = encrypt_path_and_filename (fuse_path, password);
   const char *path = prefix_path (enc_fuse_path, root_path);
-  printf ("\trelease %s\n", path);
+  logMessage ("\trelease %s\n", path);
 
   /* Close the file */
   int res = close (fi->fh);
@@ -1108,7 +1137,7 @@ tcfs_fsync (const char *fuse_path, int isdatasync, struct fuse_file_info *fi)
   /* Get the real path */
   const char *enc_fuse_path = encrypt_path_and_filename (fuse_path, password);
   const char *path = prefix_path (enc_fuse_path, root_path);
-  printf ("\tfsync %s\n", path);
+  logMessage ("\tfsync %s\n", path);
 
   /* Synchronize the file's in-core state with storage device */
   int res;
@@ -1129,29 +1158,36 @@ tcfs_fsync (const char *fuse_path, int isdatasync, struct fuse_file_info *fi)
 /**
  * @brief Get extended attribute data.
  *
- * This function is called to retrieve the value of an extended attribute for a specified file or directory.
+ * This function is called to retrieve the value of an extended attribute for a
+ * specified file or directory.
  *
  * @param fuse_path The path of the file or directory within the TCFS.
  * @param name The name of the extended attribute.
  * @param value Buffer to store the value of the extended attribute.
  * @param size The size of the buffer.
- * @return Size of the extended attribute value on success, negative error code on failure.
+ * @return Size of the extended attribute value on success, negative error code
+ * on failure.
  *
  * @details
- * The `getxattr` function is invoked to obtain the value of an extended attribute associated with a file or directory
- * within the TCFS file system. The attribute value is stored in the provided buffer (`value`) with a specified size.
+ * The `getxattr` function is invoked to obtain the value of an extended
+ * attribute associated with a file or directory within the TCFS file system.
+ * The attribute value is stored in the provided buffer (`value`) with a
+ * specified size.
  *
  * @param fuse_path The path of the file or directory.
  * @param name The name of the extended attribute to retrieve.
  * @param value Buffer to store the value of the extended attribute.
  * @param size The size of the buffer.
  *
- * @return On success, the function returns the size of the extended attribute value.
- *         On failure, it returns a negative error code representing the type of error encountered.
+ * @return On success, the function returns the size of the extended attribute
+ * value. On failure, it returns a negative error code representing the type of
+ * error encountered.
  *
  * @note
- * - The function must ensure that the attribute value is properly retrieved and stored in the provided buffer.
- * - Verify that the correct error codes are returned in case of failures or insufficient buffer size.
+ * - The function must ensure that the attribute value is properly retrieved
+ * and stored in the provided buffer.
+ * - Verify that the correct error codes are returned in case of failures or
+ * insufficient buffer size.
  * - Implement appropriate checks to handle different scenarios and edge cases.
  */
 static int
@@ -1160,9 +1196,9 @@ tcfs_getxattr (const char *fuse_path, const char *name, char *value,
 {
   const char *enc_fuse_path = encrypt_path_and_filename (fuse_path, password);
   const char *path = prefix_path (enc_fuse_path, root_path);
-  printf ("\tgetxattr %s\n", path);
+  logMessage ("\tgetxattr %s\n", path);
 
-  printf ("Called getxattr on %s name:%s size:%zu\n", path, name, size);
+  logMessage ("Called getxattr on %s name:%s size:%zu\n", path, name, size);
 
   int res = (int)lgetxattr (path, name, value, size);
   if (res == -1)
@@ -1181,15 +1217,16 @@ tcfs_getxattr (const char *fuse_path, const char *name, char *value,
  * @param fuse_path The path to the file.
  * @param list Buffer to fill with the attribute list.
  * @param size Size of the buffer.
- * @return Size of the attribute list on success, a negative error code on failure.
+ * @return Size of the attribute list on success, a negative error code on
+ * failure.
  */
 static int
 tcfs_listxattr (const char *fuse_path, char *list, size_t size)
 {
-  printf ("Called listxattr\n");
+  logMessage ("Called listxattr\n");
   const char *enc_fuse_path = encrypt_path_and_filename (fuse_path, password);
   const char *path = prefix_path (enc_fuse_path, root_path);
-  printf ("\tlistxattr %s\n", path);
+  logMessage ("\tlistxattr %s\n", path);
 
   ssize_t res = llistxattr (path, list, size);
   if (res == -1L)
@@ -1203,34 +1240,37 @@ tcfs_listxattr (const char *fuse_path, char *list, size_t size)
 /**
  * @brief Remove an extended attribute.
  *
- * This function is called to remove an extended attribute for a specified file or directory.
+ * This function is called to remove an extended attribute for a specified file
+ * or directory.
  *
  * @param fuse_path The path of the file or directory within the TCFS.
  * @param name The name of the extended attribute to remove.
  * @return 0 on success, negative error code on failure.
  *
  * @details
- * The `removexattr` function is invoked to remove the specified extended attribute associated with a file or directory
- * within the TCFS file system.
+ * The `removexattr` function is invoked to remove the specified extended
+ * attribute associated with a file or directory within the TCFS file system.
  *
  * @param fuse_path The path of the file or directory.
  * @param name The name of the extended attribute to remove.
  *
  * @return On success, the function returns 0.
- *         On failure, it returns a negative error code representing the type of error encountered.
+ *         On failure, it returns a negative error code representing the type
+ * of error encountered.
  *
  * @note
- * - The function must ensure the proper removal of the specified extended attribute.
+ * - The function must ensure the proper removal of the specified extended
+ * attribute.
  * - Verify that the correct error codes are returned in case of failures.
  * - Implement appropriate checks to handle different scenarios and edge cases.
  */
 static int
 tcfs_removexattr (const char *fuse_path, const char *name)
 {
-  printf ("Called removexattr\n");
+  logMessage ("Called removexattr\n");
   const char *enc_fuse_path = encrypt_path_and_filename (fuse_path, password);
   const char *path = prefix_path (enc_fuse_path, root_path);
-  printf ("\tremovexattr %s\n", path);
+  logMessage ("\tremovexattr %s\n", path);
 
   int res = lremovexattr (path, name);
   if (res == -1)
@@ -1379,17 +1419,17 @@ main (int argc, char *argv[])
   if (arguments.source == NULL || arguments.destination == NULL
       || arguments.password == NULL)
     {
-      printf ("Err: You need to specify at least 3 arguments\n");
+      logMessage ("Err: You need to specify at least 3 arguments\n");
       return -1;
     }
 
-  printf ("Source: %s\n", arguments.source);
-  printf ("Destination: %s\n", arguments.destination);
+  logMessage ("Source: %s\n", arguments.source);
+  logMessage ("Destination: %s\n", arguments.destination);
   root_path = arguments.source;
 
   if (is_valid_key ((unsigned char *)arguments.password) == 0)
     {
-      fprintf (stderr, "Inserted key not valid\n");
+      logMessage ("ERR: Inserted key not valid\n");
       return 1;
     }
 
@@ -1406,9 +1446,9 @@ main (int argc, char *argv[])
   // Print what we are passing to fuse TODO: This will be removed
   for (int i = 0; i < args_fuse.argc; i++)
     {
-      printf ("%s ", args_fuse.argv[i]);
+      logMessage ("%s ", args_fuse.argv[i]);
     }
-  printf ("\n");
+  logMessage ("\n");
 
   password = arguments.password;
 

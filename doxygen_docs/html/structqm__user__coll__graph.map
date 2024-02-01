@@ -1,9 +1,0 @@
-<map id="qm_user" name="qm_user">
-<area shape="rect" id="Node000001" title="Represents a user message. &#160;Contains information about the user&#39;s operation, process ID,..." alt="" coords="162,108,234,133"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="5,5,148,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="99,40,144,82,179,105,176,110,140,86,95,44"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="173,5,223,31"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="201,46,201,107,195,107,195,46"/>
-<area shape="rect" id="Node000004" title=" " alt="" coords="247,5,303,31"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="259,45,209,109,205,106,255,42"/>
-</map>
