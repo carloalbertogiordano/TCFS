@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="dir_6cd5dedd230e9204c326d207525703ce" kind="dir">
+    <compoundname>ServerREST/crypt-utils</compoundname>
+    <innerfile refid="key-tools_8go">key-tools.go</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="ServerREST/crypt-utils/"/>
+  </compounddef>
+</doxygen>

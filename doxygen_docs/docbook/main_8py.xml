@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_main_8py" xml:lang="en-US">
+<title>user/main.py File Reference</title>
+<indexterm><primary>user/main.py</primary></indexterm>
+<simplesect>
+    <title>Namespaces    </title>
+        <itemizedlist>
+            <listitem><para>namespace <link linkend="_namespacemain">main</link></para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Functions    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_namespacemain_1a63aa822869c78f66d4bbcc9fbf8ee0e7">main.foo</link> ()</para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Variables    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_namespacemain_1a57bcba58678fbd9dd73e9c194bdf38c0">main.win</link> = <link linkend="_classui_1_1main__window_1_1Window">Window</link>(&quot;TCFS user helper&quot;, &quot;200x200&quot;)</para>
+</listitem>
+            <listitem><para><link linkend="_namespacemain_1a9e90a5249dbf0270acae944b9a31b8c0">main.init_env_butt</link> = win.add_button(&quot;Initialize the environment&quot;, <link linkend="_namespacemain_1a63aa822869c78f66d4bbcc9fbf8ee0e7">foo</link>, row=0, col=0)</para>
+</listitem>
+            <listitem><para><link linkend="_namespacemain_1a8f55266ef83cf13a1c30d1bf8bd065b0">main.mount_butt</link> = win.add_button(&quot;Mount TCFS&quot;, <link linkend="_namespacemain_1a63aa822869c78f66d4bbcc9fbf8ee0e7">foo</link>, row=1, col=0)</para>
+</listitem>
+            <listitem><para><link linkend="_namespacemain_1a30b47e625be9d65c53cd3cef9926f704">main.umount_butt</link> = win.add_button(&quot;Umount TCFS&quot;, <link linkend="_namespacemain_1a63aa822869c78f66d4bbcc9fbf8ee0e7">foo</link>, row=2, col=0)</para>
+</listitem>
+            <listitem><para><link linkend="_namespacemain_1a7adbb7f4a582ed0929b7db6fd0991278">main.shared_butt</link> = win.add_button(&quot;Threshold share&quot;, <link linkend="_namespacemain_1a63aa822869c78f66d4bbcc9fbf8ee0e7">foo</link>, row=3, col=0)</para>
+</listitem>
+            <listitem><para><link linkend="_namespacemain_1a4b95678c3a22414574c3b2dd83d89c83">main.logout_butt</link> = win.add_button(&quot;Logout&quot;, <link linkend="_namespacemain_1a63aa822869c78f66d4bbcc9fbf8ee0e7">foo</link>, row=4, col=0)</para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+</section>

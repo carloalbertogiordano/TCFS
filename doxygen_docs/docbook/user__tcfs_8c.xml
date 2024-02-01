@@ -1,0 +1,213 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_user__tcfs_8c" xml:lang="en-US">
+<title>user/old_stuff/user_tcfs.c File Reference</title>
+<indexterm><primary>user/old_stuff/user_tcfs.c</primary></indexterm>
+<para>
+
+<para>Help the user that wants to use TCFS. </para>
+ 
+</para>
+<programlisting linenumbering="unnumbered">#include &quot;tcfs_helper_tools.h&quot;<?linebreak?>#include &lt;argp.h&gt;<?linebreak?>#include &lt;stdio.h&gt;<?linebreak?>#include &lt;stdlib.h&gt;<?linebreak?></programlisting>Include dependency graph for user_tcfs.c:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="user__tcfs_8c__incl.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+<simplesect>
+    <title>Classes    </title>
+        <itemizedlist>
+            <listitem><para>struct <link linkend="_structarguments">arguments</link></para>
+
+<para>Structure to store command-line arguments. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Functions    </title>
+        <itemizedlist>
+            <listitem><para>static error_t <link linkend="_user__tcfs_8c_1a35ee63236273ebb9325c444cacf00159">parse_opt</link> (int key, char *arg, struct argp_state *state)</para>
+
+<para>Parse the operation, used by argp. This function is marked as internal and should not be used by the user. </para>
+</listitem>
+            <listitem><para>int <link linkend="_user__tcfs_8c_1a0ddf1224851353fc92bfbff6f499fa97">main</link> (int argc, char *argv[])</para>
+
+<para>main function for the TCFS user helper program. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Variables    </title>
+        <itemizedlist>
+            <listitem><para>const char * <link linkend="_user__tcfs_8c_1a2026b95fe28c77f392e54ca5b26a0899">argp_program_version</link> = &quot;TCFS user helper program&quot;</para>
+
+<para>Program version. This variable is marked as internal and should not be used by the user. </para>
+</listitem>
+            <listitem><para>const char * <link linkend="_user__tcfs_8c_1a794b57947d8e4dc6456b6a8a31de2579">argp_program_bug_address</link> = &quot;carloalbertogiordano@duck.com&quot;</para>
+
+<para>Mail for bug reports. This variable is marked as internal and should not be used by the user. </para>
+</listitem>
+            <listitem><para>static char <link linkend="_user__tcfs_8c_1a3a72da5720995770156f9f9879ce6fa9">doc</link> []</para>
+
+<para>Documentation for argp. This variable is marked as internal and should not be used by the user. </para>
+</listitem>
+            <listitem><para>static struct argp_option <link linkend="_user__tcfs_8c_1ac88b371bbf7f89ab6440cb9fe629288c">options</link> []</para>
+
+<para>Option accepted by tcfs helper program. This variable is marked as internal and should not be used by the user. </para>
+</listitem>
+            <listitem><para>static struct <link linkend="_structargp">argp</link> <link linkend="_user__tcfs_8c_1ab70c96531b1b652d70c221cfaf3207f3">argp</link></para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Detailed Description</title>
+
+<para>Help the user that wants to use TCFS. </para>
+<para>
+Definition in file <link linkend="_user__tcfs_8c_source">user_tcfs.c</link>.</para>
+</section>
+<section>
+<title>Function Documentation</title>
+<anchor xml:id="_user__tcfs_8c_1a0ddf1224851353fc92bfbff6f499fa97"/><section>
+    <title>main()</title>
+<indexterm><primary>main</primary><secondary>user_tcfs.c</secondary></indexterm>
+<indexterm><primary>user_tcfs.c</primary><secondary>main</secondary></indexterm>
+<para><computeroutput>int main (int argc, char * argv[])</computeroutput></para><para>
+
+<para>main function for the TCFS user helper program. </para>
+</para>
+<para>
+Definition at line <link linkend="_user__tcfs_8c_source_1l00104">104</link> of file <link linkend="_user__tcfs_8c_source">user_tcfs.c</link>.</para>
+<para>
+References <link linkend="_tcfs__helper__tools_8c_source_1l00025">do_mount()</link>, <link linkend="_user__tcfs_8c_source_1l00050">arguments::operation</link>, and <link linkend="_tcfs__helper__tools_8c_source_1l00405">setup_tcfs_env()</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="user__tcfs_8c_a0ddf1224851353fc92bfbff6f499fa97_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_user__tcfs_8c_1a35ee63236273ebb9325c444cacf00159"/><section>
+    <title>parse_opt()</title>
+<indexterm><primary>parse_opt</primary><secondary>user_tcfs.c</secondary></indexterm>
+<indexterm><primary>user_tcfs.c</primary><secondary>parse_opt</secondary></indexterm>
+<para><computeroutput>static error_t parse_opt (int key, char * arg, struct argp_state * state)<computeroutput>[static]</computeroutput></computeroutput></para><para>
+
+<para>Parse the operation, used by argp. This function is marked as internal and should not be used by the user. </para>
+</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>key</entry><entry>
+<para>The option character </para>
+</entry>
+                            </row>
+                            <row>
+<entry>arg</entry><entry>
+<para>The argument string (unused) </para>
+</entry>
+                            </row>
+                            <row>
+<entry>state</entry><entry>
+<para>The state object of argp </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>static error_t The error code (0 for success, ARGP_ERR_UNKNOWN for unknown option) </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_user__tcfs_8c_source_1l00064">64</link> of file <link linkend="_user__tcfs_8c_source">user_tcfs.c</link>.</para>
+<para>
+References <link linkend="_user__tcfs_8c_source_1l00050">arguments::operation</link>.</para>
+</section>
+</section>
+<section>
+<title>Variable Documentation</title>
+<anchor xml:id="_user__tcfs_8c_1ab70c96531b1b652d70c221cfaf3207f3"/><section>
+    <title>argp</title>
+<indexterm><primary>argp</primary><secondary>user_tcfs.c</secondary></indexterm>
+<indexterm><primary>user_tcfs.c</primary><secondary>argp</secondary></indexterm>
+<para><computeroutput>struct <link linkend="_structargp">argp</link> <link linkend="_structargp">argp</link><computeroutput>[static]</computeroutput></computeroutput></para><emphasis role="strong">Initial value:</emphasis><programlisting linenumbering="unnumbered">=&#32;{&#32;.options&#32;=&#32;<link linkend="_user__tcfs_8c_1ac88b371bbf7f89ab6440cb9fe629288c">options</link>,
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;.parser&#32;=&#32;<link linkend="_user__tcfs_8c_1a35ee63236273ebb9325c444cacf00159">parse_opt</link>,
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;.doc&#32;=&#32;<link linkend="_user__tcfs_8c_1a3a72da5720995770156f9f9879ce6fa9">doc</link>,
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;.args_doc&#32;=&#32;NULL,
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;.children&#32;=&#32;NULL,
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;.help_filter&#32;=&#32;NULL&#32;}
+</programlisting><para>
+Definition at line <link linkend="_user__tcfs_8c_source_1l00093">93</link> of file <link linkend="_user__tcfs_8c_source">user_tcfs.c</link>.</para>
+</section>
+<anchor xml:id="_user__tcfs_8c_1a794b57947d8e4dc6456b6a8a31de2579"/><section>
+    <title>argp_program_bug_address</title>
+<indexterm><primary>argp_program_bug_address</primary><secondary>user_tcfs.c</secondary></indexterm>
+<indexterm><primary>user_tcfs.c</primary><secondary>argp_program_bug_address</secondary></indexterm>
+<para><computeroutput>argp_program_bug_address = &quot;carloalbertogiordano@duck.com&quot;</computeroutput></para><para>
+
+<para>Mail for bug reports. This variable is marked as internal and should not be used by the user. </para>
+</para>
+<para>
+Definition at line <link linkend="_user__tcfs_8c_source_1l00022">22</link> of file <link linkend="_user__tcfs_8c_source">user_tcfs.c</link>.</para>
+</section>
+<anchor xml:id="_user__tcfs_8c_1a2026b95fe28c77f392e54ca5b26a0899"/><section>
+    <title>argp_program_version</title>
+<indexterm><primary>argp_program_version</primary><secondary>user_tcfs.c</secondary></indexterm>
+<indexterm><primary>user_tcfs.c</primary><secondary>argp_program_version</secondary></indexterm>
+<para><computeroutput>argp_program_version = &quot;TCFS user helper program&quot;</computeroutput></para><para>
+
+<para>Program version. This variable is marked as internal and should not be used by the user. </para>
+</para>
+<para>
+Definition at line <link linkend="_user__tcfs_8c_source_1l00016">16</link> of file <link linkend="_user__tcfs_8c_source">user_tcfs.c</link>.</para>
+</section>
+<anchor xml:id="_user__tcfs_8c_1a3a72da5720995770156f9f9879ce6fa9"/><section>
+    <title>doc</title>
+<indexterm><primary>doc</primary><secondary>user_tcfs.c</secondary></indexterm>
+<indexterm><primary>user_tcfs.c</primary><secondary>doc</secondary></indexterm>
+<para><computeroutput>doc<computeroutput>[static]</computeroutput></computeroutput></para><emphasis role="strong">Initial value:</emphasis><programlisting linenumbering="unnumbered">=&#32;<emphasis role="stringliteral">&quot;TCFS&#32;user&#32;accepts&#32;one&#32;of&#32;three&#32;arguments:&#32;mount,&#32;&quot;</emphasis>
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;create-shared,&#32;or&#32;umount.&quot;</emphasis>
+</programlisting><para>
+
+<para>Documentation for argp. This variable is marked as internal and should not be used by the user. </para>
+</para>
+<para>
+Definition at line <link linkend="_user__tcfs_8c_source_1l00028">28</link> of file <link linkend="_user__tcfs_8c_source">user_tcfs.c</link>.</para>
+</section>
+<anchor xml:id="_user__tcfs_8c_1ac88b371bbf7f89ab6440cb9fe629288c"/><section>
+    <title>options</title>
+<indexterm><primary>options</primary><secondary>user_tcfs.c</secondary></indexterm>
+<indexterm><primary>user_tcfs.c</primary><secondary>options</secondary></indexterm>
+<para><computeroutput>options<computeroutput>[static]</computeroutput></computeroutput></para><emphasis role="strong">Initial value:</emphasis><programlisting linenumbering="unnumbered">=&#32;{&#32;{&#32;<emphasis role="stringliteral">&quot;mount&quot;</emphasis>,&#32;<emphasis role="charliteral">&apos;m&apos;</emphasis>,&#32;0,&#32;0,&#32;<emphasis role="stringliteral">&quot;Perform&#32;mount&#32;operation&quot;</emphasis>,&#32;-1&#32;},
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{&#32;<emphasis role="stringliteral">&quot;create-shared&quot;</emphasis>,&#32;<emphasis role="charliteral">&apos;c&apos;</emphasis>,&#32;0,&#32;0,&#32;<emphasis role="stringliteral">&quot;Perform&#32;create-shared&#32;operation&quot;</emphasis>,&#32;-1&#32;},
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{&#32;<emphasis role="stringliteral">&quot;umount&quot;</emphasis>,&#32;<emphasis role="charliteral">&apos;u&apos;</emphasis>,&#32;0,&#32;0,&#32;<emphasis role="stringliteral">&quot;Perform&#32;umount&#32;operation&quot;</emphasis>,&#32;-1&#32;},
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{&#32;<emphasis role="stringliteral">&quot;setup-env&quot;</emphasis>,&#32;<emphasis role="charliteral">&apos;s&apos;</emphasis>,&#32;0,&#32;0,&#32;<emphasis role="stringliteral">&quot;Perform&#32;the&#32;setup&#32;of&#32;the&#32;.tcfs&#32;folder&quot;</emphasis>,
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;-1&#32;},
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{&#32;NULL&#32;}&#32;}
+</programlisting><para>
+
+<para>Option accepted by tcfs helper program. This variable is marked as internal and should not be used by the user. </para>
+</para>
+<para>
+Definition at line <link linkend="_user__tcfs_8c_source_1l00036">36</link> of file <link linkend="_user__tcfs_8c_source">user_tcfs.c</link>.</para>
+</section>
+</section>
+</section>

@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="main__window_8py" kind="file" language="Python">
+    <compoundname>main_window.py</compoundname>
+    <innerclass refid="classui_1_1main__window_1_1Window" prot="public">ui::main_window::Window</innerclass>
+    <innernamespace refid="namespaceui">ui</innernamespace>
+    <innernamespace refid="namespaceui_1_1main__window">ui::main_window</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1" refid="namespaceui" refkind="compound"><highlight class="keyword">import</highlight><highlight class="normal"><sp/>tkinter<sp/></highlight><highlight class="keyword">as</highlight><highlight class="normal"><sp/>tk</highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="4" refid="namespaceui_1_1main__window_1ae9c066a65238b3103c5bd44f4950a9c9" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal"><ref refid="namespaceui_1_1main__window_1ae9c066a65238b3103c5bd44f4950a9c9" kindref="member">modify_button_allign</ref>(button,<sp/>row,<sp/>column):</highlight></codeline>
+<codeline lineno="5"><highlight class="normal"><sp/><sp/><sp/><sp/>button.grid(row=row,<sp/>column=column)</highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8" refid="classui_1_1main__window_1_1Window" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classui_1_1main__window_1_1Window" kindref="compound">Window</ref>:</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="10" refid="classui_1_1main__window_1_1Window_1a75bf25c45091f2edb8aaeffe62b922d5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal"><ref refid="classui_1_1main__window_1_1Window_1a75bf25c45091f2edb8aaeffe62b922d5" kindref="member">__init__</ref>(self,<sp/>title:<sp/>str,<sp/>geometry:<sp/>str):</highlight></codeline>
+<codeline lineno="11" refid="classui_1_1main__window_1_1Window_1a42aa4b5e9230c0c16b1ba2a922332375" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classui_1_1main__window_1_1Window_1a42aa4b5e9230c0c16b1ba2a922332375" kindref="member">window</ref><sp/>=<sp/>tk.Tk()</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classui_1_1main__window_1_1Window_1a42aa4b5e9230c0c16b1ba2a922332375" kindref="member">window</ref>.title(title)</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classui_1_1main__window_1_1Window_1a42aa4b5e9230c0c16b1ba2a922332375" kindref="member">window</ref>.geometry(geometry)</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight></codeline>
+<codeline lineno="15" refid="classui_1_1main__window_1_1Window_1a61bcd34a3ad36ae9edf579ca78eee795" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal"><ref refid="classui_1_1main__window_1_1Window_1a61bcd34a3ad36ae9edf579ca78eee795" kindref="member">add_button</ref>(self,<sp/>text:<sp/>str,<sp/>function,<sp/>row=0,<sp/>col=0):</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>button<sp/>=<sp/>tk.Button(self.<ref refid="classui_1_1main__window_1_1Window_1a42aa4b5e9230c0c16b1ba2a922332375" kindref="member">window</ref>,<sp/>text=text,<sp/>command=function)</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>button.grid(row=row,<sp/>column=col)</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>button</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight></codeline>
+<codeline lineno="20" refid="classui_1_1main__window_1_1Window_1aa4cd7c3b0514d223feac32a3aedea325" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal"><ref refid="classui_1_1main__window_1_1Window_1aa4cd7c3b0514d223feac32a3aedea325" kindref="member">start_window</ref>(self):</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.<ref refid="classui_1_1main__window_1_1Window_1a42aa4b5e9230c0c16b1ba2a922332375" kindref="member">window</ref>.mainloop()</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="user/ui/main_window.py"/>
+  </compounddef>
+</doxygen>

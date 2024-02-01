@@ -1,0 +1,158 @@
+.TH "user/old_stuff/user_tcfs.c" 3 "Thu Feb 1 2024 17:25:40" "Version 0.3.2" "TCFS" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+user/old_stuff/user_tcfs.c \- Help the user that wants to use TCFS\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+\fC#include 'tcfs_helper_tools\&.h'\fP
+.br
+\fC#include <argp\&.h>\fP
+.br
+\fC#include <stdio\&.h>\fP
+.br
+\fC#include <stdlib\&.h>\fP
+.br
+
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "struct \fBarguments\fP"
+.br
+.RI "Structure to store command-line arguments\&. "
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "static error_t \fBparse_opt\fP (int key, char *arg, struct argp_state *state)"
+.br
+.RI "Parse the operation, used by argp\&. This function is marked as internal and should not be used by the user\&. "
+.ti -1c
+.RI "int \fBmain\fP (int argc, char *argv[])"
+.br
+.RI "main function for the TCFS user helper program\&. "
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "const char * \fBargp_program_version\fP = 'TCFS user helper program'"
+.br
+.RI "Program version\&. This variable is marked as internal and should not be used by the user\&. "
+.ti -1c
+.RI "const char * \fBargp_program_bug_address\fP = 'carloalbertogiordano@duck\&.com'"
+.br
+.RI "Mail for bug reports\&. This variable is marked as internal and should not be used by the user\&. "
+.ti -1c
+.RI "static char \fBdoc\fP []"
+.br
+.RI "Documentation for argp\&. This variable is marked as internal and should not be used by the user\&. "
+.ti -1c
+.RI "static struct argp_option \fBoptions\fP []"
+.br
+.RI "Option accepted by tcfs helper program\&. This variable is marked as internal and should not be used by the user\&. "
+.ti -1c
+.RI "static struct \fBargp\fP \fBargp\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Help the user that wants to use TCFS\&. 
+
+
+.PP
+Definition in file \fBuser_tcfs\&.c\fP\&.
+.SH "Function Documentation"
+.PP 
+.SS "int main (int argc, char * argv[])"
+
+.PP
+main function for the TCFS user helper program\&. 
+.PP
+Definition at line \fB104\fP of file \fBuser_tcfs\&.c\fP\&.
+.PP
+References \fBdo_mount()\fP, \fBarguments::operation\fP, and \fBsetup_tcfs_env()\fP\&.
+.SS "static error_t parse_opt (int key, char * arg, struct argp_state * state)\fC [static]\fP"
+
+.PP
+Parse the operation, used by argp\&. This function is marked as internal and should not be used by the user\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIkey\fP The option character 
+.br
+\fIarg\fP The argument string (unused) 
+.br
+\fIstate\fP The state object of argp 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+static error_t The error code (0 for success, ARGP_ERR_UNKNOWN for unknown option) 
+.RE
+.PP
+
+.PP
+Definition at line \fB64\fP of file \fBuser_tcfs\&.c\fP\&.
+.PP
+References \fBarguments::operation\fP\&.
+.SH "Variable Documentation"
+.PP 
+.SS "struct \fBargp\fP \fBargp\fP\fC [static]\fP"
+\fBInitial value:\fP.PP
+.nf
+= { \&.options = options,
+                            \&.parser = parse_opt,
+                            \&.doc = doc,
+                            \&.args_doc = NULL,
+                            \&.children = NULL,
+                            \&.help_filter = NULL }
+.fi
+
+.PP
+Definition at line \fB93\fP of file \fBuser_tcfs\&.c\fP\&.
+.SS "argp_program_bug_address = 'carloalbertogiordano@duck\&.com'"
+
+.PP
+Mail for bug reports\&. This variable is marked as internal and should not be used by the user\&. 
+.PP
+Definition at line \fB22\fP of file \fBuser_tcfs\&.c\fP\&.
+.SS "argp_program_version = 'TCFS user helper program'"
+
+.PP
+Program version\&. This variable is marked as internal and should not be used by the user\&. 
+.PP
+Definition at line \fB16\fP of file \fBuser_tcfs\&.c\fP\&.
+.SS "doc\fC [static]\fP"
+\fBInitial value:\fP.PP
+.nf
+= "TCFS user accepts one of three arguments: mount, "
+                    "create\-shared, or umount\&."
+.fi
+
+.PP
+Documentation for argp\&. This variable is marked as internal and should not be used by the user\&. 
+.PP
+Definition at line \fB28\fP of file \fBuser_tcfs\&.c\fP\&.
+.SS "options\fC [static]\fP"
+\fBInitial value:\fP.PP
+.nf
+= { { "mount", 'm', 0, 0, "Perform mount operation", \-1 },
+        { "create\-shared", 'c', 0, 0, "Perform create\-shared operation", \-1 },
+        { "umount", 'u', 0, 0, "Perform umount operation", \-1 },
+        { "setup\-env", 's', 0, 0, "Perform the setup of the \&.tcfs folder",
+          \-1 },
+        { NULL } }
+.fi
+
+.PP
+Option accepted by tcfs helper program\&. This variable is marked as internal and should not be used by the user\&. 
+.PP
+Definition at line \fB36\fP of file \fBuser_tcfs\&.c\fP\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for TCFS from the source code\&.

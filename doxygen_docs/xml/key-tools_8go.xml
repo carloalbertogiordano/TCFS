@@ -1,0 +1,107 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="key-tools_8go" kind="file" language="C++">
+    <compoundname>key-tools.go</compoundname>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline><highlight class="normal">package<sp/>KeyTools</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">import<sp/>(</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>&quot;crypto/rand&quot;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>&quot;crypto/rsa&quot;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>&quot;crypto/sha256&quot;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>&quot;crypto/x509&quot;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>&quot;encoding/hex&quot;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>&quot;encoding/pem&quot;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>&quot;errors&quot;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>&quot;fmt&quot;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>&quot;github.com/corvus-ch/shamir&quot;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>TCFSTypes<sp/>&quot;serverTCFS/types&quot;</highlight></codeline>
+<codeline><highlight class="normal">)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">//<sp/>GenerateKey<sp/>Generate<sp/>a<sp/>AES<sp/>256<sp/>key</highlight></codeline>
+<codeline><highlight class="normal">func<sp/>GenerateKey()<sp/>([]byte,<sp/>error)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>key<sp/>:=<sp/>make([]byte,<sp/>32)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>_,<sp/>err<sp/>:=<sp/>rand.Read(key)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>if<sp/>err<sp/>!=<sp/>nil<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>return<sp/>nil,<sp/>err</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>return<sp/>key,<sp/>nil</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">//<sp/>SplitKey<sp/>splits<sp/>a<sp/>key<sp/>using<sp/>Shamir&apos;s<sp/>secret<sp/>sharing</highlight></codeline>
+<codeline><highlight class="normal">func<sp/>SplitKey(key<sp/>[]byte,<sp/>n<sp/>int,<sp/>k<sp/>int)<sp/>(map[byte][]byte,<sp/>error)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>shares,<sp/>err<sp/>:=<sp/>shamir.Split(key,<sp/>n,<sp/>k)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>if<sp/>err<sp/>!=<sp/>nil<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>return<sp/>nil,<sp/>err</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>return<sp/>shares,<sp/>nil</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">//<sp/>parsePublicKeyFromPEMString<sp/>Returns<sp/>an<sp/>rsa<sp/>key<sp/>froma<sp/>pem<sp/>string<sp/>in<sp/>PKIX<sp/>format</highlight></codeline>
+<codeline><highlight class="normal">func<sp/>parsePublicKeyFromPEMString(pubPEM<sp/>string)<sp/>(*rsa.PublicKey,<sp/>error)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>block,<sp/>_<sp/>:=<sp/>pem.Decode([]byte(pubPEM))</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>if<sp/>block<sp/>==<sp/>nil<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>return<sp/>nil,<sp/>errors.New(&quot;failed<sp/>to<sp/>parse<sp/>PEM<sp/>block<sp/>containing<sp/>public<sp/>key&quot;)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>pub,<sp/>err<sp/>:=<sp/>x509.ParsePKIXPublicKey(block.Bytes)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>if<sp/>err<sp/>!=<sp/>nil<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>return<sp/>nil,<sp/>err</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>rsaPub,<sp/>ok<sp/>:=<sp/>pub.(*rsa.PublicKey)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>if<sp/>!ok<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>return<sp/>nil,<sp/>errors.New(&quot;key<sp/>type<sp/>is<sp/>not<sp/>RSA&quot;)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>return<sp/>rsaPub,<sp/>nil</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">//<sp/>EncryptKeyPart<sp/>Encrypts<sp/>a<sp/>keypart<sp/>from<sp/>shamir<sp/>alg.<sp/>with<sp/>a<sp/>public<sp/>key</highlight></codeline>
+<codeline><highlight class="normal">func<sp/>EncryptKeyPart(keyPart<sp/>[]byte,<sp/>publicKey<sp/>string)<sp/>(string,<sp/>error)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>//<sp/>Parse<sp/>the<sp/>public<sp/>key</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>pubKeyToRSA,<sp/>err<sp/>:=<sp/>parsePublicKeyFromPEMString(publicKey)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>if<sp/>err<sp/>!=<sp/>nil<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>return<sp/>&quot;&quot;,<sp/>fmt.Errorf(&quot;failed<sp/>to<sp/>parse<sp/>string<sp/>to<sp/>rsa<sp/>key:<sp/>%w&quot;,<sp/>err)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>//<sp/>Encrypt<sp/>the<sp/>key<sp/>part<sp/>using<sp/>RSA-OAEP<sp/>with<sp/>SHA-256<sp/>hash<sp/>function</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>label<sp/>:=<sp/>[]byte(&quot;&quot;)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>hash<sp/>:=<sp/>sha256.New()</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>encryptedKeyPart,<sp/>err<sp/>:=<sp/>rsa.EncryptOAEP(hash,<sp/>rand.Reader,<sp/>pubKeyToRSA,<sp/>keyPart,<sp/>label)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>if<sp/>err<sp/>!=<sp/>nil<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>return<sp/>&quot;&quot;,<sp/>fmt.Errorf(&quot;failed<sp/>to<sp/>encrypt<sp/>key<sp/>part:<sp/>%w&quot;,<sp/>err)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>return<sp/>hex.EncodeToString(encryptedKeyPart),<sp/>nil</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">//<sp/>EncryptSharesForSharedFile<sp/>Encrypts<sp/>all<sp/>the<sp/>keyparts<sp/>from<sp/>a<sp/>slice<sp/>of<sp/>SharedFile<sp/>structs</highlight></codeline>
+<codeline><highlight class="normal">func<sp/>EncryptSharesForSharedFile(sharedFile<sp/>*TCFSTypes.SharedFile)<sp/>error<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>encryptedShare,<sp/>err<sp/>:=<sp/>EncryptKeyPart(sharedFile.Share,<sp/>sharedFile.User.PublicKey)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>if<sp/>err<sp/>!=<sp/>nil<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>return<sp/>err</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>sharedFile.EncryptedShare<sp/>=<sp/>encryptedShare</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>return<sp/>nil</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">//<sp/>EncryptSharesForSharedFileList<sp/>same<sp/>as<sp/>EncryptSharesForSharedFile<sp/>but<sp/>works<sp/>with<sp/>slices</highlight></codeline>
+<codeline><highlight class="normal">func<sp/>EncryptSharesForSharedFileList(list<sp/>*[]TCFSTypes.SharedFile)<sp/>error<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>for<sp/>i<sp/>:=<sp/>range<sp/>*list<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fmt.Printf(&quot;Encrypting<sp/>share<sp/>for<sp/>%v\n&quot;,<sp/>(*list)[i].User.Username)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>err<sp/>:=<sp/>EncryptSharesForSharedFile(&amp;(*list)[i])</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>if<sp/>err<sp/>!=<sp/>nil<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>return<sp/>err</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>return<sp/>nil</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="ServerREST/crypt-utils/key-tools.go"/>
+  </compounddef>
+</doxygen>

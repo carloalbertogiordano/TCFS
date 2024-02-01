@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="dir_111cd2f11cffd6d6d28d89ee0389ee9e" kind="dir">
+    <compoundname>user</compoundname>
+    <innerdir refid="dir_eb0b66e006e4855153937e7046cf622c">user/command_handler</innerdir>
+    <innerdir refid="dir_be9ae40358cfd0b3633ecd24f4ddab18">user/old_stuff</innerdir>
+    <innerdir refid="dir_4aa3637474ce650d6302885fe35ba584">user/ui</innerdir>
+    <innerfile refid="main_8py">main.py</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="user/"/>
+  </compounddef>
+</doxygen>

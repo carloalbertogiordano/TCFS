@@ -1,0 +1,32 @@
+<map id="main" name="main">
+<area shape="rect" id="Node000001" title="main function for the TCFS user helper program." alt="" coords="5,81,55,108"/>
+<area shape="rect" id="Node000002" href="$tcfs__helper__tools_8c.html#a769edcf066efb97f5ae3a81e3507a793" title="Execute the mount of either a Network FS (for ex NFS), Local FS (for ex a block device),..." alt="" coords="119,56,197,83"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="54,87,104,77,105,83,55,93"/>
+<area shape="rect" id="Node000014" href="$tcfs__helper__tools_8c.html#abe60a9bd3f55341eb2496670553f9d26" title=" " alt="" coords="103,107,213,133"/>
+<area shape="poly" id="edge16_Node000001_Node000014" title=" " alt="" coords="55,97,89,104,88,109,54,102"/>
+<area shape="rect" id="Node000003" href="$tcfs__helper__tools_8c.html#afaed41fa1136b829eb00a7de26a3739b" title=" " alt="" coords="265,5,406,32"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="197,56,271,34,273,39,198,61"/>
+<area shape="rect" id="Node000007" href="$tcfs__helper__tools_8c.html#a816c2bcaa3d059abc79cb9b021957dbf" title=" " alt="" coords="268,56,404,83"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="198,67,253,67,253,72,198,72"/>
+<area shape="rect" id="Node000012" href="$tcfs__helper__tools_8c.html#aa5b1203d82818e149ae3ad3fd3840a40" title=" " alt="" coords="261,107,410,133"/>
+<area shape="poly" id="edge13_Node000002_Node000012" title=" " alt="" coords="198,78,273,99,271,105,197,83"/>
+<area shape="rect" id="Node000004" href="$tcfs__helper__tools_8c.html#ae1746adb62f9476a6d8166b62faa7a91" title=" " alt="" coords="481,5,599,32"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="407,16,466,16,466,21,407,21"/>
+<area shape="rect" id="Node000005" href="$tcfs__helper__tools_8c.html#a26931b8bdf24be94e03f4d77e991d063" title=" " alt="" coords="477,56,603,83"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="393,30,470,49,469,54,392,35"/>
+<area shape="rect" id="Node000006" href="$tcfs__helper__tools_8c.html#a1bef5d2cdd74c07b3ae025c6424dfbd5" title="fetch the password of the current user. This function is marked as internal and should not be used by..." alt="" coords="715,56,789,83"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="603,67,700,67,700,72,603,72"/>
+<area shape="poly" id="edge11_Node000007_Node000004" title=" " alt="" coords="392,53,469,34,470,39,393,58"/>
+<area shape="poly" id="edge12_Node000007_Node000005" title=" " alt="" coords="404,67,463,67,463,72,404,72"/>
+<area shape="rect" id="Node000008" href="$tcfs__helper__tools_8c.html#ae930b52ef70f640efde8bda574b6b234" title="Create a temporary folder in HOME/.tcfs." alt="" coords="458,107,622,149"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="386,81,450,100,449,105,384,86"/>
+<area shape="rect" id="Node000009" href="$tcfs__helper__tools_8c.html#a3644c45d6131fe1528ce36163e299fd9" title="Creates the .tcfs folder in the user HOME. Then this creates a folder with a random name so that crea..." alt="" coords="670,115,834,141"/>
+<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="622,125,655,125,655,131,622,131"/>
+<area shape="rect" id="Node000010" href="$tcfs__helper__tools_8c.html#ab3cdcc12b3bc92a382784027c94a2027" title="Check if a directory already exists. This function is marked as internal and should not be used by th..." alt="" coords="906,89,1019,116"/>
+<area shape="poly" id="edge9_Node000009_Node000010" title=" " alt="" coords="834,115,891,109,891,114,835,121"/>
+<area shape="rect" id="Node000011" href="$tcfs__helper__tools_8c.html#a8ef1473d59fd1cfc680fe1b227604a02" title="Generate a random string that will be used as a folder name for the mount. This function is marked as..." alt="" coords="882,140,1042,167"/>
+<area shape="poly" id="edge10_Node000009_Node000011" title=" " alt="" coords="835,135,868,139,867,145,834,141"/>
+<area shape="poly" id="edge15_Node000012_Node000005" title=" " alt="" coords="392,103,469,84,470,89,393,109"/>
+<area shape="rect" id="Node000013" href="$tcfs__helper__tools_8c.html#acfa06becac8f67e9f278cfcbf91cc51b" title=" " alt="" coords="471,173,609,200"/>
+<area shape="poly" id="edge14_Node000012_Node000013" title=" " alt="" coords="378,131,459,159,481,166,479,171,457,164,376,136"/>
+</map>

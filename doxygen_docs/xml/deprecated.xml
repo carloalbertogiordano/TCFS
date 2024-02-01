@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="deprecated" kind="page">
+    <compoundname>deprecated</compoundname>
+    <title>Deprecated List</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><variablelist>
+<varlistentry><term>Member <ref refid="tcfs__utils_8c_1a4316eb58a0cb5afb4e90e75a55c9b3ea" kindref="member">get_encrypted_key</ref>  (char *filepath, unsigned char *encrypted_key)</term></varlistentry>
+<listitem><para><anchor id="deprecated_1_deprecated000002"/>Currently has no use. Was once used for debugging.  </para>
+</listitem>
+<varlistentry><term>Member <ref refid="tcfs__utils_8h_1a8c1c24299a2b01f6157b051cb56ebc52" kindref="member">print_aes_key</ref>  (unsigned char *key)</term></varlistentry>
+<listitem><para><anchor id="deprecated_1_deprecated000003"/>Currently has no use. Printing the AES key is considered excessive.  </para>
+</listitem>
+<varlistentry><term>Member <ref refid="tcfs__utils_8c_1a42623317bb0b1ff095b4d946dc085bd6" kindref="member">read_file</ref>  (FILE *file)</term></varlistentry>
+<listitem><para><anchor id="deprecated_1_deprecated000001"/>Currently has no use. </para>
+</listitem>
+</variablelist>
+</para>
+    </detaileddescription>
+    <location file="deprecated"/>
+  </compounddef>
+</doxygen>

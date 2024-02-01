@@ -1,0 +1,232 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="REST__functions_8go" kind="file" language="C++">
+    <compoundname>REST_functions.go</compoundname>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline><highlight class="normal">package<sp/>REST_Functions</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">import<sp/>(</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>&quot;encoding/json&quot;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>&quot;fmt&quot;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>&quot;golang.org/x/crypto/bcrypt&quot;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>&quot;net/http&quot;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>KeyTools<sp/>&quot;serverTCFS/crypt-utils&quot;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>DB<sp/>&quot;serverTCFS/db&quot;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>TCFSTypes<sp/>&quot;serverTCFS/types&quot;</highlight></codeline>
+<codeline><highlight class="normal">)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">func<sp/>deserializeUser(r<sp/>*http.Request)<sp/>(TCFSTypes.TCFSUser,<sp/>error)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>var<sp/>user<sp/>TCFSTypes.TCFSUser</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>err<sp/>:=<sp/>json.NewDecoder(r.Body).Decode(&amp;user)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>if<sp/>err<sp/>!=<sp/>nil<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>return<sp/>user,<sp/>err</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>return<sp/>user,<sp/>nil</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">func<sp/>Register(w<sp/>http.ResponseWriter,<sp/>r<sp/>*http.Request)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>fmt.Printf(&quot;Called<sp/>Register&quot;)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>var<sp/>user<sp/>TCFSTypes.TCFSUser</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>var<sp/>err<sp/>error<sp/>=<sp/>nil</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>user,<sp/>err<sp/>=<sp/>deserializeUser(r)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>if<sp/>err<sp/>!=<sp/>nil<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>http.Error(w,<sp/>err.Error(),<sp/>http.StatusBadRequest)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>return</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>//<sp/>Hash<sp/>the<sp/>user&apos;s<sp/>password</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>hashedPassword,<sp/>err<sp/>:=<sp/>bcrypt.GenerateFromPassword([]byte(user.Password),<sp/>bcrypt.DefaultCost)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>if<sp/>err<sp/>!=<sp/>nil<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>http.Error(w,<sp/>err.Error(),<sp/>http.StatusInternalServerError)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>return</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>//<sp/>Insert<sp/>the<sp/>user<sp/>into<sp/>the<sp/>RegisteredUsers<sp/>table</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>err<sp/>=<sp/>DB.InsertRegisteredUser(user.Username,<sp/>string(hashedPassword))</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>if<sp/>err<sp/>!=<sp/>nil<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>http.Error(w,<sp/>err.Error(),<sp/>http.StatusInternalServerError)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>return</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>fmt.Printf(&quot;New<sp/>user<sp/>inserted<sp/>\nSUCCESS\n&quot;)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>//<sp/>Return<sp/>a<sp/>success<sp/>message</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>w.WriteHeader(http.StatusOK)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>fmt.Fprintf(w,<sp/>&quot;User<sp/>registered<sp/>successfully&quot;)</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">func<sp/>Login(w<sp/>http.ResponseWriter,<sp/>r<sp/>*http.Request)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>fmt.Println(&quot;Called<sp/>Login\n&quot;)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>var<sp/>user<sp/>TCFSTypes.TCFSUser</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>var<sp/>err<sp/>error<sp/>=<sp/>nil</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>user,<sp/>err<sp/>=<sp/>deserializeUser(r)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>if<sp/>err<sp/>!=<sp/>nil<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>http.Error(w,<sp/>err.Error(),<sp/>http.StatusBadRequest)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>return</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>//<sp/>Retrieve<sp/>the<sp/>user&apos;s<sp/>hashed<sp/>password<sp/>from<sp/>the<sp/>RegisteredUsers<sp/>table</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>hashedPassword,<sp/>err<sp/>:=<sp/>DB.GetPasswordHash(user.Username)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>if<sp/>err<sp/>!=<sp/>nil<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>http.Error(w,<sp/>err.Error(),<sp/>http.StatusInternalServerError)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>return</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>//<sp/>Compare<sp/>the<sp/>user&apos;s<sp/>password<sp/>with<sp/>the<sp/>hashed<sp/>password</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>err<sp/>=<sp/>bcrypt.CompareHashAndPassword([]byte(hashedPassword),<sp/>[]byte(user.Password))</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>if<sp/>err<sp/>!=<sp/>nil<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>http.Error(w,<sp/>&quot;Invalid<sp/>credentials&quot;,<sp/>http.StatusUnauthorized)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>return</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>fmt.Println(&quot;Password<sp/>match&quot;)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>//<sp/>Insert<sp/>the<sp/>user<sp/>into<sp/>the<sp/>LoggedUsers<sp/>table</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>err<sp/>=<sp/>DB.InsertLoggedUser(user.Username,<sp/>user.PublicKey)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>if<sp/>err<sp/>!=<sp/>nil<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>http.Error(w,<sp/>err.Error(),<sp/>http.StatusInternalServerError)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>return</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>fmt.Println(&quot;Inserted<sp/>in<sp/>logged<sp/>users&quot;)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>//<sp/>Return<sp/>a<sp/>success<sp/>message</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>w.WriteHeader(http.StatusOK)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>fmt.Fprintf(w,<sp/>&quot;User<sp/>logged<sp/>in<sp/>successfully&quot;)</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">func<sp/>Logout(w<sp/>http.ResponseWriter,<sp/>r<sp/>*http.Request)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>fmt.Println(&quot;Called<sp/>Unregister&quot;)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>var<sp/>user<sp/>TCFSTypes.TCFSUser</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>var<sp/>err<sp/>error<sp/>=<sp/>nil</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>user,<sp/>err<sp/>=<sp/>deserializeUser(r)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>if<sp/>err<sp/>!=<sp/>nil<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>http.Error(w,<sp/>err.Error(),<sp/>http.StatusBadRequest)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>return</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>err<sp/>=<sp/>DB.DeleteLoggedUser(user.Username)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>if<sp/>err<sp/>!=<sp/>nil<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>http.Error(w,<sp/>err.Error(),<sp/>http.StatusInternalServerError)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>fmt.Printf(&quot;User<sp/>%v<sp/>unregistered\n<sp/>SUCCESS\n&quot;,<sp/>user.Username)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>w.WriteHeader(http.StatusOK)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>fmt.Fprintf(w,<sp/>&quot;User<sp/>logged<sp/>out<sp/>successfully&quot;)</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">/*</highlight></codeline>
+<codeline><highlight class="normal">CreateSharedFile<sp/>The<sp/>request<sp/>contains<sp/>a<sp/>username<sp/>list<sp/>and<sp/>the<sp/>k<sp/>number<sp/>for<sp/>Shamir</highlight></codeline>
+<codeline><highlight class="normal">A<sp/>new<sp/>key<sp/>for<sp/>the<sp/>file<sp/>will<sp/>be<sp/>generated<sp/>and<sp/>then<sp/>Shamir<sp/>generates<sp/>all<sp/>the<sp/>key-parts</highlight></codeline>
+<codeline><highlight class="normal">Each<sp/>key-part<sp/>is<sp/>cyphered<sp/>with<sp/>the<sp/>public<sp/>key<sp/>of<sp/>the<sp/>user<sp/>and<sp/>saved<sp/>in<sp/>the<sp/>relative<sp/>entry<sp/>in<sp/>the<sp/>DB</highlight></codeline>
+<codeline><highlight class="normal">A<sp/>fileID<sp/>is<sp/>returned<sp/>in<sp/>the<sp/>response.<sp/>This<sp/>will<sp/>identify<sp/>the<sp/>file</highlight></codeline>
+<codeline><highlight class="normal">*/</highlight></codeline>
+<codeline><highlight class="normal">func<sp/>CreateSharedFile(w<sp/>http.ResponseWriter,<sp/>r<sp/>*http.Request)<sp/>{</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>type<sp/>User<sp/>struct<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Username<sp/>string<sp/>`json:&quot;username&quot;`</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>type<sp/>Request<sp/>struct<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Users<sp/>[]User<sp/>`json:&quot;users&quot;`</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>K<sp/><sp/><sp/><sp/><sp/>int<sp/><sp/><sp/><sp/>`json:&quot;k&quot;`</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>var<sp/>req<sp/>Request</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>decoder<sp/>:=<sp/>json.NewDecoder(r.Body)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>err<sp/>:=<sp/>decoder.Decode(&amp;req)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>if<sp/>err<sp/>!=<sp/>nil<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>http.Error(w,<sp/>err.Error(),<sp/>http.StatusBadRequest)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>return</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>var<sp/>users<sp/>[]TCFSTypes.TCFSUser</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>for<sp/>_,<sp/>user<sp/>:=<sp/>range<sp/>req.Users<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>tmpUser<sp/>:=<sp/>TCFSTypes.TCFSUser{Username:<sp/>user.Username}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>err<sp/>:=<sp/>DB.LoadUserInfoByName(&amp;tmpUser)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>if<sp/>err<sp/>!=<sp/>nil<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>http.Error(w,<sp/>err.Error(),<sp/>http.StatusBadRequest)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fmt.Printf(&quot;Could<sp/>not<sp/>load<sp/>user<sp/>%v<sp/>info<sp/>%v\n&quot;,<sp/>user,<sp/>err)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>return</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>users<sp/>=<sp/>append(users,<sp/>tmpUser)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>k<sp/>:=<sp/>req.K</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>fmt.Printf(&quot;Got<sp/>users<sp/>and<sp/>k:<sp/>%v\n&quot;,<sp/>k)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>//<sp/>Generate<sp/>a<sp/>new<sp/>key</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>key,<sp/>err<sp/>:=<sp/>KeyTools.GenerateKey()</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>if<sp/>err<sp/>!=<sp/>nil<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fmt.Printf(&quot;Err:<sp/>cannot<sp/>not<sp/>generate<sp/>new<sp/>key<sp/>%v\n&quot;,<sp/>err)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>http.Error(w,<sp/>err.Error(),<sp/>http.StatusInternalServerError)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>return</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>//<sp/>Split<sp/>the<sp/>key<sp/>using<sp/>Shamir&apos;s<sp/>secret<sp/>sharing</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>shares,<sp/>err<sp/>:=<sp/>KeyTools.SplitKey(key,<sp/>len(users),<sp/>k)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>if<sp/>err<sp/>!=<sp/>nil<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fmt.Printf(&quot;Cannot<sp/>split<sp/>the<sp/>key<sp/>%v\n&quot;,<sp/>err)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>http.Error(w,<sp/>err.Error(),<sp/>http.StatusInternalServerError)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>return</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>fmt.Printf(&quot;Got<sp/>%v<sp/>keyparts<sp/>for<sp/>%v<sp/>users\n&quot;,<sp/>len(shares),<sp/>len(users))</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>fileID,<sp/>err<sp/>:=<sp/>DB.GetNewFileID()</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>if<sp/>err<sp/>!=<sp/>nil<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fmt.Printf(&quot;Cannot<sp/>generate<sp/>a<sp/>new<sp/>fileID<sp/>%v\n&quot;,<sp/>err)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>http.Error(w,<sp/>err.Error(),<sp/>http.StatusInternalServerError)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>return</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>fmt.Printf(&quot;Got<sp/>new<sp/>file<sp/>id<sp/>%v\n&quot;,<sp/>fileID)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>var<sp/>sharedFilesList<sp/>[]TCFSTypes.SharedFile</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>//<sp/>Couple<sp/>the<sp/>shares<sp/>with<sp/>the<sp/>user<sp/>in<sp/>the<sp/>sharedFilesList</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>j<sp/>:=<sp/>0</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>for<sp/>_,<sp/>share<sp/>:=<sp/>range<sp/>shares<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>if<sp/>share<sp/>==<sp/>nil<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fmt.Printf(&quot;This<sp/>share<sp/>is<sp/>nil\n&quot;)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>http.Error(w,<sp/>err.Error(),<sp/>http.StatusInternalServerError)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>return</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>sharedFile<sp/>:=<sp/>TCFSTypes.SharedFile{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>User:<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>users[j],</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FileID:<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fileID,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Share:<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>share,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EncryptedShare:<sp/>&quot;&quot;,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>sharedFilesList<sp/>=<sp/>append(sharedFilesList,<sp/>sharedFile)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>j++</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>fmt.Printf(&quot;Created<sp/>%v<sp/>shared<sp/>files<sp/>\n&quot;,<sp/>len(sharedFilesList))</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>for<sp/>_,<sp/>s<sp/>:=<sp/>range<sp/>sharedFilesList<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fmt.Printf(&quot;%v\n&quot;,<sp/>s)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>err<sp/>=<sp/>KeyTools.EncryptSharesForSharedFileList(&amp;sharedFilesList)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>if<sp/>err<sp/>!=<sp/>nil<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fmt.Printf(&quot;Err:<sp/>cannot<sp/>Encrypt<sp/>share<sp/>list:<sp/>%v\n&quot;,<sp/>err)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>http.Error(w,<sp/>err.Error(),<sp/>http.StatusInternalServerError)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>return</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>err<sp/>=<sp/>DB.InsertMultipleSharedFiles(sharedFilesList)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>if<sp/>err<sp/>!=<sp/>nil<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fmt.Printf(&quot;Err:<sp/>cannot<sp/>save<sp/>list<sp/>in<sp/>DB<sp/><sp/>%v\n&quot;,<sp/>err)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>http.Error(w,<sp/>err.Error(),<sp/>http.StatusInternalServerError)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>return</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>fmt.Printf(&quot;New<sp/>share<sp/>saved<sp/>to<sp/>DB\n&quot;)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>//<sp/>Return<sp/>a<sp/>success<sp/>message</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>w.WriteHeader(http.StatusOK)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>fmt.Fprintf(w,<sp/>fmt.Sprintf(&quot;fileID:%v\n&quot;,<sp/>fileID))</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>fmt.Fprintf(w,<sp/>&quot;Shared<sp/>file<sp/>created<sp/>successfully&quot;)</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="ServerREST/serverTools/REST_functions.go"/>
+  </compounddef>
+</doxygen>

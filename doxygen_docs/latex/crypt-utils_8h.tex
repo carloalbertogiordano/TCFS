@@ -1,0 +1,610 @@
+\doxysection{userspace-\/module/utils/crypt-\/utils/crypt-\/utils.h File Reference}
+\hypertarget{crypt-utils_8h}{}\label{crypt-utils_8h}\index{userspace-\/module/utils/crypt-\/utils/crypt-\/utils.h@{userspace-\/module/utils/crypt-\/utils/crypt-\/utils.h}}
+
+
+Header file for \doxylink{crypt-utils_8c}{crypt-\/utils.\+c}, which provides functions for encryption and decryption using AES-\/256, as well as other utility functions.  
+
+
+{\ttfamily \#include $<$ctype.\+h$>$}\newline
+{\ttfamily \#include $<$libgen.\+h$>$}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$sys/mman.\+h$>$}\newline
+{\ttfamily \#include $<$unistd.\+h$>$}\newline
+{\ttfamily \#include $<$openssl/aes.\+h$>$}\newline
+{\ttfamily \#include $<$openssl/bio.\+h$>$}\newline
+{\ttfamily \#include $<$openssl/buffer.\+h$>$}\newline
+{\ttfamily \#include $<$openssl/evp.\+h$>$}\newline
+{\ttfamily \#include $<$openssl/rand.\+h$>$}\newline
+{\ttfamily \#include "{}../tcfs\+\_\+utils/tcfs\+\_\+utils.\+h"{}}\newline
+Include dependency graph for crypt-\/utils.h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{crypt-utils_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{crypt-utils_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{crypt-utils_8h_a1cb0c60ca582db30ae87362ca43e8c19}{ENCRYPT}}~true
+\begin{DoxyCompactList}\small\item\em Signifies that the selected action is encryption. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{crypt-utils_8h_a36fab47015485191712a579a059a7c20}{DECRYPT}}~false
+\begin{DoxyCompactList}\small\item\em Signifies that the selected action is decryption. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{crypt-utils_8h_a94b5b388b3f00982ccee72b192077e76}{do\+\_\+crypt}} (FILE \texorpdfstring{$\ast$}{*}in, FILE \texorpdfstring{$\ast$}{*}out, int action, unsigned char \texorpdfstring{$\ast$}{*}key\+\_\+str)
+\begin{DoxyCompactList}\small\item\em High level function interface for performing AES encryption on FILE pointers Uses Open\+SSL libcrypto EVP API ~\newline
+. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{crypt-utils_8h_a8845f5705eaafda836aac91d5881876f}{generate\+\_\+key}} (unsigned char \texorpdfstring{$\ast$}{*}destination)
+\begin{DoxyCompactList}\small\item\em Generate a new AES 256 key for a file. \end{DoxyCompactList}\item 
+unsigned char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{crypt-utils_8h_a8bf9483dae26e9c0a1c45d77b8f1dce8}{encrypt\+\_\+string}} (unsigned char \texorpdfstring{$\ast$}{*}plaintext, const char \texorpdfstring{$\ast$}{*}key, int \texorpdfstring{$\ast$}{*}encrypted\+\_\+len)
+\begin{DoxyCompactList}\small\item\em Encrypt the \texorpdfstring{$\ast$}{*}plaintext string using a AES 256 key. \end{DoxyCompactList}\item 
+unsigned char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{crypt-utils_8h_a02ee5ac64d2d2d441edcca915e480503}{decrypt\+\_\+string}} (unsigned char \texorpdfstring{$\ast$}{*}base64\+\_\+ciphertext, const char \texorpdfstring{$\ast$}{*}key)
+\begin{DoxyCompactList}\small\item\em Decrypt the \texorpdfstring{$\ast$}{*}ciphertext string using a AES 256 key. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{crypt-utils_8h_a36c2342a7c47b8f41bf628bf473b1c97}{is\+\_\+valid\+\_\+key}} (const unsigned char \texorpdfstring{$\ast$}{*}key)
+\begin{DoxyCompactList}\small\item\em Check if a given key is valid. \end{DoxyCompactList}\item 
+const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{crypt-utils_8h_aa4a7facde8c6f63a7225c07e92232b2e}{encrypt\+\_\+file\+\_\+name\+\_\+with\+\_\+hex}} (const char \texorpdfstring{$\ast$}{*}file, const char \texorpdfstring{$\ast$}{*}key)
+\item 
+const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{crypt-utils_8h_a3b003481e5c188ac1d6f63e09e6f3a34}{decrypt\+\_\+file\+\_\+name\+\_\+with\+\_\+hex}} (const char \texorpdfstring{$\ast$}{*}enc\+\_\+file, const char \texorpdfstring{$\ast$}{*}key)
+\item 
+const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{crypt-utils_8h_ad9b10366ade9f2129ec2613fdc76df80}{encrypt\+\_\+path}} (const char \texorpdfstring{$\ast$}{*}path, const char \texorpdfstring{$\ast$}{*}key)
+\begin{DoxyCompactList}\small\item\em Encrypts each part of the given path using a specified key. \end{DoxyCompactList}\item 
+const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{crypt-utils_8h_a5c45db4d3db3ef274fb6356e1a95e644}{encrypt\+\_\+path\+\_\+and\+\_\+filename}} (const char \texorpdfstring{$\ast$}{*}path, const char \texorpdfstring{$\ast$}{*}key)
+\begin{DoxyCompactList}\small\item\em Encrypts the given filename with its path using a specified key. \end{DoxyCompactList}\item 
+const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{crypt-utils_8h_a1899c23a523d11ed1cb5601eabdb023d}{decrypt\+\_\+path}} (const char \texorpdfstring{$\ast$}{*}encrypted\+\_\+path, const char \texorpdfstring{$\ast$}{*}key)
+\begin{DoxyCompactList}\small\item\em Decrypts each part of the given encrypted path using a specified key. \end{DoxyCompactList}\item 
+const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{crypt-utils_8h_a373f8aedbcd8b6ce22fe7bdfeb2961c2}{decrypt\+\_\+path\+\_\+and\+\_\+filename}} (const char \texorpdfstring{$\ast$}{*}encrypted\+\_\+path, const char \texorpdfstring{$\ast$}{*}key)
+\begin{DoxyCompactList}\small\item\em Decrypts the given encrypted filename with its path using a specified key. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Header file for \doxylink{crypt-utils_8c}{crypt-\/utils.\+c}, which provides functions for encryption and decryption using AES-\/256, as well as other utility functions. 
+
+
+
+Definition in file \mbox{\hyperlink{crypt-utils_8h_source}{crypt-\/utils.\+h}}.
+
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{crypt-utils_8h_a36fab47015485191712a579a059a7c20}\label{crypt-utils_8h_a36fab47015485191712a579a059a7c20} 
+\index{crypt-\/utils.h@{crypt-\/utils.h}!DECRYPT@{DECRYPT}}
+\index{DECRYPT@{DECRYPT}!crypt-\/utils.h@{crypt-\/utils.h}}
+\doxysubsubsection{\texorpdfstring{DECRYPT}{DECRYPT}}
+{\footnotesize\ttfamily \#define DECRYPT~false}
+
+
+
+Signifies that the selected action is decryption. 
+
+
+
+Definition at line \mbox{\hyperlink{crypt-utils_8h_source_l00032}{32}} of file \mbox{\hyperlink{crypt-utils_8h_source}{crypt-\/utils.\+h}}.
+
+\Hypertarget{crypt-utils_8h_a1cb0c60ca582db30ae87362ca43e8c19}\label{crypt-utils_8h_a1cb0c60ca582db30ae87362ca43e8c19} 
+\index{crypt-\/utils.h@{crypt-\/utils.h}!ENCRYPT@{ENCRYPT}}
+\index{ENCRYPT@{ENCRYPT}!crypt-\/utils.h@{crypt-\/utils.h}}
+\doxysubsubsection{\texorpdfstring{ENCRYPT}{ENCRYPT}}
+{\footnotesize\ttfamily \#define ENCRYPT~true}
+
+
+
+Signifies that the selected action is encryption. 
+
+
+
+Definition at line \mbox{\hyperlink{crypt-utils_8h_source_l00027}{27}} of file \mbox{\hyperlink{crypt-utils_8h_source}{crypt-\/utils.\+h}}.
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{crypt-utils_8h_a3b003481e5c188ac1d6f63e09e6f3a34}\label{crypt-utils_8h_a3b003481e5c188ac1d6f63e09e6f3a34} 
+\index{crypt-\/utils.h@{crypt-\/utils.h}!decrypt\_file\_name\_with\_hex@{decrypt\_file\_name\_with\_hex}}
+\index{decrypt\_file\_name\_with\_hex@{decrypt\_file\_name\_with\_hex}!crypt-\/utils.h@{crypt-\/utils.h}}
+\doxysubsubsection{\texorpdfstring{decrypt\_file\_name\_with\_hex()}{decrypt\_file\_name\_with\_hex()}}
+{\footnotesize\ttfamily const char \texorpdfstring{$\ast$}{*} decrypt\+\_\+file\+\_\+name\+\_\+with\+\_\+hex (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{enc\+\_\+file,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{key }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{crypt-utils_8c_source_l00406}{406}} of file \mbox{\hyperlink{crypt-utils_8c_source}{crypt-\/utils.\+c}}.
+
+
+
+References \mbox{\hyperlink{crypt-utils_8c_source_l00330}{decrypt\+\_\+string()}}, and \mbox{\hyperlink{tcfs__utils_8c_source_l00218}{hex\+\_\+to\+\_\+string()}}.
+
+
+
+Referenced by \mbox{\hyperlink{crypt-utils_8c_source_l00645}{decrypt\+\_\+path()}}, \mbox{\hyperlink{crypt-utils_8c_source_l00759}{decrypt\+\_\+path\+\_\+and\+\_\+filename()}}, and \mbox{\hyperlink{tcfs_8c_source_l00196}{tcfs\+\_\+readdir()}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{crypt-utils_8h_a3b003481e5c188ac1d6f63e09e6f3a34_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{crypt-utils_8h_a3b003481e5c188ac1d6f63e09e6f3a34_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{crypt-utils_8h_a1899c23a523d11ed1cb5601eabdb023d}\label{crypt-utils_8h_a1899c23a523d11ed1cb5601eabdb023d} 
+\index{crypt-\/utils.h@{crypt-\/utils.h}!decrypt\_path@{decrypt\_path}}
+\index{decrypt\_path@{decrypt\_path}!crypt-\/utils.h@{crypt-\/utils.h}}
+\doxysubsubsection{\texorpdfstring{decrypt\_path()}{decrypt\_path()}}
+{\footnotesize\ttfamily const char \texorpdfstring{$\ast$}{*} decrypt\+\_\+path (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{encrypted\+\_\+path,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{key }\end{DoxyParamCaption})}
+
+
+
+Decrypts each part of the given encrypted path using a specified key. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em encrypted\+\_\+path} & The input encrypted path to be decrypted. \\
+\hline
+{\em key} & The decryption key. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A dynamically allocated string containing the decrypted path. It is the responsibility of the caller to free this memory. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{crypt-utils_8c_source_l00645}{645}} of file \mbox{\hyperlink{crypt-utils_8c_source}{crypt-\/utils.\+c}}.
+
+
+
+References \mbox{\hyperlink{crypt-utils_8c_source_l00406}{decrypt\+\_\+file\+\_\+name\+\_\+with\+\_\+hex()}}, and \mbox{\hyperlink{tcfs__utils_8c_source_l00262}{log\+Message()}}.
+
+
+
+Referenced by \mbox{\hyperlink{tcfs_8c_source_l00196}{tcfs\+\_\+readdir()}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{crypt-utils_8h_a1899c23a523d11ed1cb5601eabdb023d_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=255pt]{crypt-utils_8h_a1899c23a523d11ed1cb5601eabdb023d_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{crypt-utils_8h_a373f8aedbcd8b6ce22fe7bdfeb2961c2}\label{crypt-utils_8h_a373f8aedbcd8b6ce22fe7bdfeb2961c2} 
+\index{crypt-\/utils.h@{crypt-\/utils.h}!decrypt\_path\_and\_filename@{decrypt\_path\_and\_filename}}
+\index{decrypt\_path\_and\_filename@{decrypt\_path\_and\_filename}!crypt-\/utils.h@{crypt-\/utils.h}}
+\doxysubsubsection{\texorpdfstring{decrypt\_path\_and\_filename()}{decrypt\_path\_and\_filename()}}
+{\footnotesize\ttfamily const char \texorpdfstring{$\ast$}{*} decrypt\+\_\+path\+\_\+and\+\_\+filename (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{encrypted\+\_\+path,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{key }\end{DoxyParamCaption})}
+
+
+
+Decrypts the given encrypted filename with its path using a specified key. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em encrypted\+\_\+path} & The input encrypted path to be decrypted. \\
+\hline
+{\em key} & The decryption key. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A dynamically allocated string containing the decrypted path with the decrypted filename. It is the responsibility of the caller to free this memory. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{crypt-utils_8c_source_l00759}{759}} of file \mbox{\hyperlink{crypt-utils_8c_source}{crypt-\/utils.\+c}}.
+
+
+
+References \mbox{\hyperlink{crypt-utils_8c_source_l00406}{decrypt\+\_\+file\+\_\+name\+\_\+with\+\_\+hex()}}, and \mbox{\hyperlink{tcfs__utils_8c_source_l00262}{log\+Message()}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{crypt-utils_8h_a373f8aedbcd8b6ce22fe7bdfeb2961c2_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{crypt-utils_8h_a02ee5ac64d2d2d441edcca915e480503}\label{crypt-utils_8h_a02ee5ac64d2d2d441edcca915e480503} 
+\index{crypt-\/utils.h@{crypt-\/utils.h}!decrypt\_string@{decrypt\_string}}
+\index{decrypt\_string@{decrypt\_string}!crypt-\/utils.h@{crypt-\/utils.h}}
+\doxysubsubsection{\texorpdfstring{decrypt\_string()}{decrypt\_string()}}
+{\footnotesize\ttfamily unsigned char \texorpdfstring{$\ast$}{*} decrypt\+\_\+string (\begin{DoxyParamCaption}\item[{unsigned char \texorpdfstring{$\ast$}{*}}]{ciphertext,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{key }\end{DoxyParamCaption})}
+
+
+
+Decrypt the \texorpdfstring{$\ast$}{*}ciphertext string using a AES 256 key. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ciphertext} & This is the string to decrypt in HEX format \\
+\hline
+{\em key} & The AES 256 KEY \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+unsigned char \texorpdfstring{$\ast$}{*} The plaintext string will be allocated and then returned 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+After the use remember to free the result 
+\end{DoxyNote}
+
+
+Definition at line \mbox{\hyperlink{crypt-utils_8c_source_l00330}{330}} of file \mbox{\hyperlink{crypt-utils_8c_source}{crypt-\/utils.\+c}}.
+
+
+
+References \mbox{\hyperlink{tcfs__utils_8c_source_l00262}{log\+Message()}}.
+
+
+
+Referenced by \mbox{\hyperlink{crypt-utils_8c_source_l00406}{decrypt\+\_\+file\+\_\+name\+\_\+with\+\_\+hex()}}, \mbox{\hyperlink{tcfs_8c_source_l00734}{tcfs\+\_\+read()}}, and \mbox{\hyperlink{tcfs_8c_source_l00830}{tcfs\+\_\+write()}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=262pt]{crypt-utils_8h_a02ee5ac64d2d2d441edcca915e480503_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{crypt-utils_8h_a02ee5ac64d2d2d441edcca915e480503_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{crypt-utils_8h_a94b5b388b3f00982ccee72b192077e76}\label{crypt-utils_8h_a94b5b388b3f00982ccee72b192077e76} 
+\index{crypt-\/utils.h@{crypt-\/utils.h}!do\_crypt@{do\_crypt}}
+\index{do\_crypt@{do\_crypt}!crypt-\/utils.h@{crypt-\/utils.h}}
+\doxysubsubsection{\texorpdfstring{do\_crypt()}{do\_crypt()}}
+{\footnotesize\ttfamily int do\+\_\+crypt (\begin{DoxyParamCaption}\item[{FILE \texorpdfstring{$\ast$}{*}}]{in,  }\item[{FILE \texorpdfstring{$\ast$}{*}}]{out,  }\item[{int}]{action,  }\item[{unsigned char \texorpdfstring{$\ast$}{*}}]{key\+\_\+str }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+High level function interface for performing AES encryption on FILE pointers Uses Open\+SSL libcrypto EVP API ~\newline
+. 
+
+\begin{DoxyAuthor}{Author}
+By Andy Sayler (www.\+andysayler.\+com) ~\newline
+ Created 04/17/12 ~\newline
+ 
+
+Modified 18/10/23 by \mbox{[}Carlo Alberto Giordano\mbox{]} ~\newline
+
+\end{DoxyAuthor}
+Derived from Open\+SSL.\+org EVP\+\_\+\+Encrypt\+\_\+\texorpdfstring{$\ast$}{*} Manpage Examples ~\newline
+ \href{http://www.openssl.org/docs/crypto/EVP_EncryptInit.html\#EXAMPLES}{\texttt{ http\+://www.\+openssl.\+org/docs/crypto/\+EVP\+\_\+\+Encrypt\+Init.\+html\#\+EXAMPLES}} ~\newline
+ With additional information from Saju Pillai\textquotesingle{}s Open\+SSL AES Example ~\newline
+ \href{http://saju.net.in/blog/?p=36}{\texttt{ http\+://saju.\+net.\+in/blog/?p=36}} ~\newline
+ \href{http://saju.net.in/code/misc/openssl_aes.c.txt}{\texttt{ http\+://saju.\+net.\+in/code/misc/openssl\+\_\+aes.\+c.\+txt}} ~\newline
+
+\begin{DoxyParams}{Parameters}
+{\em in} & The input file \\
+\hline
+{\em out} & The output file \\
+\hline
+{\em action} & Defines if the action to do on the input file should be of encryption or decryption. \\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+\doxylink{crypt-utils_8h_a1cb0c60ca582db30ae87362ca43e8c19}{ENCRYPT} 
+
+\doxylink{crypt-utils_8h_a36fab47015485191712a579a059a7c20}{DECRYPT} 
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}{Parameters}
+{\em key\+\_\+str} & The key that must be AES 256 \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+1 if successful, 0 otherwise. An error might be printen by print\+\_\+err() function, 
+\end{DoxyReturn}
+\begin{DoxySeeAlso}{See also}
+print\+\_\+err 
+\end{DoxySeeAlso}
+\begin{DoxyNote}{Note}
+This function cyphers using AES 256 CBC 
+\end{DoxyNote}
+
+
+Definition at line \mbox{\hyperlink{crypt-utils_8c_source_l00063}{63}} of file \mbox{\hyperlink{crypt-utils_8c_source}{crypt-\/utils.\+c}}.
+
+
+
+References \mbox{\hyperlink{crypt-utils_8c_source_l00021}{BLOCKSIZE}}, \mbox{\hyperlink{crypt-utils_8c_source_l00028}{IV\+\_\+\+SIZE}}, and \mbox{\hyperlink{crypt-utils_8c_source_l00034}{KEY\+\_\+\+SIZE}}.
+
+
+
+Referenced by \mbox{\hyperlink{tcfs_8c_source_l00734}{tcfs\+\_\+read()}}, and \mbox{\hyperlink{tcfs_8c_source_l00830}{tcfs\+\_\+write()}}.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=228pt]{crypt-utils_8h_a94b5b388b3f00982ccee72b192077e76_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{crypt-utils_8h_aa4a7facde8c6f63a7225c07e92232b2e}\label{crypt-utils_8h_aa4a7facde8c6f63a7225c07e92232b2e} 
+\index{crypt-\/utils.h@{crypt-\/utils.h}!encrypt\_file\_name\_with\_hex@{encrypt\_file\_name\_with\_hex}}
+\index{encrypt\_file\_name\_with\_hex@{encrypt\_file\_name\_with\_hex}!crypt-\/utils.h@{crypt-\/utils.h}}
+\doxysubsubsection{\texorpdfstring{encrypt\_file\_name\_with\_hex()}{encrypt\_file\_name\_with\_hex()}}
+{\footnotesize\ttfamily const char \texorpdfstring{$\ast$}{*} encrypt\+\_\+file\+\_\+name\+\_\+with\+\_\+hex (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{file,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{key }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{crypt-utils_8c_source_l00398}{398}} of file \mbox{\hyperlink{crypt-utils_8c_source}{crypt-\/utils.\+c}}.
+
+
+
+References \mbox{\hyperlink{crypt-utils_8c_source_l00278}{encrypt\+\_\+string()}}, and \mbox{\hyperlink{tcfs__utils_8c_source_l00182}{string\+\_\+to\+\_\+hex()}}.
+
+
+
+Referenced by \mbox{\hyperlink{crypt-utils_8c_source_l00420}{encrypt\+\_\+path()}}, and \mbox{\hyperlink{crypt-utils_8c_source_l00532}{encrypt\+\_\+path\+\_\+and\+\_\+filename()}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{crypt-utils_8h_aa4a7facde8c6f63a7225c07e92232b2e_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{crypt-utils_8h_aa4a7facde8c6f63a7225c07e92232b2e_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{crypt-utils_8h_ad9b10366ade9f2129ec2613fdc76df80}\label{crypt-utils_8h_ad9b10366ade9f2129ec2613fdc76df80} 
+\index{crypt-\/utils.h@{crypt-\/utils.h}!encrypt\_path@{encrypt\_path}}
+\index{encrypt\_path@{encrypt\_path}!crypt-\/utils.h@{crypt-\/utils.h}}
+\doxysubsubsection{\texorpdfstring{encrypt\_path()}{encrypt\_path()}}
+{\footnotesize\ttfamily const char \texorpdfstring{$\ast$}{*} encrypt\+\_\+path (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{path,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{key }\end{DoxyParamCaption})}
+
+
+
+Encrypts each part of the given path using a specified key. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em path} & The input path to be encrypted. \\
+\hline
+{\em key} & The encryption key. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A dynamically allocated string containing the encrypted path. It is the responsibility of the caller to free this memory. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{crypt-utils_8c_source_l00420}{420}} of file \mbox{\hyperlink{crypt-utils_8c_source}{crypt-\/utils.\+c}}.
+
+
+
+References \mbox{\hyperlink{crypt-utils_8c_source_l00398}{encrypt\+\_\+file\+\_\+name\+\_\+with\+\_\+hex()}}, and \mbox{\hyperlink{tcfs__utils_8c_source_l00262}{log\+Message()}}.
+
+
+
+Referenced by \mbox{\hyperlink{tcfs_8c_source_l00132}{tcfs\+\_\+access()}}, \mbox{\hyperlink{tcfs_8c_source_l00497}{tcfs\+\_\+chmod()}}, \mbox{\hyperlink{tcfs_8c_source_l00530}{tcfs\+\_\+chown()}}, \mbox{\hyperlink{tcfs_8c_source_l00099}{tcfs\+\_\+getattr()}}, \mbox{\hyperlink{tcfs_8c_source_l00324}{tcfs\+\_\+mkdir()}}, \mbox{\hyperlink{tcfs_8c_source_l00286}{tcfs\+\_\+mknod()}}, \mbox{\hyperlink{tcfs_8c_source_l00651}{tcfs\+\_\+open()}}, \mbox{\hyperlink{tcfs_8c_source_l00067}{tcfs\+\_\+opendir()}}, \mbox{\hyperlink{tcfs_8c_source_l00734}{tcfs\+\_\+read()}}, \mbox{\hyperlink{tcfs_8c_source_l00196}{tcfs\+\_\+readdir()}}, \mbox{\hyperlink{tcfs_8c_source_l00162}{tcfs\+\_\+readlink()}}, \mbox{\hyperlink{tcfs_8c_source_l00377}{tcfs\+\_\+rmdir()}}, \mbox{\hyperlink{tcfs_8c_source_l00979}{tcfs\+\_\+setxattr()}}, \mbox{\hyperlink{tcfs_8c_source_l00559}{tcfs\+\_\+truncate()}}, \mbox{\hyperlink{tcfs_8c_source_l00351}{tcfs\+\_\+unlink()}}, \mbox{\hyperlink{tcfs_8c_source_l00612}{tcfs\+\_\+utimens()}}, and \mbox{\hyperlink{tcfs_8c_source_l00830}{tcfs\+\_\+write()}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{crypt-utils_8h_ad9b10366ade9f2129ec2613fdc76df80_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{crypt-utils_8h_ad9b10366ade9f2129ec2613fdc76df80_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{crypt-utils_8h_a5c45db4d3db3ef274fb6356e1a95e644}\label{crypt-utils_8h_a5c45db4d3db3ef274fb6356e1a95e644} 
+\index{crypt-\/utils.h@{crypt-\/utils.h}!encrypt\_path\_and\_filename@{encrypt\_path\_and\_filename}}
+\index{encrypt\_path\_and\_filename@{encrypt\_path\_and\_filename}!crypt-\/utils.h@{crypt-\/utils.h}}
+\doxysubsubsection{\texorpdfstring{encrypt\_path\_and\_filename()}{encrypt\_path\_and\_filename()}}
+{\footnotesize\ttfamily const char \texorpdfstring{$\ast$}{*} encrypt\+\_\+path\+\_\+and\+\_\+filename (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{path,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{key }\end{DoxyParamCaption})}
+
+
+
+Encrypts the given filename with its path using a specified key. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em path} & The input path to be encrypted. \\
+\hline
+{\em key} & The encryption key. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A dynamically allocated string containing the encrypted path with the encrypted filename. It is the responsibility of the caller to free this memory. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{crypt-utils_8c_source_l00532}{532}} of file \mbox{\hyperlink{crypt-utils_8c_source}{crypt-\/utils.\+c}}.
+
+
+
+References \mbox{\hyperlink{crypt-utils_8c_source_l00398}{encrypt\+\_\+file\+\_\+name\+\_\+with\+\_\+hex()}}, and \mbox{\hyperlink{tcfs__utils_8c_source_l00262}{log\+Message()}}.
+
+
+
+Referenced by \mbox{\hyperlink{tcfs_8c_source_l01031}{tcfs\+\_\+create()}}, \mbox{\hyperlink{tcfs_8c_source_l01140}{tcfs\+\_\+fsync()}}, \mbox{\hyperlink{tcfs_8c_source_l01199}{tcfs\+\_\+getxattr()}}, \mbox{\hyperlink{tcfs_8c_source_l00465}{tcfs\+\_\+link()}}, \mbox{\hyperlink{tcfs_8c_source_l01229}{tcfs\+\_\+listxattr()}}, \mbox{\hyperlink{tcfs_8c_source_l01111}{tcfs\+\_\+release()}}, \mbox{\hyperlink{tcfs_8c_source_l01273}{tcfs\+\_\+removexattr()}}, \mbox{\hyperlink{tcfs_8c_source_l00436}{tcfs\+\_\+rename()}}, and \mbox{\hyperlink{tcfs_8c_source_l00404}{tcfs\+\_\+symlink()}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{crypt-utils_8h_a5c45db4d3db3ef274fb6356e1a95e644_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{crypt-utils_8h_a5c45db4d3db3ef274fb6356e1a95e644_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{crypt-utils_8h_a8bf9483dae26e9c0a1c45d77b8f1dce8}\label{crypt-utils_8h_a8bf9483dae26e9c0a1c45d77b8f1dce8} 
+\index{crypt-\/utils.h@{crypt-\/utils.h}!encrypt\_string@{encrypt\_string}}
+\index{encrypt\_string@{encrypt\_string}!crypt-\/utils.h@{crypt-\/utils.h}}
+\doxysubsubsection{\texorpdfstring{encrypt\_string()}{encrypt\_string()}}
+{\footnotesize\ttfamily unsigned char \texorpdfstring{$\ast$}{*} encrypt\+\_\+string (\begin{DoxyParamCaption}\item[{unsigned char \texorpdfstring{$\ast$}{*}}]{plaintext,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{key,  }\item[{int \texorpdfstring{$\ast$}{*}}]{encrypted\+\_\+key\+\_\+len }\end{DoxyParamCaption})}
+
+
+
+Encrypt the \texorpdfstring{$\ast$}{*}plaintext string using a AES 256 key. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em plaintext} & This is the string to encrypt \\
+\hline
+{\em key} & The AES 256 KEY \\
+\hline
+{\em encrypted\+\_\+len} & This will be set to the encrypted string length \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+unsigned char \texorpdfstring{$\ast$}{*} The encrypted string will be allocated and then returned 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+After the use remember to free the result 
+\end{DoxyNote}
+
+
+Definition at line \mbox{\hyperlink{crypt-utils_8c_source_l00278}{278}} of file \mbox{\hyperlink{crypt-utils_8c_source}{crypt-\/utils.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{crypt-utils_8c_source_l00398}{encrypt\+\_\+file\+\_\+name\+\_\+with\+\_\+hex()}}, and \mbox{\hyperlink{tcfs_8c_source_l01031}{tcfs\+\_\+create()}}.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{crypt-utils_8h_a8bf9483dae26e9c0a1c45d77b8f1dce8_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{crypt-utils_8h_a8845f5705eaafda836aac91d5881876f}\label{crypt-utils_8h_a8845f5705eaafda836aac91d5881876f} 
+\index{crypt-\/utils.h@{crypt-\/utils.h}!generate\_key@{generate\_key}}
+\index{generate\_key@{generate\_key}!crypt-\/utils.h@{crypt-\/utils.h}}
+\doxysubsubsection{\texorpdfstring{generate\_key()}{generate\_key()}}
+{\footnotesize\ttfamily void generate\+\_\+key (\begin{DoxyParamCaption}\item[{unsigned char \texorpdfstring{$\ast$}{*}}]{destination }\end{DoxyParamCaption})}
+
+
+
+Generate a new AES 256 key for a file. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em destination} & Pointer to the string in which the generated key will be saved. If an error occurs it will be set to NULL \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{crypt-utils_8c_source_l00235}{235}} of file \mbox{\hyperlink{crypt-utils_8c_source}{crypt-\/utils.\+c}}.
+
+
+
+References \mbox{\hyperlink{crypt-utils_8c_source_l00202}{add\+\_\+entropy()}}, \mbox{\hyperlink{crypt-utils_8c_source_l00174}{check\+\_\+entropy()}}, \mbox{\hyperlink{crypt-utils_8c_source_l00388}{is\+\_\+valid\+\_\+key()}}, \mbox{\hyperlink{tcfs__utils_8c_source_l00262}{log\+Message()}}, and \mbox{\hyperlink{tcfs__utils_8c_source_l00165}{print\+\_\+aes\+\_\+key()}}.
+
+
+
+Referenced by \mbox{\hyperlink{tcfs_8c_source_l01031}{tcfs\+\_\+create()}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{crypt-utils_8h_a8845f5705eaafda836aac91d5881876f_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=255pt]{crypt-utils_8h_a8845f5705eaafda836aac91d5881876f_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{crypt-utils_8h_a36c2342a7c47b8f41bf628bf473b1c97}\label{crypt-utils_8h_a36c2342a7c47b8f41bf628bf473b1c97} 
+\index{crypt-\/utils.h@{crypt-\/utils.h}!is\_valid\_key@{is\_valid\_key}}
+\index{is\_valid\_key@{is\_valid\_key}!crypt-\/utils.h@{crypt-\/utils.h}}
+\doxysubsubsection{\texorpdfstring{is\_valid\_key()}{is\_valid\_key()}}
+{\footnotesize\ttfamily int is\+\_\+valid\+\_\+key (\begin{DoxyParamCaption}\item[{const unsigned char \texorpdfstring{$\ast$}{*}}]{key }\end{DoxyParamCaption})}
+
+
+
+Check if a given key is valid. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em key} & The key to validate \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+1 if successful, 0 otherwise. An error might be printen by print\+\_\+err() function, 
+\end{DoxyReturn}
+\begin{DoxySeeAlso}{See also}
+print\+\_\+err 
+\end{DoxySeeAlso}
+\begin{DoxyNote}{Note}
+This function only checks for key length 
+\end{DoxyNote}
+
+
+Definition at line \mbox{\hyperlink{crypt-utils_8c_source_l00388}{388}} of file \mbox{\hyperlink{crypt-utils_8c_source}{crypt-\/utils.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{crypt-utils_8c_source_l00235}{generate\+\_\+key()}}, \mbox{\hyperlink{tcfs_8c_source_l01412}{main()}}, and \mbox{\hyperlink{tcfs_8c_source_l01031}{tcfs\+\_\+create()}}.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{crypt-utils_8h_a36c2342a7c47b8f41bf628bf473b1c97_icgraph}
+\end{center}
+\end{figure}

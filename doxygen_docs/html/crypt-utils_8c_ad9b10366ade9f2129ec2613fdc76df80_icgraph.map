@@ -1,0 +1,40 @@
+<map id="encrypt_path" name="encrypt_path">
+<area shape="rect" id="Node000001" title="Encrypts each part of the given path using a specified key." alt="" coords="285,411,381,437"/>
+<area shape="rect" id="Node000002" href="$tcfs_8c.html#a76af7857833338c73b9cafdce59ca01d" title="Checks file access permissions." alt="" coords="142,5,235,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="329,396,324,329,310,240,298,191,282,143,261,96,235,52,215,34,219,30,239,49,266,93,287,141,303,190,315,239,329,329,334,395"/>
+<area shape="rect" id="Node000003" href="$tcfs_8c.html#adaba2baa5a036b8f77ec187599498a66" title="Writes data to an open file." alt="" coords="9,31,88,57"/>
+<area shape="poly" id="edge19_Node000001_Node000003" title=" " alt="" coords="330,396,327,334,314,253,302,211,285,169,263,130,235,97,202,73,163,58,123,50,88,47,88,41,124,44,164,53,204,68,239,93,268,127,290,167,307,209,319,252,332,333,335,396"/>
+<area shape="rect" id="Node000004" href="$tcfs_8c.html#a3cb10be0f6147667dc0e757636e9892f" title="Changes the permissions of a file." alt="" coords="144,107,233,133"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="326,396,318,345,302,279,275,210,257,177,235,147,221,136,225,132,239,144,261,174,280,207,307,278,323,344,332,395"/>
+<area shape="rect" id="Node000005" href="$tcfs_8c.html#afff31b61fa0723502cf85922816f14f9" title="Changes the owner and group of a file." alt="" coords="144,157,233,184"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="324,397,313,354,296,302,270,247,235,198,221,187,225,183,239,194,275,244,301,300,319,353,329,395"/>
+<area shape="rect" id="Node000006" href="$tcfs_8c.html#a411eac4511d0eae4ce78a2fd3d22ac8c" title="Gets file attributes." alt="" coords="145,208,232,235"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="320,398,289,325,265,285,235,249,220,237,224,233,239,245,269,282,294,323,325,396"/>
+<area shape="rect" id="Node000007" href="$tcfs_8c.html#a682b553345b6d872453d1ace7339bb9e" title="Creates a directory." alt="" coords="147,259,230,285"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="315,399,281,350,260,323,235,299,219,288,222,284,239,295,263,320,286,347,319,396"/>
+<area shape="rect" id="Node000008" href="$tcfs_8c.html#a151f53359474a95c52f5e79d438869bd" title="Creates a regular file or a special file (block or character)." alt="" coords="144,309,233,336"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="304,403,236,350,216,339,219,334,238,346,307,398"/>
+<area shape="rect" id="Node000009" href="$tcfs_8c.html#af0c6a7d66189cc1e9fbfafba5255e60d" title="Opens a file." alt="" coords="149,360,228,387"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="278,408,227,389,229,384,280,403"/>
+<area shape="rect" id="Node000010" href="$tcfs_8c.html#a92ebab5be45b159c2850a47a5072b58d" title="Opens a directory." alt="" coords="142,411,235,437"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="270,427,235,427,235,421,270,421"/>
+<area shape="rect" id="Node000011" href="$tcfs_8c.html#a745384a010e20b082db26e16702a0129" title="Reads data from an open file." alt="" coords="151,461,226,488"/>
+<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="280,445,227,464,225,459,278,440"/>
+<area shape="rect" id="Node000012" href="$tcfs_8c.html#a1a713549c892f56a6522e6487c581d69" title="Reads a directory." alt="" coords="144,512,233,539"/>
+<area shape="poly" id="edge11_Node000001_Node000012" title=" " alt="" coords="307,450,238,502,219,514,216,509,236,498,304,445"/>
+<area shape="rect" id="Node000013" href="$tcfs_8c.html#acb1e081efcbf61b6f34e8bbdf7af8979" title="Reads the target of a symbolic link." alt="" coords="141,563,236,589"/>
+<area shape="poly" id="edge12_Node000001_Node000013" title=" " alt="" coords="319,452,286,501,263,528,239,553,222,564,219,560,235,549,260,525,281,498,315,449"/>
+<area shape="rect" id="Node000014" href="$tcfs_8c.html#a2853593dded66a922afbdc36afb15a50" title="Removes a directory." alt="" coords="149,613,228,640"/>
+<area shape="poly" id="edge13_Node000001_Node000014" title=" " alt="" coords="325,452,294,525,269,566,239,603,224,615,220,611,235,599,265,563,289,523,320,450"/>
+<area shape="rect" id="Node000015" href="$tcfs_8c.html#ad3c328fdcd93c8203e1ce9c785fd3a14" title="Sets extended attributes." alt="" coords="141,664,236,691"/>
+<area shape="poly" id="edge14_Node000001_Node000015" title=" " alt="" coords="329,453,319,495,301,548,275,604,239,654,225,665,221,661,235,650,270,601,296,546,313,494,324,451"/>
+<area shape="rect" id="Node000017" href="$tcfs_8c.html#a7e7f7a65b4e76cc96505d0c6d62fba9c" title="Truncates or extends the size of a file." alt="" coords="140,715,237,741"/>
+<area shape="poly" id="edge16_Node000001_Node000017" title=" " alt="" coords="332,453,323,504,307,570,280,641,261,674,239,704,225,716,221,712,235,701,257,671,275,638,302,569,318,503,326,452"/>
+<area shape="rect" id="Node000018" href="$tcfs_8c.html#ac6d3a8a626363a6f98de64e585968b09" title="Removes a file." alt="" coords="146,765,231,792"/>
+<area shape="poly" id="edge17_Node000001_Node000018" title=" " alt="" coords="334,452,328,513,313,592,301,635,285,677,265,718,239,755,226,767,222,763,235,752,260,715,280,675,296,633,308,591,323,512,328,452"/>
+<area shape="rect" id="Node000019" href="$tcfs_8c.html#aca5dccf989dfc270ca31e1d8b20bb60e" title="Modify the access and modification timestamps of a file in the TCFS file system." alt="" coords="140,816,237,843"/>
+<area shape="poly" id="edge18_Node000001_Node000019" title=" " alt="" coords="335,452,332,521,319,613,307,664,290,714,268,762,239,806,226,818,222,814,235,802,263,759,285,712,302,662,314,612,326,520,330,452"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="128,32,89,40,88,34,127,27"/>
+<area shape="rect" id="Node000016" href="$tcfs_8c.html#ad973ad9d6ab7d6276bf85cd8fecd0657" title="Create and open a file." alt="" coords="5,664,92,691"/>
+<area shape="poly" id="edge15_Node000015_Node000016" title=" " alt="" coords="126,680,92,680,92,675,126,675"/>
+</map>

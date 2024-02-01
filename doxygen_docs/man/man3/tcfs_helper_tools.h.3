@@ -1,0 +1,66 @@
+.TH "user/old_stuff/tcfs_helper_tools.h" 3 "Thu Feb 1 2024 17:25:40" "Version 0.3.2" "TCFS" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+user/old_stuff/tcfs_helper_tools.h
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <limits\&.h>\fP
+.br
+\fC#include <stdio\&.h>\fP
+.br
+\fC#include <stdlib\&.h>\fP
+.br
+\fC#include <string\&.h>\fP
+.br
+\fC#include <sys/stat\&.h>\fP
+.br
+\fC#include <sys/types\&.h>\fP
+.br
+\fC#include <termios\&.h>\fP
+.br
+\fC#include <time\&.h>\fP
+.br
+\fC#include <unistd\&.h>\fP
+.br
+
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "int \fBdo_mount\fP ()"
+.br
+.RI "Execute the mount of either a Network FS (for ex NFS), Local FS (for ex a block device), Local folder (a folder of the system) "
+.ti -1c
+.RI "int \fBsetup_tcfs_env\fP ()"
+.br
+.in -1c
+.SH "Function Documentation"
+.PP 
+.SS "int do_mount ()"
+
+.PP
+Execute the mount of either a Network FS (for ex NFS), Local FS (for ex a block device), Local folder (a folder of the system) 
+.PP
+\fBReturns\fP
+.RS 4
+_ret 
+.RE
+.PP
+
+.PP
+Definition at line \fB25\fP of file \fBtcfs_helper_tools\&.c\fP\&.
+.PP
+References \fBhandle_folder_mount()\fP, \fBhandle_local_mount()\fP, and \fBhandle_remote_mount()\fP\&.
+.PP
+Referenced by \fBmain()\fP\&.
+.SS "int setup_tcfs_env ()"
+
+.PP
+Definition at line \fB405\fP of file \fBtcfs_helper_tools\&.c\fP\&.
+.PP
+Referenced by \fBmain()\fP\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for TCFS from the source code\&.

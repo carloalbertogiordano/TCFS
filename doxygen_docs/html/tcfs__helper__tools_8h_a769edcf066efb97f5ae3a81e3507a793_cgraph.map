@@ -1,0 +1,28 @@
+<map id="do_mount" name="do_mount">
+<area shape="rect" id="Node000001" title="Execute the mount of either a Network FS (for ex NFS), Local FS (for ex a block device),..." alt="" coords="5,56,84,83"/>
+<area shape="rect" id="Node000002" href="$tcfs__helper__tools_8c.html#afaed41fa1136b829eb00a7de26a3739b" title=" " alt="" coords="136,5,277,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="83,55,147,34,149,39,85,60"/>
+<area shape="rect" id="Node000006" href="$tcfs__helper__tools_8c.html#a816c2bcaa3d059abc79cb9b021957dbf" title=" " alt="" coords="138,56,275,83"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="84,67,124,67,124,72,84,72"/>
+<area shape="rect" id="Node000011" href="$tcfs__helper__tools_8c.html#aa5b1203d82818e149ae3ad3fd3840a40" title=" " alt="" coords="132,107,281,133"/>
+<area shape="poly" id="edge12_Node000001_Node000011" title=" " alt="" coords="85,79,149,99,147,104,83,84"/>
+<area shape="rect" id="Node000003" href="$tcfs__helper__tools_8c.html#ae1746adb62f9476a6d8166b62faa7a91" title=" " alt="" coords="352,5,469,32"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="278,16,337,16,337,21,278,21"/>
+<area shape="rect" id="Node000004" href="$tcfs__helper__tools_8c.html#a26931b8bdf24be94e03f4d77e991d063" title=" " alt="" coords="348,56,473,83"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="264,30,341,49,339,54,263,35"/>
+<area shape="rect" id="Node000005" href="$tcfs__helper__tools_8c.html#a1bef5d2cdd74c07b3ae025c6424dfbd5" title="fetch the password of the current user. This function is marked as internal and should not be used by..." alt="" coords="585,56,660,83"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="474,67,570,67,570,72,474,72"/>
+<area shape="poly" id="edge10_Node000006_Node000003" title=" " alt="" coords="263,53,339,34,341,39,264,58"/>
+<area shape="poly" id="edge11_Node000006_Node000004" title=" " alt="" coords="275,67,333,67,333,72,275,72"/>
+<area shape="rect" id="Node000007" href="$tcfs__helper__tools_8c.html#ae930b52ef70f640efde8bda574b6b234" title="Create a temporary folder in HOME/.tcfs." alt="" coords="329,107,492,149"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="256,81,321,100,319,105,255,86"/>
+<area shape="rect" id="Node000008" href="$tcfs__helper__tools_8c.html#a3644c45d6131fe1528ce36163e299fd9" title="Creates the .tcfs folder in the user HOME. Then this creates a folder with a random name so that crea..." alt="" coords="540,115,705,141"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="493,125,525,125,525,131,493,131"/>
+<area shape="rect" id="Node000009" href="$tcfs__helper__tools_8c.html#ab3cdcc12b3bc92a382784027c94a2027" title="Check if a directory already exists. This function is marked as internal and should not be used by th..." alt="" coords="776,89,890,116"/>
+<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="705,115,761,109,762,114,706,121"/>
+<area shape="rect" id="Node000010" href="$tcfs__helper__tools_8c.html#a8ef1473d59fd1cfc680fe1b227604a02" title="Generate a random string that will be used as a folder name for the mount. This function is marked as..." alt="" coords="753,140,913,167"/>
+<area shape="poly" id="edge9_Node000008_Node000010" title=" " alt="" coords="706,135,738,139,738,145,705,141"/>
+<area shape="poly" id="edge14_Node000011_Node000004" title=" " alt="" coords="263,103,339,84,341,89,264,109"/>
+<area shape="rect" id="Node000012" href="$tcfs__helper__tools_8c.html#acfa06becac8f67e9f278cfcbf91cc51b" title=" " alt="" coords="342,173,480,200"/>
+<area shape="poly" id="edge13_Node000011_Node000012" title=" " alt="" coords="248,131,330,159,352,166,350,171,328,164,247,136"/>
+</map>

@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_dir_d95211408bd77596fd6790cd8f43ad0b" xml:lang="en-US">
+<title>userspace-module/utils/tcfs_utils Directory Reference</title>
+<indexterm><primary>userspace-module/utils/tcfs_utils Directory Reference</primary></indexterm>
+Directory dependency graph for tcfs_utils:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="dir_d95211408bd77596fd6790cd8f43ad0b_dep.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+<simplesect>
+    <title>Files    </title>
+        <itemizedlist>
+            <listitem><para>file <link linkend="_tcfs__utils_8c">tcfs_utils.c</link></para>
+
+<para>This file contains an assortment of functions used by <link linkend="_tcfs_8c">tcfs.c</link>. </para>
+</listitem>
+            <listitem><para>file <link linkend="_tcfs__utils_8h">tcfs_utils.h</link></para>
+
+<para>Header file containing utility functions used by TCFS (Transparent Cryptographic Filesystem) </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+</section>

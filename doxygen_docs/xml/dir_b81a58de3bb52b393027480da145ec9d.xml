@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="dir_b81a58de3bb52b393027480da145ec9d" kind="dir">
+    <compoundname>userspace-module/utils/password_manager</compoundname>
+    <innerfile refid="password__manager_8c">password_manager.c</innerfile>
+    <innerfile refid="password__manager_8h">password_manager.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="userspace-module/utils/password_manager/"/>
+  </compounddef>
+</doxygen>

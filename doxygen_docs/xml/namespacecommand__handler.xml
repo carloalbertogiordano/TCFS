@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="namespacecommand__handler" kind="namespace" language="Python">
+    <compoundname>command_handler</compoundname>
+    <innernamespace refid="namespacecommand__handler_1_1enviroinment">command_handler::enviroinment</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="user/command_handler/enviroinment.py" line="1" column="1"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="main_8py" kind="file" language="Python">
+    <compoundname>main.py</compoundname>
+    <innernamespace refid="namespacemain">main</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1" refid="namespacemain" refkind="compound"><highlight class="keyword">from</highlight><highlight class="normal"><sp/><ref refid="namespaceui_1_1main__window" kindref="compound">ui.main_window</ref><sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>Window</highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="4" refid="namespacemain_1a63aa822869c78f66d4bbcc9fbf8ee0e7" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal"><ref refid="namespacemain_1a63aa822869c78f66d4bbcc9fbf8ee0e7" kindref="member">foo</ref>():</highlight></codeline>
+<codeline lineno="5"><highlight class="normal"><sp/><sp/><sp/><sp/>print(</highlight><highlight class="stringliteral">&quot;Hello<sp/>World&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8" refid="namespacemain_1a57bcba58678fbd9dd73e9c194bdf38c0" refkind="member"><highlight class="normal">win<sp/>=<sp/><ref refid="classui_1_1main__window_1_1Window" kindref="compound">Window</ref>(</highlight><highlight class="stringliteral">&quot;TCFS<sp/>user<sp/>helper&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;200x200&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="10" refid="namespacemain_1a9e90a5249dbf0270acae944b9a31b8c0" refkind="member"><highlight class="normal">init_env_butt<sp/>=<sp/>win.add_button(</highlight><highlight class="stringliteral">&quot;Initialize<sp/>the<sp/>environment&quot;</highlight><highlight class="normal">,<sp/>foo,<sp/>row=0,<sp/>col=0)<sp/></highlight><highlight class="comment">#init<sp/>enviroinment</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11" refid="namespacemain_1a8f55266ef83cf13a1c30d1bf8bd065b0" refkind="member"><highlight class="normal">mount_butt<sp/>=<sp/>win.add_button(</highlight><highlight class="stringliteral">&quot;Mount<sp/>TCFS&quot;</highlight><highlight class="normal">,<sp/>foo,<sp/>row=1,<sp/>col=0)<sp/></highlight><highlight class="comment">#mount<sp/>tcfs</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12" refid="namespacemain_1a30b47e625be9d65c53cd3cef9926f704" refkind="member"><highlight class="normal">umount_butt<sp/>=<sp/>win.add_button(</highlight><highlight class="stringliteral">&quot;Umount<sp/>TCFS&quot;</highlight><highlight class="normal">,<sp/>foo,<sp/>row=2,<sp/>col=0)<sp/></highlight><highlight class="comment">#umount</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13" refid="namespacemain_1a7adbb7f4a582ed0929b7db6fd0991278" refkind="member"><highlight class="normal">shared_butt<sp/>=<sp/>win.add_button(</highlight><highlight class="stringliteral">&quot;Threshold<sp/>share&quot;</highlight><highlight class="normal">,<sp/>foo,<sp/>row=3,<sp/>col=0)<sp/></highlight><highlight class="comment">#create<sp/>shared<sp/>file</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14" refid="namespacemain_1a4b95678c3a22414574c3b2dd83d89c83" refkind="member"><highlight class="normal">logout_butt<sp/>=<sp/>win.add_button(</highlight><highlight class="stringliteral">&quot;Logout&quot;</highlight><highlight class="normal">,<sp/>foo,<sp/>row=4,<sp/>col=0)<sp/></highlight><highlight class="comment">#logout</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal">win.start_window()</highlight></codeline>
+    </programlisting>
+    <location file="user/main.py"/>
+  </compounddef>
+</doxygen>

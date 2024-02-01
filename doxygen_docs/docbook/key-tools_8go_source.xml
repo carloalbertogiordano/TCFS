@@ -1,0 +1,99 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_key-tools_8go_source" xml:lang="en-US">
+<title>key-tools.go</title>
+<indexterm><primary>ServerREST/crypt-utils/key-tools.go</primary></indexterm>
+Go to the documentation of this file.<programlisting linenumbering="unnumbered"><anchor xml:id="_key-tools_8go_source_1l00001"/>00001 package&#32;KeyTools
+<anchor xml:id="_key-tools_8go_source_1l00002"/>00002 
+<anchor xml:id="_key-tools_8go_source_1l00003"/>00003 import&#32;(
+<anchor xml:id="_key-tools_8go_source_1l00004"/>00004 &#32;&#32;&#32;&#32;&quot;crypto/rand&quot;
+<anchor xml:id="_key-tools_8go_source_1l00005"/>00005 &#32;&#32;&#32;&#32;&quot;crypto/rsa&quot;
+<anchor xml:id="_key-tools_8go_source_1l00006"/>00006 &#32;&#32;&#32;&#32;&quot;crypto/sha256&quot;
+<anchor xml:id="_key-tools_8go_source_1l00007"/>00007 &#32;&#32;&#32;&#32;&quot;crypto/x509&quot;
+<anchor xml:id="_key-tools_8go_source_1l00008"/>00008 &#32;&#32;&#32;&#32;&quot;encoding/hex&quot;
+<anchor xml:id="_key-tools_8go_source_1l00009"/>00009 &#32;&#32;&#32;&#32;&quot;encoding/pem&quot;
+<anchor xml:id="_key-tools_8go_source_1l00010"/>00010 &#32;&#32;&#32;&#32;&quot;errors&quot;
+<anchor xml:id="_key-tools_8go_source_1l00011"/>00011 &#32;&#32;&#32;&#32;&quot;fmt&quot;
+<anchor xml:id="_key-tools_8go_source_1l00012"/>00012 &#32;&#32;&#32;&#32;&quot;github.com/corvus-ch/shamir&quot;
+<anchor xml:id="_key-tools_8go_source_1l00013"/>00013 &#32;&#32;&#32;&#32;TCFSTypes&#32;&quot;serverTCFS/types&quot;
+<anchor xml:id="_key-tools_8go_source_1l00014"/>00014 )
+<anchor xml:id="_key-tools_8go_source_1l00015"/>00015 
+<anchor xml:id="_key-tools_8go_source_1l00016"/>00016 //&#32;GenerateKey&#32;Generate&#32;a&#32;AES&#32;256&#32;key
+<anchor xml:id="_key-tools_8go_source_1l00017"/>00017 func&#32;GenerateKey()&#32;([]byte,&#32;error)&#32;{
+<anchor xml:id="_key-tools_8go_source_1l00018"/>00018 &#32;&#32;&#32;&#32;key&#32;:=&#32;make([]byte,&#32;32)
+<anchor xml:id="_key-tools_8go_source_1l00019"/>00019 &#32;&#32;&#32;&#32;_,&#32;err&#32;:=&#32;rand.Read(key)
+<anchor xml:id="_key-tools_8go_source_1l00020"/>00020 &#32;&#32;&#32;&#32;if&#32;err&#32;!=&#32;nil&#32;{
+<anchor xml:id="_key-tools_8go_source_1l00021"/>00021 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;return&#32;nil,&#32;err
+<anchor xml:id="_key-tools_8go_source_1l00022"/>00022 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_key-tools_8go_source_1l00023"/>00023 &#32;&#32;&#32;&#32;return&#32;key,&#32;nil
+<anchor xml:id="_key-tools_8go_source_1l00024"/>00024 }
+<anchor xml:id="_key-tools_8go_source_1l00025"/>00025 
+<anchor xml:id="_key-tools_8go_source_1l00026"/>00026 //&#32;SplitKey&#32;splits&#32;a&#32;key&#32;using&#32;Shamir&apos;s&#32;secret&#32;sharing
+<anchor xml:id="_key-tools_8go_source_1l00027"/>00027 func&#32;SplitKey(key&#32;[]byte,&#32;n&#32;int,&#32;k&#32;int)&#32;(map[byte][]byte,&#32;error)&#32;{
+<anchor xml:id="_key-tools_8go_source_1l00028"/>00028 &#32;&#32;&#32;&#32;shares,&#32;err&#32;:=&#32;shamir.Split(key,&#32;n,&#32;k)
+<anchor xml:id="_key-tools_8go_source_1l00029"/>00029 &#32;&#32;&#32;&#32;if&#32;err&#32;!=&#32;nil&#32;{
+<anchor xml:id="_key-tools_8go_source_1l00030"/>00030 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;return&#32;nil,&#32;err
+<anchor xml:id="_key-tools_8go_source_1l00031"/>00031 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_key-tools_8go_source_1l00032"/>00032 &#32;&#32;&#32;&#32;return&#32;shares,&#32;nil
+<anchor xml:id="_key-tools_8go_source_1l00033"/>00033 }
+<anchor xml:id="_key-tools_8go_source_1l00034"/>00034 
+<anchor xml:id="_key-tools_8go_source_1l00035"/>00035 //&#32;parsePublicKeyFromPEMString&#32;Returns&#32;an&#32;rsa&#32;key&#32;froma&#32;pem&#32;string&#32;in&#32;PKIX&#32;format
+<anchor xml:id="_key-tools_8go_source_1l00036"/>00036 func&#32;parsePublicKeyFromPEMString(pubPEM&#32;string)&#32;(*rsa.PublicKey,&#32;error)&#32;{
+<anchor xml:id="_key-tools_8go_source_1l00037"/>00037 &#32;&#32;&#32;&#32;block,&#32;_&#32;:=&#32;pem.Decode([]byte(pubPEM))
+<anchor xml:id="_key-tools_8go_source_1l00038"/>00038 &#32;&#32;&#32;&#32;if&#32;block&#32;==&#32;nil&#32;{
+<anchor xml:id="_key-tools_8go_source_1l00039"/>00039 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;return&#32;nil,&#32;errors.New(&quot;failed&#32;to&#32;parse&#32;PEM&#32;block&#32;containing&#32;public&#32;key&quot;)
+<anchor xml:id="_key-tools_8go_source_1l00040"/>00040 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_key-tools_8go_source_1l00041"/>00041 
+<anchor xml:id="_key-tools_8go_source_1l00042"/>00042 &#32;&#32;&#32;&#32;pub,&#32;err&#32;:=&#32;x509.ParsePKIXPublicKey(block.Bytes)
+<anchor xml:id="_key-tools_8go_source_1l00043"/>00043 &#32;&#32;&#32;&#32;if&#32;err&#32;!=&#32;nil&#32;{
+<anchor xml:id="_key-tools_8go_source_1l00044"/>00044 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;return&#32;nil,&#32;err
+<anchor xml:id="_key-tools_8go_source_1l00045"/>00045 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_key-tools_8go_source_1l00046"/>00046 
+<anchor xml:id="_key-tools_8go_source_1l00047"/>00047 &#32;&#32;&#32;&#32;rsaPub,&#32;ok&#32;:=&#32;pub.(*rsa.PublicKey)
+<anchor xml:id="_key-tools_8go_source_1l00048"/>00048 &#32;&#32;&#32;&#32;if&#32;!ok&#32;{
+<anchor xml:id="_key-tools_8go_source_1l00049"/>00049 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;return&#32;nil,&#32;errors.New(&quot;key&#32;type&#32;is&#32;not&#32;RSA&quot;)
+<anchor xml:id="_key-tools_8go_source_1l00050"/>00050 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_key-tools_8go_source_1l00051"/>00051 
+<anchor xml:id="_key-tools_8go_source_1l00052"/>00052 &#32;&#32;&#32;&#32;return&#32;rsaPub,&#32;nil
+<anchor xml:id="_key-tools_8go_source_1l00053"/>00053 }
+<anchor xml:id="_key-tools_8go_source_1l00054"/>00054 
+<anchor xml:id="_key-tools_8go_source_1l00055"/>00055 //&#32;EncryptKeyPart&#32;Encrypts&#32;a&#32;keypart&#32;from&#32;shamir&#32;alg.&#32;with&#32;a&#32;public&#32;key
+<anchor xml:id="_key-tools_8go_source_1l00056"/>00056 func&#32;EncryptKeyPart(keyPart&#32;[]byte,&#32;publicKey&#32;string)&#32;(string,&#32;error)&#32;{
+<anchor xml:id="_key-tools_8go_source_1l00057"/>00057 &#32;&#32;&#32;&#32;//&#32;Parse&#32;the&#32;public&#32;key
+<anchor xml:id="_key-tools_8go_source_1l00058"/>00058 &#32;&#32;&#32;&#32;pubKeyToRSA,&#32;err&#32;:=&#32;parsePublicKeyFromPEMString(publicKey)
+<anchor xml:id="_key-tools_8go_source_1l00059"/>00059 &#32;&#32;&#32;&#32;if&#32;err&#32;!=&#32;nil&#32;{
+<anchor xml:id="_key-tools_8go_source_1l00060"/>00060 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;return&#32;&quot;&quot;,&#32;fmt.Errorf(&quot;failed&#32;to&#32;parse&#32;string&#32;to&#32;rsa&#32;key:&#32;%w&quot;,&#32;err)
+<anchor xml:id="_key-tools_8go_source_1l00061"/>00061 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_key-tools_8go_source_1l00062"/>00062 
+<anchor xml:id="_key-tools_8go_source_1l00063"/>00063 &#32;&#32;&#32;&#32;//&#32;Encrypt&#32;the&#32;key&#32;part&#32;using&#32;RSA-OAEP&#32;with&#32;SHA-256&#32;hash&#32;function
+<anchor xml:id="_key-tools_8go_source_1l00064"/>00064 &#32;&#32;&#32;&#32;label&#32;:=&#32;[]byte(&quot;&quot;)
+<anchor xml:id="_key-tools_8go_source_1l00065"/>00065 &#32;&#32;&#32;&#32;hash&#32;:=&#32;sha256.New()
+<anchor xml:id="_key-tools_8go_source_1l00066"/>00066 &#32;&#32;&#32;&#32;encryptedKeyPart,&#32;err&#32;:=&#32;rsa.EncryptOAEP(hash,&#32;rand.Reader,&#32;pubKeyToRSA,&#32;keyPart,&#32;label)
+<anchor xml:id="_key-tools_8go_source_1l00067"/>00067 &#32;&#32;&#32;&#32;if&#32;err&#32;!=&#32;nil&#32;{
+<anchor xml:id="_key-tools_8go_source_1l00068"/>00068 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;return&#32;&quot;&quot;,&#32;fmt.Errorf(&quot;failed&#32;to&#32;encrypt&#32;key&#32;part:&#32;%w&quot;,&#32;err)
+<anchor xml:id="_key-tools_8go_source_1l00069"/>00069 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_key-tools_8go_source_1l00070"/>00070 
+<anchor xml:id="_key-tools_8go_source_1l00071"/>00071 &#32;&#32;&#32;&#32;return&#32;hex.EncodeToString(encryptedKeyPart),&#32;nil
+<anchor xml:id="_key-tools_8go_source_1l00072"/>00072 }
+<anchor xml:id="_key-tools_8go_source_1l00073"/>00073 
+<anchor xml:id="_key-tools_8go_source_1l00074"/>00074 //&#32;EncryptSharesForSharedFile&#32;Encrypts&#32;all&#32;the&#32;keyparts&#32;from&#32;a&#32;slice&#32;of&#32;SharedFile&#32;structs
+<anchor xml:id="_key-tools_8go_source_1l00075"/>00075 func&#32;EncryptSharesForSharedFile(sharedFile&#32;*TCFSTypes.SharedFile)&#32;error&#32;{
+<anchor xml:id="_key-tools_8go_source_1l00076"/>00076 &#32;&#32;&#32;&#32;encryptedShare,&#32;err&#32;:=&#32;EncryptKeyPart(sharedFile.Share,&#32;sharedFile.User.PublicKey)
+<anchor xml:id="_key-tools_8go_source_1l00077"/>00077 &#32;&#32;&#32;&#32;if&#32;err&#32;!=&#32;nil&#32;{
+<anchor xml:id="_key-tools_8go_source_1l00078"/>00078 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;return&#32;err
+<anchor xml:id="_key-tools_8go_source_1l00079"/>00079 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_key-tools_8go_source_1l00080"/>00080 &#32;&#32;&#32;&#32;sharedFile.EncryptedShare&#32;=&#32;encryptedShare
+<anchor xml:id="_key-tools_8go_source_1l00081"/>00081 &#32;&#32;&#32;&#32;return&#32;nil
+<anchor xml:id="_key-tools_8go_source_1l00082"/>00082 }
+<anchor xml:id="_key-tools_8go_source_1l00083"/>00083 
+<anchor xml:id="_key-tools_8go_source_1l00084"/>00084 //&#32;EncryptSharesForSharedFileList&#32;same&#32;as&#32;EncryptSharesForSharedFile&#32;but&#32;works&#32;with&#32;slices
+<anchor xml:id="_key-tools_8go_source_1l00085"/>00085 func&#32;EncryptSharesForSharedFileList(list&#32;*[]TCFSTypes.SharedFile)&#32;error&#32;{
+<anchor xml:id="_key-tools_8go_source_1l00086"/>00086 &#32;&#32;&#32;&#32;for&#32;i&#32;:=&#32;range&#32;*list&#32;{
+<anchor xml:id="_key-tools_8go_source_1l00087"/>00087 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;fmt.Printf(&quot;Encrypting&#32;share&#32;for&#32;%v\n&quot;,&#32;(*list)[i].User.Username)
+<anchor xml:id="_key-tools_8go_source_1l00088"/>00088 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;err&#32;:=&#32;EncryptSharesForSharedFile(&amp;(*list)[i])
+<anchor xml:id="_key-tools_8go_source_1l00089"/>00089 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;if&#32;err&#32;!=&#32;nil&#32;{
+<anchor xml:id="_key-tools_8go_source_1l00090"/>00090 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;return&#32;err
+<anchor xml:id="_key-tools_8go_source_1l00091"/>00091 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_key-tools_8go_source_1l00092"/>00092 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_key-tools_8go_source_1l00093"/>00093 &#32;&#32;&#32;&#32;return&#32;nil
+<anchor xml:id="_key-tools_8go_source_1l00094"/>00094 }
+</programlisting></section>

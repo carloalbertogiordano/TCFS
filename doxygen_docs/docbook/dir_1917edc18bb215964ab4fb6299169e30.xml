@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_dir_1917edc18bb215964ab4fb6299169e30" xml:lang="en-US">
+<title>ServerREST Directory Reference</title>
+<indexterm><primary>ServerREST Directory Reference</primary></indexterm>
+<simplesect>
+    <title>Directories    </title>
+        <itemizedlist>
+            <listitem><para>directory <link linkend="_dir_6cd5dedd230e9204c326d207525703ce">crypt-utils</link></para>
+</listitem>
+            <listitem><para>directory <link linkend="_dir_4ba660e7e42715687809dca61486f6bc">db</link></para>
+</listitem>
+            <listitem><para>directory <link linkend="_dir_b6f0bc9e6a73bc96ea137102d94121a7">serverTools</link></para>
+</listitem>
+            <listitem><para>directory <link linkend="_dir_b228d1183f6a9446da9c28454f9272ea">types</link></para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Files    </title>
+        <itemizedlist>
+            <listitem><para>file <link linkend="_main__test_8go">main_test.go</link></para>
+</listitem>
+            <listitem><para>file <link linkend="_tcfs-daemon_8go">tcfs-daemon.go</link></para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+</section>

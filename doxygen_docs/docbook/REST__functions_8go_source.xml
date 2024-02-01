@@ -1,0 +1,224 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_REST__functions_8go_source" xml:lang="en-US">
+<title>REST_functions.go</title>
+<indexterm><primary>ServerREST/serverTools/REST_functions.go</primary></indexterm>
+Go to the documentation of this file.<programlisting linenumbering="unnumbered"><anchor xml:id="_REST__functions_8go_source_1l00001"/>00001 package&#32;REST_Functions
+<anchor xml:id="_REST__functions_8go_source_1l00002"/>00002 
+<anchor xml:id="_REST__functions_8go_source_1l00003"/>00003 import&#32;(
+<anchor xml:id="_REST__functions_8go_source_1l00004"/>00004 &#32;&#32;&#32;&#32;&quot;encoding/json&quot;
+<anchor xml:id="_REST__functions_8go_source_1l00005"/>00005 &#32;&#32;&#32;&#32;&quot;fmt&quot;
+<anchor xml:id="_REST__functions_8go_source_1l00006"/>00006 &#32;&#32;&#32;&#32;&quot;golang.org/x/crypto/bcrypt&quot;
+<anchor xml:id="_REST__functions_8go_source_1l00007"/>00007 &#32;&#32;&#32;&#32;&quot;net/http&quot;
+<anchor xml:id="_REST__functions_8go_source_1l00008"/>00008 &#32;&#32;&#32;&#32;KeyTools&#32;&quot;serverTCFS/crypt-utils&quot;
+<anchor xml:id="_REST__functions_8go_source_1l00009"/>00009 &#32;&#32;&#32;&#32;DB&#32;&quot;serverTCFS/db&quot;
+<anchor xml:id="_REST__functions_8go_source_1l00010"/>00010 &#32;&#32;&#32;&#32;TCFSTypes&#32;&quot;serverTCFS/types&quot;
+<anchor xml:id="_REST__functions_8go_source_1l00011"/>00011 )
+<anchor xml:id="_REST__functions_8go_source_1l00012"/>00012 
+<anchor xml:id="_REST__functions_8go_source_1l00013"/>00013 func&#32;deserializeUser(r&#32;*http.Request)&#32;(TCFSTypes.TCFSUser,&#32;error)&#32;{
+<anchor xml:id="_REST__functions_8go_source_1l00014"/>00014 &#32;&#32;&#32;&#32;var&#32;user&#32;TCFSTypes.TCFSUser
+<anchor xml:id="_REST__functions_8go_source_1l00015"/>00015 &#32;&#32;&#32;&#32;err&#32;:=&#32;json.NewDecoder(r.Body).Decode(&amp;user)
+<anchor xml:id="_REST__functions_8go_source_1l00016"/>00016 &#32;&#32;&#32;&#32;if&#32;err&#32;!=&#32;nil&#32;{
+<anchor xml:id="_REST__functions_8go_source_1l00017"/>00017 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;return&#32;user,&#32;err
+<anchor xml:id="_REST__functions_8go_source_1l00018"/>00018 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_REST__functions_8go_source_1l00019"/>00019 &#32;&#32;&#32;&#32;return&#32;user,&#32;nil
+<anchor xml:id="_REST__functions_8go_source_1l00020"/>00020 }
+<anchor xml:id="_REST__functions_8go_source_1l00021"/>00021 
+<anchor xml:id="_REST__functions_8go_source_1l00022"/>00022 func&#32;Register(w&#32;http.ResponseWriter,&#32;r&#32;*http.Request)&#32;{
+<anchor xml:id="_REST__functions_8go_source_1l00023"/>00023 &#32;&#32;&#32;&#32;fmt.Printf(&quot;Called&#32;Register&quot;)
+<anchor xml:id="_REST__functions_8go_source_1l00024"/>00024 &#32;&#32;&#32;&#32;var&#32;user&#32;TCFSTypes.TCFSUser
+<anchor xml:id="_REST__functions_8go_source_1l00025"/>00025 &#32;&#32;&#32;&#32;var&#32;err&#32;error&#32;=&#32;nil
+<anchor xml:id="_REST__functions_8go_source_1l00026"/>00026 &#32;&#32;&#32;&#32;user,&#32;err&#32;=&#32;deserializeUser(r)
+<anchor xml:id="_REST__functions_8go_source_1l00027"/>00027 &#32;&#32;&#32;&#32;if&#32;err&#32;!=&#32;nil&#32;{
+<anchor xml:id="_REST__functions_8go_source_1l00028"/>00028 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;http.Error(w,&#32;err.Error(),&#32;http.StatusBadRequest)
+<anchor xml:id="_REST__functions_8go_source_1l00029"/>00029 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;return
+<anchor xml:id="_REST__functions_8go_source_1l00030"/>00030 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_REST__functions_8go_source_1l00031"/>00031 
+<anchor xml:id="_REST__functions_8go_source_1l00032"/>00032 &#32;&#32;&#32;&#32;//&#32;Hash&#32;the&#32;user&apos;s&#32;password
+<anchor xml:id="_REST__functions_8go_source_1l00033"/>00033 &#32;&#32;&#32;&#32;hashedPassword,&#32;err&#32;:=&#32;bcrypt.GenerateFromPassword([]byte(user.Password),&#32;bcrypt.DefaultCost)
+<anchor xml:id="_REST__functions_8go_source_1l00034"/>00034 &#32;&#32;&#32;&#32;if&#32;err&#32;!=&#32;nil&#32;{
+<anchor xml:id="_REST__functions_8go_source_1l00035"/>00035 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;http.Error(w,&#32;err.Error(),&#32;http.StatusInternalServerError)
+<anchor xml:id="_REST__functions_8go_source_1l00036"/>00036 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;return
+<anchor xml:id="_REST__functions_8go_source_1l00037"/>00037 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_REST__functions_8go_source_1l00038"/>00038 
+<anchor xml:id="_REST__functions_8go_source_1l00039"/>00039 &#32;&#32;&#32;&#32;//&#32;Insert&#32;the&#32;user&#32;into&#32;the&#32;RegisteredUsers&#32;table
+<anchor xml:id="_REST__functions_8go_source_1l00040"/>00040 &#32;&#32;&#32;&#32;err&#32;=&#32;DB.InsertRegisteredUser(user.Username,&#32;string(hashedPassword))
+<anchor xml:id="_REST__functions_8go_source_1l00041"/>00041 &#32;&#32;&#32;&#32;if&#32;err&#32;!=&#32;nil&#32;{
+<anchor xml:id="_REST__functions_8go_source_1l00042"/>00042 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;http.Error(w,&#32;err.Error(),&#32;http.StatusInternalServerError)
+<anchor xml:id="_REST__functions_8go_source_1l00043"/>00043 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;return
+<anchor xml:id="_REST__functions_8go_source_1l00044"/>00044 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_REST__functions_8go_source_1l00045"/>00045 &#32;&#32;&#32;&#32;fmt.Printf(&quot;New&#32;user&#32;inserted&#32;\nSUCCESS\n&quot;)
+<anchor xml:id="_REST__functions_8go_source_1l00046"/>00046 
+<anchor xml:id="_REST__functions_8go_source_1l00047"/>00047 &#32;&#32;&#32;&#32;//&#32;Return&#32;a&#32;success&#32;message
+<anchor xml:id="_REST__functions_8go_source_1l00048"/>00048 &#32;&#32;&#32;&#32;w.WriteHeader(http.StatusOK)
+<anchor xml:id="_REST__functions_8go_source_1l00049"/>00049 &#32;&#32;&#32;&#32;fmt.Fprintf(w,&#32;&quot;User&#32;registered&#32;successfully&quot;)
+<anchor xml:id="_REST__functions_8go_source_1l00050"/>00050 }
+<anchor xml:id="_REST__functions_8go_source_1l00051"/>00051 
+<anchor xml:id="_REST__functions_8go_source_1l00052"/>00052 func&#32;Login(w&#32;http.ResponseWriter,&#32;r&#32;*http.Request)&#32;{
+<anchor xml:id="_REST__functions_8go_source_1l00053"/>00053 &#32;&#32;&#32;&#32;fmt.Println(&quot;Called&#32;Login\n&quot;)
+<anchor xml:id="_REST__functions_8go_source_1l00054"/>00054 &#32;&#32;&#32;&#32;var&#32;user&#32;TCFSTypes.TCFSUser
+<anchor xml:id="_REST__functions_8go_source_1l00055"/>00055 &#32;&#32;&#32;&#32;var&#32;err&#32;error&#32;=&#32;nil
+<anchor xml:id="_REST__functions_8go_source_1l00056"/>00056 &#32;&#32;&#32;&#32;user,&#32;err&#32;=&#32;deserializeUser(r)
+<anchor xml:id="_REST__functions_8go_source_1l00057"/>00057 &#32;&#32;&#32;&#32;if&#32;err&#32;!=&#32;nil&#32;{
+<anchor xml:id="_REST__functions_8go_source_1l00058"/>00058 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;http.Error(w,&#32;err.Error(),&#32;http.StatusBadRequest)
+<anchor xml:id="_REST__functions_8go_source_1l00059"/>00059 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;return
+<anchor xml:id="_REST__functions_8go_source_1l00060"/>00060 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_REST__functions_8go_source_1l00061"/>00061 
+<anchor xml:id="_REST__functions_8go_source_1l00062"/>00062 &#32;&#32;&#32;&#32;//&#32;Retrieve&#32;the&#32;user&apos;s&#32;hashed&#32;password&#32;from&#32;the&#32;RegisteredUsers&#32;table
+<anchor xml:id="_REST__functions_8go_source_1l00063"/>00063 &#32;&#32;&#32;&#32;hashedPassword,&#32;err&#32;:=&#32;DB.GetPasswordHash(user.Username)
+<anchor xml:id="_REST__functions_8go_source_1l00064"/>00064 &#32;&#32;&#32;&#32;if&#32;err&#32;!=&#32;nil&#32;{
+<anchor xml:id="_REST__functions_8go_source_1l00065"/>00065 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;http.Error(w,&#32;err.Error(),&#32;http.StatusInternalServerError)
+<anchor xml:id="_REST__functions_8go_source_1l00066"/>00066 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;return
+<anchor xml:id="_REST__functions_8go_source_1l00067"/>00067 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_REST__functions_8go_source_1l00068"/>00068 
+<anchor xml:id="_REST__functions_8go_source_1l00069"/>00069 &#32;&#32;&#32;&#32;//&#32;Compare&#32;the&#32;user&apos;s&#32;password&#32;with&#32;the&#32;hashed&#32;password
+<anchor xml:id="_REST__functions_8go_source_1l00070"/>00070 &#32;&#32;&#32;&#32;err&#32;=&#32;bcrypt.CompareHashAndPassword([]byte(hashedPassword),&#32;[]byte(user.Password))
+<anchor xml:id="_REST__functions_8go_source_1l00071"/>00071 &#32;&#32;&#32;&#32;if&#32;err&#32;!=&#32;nil&#32;{
+<anchor xml:id="_REST__functions_8go_source_1l00072"/>00072 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;http.Error(w,&#32;&quot;Invalid&#32;credentials&quot;,&#32;http.StatusUnauthorized)
+<anchor xml:id="_REST__functions_8go_source_1l00073"/>00073 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;return
+<anchor xml:id="_REST__functions_8go_source_1l00074"/>00074 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_REST__functions_8go_source_1l00075"/>00075 &#32;&#32;&#32;&#32;fmt.Println(&quot;Password&#32;match&quot;)
+<anchor xml:id="_REST__functions_8go_source_1l00076"/>00076 
+<anchor xml:id="_REST__functions_8go_source_1l00077"/>00077 &#32;&#32;&#32;&#32;//&#32;Insert&#32;the&#32;user&#32;into&#32;the&#32;LoggedUsers&#32;table
+<anchor xml:id="_REST__functions_8go_source_1l00078"/>00078 &#32;&#32;&#32;&#32;err&#32;=&#32;DB.InsertLoggedUser(user.Username,&#32;user.PublicKey)
+<anchor xml:id="_REST__functions_8go_source_1l00079"/>00079 &#32;&#32;&#32;&#32;if&#32;err&#32;!=&#32;nil&#32;{
+<anchor xml:id="_REST__functions_8go_source_1l00080"/>00080 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;http.Error(w,&#32;err.Error(),&#32;http.StatusInternalServerError)
+<anchor xml:id="_REST__functions_8go_source_1l00081"/>00081 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;return
+<anchor xml:id="_REST__functions_8go_source_1l00082"/>00082 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_REST__functions_8go_source_1l00083"/>00083 &#32;&#32;&#32;&#32;fmt.Println(&quot;Inserted&#32;in&#32;logged&#32;users&quot;)
+<anchor xml:id="_REST__functions_8go_source_1l00084"/>00084 
+<anchor xml:id="_REST__functions_8go_source_1l00085"/>00085 &#32;&#32;&#32;&#32;//&#32;Return&#32;a&#32;success&#32;message
+<anchor xml:id="_REST__functions_8go_source_1l00086"/>00086 &#32;&#32;&#32;&#32;w.WriteHeader(http.StatusOK)
+<anchor xml:id="_REST__functions_8go_source_1l00087"/>00087 &#32;&#32;&#32;&#32;fmt.Fprintf(w,&#32;&quot;User&#32;logged&#32;in&#32;successfully&quot;)
+<anchor xml:id="_REST__functions_8go_source_1l00088"/>00088 }
+<anchor xml:id="_REST__functions_8go_source_1l00089"/>00089 
+<anchor xml:id="_REST__functions_8go_source_1l00090"/>00090 func&#32;Logout(w&#32;http.ResponseWriter,&#32;r&#32;*http.Request)&#32;{
+<anchor xml:id="_REST__functions_8go_source_1l00091"/>00091 &#32;&#32;&#32;&#32;fmt.Println(&quot;Called&#32;Unregister&quot;)
+<anchor xml:id="_REST__functions_8go_source_1l00092"/>00092 &#32;&#32;&#32;&#32;var&#32;user&#32;TCFSTypes.TCFSUser
+<anchor xml:id="_REST__functions_8go_source_1l00093"/>00093 &#32;&#32;&#32;&#32;var&#32;err&#32;error&#32;=&#32;nil
+<anchor xml:id="_REST__functions_8go_source_1l00094"/>00094 &#32;&#32;&#32;&#32;user,&#32;err&#32;=&#32;deserializeUser(r)
+<anchor xml:id="_REST__functions_8go_source_1l00095"/>00095 &#32;&#32;&#32;&#32;if&#32;err&#32;!=&#32;nil&#32;{
+<anchor xml:id="_REST__functions_8go_source_1l00096"/>00096 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;http.Error(w,&#32;err.Error(),&#32;http.StatusBadRequest)
+<anchor xml:id="_REST__functions_8go_source_1l00097"/>00097 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;return
+<anchor xml:id="_REST__functions_8go_source_1l00098"/>00098 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_REST__functions_8go_source_1l00099"/>00099 
+<anchor xml:id="_REST__functions_8go_source_1l00100"/>00100 &#32;&#32;&#32;&#32;err&#32;=&#32;DB.DeleteLoggedUser(user.Username)
+<anchor xml:id="_REST__functions_8go_source_1l00101"/>00101 &#32;&#32;&#32;&#32;if&#32;err&#32;!=&#32;nil&#32;{
+<anchor xml:id="_REST__functions_8go_source_1l00102"/>00102 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;http.Error(w,&#32;err.Error(),&#32;http.StatusInternalServerError)
+<anchor xml:id="_REST__functions_8go_source_1l00103"/>00103 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_REST__functions_8go_source_1l00104"/>00104 &#32;&#32;&#32;&#32;fmt.Printf(&quot;User&#32;%v&#32;unregistered\n&#32;SUCCESS\n&quot;,&#32;user.Username)
+<anchor xml:id="_REST__functions_8go_source_1l00105"/>00105 &#32;&#32;&#32;&#32;w.WriteHeader(http.StatusOK)
+<anchor xml:id="_REST__functions_8go_source_1l00106"/>00106 &#32;&#32;&#32;&#32;fmt.Fprintf(w,&#32;&quot;User&#32;logged&#32;out&#32;successfully&quot;)
+<anchor xml:id="_REST__functions_8go_source_1l00107"/>00107 }
+<anchor xml:id="_REST__functions_8go_source_1l00108"/>00108 
+<anchor xml:id="_REST__functions_8go_source_1l00109"/>00109 /*
+<anchor xml:id="_REST__functions_8go_source_1l00110"/>00110 CreateSharedFile&#32;The&#32;request&#32;contains&#32;a&#32;username&#32;list&#32;and&#32;the&#32;k&#32;number&#32;for&#32;Shamir
+<anchor xml:id="_REST__functions_8go_source_1l00111"/>00111 A&#32;new&#32;key&#32;for&#32;the&#32;file&#32;will&#32;be&#32;generated&#32;and&#32;then&#32;Shamir&#32;generates&#32;all&#32;the&#32;key-parts
+<anchor xml:id="_REST__functions_8go_source_1l00112"/>00112 Each&#32;key-part&#32;is&#32;cyphered&#32;with&#32;the&#32;public&#32;key&#32;of&#32;the&#32;user&#32;and&#32;saved&#32;in&#32;the&#32;relative&#32;entry&#32;in&#32;the&#32;DB
+<anchor xml:id="_REST__functions_8go_source_1l00113"/>00113 A&#32;fileID&#32;is&#32;returned&#32;in&#32;the&#32;response.&#32;This&#32;will&#32;identify&#32;the&#32;file
+<anchor xml:id="_REST__functions_8go_source_1l00114"/>00114 */
+<anchor xml:id="_REST__functions_8go_source_1l00115"/>00115 func&#32;CreateSharedFile(w&#32;http.ResponseWriter,&#32;r&#32;*http.Request)&#32;{
+<anchor xml:id="_REST__functions_8go_source_1l00116"/>00116 
+<anchor xml:id="_REST__functions_8go_source_1l00117"/>00117 &#32;&#32;&#32;&#32;type&#32;User&#32;struct&#32;{
+<anchor xml:id="_REST__functions_8go_source_1l00118"/>00118 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Username&#32;string&#32;`json:&quot;username&quot;`
+<anchor xml:id="_REST__functions_8go_source_1l00119"/>00119 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_REST__functions_8go_source_1l00120"/>00120 
+<anchor xml:id="_REST__functions_8go_source_1l00121"/>00121 &#32;&#32;&#32;&#32;type&#32;Request&#32;struct&#32;{
+<anchor xml:id="_REST__functions_8go_source_1l00122"/>00122 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Users&#32;[]User&#32;`json:&quot;users&quot;`
+<anchor xml:id="_REST__functions_8go_source_1l00123"/>00123 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;K&#32;&#32;&#32;&#32;&#32;int&#32;&#32;&#32;&#32;`json:&quot;k&quot;`
+<anchor xml:id="_REST__functions_8go_source_1l00124"/>00124 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_REST__functions_8go_source_1l00125"/>00125 
+<anchor xml:id="_REST__functions_8go_source_1l00126"/>00126 &#32;&#32;&#32;&#32;var&#32;req&#32;Request
+<anchor xml:id="_REST__functions_8go_source_1l00127"/>00127 
+<anchor xml:id="_REST__functions_8go_source_1l00128"/>00128 &#32;&#32;&#32;&#32;decoder&#32;:=&#32;json.NewDecoder(r.Body)
+<anchor xml:id="_REST__functions_8go_source_1l00129"/>00129 &#32;&#32;&#32;&#32;err&#32;:=&#32;decoder.Decode(&amp;req)
+<anchor xml:id="_REST__functions_8go_source_1l00130"/>00130 &#32;&#32;&#32;&#32;if&#32;err&#32;!=&#32;nil&#32;{
+<anchor xml:id="_REST__functions_8go_source_1l00131"/>00131 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;http.Error(w,&#32;err.Error(),&#32;http.StatusBadRequest)
+<anchor xml:id="_REST__functions_8go_source_1l00132"/>00132 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;return
+<anchor xml:id="_REST__functions_8go_source_1l00133"/>00133 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_REST__functions_8go_source_1l00134"/>00134 
+<anchor xml:id="_REST__functions_8go_source_1l00135"/>00135 &#32;&#32;&#32;&#32;var&#32;users&#32;[]TCFSTypes.TCFSUser
+<anchor xml:id="_REST__functions_8go_source_1l00136"/>00136 &#32;&#32;&#32;&#32;for&#32;_,&#32;user&#32;:=&#32;range&#32;req.Users&#32;{
+<anchor xml:id="_REST__functions_8go_source_1l00137"/>00137 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;tmpUser&#32;:=&#32;TCFSTypes.TCFSUser{Username:&#32;user.Username}
+<anchor xml:id="_REST__functions_8go_source_1l00138"/>00138 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;err&#32;:=&#32;DB.LoadUserInfoByName(&amp;tmpUser)
+<anchor xml:id="_REST__functions_8go_source_1l00139"/>00139 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;if&#32;err&#32;!=&#32;nil&#32;{
+<anchor xml:id="_REST__functions_8go_source_1l00140"/>00140 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;http.Error(w,&#32;err.Error(),&#32;http.StatusBadRequest)
+<anchor xml:id="_REST__functions_8go_source_1l00141"/>00141 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;fmt.Printf(&quot;Could&#32;not&#32;load&#32;user&#32;%v&#32;info&#32;%v\n&quot;,&#32;user,&#32;err)
+<anchor xml:id="_REST__functions_8go_source_1l00142"/>00142 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;return
+<anchor xml:id="_REST__functions_8go_source_1l00143"/>00143 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_REST__functions_8go_source_1l00144"/>00144 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;users&#32;=&#32;append(users,&#32;tmpUser)
+<anchor xml:id="_REST__functions_8go_source_1l00145"/>00145 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_REST__functions_8go_source_1l00146"/>00146 
+<anchor xml:id="_REST__functions_8go_source_1l00147"/>00147 &#32;&#32;&#32;&#32;k&#32;:=&#32;req.K
+<anchor xml:id="_REST__functions_8go_source_1l00148"/>00148 
+<anchor xml:id="_REST__functions_8go_source_1l00149"/>00149 &#32;&#32;&#32;&#32;fmt.Printf(&quot;Got&#32;users&#32;and&#32;k:&#32;%v\n&quot;,&#32;k)
+<anchor xml:id="_REST__functions_8go_source_1l00150"/>00150 
+<anchor xml:id="_REST__functions_8go_source_1l00151"/>00151 &#32;&#32;&#32;&#32;//&#32;Generate&#32;a&#32;new&#32;key
+<anchor xml:id="_REST__functions_8go_source_1l00152"/>00152 &#32;&#32;&#32;&#32;key,&#32;err&#32;:=&#32;KeyTools.GenerateKey()
+<anchor xml:id="_REST__functions_8go_source_1l00153"/>00153 &#32;&#32;&#32;&#32;if&#32;err&#32;!=&#32;nil&#32;{
+<anchor xml:id="_REST__functions_8go_source_1l00154"/>00154 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;fmt.Printf(&quot;Err:&#32;cannot&#32;not&#32;generate&#32;new&#32;key&#32;%v\n&quot;,&#32;err)
+<anchor xml:id="_REST__functions_8go_source_1l00155"/>00155 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;http.Error(w,&#32;err.Error(),&#32;http.StatusInternalServerError)
+<anchor xml:id="_REST__functions_8go_source_1l00156"/>00156 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;return
+<anchor xml:id="_REST__functions_8go_source_1l00157"/>00157 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_REST__functions_8go_source_1l00158"/>00158 
+<anchor xml:id="_REST__functions_8go_source_1l00159"/>00159 &#32;&#32;&#32;&#32;//&#32;Split&#32;the&#32;key&#32;using&#32;Shamir&apos;s&#32;secret&#32;sharing
+<anchor xml:id="_REST__functions_8go_source_1l00160"/>00160 &#32;&#32;&#32;&#32;shares,&#32;err&#32;:=&#32;KeyTools.SplitKey(key,&#32;len(users),&#32;k)
+<anchor xml:id="_REST__functions_8go_source_1l00161"/>00161 &#32;&#32;&#32;&#32;if&#32;err&#32;!=&#32;nil&#32;{
+<anchor xml:id="_REST__functions_8go_source_1l00162"/>00162 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;fmt.Printf(&quot;Cannot&#32;split&#32;the&#32;key&#32;%v\n&quot;,&#32;err)
+<anchor xml:id="_REST__functions_8go_source_1l00163"/>00163 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;http.Error(w,&#32;err.Error(),&#32;http.StatusInternalServerError)
+<anchor xml:id="_REST__functions_8go_source_1l00164"/>00164 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;return
+<anchor xml:id="_REST__functions_8go_source_1l00165"/>00165 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_REST__functions_8go_source_1l00166"/>00166 &#32;&#32;&#32;&#32;fmt.Printf(&quot;Got&#32;%v&#32;keyparts&#32;for&#32;%v&#32;users\n&quot;,&#32;len(shares),&#32;len(users))
+<anchor xml:id="_REST__functions_8go_source_1l00167"/>00167 
+<anchor xml:id="_REST__functions_8go_source_1l00168"/>00168 &#32;&#32;&#32;&#32;fileID,&#32;err&#32;:=&#32;DB.GetNewFileID()
+<anchor xml:id="_REST__functions_8go_source_1l00169"/>00169 &#32;&#32;&#32;&#32;if&#32;err&#32;!=&#32;nil&#32;{
+<anchor xml:id="_REST__functions_8go_source_1l00170"/>00170 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;fmt.Printf(&quot;Cannot&#32;generate&#32;a&#32;new&#32;fileID&#32;%v\n&quot;,&#32;err)
+<anchor xml:id="_REST__functions_8go_source_1l00171"/>00171 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;http.Error(w,&#32;err.Error(),&#32;http.StatusInternalServerError)
+<anchor xml:id="_REST__functions_8go_source_1l00172"/>00172 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;return
+<anchor xml:id="_REST__functions_8go_source_1l00173"/>00173 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_REST__functions_8go_source_1l00174"/>00174 &#32;&#32;&#32;&#32;fmt.Printf(&quot;Got&#32;new&#32;file&#32;id&#32;%v\n&quot;,&#32;fileID)
+<anchor xml:id="_REST__functions_8go_source_1l00175"/>00175 
+<anchor xml:id="_REST__functions_8go_source_1l00176"/>00176 &#32;&#32;&#32;&#32;var&#32;sharedFilesList&#32;[]TCFSTypes.SharedFile
+<anchor xml:id="_REST__functions_8go_source_1l00177"/>00177 &#32;&#32;&#32;&#32;//&#32;Couple&#32;the&#32;shares&#32;with&#32;the&#32;user&#32;in&#32;the&#32;sharedFilesList
+<anchor xml:id="_REST__functions_8go_source_1l00178"/>00178 &#32;&#32;&#32;&#32;j&#32;:=&#32;0
+<anchor xml:id="_REST__functions_8go_source_1l00179"/>00179 &#32;&#32;&#32;&#32;for&#32;_,&#32;share&#32;:=&#32;range&#32;shares&#32;{
+<anchor xml:id="_REST__functions_8go_source_1l00180"/>00180 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;if&#32;share&#32;==&#32;nil&#32;{
+<anchor xml:id="_REST__functions_8go_source_1l00181"/>00181 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;fmt.Printf(&quot;This&#32;share&#32;is&#32;nil\n&quot;)
+<anchor xml:id="_REST__functions_8go_source_1l00182"/>00182 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;http.Error(w,&#32;err.Error(),&#32;http.StatusInternalServerError)
+<anchor xml:id="_REST__functions_8go_source_1l00183"/>00183 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;return
+<anchor xml:id="_REST__functions_8go_source_1l00184"/>00184 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_REST__functions_8go_source_1l00185"/>00185 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;sharedFile&#32;:=&#32;TCFSTypes.SharedFile{
+<anchor xml:id="_REST__functions_8go_source_1l00186"/>00186 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;User:&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;users[j],
+<anchor xml:id="_REST__functions_8go_source_1l00187"/>00187 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;FileID:&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;fileID,
+<anchor xml:id="_REST__functions_8go_source_1l00188"/>00188 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;Share:&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;share,
+<anchor xml:id="_REST__functions_8go_source_1l00189"/>00189 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;EncryptedShare:&#32;&quot;&quot;,
+<anchor xml:id="_REST__functions_8go_source_1l00190"/>00190 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_REST__functions_8go_source_1l00191"/>00191 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;sharedFilesList&#32;=&#32;append(sharedFilesList,&#32;sharedFile)
+<anchor xml:id="_REST__functions_8go_source_1l00192"/>00192 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;j++
+<anchor xml:id="_REST__functions_8go_source_1l00193"/>00193 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_REST__functions_8go_source_1l00194"/>00194 &#32;&#32;&#32;&#32;fmt.Printf(&quot;Created&#32;%v&#32;shared&#32;files&#32;\n&quot;,&#32;len(sharedFilesList))
+<anchor xml:id="_REST__functions_8go_source_1l00195"/>00195 
+<anchor xml:id="_REST__functions_8go_source_1l00196"/>00196 &#32;&#32;&#32;&#32;for&#32;_,&#32;s&#32;:=&#32;range&#32;sharedFilesList&#32;{
+<anchor xml:id="_REST__functions_8go_source_1l00197"/>00197 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;fmt.Printf(&quot;%v\n&quot;,&#32;s)
+<anchor xml:id="_REST__functions_8go_source_1l00198"/>00198 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_REST__functions_8go_source_1l00199"/>00199 
+<anchor xml:id="_REST__functions_8go_source_1l00200"/>00200 &#32;&#32;&#32;&#32;err&#32;=&#32;KeyTools.EncryptSharesForSharedFileList(&amp;sharedFilesList)
+<anchor xml:id="_REST__functions_8go_source_1l00201"/>00201 &#32;&#32;&#32;&#32;if&#32;err&#32;!=&#32;nil&#32;{
+<anchor xml:id="_REST__functions_8go_source_1l00202"/>00202 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;fmt.Printf(&quot;Err:&#32;cannot&#32;Encrypt&#32;share&#32;list:&#32;%v\n&quot;,&#32;err)
+<anchor xml:id="_REST__functions_8go_source_1l00203"/>00203 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;http.Error(w,&#32;err.Error(),&#32;http.StatusInternalServerError)
+<anchor xml:id="_REST__functions_8go_source_1l00204"/>00204 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;return
+<anchor xml:id="_REST__functions_8go_source_1l00205"/>00205 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_REST__functions_8go_source_1l00206"/>00206 
+<anchor xml:id="_REST__functions_8go_source_1l00207"/>00207 &#32;&#32;&#32;&#32;err&#32;=&#32;DB.InsertMultipleSharedFiles(sharedFilesList)
+<anchor xml:id="_REST__functions_8go_source_1l00208"/>00208 &#32;&#32;&#32;&#32;if&#32;err&#32;!=&#32;nil&#32;{
+<anchor xml:id="_REST__functions_8go_source_1l00209"/>00209 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;fmt.Printf(&quot;Err:&#32;cannot&#32;save&#32;list&#32;in&#32;DB&#32;&#32;%v\n&quot;,&#32;err)
+<anchor xml:id="_REST__functions_8go_source_1l00210"/>00210 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;http.Error(w,&#32;err.Error(),&#32;http.StatusInternalServerError)
+<anchor xml:id="_REST__functions_8go_source_1l00211"/>00211 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;return
+<anchor xml:id="_REST__functions_8go_source_1l00212"/>00212 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_REST__functions_8go_source_1l00213"/>00213 &#32;&#32;&#32;&#32;fmt.Printf(&quot;New&#32;share&#32;saved&#32;to&#32;DB\n&quot;)
+<anchor xml:id="_REST__functions_8go_source_1l00214"/>00214 
+<anchor xml:id="_REST__functions_8go_source_1l00215"/>00215 &#32;&#32;&#32;&#32;//&#32;Return&#32;a&#32;success&#32;message
+<anchor xml:id="_REST__functions_8go_source_1l00216"/>00216 &#32;&#32;&#32;&#32;w.WriteHeader(http.StatusOK)
+<anchor xml:id="_REST__functions_8go_source_1l00217"/>00217 &#32;&#32;&#32;&#32;fmt.Fprintf(w,&#32;fmt.Sprintf(&quot;fileID:%v\n&quot;,&#32;fileID))
+<anchor xml:id="_REST__functions_8go_source_1l00218"/>00218 &#32;&#32;&#32;&#32;fmt.Fprintf(w,&#32;&quot;Shared&#32;file&#32;created&#32;successfully&quot;)
+<anchor xml:id="_REST__functions_8go_source_1l00219"/>00219 }
+</programlisting></section>

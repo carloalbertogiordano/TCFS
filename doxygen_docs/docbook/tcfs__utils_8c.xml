@@ -1,0 +1,588 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_tcfs__utils_8c" xml:lang="en-US">
+<title>userspace-module/utils/tcfs_utils/tcfs_utils.c File Reference</title>
+<indexterm><primary>userspace-module/utils/tcfs_utils/tcfs_utils.c</primary></indexterm>
+<para>
+
+<para>This file contains an assortment of functions used by <link linkend="_tcfs_8c">tcfs.c</link>. </para>
+ 
+</para>
+<programlisting linenumbering="unnumbered">#include &quot;tcfs_utils.h&quot;<?linebreak?>#include &quot;../crypt-utils/crypt-utils.h&quot;<?linebreak?></programlisting>Include dependency graph for tcfs_utils.c:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="tcfs__utils_8c__incl.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+<simplesect>
+    <title>Functions    </title>
+        <itemizedlist>
+            <listitem><para>void <link linkend="_tcfs__utils_8c_1aac1b7fab3a13b4cfcc0b34eb7511df55">get_user_name</link> (char *buf, size_t size)</para>
+
+<para>Fetch the username of the current user. </para>
+</listitem>
+            <listitem><para>int <link linkend="_tcfs__utils_8c_1a71e44dc105c7af8349bc3e7eb9edf2b0">is_encrypted</link> (const char *path)</para>
+
+<para>Check if a file is encrypted by TCFS. </para>
+</listitem>
+            <listitem><para>char * <link linkend="_tcfs__utils_8c_1ac4ff59963f4a122c9f802c0c2bf2abc8">prefix_path</link> (const char *path, const char *realpath)</para>
+
+<para>Prefix the realpath to the fuse path. </para>
+</listitem>
+            <listitem><para>int <link linkend="_tcfs__utils_8c_1a42623317bb0b1ff095b4d946dc085bd6">read_file</link> (FILE *file)</para>
+
+<para>Read a file, useful for debugging tmpfiles. </para>
+</listitem>
+            <listitem><para>int <link linkend="_tcfs__utils_8c_1a4316eb58a0cb5afb4e90e75a55c9b3ea">get_encrypted_key</link> (char *filepath, unsigned char *encrypted_key)</para>
+
+<para>Get the xattr value describing the key of a file. </para>
+</listitem>
+            <listitem><para>void <link linkend="_tcfs__utils_8c_1a8c1c24299a2b01f6157b051cb56ebc52">print_aes_key</link> (unsigned char *key)</para>
+
+<para>Print the value of an AES key. </para>
+</listitem>
+            <listitem><para>char * <link linkend="_tcfs__utils_8c_1a819d57d5c053a25772508a943d1bcc48">string_to_hex</link> (const char *input)</para>
+
+<para>Convert a string to its hexadecimal representation. </para>
+</listitem>
+            <listitem><para>char * <link linkend="_tcfs__utils_8c_1a6de1cb8448198da94080ad32d7e4eabf">hex_to_string</link> (const char *input)</para>
+
+<para>Convert a hexadecimal string to its ASCII representation. </para>
+</listitem>
+            <listitem><para>void <link linkend="_tcfs__utils_8c_1a62b66e43a7ad8b8cf9fcad67f71a7a8b">logMessage</link> (const char *format,...)</para>
+
+<para>Logs a formatted message to a file with timestamp. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Detailed Description</title>
+
+<para>This file contains an assortment of functions used by <link linkend="_tcfs_8c">tcfs.c</link>. </para>
+
+<para><formalpara><title>See also</title>
+
+<para><link linkend="_tcfs_8c">tcfs.c</link> </para>
+</formalpara>
+</para>
+<para>
+Definition in file <link linkend="_tcfs__utils_8c_source">tcfs_utils.c</link>.</para>
+</section>
+<section>
+<title>Function Documentation</title>
+<anchor xml:id="_tcfs__utils_8c_1a4316eb58a0cb5afb4e90e75a55c9b3ea"/><section>
+    <title>get_encrypted_key()</title>
+<indexterm><primary>get_encrypted_key</primary><secondary>tcfs_utils.c</secondary></indexterm>
+<indexterm><primary>tcfs_utils.c</primary><secondary>get_encrypted_key</secondary></indexterm>
+<para><computeroutput>int get_encrypted_key (char * filepath, unsigned char * encrypted_key)</computeroutput></para><para>
+
+<para>Get the xattr value describing the key of a file. </para>
+</para>
+
+<para><para><link linkend="_deprecated_1_deprecated000002">Deprecated</link> 
+<para>Currently has no use. Was once used for debugging. </para>
+</para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>filepath</entry><entry>
+<para>The full path of the file. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>encrypted_key</entry><entry>
+<para>The buffer to save the encrypted key to. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>1 if successful, 0 otherwise. An error might be printen by print_err() function, </para>
+</formalpara>
+<formalpara><title>See also</title>
+
+<para>print_err </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_tcfs__utils_8c_source_1l00123">123</link> of file <link linkend="_tcfs__utils_8c_source">tcfs_utils.c</link>.</para>
+<para>
+References <link linkend="_tcfs__utils_8c_source_1l00035">is_encrypted()</link>, and <link linkend="_tcfs__utils_8c_source_1l00262">logMessage()</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="tcfs__utils_8c_a4316eb58a0cb5afb4e90e75a55c9b3ea_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_tcfs__utils_8c_1aac1b7fab3a13b4cfcc0b34eb7511df55"/><section>
+    <title>get_user_name()</title>
+<indexterm><primary>get_user_name</primary><secondary>tcfs_utils.c</secondary></indexterm>
+<indexterm><primary>tcfs_utils.c</primary><secondary>get_user_name</secondary></indexterm>
+<para><computeroutput>void get_user_name (char * buf, size_t size)</computeroutput></para><para>
+
+<para>Fetch the username of the current user. </para>
+</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>buf</entry><entry>
+<para>The buffer where the username will be written. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>size</entry><entry>
+<para>The size of the buffer. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>void </para>
+</formalpara>
+<note><title>Note</title>
+
+<para>If an error occurs, it will be printed, and the buffer will not be modified. </para>
+</note>
+</para>
+<para>
+Definition at line <link linkend="_tcfs__utils_8c_source_1l00019">19</link> of file <link linkend="_tcfs__utils_8c_source">tcfs_utils.c</link>.</para>
+<para>
+Referenced by <link linkend="_tcfs_8c_source_1l00734">tcfs_read()</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="tcfs__utils_8c_aac1b7fab3a13b4cfcc0b34eb7511df55_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_tcfs__utils_8c_1a6de1cb8448198da94080ad32d7e4eabf"/><section>
+    <title>hex_to_string()</title>
+<indexterm><primary>hex_to_string</primary><secondary>tcfs_utils.c</secondary></indexterm>
+<indexterm><primary>tcfs_utils.c</primary><secondary>hex_to_string</secondary></indexterm>
+<para><computeroutput>char * hex_to_string (const char * input)</computeroutput></para><para>
+
+<para>Convert a hexadecimal string to its ASCII representation. </para>
+</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>input</entry><entry>
+<para>The input hexadecimal string. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>char * The ASCII representation of the input hexadecimal string. </para>
+</formalpara>
+<note><title>Note</title>
+
+<para>Remember to free the result after use. </para>
+</note>
+</para>
+<para>
+Definition at line <link linkend="_tcfs__utils_8c_source_1l00218">218</link> of file <link linkend="_tcfs__utils_8c_source">tcfs_utils.c</link>.</para>
+<para>
+References <link linkend="_tcfs__utils_8c_source_1l00262">logMessage()</link>.</para>
+<para>
+Referenced by <link linkend="_crypt-utils_8c_source_1l00406">decrypt_file_name_with_hex()</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="tcfs__utils_8c_a6de1cb8448198da94080ad32d7e4eabf_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="tcfs__utils_8c_a6de1cb8448198da94080ad32d7e4eabf_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_tcfs__utils_8c_1a71e44dc105c7af8349bc3e7eb9edf2b0"/><section>
+    <title>is_encrypted()</title>
+<indexterm><primary>is_encrypted</primary><secondary>tcfs_utils.c</secondary></indexterm>
+<indexterm><primary>tcfs_utils.c</primary><secondary>is_encrypted</secondary></indexterm>
+<para><computeroutput>int is_encrypted (const char * path)</computeroutput></para><para>
+
+<para>Check if a file is encrypted by TCFS. </para>
+</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>path</entry><entry>
+<para>The full path of the file. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>1 if successful, 0 otherwise. An error might be printen by print_err() function, </para>
+</formalpara>
+<formalpara><title>See also</title>
+
+<para>print_err </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_tcfs__utils_8c_source_1l00035">35</link> of file <link linkend="_tcfs__utils_8c_source">tcfs_utils.c</link>.</para>
+<para>
+Referenced by <link linkend="_tcfs__utils_8c_source_1l00123">get_encrypted_key()</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="tcfs__utils_8c_a71e44dc105c7af8349bc3e7eb9edf2b0_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_tcfs__utils_8c_1a62b66e43a7ad8b8cf9fcad67f71a7a8b"/><section>
+    <title>logMessage()</title>
+<indexterm><primary>logMessage</primary><secondary>tcfs_utils.c</secondary></indexterm>
+<indexterm><primary>tcfs_utils.c</primary><secondary>logMessage</secondary></indexterm>
+<para><computeroutput>void logMessage (const char * format,  ...)</computeroutput></para><para>
+
+<para>Logs a formatted message to a file with timestamp. </para>
+</para>
+
+<para>This function logs a formatted message to a specified log file along with a timestamp. It accepts a variable number of parameters, similar to printf.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>format</entry><entry>
+<para>The format string for the log message. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>...</entry><entry>
+<para>Additional parameters to be formatted into the log message. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_tcfs__utils_8c_source_1l00262">262</link> of file <link linkend="_tcfs__utils_8c_source">tcfs_utils.c</link>.</para>
+<para>
+References <link linkend="_tcfs__utils_8h_source_1l00022">DEBUG</link>, and <link linkend="_tcfs__utils_8h_source_1l00020">LOGFILE</link>.</para>
+<para>
+Referenced by <link linkend="_crypt-utils_8c_source_1l00645">decrypt_path()</link>, <link linkend="_crypt-utils_8c_source_1l00759">decrypt_path_and_filename()</link>, <link linkend="_crypt-utils_8c_source_1l00330">decrypt_string()</link>, <link linkend="_crypt-utils_8c_source_1l00420">encrypt_path()</link>, <link linkend="_crypt-utils_8c_source_1l00532">encrypt_path_and_filename()</link>, <link linkend="_crypt-utils_8c_source_1l00235">generate_key()</link>, <link linkend="_tcfs__utils_8c_source_1l00123">get_encrypted_key()</link>, <link linkend="_tcfs__utils_8c_source_1l00218">hex_to_string()</link>, <link linkend="_tcfs_8c_source_1l01412">main()</link>, <link linkend="_tcfs__utils_8c_source_1l00165">print_aes_key()</link>, <link linkend="_tcfs__utils_8c_source_1l00182">string_to_hex()</link>, <link linkend="_tcfs_8c_source_1l00132">tcfs_access()</link>, <link linkend="_tcfs_8c_source_1l00497">tcfs_chmod()</link>, <link linkend="_tcfs_8c_source_1l00530">tcfs_chown()</link>, <link linkend="_tcfs_8c_source_1l01031">tcfs_create()</link>, <link linkend="_tcfs_8c_source_1l01140">tcfs_fsync()</link>, <link linkend="_tcfs_8c_source_1l00099">tcfs_getattr()</link>, <link linkend="_tcfs_8c_source_1l01199">tcfs_getxattr()</link>, <link linkend="_tcfs_8c_source_1l00465">tcfs_link()</link>, <link linkend="_tcfs_8c_source_1l01229">tcfs_listxattr()</link>, <link linkend="_tcfs_8c_source_1l00324">tcfs_mkdir()</link>, <link linkend="_tcfs_8c_source_1l00286">tcfs_mknod()</link>, <link linkend="_tcfs_8c_source_1l00651">tcfs_open()</link>, <link linkend="_tcfs_8c_source_1l00067">tcfs_opendir()</link>, <link linkend="_tcfs_8c_source_1l00734">tcfs_read()</link>, <link linkend="_tcfs_8c_source_1l00196">tcfs_readdir()</link>, <link linkend="_tcfs_8c_source_1l00162">tcfs_readlink()</link>, <link linkend="_tcfs_8c_source_1l01111">tcfs_release()</link>, <link linkend="_tcfs_8c_source_1l01273">tcfs_removexattr()</link>, <link linkend="_tcfs_8c_source_1l00436">tcfs_rename()</link>, <link linkend="_tcfs_8c_source_1l00377">tcfs_rmdir()</link>, <link linkend="_tcfs_8c_source_1l00979">tcfs_setxattr()</link>, <link linkend="_tcfs_8c_source_1l00952">tcfs_statfs()</link>, <link linkend="_tcfs_8c_source_1l00404">tcfs_symlink()</link>, <link linkend="_tcfs_8c_source_1l00559">tcfs_truncate()</link>, <link linkend="_tcfs_8c_source_1l00351">tcfs_unlink()</link>, <link linkend="_tcfs_8c_source_1l00612">tcfs_utimens()</link>, and <link linkend="_tcfs_8c_source_1l00830">tcfs_write()</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="tcfs__utils_8c_a62b66e43a7ad8b8cf9fcad67f71a7a8b_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_tcfs__utils_8c_1ac4ff59963f4a122c9f802c0c2bf2abc8"/><section>
+    <title>prefix_path()</title>
+<indexterm><primary>prefix_path</primary><secondary>tcfs_utils.c</secondary></indexterm>
+<indexterm><primary>tcfs_utils.c</primary><secondary>prefix_path</secondary></indexterm>
+<para><computeroutput>char * prefix_path (const char * path, const char * realpath)</computeroutput></para><para>
+
+<para>Prefix the realpath to the fuse path. </para>
+</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>path</entry><entry>
+<para>The fuse path. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>realpath</entry><entry>
+<para>The realpath to the directory mounted by TCFS. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>char * An allocated string containing the full path to the file. </para>
+</formalpara>
+<note><title>Note</title>
+
+<para>Please free the result after use. </para>
+</note>
+</para>
+<para>
+Definition at line <link linkend="_tcfs__utils_8c_source_1l00053">53</link> of file <link linkend="_tcfs__utils_8c_source">tcfs_utils.c</link>.</para>
+<para>
+Referenced by <link linkend="_tcfs_8c_source_1l00132">tcfs_access()</link>, <link linkend="_tcfs_8c_source_1l00497">tcfs_chmod()</link>, <link linkend="_tcfs_8c_source_1l00530">tcfs_chown()</link>, <link linkend="_tcfs_8c_source_1l01031">tcfs_create()</link>, <link linkend="_tcfs_8c_source_1l01140">tcfs_fsync()</link>, <link linkend="_tcfs_8c_source_1l00099">tcfs_getattr()</link>, <link linkend="_tcfs_8c_source_1l01199">tcfs_getxattr()</link>, <link linkend="_tcfs_8c_source_1l00465">tcfs_link()</link>, <link linkend="_tcfs_8c_source_1l01229">tcfs_listxattr()</link>, <link linkend="_tcfs_8c_source_1l00324">tcfs_mkdir()</link>, <link linkend="_tcfs_8c_source_1l00286">tcfs_mknod()</link>, <link linkend="_tcfs_8c_source_1l00651">tcfs_open()</link>, <link linkend="_tcfs_8c_source_1l00067">tcfs_opendir()</link>, <link linkend="_tcfs_8c_source_1l00734">tcfs_read()</link>, <link linkend="_tcfs_8c_source_1l00196">tcfs_readdir()</link>, <link linkend="_tcfs_8c_source_1l00162">tcfs_readlink()</link>, <link linkend="_tcfs_8c_source_1l01111">tcfs_release()</link>, <link linkend="_tcfs_8c_source_1l01273">tcfs_removexattr()</link>, <link linkend="_tcfs_8c_source_1l00436">tcfs_rename()</link>, <link linkend="_tcfs_8c_source_1l00377">tcfs_rmdir()</link>, <link linkend="_tcfs_8c_source_1l00979">tcfs_setxattr()</link>, <link linkend="_tcfs_8c_source_1l00952">tcfs_statfs()</link>, <link linkend="_tcfs_8c_source_1l00404">tcfs_symlink()</link>, <link linkend="_tcfs_8c_source_1l00559">tcfs_truncate()</link>, <link linkend="_tcfs_8c_source_1l00351">tcfs_unlink()</link>, <link linkend="_tcfs_8c_source_1l00612">tcfs_utimens()</link>, and <link linkend="_tcfs_8c_source_1l00830">tcfs_write()</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="tcfs__utils_8c_ac4ff59963f4a122c9f802c0c2bf2abc8_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_tcfs__utils_8c_1a8c1c24299a2b01f6157b051cb56ebc52"/><section>
+    <title>print_aes_key()</title>
+<indexterm><primary>print_aes_key</primary><secondary>tcfs_utils.c</secondary></indexterm>
+<indexterm><primary>tcfs_utils.c</primary><secondary>print_aes_key</secondary></indexterm>
+<para><computeroutput>void print_aes_key (unsigned char * key)</computeroutput></para><para>
+
+<para>Print the value of an AES key. </para>
+</para>
+
+<para><para><link linkend="_deprecated_1_deprecated000003">Deprecated</link> 
+<para>Currently has no use. Printing the AES key is considered excessive. </para>
+</para><warning><title>Warning</title>
+
+<para>THIS WILL PRINT THE AES KEY TO STDOUT. TCFS trusts the user by design, but this is excessive. </para>
+</warning>
+
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>key</entry><entry>
+<para>The string containing the key. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>void </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_tcfs__utils_8c_source_1l00165">165</link> of file <link linkend="_tcfs__utils_8c_source">tcfs_utils.c</link>.</para>
+<para>
+References <link linkend="_tcfs__utils_8c_source_1l00262">logMessage()</link>.</para>
+<para>
+Referenced by <link linkend="_crypt-utils_8c_source_1l00235">generate_key()</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="tcfs__utils_8c_a8c1c24299a2b01f6157b051cb56ebc52_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="tcfs__utils_8c_a8c1c24299a2b01f6157b051cb56ebc52_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_tcfs__utils_8c_1a42623317bb0b1ff095b4d946dc085bd6"/><section>
+    <title>read_file()</title>
+<indexterm><primary>read_file</primary><secondary>tcfs_utils.c</secondary></indexterm>
+<indexterm><primary>tcfs_utils.c</primary><secondary>read_file</secondary></indexterm>
+<para><computeroutput>int read_file (FILE * file)</computeroutput></para><para>
+
+<para>Read a file, useful for debugging tmpfiles. </para>
+</para>
+
+<para><para><link linkend="_deprecated_1_deprecated000001">Deprecated</link> 
+<para>Currently has no use. </para>
+</para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>file</entry><entry>
+<para>The file to read. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>true </para>
+</formalpara>
+<note><title>Note</title>
+
+<para>It will print &quot;file was empty&quot; if the file was empty. </para>
+</note>
+</para>
+<para>
+Definition at line <link linkend="_tcfs__utils_8c_source_1l00095">95</link> of file <link linkend="_tcfs__utils_8c_source">tcfs_utils.c</link>.</para>
+</section>
+<anchor xml:id="_tcfs__utils_8c_1a819d57d5c053a25772508a943d1bcc48"/><section>
+    <title>string_to_hex()</title>
+<indexterm><primary>string_to_hex</primary><secondary>tcfs_utils.c</secondary></indexterm>
+<indexterm><primary>tcfs_utils.c</primary><secondary>string_to_hex</secondary></indexterm>
+<para><computeroutput>char * string_to_hex (const char * input)</computeroutput></para><para>
+
+<para>Convert a string to its hexadecimal representation. </para>
+</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>input</entry><entry>
+<para>The input string. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>char * The hexadecimal representation of the input string. </para>
+</formalpara>
+<note><title>Note</title>
+
+<para>Remember to free the result after use. </para>
+</note>
+</para>
+<para>
+Definition at line <link linkend="_tcfs__utils_8c_source_1l00182">182</link> of file <link linkend="_tcfs__utils_8c_source">tcfs_utils.c</link>.</para>
+<para>
+References <link linkend="_tcfs__utils_8c_source_1l00262">logMessage()</link>.</para>
+<para>
+Referenced by <link linkend="_crypt-utils_8c_source_1l00398">encrypt_file_name_with_hex()</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="tcfs__utils_8c_a819d57d5c053a25772508a943d1bcc48_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="tcfs__utils_8c_a819d57d5c053a25772508a943d1bcc48_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+</section>
+</section>

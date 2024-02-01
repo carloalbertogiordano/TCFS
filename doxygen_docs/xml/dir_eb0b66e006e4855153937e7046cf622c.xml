@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="dir_eb0b66e006e4855153937e7046cf622c" kind="dir">
+    <compoundname>user/command_handler</compoundname>
+    <innerfile refid="command__handler_2____init_____8py">__init__.py</innerfile>
+    <innerfile refid="enviroinment_8py">enviroinment.py</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="user/command_handler/"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="tcfs-daemon_8go" kind="file" language="C++">
+    <compoundname>tcfs-daemon.go</compoundname>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline><highlight class="normal">package<sp/>main</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">/**</highlight></codeline>
+<codeline><highlight class="normal"><sp/>*<sp/>@file<sp/>main.go</highlight></codeline>
+<codeline><highlight class="normal"><sp/>*<sp/>@brief<sp/>Main<sp/>file<sp/>for<sp/>the<sp/>TCFS<sp/>server.</highlight></codeline>
+<codeline><highlight class="normal"><sp/>*/</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">import<sp/>(</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>&quot;flag&quot;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>&quot;fmt&quot;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>&quot;gopkg.in/yaml.v2&quot;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>&quot;io&quot;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>&quot;io/ioutil&quot;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>&quot;log&quot;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>&quot;net/http&quot;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>&quot;os&quot;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>DB<sp/>&quot;serverTCFS/db&quot;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>restfunctions<sp/>&quot;serverTCFS/serverTools&quot;</highlight></codeline>
+<codeline><highlight class="normal">)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">/**</highlight></codeline>
+<codeline><highlight class="normal"><sp/>*<sp/>@struct<sp/>serverConfig</highlight></codeline>
+<codeline><highlight class="normal"><sp/>*<sp/>@brief<sp/>Configuration<sp/>structure<sp/>for<sp/>the<sp/>server.</highlight></codeline>
+<codeline><highlight class="normal"><sp/>*/</highlight></codeline>
+<codeline><highlight class="normal">type<sp/>serverConfig<sp/>struct<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>Server<sp/>struct<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Port<sp/>string<sp/>`yaml:&quot;port&quot;`</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/>`yaml:&quot;Server&quot;`</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>DB<sp/>struct<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Host<sp/><sp/><sp/><sp/><sp/>string<sp/>`yaml:&quot;host&quot;`</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Port<sp/><sp/><sp/><sp/><sp/>string<sp/>`yaml:&quot;port&quot;`</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DBname<sp/><sp/><sp/>string<sp/>`yaml:&quot;dbname&quot;`</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Username<sp/>string<sp/>`yaml:&quot;username&quot;`</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Password<sp/>string<sp/>`yaml:&quot;password&quot;`</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/>`yaml:&quot;db&quot;`</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">/**</highlight></codeline>
+<codeline><highlight class="normal"><sp/>*<sp/>@brief<sp/>Main<sp/>function<sp/>to<sp/>start<sp/>the<sp/>TCFS<sp/>server.</highlight></codeline>
+<codeline><highlight class="normal"><sp/>*/</highlight></codeline>
+<codeline><highlight class="normal">func<sp/>main()<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>//<sp/>Parse<sp/>command-line<sp/>flags<sp/>for<sp/>the<sp/>Server<sp/>port</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>var<sp/>configFile<sp/>string</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>flag.StringVar(&amp;configFile,<sp/>&quot;config-file&quot;,<sp/>&quot;config.yaml&quot;,<sp/>&quot;The<sp/>location<sp/>of<sp/>the<sp/>rest<sp/>server<sp/>config<sp/>file&quot;)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>flag.Parse()</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>//<sp/>Read<sp/>the<sp/>YAML<sp/>file</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>data,<sp/>err<sp/>:=<sp/>ioutil.ReadFile(configFile)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>if<sp/>err<sp/>!=<sp/>nil<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>log.Fatal(err)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>//<sp/>Unmarshal<sp/>the<sp/>YAML<sp/>data<sp/>into<sp/>a<sp/>Config<sp/>struct</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>var<sp/>config<sp/>serverConfig</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>err<sp/>=<sp/>yaml.Unmarshal(data,<sp/>&amp;config)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>if<sp/>err<sp/>!=<sp/>nil<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>log.Fatal(err)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>//<sp/>Create<sp/>a<sp/>new<sp/>log<sp/>file</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>file,<sp/>err<sp/>:=<sp/>os.OpenFile(&quot;/tmp/tcfs-daemon.log&quot;,<sp/>os.O_APPEND|os.O_CREATE|os.O_WRONLY,<sp/>0644)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>if<sp/>err<sp/>!=<sp/>nil<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>log.Fatal(err)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>defer<sp/>file.Close()</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>//<sp/>Create<sp/>a<sp/>multi-writer<sp/>that<sp/>writes<sp/>to<sp/>both<sp/>stdout<sp/>and<sp/>the<sp/>log<sp/>file</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>multiWriter<sp/>:=<sp/>io.MultiWriter(os.Stdout,<sp/>file)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>//<sp/>Set<sp/>the<sp/>logger<sp/>to<sp/>write<sp/>to<sp/>the<sp/>multi-writer</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>logger<sp/>:=<sp/>log.New(multiWriter,<sp/>&quot;&quot;,<sp/>log.LstdFlags)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>err<sp/>=<sp/>DB.Init(config.DB.Host,<sp/>config.DB.Port,<sp/>config.DB.DBname,<sp/>config.DB.Username,<sp/>config.DB.Password)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>if<sp/>err<sp/>!=<sp/>nil<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fmt.Printf(&quot;Err<sp/>initializing<sp/>the<sp/>DB:<sp/>%v&quot;,<sp/>err)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>return</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>http.HandleFunc(&quot;/register&quot;,<sp/>restfunctions.Register)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>http.HandleFunc(&quot;/login&quot;,<sp/>restfunctions.Login)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>http.HandleFunc(&quot;/logout&quot;,<sp/>restfunctions.Logout)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>http.HandleFunc(&quot;/createSharedFile&quot;,<sp/>restfunctions.CreateSharedFile)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>fmt.Printf(&quot;serving<sp/>on<sp/>%v\n&quot;,<sp/>config.Server.Port)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>log.Fatal(http.ListenAndServe(&quot;:&quot;+config.Server.Port,<sp/>nil))</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>//<sp/>Terminate<sp/>the<sp/>program</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>logger.Println(&quot;Server<sp/>is<sp/>exiting&quot;)</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="ServerREST/tcfs-daemon.go"/>
+  </compounddef>
+</doxygen>

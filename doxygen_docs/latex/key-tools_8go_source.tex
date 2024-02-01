@@ -1,0 +1,100 @@
+\doxysection{key-\/tools.go}
+\hypertarget{key-tools_8go_source}{}\label{key-tools_8go_source}\index{ServerREST/crypt-\/utils/key-\/tools.go@{ServerREST/crypt-\/utils/key-\/tools.go}}
+\mbox{\hyperlink{key-tools_8go}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{key-tools_8go_source_l00001}00001\ package\ KeyTools}
+\DoxyCodeLine{\Hypertarget{key-tools_8go_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{key-tools_8go_source_l00003}00003\ import\ (}
+\DoxyCodeLine{\Hypertarget{key-tools_8go_source_l00004}00004\ \ \ \ \ "{}crypto/rand"{}}
+\DoxyCodeLine{\Hypertarget{key-tools_8go_source_l00005}00005\ \ \ \ \ "{}crypto/rsa"{}}
+\DoxyCodeLine{\Hypertarget{key-tools_8go_source_l00006}00006\ \ \ \ \ "{}crypto/sha256"{}}
+\DoxyCodeLine{\Hypertarget{key-tools_8go_source_l00007}00007\ \ \ \ \ "{}crypto/x509"{}}
+\DoxyCodeLine{\Hypertarget{key-tools_8go_source_l00008}00008\ \ \ \ \ "{}encoding/hex"{}}
+\DoxyCodeLine{\Hypertarget{key-tools_8go_source_l00009}00009\ \ \ \ \ "{}encoding/pem"{}}
+\DoxyCodeLine{\Hypertarget{key-tools_8go_source_l00010}00010\ \ \ \ \ "{}errors"{}}
+\DoxyCodeLine{\Hypertarget{key-tools_8go_source_l00011}00011\ \ \ \ \ "{}fmt"{}}
+\DoxyCodeLine{\Hypertarget{key-tools_8go_source_l00012}00012\ \ \ \ \ "{}github.com/corvus-\/ch/shamir"{}}
+\DoxyCodeLine{\Hypertarget{key-tools_8go_source_l00013}00013\ \ \ \ \ TCFSTypes\ "{}serverTCFS/types"{}}
+\DoxyCodeLine{\Hypertarget{key-tools_8go_source_l00014}00014\ )}
+\DoxyCodeLine{\Hypertarget{key-tools_8go_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{key-tools_8go_source_l00016}00016\ //\ GenerateKey\ Generate\ a\ AES\ 256\ key}
+\DoxyCodeLine{\Hypertarget{key-tools_8go_source_l00017}00017\ func\ GenerateKey()\ ([]byte,\ error)\ \{}
+\DoxyCodeLine{\Hypertarget{key-tools_8go_source_l00018}00018\ \ \ \ \ key\ :=\ make([]byte,\ 32)}
+\DoxyCodeLine{\Hypertarget{key-tools_8go_source_l00019}00019\ \ \ \ \ \_,\ err\ :=\ rand.Read(key)}
+\DoxyCodeLine{\Hypertarget{key-tools_8go_source_l00020}00020\ \ \ \ \ if\ err\ !=\ nil\ \{}
+\DoxyCodeLine{\Hypertarget{key-tools_8go_source_l00021}00021\ \ \ \ \ \ \ \ \ return\ nil,\ err}
+\DoxyCodeLine{\Hypertarget{key-tools_8go_source_l00022}00022\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{key-tools_8go_source_l00023}00023\ \ \ \ \ return\ key,\ nil}
+\DoxyCodeLine{\Hypertarget{key-tools_8go_source_l00024}00024\ \}}
+\DoxyCodeLine{\Hypertarget{key-tools_8go_source_l00025}00025\ }
+\DoxyCodeLine{\Hypertarget{key-tools_8go_source_l00026}00026\ //\ SplitKey\ splits\ a\ key\ using\ Shamir's\ secret\ sharing}
+\DoxyCodeLine{\Hypertarget{key-tools_8go_source_l00027}00027\ func\ SplitKey(key\ []byte,\ n\ int,\ k\ int)\ (map[byte][]byte,\ error)\ \{}
+\DoxyCodeLine{\Hypertarget{key-tools_8go_source_l00028}00028\ \ \ \ \ shares,\ err\ :=\ shamir.Split(key,\ n,\ k)}
+\DoxyCodeLine{\Hypertarget{key-tools_8go_source_l00029}00029\ \ \ \ \ if\ err\ !=\ nil\ \{}
+\DoxyCodeLine{\Hypertarget{key-tools_8go_source_l00030}00030\ \ \ \ \ \ \ \ \ return\ nil,\ err}
+\DoxyCodeLine{\Hypertarget{key-tools_8go_source_l00031}00031\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{key-tools_8go_source_l00032}00032\ \ \ \ \ return\ shares,\ nil}
+\DoxyCodeLine{\Hypertarget{key-tools_8go_source_l00033}00033\ \}}
+\DoxyCodeLine{\Hypertarget{key-tools_8go_source_l00034}00034\ }
+\DoxyCodeLine{\Hypertarget{key-tools_8go_source_l00035}00035\ //\ parsePublicKeyFromPEMString\ Returns\ an\ rsa\ key\ froma\ pem\ string\ in\ PKIX\ format}
+\DoxyCodeLine{\Hypertarget{key-tools_8go_source_l00036}00036\ func\ parsePublicKeyFromPEMString(pubPEM\ string)\ (*rsa.PublicKey,\ error)\ \{}
+\DoxyCodeLine{\Hypertarget{key-tools_8go_source_l00037}00037\ \ \ \ \ block,\ \_\ :=\ pem.Decode([]byte(pubPEM))}
+\DoxyCodeLine{\Hypertarget{key-tools_8go_source_l00038}00038\ \ \ \ \ if\ block\ ==\ nil\ \{}
+\DoxyCodeLine{\Hypertarget{key-tools_8go_source_l00039}00039\ \ \ \ \ \ \ \ \ return\ nil,\ errors.New("{}failed\ to\ parse\ PEM\ block\ containing\ public\ key"{})}
+\DoxyCodeLine{\Hypertarget{key-tools_8go_source_l00040}00040\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{key-tools_8go_source_l00041}00041\ }
+\DoxyCodeLine{\Hypertarget{key-tools_8go_source_l00042}00042\ \ \ \ \ pub,\ err\ :=\ x509.ParsePKIXPublicKey(block.Bytes)}
+\DoxyCodeLine{\Hypertarget{key-tools_8go_source_l00043}00043\ \ \ \ \ if\ err\ !=\ nil\ \{}
+\DoxyCodeLine{\Hypertarget{key-tools_8go_source_l00044}00044\ \ \ \ \ \ \ \ \ return\ nil,\ err}
+\DoxyCodeLine{\Hypertarget{key-tools_8go_source_l00045}00045\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{key-tools_8go_source_l00046}00046\ }
+\DoxyCodeLine{\Hypertarget{key-tools_8go_source_l00047}00047\ \ \ \ \ rsaPub,\ ok\ :=\ pub.(*rsa.PublicKey)}
+\DoxyCodeLine{\Hypertarget{key-tools_8go_source_l00048}00048\ \ \ \ \ if\ !ok\ \{}
+\DoxyCodeLine{\Hypertarget{key-tools_8go_source_l00049}00049\ \ \ \ \ \ \ \ \ return\ nil,\ errors.New("{}key\ type\ is\ not\ RSA"{})}
+\DoxyCodeLine{\Hypertarget{key-tools_8go_source_l00050}00050\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{key-tools_8go_source_l00051}00051\ }
+\DoxyCodeLine{\Hypertarget{key-tools_8go_source_l00052}00052\ \ \ \ \ return\ rsaPub,\ nil}
+\DoxyCodeLine{\Hypertarget{key-tools_8go_source_l00053}00053\ \}}
+\DoxyCodeLine{\Hypertarget{key-tools_8go_source_l00054}00054\ }
+\DoxyCodeLine{\Hypertarget{key-tools_8go_source_l00055}00055\ //\ EncryptKeyPart\ Encrypts\ a\ keypart\ from\ shamir\ alg.\ with\ a\ public\ key}
+\DoxyCodeLine{\Hypertarget{key-tools_8go_source_l00056}00056\ func\ EncryptKeyPart(keyPart\ []byte,\ publicKey\ string)\ (string,\ error)\ \{}
+\DoxyCodeLine{\Hypertarget{key-tools_8go_source_l00057}00057\ \ \ \ \ //\ Parse\ the\ public\ key}
+\DoxyCodeLine{\Hypertarget{key-tools_8go_source_l00058}00058\ \ \ \ \ pubKeyToRSA,\ err\ :=\ parsePublicKeyFromPEMString(publicKey)}
+\DoxyCodeLine{\Hypertarget{key-tools_8go_source_l00059}00059\ \ \ \ \ if\ err\ !=\ nil\ \{}
+\DoxyCodeLine{\Hypertarget{key-tools_8go_source_l00060}00060\ \ \ \ \ \ \ \ \ return\ "{}"{},\ fmt.Errorf("{}failed\ to\ parse\ string\ to\ rsa\ key:\ \%w"{},\ err)}
+\DoxyCodeLine{\Hypertarget{key-tools_8go_source_l00061}00061\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{key-tools_8go_source_l00062}00062\ }
+\DoxyCodeLine{\Hypertarget{key-tools_8go_source_l00063}00063\ \ \ \ \ //\ Encrypt\ the\ key\ part\ using\ RSA-\/OAEP\ with\ SHA-\/256\ hash\ function}
+\DoxyCodeLine{\Hypertarget{key-tools_8go_source_l00064}00064\ \ \ \ \ label\ :=\ []byte("{}"{})}
+\DoxyCodeLine{\Hypertarget{key-tools_8go_source_l00065}00065\ \ \ \ \ hash\ :=\ sha256.New()}
+\DoxyCodeLine{\Hypertarget{key-tools_8go_source_l00066}00066\ \ \ \ \ encryptedKeyPart,\ err\ :=\ rsa.EncryptOAEP(hash,\ rand.Reader,\ pubKeyToRSA,\ keyPart,\ label)}
+\DoxyCodeLine{\Hypertarget{key-tools_8go_source_l00067}00067\ \ \ \ \ if\ err\ !=\ nil\ \{}
+\DoxyCodeLine{\Hypertarget{key-tools_8go_source_l00068}00068\ \ \ \ \ \ \ \ \ return\ "{}"{},\ fmt.Errorf("{}failed\ to\ encrypt\ key\ part:\ \%w"{},\ err)}
+\DoxyCodeLine{\Hypertarget{key-tools_8go_source_l00069}00069\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{key-tools_8go_source_l00070}00070\ }
+\DoxyCodeLine{\Hypertarget{key-tools_8go_source_l00071}00071\ \ \ \ \ return\ hex.EncodeToString(encryptedKeyPart),\ nil}
+\DoxyCodeLine{\Hypertarget{key-tools_8go_source_l00072}00072\ \}}
+\DoxyCodeLine{\Hypertarget{key-tools_8go_source_l00073}00073\ }
+\DoxyCodeLine{\Hypertarget{key-tools_8go_source_l00074}00074\ //\ EncryptSharesForSharedFile\ Encrypts\ all\ the\ keyparts\ from\ a\ slice\ of\ SharedFile\ structs}
+\DoxyCodeLine{\Hypertarget{key-tools_8go_source_l00075}00075\ func\ EncryptSharesForSharedFile(sharedFile\ *TCFSTypes.SharedFile)\ error\ \{}
+\DoxyCodeLine{\Hypertarget{key-tools_8go_source_l00076}00076\ \ \ \ \ encryptedShare,\ err\ :=\ EncryptKeyPart(sharedFile.Share,\ sharedFile.User.PublicKey)}
+\DoxyCodeLine{\Hypertarget{key-tools_8go_source_l00077}00077\ \ \ \ \ if\ err\ !=\ nil\ \{}
+\DoxyCodeLine{\Hypertarget{key-tools_8go_source_l00078}00078\ \ \ \ \ \ \ \ \ return\ err}
+\DoxyCodeLine{\Hypertarget{key-tools_8go_source_l00079}00079\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{key-tools_8go_source_l00080}00080\ \ \ \ \ sharedFile.EncryptedShare\ =\ encryptedShare}
+\DoxyCodeLine{\Hypertarget{key-tools_8go_source_l00081}00081\ \ \ \ \ return\ nil}
+\DoxyCodeLine{\Hypertarget{key-tools_8go_source_l00082}00082\ \}}
+\DoxyCodeLine{\Hypertarget{key-tools_8go_source_l00083}00083\ }
+\DoxyCodeLine{\Hypertarget{key-tools_8go_source_l00084}00084\ //\ EncryptSharesForSharedFileList\ same\ as\ EncryptSharesForSharedFile\ but\ works\ with\ slices}
+\DoxyCodeLine{\Hypertarget{key-tools_8go_source_l00085}00085\ func\ EncryptSharesForSharedFileList(list\ *[]TCFSTypes.SharedFile)\ error\ \{}
+\DoxyCodeLine{\Hypertarget{key-tools_8go_source_l00086}00086\ \ \ \ \ for\ i\ :=\ range\ *list\ \{}
+\DoxyCodeLine{\Hypertarget{key-tools_8go_source_l00087}00087\ \ \ \ \ \ \ \ \ fmt.Printf("{}Encrypting\ share\ for\ \%v\(\backslash\)n"{},\ (*list)[i].User.Username)}
+\DoxyCodeLine{\Hypertarget{key-tools_8go_source_l00088}00088\ \ \ \ \ \ \ \ \ err\ :=\ EncryptSharesForSharedFile(\&(*list)[i])}
+\DoxyCodeLine{\Hypertarget{key-tools_8go_source_l00089}00089\ \ \ \ \ \ \ \ \ if\ err\ !=\ nil\ \{}
+\DoxyCodeLine{\Hypertarget{key-tools_8go_source_l00090}00090\ \ \ \ \ \ \ \ \ \ \ \ \ return\ err}
+\DoxyCodeLine{\Hypertarget{key-tools_8go_source_l00091}00091\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{key-tools_8go_source_l00092}00092\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{key-tools_8go_source_l00093}00093\ \ \ \ \ return\ nil}
+\DoxyCodeLine{\Hypertarget{key-tools_8go_source_l00094}00094\ \}}
+
+\end{DoxyCode}

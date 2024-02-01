@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_tcfs__utils_8h_source" xml:lang="en-US">
+<title>tcfs_utils.h</title>
+<indexterm><primary>userspace-module/utils/tcfs_utils/tcfs_utils.h</primary></indexterm>
+Go to the documentation of this file.<programlisting linenumbering="unnumbered"><anchor xml:id="_tcfs__utils_8h_source_1l00001"/>00001 
+<anchor xml:id="_tcfs__utils_8h_source_1l00007"/>00007 <emphasis role="preprocessor">#include&#32;&lt;errno.h&gt;</emphasis>
+<anchor xml:id="_tcfs__utils_8h_source_1l00008"/>00008 <emphasis role="preprocessor">#include&#32;&lt;pwd.h&gt;</emphasis>
+<anchor xml:id="_tcfs__utils_8h_source_1l00009"/>00009 <emphasis role="preprocessor">#include&#32;&lt;stdio.h&gt;</emphasis>
+<anchor xml:id="_tcfs__utils_8h_source_1l00010"/>00010 <emphasis role="preprocessor">#include&#32;&lt;stdlib.h&gt;</emphasis>
+<anchor xml:id="_tcfs__utils_8h_source_1l00011"/>00011 <emphasis role="preprocessor">#include&#32;&lt;string.h&gt;</emphasis>
+<anchor xml:id="_tcfs__utils_8h_source_1l00012"/>00012 <emphasis role="preprocessor">#include&#32;&lt;sys/xattr.h&gt;</emphasis>
+<anchor xml:id="_tcfs__utils_8h_source_1l00013"/>00013 <emphasis role="preprocessor">#include&#32;&lt;unistd.h&gt;</emphasis>
+<anchor xml:id="_tcfs__utils_8h_source_1l00014"/>00014 <emphasis role="preprocessor">#include&#32;&lt;stdbool.h&gt;</emphasis>
+<anchor xml:id="_tcfs__utils_8h_source_1l00015"/>00015 
+<anchor xml:id="_tcfs__utils_8h_source_1l00020"/><link linkend="_tcfs__utils_8h_1a6d3fef197146b932f5ad01fce683a66b">00020</link> <emphasis role="preprocessor">#define&#32;LOGFILE&#32;&quot;/.tcfs/tcfs.log&quot;</emphasis>
+<anchor xml:id="_tcfs__utils_8h_source_1l00021"/>00021 
+<anchor xml:id="_tcfs__utils_8h_source_1l00022"/><link linkend="_tcfs__utils_8h_1ad72dbcf6d0153db1b8d8a58001feed83">00022</link> <emphasis role="preprocessor">#define&#32;DEBUG&#32;1&#32;</emphasis><emphasis role="comment">//TODO:&#32;find&#32;a&#32;better&#32;way&#32;to&#32;do&#32;this</emphasis>
+<anchor xml:id="_tcfs__utils_8h_source_1l00023"/>00023 
+<anchor xml:id="_tcfs__utils_8h_source_1l00024"/>00024 <emphasis role="keywordtype">void</emphasis>&#32;<link linkend="_tcfs__utils_8h_1aac1b7fab3a13b4cfcc0b34eb7511df55">get_user_name</link>&#32;(<emphasis role="keywordtype">char</emphasis>&#32;*buf,&#32;<emphasis role="keywordtype">size_t</emphasis>&#32;size);
+<anchor xml:id="_tcfs__utils_8h_source_1l00025"/>00025 
+<anchor xml:id="_tcfs__utils_8h_source_1l00026"/>00026 <emphasis role="keywordtype">int</emphasis>&#32;<link linkend="_tcfs__utils_8h_1a71e44dc105c7af8349bc3e7eb9edf2b0">is_encrypted</link>&#32;(<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*path);
+<anchor xml:id="_tcfs__utils_8h_source_1l00027"/>00027 
+<anchor xml:id="_tcfs__utils_8h_source_1l00028"/>00028 <emphasis role="keywordtype">char</emphasis>&#32;*<link linkend="_tcfs__utils_8h_1ac4ff59963f4a122c9f802c0c2bf2abc8">prefix_path</link>&#32;(<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*path,&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*realpath);
+<anchor xml:id="_tcfs__utils_8h_source_1l00029"/>00029 
+<anchor xml:id="_tcfs__utils_8h_source_1l00030"/>00030 <emphasis role="keywordtype">void</emphasis>&#32;<link linkend="_tcfs__utils_8h_1a8c1c24299a2b01f6157b051cb56ebc52">print_aes_key</link>&#32;(<emphasis role="keywordtype">unsigned</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*key);
+<anchor xml:id="_tcfs__utils_8h_source_1l00031"/>00031 
+<anchor xml:id="_tcfs__utils_8h_source_1l00032"/>00032 <emphasis role="keywordtype">char</emphasis>&#32;*<link linkend="_tcfs__utils_8h_1a819d57d5c053a25772508a943d1bcc48">string_to_hex</link>(<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*input);
+<anchor xml:id="_tcfs__utils_8h_source_1l00033"/>00033 
+<anchor xml:id="_tcfs__utils_8h_source_1l00034"/>00034 <emphasis role="keywordtype">char</emphasis>&#32;*<link linkend="_tcfs__utils_8h_1a6de1cb8448198da94080ad32d7e4eabf">hex_to_string</link>(<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*input);
+<anchor xml:id="_tcfs__utils_8h_source_1l00035"/>00035 
+<anchor xml:id="_tcfs__utils_8h_source_1l00036"/>00036 <emphasis role="keywordtype">void</emphasis>&#32;<link linkend="_tcfs__utils_8h_1a62b66e43a7ad8b8cf9fcad67f71a7a8b">logMessage</link>(<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*format,&#32;...);
+</programlisting></section>

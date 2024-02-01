@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_tcfs-user_8go_source" xml:lang="en-US">
+<title>tcfs-user.go</title>
+<indexterm><primary>ServerREST/types/tcfs-user.go</primary></indexterm>
+Go to the documentation of this file.<programlisting linenumbering="unnumbered"><anchor xml:id="_tcfs-user_8go_source_1l00001"/>00001 package&#32;TCFSTypes
+<anchor xml:id="_tcfs-user_8go_source_1l00002"/>00002 
+<anchor xml:id="_tcfs-user_8go_source_1l00003"/>00003 import&#32;&quot;fmt&quot;
+<anchor xml:id="_tcfs-user_8go_source_1l00004"/>00004 
+<anchor xml:id="_tcfs-user_8go_source_1l00005"/>00005 type&#32;TCFSUser&#32;struct&#32;{
+<anchor xml:id="_tcfs-user_8go_source_1l00006"/>00006 &#32;&#32;&#32;&#32;Username&#32;&#32;string
+<anchor xml:id="_tcfs-user_8go_source_1l00007"/>00007 &#32;&#32;&#32;&#32;Password&#32;&#32;string
+<anchor xml:id="_tcfs-user_8go_source_1l00008"/>00008 &#32;&#32;&#32;&#32;PublicKey&#32;string
+<anchor xml:id="_tcfs-user_8go_source_1l00009"/>00009 }
+<anchor xml:id="_tcfs-user_8go_source_1l00010"/>00010 
+<anchor xml:id="_tcfs-user_8go_source_1l00011"/>00011 type&#32;SharedFile&#32;struct&#32;{
+<anchor xml:id="_tcfs-user_8go_source_1l00012"/>00012 &#32;&#32;&#32;&#32;User&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;TCFSUser
+<anchor xml:id="_tcfs-user_8go_source_1l00013"/>00013 &#32;&#32;&#32;&#32;FileID&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;int
+<anchor xml:id="_tcfs-user_8go_source_1l00014"/>00014 &#32;&#32;&#32;&#32;Share&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;[]byte
+<anchor xml:id="_tcfs-user_8go_source_1l00015"/>00015 &#32;&#32;&#32;&#32;EncryptedShare&#32;string
+<anchor xml:id="_tcfs-user_8go_source_1l00016"/>00016 }
+<anchor xml:id="_tcfs-user_8go_source_1l00017"/>00017 
+<anchor xml:id="_tcfs-user_8go_source_1l00018"/>00018 func&#32;(s&#32;SharedFile)&#32;String()&#32;string&#32;{
+<anchor xml:id="_tcfs-user_8go_source_1l00019"/>00019 &#32;&#32;&#32;&#32;return&#32;fmt.Sprintf(&quot;&quot;+
+<anchor xml:id="_tcfs-user_8go_source_1l00020"/>00020 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&quot;---------------------------------------------------------\n&quot;+
+<anchor xml:id="_tcfs-user_8go_source_1l00021"/>00021 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&quot;User:\n&quot;+
+<anchor xml:id="_tcfs-user_8go_source_1l00022"/>00022 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&quot;&#32;&#32;&#32;Name%v\n&quot;+
+<anchor xml:id="_tcfs-user_8go_source_1l00023"/>00023 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&quot;&#32;&#32;&#32;Pubkey%v\n&quot;+
+<anchor xml:id="_tcfs-user_8go_source_1l00024"/>00024 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&quot;&#32;&#32;&#32;Pass%v\n&quot;+
+<anchor xml:id="_tcfs-user_8go_source_1l00025"/>00025 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&quot;FileID:&#32;%v\n&quot;+
+<anchor xml:id="_tcfs-user_8go_source_1l00026"/>00026 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&quot;Share:&#32;%v\n&quot;+
+<anchor xml:id="_tcfs-user_8go_source_1l00027"/>00027 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&quot;EncryptedShare&#32;%v\n&quot;+
+<anchor xml:id="_tcfs-user_8go_source_1l00028"/>00028 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&quot;---------------------------------------------------------&quot;+
+<anchor xml:id="_tcfs-user_8go_source_1l00029"/>00029 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&quot;&quot;,&#32;s.User.Username,&#32;s.User.PublicKey,&#32;s.User.Password,&#32;s.FileID,&#32;s.Share,&#32;s.EncryptedShare)
+<anchor xml:id="_tcfs-user_8go_source_1l00030"/>00030 }
+</programlisting></section>

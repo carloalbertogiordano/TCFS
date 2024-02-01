@@ -1,0 +1,554 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_tcfs__helper__tools_8c" xml:lang="en-US">
+<title>user/old_stuff/tcfs_helper_tools.c File Reference</title>
+<indexterm><primary>user/old_stuff/tcfs_helper_tools.c</primary></indexterm>
+<para>
+
+<para>This file contains the logic and implementation of functions needed to perform the operations requested in <link linkend="_user__tcfs_8c">user_tcfs.c</link>. </para>
+ 
+</para>
+<programlisting linenumbering="unnumbered">#include &quot;tcfs_helper_tools.h&quot;<?linebreak?></programlisting>Include dependency graph for tcfs_helper_tools.c:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="tcfs__helper__tools_8c__incl.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+<simplesect>
+    <title>Macros    </title>
+        <itemizedlist>
+            <listitem><para>#define <link linkend="_tcfs__helper__tools_8c_1afc6f770387ff27f9a3cf832b785d28dc">PASS_SIZE</link>&#160;&#160;&#160;33</para>
+
+<para>Set the password size to 33 as AES 256 uses a 32 byte key. An \0 is added for safety. This definition is marked as internal and should not be used directly by the user. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Functions    </title>
+        <itemizedlist>
+            <listitem><para>int <link linkend="_tcfs__helper__tools_8c_1a816c2bcaa3d059abc79cb9b021957dbf">handle_local_mount</link> ()</para>
+</listitem>
+            <listitem><para>int <link linkend="_tcfs__helper__tools_8c_1aa5b1203d82818e149ae3ad3fd3840a40">handle_remote_mount</link> ()</para>
+</listitem>
+            <listitem><para>int <link linkend="_tcfs__helper__tools_8c_1afaed41fa1136b829eb00a7de26a3739b">handle_folder_mount</link> ()</para>
+</listitem>
+            <listitem><para>int <link linkend="_tcfs__helper__tools_8c_1a769edcf066efb97f5ae3a81e3507a793">do_mount</link> ()</para>
+
+<para>Execute the mount of either a Network FS (for ex NFS), Local FS (for ex a block device), Local folder (a folder of the system) </para>
+</listitem>
+            <listitem><para>int <link linkend="_tcfs__helper__tools_8c_1a8ef1473d59fd1cfc680fe1b227604a02">generate_random_string</link> (char *str)</para>
+
+<para>Generate a random string that will be used as a folder name for the mount. This function is marked as internal and should not be used by the user. </para>
+</listitem>
+            <listitem><para>int <link linkend="_tcfs__helper__tools_8c_1ab3cdcc12b3bc92a382784027c94a2027">directory_exists</link> (const char *path)</para>
+
+<para>Check if a directory already exists. This function is marked as internal and should not be used by the user. </para>
+</listitem>
+            <listitem><para>char * <link linkend="_tcfs__helper__tools_8c_1a3644c45d6131fe1528ce36163e299fd9">setup_tcfs_mount_folder</link> ()</para>
+
+<para>Creates the .tcfs folder in the user HOME. Then this creates a folder with a random name so that create_tcfs_mount_local_folder function can use it. <link linkend="_tcfs__helper__tools_8c_1ae930b52ef70f640efde8bda574b6b234">create_tcfs_mount_local_folder</link> This function is marked as internal and should not be used by the user. </para>
+</listitem>
+            <listitem><para>void <link linkend="_tcfs__helper__tools_8c_1a1bef5d2cdd74c07b3ae025c6424dfbd5">get_pass</link> (char *pw)</para>
+
+<para>fetch the password of the current user. This function is marked as internal and should not be used by the user </para>
+</listitem>
+            <listitem><para>void <link linkend="_tcfs__helper__tools_8c_1ae1746adb62f9476a6d8166b62faa7a91">get_source_dest</link> (char *source, char *dest)</para>
+</listitem>
+            <listitem><para>char * <link linkend="_tcfs__helper__tools_8c_1ae930b52ef70f640efde8bda574b6b234">create_tcfs_mount_local_folder</link> ()</para>
+
+<para>Create a temporary folder in HOME/.tcfs. </para>
+</listitem>
+            <listitem><para>int <link linkend="_tcfs__helper__tools_8c_1a26931b8bdf24be94e03f4d77e991d063">mount_tcfs_folder</link> (char *tmp_path, char *destination)</para>
+</listitem>
+            <listitem><para>void <link linkend="_tcfs__helper__tools_8c_1acfa06becac8f67e9f278cfcbf91cc51b">clearKeyboardBuffer</link> ()</para>
+</listitem>
+            <listitem><para>int <link linkend="_tcfs__helper__tools_8c_1abe60a9bd3f55341eb2496670553f9d26">setup_tcfs_env</link> ()</para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Detailed Description</title>
+
+<para>This file contains the logic and implementation of functions needed to perform the operations requested in <link linkend="_user__tcfs_8c">user_tcfs.c</link>. </para>
+
+<para><formalpara><title>See also</title>
+
+<para><link linkend="_user__tcfs_8c">user_tcfs.c</link> </para>
+</formalpara>
+</para>
+<para>
+Definition in file <link linkend="_tcfs__helper__tools_8c_source">tcfs_helper_tools.c</link>.</para>
+</section>
+<section>
+<title>Macro Definition Documentation</title>
+<anchor xml:id="_tcfs__helper__tools_8c_1afc6f770387ff27f9a3cf832b785d28dc"/><section>
+    <title>PASS_SIZE</title>
+<indexterm><primary>PASS_SIZE</primary><secondary>tcfs_helper_tools.c</secondary></indexterm>
+<indexterm><primary>tcfs_helper_tools.c</primary><secondary>PASS_SIZE</secondary></indexterm>
+<para><computeroutput>#define PASS_SIZE&#160;&#160;&#160;33</computeroutput></para><para>
+
+<para>Set the password size to 33 as AES 256 uses a 32 byte key. An \0 is added for safety. This definition is marked as internal and should not be used directly by the user. </para>
+</para>
+<para>
+Definition at line <link linkend="_tcfs__helper__tools_8c_source_1l00014">14</link> of file <link linkend="_tcfs__helper__tools_8c_source">tcfs_helper_tools.c</link>.</para>
+</section>
+</section>
+<section>
+<title>Function Documentation</title>
+<anchor xml:id="_tcfs__helper__tools_8c_1acfa06becac8f67e9f278cfcbf91cc51b"/><section>
+    <title>clearKeyboardBuffer()</title>
+<indexterm><primary>clearKeyboardBuffer</primary><secondary>tcfs_helper_tools.c</secondary></indexterm>
+<indexterm><primary>tcfs_helper_tools.c</primary><secondary>clearKeyboardBuffer</secondary></indexterm>
+<para><computeroutput>void clearKeyboardBuffer ( )</computeroutput></para><para>
+Definition at line <link linkend="_tcfs__helper__tools_8c_source_1l00339">339</link> of file <link linkend="_tcfs__helper__tools_8c_source">tcfs_helper_tools.c</link>.</para>
+<para>
+Referenced by <link linkend="_tcfs__helper__tools_8c_source_1l00347">handle_remote_mount()</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="tcfs__helper__tools_8c_acfa06becac8f67e9f278cfcbf91cc51b_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_tcfs__helper__tools_8c_1ae930b52ef70f640efde8bda574b6b234"/><section>
+    <title>create_tcfs_mount_local_folder()</title>
+<indexterm><primary>create_tcfs_mount_local_folder</primary><secondary>tcfs_helper_tools.c</secondary></indexterm>
+<indexterm><primary>tcfs_helper_tools.c</primary><secondary>create_tcfs_mount_local_folder</secondary></indexterm>
+<para><computeroutput>char * create_tcfs_mount_local_folder ( )</computeroutput></para><para>
+
+<para>Create a temporary folder in HOME/.tcfs. </para>
+</para>
+
+<para><formalpara><title>Returns</title>
+
+<para>char * the fullpath to the generated folder </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_tcfs__helper__tools_8c_source_1l00219">219</link> of file <link linkend="_tcfs__helper__tools_8c_source">tcfs_helper_tools.c</link>.</para>
+<para>
+References <link linkend="_tcfs__helper__tools_8c_source_1l00095">setup_tcfs_mount_folder()</link>.</para>
+<para>
+Referenced by <link linkend="_tcfs__helper__tools_8c_source_1l00274">handle_local_mount()</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="tcfs__helper__tools_8c_ae930b52ef70f640efde8bda574b6b234_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="tcfs__helper__tools_8c_ae930b52ef70f640efde8bda574b6b234_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_tcfs__helper__tools_8c_1ab3cdcc12b3bc92a382784027c94a2027"/><section>
+    <title>directory_exists()</title>
+<indexterm><primary>directory_exists</primary><secondary>tcfs_helper_tools.c</secondary></indexterm>
+<indexterm><primary>tcfs_helper_tools.c</primary><secondary>directory_exists</secondary></indexterm>
+<para><computeroutput>int directory_exists (const char * path)</computeroutput></para><para>
+
+<para>Check if a directory already exists. This function is marked as internal and should not be used by the user. </para>
+</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>path</entry><entry>
+<para>Fullpath to the dir </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>int _ret </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_tcfs__helper__tools_8c_source_1l00083">83</link> of file <link linkend="_tcfs__helper__tools_8c_source">tcfs_helper_tools.c</link>.</para>
+<para>
+Referenced by <link linkend="_tcfs__helper__tools_8c_source_1l00095">setup_tcfs_mount_folder()</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="tcfs__helper__tools_8c_ab3cdcc12b3bc92a382784027c94a2027_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_tcfs__helper__tools_8c_1a769edcf066efb97f5ae3a81e3507a793"/><section>
+    <title>do_mount()</title>
+<indexterm><primary>do_mount</primary><secondary>tcfs_helper_tools.c</secondary></indexterm>
+<indexterm><primary>tcfs_helper_tools.c</primary><secondary>do_mount</secondary></indexterm>
+<para><computeroutput>int do_mount ( )</computeroutput></para><para>
+
+<para>Execute the mount of either a Network FS (for ex NFS), Local FS (for ex a block device), Local folder (a folder of the system) </para>
+</para>
+
+<para><formalpara><title>Returns</title>
+
+<para>_ret </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_tcfs__helper__tools_8c_source_1l00025">25</link> of file <link linkend="_tcfs__helper__tools_8c_source">tcfs_helper_tools.c</link>.</para>
+<para>
+References <link linkend="_tcfs__helper__tools_8c_source_1l00318">handle_folder_mount()</link>, <link linkend="_tcfs__helper__tools_8c_source_1l00274">handle_local_mount()</link>, and <link linkend="_tcfs__helper__tools_8c_source_1l00347">handle_remote_mount()</link>.</para>
+<para>
+Referenced by <link linkend="_user__tcfs_8c_source_1l00104">main()</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="tcfs__helper__tools_8c_a769edcf066efb97f5ae3a81e3507a793_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="tcfs__helper__tools_8c_a769edcf066efb97f5ae3a81e3507a793_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_tcfs__helper__tools_8c_1a8ef1473d59fd1cfc680fe1b227604a02"/><section>
+    <title>generate_random_string()</title>
+<indexterm><primary>generate_random_string</primary><secondary>tcfs_helper_tools.c</secondary></indexterm>
+<indexterm><primary>tcfs_helper_tools.c</primary><secondary>generate_random_string</secondary></indexterm>
+<para><computeroutput>int generate_random_string (char * str)</computeroutput></para><para>
+
+<para>Generate a random string that will be used as a folder name for the mount. This function is marked as internal and should not be used by the user. </para>
+</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>str</entry><entry>
+<para>The result will be saved here </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>int _ret </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_tcfs__helper__tools_8c_source_1l00064">64</link> of file <link linkend="_tcfs__helper__tools_8c_source">tcfs_helper_tools.c</link>.</para>
+<para>
+Referenced by <link linkend="_tcfs__helper__tools_8c_source_1l00095">setup_tcfs_mount_folder()</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="tcfs__helper__tools_8c_a8ef1473d59fd1cfc680fe1b227604a02_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_tcfs__helper__tools_8c_1a1bef5d2cdd74c07b3ae025c6424dfbd5"/><section>
+    <title>get_pass()</title>
+<indexterm><primary>get_pass</primary><secondary>tcfs_helper_tools.c</secondary></indexterm>
+<indexterm><primary>tcfs_helper_tools.c</primary><secondary>get_pass</secondary></indexterm>
+<para><computeroutput>void get_pass (char * pw)</computeroutput></para><para>
+
+<para>fetch the password of the current user. This function is marked as internal and should not be used by the user </para>
+</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>pw</entry><entry>
+<para>String to save the password to </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <para><link linkend="_todo_1_todo000001">Todo</link> 
+<para>This will be changed when a public/private key model will be avilable to TCFS userspace module </para>
+</para></para>
+<para>
+Definition at line <link linkend="_tcfs__helper__tools_8c_source_1l00162">162</link> of file <link linkend="_tcfs__helper__tools_8c_source">tcfs_helper_tools.c</link>.</para>
+<para>
+References <link linkend="_tcfs__helper__tools_8c_source_1l00014">PASS_SIZE</link>.</para>
+<para>
+Referenced by <link linkend="_tcfs__helper__tools_8c_source_1l00235">mount_tcfs_folder()</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="tcfs__helper__tools_8c_a1bef5d2cdd74c07b3ae025c6424dfbd5_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_tcfs__helper__tools_8c_1ae1746adb62f9476a6d8166b62faa7a91"/><section>
+    <title>get_source_dest()</title>
+<indexterm><primary>get_source_dest</primary><secondary>tcfs_helper_tools.c</secondary></indexterm>
+<indexterm><primary>tcfs_helper_tools.c</primary><secondary>get_source_dest</secondary></indexterm>
+<para><computeroutput>void get_source_dest (char * source, char * dest)</computeroutput></para>
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>Ask</entry><entry>
+<para>the user to insert the source and the destination of the mount. This function is marked as internal and should not be used by the user </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definition at line <link linkend="_tcfs__helper__tools_8c_source_1l00204">204</link> of file <link linkend="_tcfs__helper__tools_8c_source">tcfs_helper_tools.c</link>.</para>
+<para>
+Referenced by <link linkend="_tcfs__helper__tools_8c_source_1l00318">handle_folder_mount()</link>, and <link linkend="_tcfs__helper__tools_8c_source_1l00274">handle_local_mount()</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="tcfs__helper__tools_8c_ae1746adb62f9476a6d8166b62faa7a91_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_tcfs__helper__tools_8c_1afaed41fa1136b829eb00a7de26a3739b"/><section>
+    <title>handle_folder_mount()</title>
+<indexterm><primary>handle_folder_mount</primary><secondary>tcfs_helper_tools.c</secondary></indexterm>
+<indexterm><primary>tcfs_helper_tools.c</primary><secondary>handle_folder_mount</secondary></indexterm>
+<para><computeroutput>int handle_folder_mount ( )</computeroutput></para><para>
+Definition at line <link linkend="_tcfs__helper__tools_8c_source_1l00318">318</link> of file <link linkend="_tcfs__helper__tools_8c_source">tcfs_helper_tools.c</link>.</para>
+<para>
+References <link linkend="_tcfs__helper__tools_8c_source_1l00204">get_source_dest()</link>, and <link linkend="_tcfs__helper__tools_8c_source_1l00235">mount_tcfs_folder()</link>.</para>
+<para>
+Referenced by <link linkend="_tcfs__helper__tools_8c_source_1l00025">do_mount()</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="tcfs__helper__tools_8c_afaed41fa1136b829eb00a7de26a3739b_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="tcfs__helper__tools_8c_afaed41fa1136b829eb00a7de26a3739b_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_tcfs__helper__tools_8c_1a816c2bcaa3d059abc79cb9b021957dbf"/><section>
+    <title>handle_local_mount()</title>
+<indexterm><primary>handle_local_mount</primary><secondary>tcfs_helper_tools.c</secondary></indexterm>
+<indexterm><primary>tcfs_helper_tools.c</primary><secondary>handle_local_mount</secondary></indexterm>
+<para><computeroutput>int handle_local_mount ( )</computeroutput></para><para>
+Definition at line <link linkend="_tcfs__helper__tools_8c_source_1l00274">274</link> of file <link linkend="_tcfs__helper__tools_8c_source">tcfs_helper_tools.c</link>.</para>
+<para>
+References <link linkend="_tcfs__helper__tools_8c_source_1l00219">create_tcfs_mount_local_folder()</link>, <link linkend="_tcfs__helper__tools_8c_source_1l00204">get_source_dest()</link>, and <link linkend="_tcfs__helper__tools_8c_source_1l00235">mount_tcfs_folder()</link>.</para>
+<para>
+Referenced by <link linkend="_tcfs__helper__tools_8c_source_1l00025">do_mount()</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="tcfs__helper__tools_8c_a816c2bcaa3d059abc79cb9b021957dbf_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="tcfs__helper__tools_8c_a816c2bcaa3d059abc79cb9b021957dbf_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_tcfs__helper__tools_8c_1aa5b1203d82818e149ae3ad3fd3840a40"/><section>
+    <title>handle_remote_mount()</title>
+<indexterm><primary>handle_remote_mount</primary><secondary>tcfs_helper_tools.c</secondary></indexterm>
+<indexterm><primary>tcfs_helper_tools.c</primary><secondary>handle_remote_mount</secondary></indexterm>
+<para><computeroutput>int handle_remote_mount ( )</computeroutput></para><para>
+Definition at line <link linkend="_tcfs__helper__tools_8c_source_1l00347">347</link> of file <link linkend="_tcfs__helper__tools_8c_source">tcfs_helper_tools.c</link>.</para>
+<para>
+References <link linkend="_tcfs__helper__tools_8c_source_1l00339">clearKeyboardBuffer()</link>, and <link linkend="_tcfs__helper__tools_8c_source_1l00235">mount_tcfs_folder()</link>.</para>
+<para>
+Referenced by <link linkend="_tcfs__helper__tools_8c_source_1l00025">do_mount()</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="tcfs__helper__tools_8c_aa5b1203d82818e149ae3ad3fd3840a40_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="tcfs__helper__tools_8c_aa5b1203d82818e149ae3ad3fd3840a40_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_tcfs__helper__tools_8c_1a26931b8bdf24be94e03f4d77e991d063"/><section>
+    <title>mount_tcfs_folder()</title>
+<indexterm><primary>mount_tcfs_folder</primary><secondary>tcfs_helper_tools.c</secondary></indexterm>
+<indexterm><primary>tcfs_helper_tools.c</primary><secondary>mount_tcfs_folder</secondary></indexterm>
+<para><computeroutput>int mount_tcfs_folder (char * tmp_path, char * destination)</computeroutput></para><para>
+Definition at line <link linkend="_tcfs__helper__tools_8c_source_1l00235">235</link> of file <link linkend="_tcfs__helper__tools_8c_source">tcfs_helper_tools.c</link>.</para>
+<para>
+References <link linkend="_tcfs__helper__tools_8c_source_1l00162">get_pass()</link>, and <link linkend="_tcfs__helper__tools_8c_source_1l00014">PASS_SIZE</link>.</para>
+<para>
+Referenced by <link linkend="_tcfs__helper__tools_8c_source_1l00318">handle_folder_mount()</link>, <link linkend="_tcfs__helper__tools_8c_source_1l00274">handle_local_mount()</link>, and <link linkend="_tcfs__helper__tools_8c_source_1l00347">handle_remote_mount()</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="tcfs__helper__tools_8c_a26931b8bdf24be94e03f4d77e991d063_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="tcfs__helper__tools_8c_a26931b8bdf24be94e03f4d77e991d063_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_tcfs__helper__tools_8c_1abe60a9bd3f55341eb2496670553f9d26"/><section>
+    <title>setup_tcfs_env()</title>
+<indexterm><primary>setup_tcfs_env</primary><secondary>tcfs_helper_tools.c</secondary></indexterm>
+<indexterm><primary>tcfs_helper_tools.c</primary><secondary>setup_tcfs_env</secondary></indexterm>
+<para><computeroutput>int setup_tcfs_env ( )</computeroutput></para><para>
+Definition at line <link linkend="_tcfs__helper__tools_8c_source_1l00405">405</link> of file <link linkend="_tcfs__helper__tools_8c_source">tcfs_helper_tools.c</link>.</para>
+<para>
+Referenced by <link linkend="_user__tcfs_8c_source_1l00104">main()</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="tcfs__helper__tools_8c_abe60a9bd3f55341eb2496670553f9d26_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_tcfs__helper__tools_8c_1a3644c45d6131fe1528ce36163e299fd9"/><section>
+    <title>setup_tcfs_mount_folder()</title>
+<indexterm><primary>setup_tcfs_mount_folder</primary><secondary>tcfs_helper_tools.c</secondary></indexterm>
+<indexterm><primary>tcfs_helper_tools.c</primary><secondary>setup_tcfs_mount_folder</secondary></indexterm>
+<para><computeroutput>char * setup_tcfs_mount_folder ( )</computeroutput></para><para>
+
+<para>Creates the .tcfs folder in the user HOME. Then this creates a folder with a random name so that create_tcfs_mount_local_folder function can use it. <link linkend="_tcfs__helper__tools_8c_1ae930b52ef70f640efde8bda574b6b234">create_tcfs_mount_local_folder</link> This function is marked as internal and should not be used by the user. </para>
+</para>
+
+<para><formalpara><title>Returns</title>
+
+<para>a folder with a random name inside the $HOME/.tcfs folder </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_tcfs__helper__tools_8c_source_1l00095">95</link> of file <link linkend="_tcfs__helper__tools_8c_source">tcfs_helper_tools.c</link>.</para>
+<para>
+References <link linkend="_tcfs__helper__tools_8c_source_1l00083">directory_exists()</link>, and <link linkend="_tcfs__helper__tools_8c_source_1l00064">generate_random_string()</link>.</para>
+<para>
+Referenced by <link linkend="_tcfs__helper__tools_8c_source_1l00219">create_tcfs_mount_local_folder()</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="tcfs__helper__tools_8c_a3644c45d6131fe1528ce36163e299fd9_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="tcfs__helper__tools_8c_a3644c45d6131fe1528ce36163e299fd9_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+</section>
+</section>

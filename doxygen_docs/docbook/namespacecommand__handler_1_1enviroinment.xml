@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_namespacecommand__handler_1_1enviroinment" xml:lang="en-US">
+<title>command_handler.enviroinment Namespace Reference</title>
+<indexterm><primary>command_handler.enviroinment</primary></indexterm>
+<simplesect>
+    <title>Functions    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_namespacecommand__handler_1_1enviroinment_1a8036811b5b79bce2e21a023ef33d4786">countdown</link> (msg, delta)</para>
+</listitem>
+            <listitem><para><link linkend="_namespacecommand__handler_1_1enviroinment_1a79405ba6d662be42ecaacf8469b76494">init_env</link> ()</para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Function Documentation</title>
+<anchor xml:id="_namespacecommand__handler_1_1enviroinment_1a8036811b5b79bce2e21a023ef33d4786"/><section>
+    <title>countdown()</title>
+<indexterm><primary>countdown</primary><secondary>command_handler.enviroinment</secondary></indexterm>
+<indexterm><primary>command_handler.enviroinment</primary><secondary>countdown</secondary></indexterm>
+<para><computeroutput>command_handler.enviroinment.countdown ( msg,  delta)</computeroutput></para><para>
+Definition at line <link linkend="_enviroinment_8py_source_1l00006">6</link> of file <link linkend="_enviroinment_8py_source">enviroinment.py</link>.</para>
+<para>
+Referenced by <link linkend="_enviroinment_8py_source_1l00012">command_handler.enviroinment.init_env()</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="namespacecommand__handler_1_1enviroinment_a8036811b5b79bce2e21a023ef33d4786_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_namespacecommand__handler_1_1enviroinment_1a79405ba6d662be42ecaacf8469b76494"/><section>
+    <title>init_env()</title>
+<indexterm><primary>init_env</primary><secondary>command_handler.enviroinment</secondary></indexterm>
+<indexterm><primary>command_handler.enviroinment</primary><secondary>init_env</secondary></indexterm>
+<para><computeroutput>command_handler.enviroinment.init_env ( )</computeroutput></para><para>
+Definition at line <link linkend="_enviroinment_8py_source_1l00012">12</link> of file <link linkend="_enviroinment_8py_source">enviroinment.py</link>.</para>
+<para>
+References <link linkend="_enviroinment_8py_source_1l00006">command_handler.enviroinment.countdown()</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="namespacecommand__handler_1_1enviroinment_a79405ba6d662be42ecaacf8469b76494_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+</section>
+</section>

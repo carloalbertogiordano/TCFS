@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_dir_1745ed90fefe3af6d7ab131050213829" xml:lang="en-US">
+<title>userspace-module Directory Reference</title>
+<indexterm><primary>userspace-module Directory Reference</primary></indexterm>
+Directory dependency graph for userspace-module:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="dir_1745ed90fefe3af6d7ab131050213829_dep.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+<simplesect>
+    <title>Directories    </title>
+        <itemizedlist>
+            <listitem><para>directory <link linkend="_dir_c891d3656b12946829f8f9d8986f4c41">utils</link></para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Files    </title>
+        <itemizedlist>
+            <listitem><para>file <link linkend="_tcfs_8c">tcfs.c</link></para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+</section>

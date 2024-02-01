@@ -1,0 +1,494 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="tcfs__utils_8h" kind="file" language="C++">
+    <compoundname>tcfs_utils.h</compoundname>
+    <includes local="no">errno.h</includes>
+    <includes local="no">pwd.h</includes>
+    <includes local="no">stdio.h</includes>
+    <includes local="no">stdlib.h</includes>
+    <includes local="no">string.h</includes>
+    <includes local="no">sys/xattr.h</includes>
+    <includes local="no">unistd.h</includes>
+    <includes local="no">stdbool.h</includes>
+    <includedby refid="tcfs_8c" local="yes">userspace-module/tcfs.c</includedby>
+    <includedby refid="crypt-utils_8h" local="yes">userspace-module/utils/crypt-utils/crypt-utils.h</includedby>
+    <includedby refid="tcfs__utils_8c" local="yes">userspace-module/utils/tcfs_utils/tcfs_utils.c</includedby>
+    <incdepgraph>
+      <node id="1">
+        <label>userspace-module/utils/tcfs_utils/tcfs_utils.h</label>
+        <link refid="tcfs__utils_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>errno.h</label>
+      </node>
+      <node id="3">
+        <label>pwd.h</label>
+      </node>
+      <node id="9">
+        <label>stdbool.h</label>
+      </node>
+      <node id="4">
+        <label>stdio.h</label>
+      </node>
+      <node id="5">
+        <label>stdlib.h</label>
+      </node>
+      <node id="6">
+        <label>string.h</label>
+      </node>
+      <node id="7">
+        <label>sys/xattr.h</label>
+      </node>
+      <node id="8">
+        <label>unistd.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="2">
+        <label>userspace-module/tcfs.c</label>
+        <link refid="tcfs_8c"/>
+      </node>
+      <node id="4">
+        <label>userspace-module/utils/crypt-utils/crypt-utils.c</label>
+        <link refid="crypt-utils_8c"/>
+      </node>
+      <node id="3">
+        <label>userspace-module/utils/crypt-utils/crypt-utils.h</label>
+        <link refid="crypt-utils_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>userspace-module/utils/tcfs_utils/tcfs_utils.c</label>
+        <link refid="tcfs__utils_8c"/>
+      </node>
+      <node id="1">
+        <label>userspace-module/utils/tcfs_utils/tcfs_utils.h</label>
+        <link refid="tcfs__utils_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <sectiondef kind="define">
+      <memberdef kind="define" id="tcfs__utils_8h_1a6d3fef197146b932f5ad01fce683a66b" prot="public" static="no">
+        <name>LOGFILE</name>
+        <initializer>&quot;/.tcfs/tcfs.log&quot;</initializer>
+        <briefdescription>
+<para>The path to the logfile of tcfs. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="userspace-module/utils/tcfs_utils/tcfs_utils.h" line="20" column="9" bodyfile="userspace-module/utils/tcfs_utils/tcfs_utils.h" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="tcfs__utils_8h_1ad72dbcf6d0153db1b8d8a58001feed83" prot="public" static="no">
+        <name>DEBUG</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="userspace-module/utils/tcfs_utils/tcfs_utils.h" line="22" column="9" bodyfile="userspace-module/utils/tcfs_utils/tcfs_utils.h" bodystart="22" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="tcfs__utils_8h_1aac1b7fab3a13b4cfcc0b34eb7511df55" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void get_user_name</definition>
+        <argsstring>(char *buf, size_t size)</argsstring>
+        <name>get_user_name</name>
+        <param>
+          <type>char *</type>
+          <declname>buf</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>size</declname>
+        </param>
+        <briefdescription>
+<para>Fetch the username of the current user. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>buf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The buffer where the username will be written. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The size of the buffer. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>void </para>
+</simplesect>
+<simplesect kind="note"><para>If an error occurs, it will be printed, and the buffer will not be modified. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="userspace-module/utils/tcfs_utils/tcfs_utils.h" line="24" column="6" bodyfile="userspace-module/utils/tcfs_utils/tcfs_utils.c" bodystart="19" bodyend="27" declfile="userspace-module/utils/tcfs_utils/tcfs_utils.h" declline="24" declcolumn="6"/>
+        <referencedby refid="tcfs_8c_1a745384a010e20b082db26e16702a0129" compoundref="tcfs_8c" startline="734" endline="815">tcfs_read</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="tcfs__utils_8h_1a71e44dc105c7af8349bc3e7eb9edf2b0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int is_encrypted</definition>
+        <argsstring>(const char *path)</argsstring>
+        <name>is_encrypted</name>
+        <param>
+          <type>const char *</type>
+          <declname>path</declname>
+        </param>
+        <briefdescription>
+<para>Check if a file is encrypted by TCFS. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>path</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The full path of the file. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>1 if successful, 0 otherwise. An error might be printen by print_err() function, </para>
+</simplesect>
+<simplesect kind="see"><para>print_err </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="userspace-module/utils/tcfs_utils/tcfs_utils.h" line="26" column="5" bodyfile="userspace-module/utils/tcfs_utils/tcfs_utils.c" bodystart="35" bodyend="43" declfile="userspace-module/utils/tcfs_utils/tcfs_utils.h" declline="26" declcolumn="5"/>
+        <referencedby refid="tcfs__utils_8c_1a4316eb58a0cb5afb4e90e75a55c9b3ea" compoundref="tcfs__utils_8c" startline="123" endline="153">get_encrypted_key</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="tcfs__utils_8h_1ac4ff59963f4a122c9f802c0c2bf2abc8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>char *</type>
+        <definition>char * prefix_path</definition>
+        <argsstring>(const char *path, const char *realpath)</argsstring>
+        <name>prefix_path</name>
+        <param>
+          <type>const char *</type>
+          <declname>path</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>realpath</declname>
+        </param>
+        <briefdescription>
+<para>Prefix the realpath to the fuse path. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>path</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The fuse path. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>realpath</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The realpath to the directory mounted by TCFS. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>char * An allocated string containing the full path to the file. </para>
+</simplesect>
+<simplesect kind="note"><para>Please free the result after use. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="userspace-module/utils/tcfs_utils/tcfs_utils.h" line="28" column="6" bodyfile="userspace-module/utils/tcfs_utils/tcfs_utils.c" bodystart="53" bodyend="85" declfile="userspace-module/utils/tcfs_utils/tcfs_utils.h" declline="28" declcolumn="6"/>
+        <referencedby refid="tcfs_8c_1a76af7857833338c73b9cafdce59ca01d" compoundref="tcfs_8c" startline="132" endline="149">tcfs_access</referencedby>
+        <referencedby refid="tcfs_8c_1a3cb10be0f6147667dc0e757636e9892f" compoundref="tcfs_8c" startline="497" endline="516">tcfs_chmod</referencedby>
+        <referencedby refid="tcfs_8c_1afff31b61fa0723502cf85922816f14f9" compoundref="tcfs_8c" startline="530" endline="546">tcfs_chown</referencedby>
+        <referencedby refid="tcfs_8c_1ad973ad9d6ab7d6276bf85cd8fecd0657" compoundref="tcfs_8c" startline="1031" endline="1099">tcfs_create</referencedby>
+        <referencedby refid="tcfs_8c_1a014853840814f4d5225e2e28e129f9e5" compoundref="tcfs_8c" startline="1140" endline="1161">tcfs_fsync</referencedby>
+        <referencedby refid="tcfs_8c_1a411eac4511d0eae4ce78a2fd3d22ac8c" compoundref="tcfs_8c" startline="99" endline="120">tcfs_getattr</referencedby>
+        <referencedby refid="tcfs_8c_1a6a031c4e3c6dd59051c09789c4666657" compoundref="tcfs_8c" startline="1199" endline="1215">tcfs_getxattr</referencedby>
+        <referencedby refid="tcfs_8c_1a271df7bd878f5ed132e1f98487e8aebd" compoundref="tcfs_8c" startline="465" endline="484">tcfs_link</referencedby>
+        <referencedby refid="tcfs_8c_1ae6edcf6a80467925a9a2112172395de1" compoundref="tcfs_8c" startline="1229" endline="1243">tcfs_listxattr</referencedby>
+        <referencedby refid="tcfs_8c_1a682b553345b6d872453d1ace7339bb9e" compoundref="tcfs_8c" startline="324" endline="340">tcfs_mkdir</referencedby>
+        <referencedby refid="tcfs_8c_1a151f53359474a95c52f5e79d438869bd" compoundref="tcfs_8c" startline="286" endline="312">tcfs_mknod</referencedby>
+        <referencedby refid="tcfs_8c_1af0c6a7d66189cc1e9fbfafba5255e60d" compoundref="tcfs_8c" startline="651" endline="670">tcfs_open</referencedby>
+        <referencedby refid="tcfs_8c_1a92ebab5be45b159c2850a47a5072b58d" compoundref="tcfs_8c" startline="67" endline="86">tcfs_opendir</referencedby>
+        <referencedby refid="tcfs_8c_1a745384a010e20b082db26e16702a0129" compoundref="tcfs_8c" startline="734" endline="815">tcfs_read</referencedby>
+        <referencedby refid="tcfs_8c_1a1a713549c892f56a6522e6487c581d69" compoundref="tcfs_8c" startline="196" endline="273">tcfs_readdir</referencedby>
+        <referencedby refid="tcfs_8c_1acb1e081efcbf61b6f34e8bbdf7af8979" compoundref="tcfs_8c" startline="162" endline="180">tcfs_readlink</referencedby>
+        <referencedby refid="tcfs_8c_1a1241e1fcfe6bb4a5d49d8c8d4e737bcd" compoundref="tcfs_8c" startline="1111" endline="1127">tcfs_release</referencedby>
+        <referencedby refid="tcfs_8c_1acfe2c6a9467bd25a5ba6dc1a65209262" compoundref="tcfs_8c" startline="1273" endline="1287">tcfs_removexattr</referencedby>
+        <referencedby refid="tcfs_8c_1aee96b732a1569a607e63bac6fbe5c403" compoundref="tcfs_8c" startline="436" endline="453">tcfs_rename</referencedby>
+        <referencedby refid="tcfs_8c_1a2853593dded66a922afbdc36afb15a50" compoundref="tcfs_8c" startline="377" endline="392">tcfs_rmdir</referencedby>
+        <referencedby refid="tcfs_8c_1ad3c328fdcd93c8203e1ce9c785fd3a14" compoundref="tcfs_8c" startline="979" endline="992">tcfs_setxattr</referencedby>
+        <referencedby refid="tcfs_8c_1ae14ebf4581d4cbc45737ae75af82a887" compoundref="tcfs_8c" startline="952" endline="964">tcfs_statfs</referencedby>
+        <referencedby refid="tcfs_8c_1ac1d223f9b998d5af6bec3947d03be0fc" compoundref="tcfs_8c" startline="404" endline="423">tcfs_symlink</referencedby>
+        <referencedby refid="tcfs_8c_1a7e7f7a65b4e76cc96505d0c6d62fba9c" compoundref="tcfs_8c" startline="559" endline="577">tcfs_truncate</referencedby>
+        <referencedby refid="tcfs_8c_1ac6d3a8a626363a6f98de64e585968b09" compoundref="tcfs_8c" startline="351" endline="366">tcfs_unlink</referencedby>
+        <referencedby refid="tcfs_8c_1aca5dccf989dfc270ca31e1d8b20bb60e" compoundref="tcfs_8c" startline="612" endline="638">tcfs_utimens</referencedby>
+        <referencedby refid="tcfs_8c_1adaba2baa5a036b8f77ec187599498a66" compoundref="tcfs_8c" startline="830" endline="915">tcfs_write</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="tcfs__utils_8h_1a8c1c24299a2b01f6157b051cb56ebc52" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void print_aes_key</definition>
+        <argsstring>(unsigned char *key)</argsstring>
+        <name>print_aes_key</name>
+        <param>
+          <type>unsigned char *</type>
+          <declname>key</declname>
+        </param>
+        <briefdescription>
+<para>Print the value of an AES key. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><xrefsect id="deprecated_1_deprecated000003"><xreftitle>Deprecated</xreftitle><xrefdescription><para>Currently has no use. Printing the AES key is considered excessive. </para>
+</xrefdescription></xrefsect><simplesect kind="warning"><para>THIS WILL PRINT THE AES KEY TO STDOUT. TCFS trusts the user by design, but this is excessive. </para>
+</simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>key</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The string containing the key. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>void </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="userspace-module/utils/tcfs_utils/tcfs_utils.h" line="30" column="6" bodyfile="userspace-module/utils/tcfs_utils/tcfs_utils.c" bodystart="165" bodyend="173" declfile="userspace-module/utils/tcfs_utils/tcfs_utils.h" declline="30" declcolumn="6"/>
+        <references refid="tcfs__utils_8c_1a62b66e43a7ad8b8cf9fcad67f71a7a8b" compoundref="tcfs__utils_8c" startline="262" endline="314">logMessage</references>
+        <referencedby refid="crypt-utils_8c_1a8845f5705eaafda836aac91d5881876f" compoundref="crypt-utils_8c" startline="235" endline="266">generate_key</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="tcfs__utils_8h_1a819d57d5c053a25772508a943d1bcc48" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>char *</type>
+        <definition>char * string_to_hex</definition>
+        <argsstring>(const char *input)</argsstring>
+        <name>string_to_hex</name>
+        <param>
+          <type>const char *</type>
+          <declname>input</declname>
+        </param>
+        <briefdescription>
+<para>Convert a string to its hexadecimal representation. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>input</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The input string. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>char * The hexadecimal representation of the input string. </para>
+</simplesect>
+<simplesect kind="note"><para>Remember to free the result after use. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="userspace-module/utils/tcfs_utils/tcfs_utils.h" line="32" column="6" bodyfile="userspace-module/utils/tcfs_utils/tcfs_utils.c" bodystart="182" bodyend="209" declfile="userspace-module/utils/tcfs_utils/tcfs_utils.h" declline="32" declcolumn="6"/>
+        <references refid="tcfs__utils_8c_1a62b66e43a7ad8b8cf9fcad67f71a7a8b" compoundref="tcfs__utils_8c" startline="262" endline="314">logMessage</references>
+        <referencedby refid="crypt-utils_8c_1aa4a7facde8c6f63a7225c07e92232b2e" compoundref="crypt-utils_8c" startline="398" endline="403">encrypt_file_name_with_hex</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="tcfs__utils_8h_1a6de1cb8448198da94080ad32d7e4eabf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>char *</type>
+        <definition>char * hex_to_string</definition>
+        <argsstring>(const char *input)</argsstring>
+        <name>hex_to_string</name>
+        <param>
+          <type>const char *</type>
+          <declname>input</declname>
+        </param>
+        <briefdescription>
+<para>Convert a hexadecimal string to its ASCII representation. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>input</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The input hexadecimal string. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>char * The ASCII representation of the input hexadecimal string. </para>
+</simplesect>
+<simplesect kind="note"><para>Remember to free the result after use. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="userspace-module/utils/tcfs_utils/tcfs_utils.h" line="34" column="6" bodyfile="userspace-module/utils/tcfs_utils/tcfs_utils.c" bodystart="218" bodyend="251" declfile="userspace-module/utils/tcfs_utils/tcfs_utils.h" declline="34" declcolumn="6"/>
+        <references refid="tcfs__utils_8c_1a62b66e43a7ad8b8cf9fcad67f71a7a8b" compoundref="tcfs__utils_8c" startline="262" endline="314">logMessage</references>
+        <referencedby refid="crypt-utils_8c_1a3b003481e5c188ac1d6f63e09e6f3a34" compoundref="crypt-utils_8c" startline="406" endline="410">decrypt_file_name_with_hex</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="tcfs__utils_8h_1a62b66e43a7ad8b8cf9fcad67f71a7a8b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void logMessage</definition>
+        <argsstring>(const char *format,...)</argsstring>
+        <name>logMessage</name>
+        <param>
+          <type>const char *</type>
+          <declname>format</declname>
+        </param>
+        <param>
+          <type>...</type>
+        </param>
+        <briefdescription>
+<para>Logs a formatted message to a file with timestamp. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function logs a formatted message to a specified log file along with a timestamp. It accepts a variable number of parameters, similar to printf.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>format</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The format string for the log message. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>...</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Additional parameters to be formatted into the log message. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="userspace-module/utils/tcfs_utils/tcfs_utils.h" line="36" column="6" bodyfile="userspace-module/utils/tcfs_utils/tcfs_utils.c" bodystart="262" bodyend="314" declfile="userspace-module/utils/tcfs_utils/tcfs_utils.h" declline="36" declcolumn="6"/>
+        <references refid="tcfs__utils_8h_1ad72dbcf6d0153db1b8d8a58001feed83" compoundref="tcfs__utils_8h" startline="22">DEBUG</references>
+        <references refid="tcfs__utils_8h_1a6d3fef197146b932f5ad01fce683a66b" compoundref="tcfs__utils_8h" startline="20">LOGFILE</references>
+        <referencedby refid="crypt-utils_8c_1a1899c23a523d11ed1cb5601eabdb023d" compoundref="crypt-utils_8c" startline="645" endline="747">decrypt_path</referencedby>
+        <referencedby refid="crypt-utils_8c_1a373f8aedbcd8b6ce22fe7bdfeb2961c2" compoundref="crypt-utils_8c" startline="759" endline="862">decrypt_path_and_filename</referencedby>
+        <referencedby refid="crypt-utils_8c_1a22f528907ee4f078e333501b747d5435" compoundref="crypt-utils_8c" startline="330" endline="379">decrypt_string</referencedby>
+        <referencedby refid="crypt-utils_8c_1ad9b10366ade9f2129ec2613fdc76df80" compoundref="crypt-utils_8c" startline="420" endline="521">encrypt_path</referencedby>
+        <referencedby refid="crypt-utils_8c_1a5c45db4d3db3ef274fb6356e1a95e644" compoundref="crypt-utils_8c" startline="532" endline="635">encrypt_path_and_filename</referencedby>
+        <referencedby refid="crypt-utils_8c_1a8845f5705eaafda836aac91d5881876f" compoundref="crypt-utils_8c" startline="235" endline="266">generate_key</referencedby>
+        <referencedby refid="tcfs__utils_8c_1a4316eb58a0cb5afb4e90e75a55c9b3ea" compoundref="tcfs__utils_8c" startline="123" endline="153">get_encrypted_key</referencedby>
+        <referencedby refid="tcfs__utils_8c_1a6de1cb8448198da94080ad32d7e4eabf" compoundref="tcfs__utils_8c" startline="218" endline="251">hex_to_string</referencedby>
+        <referencedby refid="tcfs_8c_1a0ddf1224851353fc92bfbff6f499fa97" compoundref="tcfs_8c" startline="1412" endline="1461">main</referencedby>
+        <referencedby refid="tcfs__utils_8c_1a8c1c24299a2b01f6157b051cb56ebc52" compoundref="tcfs__utils_8c" startline="165" endline="173">print_aes_key</referencedby>
+        <referencedby refid="tcfs__utils_8c_1a819d57d5c053a25772508a943d1bcc48" compoundref="tcfs__utils_8c" startline="182" endline="209">string_to_hex</referencedby>
+        <referencedby refid="tcfs_8c_1a76af7857833338c73b9cafdce59ca01d" compoundref="tcfs_8c" startline="132" endline="149">tcfs_access</referencedby>
+        <referencedby refid="tcfs_8c_1a3cb10be0f6147667dc0e757636e9892f" compoundref="tcfs_8c" startline="497" endline="516">tcfs_chmod</referencedby>
+        <referencedby refid="tcfs_8c_1afff31b61fa0723502cf85922816f14f9" compoundref="tcfs_8c" startline="530" endline="546">tcfs_chown</referencedby>
+        <referencedby refid="tcfs_8c_1ad973ad9d6ab7d6276bf85cd8fecd0657" compoundref="tcfs_8c" startline="1031" endline="1099">tcfs_create</referencedby>
+        <referencedby refid="tcfs_8c_1a014853840814f4d5225e2e28e129f9e5" compoundref="tcfs_8c" startline="1140" endline="1161">tcfs_fsync</referencedby>
+        <referencedby refid="tcfs_8c_1a411eac4511d0eae4ce78a2fd3d22ac8c" compoundref="tcfs_8c" startline="99" endline="120">tcfs_getattr</referencedby>
+        <referencedby refid="tcfs_8c_1a6a031c4e3c6dd59051c09789c4666657" compoundref="tcfs_8c" startline="1199" endline="1215">tcfs_getxattr</referencedby>
+        <referencedby refid="tcfs_8c_1a271df7bd878f5ed132e1f98487e8aebd" compoundref="tcfs_8c" startline="465" endline="484">tcfs_link</referencedby>
+        <referencedby refid="tcfs_8c_1ae6edcf6a80467925a9a2112172395de1" compoundref="tcfs_8c" startline="1229" endline="1243">tcfs_listxattr</referencedby>
+        <referencedby refid="tcfs_8c_1a682b553345b6d872453d1ace7339bb9e" compoundref="tcfs_8c" startline="324" endline="340">tcfs_mkdir</referencedby>
+        <referencedby refid="tcfs_8c_1a151f53359474a95c52f5e79d438869bd" compoundref="tcfs_8c" startline="286" endline="312">tcfs_mknod</referencedby>
+        <referencedby refid="tcfs_8c_1af0c6a7d66189cc1e9fbfafba5255e60d" compoundref="tcfs_8c" startline="651" endline="670">tcfs_open</referencedby>
+        <referencedby refid="tcfs_8c_1a92ebab5be45b159c2850a47a5072b58d" compoundref="tcfs_8c" startline="67" endline="86">tcfs_opendir</referencedby>
+        <referencedby refid="tcfs_8c_1a745384a010e20b082db26e16702a0129" compoundref="tcfs_8c" startline="734" endline="815">tcfs_read</referencedby>
+        <referencedby refid="tcfs_8c_1a1a713549c892f56a6522e6487c581d69" compoundref="tcfs_8c" startline="196" endline="273">tcfs_readdir</referencedby>
+        <referencedby refid="tcfs_8c_1acb1e081efcbf61b6f34e8bbdf7af8979" compoundref="tcfs_8c" startline="162" endline="180">tcfs_readlink</referencedby>
+        <referencedby refid="tcfs_8c_1a1241e1fcfe6bb4a5d49d8c8d4e737bcd" compoundref="tcfs_8c" startline="1111" endline="1127">tcfs_release</referencedby>
+        <referencedby refid="tcfs_8c_1acfe2c6a9467bd25a5ba6dc1a65209262" compoundref="tcfs_8c" startline="1273" endline="1287">tcfs_removexattr</referencedby>
+        <referencedby refid="tcfs_8c_1aee96b732a1569a607e63bac6fbe5c403" compoundref="tcfs_8c" startline="436" endline="453">tcfs_rename</referencedby>
+        <referencedby refid="tcfs_8c_1a2853593dded66a922afbdc36afb15a50" compoundref="tcfs_8c" startline="377" endline="392">tcfs_rmdir</referencedby>
+        <referencedby refid="tcfs_8c_1ad3c328fdcd93c8203e1ce9c785fd3a14" compoundref="tcfs_8c" startline="979" endline="992">tcfs_setxattr</referencedby>
+        <referencedby refid="tcfs_8c_1ae14ebf4581d4cbc45737ae75af82a887" compoundref="tcfs_8c" startline="952" endline="964">tcfs_statfs</referencedby>
+        <referencedby refid="tcfs_8c_1ac1d223f9b998d5af6bec3947d03be0fc" compoundref="tcfs_8c" startline="404" endline="423">tcfs_symlink</referencedby>
+        <referencedby refid="tcfs_8c_1a7e7f7a65b4e76cc96505d0c6d62fba9c" compoundref="tcfs_8c" startline="559" endline="577">tcfs_truncate</referencedby>
+        <referencedby refid="tcfs_8c_1ac6d3a8a626363a6f98de64e585968b09" compoundref="tcfs_8c" startline="351" endline="366">tcfs_unlink</referencedby>
+        <referencedby refid="tcfs_8c_1aca5dccf989dfc270ca31e1d8b20bb60e" compoundref="tcfs_8c" startline="612" endline="638">tcfs_utimens</referencedby>
+        <referencedby refid="tcfs_8c_1adaba2baa5a036b8f77ec187599498a66" compoundref="tcfs_8c" startline="830" endline="915">tcfs_write</referencedby>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Header file containing utility functions used by TCFS (Transparent Cryptographic Filesystem) </para>
+    </briefdescription>
+    <detaileddescription>
+<para><simplesect kind="see"><para><ref refid="tcfs__utils_8c" kindref="compound">tcfs_utils.c</ref> </para>
+</simplesect>
+</para>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;errno.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;pwd.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdio.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdlib.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;sys/xattr.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;unistd.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdbool.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight></codeline>
+<codeline lineno="20" refid="tcfs__utils_8h_1a6d3fef197146b932f5ad01fce683a66b" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>LOGFILE<sp/>&quot;/.tcfs/tcfs.log&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight></codeline>
+<codeline lineno="22" refid="tcfs__utils_8h_1ad72dbcf6d0153db1b8d8a58001feed83" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>DEBUG<sp/>1<sp/></highlight><highlight class="comment">//TODO:<sp/>find<sp/>a<sp/>better<sp/>way<sp/>to<sp/>do<sp/>this</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="tcfs__utils_8h_1aac1b7fab3a13b4cfcc0b34eb7511df55" kindref="member">get_user_name</ref><sp/>(</highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*buf,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>size);</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="tcfs__utils_8h_1a71e44dc105c7af8349bc3e7eb9edf2b0" kindref="member">is_encrypted</ref><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*path);</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*<ref refid="tcfs__utils_8h_1ac4ff59963f4a122c9f802c0c2bf2abc8" kindref="member">prefix_path</ref><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*path,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*realpath);</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="tcfs__utils_8h_1a8c1c24299a2b01f6157b051cb56ebc52" kindref="member">print_aes_key</ref><sp/>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*key);</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*<ref refid="tcfs__utils_8h_1a819d57d5c053a25772508a943d1bcc48" kindref="member">string_to_hex</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*input);</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*<ref refid="tcfs__utils_8h_1a6de1cb8448198da94080ad32d7e4eabf" kindref="member">hex_to_string</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*input);</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="tcfs__utils_8h_1a62b66e43a7ad8b8cf9fcad67f71a7a8b" kindref="member">logMessage</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*format,<sp/>...);</highlight></codeline>
+    </programlisting>
+    <location file="userspace-module/utils/tcfs_utils/tcfs_utils.h"/>
+  </compounddef>
+</doxygen>

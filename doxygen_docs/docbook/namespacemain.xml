@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_namespacemain" xml:lang="en-US">
+<title>main Namespace Reference</title>
+<indexterm><primary>main</primary></indexterm>
+<simplesect>
+    <title>Functions    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_namespacemain_1a63aa822869c78f66d4bbcc9fbf8ee0e7">foo</link> ()</para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Variables    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_namespacemain_1a57bcba58678fbd9dd73e9c194bdf38c0">win</link> = <link linkend="_classui_1_1main__window_1_1Window">Window</link>(&quot;TCFS user helper&quot;, &quot;200x200&quot;)</para>
+</listitem>
+            <listitem><para><link linkend="_namespacemain_1a9e90a5249dbf0270acae944b9a31b8c0">init_env_butt</link> = win.add_button(&quot;Initialize the environment&quot;, <link linkend="_namespacemain_1a63aa822869c78f66d4bbcc9fbf8ee0e7">foo</link>, row=0, col=0)</para>
+</listitem>
+            <listitem><para><link linkend="_namespacemain_1a8f55266ef83cf13a1c30d1bf8bd065b0">mount_butt</link> = win.add_button(&quot;Mount TCFS&quot;, <link linkend="_namespacemain_1a63aa822869c78f66d4bbcc9fbf8ee0e7">foo</link>, row=1, col=0)</para>
+</listitem>
+            <listitem><para><link linkend="_namespacemain_1a30b47e625be9d65c53cd3cef9926f704">umount_butt</link> = win.add_button(&quot;Umount TCFS&quot;, <link linkend="_namespacemain_1a63aa822869c78f66d4bbcc9fbf8ee0e7">foo</link>, row=2, col=0)</para>
+</listitem>
+            <listitem><para><link linkend="_namespacemain_1a7adbb7f4a582ed0929b7db6fd0991278">shared_butt</link> = win.add_button(&quot;Threshold share&quot;, <link linkend="_namespacemain_1a63aa822869c78f66d4bbcc9fbf8ee0e7">foo</link>, row=3, col=0)</para>
+</listitem>
+            <listitem><para><link linkend="_namespacemain_1a4b95678c3a22414574c3b2dd83d89c83">logout_butt</link> = win.add_button(&quot;Logout&quot;, <link linkend="_namespacemain_1a63aa822869c78f66d4bbcc9fbf8ee0e7">foo</link>, row=4, col=0)</para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Function Documentation</title>
+<anchor xml:id="_namespacemain_1a63aa822869c78f66d4bbcc9fbf8ee0e7"/><section>
+    <title>foo()</title>
+<indexterm><primary>foo</primary><secondary>main</secondary></indexterm>
+<indexterm><primary>main</primary><secondary>foo</secondary></indexterm>
+<para><computeroutput>main.foo ( )</computeroutput></para><para>
+Definition at line <link linkend="_main_8py_source_1l00004">4</link> of file <link linkend="_main_8py_source">main.py</link>.</para>
+</section>
+</section>
+<section>
+<title>Variable Documentation</title>
+<anchor xml:id="_namespacemain_1a9e90a5249dbf0270acae944b9a31b8c0"/><section>
+    <title>init_env_butt</title>
+<indexterm><primary>init_env_butt</primary><secondary>main</secondary></indexterm>
+<indexterm><primary>main</primary><secondary>init_env_butt</secondary></indexterm>
+<para><computeroutput>main.init_env_butt = win.add_button(&quot;Initialize the environment&quot;, <link linkend="_namespacemain_1a63aa822869c78f66d4bbcc9fbf8ee0e7">foo</link>, row=0, col=0)</computeroutput></para><para>
+Definition at line <link linkend="_main_8py_source_1l00010">10</link> of file <link linkend="_main_8py_source">main.py</link>.</para>
+</section>
+<anchor xml:id="_namespacemain_1a4b95678c3a22414574c3b2dd83d89c83"/><section>
+    <title>logout_butt</title>
+<indexterm><primary>logout_butt</primary><secondary>main</secondary></indexterm>
+<indexterm><primary>main</primary><secondary>logout_butt</secondary></indexterm>
+<para><computeroutput>main.logout_butt = win.add_button(&quot;Logout&quot;, <link linkend="_namespacemain_1a63aa822869c78f66d4bbcc9fbf8ee0e7">foo</link>, row=4, col=0)</computeroutput></para><para>
+Definition at line <link linkend="_main_8py_source_1l00014">14</link> of file <link linkend="_main_8py_source">main.py</link>.</para>
+</section>
+<anchor xml:id="_namespacemain_1a8f55266ef83cf13a1c30d1bf8bd065b0"/><section>
+    <title>mount_butt</title>
+<indexterm><primary>mount_butt</primary><secondary>main</secondary></indexterm>
+<indexterm><primary>main</primary><secondary>mount_butt</secondary></indexterm>
+<para><computeroutput>main.mount_butt = win.add_button(&quot;Mount TCFS&quot;, <link linkend="_namespacemain_1a63aa822869c78f66d4bbcc9fbf8ee0e7">foo</link>, row=1, col=0)</computeroutput></para><para>
+Definition at line <link linkend="_main_8py_source_1l00011">11</link> of file <link linkend="_main_8py_source">main.py</link>.</para>
+</section>
+<anchor xml:id="_namespacemain_1a7adbb7f4a582ed0929b7db6fd0991278"/><section>
+    <title>shared_butt</title>
+<indexterm><primary>shared_butt</primary><secondary>main</secondary></indexterm>
+<indexterm><primary>main</primary><secondary>shared_butt</secondary></indexterm>
+<para><computeroutput>main.shared_butt = win.add_button(&quot;Threshold share&quot;, <link linkend="_namespacemain_1a63aa822869c78f66d4bbcc9fbf8ee0e7">foo</link>, row=3, col=0)</computeroutput></para><para>
+Definition at line <link linkend="_main_8py_source_1l00013">13</link> of file <link linkend="_main_8py_source">main.py</link>.</para>
+</section>
+<anchor xml:id="_namespacemain_1a30b47e625be9d65c53cd3cef9926f704"/><section>
+    <title>umount_butt</title>
+<indexterm><primary>umount_butt</primary><secondary>main</secondary></indexterm>
+<indexterm><primary>main</primary><secondary>umount_butt</secondary></indexterm>
+<para><computeroutput>main.umount_butt = win.add_button(&quot;Umount TCFS&quot;, <link linkend="_namespacemain_1a63aa822869c78f66d4bbcc9fbf8ee0e7">foo</link>, row=2, col=0)</computeroutput></para><para>
+Definition at line <link linkend="_main_8py_source_1l00012">12</link> of file <link linkend="_main_8py_source">main.py</link>.</para>
+</section>
+<anchor xml:id="_namespacemain_1a57bcba58678fbd9dd73e9c194bdf38c0"/><section>
+    <title>win</title>
+<indexterm><primary>win</primary><secondary>main</secondary></indexterm>
+<indexterm><primary>main</primary><secondary>win</secondary></indexterm>
+<para><computeroutput>main.win = <link linkend="_classui_1_1main__window_1_1Window">Window</link>(&quot;TCFS user helper&quot;, &quot;200x200&quot;)</computeroutput></para><para>
+Definition at line <link linkend="_main_8py_source_1l00008">8</link> of file <link linkend="_main_8py_source">main.py</link>.</para>
+</section>
+</section>
+</section>

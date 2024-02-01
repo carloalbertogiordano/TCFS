@@ -1,0 +1,284 @@
+.TH "userspace-module/utils/tcfs_utils/tcfs_utils.h" 3 "Thu Feb 1 2024 17:25:40" "Version 0.3.2" "TCFS" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+userspace-module/utils/tcfs_utils/tcfs_utils.h \- Header file containing utility functions used by TCFS (Transparent Cryptographic Filesystem)  
+
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <errno\&.h>\fP
+.br
+\fC#include <pwd\&.h>\fP
+.br
+\fC#include <stdio\&.h>\fP
+.br
+\fC#include <stdlib\&.h>\fP
+.br
+\fC#include <string\&.h>\fP
+.br
+\fC#include <sys/xattr\&.h>\fP
+.br
+\fC#include <unistd\&.h>\fP
+.br
+\fC#include <stdbool\&.h>\fP
+.br
+
+.SS "Macros"
+
+.in +1c
+.ti -1c
+.RI "#define \fBLOGFILE\fP   '/\&.tcfs/tcfs\&.log'"
+.br
+.RI "The path to the logfile of tcfs\&. "
+.ti -1c
+.RI "#define \fBDEBUG\fP   1"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBget_user_name\fP (char *buf, size_t size)"
+.br
+.RI "Fetch the username of the current user\&. "
+.ti -1c
+.RI "int \fBis_encrypted\fP (const char *path)"
+.br
+.RI "Check if a file is encrypted by TCFS\&. "
+.ti -1c
+.RI "char * \fBprefix_path\fP (const char *path, const char *realpath)"
+.br
+.RI "Prefix the realpath to the fuse path\&. "
+.ti -1c
+.RI "void \fBprint_aes_key\fP (unsigned char *key)"
+.br
+.RI "Print the value of an AES key\&. "
+.ti -1c
+.RI "char * \fBstring_to_hex\fP (const char *input)"
+.br
+.RI "Convert a string to its hexadecimal representation\&. "
+.ti -1c
+.RI "char * \fBhex_to_string\fP (const char *input)"
+.br
+.RI "Convert a hexadecimal string to its ASCII representation\&. "
+.ti -1c
+.RI "void \fBlogMessage\fP (const char *format,\&.\&.\&.)"
+.br
+.RI "Logs a formatted message to a file with timestamp\&. "
+.in -1c
+.SH "Detailed Description"
+.PP 
+Header file containing utility functions used by TCFS (Transparent Cryptographic Filesystem) 
+
+
+.PP
+\fBSee also\fP
+.RS 4
+\fBtcfs_utils\&.c\fP 
+.RE
+.PP
+
+.PP
+Definition in file \fBtcfs_utils\&.h\fP\&.
+.SH "Macro Definition Documentation"
+.PP 
+.SS "#define DEBUG   1"
+
+.PP
+Definition at line \fB22\fP of file \fBtcfs_utils\&.h\fP\&.
+.SS "#define LOGFILE   '/\&.tcfs/tcfs\&.log'"
+
+.PP
+The path to the logfile of tcfs\&. 
+.PP
+Definition at line \fB20\fP of file \fBtcfs_utils\&.h\fP\&.
+.SH "Function Documentation"
+.PP 
+.SS "void get_user_name (char * buf, size_t size)"
+
+.PP
+Fetch the username of the current user\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIbuf\fP The buffer where the username will be written\&. 
+.br
+\fIsize\fP The size of the buffer\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+void 
+.RE
+.PP
+\fBNote\fP
+.RS 4
+If an error occurs, it will be printed, and the buffer will not be modified\&. 
+.RE
+.PP
+
+.PP
+Definition at line \fB19\fP of file \fBtcfs_utils\&.c\fP\&.
+.PP
+Referenced by \fBtcfs_read()\fP\&.
+.SS "char * hex_to_string (const char * input)"
+
+.PP
+Convert a hexadecimal string to its ASCII representation\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIinput\fP The input hexadecimal string\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+char * The ASCII representation of the input hexadecimal string\&. 
+.RE
+.PP
+\fBNote\fP
+.RS 4
+Remember to free the result after use\&. 
+.RE
+.PP
+
+.PP
+Definition at line \fB218\fP of file \fBtcfs_utils\&.c\fP\&.
+.PP
+References \fBlogMessage()\fP\&.
+.PP
+Referenced by \fBdecrypt_file_name_with_hex()\fP\&.
+.SS "int is_encrypted (const char * path)"
+
+.PP
+Check if a file is encrypted by TCFS\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIpath\fP The full path of the file\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+1 if successful, 0 otherwise\&. An error might be printen by print_err() function, 
+.RE
+.PP
+\fBSee also\fP
+.RS 4
+print_err 
+.RE
+.PP
+
+.PP
+Definition at line \fB35\fP of file \fBtcfs_utils\&.c\fP\&.
+.PP
+Referenced by \fBget_encrypted_key()\fP\&.
+.SS "void logMessage (const char * format,  \&.\&.\&.)"
+
+.PP
+Logs a formatted message to a file with timestamp\&. This function logs a formatted message to a specified log file along with a timestamp\&. It accepts a variable number of parameters, similar to printf\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIformat\fP The format string for the log message\&. 
+.br
+\fI\&.\&.\&.\fP Additional parameters to be formatted into the log message\&. 
+.RE
+.PP
+
+.PP
+Definition at line \fB262\fP of file \fBtcfs_utils\&.c\fP\&.
+.PP
+References \fBDEBUG\fP, and \fBLOGFILE\fP\&.
+.PP
+Referenced by \fBdecrypt_path()\fP, \fBdecrypt_path_and_filename()\fP, \fBdecrypt_string()\fP, \fBencrypt_path()\fP, \fBencrypt_path_and_filename()\fP, \fBgenerate_key()\fP, \fBget_encrypted_key()\fP, \fBhex_to_string()\fP, \fBmain()\fP, \fBprint_aes_key()\fP, \fBstring_to_hex()\fP, \fBtcfs_access()\fP, \fBtcfs_chmod()\fP, \fBtcfs_chown()\fP, \fBtcfs_create()\fP, \fBtcfs_fsync()\fP, \fBtcfs_getattr()\fP, \fBtcfs_getxattr()\fP, \fBtcfs_link()\fP, \fBtcfs_listxattr()\fP, \fBtcfs_mkdir()\fP, \fBtcfs_mknod()\fP, \fBtcfs_open()\fP, \fBtcfs_opendir()\fP, \fBtcfs_read()\fP, \fBtcfs_readdir()\fP, \fBtcfs_readlink()\fP, \fBtcfs_release()\fP, \fBtcfs_removexattr()\fP, \fBtcfs_rename()\fP, \fBtcfs_rmdir()\fP, \fBtcfs_setxattr()\fP, \fBtcfs_statfs()\fP, \fBtcfs_symlink()\fP, \fBtcfs_truncate()\fP, \fBtcfs_unlink()\fP, \fBtcfs_utimens()\fP, and \fBtcfs_write()\fP\&.
+.SS "char * prefix_path (const char * path, const char * realpath)"
+
+.PP
+Prefix the realpath to the fuse path\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIpath\fP The fuse path\&. 
+.br
+\fIrealpath\fP The realpath to the directory mounted by TCFS\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+char * An allocated string containing the full path to the file\&. 
+.RE
+.PP
+\fBNote\fP
+.RS 4
+Please free the result after use\&. 
+.RE
+.PP
+
+.PP
+Definition at line \fB53\fP of file \fBtcfs_utils\&.c\fP\&.
+.PP
+Referenced by \fBtcfs_access()\fP, \fBtcfs_chmod()\fP, \fBtcfs_chown()\fP, \fBtcfs_create()\fP, \fBtcfs_fsync()\fP, \fBtcfs_getattr()\fP, \fBtcfs_getxattr()\fP, \fBtcfs_link()\fP, \fBtcfs_listxattr()\fP, \fBtcfs_mkdir()\fP, \fBtcfs_mknod()\fP, \fBtcfs_open()\fP, \fBtcfs_opendir()\fP, \fBtcfs_read()\fP, \fBtcfs_readdir()\fP, \fBtcfs_readlink()\fP, \fBtcfs_release()\fP, \fBtcfs_removexattr()\fP, \fBtcfs_rename()\fP, \fBtcfs_rmdir()\fP, \fBtcfs_setxattr()\fP, \fBtcfs_statfs()\fP, \fBtcfs_symlink()\fP, \fBtcfs_truncate()\fP, \fBtcfs_unlink()\fP, \fBtcfs_utimens()\fP, and \fBtcfs_write()\fP\&.
+.SS "void print_aes_key (unsigned char * key)"
+
+.PP
+Print the value of an AES key\&. 
+.PP
+\fBDeprecated\fP
+.RS 4
+Currently has no use\&. Printing the AES key is considered excessive\&. 
+.RE
+.PP
+\fBWarning\fP
+.RS 4
+THIS WILL PRINT THE AES KEY TO STDOUT\&. TCFS trusts the user by design, but this is excessive\&. 
+.RE
+.PP
+\fBParameters\fP
+.RS 4
+\fIkey\fP The string containing the key\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+void 
+.RE
+.PP
+
+.PP
+Definition at line \fB165\fP of file \fBtcfs_utils\&.c\fP\&.
+.PP
+References \fBlogMessage()\fP\&.
+.PP
+Referenced by \fBgenerate_key()\fP\&.
+.SS "char * string_to_hex (const char * input)"
+
+.PP
+Convert a string to its hexadecimal representation\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIinput\fP The input string\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+char * The hexadecimal representation of the input string\&. 
+.RE
+.PP
+\fBNote\fP
+.RS 4
+Remember to free the result after use\&. 
+.RE
+.PP
+
+.PP
+Definition at line \fB182\fP of file \fBtcfs_utils\&.c\fP\&.
+.PP
+References \fBlogMessage()\fP\&.
+.PP
+Referenced by \fBencrypt_file_name_with_hex()\fP\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for TCFS from the source code\&.

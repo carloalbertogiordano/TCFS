@@ -1,0 +1,94 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_tcfs__helper__tools_8h" xml:lang="en-US">
+<title>user/old_stuff/tcfs_helper_tools.h File Reference</title>
+<indexterm><primary>user/old_stuff/tcfs_helper_tools.h</primary></indexterm>
+<programlisting linenumbering="unnumbered">#include &lt;limits.h&gt;<?linebreak?>#include &lt;stdio.h&gt;<?linebreak?>#include &lt;stdlib.h&gt;<?linebreak?>#include &lt;string.h&gt;<?linebreak?>#include &lt;sys/stat.h&gt;<?linebreak?>#include &lt;sys/types.h&gt;<?linebreak?>#include &lt;termios.h&gt;<?linebreak?>#include &lt;time.h&gt;<?linebreak?>#include &lt;unistd.h&gt;<?linebreak?></programlisting>Include dependency graph for tcfs_helper_tools.h:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="tcfs__helper__tools_8h__incl.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+This graph shows which files directly or indirectly include this file:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="tcfs__helper__tools_8h__dep__incl.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+<simplesect>
+    <title>Functions    </title>
+        <itemizedlist>
+            <listitem><para>int <link linkend="_tcfs__helper__tools_8h_1a769edcf066efb97f5ae3a81e3507a793">do_mount</link> ()</para>
+
+<para>Execute the mount of either a Network FS (for ex NFS), Local FS (for ex a block device), Local folder (a folder of the system) </para>
+</listitem>
+            <listitem><para>int <link linkend="_tcfs__helper__tools_8h_1abe60a9bd3f55341eb2496670553f9d26">setup_tcfs_env</link> ()</para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Function Documentation</title>
+<anchor xml:id="_tcfs__helper__tools_8h_1a769edcf066efb97f5ae3a81e3507a793"/><section>
+    <title>do_mount()</title>
+<indexterm><primary>do_mount</primary><secondary>tcfs_helper_tools.h</secondary></indexterm>
+<indexterm><primary>tcfs_helper_tools.h</primary><secondary>do_mount</secondary></indexterm>
+<para><computeroutput>int do_mount ( )</computeroutput></para><para>
+
+<para>Execute the mount of either a Network FS (for ex NFS), Local FS (for ex a block device), Local folder (a folder of the system) </para>
+</para>
+
+<para><formalpara><title>Returns</title>
+
+<para>_ret </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_tcfs__helper__tools_8c_source_1l00025">25</link> of file <link linkend="_tcfs__helper__tools_8c_source">tcfs_helper_tools.c</link>.</para>
+<para>
+References <link linkend="_tcfs__helper__tools_8c_source_1l00318">handle_folder_mount()</link>, <link linkend="_tcfs__helper__tools_8c_source_1l00274">handle_local_mount()</link>, and <link linkend="_tcfs__helper__tools_8c_source_1l00347">handle_remote_mount()</link>.</para>
+<para>
+Referenced by <link linkend="_user__tcfs_8c_source_1l00104">main()</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="tcfs__helper__tools_8h_a769edcf066efb97f5ae3a81e3507a793_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="tcfs__helper__tools_8h_a769edcf066efb97f5ae3a81e3507a793_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_tcfs__helper__tools_8h_1abe60a9bd3f55341eb2496670553f9d26"/><section>
+    <title>setup_tcfs_env()</title>
+<indexterm><primary>setup_tcfs_env</primary><secondary>tcfs_helper_tools.h</secondary></indexterm>
+<indexterm><primary>tcfs_helper_tools.h</primary><secondary>setup_tcfs_env</secondary></indexterm>
+<para><computeroutput>int setup_tcfs_env ( )</computeroutput></para><para>
+Definition at line <link linkend="_tcfs__helper__tools_8c_source_1l00405">405</link> of file <link linkend="_tcfs__helper__tools_8c_source">tcfs_helper_tools.c</link>.</para>
+<para>
+Referenced by <link linkend="_user__tcfs_8c_source_1l00104">main()</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="tcfs__helper__tools_8h_abe60a9bd3f55341eb2496670553f9d26_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+</section>
+</section>

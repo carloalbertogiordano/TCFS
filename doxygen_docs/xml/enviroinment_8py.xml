@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="enviroinment_8py" kind="file" language="Python">
+    <compoundname>enviroinment.py</compoundname>
+    <innernamespace refid="namespacecommand__handler">command_handler</innernamespace>
+    <innernamespace refid="namespacecommand__handler_1_1enviroinment">command_handler::enviroinment</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1" refid="namespacecommand__handler" refkind="compound"><highlight class="keyword">import</highlight><highlight class="normal"><sp/>os</highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>shutil</highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>time</highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6" refid="namespacecommand__handler_1_1enviroinment_1a8036811b5b79bce2e21a023ef33d4786" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal"><ref refid="namespacecommand__handler_1_1enviroinment_1a8036811b5b79bce2e21a023ef33d4786" kindref="member">countdown</ref>(msg,<sp/>delta):</highlight></codeline>
+<codeline lineno="7"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>i<sp/></highlight><highlight class="keywordflow">in</highlight><highlight class="normal"><sp/>range(delta,<sp/>0,<sp/>-1):</highlight></codeline>
+<codeline lineno="8"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>print(f</highlight><highlight class="stringliteral">&quot;{msg}<sp/>{delta}&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>time.sleep(1)</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12" refid="namespacecommand__handler_1_1enviroinment_1a79405ba6d662be42ecaacf8469b76494" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal"><ref refid="namespacecommand__handler_1_1enviroinment_1a79405ba6d662be42ecaacf8469b76494" kindref="member">init_env</ref>():</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/><sp/><sp/>tcfs_folder<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;~/.tcfs&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/><sp/><sp/>data_folder<sp/>=<sp/>tcfs_folder<sp/>+<sp/></highlight><highlight class="stringliteral">&quot;/data&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>os.path.exists(tcfs_folder)<sp/></highlight><highlight class="keywordflow">and</highlight><highlight class="normal"><sp/>os.path.isdir(tcfs_folder):</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>print(</highlight><highlight class="stringliteral">&quot;WARN:<sp/>Deleting<sp/>main<sp/>tcfs<sp/>folder,<sp/>all<sp/>your<sp/>data<sp/>will<sp/>be<sp/>lost&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacecommand__handler_1_1enviroinment_1a8036811b5b79bce2e21a023ef33d4786" kindref="member">countdown</ref>(</highlight><highlight class="stringliteral">&quot;\r<sp/>Deleting<sp/>in<sp/>....&quot;</highlight><highlight class="normal">,<sp/>5)</highlight></codeline>
+    </programlisting>
+    <location file="user/command_handler/enviroinment.py"/>
+  </compounddef>
+</doxygen>

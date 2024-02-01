@@ -1,0 +1,36 @@
+\doxysection{tcfs-\/user.go}
+\hypertarget{tcfs-user_8go_source}{}\label{tcfs-user_8go_source}\index{ServerREST/types/tcfs-\/user.go@{ServerREST/types/tcfs-\/user.go}}
+\mbox{\hyperlink{tcfs-user_8go}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{tcfs-user_8go_source_l00001}00001\ package\ TCFSTypes}
+\DoxyCodeLine{\Hypertarget{tcfs-user_8go_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{tcfs-user_8go_source_l00003}00003\ import\ "{}fmt"{}}
+\DoxyCodeLine{\Hypertarget{tcfs-user_8go_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{tcfs-user_8go_source_l00005}00005\ type\ TCFSUser\ struct\ \{}
+\DoxyCodeLine{\Hypertarget{tcfs-user_8go_source_l00006}00006\ \ \ \ \ Username\ \ string}
+\DoxyCodeLine{\Hypertarget{tcfs-user_8go_source_l00007}00007\ \ \ \ \ Password\ \ string}
+\DoxyCodeLine{\Hypertarget{tcfs-user_8go_source_l00008}00008\ \ \ \ \ PublicKey\ string}
+\DoxyCodeLine{\Hypertarget{tcfs-user_8go_source_l00009}00009\ \}}
+\DoxyCodeLine{\Hypertarget{tcfs-user_8go_source_l00010}00010\ }
+\DoxyCodeLine{\Hypertarget{tcfs-user_8go_source_l00011}00011\ type\ SharedFile\ struct\ \{}
+\DoxyCodeLine{\Hypertarget{tcfs-user_8go_source_l00012}00012\ \ \ \ \ User\ \ \ \ \ \ \ \ \ \ \ TCFSUser}
+\DoxyCodeLine{\Hypertarget{tcfs-user_8go_source_l00013}00013\ \ \ \ \ FileID\ \ \ \ \ \ \ \ \ int}
+\DoxyCodeLine{\Hypertarget{tcfs-user_8go_source_l00014}00014\ \ \ \ \ Share\ \ \ \ \ \ \ \ \ \ []byte}
+\DoxyCodeLine{\Hypertarget{tcfs-user_8go_source_l00015}00015\ \ \ \ \ EncryptedShare\ string}
+\DoxyCodeLine{\Hypertarget{tcfs-user_8go_source_l00016}00016\ \}}
+\DoxyCodeLine{\Hypertarget{tcfs-user_8go_source_l00017}00017\ }
+\DoxyCodeLine{\Hypertarget{tcfs-user_8go_source_l00018}00018\ func\ (s\ SharedFile)\ String()\ string\ \{}
+\DoxyCodeLine{\Hypertarget{tcfs-user_8go_source_l00019}00019\ \ \ \ \ return\ fmt.Sprintf("{}"{}+}
+\DoxyCodeLine{\Hypertarget{tcfs-user_8go_source_l00020}00020\ \ \ \ \ \ \ \ \ "{}-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\(\backslash\)n"{}+}
+\DoxyCodeLine{\Hypertarget{tcfs-user_8go_source_l00021}00021\ \ \ \ \ \ \ \ \ "{}User:\(\backslash\)n"{}+}
+\DoxyCodeLine{\Hypertarget{tcfs-user_8go_source_l00022}00022\ \ \ \ \ \ \ \ \ "{}\ \ \ Name\%v\(\backslash\)n"{}+}
+\DoxyCodeLine{\Hypertarget{tcfs-user_8go_source_l00023}00023\ \ \ \ \ \ \ \ \ "{}\ \ \ Pubkey\%v\(\backslash\)n"{}+}
+\DoxyCodeLine{\Hypertarget{tcfs-user_8go_source_l00024}00024\ \ \ \ \ \ \ \ \ "{}\ \ \ Pass\%v\(\backslash\)n"{}+}
+\DoxyCodeLine{\Hypertarget{tcfs-user_8go_source_l00025}00025\ \ \ \ \ \ \ \ \ "{}FileID:\ \%v\(\backslash\)n"{}+}
+\DoxyCodeLine{\Hypertarget{tcfs-user_8go_source_l00026}00026\ \ \ \ \ \ \ \ \ "{}Share:\ \%v\(\backslash\)n"{}+}
+\DoxyCodeLine{\Hypertarget{tcfs-user_8go_source_l00027}00027\ \ \ \ \ \ \ \ \ "{}EncryptedShare\ \%v\(\backslash\)n"{}+}
+\DoxyCodeLine{\Hypertarget{tcfs-user_8go_source_l00028}00028\ \ \ \ \ \ \ \ \ "{}-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/"{}+}
+\DoxyCodeLine{\Hypertarget{tcfs-user_8go_source_l00029}00029\ \ \ \ \ \ \ \ \ "{}"{},\ s.User.Username,\ s.User.PublicKey,\ s.User.Password,\ s.FileID,\ s.Share,\ s.EncryptedShare)}
+\DoxyCodeLine{\Hypertarget{tcfs-user_8go_source_l00030}00030\ \}}
+
+\end{DoxyCode}

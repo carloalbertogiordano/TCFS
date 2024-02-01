@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="namespacecommand__handler_1_1enviroinment" kind="namespace" language="Python">
+    <compoundname>command_handler::enviroinment</compoundname>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="namespacecommand__handler_1_1enviroinment_1a8036811b5b79bce2e21a023ef33d4786" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>command_handler.enviroinment.countdown</definition>
+        <argsstring>(msg, delta)</argsstring>
+        <name>countdown</name>
+        <qualifiedname>command_handler.enviroinment.countdown</qualifiedname>
+        <param>
+          <type>msg</type>
+          <defname>msg</defname>
+        </param>
+        <param>
+          <type>delta</type>
+          <defname>delta</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="user/command_handler/enviroinment.py" line="6" column="1" bodyfile="user/command_handler/enviroinment.py" bodystart="6" bodyend="11"/>
+        <referencedby refid="namespacecommand__handler_1_1enviroinment_1a79405ba6d662be42ecaacf8469b76494" compoundref="enviroinment_8py" startline="12" endline="19">command_handler.enviroinment.init_env</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="namespacecommand__handler_1_1enviroinment_1a79405ba6d662be42ecaacf8469b76494" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>command_handler.enviroinment.init_env</definition>
+        <argsstring>()</argsstring>
+        <name>init_env</name>
+        <qualifiedname>command_handler.enviroinment.init_env</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="user/command_handler/enviroinment.py" line="12" column="1" bodyfile="user/command_handler/enviroinment.py" bodystart="12" bodyend="19"/>
+        <references refid="namespacecommand__handler_1_1enviroinment_1a8036811b5b79bce2e21a023ef33d4786" compoundref="enviroinment_8py" startline="6" endline="11">command_handler.enviroinment.countdown</references>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="user/command_handler/enviroinment.py" line="1" column="1"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,266 @@
+.TH "user/old_stuff/tcfs_helper_tools.c" 3 "Thu Feb 1 2024 17:25:40" "Version 0.3.2" "TCFS" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+user/old_stuff/tcfs_helper_tools.c \- This file contains the logic and implementation of functions needed to perform the operations requested in \fBuser_tcfs\&.c\fP\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+\fC#include 'tcfs_helper_tools\&.h'\fP
+.br
+
+.SS "Macros"
+
+.in +1c
+.ti -1c
+.RI "#define \fBPASS_SIZE\fP   33"
+.br
+.RI "Set the password size to 33 as AES 256 uses a 32 byte key\&. An \\0 is added for safety\&. This definition is marked as internal and should not be used directly by the user\&. "
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "int \fBhandle_local_mount\fP ()"
+.br
+.ti -1c
+.RI "int \fBhandle_remote_mount\fP ()"
+.br
+.ti -1c
+.RI "int \fBhandle_folder_mount\fP ()"
+.br
+.ti -1c
+.RI "int \fBdo_mount\fP ()"
+.br
+.RI "Execute the mount of either a Network FS (for ex NFS), Local FS (for ex a block device), Local folder (a folder of the system) "
+.ti -1c
+.RI "int \fBgenerate_random_string\fP (char *str)"
+.br
+.RI "Generate a random string that will be used as a folder name for the mount\&. This function is marked as internal and should not be used by the user\&. "
+.ti -1c
+.RI "int \fBdirectory_exists\fP (const char *path)"
+.br
+.RI "Check if a directory already exists\&. This function is marked as internal and should not be used by the user\&. "
+.ti -1c
+.RI "char * \fBsetup_tcfs_mount_folder\fP ()"
+.br
+.RI "Creates the \&.tcfs folder in the user HOME\&. Then this creates a folder with a random name so that create_tcfs_mount_local_folder function can use it\&. \fBcreate_tcfs_mount_local_folder\fP This function is marked as internal and should not be used by the user\&. "
+.ti -1c
+.RI "void \fBget_pass\fP (char *pw)"
+.br
+.RI "fetch the password of the current user\&. This function is marked as internal and should not be used by the user "
+.ti -1c
+.RI "void \fBget_source_dest\fP (char *source, char *dest)"
+.br
+.ti -1c
+.RI "char * \fBcreate_tcfs_mount_local_folder\fP ()"
+.br
+.RI "Create a temporary folder in HOME/\&.tcfs\&. "
+.ti -1c
+.RI "int \fBmount_tcfs_folder\fP (char *tmp_path, char *destination)"
+.br
+.ti -1c
+.RI "void \fBclearKeyboardBuffer\fP ()"
+.br
+.ti -1c
+.RI "int \fBsetup_tcfs_env\fP ()"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+This file contains the logic and implementation of functions needed to perform the operations requested in \fBuser_tcfs\&.c\fP\&. 
+
+
+.PP
+\fBSee also\fP
+.RS 4
+\fBuser_tcfs\&.c\fP 
+.RE
+.PP
+
+.PP
+Definition in file \fBtcfs_helper_tools\&.c\fP\&.
+.SH "Macro Definition Documentation"
+.PP 
+.SS "#define PASS_SIZE   33"
+
+.PP
+Set the password size to 33 as AES 256 uses a 32 byte key\&. An \\0 is added for safety\&. This definition is marked as internal and should not be used directly by the user\&. 
+.PP
+Definition at line \fB14\fP of file \fBtcfs_helper_tools\&.c\fP\&.
+.SH "Function Documentation"
+.PP 
+.SS "void clearKeyboardBuffer ()"
+
+.PP
+Definition at line \fB339\fP of file \fBtcfs_helper_tools\&.c\fP\&.
+.PP
+Referenced by \fBhandle_remote_mount()\fP\&.
+.SS "char * create_tcfs_mount_local_folder ()"
+
+.PP
+Create a temporary folder in HOME/\&.tcfs\&. 
+.PP
+\fBReturns\fP
+.RS 4
+char * the fullpath to the generated folder 
+.RE
+.PP
+
+.PP
+Definition at line \fB219\fP of file \fBtcfs_helper_tools\&.c\fP\&.
+.PP
+References \fBsetup_tcfs_mount_folder()\fP\&.
+.PP
+Referenced by \fBhandle_local_mount()\fP\&.
+.SS "int directory_exists (const char * path)"
+
+.PP
+Check if a directory already exists\&. This function is marked as internal and should not be used by the user\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIpath\fP Fullpath to the dir 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+int _ret 
+.RE
+.PP
+
+.PP
+Definition at line \fB83\fP of file \fBtcfs_helper_tools\&.c\fP\&.
+.PP
+Referenced by \fBsetup_tcfs_mount_folder()\fP\&.
+.SS "int do_mount ()"
+
+.PP
+Execute the mount of either a Network FS (for ex NFS), Local FS (for ex a block device), Local folder (a folder of the system) 
+.PP
+\fBReturns\fP
+.RS 4
+_ret 
+.RE
+.PP
+
+.PP
+Definition at line \fB25\fP of file \fBtcfs_helper_tools\&.c\fP\&.
+.PP
+References \fBhandle_folder_mount()\fP, \fBhandle_local_mount()\fP, and \fBhandle_remote_mount()\fP\&.
+.PP
+Referenced by \fBmain()\fP\&.
+.SS "int generate_random_string (char * str)"
+
+.PP
+Generate a random string that will be used as a folder name for the mount\&. This function is marked as internal and should not be used by the user\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIstr\fP The result will be saved here 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+int _ret 
+.RE
+.PP
+
+.PP
+Definition at line \fB64\fP of file \fBtcfs_helper_tools\&.c\fP\&.
+.PP
+Referenced by \fBsetup_tcfs_mount_folder()\fP\&.
+.SS "void get_pass (char * pw)"
+
+.PP
+fetch the password of the current user\&. This function is marked as internal and should not be used by the user 
+.PP
+\fBParameters\fP
+.RS 4
+\fIpw\fP String to save the password to 
+.RE
+.PP
+\fBTodo\fP
+.RS 4
+This will be changed when a public/private key model will be avilable to TCFS userspace module 
+.RE
+.PP
+
+.PP
+Definition at line \fB162\fP of file \fBtcfs_helper_tools\&.c\fP\&.
+.PP
+References \fBPASS_SIZE\fP\&.
+.PP
+Referenced by \fBmount_tcfs_folder()\fP\&.
+.SS "void get_source_dest (char * source, char * dest)"
+
+.PP
+\fBParameters\fP
+.RS 4
+\fIAsk\fP the user to insert the source and the destination of the mount\&. This function is marked as internal and should not be used by the user 
+.RE
+.PP
+
+.PP
+Definition at line \fB204\fP of file \fBtcfs_helper_tools\&.c\fP\&.
+.PP
+Referenced by \fBhandle_folder_mount()\fP, and \fBhandle_local_mount()\fP\&.
+.SS "int handle_folder_mount ()"
+
+.PP
+Definition at line \fB318\fP of file \fBtcfs_helper_tools\&.c\fP\&.
+.PP
+References \fBget_source_dest()\fP, and \fBmount_tcfs_folder()\fP\&.
+.PP
+Referenced by \fBdo_mount()\fP\&.
+.SS "int handle_local_mount ()"
+
+.PP
+Definition at line \fB274\fP of file \fBtcfs_helper_tools\&.c\fP\&.
+.PP
+References \fBcreate_tcfs_mount_local_folder()\fP, \fBget_source_dest()\fP, and \fBmount_tcfs_folder()\fP\&.
+.PP
+Referenced by \fBdo_mount()\fP\&.
+.SS "int handle_remote_mount ()"
+
+.PP
+Definition at line \fB347\fP of file \fBtcfs_helper_tools\&.c\fP\&.
+.PP
+References \fBclearKeyboardBuffer()\fP, and \fBmount_tcfs_folder()\fP\&.
+.PP
+Referenced by \fBdo_mount()\fP\&.
+.SS "int mount_tcfs_folder (char * tmp_path, char * destination)"
+
+.PP
+Definition at line \fB235\fP of file \fBtcfs_helper_tools\&.c\fP\&.
+.PP
+References \fBget_pass()\fP, and \fBPASS_SIZE\fP\&.
+.PP
+Referenced by \fBhandle_folder_mount()\fP, \fBhandle_local_mount()\fP, and \fBhandle_remote_mount()\fP\&.
+.SS "int setup_tcfs_env ()"
+
+.PP
+Definition at line \fB405\fP of file \fBtcfs_helper_tools\&.c\fP\&.
+.PP
+Referenced by \fBmain()\fP\&.
+.SS "char * setup_tcfs_mount_folder ()"
+
+.PP
+Creates the \&.tcfs folder in the user HOME\&. Then this creates a folder with a random name so that create_tcfs_mount_local_folder function can use it\&. \fBcreate_tcfs_mount_local_folder\fP This function is marked as internal and should not be used by the user\&. 
+.PP
+\fBReturns\fP
+.RS 4
+a folder with a random name inside the $HOME/\&.tcfs folder 
+.RE
+.PP
+
+.PP
+Definition at line \fB95\fP of file \fBtcfs_helper_tools\&.c\fP\&.
+.PP
+References \fBdirectory_exists()\fP, and \fBgenerate_random_string()\fP\&.
+.PP
+Referenced by \fBcreate_tcfs_mount_local_folder()\fP\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for TCFS from the source code\&.

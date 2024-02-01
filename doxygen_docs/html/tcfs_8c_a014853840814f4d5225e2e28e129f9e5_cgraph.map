@@ -1,0 +1,17 @@
+<map id="tcfs_fsync" name="tcfs_fsync">
+<area shape="rect" id="Node000001" title="Synchronizes file contents." alt="" coords="5,157,88,184"/>
+<area shape="rect" id="Node000002" href="$crypt-utils_8c.html#a5c45db4d3db3ef274fb6356e1a95e644" title="Encrypts the given filename with its path using a specified key." alt="" coords="136,107,316,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="87,157,161,135,162,141,89,162"/>
+<area shape="rect" id="Node000006" href="$tcfs__utils_8c.html#a62b66e43a7ad8b8cf9fcad67f71a7a8b" title="Logs a formatted message to a file with timestamp." alt="" coords="750,107,841,133"/>
+<area shape="poly" id="edge7_Node000001_Node000006" title=" " alt="" coords="88,165,735,121,735,127,88,171"/>
+<area shape="rect" id="Node000007" href="$tcfs__utils_8c.html#ac4ff59963f4a122c9f802c0c2bf2abc8" title="Prefix the realpath to the fuse path." alt="" coords="183,208,269,235"/>
+<area shape="poly" id="edge8_Node000001_Node000007" title=" " alt="" coords="89,180,169,203,168,208,87,185"/>
+<area shape="rect" id="Node000003" href="$crypt-utils_8c.html#aa4a7facde8c6f63a7225c07e92232b2e" title=" " alt="" coords="364,56,550,83"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="290,103,378,84,379,89,291,109"/>
+<area shape="poly" id="edge6_Node000002_Node000006" title=" " alt="" coords="316,117,735,117,735,123,316,123"/>
+<area shape="rect" id="Node000004" href="$crypt-utils_8c.html#aa926098a8843cf0ab6bd7eb8b3bbd2e6" title="Encrypt the *plaintext string using a AES 256 key." alt="" coords="598,5,702,32"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="510,53,583,33,584,39,512,58"/>
+<area shape="rect" id="Node000005" href="$tcfs__utils_8c.html#a819d57d5c053a25772508a943d1bcc48" title="Convert a string to its hexadecimal representation." alt="" coords="600,56,700,83"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="551,67,586,67,586,72,551,72"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="692,81,742,99,740,104,690,86"/>
+</map>

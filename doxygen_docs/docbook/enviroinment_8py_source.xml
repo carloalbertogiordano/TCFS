@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_enviroinment_8py_source" xml:lang="en-US">
+<title>enviroinment.py</title>
+<indexterm><primary>user/command_handler/enviroinment.py</primary></indexterm>
+Go to the documentation of this file.<programlisting linenumbering="unnumbered"><anchor xml:id="_enviroinment_8py_source_1l00001"/><link linkend="_namespacecommand__handler">00001</link> <emphasis role="keyword">import</emphasis>&#32;os
+<anchor xml:id="_enviroinment_8py_source_1l00002"/>00002 <emphasis role="keyword">import</emphasis>&#32;shutil
+<anchor xml:id="_enviroinment_8py_source_1l00003"/>00003 <emphasis role="keyword">import</emphasis>&#32;time
+<anchor xml:id="_enviroinment_8py_source_1l00004"/>00004 
+<anchor xml:id="_enviroinment_8py_source_1l00005"/>00005 
+<anchor xml:id="_enviroinment_8py_source_1l00006"/><link linkend="_namespacecommand__handler_1_1enviroinment_1a8036811b5b79bce2e21a023ef33d4786">00006</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespacecommand__handler_1_1enviroinment_1a8036811b5b79bce2e21a023ef33d4786">countdown</link>(msg,&#32;delta):
+<anchor xml:id="_enviroinment_8py_source_1l00007"/>00007 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;i&#32;<emphasis role="keywordflow">in</emphasis>&#32;range(delta,&#32;0,&#32;-1):
+<anchor xml:id="_enviroinment_8py_source_1l00008"/>00008 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;print(f<emphasis role="stringliteral">&quot;{msg}&#32;{delta}&quot;</emphasis>)
+<anchor xml:id="_enviroinment_8py_source_1l00009"/>00009 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;time.sleep(1)
+<anchor xml:id="_enviroinment_8py_source_1l00010"/>00010 
+<anchor xml:id="_enviroinment_8py_source_1l00011"/>00011 
+<anchor xml:id="_enviroinment_8py_source_1l00012"/><link linkend="_namespacecommand__handler_1_1enviroinment_1a79405ba6d662be42ecaacf8469b76494">00012</link> <emphasis role="keyword">def&#32;</emphasis><link linkend="_namespacecommand__handler_1_1enviroinment_1a79405ba6d662be42ecaacf8469b76494">init_env</link>():
+<anchor xml:id="_enviroinment_8py_source_1l00013"/>00013 &#32;&#32;&#32;&#32;tcfs_folder&#32;=&#32;<emphasis role="stringliteral">&quot;~/.tcfs&quot;</emphasis>
+<anchor xml:id="_enviroinment_8py_source_1l00014"/>00014 &#32;&#32;&#32;&#32;data_folder&#32;=&#32;tcfs_folder&#32;+&#32;<emphasis role="stringliteral">&quot;/data&quot;</emphasis>
+<anchor xml:id="_enviroinment_8py_source_1l00015"/>00015 
+<anchor xml:id="_enviroinment_8py_source_1l00016"/>00016 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;os.path.exists(tcfs_folder)&#32;<emphasis role="keywordflow">and</emphasis>&#32;os.path.isdir(tcfs_folder):
+<anchor xml:id="_enviroinment_8py_source_1l00017"/>00017 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;print(<emphasis role="stringliteral">&quot;WARN:&#32;Deleting&#32;main&#32;tcfs&#32;folder,&#32;all&#32;your&#32;data&#32;will&#32;be&#32;lost&quot;</emphasis>)
+<anchor xml:id="_enviroinment_8py_source_1l00018"/>00018 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_namespacecommand__handler_1_1enviroinment_1a8036811b5b79bce2e21a023ef33d4786">countdown</link>(<emphasis role="stringliteral">&quot;\r&#32;Deleting&#32;in&#32;....&quot;</emphasis>,&#32;5)
+</programlisting></section>

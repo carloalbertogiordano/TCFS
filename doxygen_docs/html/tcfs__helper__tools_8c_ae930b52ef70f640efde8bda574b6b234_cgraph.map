@@ -1,0 +1,9 @@
+<map id="create_tcfs_mount_local_folder" name="create_tcfs_mount_local_folder">
+<area shape="rect" id="Node000001" title="Create a temporary folder in HOME/.tcfs." alt="" coords="5,23,169,65"/>
+<area shape="rect" id="Node000002" href="$tcfs__helper__tools_8c.html#a3644c45d6131fe1528ce36163e299fd9" title="Creates the .tcfs folder in the user HOME. Then this creates a folder with a random name so that crea..." alt="" coords="217,31,381,57"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="169,41,202,41,202,47,169,47"/>
+<area shape="rect" id="Node000003" href="$tcfs__helper__tools_8c.html#ab3cdcc12b3bc92a382784027c94a2027" title="Check if a directory already exists. This function is marked as internal and should not be used by th..." alt="" coords="453,5,566,32"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="381,31,438,25,438,30,382,37"/>
+<area shape="rect" id="Node000004" href="$tcfs__helper__tools_8c.html#a8ef1473d59fd1cfc680fe1b227604a02" title="Generate a random string that will be used as a folder name for the mount. This function is marked as..." alt="" coords="429,56,589,83"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="382,51,415,55,414,61,381,57"/>
+</map>

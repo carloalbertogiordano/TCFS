@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_dir_4ba660e7e42715687809dca61486f6bc" xml:lang="en-US">
+<title>ServerREST/db Directory Reference</title>
+<indexterm><primary>ServerREST/db Directory Reference</primary></indexterm>
+Directory dependency graph for db:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="dir_4ba660e7e42715687809dca61486f6bc_dep.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+<simplesect>
+    <title>Files    </title>
+        <itemizedlist>
+            <listitem><para>file <link linkend="_db_8go">db.go</link></para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+</section>

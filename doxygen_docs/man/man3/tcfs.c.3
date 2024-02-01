@@ -1,0 +1,1271 @@
+.TH "userspace-module/tcfs.c" 3 "Thu Feb 1 2024 17:25:40" "Version 0.3.2" "TCFS" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+userspace-module/tcfs.c
+.SH SYNOPSIS
+.br
+.PP
+\fC#include 'utils/crypt\-utils/crypt\-utils\&.h'\fP
+.br
+\fC#include 'utils/tcfs_utils/tcfs_utils\&.h'\fP
+.br
+\fC#include <argp\&.h>\fP
+.br
+\fC#include <dirent\&.h>\fP
+.br
+\fC#include <errno\&.h>\fP
+.br
+\fC#include <fcntl\&.h>\fP
+.br
+\fC#include <fuse3/fuse\&.h>\fP
+.br
+\fC#include <limits\&.h>\fP
+.br
+\fC#include <linux/limits\&.h>\fP
+.br
+\fC#include <pwd\&.h>\fP
+.br
+\fC#include <stdio\&.h>\fP
+.br
+\fC#include <string\&.h>\fP
+.br
+\fC#include <sys/stat\&.h>\fP
+.br
+\fC#include <sys/time\&.h>\fP
+.br
+\fC#include <sys/xattr\&.h>\fP
+.br
+\fC#include <time\&.h>\fP
+.br
+\fC#include <unistd\&.h>\fP
+.br
+
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "struct \fBarguments\fP"
+.br
+.RI "Structure to store command-line arguments\&. "
+.in -1c
+.SS "Macros"
+
+.in +1c
+.ti -1c
+.RI "#define \fBFUSE_USE_VERSION\fP   30"
+.br
+.ti -1c
+.RI "#define \fBHAVE_SETXATTR\fP"
+.br
+.ti -1c
+.RI "#define \fB_XOPEN_SOURCE\fP   500"
+.br
+.ti -1c
+.RI "#define \fBTCFS_SUCCESS\fP   0"
+.br
+.ti -1c
+.RI "#define \fBERR_inval_arg_len\fP   1"
+.br
+.ti -1c
+.RI "#define \fBERR_inval_key\fP   2"
+.br
+.ti -1c
+.RI "#define \fBERR_invalid_enc_dir_name\fP   3"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "static int \fBtcfs_getxattr\fP (const char *fuse_path, const char *name, char *value, size_t size)"
+.br
+.RI "Get extended attribute data\&. "
+.ti -1c
+.RI "static int \fBtcfs_opendir\fP (const char *fuse_path, struct fuse_file_info *fi)"
+.br
+.RI "Opens a directory\&. "
+.ti -1c
+.RI "static int \fBtcfs_getattr\fP (const char *fuse_path, struct stat *stbuf, struct fuse_file_info *fi)"
+.br
+.RI "Gets file attributes\&. "
+.ti -1c
+.RI "static int \fBtcfs_access\fP (const char *fuse_path, int mask)"
+.br
+.RI "Checks file access permissions\&. "
+.ti -1c
+.RI "static int \fBtcfs_readlink\fP (const char *fuse_path, char *buf, size_t size)"
+.br
+.RI "Reads the target of a symbolic link\&. "
+.ti -1c
+.RI "static int \fBtcfs_readdir\fP (const char *fuse_path, void *buf, fuse_fill_dir_t filler, off_t offset, struct fuse_file_info *fi, enum fuse_readdir_flags frdf)"
+.br
+.RI "Reads a directory\&. "
+.ti -1c
+.RI "static int \fBtcfs_mknod\fP (const char *fuse_path, mode_t mode, dev_t rdev)"
+.br
+.RI "Creates a regular file or a special file (block or character)\&. "
+.ti -1c
+.RI "static int \fBtcfs_mkdir\fP (const char *fuse_path, mode_t mode)"
+.br
+.RI "Creates a directory\&. "
+.ti -1c
+.RI "static int \fBtcfs_unlink\fP (const char *fuse_path)"
+.br
+.RI "Removes a file\&. "
+.ti -1c
+.RI "static int \fBtcfs_rmdir\fP (const char *fuse_path)"
+.br
+.RI "Removes a directory\&. "
+.ti -1c
+.RI "static int \fBtcfs_symlink\fP (const char *from, const char *to)"
+.br
+.RI "Creates a symbolic link\&. "
+.ti -1c
+.RI "static int \fBtcfs_rename\fP (const char *from, const char *to, unsigned int flags)"
+.br
+.RI "Renames a file or a directory\&. "
+.ti -1c
+.RI "static int \fBtcfs_link\fP (const char *from, const char *to)"
+.br
+.RI "Creates a hard link\&. "
+.ti -1c
+.RI "static int \fBtcfs_chmod\fP (const char *fuse_path, mode_t mode, struct fuse_file_info *fi)"
+.br
+.RI "Changes the permissions of a file\&. "
+.ti -1c
+.RI "static int \fBtcfs_chown\fP (const char *fuse_path, uid_t uid, gid_t gid, struct fuse_file_info *fi)"
+.br
+.RI "Changes the owner and group of a file\&. "
+.ti -1c
+.RI "static int \fBtcfs_truncate\fP (const char *fuse_path, off_t size, struct fuse_file_info *fi)"
+.br
+.RI "Truncates or extends the size of a file\&. "
+.ti -1c
+.RI "static int \fBtcfs_utimens\fP (const char *fuse_path, const struct timespec ts[2], struct fuse_file_info *fi)"
+.br
+.RI "Modify the access and modification timestamps of a file in the TCFS file system\&. "
+.ti -1c
+.RI "static int \fBtcfs_open\fP (const char *fuse_path, struct fuse_file_info *fi)"
+.br
+.RI "Opens a file\&. "
+.ti -1c
+.RI "static int \fBfile_size\fP (FILE *file)"
+.br
+.RI "Get the size of a file in the TCFS file system\&. "
+.ti -1c
+.RI "static int \fBtcfs_read\fP (const char *fuse_path, char *buf, size_t size, off_t offset, struct fuse_file_info *fi)"
+.br
+.RI "Reads data from an open file\&. "
+.ti -1c
+.RI "static int \fBtcfs_write\fP (const char *fuse_path, const char *buf, size_t size, off_t offset, struct fuse_file_info *fi)"
+.br
+.RI "Writes data to an open file\&. "
+.ti -1c
+.RI "static int \fBtcfs_statfs\fP (const char *fuse_path, struct statvfs *stbuf)"
+.br
+.RI "Get file system statistics\&. "
+.ti -1c
+.RI "static int \fBtcfs_setxattr\fP (const char *fuse_path, const char *name, const char *value, size_t size, int flags)"
+.br
+.RI "Sets extended attributes\&. "
+.ti -1c
+.RI "static int \fBtcfs_create\fP (const char *fuse_path, mode_t mode, struct fuse_file_info *fi)"
+.br
+.RI "Create and open a file\&. "
+.ti -1c
+.RI "static int \fBtcfs_release\fP (const char *fuse_path, struct fuse_file_info *fi)"
+.br
+.RI "Releases an open file\&. "
+.ti -1c
+.RI "static int \fBtcfs_fsync\fP (const char *fuse_path, int isdatasync, struct fuse_file_info *fi)"
+.br
+.RI "Synchronizes file contents\&. "
+.ti -1c
+.RI "static int \fBtcfs_listxattr\fP (const char *fuse_path, char *list, size_t size)"
+.br
+.RI "Lists extended attributes\&. "
+.ti -1c
+.RI "static int \fBtcfs_removexattr\fP (const char *fuse_path, const char *name)"
+.br
+.RI "Remove an extended attribute\&. "
+.ti -1c
+.RI "static error_t \fBparse_opt\fP (int key, char *arg, struct argp_state *state)"
+.br
+.RI "Parse command-line options\&. "
+.ti -1c
+.RI "int \fBmain\fP (int argc, char *argv[])"
+.br
+.RI "Main entry point for TCFS\&. "
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "char * \fBroot_path\fP"
+.br
+.RI "Contains the fullpath to the mounted directory\&. "
+.ti -1c
+.RI "char * \fBpassword\fP"
+.br
+.RI "Contains the password passed to TCFS when started\&. "
+.ti -1c
+.RI "static struct fuse_operations \fBtcfs_oper\fP"
+.br
+.RI "TCFS file system operations\&. "
+.ti -1c
+.RI "const char * \fBargp_program_version\fP = 'TCFS Alpha'"
+.br
+.RI "TCFS version information\&. "
+.ti -1c
+.RI "const char * \fBargp_program_bug_address\fP = 'carloalbertogiordano@duck\&.com'"
+.br
+.RI "TCFS bug report email address\&. "
+.ti -1c
+.RI "static char \fBdoc\fP []"
+.br
+.RI "Documentation string for TCFS\&. "
+.ti -1c
+.RI "static char \fBargs_doc\fP [] = ''"
+.br
+.RI "Argument documentation string for TCFS\&. "
+.ti -1c
+.RI "static struct argp_option \fBoptions\fP []"
+.br
+.RI "TCFS command-line options\&. "
+.ti -1c
+.RI "static struct \fBargp\fP \fBargp\fP = { \fBoptions\fP, \fBparse_opt\fP, \fBargs_doc\fP, \fBdoc\fP, 0, NULL, NULL }"
+.br
+.RI "TCFS argp structure\&. "
+.in -1c
+.SH "Macro Definition Documentation"
+.PP 
+.SS "#define _XOPEN_SOURCE   500"
+
+.PP
+Definition at line \fB17\fP of file \fBtcfs\&.c\fP\&.
+.SS "#define ERR_inval_arg_len   1"
+
+.PP
+Definition at line \fB21\fP of file \fBtcfs\&.c\fP\&.
+.SS "#define ERR_inval_key   2"
+
+.PP
+Definition at line \fB22\fP of file \fBtcfs\&.c\fP\&.
+.SS "#define ERR_invalid_enc_dir_name   3"
+
+.PP
+Definition at line \fB23\fP of file \fBtcfs\&.c\fP\&.
+.SS "#define FUSE_USE_VERSION   30"
+
+.PP
+Definition at line \fB6\fP of file \fBtcfs\&.c\fP\&.
+.SS "#define HAVE_SETXATTR"
+
+.PP
+Definition at line \fB7\fP of file \fBtcfs\&.c\fP\&.
+.SS "#define TCFS_SUCCESS   0"
+
+.PP
+Definition at line \fB20\fP of file \fBtcfs\&.c\fP\&.
+.SH "Function Documentation"
+.PP 
+.SS "static int file_size (FILE * file)\fC [inline]\fP, \fC [static]\fP"
+
+.PP
+Get the size of a file in the TCFS file system\&. This function is called when the \fCgetattr\fP operation is performed on a file in the TCFS to obtain file attributes\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIfuse_path\fP The path of the encrypted file for which the size is requested\&. 
+.br
+\fIstbuf\fP Buffer to store the file attributes, including the size\&. 
+.br
+\fIfi\fP File information structure provided by FUSE\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+TCFS_SUCCESS on success, negative error code on failure\&.
+.RE
+.PP
+The \fCtcfs_file_size\fP function is invoked to retrieve the size of a file within the TCFS\&. It decodes the encrypted file path, translates it into the actual file path on the underlying file system, and then uses the \fCgetattr\fP function to obtain the file attributes, including the file size\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIfuse_path\fP The path of the encrypted file within the TCFS\&. 
+.br
+\fIstbuf\fP Buffer to store the file attributes, including the file size\&. 
+.br
+\fIfi\fP File information provided by FUSE, which may be used to obtain additional details about the file if needed\&.
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+true on success\&. On failure, it returns a negative error code representing the type of error encountered\&.
+.RE
+.PP
+\fBNote\fP
+.RS 4
+.IP "\(bu" 2
+The function is a crucial part of file attribute retrieval, and the size is a fundamental attribute of a file\&.
+.IP "\(bu" 2
+The correct functioning of this function is essential for providing accurate information about the file size\&.
+.PP
+.RE
+.PP
+\fBWarning\fP
+.RS 4
+.IP "\(bu" 2
+Ensure that the function correctly translates the encrypted file path into the actual file path on the underlying file system\&.
+.IP "\(bu" 2
+Verify that the file attributes, especially the size, are accurately retrieved and reported in the \fCstbuf\fP buffer\&. 
+.PP
+.RE
+.PP
+
+.PP
+Definition at line \fB711\fP of file \fBtcfs\&.c\fP\&.
+.PP
+Referenced by \fBtcfs_read()\fP, and \fBtcfs_write()\fP\&.
+.SS "int main (int argc, char * argv[])"
+
+.PP
+Main entry point for TCFS\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIargc\fP Number of command-line arguments\&. 
+.br
+\fIargv\fP Array of command-line arguments\&.
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+0 on success, error code on failure\&. 
+.RE
+.PP
+
+.PP
+Definition at line \fB1412\fP of file \fBtcfs\&.c\fP\&.
+.PP
+References \fBarguments::destination\fP, \fBERR_inval_arg_len\fP, \fBERR_inval_key\fP, \fBis_valid_key()\fP, \fBlogMessage()\fP, \fBpassword\fP, \fBarguments::password\fP, \fBroot_path\fP, \fBarguments::source\fP, \fBtcfs_oper\fP, and \fBTCFS_SUCCESS\fP\&.
+.SS "static error_t parse_opt (int key, char * arg, struct argp_state * state)\fC [static]\fP"
+
+.PP
+Parse command-line options\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIkey\fP Option key\&. 
+.br
+\fIarg\fP Option argument\&. 
+.br
+\fIstate\fP Parser state\&.
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+0 on success, error code on failure\&. 
+.RE
+.PP
+
+.PP
+Definition at line \fB1374\fP of file \fBtcfs\&.c\fP\&.
+.PP
+References \fBarguments::destination\fP, \fBarguments::password\fP, \fBarguments::source\fP, and \fBTCFS_SUCCESS\fP\&.
+.SS "static int tcfs_access (const char * fuse_path, int mask)\fC [static]\fP"
+
+.PP
+Checks file access permissions\&. This function is called to check file access permissions\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIfuse_path\fP The path to the file/directory\&. 
+.br
+\fImask\fP The requested access permissions\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+true on success, a negative error code on failure\&. 
+.RE
+.PP
+
+.PP
+Definition at line \fB132\fP of file \fBtcfs\&.c\fP\&.
+.PP
+References \fBencrypt_path()\fP, \fBlogMessage()\fP, \fBpassword\fP, \fBprefix_path()\fP, \fBroot_path\fP, and \fBTCFS_SUCCESS\fP\&.
+.PP
+Referenced by \fBtcfs_write()\fP\&.
+.SS "static int tcfs_chmod (const char * fuse_path, mode_t mode, struct fuse_file_info * fi)\fC [static]\fP"
+
+.PP
+Changes the permissions of a file\&. This function is called to change the permissions of a file\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIfuse_path\fP The path to the file\&. 
+.br
+\fImode\fP New file mode\&. 
+.br
+\fIfi\fP File information\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+true on success, a negative error code on failure\&. 
+.RE
+.PP
+
+.PP
+Definition at line \fB497\fP of file \fBtcfs\&.c\fP\&.
+.PP
+References \fBencrypt_path()\fP, \fBlogMessage()\fP, \fBpassword\fP, \fBprefix_path()\fP, \fBroot_path\fP, and \fBTCFS_SUCCESS\fP\&.
+.SS "static int tcfs_chown (const char * fuse_path, uid_t uid, gid_t gid, struct fuse_file_info * fi)\fC [static]\fP"
+
+.PP
+Changes the owner and group of a file\&. This function is called to change the owner and group of a file\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIfuse_path\fP The path to the file\&. 
+.br
+\fIuid\fP New user ID\&. 
+.br
+\fIgid\fP New group ID\&. 
+.br
+\fIfi\fP File information\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+true on success, a negative error code on failure\&. 
+.RE
+.PP
+
+.PP
+Definition at line \fB530\fP of file \fBtcfs\&.c\fP\&.
+.PP
+References \fBencrypt_path()\fP, \fBlogMessage()\fP, \fBpassword\fP, \fBprefix_path()\fP, \fBroot_path\fP, and \fBTCFS_SUCCESS\fP\&.
+.SS "static int tcfs_create (const char * fuse_path, mode_t mode, struct fuse_file_info * fi)\fC [static]\fP"
+
+.PP
+Create and open a file\&. This function is called when a new file is created in the TCFS file system\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIfuse_path\fP The path of the file to be created\&. 
+.br
+\fImode\fP The mode of the file (permissions)\&. 
+.br
+\fIfi\fP File information, including flags and an open file handle\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+TCFS_SUCCESS on success, negative error code on failure\&.
+.RE
+.PP
+The \fCcreate\fP function is invoked when a new file is created in the TCFS file system\&. It is responsible for setting up the necessary data structures, allocating resources, and opening the file for subsequent read and write operations\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIfuse_path\fP The path of the file within the TCFS\&. 
+.br
+\fImode\fP The mode of the file, specifying permissions and other attributes\&. 
+.br
+\fIfi\fP File information containing flags and an open file handle\&.
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+true on success\&. On failure, it returns a negative error code representing the type of error encountered\&.
+.RE
+.PP
+\fBNote\fP
+.RS 4
+.IP "\(bu" 2
+The function must create the file and return an open file handle in the \fCfi\fP structure\&.
+.IP "\(bu" 2
+Ensure proper handling of file permissions, resource allocation, and any other relevant attributes\&.
+.PP
+.RE
+.PP
+\fBWarning\fP
+.RS 4
+.IP "\(bu" 2
+Verify that the function correctly handles errors and returns the appropriate error codes\&.
+.IP "\(bu" 2
+Implement necessary checks to ensure the file is created successfully and is ready for subsequent operations\&. 
+.PP
+.RE
+.PP
+
+.PP
+Definition at line \fB1031\fP of file \fBtcfs\&.c\fP\&.
+.PP
+References \fBencrypt_path_and_filename()\fP, \fBencrypt_string()\fP, \fBgenerate_key()\fP, \fBis_valid_key()\fP, \fBlogMessage()\fP, \fBpassword\fP, \fBprefix_path()\fP, \fBroot_path\fP, \fBtcfs_setxattr()\fP, and \fBTCFS_SUCCESS\fP\&.
+.SS "static int tcfs_fsync (const char * fuse_path, int isdatasync, struct fuse_file_info * fi)\fC [static]\fP"
+
+.PP
+Synchronizes file contents\&. This function is called to synchronize file contents\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIfuse_path\fP The path to the file\&. 
+.br
+\fIdatasync\fP Flag indicating whether to sync only data\&. 
+.br
+\fIfi\fP File information\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+true on success, a negative error code on failure\&. 
+.RE
+.PP
+
+.PP
+Definition at line \fB1140\fP of file \fBtcfs\&.c\fP\&.
+.PP
+References \fBencrypt_path_and_filename()\fP, \fBlogMessage()\fP, \fBpassword\fP, \fBprefix_path()\fP, \fBroot_path\fP, and \fBTCFS_SUCCESS\fP\&.
+.SS "static int tcfs_getattr (const char * fuse_path, struct stat * stbuf, struct fuse_file_info * fi)\fC [static]\fP"
+
+.PP
+Gets file attributes\&. This function is called to get attributes for a file or directory\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIfuse_path\fP The path to the file/directory\&. 
+.br
+\fIstbuf\fP Buffer to fill with attributes\&. 
+.br
+\fIfi\fP File information\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+TCFS_SUCCESS on success, a negative error code on failure\&. 
+.RE
+.PP
+
+.PP
+Definition at line \fB99\fP of file \fBtcfs\&.c\fP\&.
+.PP
+References \fBencrypt_path()\fP, \fBlogMessage()\fP, \fBpassword\fP, \fBprefix_path()\fP, \fBroot_path\fP, and \fBTCFS_SUCCESS\fP\&.
+.SS "static int tcfs_getxattr (const char * fuse_path, const char * name, char * value, size_t size)\fC [static]\fP"
+
+.PP
+Get extended attribute data\&. This function is called to retrieve the value of an extended attribute for a specified file or directory\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIfuse_path\fP The path of the file or directory within the TCFS\&. 
+.br
+\fIname\fP The name of the extended attribute\&. 
+.br
+\fIvalue\fP Buffer to store the value of the extended attribute\&. 
+.br
+\fIsize\fP The size of the buffer\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+Size of the extended attribute value on success, negative error code on failure\&.
+.RE
+.PP
+The \fCgetxattr\fP function is invoked to obtain the value of an extended attribute associated with a file or directory within the TCFS file system\&. The attribute value is stored in the provided buffer (\fCvalue\fP) with a specified size\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIfuse_path\fP The path of the file or directory\&. 
+.br
+\fIname\fP The name of the extended attribute to retrieve\&. 
+.br
+\fIvalue\fP Buffer to store the value of the extended attribute\&. 
+.br
+\fIsize\fP The size of the buffer\&.
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+On success, the function returns the size of the extended attribute value\&. On failure, it returns a negative error code representing the type of error encountered\&.
+.RE
+.PP
+\fBNote\fP
+.RS 4
+.IP "\(bu" 2
+The function must ensure that the attribute value is properly retrieved and stored in the provided buffer\&.
+.IP "\(bu" 2
+Verify that the correct error codes are returned in case of failures or insufficient buffer size\&.
+.IP "\(bu" 2
+Implement appropriate checks to handle different scenarios and edge cases\&. 
+.PP
+.RE
+.PP
+
+.PP
+Definition at line \fB1199\fP of file \fBtcfs\&.c\fP\&.
+.PP
+References \fBencrypt_path_and_filename()\fP, \fBlogMessage()\fP, \fBpassword\fP, \fBprefix_path()\fP, and \fBroot_path\fP\&.
+.PP
+Referenced by \fBtcfs_read()\fP, and \fBtcfs_write()\fP\&.
+.SS "static int tcfs_link (const char * from, const char * to)\fC [static]\fP"
+
+.PP
+Creates a hard link\&. This function is called to create a hard link\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIfrom\fP Source path\&. 
+.br
+\fIto\fP Target path\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+true on success, a negative error code on failure\&. 
+.RE
+.PP
+
+.PP
+Definition at line \fB465\fP of file \fBtcfs\&.c\fP\&.
+.PP
+References \fBencrypt_path_and_filename()\fP, \fBlogMessage()\fP, \fBpassword\fP, \fBprefix_path()\fP, \fBroot_path\fP, and \fBTCFS_SUCCESS\fP\&.
+.SS "static int tcfs_listxattr (const char * fuse_path, char * list, size_t size)\fC [static]\fP"
+
+.PP
+Lists extended attributes\&. This function is called to list extended attributes\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIfuse_path\fP The path to the file\&. 
+.br
+\fIlist\fP Buffer to fill with the attribute list\&. 
+.br
+\fIsize\fP Size of the buffer\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+Size of the attribute list on success, a negative error code on failure\&. 
+.RE
+.PP
+
+.PP
+Definition at line \fB1229\fP of file \fBtcfs\&.c\fP\&.
+.PP
+References \fBencrypt_path_and_filename()\fP, \fBlogMessage()\fP, \fBpassword\fP, \fBprefix_path()\fP, and \fBroot_path\fP\&.
+.SS "static int tcfs_mkdir (const char * fuse_path, mode_t mode)\fC [static]\fP"
+
+.PP
+Creates a directory\&. This function is called to create a directory\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIfuse_path\fP The path to the directory\&. 
+.br
+\fImode\fP Directory mode\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+true on success, a negative error code on failure\&. 
+.RE
+.PP
+
+.PP
+Definition at line \fB324\fP of file \fBtcfs\&.c\fP\&.
+.PP
+References \fBencrypt_path()\fP, \fBlogMessage()\fP, \fBpassword\fP, \fBprefix_path()\fP, \fBroot_path\fP, and \fBTCFS_SUCCESS\fP\&.
+.SS "static int tcfs_mknod (const char * fuse_path, mode_t mode, dev_t rdev)\fC [static]\fP"
+
+.PP
+Creates a regular file or a special file (block or character)\&. This function is called to create a regular file or a special file\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIfuse_path\fP The path to the file\&. 
+.br
+\fImode\fP File mode\&. 
+.br
+\fIrdev\fP Device numbers (if the file is a special file)\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+true on success, a negative error code on failure\&. 
+.RE
+.PP
+
+.PP
+Definition at line \fB286\fP of file \fBtcfs\&.c\fP\&.
+.PP
+References \fBencrypt_path()\fP, \fBlogMessage()\fP, \fBpassword\fP, \fBprefix_path()\fP, \fBroot_path\fP, and \fBTCFS_SUCCESS\fP\&.
+.SS "static int tcfs_open (const char * fuse_path, struct fuse_file_info * fi)\fC [static]\fP"
+
+.PP
+Opens a file\&. This function is called to open a file\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIfuse_path\fP The path to the file\&. 
+.br
+\fIfi\fP File information\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+true on success, a negative error code on failure\&. 
+.RE
+.PP
+
+.PP
+Definition at line \fB651\fP of file \fBtcfs\&.c\fP\&.
+.PP
+References \fBencrypt_path()\fP, \fBlogMessage()\fP, \fBpassword\fP, \fBprefix_path()\fP, \fBroot_path\fP, and \fBTCFS_SUCCESS\fP\&.
+.SS "static int tcfs_opendir (const char * fuse_path, struct fuse_file_info * fi)\fC [static]\fP"
+
+.PP
+Opens a directory\&. This function is called when a directory is opened\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIfuse_path\fP The path to the directory\&. 
+.br
+\fIfi\fP File information\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+TCFS_SUCCESS on success, a negative error code on failure\&. 
+.RE
+.PP
+
+.PP
+Definition at line \fB67\fP of file \fBtcfs\&.c\fP\&.
+.PP
+References \fBencrypt_path()\fP, \fBlogMessage()\fP, \fBpassword\fP, \fBprefix_path()\fP, \fBroot_path\fP, and \fBTCFS_SUCCESS\fP\&.
+.SS "static int tcfs_read (const char * fuse_path, char * buf, size_t size, off_t offset, struct fuse_file_info * fi)\fC [static]\fP"
+
+.PP
+Reads data from an open file\&. This function is called to read data from an open file\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIfuse_path\fP The path to the file\&. 
+.br
+\fIbuf\fP Buffer to fill with data\&. 
+.br
+\fIsize\fP Number of bytes to read\&. 
+.br
+\fIoffset\fP Offset within the file\&. 
+.br
+\fIfi\fP File information\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+The number of bytes read, or a negative error code on failure\&. 
+.RE
+.PP
+
+.PP
+Definition at line \fB734\fP of file \fBtcfs\&.c\fP\&.
+.PP
+References \fBDECRYPT\fP, \fBdecrypt_string()\fP, \fBdo_crypt()\fP, \fBencrypt_path()\fP, \fBfile_size()\fP, \fBget_user_name()\fP, \fBlogMessage()\fP, \fBpassword\fP, \fBprefix_path()\fP, \fBroot_path\fP, and \fBtcfs_getxattr()\fP\&.
+.SS "static int tcfs_readdir (const char * fuse_path, void * buf, fuse_fill_dir_t filler, off_t offset, struct fuse_file_info * fi, enum fuse_readdir_flags frdf)\fC [static]\fP"
+
+.PP
+Reads a directory\&. This function is called to read the contents of a directory\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIfuse_path\fP The path to the directory\&. 
+.br
+\fIbuf\fP Buffer to fill with directory entries\&. 
+.br
+\fIfiller\fP Callback function to add entries to the buffer\&. 
+.br
+\fIoffset\fP The offset within the directory\&. 
+.br
+\fIfi\fP File information\&. 
+.br
+\fIfrdf\fP Additional flags for readdir operation\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+true on success, a negative error code on failure\&. 
+.RE
+.PP
+
+.PP
+Definition at line \fB196\fP of file \fBtcfs\&.c\fP\&.
+.PP
+References \fBdecrypt_file_name_with_hex()\fP, \fBdecrypt_path()\fP, \fBencrypt_path()\fP, \fBERR_invalid_enc_dir_name\fP, \fBlogMessage()\fP, \fBpassword\fP, \fBprefix_path()\fP, \fBroot_path\fP, and \fBTCFS_SUCCESS\fP\&.
+.SS "static int tcfs_readlink (const char * fuse_path, char * buf, size_t size)\fC [static]\fP"
+
+.PP
+Reads the target of a symbolic link\&. This function is called to read the target of a symbolic link\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIfuse_path\fP The path to the symbolic link\&. 
+.br
+\fIbuf\fP Buffer to fill with the link target\&. 
+.br
+\fIsize\fP The size of the buffer\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+true on success, a negative error code on failure\&. 
+.RE
+.PP
+
+.PP
+Definition at line \fB162\fP of file \fBtcfs\&.c\fP\&.
+.PP
+References \fBencrypt_path()\fP, \fBlogMessage()\fP, \fBpassword\fP, \fBprefix_path()\fP, \fBroot_path\fP, and \fBTCFS_SUCCESS\fP\&.
+.SS "static int tcfs_release (const char * fuse_path, struct fuse_file_info * fi)\fC [static]\fP"
+
+.PP
+Releases an open file\&. This function is called to release an open file\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIfuse_path\fP The path to the file\&. 
+.br
+\fIfi\fP File information\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+true on success, a negative error code on failure\&. 
+.RE
+.PP
+
+.PP
+Definition at line \fB1111\fP of file \fBtcfs\&.c\fP\&.
+.PP
+References \fBencrypt_path_and_filename()\fP, \fBlogMessage()\fP, \fBpassword\fP, \fBprefix_path()\fP, \fBroot_path\fP, and \fBTCFS_SUCCESS\fP\&.
+.SS "static int tcfs_removexattr (const char * fuse_path, const char * name)\fC [static]\fP"
+
+.PP
+Remove an extended attribute\&. This function is called to remove an extended attribute for a specified file or directory\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIfuse_path\fP The path of the file or directory within the TCFS\&. 
+.br
+\fIname\fP The name of the extended attribute to remove\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+TCFS_SUCCESS on success, negative error code on failure\&.
+.RE
+.PP
+The \fCremovexattr\fP function is invoked to remove the specified extended attribute associated with a file or directory within the TCFS file system\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIfuse_path\fP The path of the file or directory\&. 
+.br
+\fIname\fP The name of the extended attribute to remove\&.
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+On success, the function returns TCFS_SUCCESS\&. On failure, it returns a negative error code representing the type of error encountered\&.
+.RE
+.PP
+\fBNote\fP
+.RS 4
+.IP "\(bu" 2
+The function must ensure the proper removal of the specified extended attribute\&.
+.IP "\(bu" 2
+Verify that the correct error codes are returned in case of failures\&.
+.IP "\(bu" 2
+Implement appropriate checks to handle different scenarios and edge cases\&. 
+.PP
+.RE
+.PP
+
+.PP
+Definition at line \fB1273\fP of file \fBtcfs\&.c\fP\&.
+.PP
+References \fBencrypt_path_and_filename()\fP, \fBlogMessage()\fP, \fBpassword\fP, \fBprefix_path()\fP, \fBroot_path\fP, and \fBTCFS_SUCCESS\fP\&.
+.SS "static int tcfs_rename (const char * from, const char * to, unsigned int flags)\fC [static]\fP"
+
+.PP
+Renames a file or a directory\&. This function is called to rename a file or a directory\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIfrom\fP Source path\&. 
+.br
+\fIto\fP Target path\&. 
+.br
+\fIflags\fP Flags for the rename operation\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+true on success, a negative error code on failure\&. 
+.RE
+.PP
+
+.PP
+Definition at line \fB436\fP of file \fBtcfs\&.c\fP\&.
+.PP
+References \fBencrypt_path_and_filename()\fP, \fBlogMessage()\fP, \fBpassword\fP, \fBprefix_path()\fP, \fBroot_path\fP, and \fBTCFS_SUCCESS\fP\&.
+.SS "static int tcfs_rmdir (const char * fuse_path)\fC [static]\fP"
+
+.PP
+Removes a directory\&. This function is called to remove a directory\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIfuse_path\fP The path to the directory\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+true on success, a negative error code on failure\&. 
+.RE
+.PP
+
+.PP
+Definition at line \fB377\fP of file \fBtcfs\&.c\fP\&.
+.PP
+References \fBencrypt_path()\fP, \fBlogMessage()\fP, \fBpassword\fP, \fBprefix_path()\fP, \fBroot_path\fP, and \fBTCFS_SUCCESS\fP\&.
+.SS "static int tcfs_setxattr (const char * fuse_path, const char * name, const char * value, size_t size, int flags)\fC [static]\fP"
+
+.PP
+Sets extended attributes\&. This function is called to set extended attributes\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIfuse_path\fP The path to the file\&. 
+.br
+\fIname\fP Attribute name\&. 
+.br
+\fIvalue\fP Attribute value\&. 
+.br
+\fIsize\fP Size of the value\&. 
+.br
+\fIflags\fP Flags for the setxattr operation\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+true on success, a negative error code on failure\&. 
+.RE
+.PP
+
+.PP
+Definition at line \fB979\fP of file \fBtcfs\&.c\fP\&.
+.PP
+References \fBencrypt_path()\fP, \fBlogMessage()\fP, \fBpassword\fP, \fBprefix_path()\fP, \fBroot_path\fP, and \fBTCFS_SUCCESS\fP\&.
+.PP
+Referenced by \fBtcfs_create()\fP\&.
+.SS "static int tcfs_statfs (const char * fuse_path, struct statvfs * stbuf)\fC [static]\fP"
+
+.PP
+Get file system statistics\&. This function is called when the \fCstatfs\fP operation is performed to obtain statistics about the TCFS file system\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIfuse_path\fP The path of the file system for which statistics are requested\&. 
+.br
+\fIstbuf\fP Buffer to store file system statistics\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+TCFS_SUCCESS on success, negative error code on failure\&.
+.RE
+.PP
+The \fCtcfs_statfs\fP function is invoked to retrieve statistics about the TCFS file system\&. It may include information such as the total size, free space, and available space\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIfuse_path\fP The path of the file system within the TCFS\&. 
+.br
+\fIstbuf\fP Buffer to store the file system statistics\&.
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+true on success\&. On failure, it returns a negative error code representing the type of error encountered\&.
+.RE
+.PP
+\fBNote\fP
+.RS 4
+.IP "\(bu" 2
+The function is essential for providing information about the overall status of the TCFS file system\&.
+.IP "\(bu" 2
+Ensure that the file system statistics are accurately retrieved and reported in the \fCstbuf\fP buffer\&.
+.PP
+.RE
+.PP
+\fBWarning\fP
+.RS 4
+.IP "\(bu" 2
+Verify that the function correctly handles errors and returns the appropriate error codes\&.
+.IP "\(bu" 2
+The accuracy of the reported statistics is crucial for applications that rely on file system information\&. 
+.PP
+.RE
+.PP
+
+.PP
+Definition at line \fB952\fP of file \fBtcfs\&.c\fP\&.
+.PP
+References \fBlogMessage()\fP, \fBprefix_path()\fP, \fBroot_path\fP, and \fBTCFS_SUCCESS\fP\&.
+.SS "static int tcfs_symlink (const char * from, const char * to)\fC [static]\fP"
+
+.PP
+Creates a symbolic link\&. This function is called to create a symbolic link\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIfrom\fP Source path of the symbolic link\&. 
+.br
+\fIto\fP Target path of the symbolic link\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+true on success, a negative error code on failure\&. 
+.RE
+.PP
+
+.PP
+Definition at line \fB404\fP of file \fBtcfs\&.c\fP\&.
+.PP
+References \fBencrypt_path_and_filename()\fP, \fBlogMessage()\fP, \fBpassword\fP, \fBprefix_path()\fP, \fBroot_path\fP, and \fBTCFS_SUCCESS\fP\&.
+.SS "static int tcfs_truncate (const char * fuse_path, off_t size, struct fuse_file_info * fi)\fC [static]\fP"
+
+.PP
+Truncates or extends the size of a file\&. This function is called to truncate or extend the size of a file\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIfuse_path\fP The path to the file\&. 
+.br
+\fIsize\fP New size of the file\&. 
+.br
+\fIfi\fP File information\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+true on success, a negative error code on failure\&. 
+.RE
+.PP
+
+.PP
+Definition at line \fB559\fP of file \fBtcfs\&.c\fP\&.
+.PP
+References \fBencrypt_path()\fP, \fBlogMessage()\fP, \fBpassword\fP, \fBprefix_path()\fP, \fBroot_path\fP, and \fBTCFS_SUCCESS\fP\&.
+.SS "static int tcfs_unlink (const char * fuse_path)\fC [static]\fP"
+
+.PP
+Removes a file\&. This function is called to remove a file\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIfuse_path\fP The path to the file\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+true on success, a negative error code on failure\&. 
+.RE
+.PP
+
+.PP
+Definition at line \fB351\fP of file \fBtcfs\&.c\fP\&.
+.PP
+References \fBencrypt_path()\fP, \fBlogMessage()\fP, \fBpassword\fP, \fBprefix_path()\fP, \fBroot_path\fP, and \fBTCFS_SUCCESS\fP\&.
+.SS "static int tcfs_utimens (const char * fuse_path, const struct timespec ts[2], struct fuse_file_info * fi)\fC [static]\fP"
+
+.PP
+Modify the access and modification timestamps of a file in the TCFS file system\&. This function is called when the \fCutimens\fP operation is performed on a file in the TCFS\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIfuse_path\fP The path of the encrypted file for which timestamps need to be modified\&. 
+.br
+\fIts\fP An array of two timespec structures containing the new access and modification timestamps\&. 
+.br
+\fIfi\fP File information structure provided by FUSE\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+TCFS_SUCCESS on success, negative error code on failure\&.
+.RE
+.PP
+The \fCtcfs_utimens\fP function is invoked to modify the access and modification timestamps of a file within the TCFS\&. It decodes the encrypted file path, translates it into the actual file path on the underlying file system, and then uses the \fCutimes\fP function to apply the changes to the file timestamps\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIfuse_path\fP The path of the encrypted file within the TCFS\&. 
+.br
+\fIts\fP An array containing two timespec structures\&. The first structure represents the new access timestamp, and the second represents the new modification timestamp\&. 
+.br
+\fIfi\fP File information provided by FUSE, which may be used to obtain additional details about the file if needed\&.
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+true on success\&. On failure, it returns a negative error code representing the type of error encountered\&. 
+.RE
+.PP
+
+.PP
+Definition at line \fB612\fP of file \fBtcfs\&.c\fP\&.
+.PP
+References \fBencrypt_path()\fP, \fBlogMessage()\fP, \fBpassword\fP, \fBprefix_path()\fP, \fBroot_path\fP, and \fBTCFS_SUCCESS\fP\&.
+.SS "static int tcfs_write (const char * fuse_path, const char * buf, size_t size, off_t offset, struct fuse_file_info * fi)\fC [static]\fP"
+
+.PP
+Writes data to an open file\&. This function is called to write data to an open file\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIfuse_path\fP The path to the file\&. 
+.br
+\fIbuf\fP Data to write\&. 
+.br
+\fIsize\fP Number of bytes to write\&. 
+.br
+\fIoffset\fP Offset within the file\&. 
+.br
+\fIfi\fP File information\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+The number of bytes written, or a negative error code on failure\&. 
+.RE
+.PP
+
+.PP
+Definition at line \fB830\fP of file \fBtcfs\&.c\fP\&.
+.PP
+References \fBDECRYPT\fP, \fBdecrypt_string()\fP, \fBdo_crypt()\fP, \fBENCRYPT\fP, \fBencrypt_path()\fP, \fBfile_size()\fP, \fBlogMessage()\fP, \fBpassword\fP, \fBprefix_path()\fP, \fBroot_path\fP, \fBtcfs_access()\fP, \fBtcfs_getxattr()\fP, and \fBTCFS_SUCCESS\fP\&.
+.SH "Variable Documentation"
+.PP 
+.SS "struct \fBargp\fP \fBargp\fP = { \fBoptions\fP, \fBparse_opt\fP, \fBargs_doc\fP, \fBdoc\fP, 0, NULL, NULL }\fC [static]\fP"
+
+.PP
+TCFS argp structure\&. 
+.PP
+Definition at line \fB1401\fP of file \fBtcfs\&.c\fP\&.
+.SS "const char* argp_program_bug_address = 'carloalbertogiordano@duck\&.com'"
+
+.PP
+TCFS bug report email address\&. 
+.PP
+Definition at line \fB1332\fP of file \fBtcfs\&.c\fP\&.
+.SS "const char* argp_program_version = 'TCFS Alpha'"
+
+.PP
+TCFS version information\&. 
+.PP
+Definition at line \fB1327\fP of file \fBtcfs\&.c\fP\&.
+.SS "char args_doc[] = ''\fC [static]\fP"
+
+.PP
+Argument documentation string for TCFS\&. 
+.PP
+Definition at line \fB1343\fP of file \fBtcfs\&.c\fP\&.
+.SS "char doc[]\fC [static]\fP"
+\fBInitial value:\fP.PP
+.nf
+= "This is an implementation on TCFS\\ntcfs \-s <source_path> "
+                    "\-d <dest_path> \-p <password> [fuse arguments]"
+.fi
+
+.PP
+Documentation string for TCFS\&. 
+.PP
+Definition at line \fB1337\fP of file \fBtcfs\&.c\fP\&.
+.SS "struct argp_option options[]\fC [static]\fP"
+\fBInitial value:\fP.PP
+.nf
+= { { "source", 's', "SOURCE", 0, "Source file path", \-1 },
+        { "destination", 'd', "DESTINATION", 0, "Destination file path", \-1 },
+        { "password", 'p', "PASSWORD", 0, "Password", \-1 },
+        { NULL } }
+.fi
+
+.PP
+TCFS command-line options\&. 
+.PP
+Definition at line \fB1348\fP of file \fBtcfs\&.c\fP\&.
+.SS "password"
+
+.PP
+Contains the password passed to TCFS when started\&. 
+.PP
+Definition at line \fB52\fP of file \fBtcfs\&.c\fP\&.
+.PP
+Referenced by \fBmain()\fP, \fBtcfs_access()\fP, \fBtcfs_chmod()\fP, \fBtcfs_chown()\fP, \fBtcfs_create()\fP, \fBtcfs_fsync()\fP, \fBtcfs_getattr()\fP, \fBtcfs_getxattr()\fP, \fBtcfs_link()\fP, \fBtcfs_listxattr()\fP, \fBtcfs_mkdir()\fP, \fBtcfs_mknod()\fP, \fBtcfs_open()\fP, \fBtcfs_opendir()\fP, \fBtcfs_read()\fP, \fBtcfs_readdir()\fP, \fBtcfs_readlink()\fP, \fBtcfs_release()\fP, \fBtcfs_removexattr()\fP, \fBtcfs_rename()\fP, \fBtcfs_rmdir()\fP, \fBtcfs_setxattr()\fP, \fBtcfs_symlink()\fP, \fBtcfs_truncate()\fP, \fBtcfs_unlink()\fP, \fBtcfs_utimens()\fP, and \fBtcfs_write()\fP\&.
+.SS "root_path"
+
+.PP
+Contains the fullpath to the mounted directory\&. 
+.PP
+Definition at line \fB47\fP of file \fBtcfs\&.c\fP\&.
+.PP
+Referenced by \fBmain()\fP, \fBtcfs_access()\fP, \fBtcfs_chmod()\fP, \fBtcfs_chown()\fP, \fBtcfs_create()\fP, \fBtcfs_fsync()\fP, \fBtcfs_getattr()\fP, \fBtcfs_getxattr()\fP, \fBtcfs_link()\fP, \fBtcfs_listxattr()\fP, \fBtcfs_mkdir()\fP, \fBtcfs_mknod()\fP, \fBtcfs_open()\fP, \fBtcfs_opendir()\fP, \fBtcfs_read()\fP, \fBtcfs_readdir()\fP, \fBtcfs_readlink()\fP, \fBtcfs_release()\fP, \fBtcfs_removexattr()\fP, \fBtcfs_rename()\fP, \fBtcfs_rmdir()\fP, \fBtcfs_setxattr()\fP, \fBtcfs_statfs()\fP, \fBtcfs_symlink()\fP, \fBtcfs_truncate()\fP, \fBtcfs_unlink()\fP, \fBtcfs_utimens()\fP, and \fBtcfs_write()\fP\&.
+.SS "struct fuse_operations tcfs_oper\fC [static]\fP"
+\fBInitial value:\fP.PP
+.nf
+= {
+  \&.opendir = tcfs_opendir,
+  \&.getattr = tcfs_getattr,
+  \&.access = tcfs_access,
+  \&.readlink = tcfs_readlink,
+  \&.readdir = tcfs_readdir,
+  \&.mknod = tcfs_mknod,
+  \&.mkdir = tcfs_mkdir,
+  \&.symlink = tcfs_symlink,
+  \&.unlink = tcfs_unlink,
+  \&.rmdir = tcfs_rmdir,
+  \&.rename = tcfs_rename,
+  \&.link = tcfs_link,
+  \&.chmod = tcfs_chmod,
+  \&.chown = tcfs_chown,
+  \&.truncate = tcfs_truncate,
+  \&.utimens = tcfs_utimens,
+  \&.open = tcfs_open,
+  \&.read = tcfs_read,
+  \&.write = tcfs_write,
+  \&.statfs = tcfs_statfs,
+  \&.create = tcfs_create,
+  \&.release = tcfs_release,
+  \&.fsync = tcfs_fsync,
+  \&.setxattr = tcfs_setxattr,
+  \&.getxattr = tcfs_getxattr,
+  \&.listxattr = tcfs_listxattr,
+  \&.removexattr = tcfs_removexattr,
+}
+.fi
+
+.PP
+TCFS file system operations\&. This structure defines the operations supported by the TCFS file system\&. 
+.PP
+Definition at line \fB1294\fP of file \fBtcfs\&.c\fP\&.
+.PP
+Referenced by \fBmain()\fP\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for TCFS from the source code\&.

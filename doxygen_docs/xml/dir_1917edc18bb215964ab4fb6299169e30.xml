@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="dir_1917edc18bb215964ab4fb6299169e30" kind="dir">
+    <compoundname>ServerREST</compoundname>
+    <innerdir refid="dir_6cd5dedd230e9204c326d207525703ce">ServerREST/crypt-utils</innerdir>
+    <innerdir refid="dir_4ba660e7e42715687809dca61486f6bc">ServerREST/db</innerdir>
+    <innerdir refid="dir_b6f0bc9e6a73bc96ea137102d94121a7">ServerREST/serverTools</innerdir>
+    <innerdir refid="dir_b228d1183f6a9446da9c28454f9272ea">ServerREST/types</innerdir>
+    <innerfile refid="main__test_8go">main_test.go</innerfile>
+    <innerfile refid="tcfs-daemon_8go">tcfs-daemon.go</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="ServerREST/"/>
+  </compounddef>
+</doxygen>

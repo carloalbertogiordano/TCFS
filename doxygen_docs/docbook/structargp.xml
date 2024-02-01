@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_structargp" xml:lang="en-US">
+<title>argp Struct Reference</title>
+<indexterm><primary>argp</primary></indexterm>
+<para>
+
+<para>The struct used by argp. </para>
+ 
+</para>
+<section>
+<title>Detailed Description</title>
+
+<para>The struct used by argp. </para>
+<para>
+The documentation for this struct was generated from the following file:</para>
+user/old_stuff/<link linkend="_user__tcfs_8c">user_tcfs.c</link></section>
+</section>

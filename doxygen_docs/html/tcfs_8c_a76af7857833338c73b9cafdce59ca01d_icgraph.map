@@ -1,0 +1,5 @@
+<map id="tcfs_access" name="tcfs_access">
+<area shape="rect" id="Node000001" title="Checks file access permissions." alt="" coords="132,5,224,32"/>
+<area shape="rect" id="Node000002" href="$tcfs_8c.html#adaba2baa5a036b8f77ec187599498a66" title="Writes data to an open file." alt="" coords="5,5,84,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="117,21,84,21,84,16,117,16"/>
+</map>

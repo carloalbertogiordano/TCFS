@@ -1,0 +1,28 @@
+\doxysection{main\+\_\+window.\+py}
+\hypertarget{main__window_8py_source}{}\label{main__window_8py_source}\index{user/ui/main\_window.py@{user/ui/main\_window.py}}
+\mbox{\hyperlink{main__window_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{main__window_8py_source_l00001}\mbox{\hyperlink{namespaceui}{00001}}\ \textcolor{keyword}{import}\ tkinter\ \textcolor{keyword}{as}\ tk}
+\DoxyCodeLine{\Hypertarget{main__window_8py_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{main__window_8py_source_l00003}00003\ }
+\DoxyCodeLine{\Hypertarget{main__window_8py_source_l00004}\mbox{\hyperlink{namespaceui_1_1main__window_ae9c066a65238b3103c5bd44f4950a9c9}{00004}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespaceui_1_1main__window_ae9c066a65238b3103c5bd44f4950a9c9}{modify\_button\_allign}}(button,\ row,\ column):}
+\DoxyCodeLine{\Hypertarget{main__window_8py_source_l00005}00005\ \ \ \ \ button.grid(row=row,\ column=column)}
+\DoxyCodeLine{\Hypertarget{main__window_8py_source_l00006}00006\ }
+\DoxyCodeLine{\Hypertarget{main__window_8py_source_l00007}00007\ }
+\DoxyCodeLine{\Hypertarget{main__window_8py_source_l00008}\mbox{\hyperlink{classui_1_1main__window_1_1Window}{00008}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classui_1_1main__window_1_1Window}{Window}}:}
+\DoxyCodeLine{\Hypertarget{main__window_8py_source_l00009}00009\ }
+\DoxyCodeLine{\Hypertarget{main__window_8py_source_l00010}\mbox{\hyperlink{classui_1_1main__window_1_1Window_a75bf25c45091f2edb8aaeffe62b922d5}{00010}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classui_1_1main__window_1_1Window_a75bf25c45091f2edb8aaeffe62b922d5}{\_\_init\_\_}}(self,\ title:\ str,\ geometry:\ str):}
+\DoxyCodeLine{\Hypertarget{main__window_8py_source_l00011}\mbox{\hyperlink{classui_1_1main__window_1_1Window_a42aa4b5e9230c0c16b1ba2a922332375}{00011}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classui_1_1main__window_1_1Window_a42aa4b5e9230c0c16b1ba2a922332375}{window}}\ =\ tk.Tk()}
+\DoxyCodeLine{\Hypertarget{main__window_8py_source_l00012}00012\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classui_1_1main__window_1_1Window_a42aa4b5e9230c0c16b1ba2a922332375}{window}}.title(title)}
+\DoxyCodeLine{\Hypertarget{main__window_8py_source_l00013}00013\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classui_1_1main__window_1_1Window_a42aa4b5e9230c0c16b1ba2a922332375}{window}}.geometry(geometry)}
+\DoxyCodeLine{\Hypertarget{main__window_8py_source_l00014}00014\ }
+\DoxyCodeLine{\Hypertarget{main__window_8py_source_l00015}\mbox{\hyperlink{classui_1_1main__window_1_1Window_a61bcd34a3ad36ae9edf579ca78eee795}{00015}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classui_1_1main__window_1_1Window_a61bcd34a3ad36ae9edf579ca78eee795}{add\_button}}(self,\ text:\ str,\ function,\ row=0,\ col=0):}
+\DoxyCodeLine{\Hypertarget{main__window_8py_source_l00016}00016\ \ \ \ \ \ \ \ \ button\ =\ tk.Button(self.\mbox{\hyperlink{classui_1_1main__window_1_1Window_a42aa4b5e9230c0c16b1ba2a922332375}{window}},\ text=text,\ command=function)}
+\DoxyCodeLine{\Hypertarget{main__window_8py_source_l00017}00017\ \ \ \ \ \ \ \ \ button.grid(row=row,\ column=col)}
+\DoxyCodeLine{\Hypertarget{main__window_8py_source_l00018}00018\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ button}
+\DoxyCodeLine{\Hypertarget{main__window_8py_source_l00019}00019\ }
+\DoxyCodeLine{\Hypertarget{main__window_8py_source_l00020}\mbox{\hyperlink{classui_1_1main__window_1_1Window_aa4cd7c3b0514d223feac32a3aedea325}{00020}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classui_1_1main__window_1_1Window_aa4cd7c3b0514d223feac32a3aedea325}{start\_window}}(self):}
+\DoxyCodeLine{\Hypertarget{main__window_8py_source_l00021}00021\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classui_1_1main__window_1_1Window_a42aa4b5e9230c0c16b1ba2a922332375}{window}}.mainloop()}
+\DoxyCodeLine{\Hypertarget{main__window_8py_source_l00022}00022\ }
+
+\end{DoxyCode}

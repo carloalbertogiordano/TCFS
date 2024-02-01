@@ -1,0 +1,239 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygenindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd" version="1.9.8" xml:lang="en-US">
+  <compound refid="structargp" kind="struct"><name>argp</name>
+  </compound>
+  <compound refid="structarguments" kind="struct"><name>arguments</name>
+    <member refid="structarguments_1a0dbf3970b8b18964140f0397c22a3711" kind="variable"><name>operation</name></member>
+    <member refid="structarguments_1a53fda996abfaa79d9c6376292bcbd5da" kind="variable"><name>source</name></member>
+    <member refid="structarguments_1a29ff8292026649ead806d06e83728699" kind="variable"><name>destination</name></member>
+    <member refid="structarguments_1a1efc30f669fcaf8c5943cbb3e8124ee7" kind="variable"><name>password</name></member>
+  </compound>
+  <compound refid="classui_1_1main__window_1_1Window" kind="class"><name>ui::main_window::Window</name>
+    <member refid="classui_1_1main__window_1_1Window_1a42aa4b5e9230c0c16b1ba2a922332375" kind="variable"><name>window</name></member>
+    <member refid="classui_1_1main__window_1_1Window_1a75bf25c45091f2edb8aaeffe62b922d5" kind="function"><name>__init__</name></member>
+    <member refid="classui_1_1main__window_1_1Window_1a61bcd34a3ad36ae9edf579ca78eee795" kind="function"><name>add_button</name></member>
+    <member refid="classui_1_1main__window_1_1Window_1aa4cd7c3b0514d223feac32a3aedea325" kind="function"><name>start_window</name></member>
+  </compound>
+  <compound refid="namespacecommand__handler" kind="namespace"><name>command_handler</name>
+  </compound>
+  <compound refid="namespacecommand__handler_1_1enviroinment" kind="namespace"><name>command_handler::enviroinment</name>
+    <member refid="namespacecommand__handler_1_1enviroinment_1a8036811b5b79bce2e21a023ef33d4786" kind="function"><name>countdown</name></member>
+    <member refid="namespacecommand__handler_1_1enviroinment_1a79405ba6d662be42ecaacf8469b76494" kind="function"><name>init_env</name></member>
+  </compound>
+  <compound refid="namespacemain" kind="namespace"><name>main</name>
+    <member refid="namespacemain_1a57bcba58678fbd9dd73e9c194bdf38c0" kind="variable"><name>win</name></member>
+    <member refid="namespacemain_1a9e90a5249dbf0270acae944b9a31b8c0" kind="variable"><name>init_env_butt</name></member>
+    <member refid="namespacemain_1a8f55266ef83cf13a1c30d1bf8bd065b0" kind="variable"><name>mount_butt</name></member>
+    <member refid="namespacemain_1a30b47e625be9d65c53cd3cef9926f704" kind="variable"><name>umount_butt</name></member>
+    <member refid="namespacemain_1a7adbb7f4a582ed0929b7db6fd0991278" kind="variable"><name>shared_butt</name></member>
+    <member refid="namespacemain_1a4b95678c3a22414574c3b2dd83d89c83" kind="variable"><name>logout_butt</name></member>
+    <member refid="namespacemain_1a63aa822869c78f66d4bbcc9fbf8ee0e7" kind="function"><name>foo</name></member>
+  </compound>
+  <compound refid="namespacestd" kind="namespace"><name>std</name>
+  </compound>
+  <compound refid="namespaceui" kind="namespace"><name>ui</name>
+  </compound>
+  <compound refid="namespaceui_1_1main__window" kind="namespace"><name>ui::main_window</name>
+    <member refid="namespaceui_1_1main__window_1ae9c066a65238b3103c5bd44f4950a9c9" kind="function"><name>modify_button_allign</name></member>
+  </compound>
+  <compound refid="tcfs__kmodule_8c" kind="file"><name>tcfs_kmodule.c</name>
+  </compound>
+  <compound refid="README_8md" kind="file"><name>README.md</name>
+  </compound>
+  <compound refid="key-tools_8go" kind="file"><name>key-tools.go</name>
+  </compound>
+  <compound refid="db_8go" kind="file"><name>db.go</name>
+  </compound>
+  <compound refid="main__test_8go" kind="file"><name>main_test.go</name>
+  </compound>
+  <compound refid="REST__functions_8go" kind="file"><name>REST_functions.go</name>
+  </compound>
+  <compound refid="tcfs-daemon_8go" kind="file"><name>tcfs-daemon.go</name>
+  </compound>
+  <compound refid="tcfs-user_8go" kind="file"><name>tcfs-user.go</name>
+  </compound>
+  <compound refid="enviroinment_8py" kind="file"><name>enviroinment.py</name>
+  </compound>
+  <compound refid="main_8py" kind="file"><name>main.py</name>
+  </compound>
+  <compound refid="tcfs__helper__tools_8c" kind="file"><name>tcfs_helper_tools.c</name>
+    <member refid="tcfs__helper__tools_8c_1afc6f770387ff27f9a3cf832b785d28dc" kind="define"><name>PASS_SIZE</name></member>
+    <member refid="tcfs__helper__tools_8c_1a816c2bcaa3d059abc79cb9b021957dbf" kind="function"><name>handle_local_mount</name></member>
+    <member refid="tcfs__helper__tools_8c_1aa5b1203d82818e149ae3ad3fd3840a40" kind="function"><name>handle_remote_mount</name></member>
+    <member refid="tcfs__helper__tools_8c_1afaed41fa1136b829eb00a7de26a3739b" kind="function"><name>handle_folder_mount</name></member>
+    <member refid="tcfs__helper__tools_8c_1a769edcf066efb97f5ae3a81e3507a793" kind="function"><name>do_mount</name></member>
+    <member refid="tcfs__helper__tools_8c_1a8ef1473d59fd1cfc680fe1b227604a02" kind="function"><name>generate_random_string</name></member>
+    <member refid="tcfs__helper__tools_8c_1ab3cdcc12b3bc92a382784027c94a2027" kind="function"><name>directory_exists</name></member>
+    <member refid="tcfs__helper__tools_8c_1a3644c45d6131fe1528ce36163e299fd9" kind="function"><name>setup_tcfs_mount_folder</name></member>
+    <member refid="tcfs__helper__tools_8c_1a1bef5d2cdd74c07b3ae025c6424dfbd5" kind="function"><name>get_pass</name></member>
+    <member refid="tcfs__helper__tools_8c_1ae1746adb62f9476a6d8166b62faa7a91" kind="function"><name>get_source_dest</name></member>
+    <member refid="tcfs__helper__tools_8c_1ae930b52ef70f640efde8bda574b6b234" kind="function"><name>create_tcfs_mount_local_folder</name></member>
+    <member refid="tcfs__helper__tools_8c_1a26931b8bdf24be94e03f4d77e991d063" kind="function"><name>mount_tcfs_folder</name></member>
+    <member refid="tcfs__helper__tools_8c_1acfa06becac8f67e9f278cfcbf91cc51b" kind="function"><name>clearKeyboardBuffer</name></member>
+    <member refid="tcfs__helper__tools_8c_1abe60a9bd3f55341eb2496670553f9d26" kind="function"><name>setup_tcfs_env</name></member>
+  </compound>
+  <compound refid="tcfs__helper__tools_8h" kind="file"><name>tcfs_helper_tools.h</name>
+    <member refid="tcfs__helper__tools_8h_1a769edcf066efb97f5ae3a81e3507a793" kind="function"><name>do_mount</name></member>
+    <member refid="tcfs__helper__tools_8h_1abe60a9bd3f55341eb2496670553f9d26" kind="function"><name>setup_tcfs_env</name></member>
+  </compound>
+  <compound refid="user__tcfs_8c" kind="file"><name>user_tcfs.c</name>
+    <member refid="user__tcfs_8c_1a2026b95fe28c77f392e54ca5b26a0899" kind="variable"><name>argp_program_version</name></member>
+    <member refid="user__tcfs_8c_1a794b57947d8e4dc6456b6a8a31de2579" kind="variable"><name>argp_program_bug_address</name></member>
+    <member refid="user__tcfs_8c_1a3a72da5720995770156f9f9879ce6fa9" kind="variable"><name>doc</name></member>
+    <member refid="user__tcfs_8c_1ac88b371bbf7f89ab6440cb9fe629288c" kind="variable"><name>options</name></member>
+    <member refid="user__tcfs_8c_1ab70c96531b1b652d70c221cfaf3207f3" kind="variable"><name>argp</name></member>
+    <member refid="user__tcfs_8c_1a35ee63236273ebb9325c444cacf00159" kind="function"><name>parse_opt</name></member>
+    <member refid="user__tcfs_8c_1a0ddf1224851353fc92bfbff6f499fa97" kind="function"><name>main</name></member>
+  </compound>
+  <compound refid="command__handler_2____init_____8py" kind="file"><name>__init__.py</name>
+  </compound>
+  <compound refid="ui_2____init_____8py" kind="file"><name>__init__.py</name>
+  </compound>
+  <compound refid="main__window_8py" kind="file"><name>main_window.py</name>
+  </compound>
+  <compound refid="tcfs_8c" kind="file"><name>tcfs.c</name>
+    <member refid="tcfs_8c_1a0919197af2e154da2c05727b6d87cbda" kind="define"><name>FUSE_USE_VERSION</name></member>
+    <member refid="tcfs_8c_1ace5cb10bf13b2a61c0d3e01b4e0590a2" kind="define"><name>HAVE_SETXATTR</name></member>
+    <member refid="tcfs_8c_1a78c99ffd76a7bb3c8c74db76207e9ab4" kind="define"><name>_XOPEN_SOURCE</name></member>
+    <member refid="tcfs_8c_1afa4c673b6383ea6994b5e5c95a7cc213" kind="define"><name>TCFS_SUCCESS</name></member>
+    <member refid="tcfs_8c_1ae05f9a61e45517eaca7278909e7959ec" kind="define"><name>ERR_inval_arg_len</name></member>
+    <member refid="tcfs_8c_1ac9de09fb2e7784a5778dec8a36db8ffa" kind="define"><name>ERR_inval_key</name></member>
+    <member refid="tcfs_8c_1a37991e6ea390ac4a4d0f4e63c2a71146" kind="define"><name>ERR_invalid_enc_dir_name</name></member>
+    <member refid="tcfs_8c_1ab33cf7205359ee0f91488c87df1577a0" kind="variable"><name>root_path</name></member>
+    <member refid="tcfs_8c_1a9dbb300e28bc21c8dab41b01883918eb" kind="variable"><name>password</name></member>
+    <member refid="tcfs_8c_1a53c12b201809f3165da8a2779d152b3a" kind="variable"><name>tcfs_oper</name></member>
+    <member refid="tcfs_8c_1a62f73ea01c816f1996aed4c66f57c4fb" kind="variable"><name>argp_program_version</name></member>
+    <member refid="tcfs_8c_1aaa037e59f26a80a8a2e35e6f2364004d" kind="variable"><name>argp_program_bug_address</name></member>
+    <member refid="tcfs_8c_1af6164deb8a824f8cb2b9147cfc3174f5" kind="variable"><name>doc</name></member>
+    <member refid="tcfs_8c_1a91b08784b3668a8a1fbe2eec1947fb9d" kind="variable"><name>args_doc</name></member>
+    <member refid="tcfs_8c_1abc1fd3a47aea6a8944038c9100eb9135" kind="variable"><name>options</name></member>
+    <member refid="tcfs_8c_1ab70c96531b1b652d70c221cfaf3207f3" kind="variable"><name>argp</name></member>
+    <member refid="tcfs_8c_1a6a031c4e3c6dd59051c09789c4666657" kind="function"><name>tcfs_getxattr</name></member>
+    <member refid="tcfs_8c_1a92ebab5be45b159c2850a47a5072b58d" kind="function"><name>tcfs_opendir</name></member>
+    <member refid="tcfs_8c_1a411eac4511d0eae4ce78a2fd3d22ac8c" kind="function"><name>tcfs_getattr</name></member>
+    <member refid="tcfs_8c_1a76af7857833338c73b9cafdce59ca01d" kind="function"><name>tcfs_access</name></member>
+    <member refid="tcfs_8c_1acb1e081efcbf61b6f34e8bbdf7af8979" kind="function"><name>tcfs_readlink</name></member>
+    <member refid="tcfs_8c_1a1a713549c892f56a6522e6487c581d69" kind="function"><name>tcfs_readdir</name></member>
+    <member refid="tcfs_8c_1a151f53359474a95c52f5e79d438869bd" kind="function"><name>tcfs_mknod</name></member>
+    <member refid="tcfs_8c_1a682b553345b6d872453d1ace7339bb9e" kind="function"><name>tcfs_mkdir</name></member>
+    <member refid="tcfs_8c_1ac6d3a8a626363a6f98de64e585968b09" kind="function"><name>tcfs_unlink</name></member>
+    <member refid="tcfs_8c_1a2853593dded66a922afbdc36afb15a50" kind="function"><name>tcfs_rmdir</name></member>
+    <member refid="tcfs_8c_1ac1d223f9b998d5af6bec3947d03be0fc" kind="function"><name>tcfs_symlink</name></member>
+    <member refid="tcfs_8c_1aee96b732a1569a607e63bac6fbe5c403" kind="function"><name>tcfs_rename</name></member>
+    <member refid="tcfs_8c_1a271df7bd878f5ed132e1f98487e8aebd" kind="function"><name>tcfs_link</name></member>
+    <member refid="tcfs_8c_1a3cb10be0f6147667dc0e757636e9892f" kind="function"><name>tcfs_chmod</name></member>
+    <member refid="tcfs_8c_1afff31b61fa0723502cf85922816f14f9" kind="function"><name>tcfs_chown</name></member>
+    <member refid="tcfs_8c_1a7e7f7a65b4e76cc96505d0c6d62fba9c" kind="function"><name>tcfs_truncate</name></member>
+    <member refid="tcfs_8c_1aca5dccf989dfc270ca31e1d8b20bb60e" kind="function"><name>tcfs_utimens</name></member>
+    <member refid="tcfs_8c_1af0c6a7d66189cc1e9fbfafba5255e60d" kind="function"><name>tcfs_open</name></member>
+    <member refid="tcfs_8c_1a996d4e078d075e74e800288e6c92fd59" kind="function"><name>file_size</name></member>
+    <member refid="tcfs_8c_1a745384a010e20b082db26e16702a0129" kind="function"><name>tcfs_read</name></member>
+    <member refid="tcfs_8c_1adaba2baa5a036b8f77ec187599498a66" kind="function"><name>tcfs_write</name></member>
+    <member refid="tcfs_8c_1ae14ebf4581d4cbc45737ae75af82a887" kind="function"><name>tcfs_statfs</name></member>
+    <member refid="tcfs_8c_1ad3c328fdcd93c8203e1ce9c785fd3a14" kind="function"><name>tcfs_setxattr</name></member>
+    <member refid="tcfs_8c_1ad973ad9d6ab7d6276bf85cd8fecd0657" kind="function"><name>tcfs_create</name></member>
+    <member refid="tcfs_8c_1a1241e1fcfe6bb4a5d49d8c8d4e737bcd" kind="function"><name>tcfs_release</name></member>
+    <member refid="tcfs_8c_1a014853840814f4d5225e2e28e129f9e5" kind="function"><name>tcfs_fsync</name></member>
+    <member refid="tcfs_8c_1ae6edcf6a80467925a9a2112172395de1" kind="function"><name>tcfs_listxattr</name></member>
+    <member refid="tcfs_8c_1acfe2c6a9467bd25a5ba6dc1a65209262" kind="function"><name>tcfs_removexattr</name></member>
+    <member refid="tcfs_8c_1a35ee63236273ebb9325c444cacf00159" kind="function"><name>parse_opt</name></member>
+    <member refid="tcfs_8c_1a0ddf1224851353fc92bfbff6f499fa97" kind="function"><name>main</name></member>
+  </compound>
+  <compound refid="crypt-utils_8c" kind="file"><name>crypt-utils.c</name>
+    <member refid="crypt-utils_8c_1afcf795f5a96fd55561abe69f56224630" kind="define"><name>BLOCKSIZE</name></member>
+    <member refid="crypt-utils_8c_1ad7bb30dbf5882fdf05331918e8a0cc84" kind="define"><name>IV_SIZE</name></member>
+    <member refid="crypt-utils_8c_1a2d996237e082b78b41771b5aa1a6eae1" kind="define"><name>KEY_SIZE</name></member>
+    <member refid="crypt-utils_8c_1a94b5b388b3f00982ccee72b192077e76" kind="function"><name>do_crypt</name></member>
+    <member refid="crypt-utils_8c_1aa377df016f593aa771013264acc9b86b" kind="function"><name>check_entropy</name></member>
+    <member refid="crypt-utils_8c_1a53b5762e00daafcc3644c03e2fd9b2c4" kind="function"><name>add_entropy</name></member>
+    <member refid="crypt-utils_8c_1a8845f5705eaafda836aac91d5881876f" kind="function"><name>generate_key</name></member>
+    <member refid="crypt-utils_8c_1aa926098a8843cf0ab6bd7eb8b3bbd2e6" kind="function"><name>encrypt_string</name></member>
+    <member refid="crypt-utils_8c_1a22f528907ee4f078e333501b747d5435" kind="function"><name>decrypt_string</name></member>
+    <member refid="crypt-utils_8c_1a36c2342a7c47b8f41bf628bf473b1c97" kind="function"><name>is_valid_key</name></member>
+    <member refid="crypt-utils_8c_1aa4a7facde8c6f63a7225c07e92232b2e" kind="function"><name>encrypt_file_name_with_hex</name></member>
+    <member refid="crypt-utils_8c_1a3b003481e5c188ac1d6f63e09e6f3a34" kind="function"><name>decrypt_file_name_with_hex</name></member>
+    <member refid="crypt-utils_8c_1ad9b10366ade9f2129ec2613fdc76df80" kind="function"><name>encrypt_path</name></member>
+    <member refid="crypt-utils_8c_1a5c45db4d3db3ef274fb6356e1a95e644" kind="function"><name>encrypt_path_and_filename</name></member>
+    <member refid="crypt-utils_8c_1a1899c23a523d11ed1cb5601eabdb023d" kind="function"><name>decrypt_path</name></member>
+    <member refid="crypt-utils_8c_1a373f8aedbcd8b6ce22fe7bdfeb2961c2" kind="function"><name>decrypt_path_and_filename</name></member>
+  </compound>
+  <compound refid="crypt-utils_8h" kind="file"><name>crypt-utils.h</name>
+    <member refid="crypt-utils_8h_1a1cb0c60ca582db30ae87362ca43e8c19" kind="define"><name>ENCRYPT</name></member>
+    <member refid="crypt-utils_8h_1a36fab47015485191712a579a059a7c20" kind="define"><name>DECRYPT</name></member>
+    <member refid="crypt-utils_8h_1a94b5b388b3f00982ccee72b192077e76" kind="function"><name>do_crypt</name></member>
+    <member refid="crypt-utils_8h_1a8845f5705eaafda836aac91d5881876f" kind="function"><name>generate_key</name></member>
+    <member refid="crypt-utils_8h_1a8bf9483dae26e9c0a1c45d77b8f1dce8" kind="function"><name>encrypt_string</name></member>
+    <member refid="crypt-utils_8h_1a02ee5ac64d2d2d441edcca915e480503" kind="function"><name>decrypt_string</name></member>
+    <member refid="crypt-utils_8h_1a36c2342a7c47b8f41bf628bf473b1c97" kind="function"><name>is_valid_key</name></member>
+    <member refid="crypt-utils_8h_1aa4a7facde8c6f63a7225c07e92232b2e" kind="function"><name>encrypt_file_name_with_hex</name></member>
+    <member refid="crypt-utils_8h_1a3b003481e5c188ac1d6f63e09e6f3a34" kind="function"><name>decrypt_file_name_with_hex</name></member>
+    <member refid="crypt-utils_8h_1ad9b10366ade9f2129ec2613fdc76df80" kind="function"><name>encrypt_path</name></member>
+    <member refid="crypt-utils_8h_1a5c45db4d3db3ef274fb6356e1a95e644" kind="function"><name>encrypt_path_and_filename</name></member>
+    <member refid="crypt-utils_8h_1a1899c23a523d11ed1cb5601eabdb023d" kind="function"><name>decrypt_path</name></member>
+    <member refid="crypt-utils_8h_1a373f8aedbcd8b6ce22fe7bdfeb2961c2" kind="function"><name>decrypt_path_and_filename</name></member>
+  </compound>
+  <compound refid="password__manager_8c" kind="file"><name>password_manager.c</name>
+  </compound>
+  <compound refid="password__manager_8h" kind="file"><name>password_manager.h</name>
+    <member refid="password__manager_8h_1a286ddcba923cffdde517bb0b045ba4bd" kind="define"><name>WITH_SYS_CALL</name></member>
+    <member refid="password__manager_8h_1ab71dc695f24537bcaaca241588d7fb2e" kind="define"><name>WITHOUT_SYS_CALL</name></member>
+  </compound>
+  <compound refid="tcfs__utils_8c" kind="file"><name>tcfs_utils.c</name>
+    <member refid="tcfs__utils_8c_1aac1b7fab3a13b4cfcc0b34eb7511df55" kind="function"><name>get_user_name</name></member>
+    <member refid="tcfs__utils_8c_1a71e44dc105c7af8349bc3e7eb9edf2b0" kind="function"><name>is_encrypted</name></member>
+    <member refid="tcfs__utils_8c_1ac4ff59963f4a122c9f802c0c2bf2abc8" kind="function"><name>prefix_path</name></member>
+    <member refid="tcfs__utils_8c_1a42623317bb0b1ff095b4d946dc085bd6" kind="function"><name>read_file</name></member>
+    <member refid="tcfs__utils_8c_1a4316eb58a0cb5afb4e90e75a55c9b3ea" kind="function"><name>get_encrypted_key</name></member>
+    <member refid="tcfs__utils_8c_1a8c1c24299a2b01f6157b051cb56ebc52" kind="function"><name>print_aes_key</name></member>
+    <member refid="tcfs__utils_8c_1a819d57d5c053a25772508a943d1bcc48" kind="function"><name>string_to_hex</name></member>
+    <member refid="tcfs__utils_8c_1a6de1cb8448198da94080ad32d7e4eabf" kind="function"><name>hex_to_string</name></member>
+    <member refid="tcfs__utils_8c_1a62b66e43a7ad8b8cf9fcad67f71a7a8b" kind="function"><name>logMessage</name></member>
+  </compound>
+  <compound refid="tcfs__utils_8h" kind="file"><name>tcfs_utils.h</name>
+    <member refid="tcfs__utils_8h_1a6d3fef197146b932f5ad01fce683a66b" kind="define"><name>LOGFILE</name></member>
+    <member refid="tcfs__utils_8h_1ad72dbcf6d0153db1b8d8a58001feed83" kind="define"><name>DEBUG</name></member>
+    <member refid="tcfs__utils_8h_1aac1b7fab3a13b4cfcc0b34eb7511df55" kind="function"><name>get_user_name</name></member>
+    <member refid="tcfs__utils_8h_1a71e44dc105c7af8349bc3e7eb9edf2b0" kind="function"><name>is_encrypted</name></member>
+    <member refid="tcfs__utils_8h_1ac4ff59963f4a122c9f802c0c2bf2abc8" kind="function"><name>prefix_path</name></member>
+    <member refid="tcfs__utils_8h_1a8c1c24299a2b01f6157b051cb56ebc52" kind="function"><name>print_aes_key</name></member>
+    <member refid="tcfs__utils_8h_1a819d57d5c053a25772508a943d1bcc48" kind="function"><name>string_to_hex</name></member>
+    <member refid="tcfs__utils_8h_1a6de1cb8448198da94080ad32d7e4eabf" kind="function"><name>hex_to_string</name></member>
+    <member refid="tcfs__utils_8h_1a62b66e43a7ad8b8cf9fcad67f71a7a8b" kind="function"><name>logMessage</name></member>
+  </compound>
+  <compound refid="md_README" kind="page"><name>md_README</name>
+  </compound>
+  <compound refid="todo" kind="page"><name>todo</name>
+  </compound>
+  <compound refid="deprecated" kind="page"><name>deprecated</name>
+  </compound>
+  <compound refid="dir_eb0b66e006e4855153937e7046cf622c" kind="dir"><name>user/command_handler</name>
+  </compound>
+  <compound refid="dir_6cd5dedd230e9204c326d207525703ce" kind="dir"><name>ServerREST/crypt-utils</name>
+  </compound>
+  <compound refid="dir_264e18e2f09578f9dd15f7a7044abb57" kind="dir"><name>userspace-module/utils/crypt-utils</name>
+  </compound>
+  <compound refid="dir_4ba660e7e42715687809dca61486f6bc" kind="dir"><name>ServerREST/db</name>
+  </compound>
+  <compound refid="dir_0478bae25ca005df124f4d801fb1b428" kind="dir"><name>kernel-module</name>
+  </compound>
+  <compound refid="dir_be9ae40358cfd0b3633ecd24f4ddab18" kind="dir"><name>user/old_stuff</name>
+  </compound>
+  <compound refid="dir_b81a58de3bb52b393027480da145ec9d" kind="dir"><name>userspace-module/utils/password_manager</name>
+  </compound>
+  <compound refid="dir_1917edc18bb215964ab4fb6299169e30" kind="dir"><name>ServerREST</name>
+  </compound>
+  <compound refid="dir_b6f0bc9e6a73bc96ea137102d94121a7" kind="dir"><name>ServerREST/serverTools</name>
+  </compound>
+  <compound refid="dir_d95211408bd77596fd6790cd8f43ad0b" kind="dir"><name>userspace-module/utils/tcfs_utils</name>
+  </compound>
+  <compound refid="dir_b228d1183f6a9446da9c28454f9272ea" kind="dir"><name>ServerREST/types</name>
+  </compound>
+  <compound refid="dir_4aa3637474ce650d6302885fe35ba584" kind="dir"><name>user/ui</name>
+  </compound>
+  <compound refid="dir_111cd2f11cffd6d6d28d89ee0389ee9e" kind="dir"><name>user</name>
+  </compound>
+  <compound refid="dir_1745ed90fefe3af6d7ab131050213829" kind="dir"><name>userspace-module</name>
+  </compound>
+  <compound refid="dir_c891d3656b12946829f8f9d8986f4c41" kind="dir"><name>userspace-module/utils</name>
+  </compound>
+</doxygenindex>

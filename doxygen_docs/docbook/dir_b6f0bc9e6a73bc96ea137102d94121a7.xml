@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_dir_b6f0bc9e6a73bc96ea137102d94121a7" xml:lang="en-US">
+<title>ServerREST/serverTools Directory Reference</title>
+<indexterm><primary>ServerREST/serverTools Directory Reference</primary></indexterm>
+Directory dependency graph for serverTools:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="dir_b6f0bc9e6a73bc96ea137102d94121a7_dep.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+<simplesect>
+    <title>Files    </title>
+        <itemizedlist>
+            <listitem><para>file <link linkend="_REST__functions_8go">REST_functions.go</link></para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+</section>

@@ -1,0 +1,225 @@
+\doxysection{REST\+\_\+functions.\+go}
+\hypertarget{REST__functions_8go_source}{}\label{REST__functions_8go_source}\index{ServerREST/serverTools/REST\_functions.go@{ServerREST/serverTools/REST\_functions.go}}
+\mbox{\hyperlink{REST__functions_8go}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00001}00001\ package\ REST\_Functions}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00003}00003\ import\ (}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00004}00004\ \ \ \ \ "{}encoding/json"{}}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00005}00005\ \ \ \ \ "{}fmt"{}}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00006}00006\ \ \ \ \ "{}golang.org/x/crypto/bcrypt"{}}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00007}00007\ \ \ \ \ "{}net/http"{}}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00008}00008\ \ \ \ \ KeyTools\ "{}serverTCFS/crypt-\/utils"{}}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00009}00009\ \ \ \ \ DB\ "{}serverTCFS/db"{}}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00010}00010\ \ \ \ \ TCFSTypes\ "{}serverTCFS/types"{}}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00011}00011\ )}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00012}00012\ }
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00013}00013\ func\ deserializeUser(r\ *http.Request)\ (TCFSTypes.TCFSUser,\ error)\ \{}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00014}00014\ \ \ \ \ var\ user\ TCFSTypes.TCFSUser}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00015}00015\ \ \ \ \ err\ :=\ json.NewDecoder(r.Body).Decode(\&user)}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00016}00016\ \ \ \ \ if\ err\ !=\ nil\ \{}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00017}00017\ \ \ \ \ \ \ \ \ return\ user,\ err}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00018}00018\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00019}00019\ \ \ \ \ return\ user,\ nil}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00020}00020\ \}}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00021}00021\ }
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00022}00022\ func\ Register(w\ http.ResponseWriter,\ r\ *http.Request)\ \{}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00023}00023\ \ \ \ \ fmt.Printf("{}Called\ Register"{})}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00024}00024\ \ \ \ \ var\ user\ TCFSTypes.TCFSUser}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00025}00025\ \ \ \ \ var\ err\ error\ =\ nil}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00026}00026\ \ \ \ \ user,\ err\ =\ deserializeUser(r)}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00027}00027\ \ \ \ \ if\ err\ !=\ nil\ \{}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00028}00028\ \ \ \ \ \ \ \ \ http.Error(w,\ err.Error(),\ http.StatusBadRequest)}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00029}00029\ \ \ \ \ \ \ \ \ return}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00030}00030\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00031}00031\ }
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00032}00032\ \ \ \ \ //\ Hash\ the\ user's\ password}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00033}00033\ \ \ \ \ hashedPassword,\ err\ :=\ bcrypt.GenerateFromPassword([]byte(user.Password),\ bcrypt.DefaultCost)}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00034}00034\ \ \ \ \ if\ err\ !=\ nil\ \{}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00035}00035\ \ \ \ \ \ \ \ \ http.Error(w,\ err.Error(),\ http.StatusInternalServerError)}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00036}00036\ \ \ \ \ \ \ \ \ return}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00037}00037\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00038}00038\ }
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00039}00039\ \ \ \ \ //\ Insert\ the\ user\ into\ the\ RegisteredUsers\ table}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00040}00040\ \ \ \ \ err\ =\ DB.InsertRegisteredUser(user.Username,\ string(hashedPassword))}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00041}00041\ \ \ \ \ if\ err\ !=\ nil\ \{}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00042}00042\ \ \ \ \ \ \ \ \ http.Error(w,\ err.Error(),\ http.StatusInternalServerError)}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00043}00043\ \ \ \ \ \ \ \ \ return}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00044}00044\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00045}00045\ \ \ \ \ fmt.Printf("{}New\ user\ inserted\ \(\backslash\)nSUCCESS\(\backslash\)n"{})}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00046}00046\ }
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00047}00047\ \ \ \ \ //\ Return\ a\ success\ message}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00048}00048\ \ \ \ \ w.WriteHeader(http.StatusOK)}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00049}00049\ \ \ \ \ fmt.Fprintf(w,\ "{}User\ registered\ successfully"{})}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00050}00050\ \}}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00051}00051\ }
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00052}00052\ func\ Login(w\ http.ResponseWriter,\ r\ *http.Request)\ \{}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00053}00053\ \ \ \ \ fmt.Println("{}Called\ Login\(\backslash\)n"{})}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00054}00054\ \ \ \ \ var\ user\ TCFSTypes.TCFSUser}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00055}00055\ \ \ \ \ var\ err\ error\ =\ nil}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00056}00056\ \ \ \ \ user,\ err\ =\ deserializeUser(r)}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00057}00057\ \ \ \ \ if\ err\ !=\ nil\ \{}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00058}00058\ \ \ \ \ \ \ \ \ http.Error(w,\ err.Error(),\ http.StatusBadRequest)}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00059}00059\ \ \ \ \ \ \ \ \ return}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00060}00060\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00061}00061\ }
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00062}00062\ \ \ \ \ //\ Retrieve\ the\ user's\ hashed\ password\ from\ the\ RegisteredUsers\ table}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00063}00063\ \ \ \ \ hashedPassword,\ err\ :=\ DB.GetPasswordHash(user.Username)}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00064}00064\ \ \ \ \ if\ err\ !=\ nil\ \{}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00065}00065\ \ \ \ \ \ \ \ \ http.Error(w,\ err.Error(),\ http.StatusInternalServerError)}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00066}00066\ \ \ \ \ \ \ \ \ return}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00067}00067\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00068}00068\ }
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00069}00069\ \ \ \ \ //\ Compare\ the\ user's\ password\ with\ the\ hashed\ password}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00070}00070\ \ \ \ \ err\ =\ bcrypt.CompareHashAndPassword([]byte(hashedPassword),\ []byte(user.Password))}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00071}00071\ \ \ \ \ if\ err\ !=\ nil\ \{}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00072}00072\ \ \ \ \ \ \ \ \ http.Error(w,\ "{}Invalid\ credentials"{},\ http.StatusUnauthorized)}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00073}00073\ \ \ \ \ \ \ \ \ return}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00074}00074\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00075}00075\ \ \ \ \ fmt.Println("{}Password\ match"{})}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00076}00076\ }
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00077}00077\ \ \ \ \ //\ Insert\ the\ user\ into\ the\ LoggedUsers\ table}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00078}00078\ \ \ \ \ err\ =\ DB.InsertLoggedUser(user.Username,\ user.PublicKey)}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00079}00079\ \ \ \ \ if\ err\ !=\ nil\ \{}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00080}00080\ \ \ \ \ \ \ \ \ http.Error(w,\ err.Error(),\ http.StatusInternalServerError)}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00081}00081\ \ \ \ \ \ \ \ \ return}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00082}00082\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00083}00083\ \ \ \ \ fmt.Println("{}Inserted\ in\ logged\ users"{})}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00084}00084\ }
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00085}00085\ \ \ \ \ //\ Return\ a\ success\ message}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00086}00086\ \ \ \ \ w.WriteHeader(http.StatusOK)}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00087}00087\ \ \ \ \ fmt.Fprintf(w,\ "{}User\ logged\ in\ successfully"{})}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00088}00088\ \}}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00089}00089\ }
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00090}00090\ func\ Logout(w\ http.ResponseWriter,\ r\ *http.Request)\ \{}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00091}00091\ \ \ \ \ fmt.Println("{}Called\ Unregister"{})}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00092}00092\ \ \ \ \ var\ user\ TCFSTypes.TCFSUser}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00093}00093\ \ \ \ \ var\ err\ error\ =\ nil}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00094}00094\ \ \ \ \ user,\ err\ =\ deserializeUser(r)}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00095}00095\ \ \ \ \ if\ err\ !=\ nil\ \{}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00096}00096\ \ \ \ \ \ \ \ \ http.Error(w,\ err.Error(),\ http.StatusBadRequest)}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00097}00097\ \ \ \ \ \ \ \ \ return}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00098}00098\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00099}00099\ }
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00100}00100\ \ \ \ \ err\ =\ DB.DeleteLoggedUser(user.Username)}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00101}00101\ \ \ \ \ if\ err\ !=\ nil\ \{}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00102}00102\ \ \ \ \ \ \ \ \ http.Error(w,\ err.Error(),\ http.StatusInternalServerError)}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00103}00103\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00104}00104\ \ \ \ \ fmt.Printf("{}User\ \%v\ unregistered\(\backslash\)n\ SUCCESS\(\backslash\)n"{},\ user.Username)}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00105}00105\ \ \ \ \ w.WriteHeader(http.StatusOK)}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00106}00106\ \ \ \ \ fmt.Fprintf(w,\ "{}User\ logged\ out\ successfully"{})}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00107}00107\ \}}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00108}00108\ }
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00109}00109\ /*}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00110}00110\ CreateSharedFile\ The\ request\ contains\ a\ username\ list\ and\ the\ k\ number\ for\ Shamir}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00111}00111\ A\ new\ key\ for\ the\ file\ will\ be\ generated\ and\ then\ Shamir\ generates\ all\ the\ key-\/parts}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00112}00112\ Each\ key-\/part\ is\ cyphered\ with\ the\ public\ key\ of\ the\ user\ and\ saved\ in\ the\ relative\ entry\ in\ the\ DB}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00113}00113\ A\ fileID\ is\ returned\ in\ the\ response.\ This\ will\ identify\ the\ file}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00114}00114\ */}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00115}00115\ func\ CreateSharedFile(w\ http.ResponseWriter,\ r\ *http.Request)\ \{}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00116}00116\ }
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00117}00117\ \ \ \ \ type\ User\ struct\ \{}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00118}00118\ \ \ \ \ \ \ \ \ Username\ string\ \`{}json:"{}username"{}`}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00119}00119\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00120}00120\ }
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00121}00121\ \ \ \ \ type\ Request\ struct\ \{}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00122}00122\ \ \ \ \ \ \ \ \ Users\ []User\ \`{}json:"{}users"{}`}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00123}00123\ \ \ \ \ \ \ \ \ K\ \ \ \ \ int\ \ \ \ \`{}json:"{}k"{}`}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00124}00124\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00125}00125\ }
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00126}00126\ \ \ \ \ var\ req\ Request}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00127}00127\ }
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00128}00128\ \ \ \ \ decoder\ :=\ json.NewDecoder(r.Body)}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00129}00129\ \ \ \ \ err\ :=\ decoder.Decode(\&req)}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00130}00130\ \ \ \ \ if\ err\ !=\ nil\ \{}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00131}00131\ \ \ \ \ \ \ \ \ http.Error(w,\ err.Error(),\ http.StatusBadRequest)}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00132}00132\ \ \ \ \ \ \ \ \ return}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00133}00133\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00134}00134\ }
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00135}00135\ \ \ \ \ var\ users\ []TCFSTypes.TCFSUser}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00136}00136\ \ \ \ \ for\ \_,\ user\ :=\ range\ req.Users\ \{}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00137}00137\ \ \ \ \ \ \ \ \ tmpUser\ :=\ TCFSTypes.TCFSUser\{Username:\ user.Username\}}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00138}00138\ \ \ \ \ \ \ \ \ err\ :=\ DB.LoadUserInfoByName(\&tmpUser)}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00139}00139\ \ \ \ \ \ \ \ \ if\ err\ !=\ nil\ \{}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00140}00140\ \ \ \ \ \ \ \ \ \ \ \ \ http.Error(w,\ err.Error(),\ http.StatusBadRequest)}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00141}00141\ \ \ \ \ \ \ \ \ \ \ \ \ fmt.Printf("{}Could\ not\ load\ user\ \%v\ info\ \%v\(\backslash\)n"{},\ user,\ err)}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00142}00142\ \ \ \ \ \ \ \ \ \ \ \ \ return}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00143}00143\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00144}00144\ \ \ \ \ \ \ \ \ users\ =\ append(users,\ tmpUser)}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00145}00145\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00146}00146\ }
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00147}00147\ \ \ \ \ k\ :=\ req.K}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00148}00148\ }
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00149}00149\ \ \ \ \ fmt.Printf("{}Got\ users\ and\ k:\ \%v\(\backslash\)n"{},\ k)}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00150}00150\ }
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00151}00151\ \ \ \ \ //\ Generate\ a\ new\ key}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00152}00152\ \ \ \ \ key,\ err\ :=\ KeyTools.GenerateKey()}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00153}00153\ \ \ \ \ if\ err\ !=\ nil\ \{}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00154}00154\ \ \ \ \ \ \ \ \ fmt.Printf("{}Err:\ cannot\ not\ generate\ new\ key\ \%v\(\backslash\)n"{},\ err)}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00155}00155\ \ \ \ \ \ \ \ \ http.Error(w,\ err.Error(),\ http.StatusInternalServerError)}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00156}00156\ \ \ \ \ \ \ \ \ return}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00157}00157\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00158}00158\ }
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00159}00159\ \ \ \ \ //\ Split\ the\ key\ using\ Shamir's\ secret\ sharing}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00160}00160\ \ \ \ \ shares,\ err\ :=\ KeyTools.SplitKey(key,\ len(users),\ k)}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00161}00161\ \ \ \ \ if\ err\ !=\ nil\ \{}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00162}00162\ \ \ \ \ \ \ \ \ fmt.Printf("{}Cannot\ split\ the\ key\ \%v\(\backslash\)n"{},\ err)}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00163}00163\ \ \ \ \ \ \ \ \ http.Error(w,\ err.Error(),\ http.StatusInternalServerError)}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00164}00164\ \ \ \ \ \ \ \ \ return}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00165}00165\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00166}00166\ \ \ \ \ fmt.Printf("{}Got\ \%v\ keyparts\ for\ \%v\ users\(\backslash\)n"{},\ len(shares),\ len(users))}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00167}00167\ }
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00168}00168\ \ \ \ \ fileID,\ err\ :=\ DB.GetNewFileID()}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00169}00169\ \ \ \ \ if\ err\ !=\ nil\ \{}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00170}00170\ \ \ \ \ \ \ \ \ fmt.Printf("{}Cannot\ generate\ a\ new\ fileID\ \%v\(\backslash\)n"{},\ err)}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00171}00171\ \ \ \ \ \ \ \ \ http.Error(w,\ err.Error(),\ http.StatusInternalServerError)}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00172}00172\ \ \ \ \ \ \ \ \ return}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00173}00173\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00174}00174\ \ \ \ \ fmt.Printf("{}Got\ new\ file\ id\ \%v\(\backslash\)n"{},\ fileID)}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00175}00175\ }
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00176}00176\ \ \ \ \ var\ sharedFilesList\ []TCFSTypes.SharedFile}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00177}00177\ \ \ \ \ //\ Couple\ the\ shares\ with\ the\ user\ in\ the\ sharedFilesList}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00178}00178\ \ \ \ \ j\ :=\ 0}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00179}00179\ \ \ \ \ for\ \_,\ share\ :=\ range\ shares\ \{}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00180}00180\ \ \ \ \ \ \ \ \ if\ share\ ==\ nil\ \{}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00181}00181\ \ \ \ \ \ \ \ \ \ \ \ \ fmt.Printf("{}This\ share\ is\ nil\(\backslash\)n"{})}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00182}00182\ \ \ \ \ \ \ \ \ \ \ \ \ http.Error(w,\ err.Error(),\ http.StatusInternalServerError)}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00183}00183\ \ \ \ \ \ \ \ \ \ \ \ \ return}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00184}00184\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00185}00185\ \ \ \ \ \ \ \ \ sharedFile\ :=\ TCFSTypes.SharedFile\{}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00186}00186\ \ \ \ \ \ \ \ \ \ \ \ \ User:\ \ \ \ \ \ \ \ \ \ \ users[j],}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00187}00187\ \ \ \ \ \ \ \ \ \ \ \ \ FileID:\ \ \ \ \ \ \ \ \ fileID,}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00188}00188\ \ \ \ \ \ \ \ \ \ \ \ \ Share:\ \ \ \ \ \ \ \ \ \ share,}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00189}00189\ \ \ \ \ \ \ \ \ \ \ \ \ EncryptedShare:\ "{}"{},}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00190}00190\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00191}00191\ \ \ \ \ \ \ \ \ sharedFilesList\ =\ append(sharedFilesList,\ sharedFile)}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00192}00192\ \ \ \ \ \ \ \ \ j++}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00193}00193\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00194}00194\ \ \ \ \ fmt.Printf("{}Created\ \%v\ shared\ files\ \(\backslash\)n"{},\ len(sharedFilesList))}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00195}00195\ }
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00196}00196\ \ \ \ \ for\ \_,\ s\ :=\ range\ sharedFilesList\ \{}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00197}00197\ \ \ \ \ \ \ \ \ fmt.Printf("{}\%v\(\backslash\)n"{},\ s)}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00198}00198\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00199}00199\ }
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00200}00200\ \ \ \ \ err\ =\ KeyTools.EncryptSharesForSharedFileList(\&sharedFilesList)}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00201}00201\ \ \ \ \ if\ err\ !=\ nil\ \{}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00202}00202\ \ \ \ \ \ \ \ \ fmt.Printf("{}Err:\ cannot\ Encrypt\ share\ list:\ \%v\(\backslash\)n"{},\ err)}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00203}00203\ \ \ \ \ \ \ \ \ http.Error(w,\ err.Error(),\ http.StatusInternalServerError)}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00204}00204\ \ \ \ \ \ \ \ \ return}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00205}00205\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00206}00206\ }
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00207}00207\ \ \ \ \ err\ =\ DB.InsertMultipleSharedFiles(sharedFilesList)}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00208}00208\ \ \ \ \ if\ err\ !=\ nil\ \{}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00209}00209\ \ \ \ \ \ \ \ \ fmt.Printf("{}Err:\ cannot\ save\ list\ in\ DB\ \ \%v\(\backslash\)n"{},\ err)}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00210}00210\ \ \ \ \ \ \ \ \ http.Error(w,\ err.Error(),\ http.StatusInternalServerError)}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00211}00211\ \ \ \ \ \ \ \ \ return}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00212}00212\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00213}00213\ \ \ \ \ fmt.Printf("{}New\ share\ saved\ to\ DB\(\backslash\)n"{})}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00214}00214\ }
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00215}00215\ \ \ \ \ //\ Return\ a\ success\ message}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00216}00216\ \ \ \ \ w.WriteHeader(http.StatusOK)}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00217}00217\ \ \ \ \ fmt.Fprintf(w,\ fmt.Sprintf("{}fileID:\%v\(\backslash\)n"{},\ fileID))}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00218}00218\ \ \ \ \ fmt.Fprintf(w,\ "{}Shared\ file\ created\ successfully"{})}
+\DoxyCodeLine{\Hypertarget{REST__functions_8go_source_l00219}00219\ \}}
+
+\end{DoxyCode}

@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_dir_0478bae25ca005df124f4d801fb1b428" xml:lang="en-US">
+<title>kernel-module Directory Reference</title>
+<indexterm><primary>kernel-module Directory Reference</primary></indexterm>
+<simplesect>
+    <title>Files    </title>
+        <itemizedlist>
+            <listitem><para>file <link linkend="_tcfs__kmodule_8c">tcfs_kmodule.c</link></para>
+
+<para>This will host the kernel module implementation in the future. It is not beeing currently developed. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+</section>

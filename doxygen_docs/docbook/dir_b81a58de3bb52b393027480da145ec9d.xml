@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_dir_b81a58de3bb52b393027480da145ec9d" xml:lang="en-US">
+<title>userspace-module/utils/password_manager Directory Reference</title>
+<indexterm><primary>userspace-module/utils/password_manager Directory Reference</primary></indexterm>
+Directory dependency graph for password_manager:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="dir_b81a58de3bb52b393027480da145ec9d_dep.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+<simplesect>
+    <title>Files    </title>
+        <itemizedlist>
+            <listitem><para>file <link linkend="_password__manager_8c">password_manager.c</link></para>
+
+<para>This file will handle key exchanges with the kernel module. </para>
+</listitem>
+            <listitem><para>file <link linkend="_password__manager_8h">password_manager.h</link></para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+</section>

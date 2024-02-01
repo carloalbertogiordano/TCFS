@@ -1,0 +1,5 @@
+<map id="is_encrypted" name="is_encrypted">
+<area shape="rect" id="Node000001" title="Check if a file is encrypted by TCFS." alt="" coords="185,5,280,32"/>
+<area shape="rect" id="Node000002" href="$tcfs__utils_8c.html#a4316eb58a0cb5afb4e90e75a55c9b3ea" title="Get the xattr value describing the key of a file." alt="" coords="5,5,137,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="170,21,137,21,137,16,170,16"/>
+</map>

@@ -1,0 +1,119 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classui_1_1main__window_1_1Window" kind="class" language="Python" prot="public">
+    <compoundname>ui::main_window::Window</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classui_1_1main__window_1_1Window_1a42aa4b5e9230c0c16b1ba2a922332375" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>ui.main_window.Window::window</definition>
+        <argsstring></argsstring>
+        <name>window</name>
+        <qualifiedname>ui.main_window.Window.window</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="user/ui/main_window.py" line="11" column="1" bodyfile="user/ui/main_window.py" bodystart="11" bodyend="-1"/>
+        <referencedby refid="classui_1_1main__window_1_1Window_1a61bcd34a3ad36ae9edf579ca78eee795" compoundref="main__window_8py" startline="15" endline="19">ui.main_window.Window.add_button</referencedby>
+        <referencedby refid="classui_1_1main__window_1_1Window_1aa4cd7c3b0514d223feac32a3aedea325" compoundref="main__window_8py" startline="20" endline="23">ui.main_window.Window.start_window</referencedby>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classui_1_1main__window_1_1Window_1a75bf25c45091f2edb8aaeffe62b922d5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>ui.main_window.Window.__init__</definition>
+        <argsstring>(self, str title, str geometry)</argsstring>
+        <name>__init__</name>
+        <qualifiedname>ui.main_window.Window.__init__</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>str</type>
+          <declname>title</declname>
+        </param>
+        <param>
+          <type>str</type>
+          <declname>geometry</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="user/ui/main_window.py" line="10" column="1" bodyfile="user/ui/main_window.py" bodystart="10" bodyend="14"/>
+      </memberdef>
+      <memberdef kind="function" id="classui_1_1main__window_1_1Window_1a61bcd34a3ad36ae9edf579ca78eee795" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>ui.main_window.Window.add_button</definition>
+        <argsstring>(self, str text, function, row=0, col=0)</argsstring>
+        <name>add_button</name>
+        <qualifiedname>ui.main_window.Window.add_button</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>str</type>
+          <declname>text</declname>
+        </param>
+        <param>
+          <type>function</type>
+          <defname>function</defname>
+        </param>
+        <param>
+          <type>row</type>
+          <defname>row</defname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type>col</type>
+          <defname>col</defname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="user/ui/main_window.py" line="15" column="1" bodyfile="user/ui/main_window.py" bodystart="15" bodyend="19"/>
+        <references refid="classui_1_1main__window_1_1Window_1a42aa4b5e9230c0c16b1ba2a922332375" compoundref="main__window_8py" startline="11">ui.main_window.Window.window</references>
+      </memberdef>
+      <memberdef kind="function" id="classui_1_1main__window_1_1Window_1aa4cd7c3b0514d223feac32a3aedea325" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>ui.main_window.Window.start_window</definition>
+        <argsstring>(self)</argsstring>
+        <name>start_window</name>
+        <qualifiedname>ui.main_window.Window.start_window</qualifiedname>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="user/ui/main_window.py" line="20" column="1" bodyfile="user/ui/main_window.py" bodystart="20" bodyend="23"/>
+        <references refid="classui_1_1main__window_1_1Window_1a42aa4b5e9230c0c16b1ba2a922332375" compoundref="main__window_8py" startline="11">ui.main_window.Window.window</references>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="user/ui/main_window.py" line="8" column="1" bodyfile="user/ui/main_window.py" bodystart="8" bodyend="23"/>
+    <listofallmembers>
+      <member refid="classui_1_1main__window_1_1Window_1a75bf25c45091f2edb8aaeffe62b922d5" prot="public" virt="non-virtual"><scope>ui::main_window::Window</scope><name>__init__</name></member>
+      <member refid="classui_1_1main__window_1_1Window_1a61bcd34a3ad36ae9edf579ca78eee795" prot="public" virt="non-virtual"><scope>ui::main_window::Window</scope><name>add_button</name></member>
+      <member refid="classui_1_1main__window_1_1Window_1aa4cd7c3b0514d223feac32a3aedea325" prot="public" virt="non-virtual"><scope>ui::main_window::Window</scope><name>start_window</name></member>
+      <member refid="classui_1_1main__window_1_1Window_1a42aa4b5e9230c0c16b1ba2a922332375" prot="public" virt="non-virtual"><scope>ui::main_window::Window</scope><name>window</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_deprecated" xml:lang="en-US">
+<title>Deprecated List</title>
+<indexterm><primary>Deprecated List</primary></indexterm>
+
+<para><variablelist>
+<varlistentry><term>Member <link linkend="_tcfs__utils_8c_1a4316eb58a0cb5afb4e90e75a55c9b3ea">get_encrypted_key</link>  (char *filepath, unsigned char *encrypted_key)</term>
+<listitem>
+<para><anchor xml:id="_deprecated_1_deprecated000002"/>Currently has no use. Was once used for debugging.  </para>
+</listitem></varlistentry>
+<varlistentry><term>Member <link linkend="_tcfs__utils_8h_1a8c1c24299a2b01f6157b051cb56ebc52">print_aes_key</link>  (unsigned char *key)</term>
+<listitem>
+<para><anchor xml:id="_deprecated_1_deprecated000003"/>Currently has no use. Printing the AES key is considered excessive.  </para>
+</listitem></varlistentry>
+<varlistentry><term>Member <link linkend="_tcfs__utils_8c_1a42623317bb0b1ff095b4d946dc085bd6">read_file</link>  (FILE *file)</term>
+<listitem>
+<para><anchor xml:id="_deprecated_1_deprecated000001"/>Currently has no use. </para>
+</listitem></varlistentry>
+</variablelist>
+</para>
+</section>

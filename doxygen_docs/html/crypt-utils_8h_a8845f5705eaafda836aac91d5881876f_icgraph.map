@@ -1,0 +1,5 @@
+<map id="generate_key" name="generate_key">
+<area shape="rect" id="Node000001" title="Generate a new AES 256 key for a file." alt="" coords="140,5,239,32"/>
+<area shape="rect" id="Node000002" href="$tcfs_8c.html#ad973ad9d6ab7d6276bf85cd8fecd0657" title="Create and open a file." alt="" coords="5,5,92,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="125,21,92,21,92,16,125,16"/>
+</map>

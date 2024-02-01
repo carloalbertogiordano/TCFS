@@ -1,0 +1,93 @@
+\doxysection{tcfs-\/daemon.go}
+\hypertarget{tcfs-daemon_8go_source}{}\label{tcfs-daemon_8go_source}\index{ServerREST/tcfs-\/daemon.go@{ServerREST/tcfs-\/daemon.go}}
+\mbox{\hyperlink{tcfs-daemon_8go}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{tcfs-daemon_8go_source_l00001}00001\ package\ main}
+\DoxyCodeLine{\Hypertarget{tcfs-daemon_8go_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{tcfs-daemon_8go_source_l00003}00003\ /**}
+\DoxyCodeLine{\Hypertarget{tcfs-daemon_8go_source_l00004}00004\ \ *\ @file\ main.go}
+\DoxyCodeLine{\Hypertarget{tcfs-daemon_8go_source_l00005}00005\ \ *\ @brief\ Main\ file\ for\ the\ TCFS\ server.}
+\DoxyCodeLine{\Hypertarget{tcfs-daemon_8go_source_l00006}00006\ \ */}
+\DoxyCodeLine{\Hypertarget{tcfs-daemon_8go_source_l00007}00007\ }
+\DoxyCodeLine{\Hypertarget{tcfs-daemon_8go_source_l00008}00008\ import\ (}
+\DoxyCodeLine{\Hypertarget{tcfs-daemon_8go_source_l00009}00009\ \ \ \ \ "{}flag"{}}
+\DoxyCodeLine{\Hypertarget{tcfs-daemon_8go_source_l00010}00010\ \ \ \ \ "{}fmt"{}}
+\DoxyCodeLine{\Hypertarget{tcfs-daemon_8go_source_l00011}00011\ \ \ \ \ "{}gopkg.in/yaml.v2"{}}
+\DoxyCodeLine{\Hypertarget{tcfs-daemon_8go_source_l00012}00012\ \ \ \ \ "{}io"{}}
+\DoxyCodeLine{\Hypertarget{tcfs-daemon_8go_source_l00013}00013\ \ \ \ \ "{}io/ioutil"{}}
+\DoxyCodeLine{\Hypertarget{tcfs-daemon_8go_source_l00014}00014\ \ \ \ \ "{}log"{}}
+\DoxyCodeLine{\Hypertarget{tcfs-daemon_8go_source_l00015}00015\ \ \ \ \ "{}net/http"{}}
+\DoxyCodeLine{\Hypertarget{tcfs-daemon_8go_source_l00016}00016\ \ \ \ \ "{}os"{}}
+\DoxyCodeLine{\Hypertarget{tcfs-daemon_8go_source_l00017}00017\ \ \ \ \ DB\ "{}serverTCFS/db"{}}
+\DoxyCodeLine{\Hypertarget{tcfs-daemon_8go_source_l00018}00018\ \ \ \ \ restfunctions\ "{}serverTCFS/serverTools"{}}
+\DoxyCodeLine{\Hypertarget{tcfs-daemon_8go_source_l00019}00019\ )}
+\DoxyCodeLine{\Hypertarget{tcfs-daemon_8go_source_l00020}00020\ }
+\DoxyCodeLine{\Hypertarget{tcfs-daemon_8go_source_l00021}00021\ /**}
+\DoxyCodeLine{\Hypertarget{tcfs-daemon_8go_source_l00022}00022\ \ *\ @struct\ serverConfig}
+\DoxyCodeLine{\Hypertarget{tcfs-daemon_8go_source_l00023}00023\ \ *\ @brief\ Configuration\ structure\ for\ the\ server.}
+\DoxyCodeLine{\Hypertarget{tcfs-daemon_8go_source_l00024}00024\ \ */}
+\DoxyCodeLine{\Hypertarget{tcfs-daemon_8go_source_l00025}00025\ type\ serverConfig\ struct\ \{}
+\DoxyCodeLine{\Hypertarget{tcfs-daemon_8go_source_l00026}00026\ \ \ \ \ Server\ struct\ \{}
+\DoxyCodeLine{\Hypertarget{tcfs-daemon_8go_source_l00027}00027\ \ \ \ \ \ \ \ \ Port\ string\ \`{}yaml:"{}port"{}`}
+\DoxyCodeLine{\Hypertarget{tcfs-daemon_8go_source_l00028}00028\ \ \ \ \ \}\ \`{}yaml:"{}Server"{}`}
+\DoxyCodeLine{\Hypertarget{tcfs-daemon_8go_source_l00029}00029\ \ \ \ \ DB\ struct\ \{}
+\DoxyCodeLine{\Hypertarget{tcfs-daemon_8go_source_l00030}00030\ \ \ \ \ \ \ \ \ Host\ \ \ \ \ string\ \`{}yaml:"{}host"{}`}
+\DoxyCodeLine{\Hypertarget{tcfs-daemon_8go_source_l00031}00031\ \ \ \ \ \ \ \ \ Port\ \ \ \ \ string\ \`{}yaml:"{}port"{}`}
+\DoxyCodeLine{\Hypertarget{tcfs-daemon_8go_source_l00032}00032\ \ \ \ \ \ \ \ \ DBname\ \ \ string\ \`{}yaml:"{}dbname"{}`}
+\DoxyCodeLine{\Hypertarget{tcfs-daemon_8go_source_l00033}00033\ \ \ \ \ \ \ \ \ Username\ string\ \`{}yaml:"{}username"{}`}
+\DoxyCodeLine{\Hypertarget{tcfs-daemon_8go_source_l00034}00034\ \ \ \ \ \ \ \ \ Password\ string\ \`{}yaml:"{}password"{}`}
+\DoxyCodeLine{\Hypertarget{tcfs-daemon_8go_source_l00035}00035\ \ \ \ \ \}\ \`{}yaml:"{}db"{}`}
+\DoxyCodeLine{\Hypertarget{tcfs-daemon_8go_source_l00036}00036\ \}}
+\DoxyCodeLine{\Hypertarget{tcfs-daemon_8go_source_l00037}00037\ }
+\DoxyCodeLine{\Hypertarget{tcfs-daemon_8go_source_l00038}00038\ /**}
+\DoxyCodeLine{\Hypertarget{tcfs-daemon_8go_source_l00039}00039\ \ *\ @brief\ Main\ function\ to\ start\ the\ TCFS\ server.}
+\DoxyCodeLine{\Hypertarget{tcfs-daemon_8go_source_l00040}00040\ \ */}
+\DoxyCodeLine{\Hypertarget{tcfs-daemon_8go_source_l00041}00041\ func\ main()\ \{}
+\DoxyCodeLine{\Hypertarget{tcfs-daemon_8go_source_l00042}00042\ \ \ \ \ //\ Parse\ command-\/line\ flags\ for\ the\ Server\ port}
+\DoxyCodeLine{\Hypertarget{tcfs-daemon_8go_source_l00043}00043\ \ \ \ \ var\ configFile\ string}
+\DoxyCodeLine{\Hypertarget{tcfs-daemon_8go_source_l00044}00044\ \ \ \ \ flag.StringVar(\&configFile,\ "{}config-\/file"{},\ "{}config.yaml"{},\ "{}The\ location\ of\ the\ rest\ server\ config\ file"{})}
+\DoxyCodeLine{\Hypertarget{tcfs-daemon_8go_source_l00045}00045\ \ \ \ \ flag.Parse()}
+\DoxyCodeLine{\Hypertarget{tcfs-daemon_8go_source_l00046}00046\ }
+\DoxyCodeLine{\Hypertarget{tcfs-daemon_8go_source_l00047}00047\ \ \ \ \ //\ Read\ the\ YAML\ file}
+\DoxyCodeLine{\Hypertarget{tcfs-daemon_8go_source_l00048}00048\ \ \ \ \ data,\ err\ :=\ ioutil.ReadFile(configFile)}
+\DoxyCodeLine{\Hypertarget{tcfs-daemon_8go_source_l00049}00049\ \ \ \ \ if\ err\ !=\ nil\ \{}
+\DoxyCodeLine{\Hypertarget{tcfs-daemon_8go_source_l00050}00050\ \ \ \ \ \ \ \ \ log.Fatal(err)}
+\DoxyCodeLine{\Hypertarget{tcfs-daemon_8go_source_l00051}00051\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{tcfs-daemon_8go_source_l00052}00052\ }
+\DoxyCodeLine{\Hypertarget{tcfs-daemon_8go_source_l00053}00053\ \ \ \ \ //\ Unmarshal\ the\ YAML\ data\ into\ a\ Config\ struct}
+\DoxyCodeLine{\Hypertarget{tcfs-daemon_8go_source_l00054}00054\ \ \ \ \ var\ config\ serverConfig}
+\DoxyCodeLine{\Hypertarget{tcfs-daemon_8go_source_l00055}00055\ \ \ \ \ err\ =\ yaml.Unmarshal(data,\ \&config)}
+\DoxyCodeLine{\Hypertarget{tcfs-daemon_8go_source_l00056}00056\ \ \ \ \ if\ err\ !=\ nil\ \{}
+\DoxyCodeLine{\Hypertarget{tcfs-daemon_8go_source_l00057}00057\ \ \ \ \ \ \ \ \ log.Fatal(err)}
+\DoxyCodeLine{\Hypertarget{tcfs-daemon_8go_source_l00058}00058\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{tcfs-daemon_8go_source_l00059}00059\ }
+\DoxyCodeLine{\Hypertarget{tcfs-daemon_8go_source_l00060}00060\ \ \ \ \ //\ Create\ a\ new\ log\ file}
+\DoxyCodeLine{\Hypertarget{tcfs-daemon_8go_source_l00061}00061\ \ \ \ \ file,\ err\ :=\ os.OpenFile("{}/tmp/tcfs-\/daemon.log"{},\ os.O\_APPEND|os.O\_CREATE|os.O\_WRONLY,\ 0644)}
+\DoxyCodeLine{\Hypertarget{tcfs-daemon_8go_source_l00062}00062\ \ \ \ \ if\ err\ !=\ nil\ \{}
+\DoxyCodeLine{\Hypertarget{tcfs-daemon_8go_source_l00063}00063\ \ \ \ \ \ \ \ \ log.Fatal(err)}
+\DoxyCodeLine{\Hypertarget{tcfs-daemon_8go_source_l00064}00064\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{tcfs-daemon_8go_source_l00065}00065\ \ \ \ \ defer\ file.Close()}
+\DoxyCodeLine{\Hypertarget{tcfs-daemon_8go_source_l00066}00066\ }
+\DoxyCodeLine{\Hypertarget{tcfs-daemon_8go_source_l00067}00067\ \ \ \ \ //\ Create\ a\ multi-\/writer\ that\ writes\ to\ both\ stdout\ and\ the\ log\ file}
+\DoxyCodeLine{\Hypertarget{tcfs-daemon_8go_source_l00068}00068\ \ \ \ \ multiWriter\ :=\ io.MultiWriter(os.Stdout,\ file)}
+\DoxyCodeLine{\Hypertarget{tcfs-daemon_8go_source_l00069}00069\ }
+\DoxyCodeLine{\Hypertarget{tcfs-daemon_8go_source_l00070}00070\ \ \ \ \ //\ Set\ the\ logger\ to\ write\ to\ the\ multi-\/writer}
+\DoxyCodeLine{\Hypertarget{tcfs-daemon_8go_source_l00071}00071\ \ \ \ \ logger\ :=\ log.New(multiWriter,\ "{}"{},\ log.LstdFlags)}
+\DoxyCodeLine{\Hypertarget{tcfs-daemon_8go_source_l00072}00072\ }
+\DoxyCodeLine{\Hypertarget{tcfs-daemon_8go_source_l00073}00073\ \ \ \ \ err\ =\ DB.Init(config.DB.Host,\ config.DB.Port,\ config.DB.DBname,\ config.DB.Username,\ config.DB.Password)}
+\DoxyCodeLine{\Hypertarget{tcfs-daemon_8go_source_l00074}00074\ \ \ \ \ if\ err\ !=\ nil\ \{}
+\DoxyCodeLine{\Hypertarget{tcfs-daemon_8go_source_l00075}00075\ \ \ \ \ \ \ \ \ fmt.Printf("{}Err\ initializing\ the\ DB:\ \%v"{},\ err)}
+\DoxyCodeLine{\Hypertarget{tcfs-daemon_8go_source_l00076}00076\ \ \ \ \ \ \ \ \ return}
+\DoxyCodeLine{\Hypertarget{tcfs-daemon_8go_source_l00077}00077\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{tcfs-daemon_8go_source_l00078}00078\ \ \ \ \ http.HandleFunc("{}/register"{},\ restfunctions.Register)}
+\DoxyCodeLine{\Hypertarget{tcfs-daemon_8go_source_l00079}00079\ \ \ \ \ http.HandleFunc("{}/login"{},\ restfunctions.Login)}
+\DoxyCodeLine{\Hypertarget{tcfs-daemon_8go_source_l00080}00080\ \ \ \ \ http.HandleFunc("{}/logout"{},\ restfunctions.Logout)}
+\DoxyCodeLine{\Hypertarget{tcfs-daemon_8go_source_l00081}00081\ \ \ \ \ http.HandleFunc("{}/createSharedFile"{},\ restfunctions.CreateSharedFile)}
+\DoxyCodeLine{\Hypertarget{tcfs-daemon_8go_source_l00082}00082\ \ \ \ \ fmt.Printf("{}serving\ on\ \%v\(\backslash\)n"{},\ config.Server.Port)}
+\DoxyCodeLine{\Hypertarget{tcfs-daemon_8go_source_l00083}00083\ \ \ \ \ log.Fatal(http.ListenAndServe("{}:"{}+config.Server.Port,\ nil))}
+\DoxyCodeLine{\Hypertarget{tcfs-daemon_8go_source_l00084}00084\ }
+\DoxyCodeLine{\Hypertarget{tcfs-daemon_8go_source_l00085}00085\ \ \ \ \ //\ Terminate\ the\ program}
+\DoxyCodeLine{\Hypertarget{tcfs-daemon_8go_source_l00086}00086\ \ \ \ \ logger.Println("{}Server\ is\ exiting"{})}
+\DoxyCodeLine{\Hypertarget{tcfs-daemon_8go_source_l00087}00087\ \}}
+
+\end{DoxyCode}

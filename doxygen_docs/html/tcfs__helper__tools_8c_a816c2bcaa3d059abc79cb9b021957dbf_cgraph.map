@@ -1,0 +1,17 @@
+<map id="handle_local_mount" name="handle_local_mount">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,89,142,116"/>
+<area shape="rect" id="Node000002" href="$tcfs__helper__tools_8c.html#ae930b52ef70f640efde8bda574b6b234" title="Create a temporary folder in HOME/.tcfs." alt="" coords="190,23,353,65"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="120,86,182,68,184,73,122,91"/>
+<area shape="rect" id="Node000006" href="$tcfs__helper__tools_8c.html#ae1746adb62f9476a6d8166b62faa7a91" title=" " alt="" coords="213,89,330,116"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="142,100,198,100,198,105,142,105"/>
+<area shape="rect" id="Node000007" href="$tcfs__helper__tools_8c.html#a26931b8bdf24be94e03f4d77e991d063" title=" " alt="" coords="209,140,334,167"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="129,114,203,133,201,138,128,119"/>
+<area shape="rect" id="Node000003" href="$tcfs__helper__tools_8c.html#a3644c45d6131fe1528ce36163e299fd9" title="Creates the .tcfs folder in the user HOME. Then this creates a folder with a random name so that crea..." alt="" coords="401,31,565,57"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="354,41,386,41,386,47,354,47"/>
+<area shape="rect" id="Node000004" href="$tcfs__helper__tools_8c.html#ab3cdcc12b3bc92a382784027c94a2027" title="Check if a directory already exists. This function is marked as internal and should not be used by th..." alt="" coords="637,5,750,32"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="566,31,622,25,623,30,566,37"/>
+<area shape="rect" id="Node000005" href="$tcfs__helper__tools_8c.html#a8ef1473d59fd1cfc680fe1b227604a02" title="Generate a random string that will be used as a folder name for the mount. This function is marked as..." alt="" coords="613,56,774,83"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="566,51,599,55,598,61,566,57"/>
+<area shape="rect" id="Node000008" href="$tcfs__helper__tools_8c.html#a1bef5d2cdd74c07b3ae025c6424dfbd5" title="fetch the password of the current user. This function is marked as internal and should not be used by..." alt="" coords="446,140,520,167"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="334,151,431,151,431,156,334,156"/>
+</map>

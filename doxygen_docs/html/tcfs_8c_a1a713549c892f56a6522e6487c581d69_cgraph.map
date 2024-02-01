@@ -1,0 +1,29 @@
+<map id="tcfs_readdir" name="tcfs_readdir">
+<area shape="rect" id="Node000001" title="Reads a directory." alt="" coords="5,128,95,155"/>
+<area shape="rect" id="Node000002" href="$crypt-utils_8c.html#a3b003481e5c188ac1d6f63e09e6f3a34" title=" " alt="" coords="287,78,473,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="94,125,142,114,272,96,273,101,143,119,96,131"/>
+<area shape="rect" id="Node000004" href="$tcfs__utils_8c.html#a62b66e43a7ad8b8cf9fcad67f71a7a8b" title="Logs a formatted message to a file with timestamp." alt="" coords="673,103,764,130"/>
+<area shape="poly" id="edge15_Node000001_Node000004" title=" " alt="" coords="70,126,103,106,142,89,245,54,328,35,412,23,521,12,574,4,598,4,626,13,651,28,672,47,704,89,700,92,668,51,648,32,624,17,597,9,575,9,522,18,413,28,329,40,247,59,144,94,106,111,73,130"/>
+<area shape="rect" id="Node000006" href="$crypt-utils_8c.html#a1899c23a523d11ed1cb5601eabdb023d" title="Decrypts each part of the given encrypted path using a specified key." alt="" coords="143,128,239,155"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="95,139,128,139,128,144,95,144"/>
+<area shape="rect" id="Node000007" href="$crypt-utils_8c.html#ad9b10366ade9f2129ec2613fdc76df80" title="Encrypts each part of the given path using a specified key." alt="" coords="143,179,239,206"/>
+<area shape="poly" id="edge9_Node000001_Node000007" title=" " alt="" coords="90,153,139,171,137,176,89,158"/>
+<area shape="rect" id="Node000011" href="$tcfs__utils_8c.html#ac4ff59963f4a122c9f802c0c2bf2abc8" title="Prefix the realpath to the fuse path." alt="" coords="148,230,234,256"/>
+<area shape="poly" id="edge16_Node000001_Node000011" title=" " alt="" coords="68,154,102,183,144,216,151,220,148,224,141,220,98,187,64,158"/>
+<area shape="rect" id="Node000003" href="$crypt-utils_8c.html#a22f528907ee4f078e333501b747d5435" title="Decrypt the *ciphertext string using a AES 256 key." alt="" coords="521,27,625,54"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="433,74,506,55,507,60,435,80"/>
+<area shape="rect" id="Node000005" href="$tcfs__utils_8c.html#a6de1cb8448198da94080ad32d7e4eabf" title="Convert a hexadecimal string to its ASCII representation." alt="" coords="523,78,623,104"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="474,88,509,88,509,94,474,94"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="603,52,626,63,681,93,679,98,623,68,601,56"/>
+<area shape="poly" id="edge5_Node000005_Node000004" title=" " alt="" coords="623,97,658,103,658,109,623,102"/>
+<area shape="poly" id="edge7_Node000006_Node000002" title=" " alt="" coords="239,126,313,106,314,111,240,131"/>
+<area shape="poly" id="edge8_Node000006_Node000004" title=" " alt="" coords="239,137,658,117,658,122,239,142"/>
+<area shape="poly" id="edge14_Node000007_Node000004" title=" " alt="" coords="234,204,326,232,440,260,497,271,549,276,592,275,623,266,654,241,678,208,696,174,707,143,712,145,700,176,683,211,658,245,626,271,593,280,549,282,496,276,439,266,324,237,233,209"/>
+<area shape="rect" id="Node000008" href="$crypt-utils_8c.html#aa4a7facde8c6f63a7225c07e92232b2e" title=" " alt="" coords="287,179,473,206"/>
+<area shape="poly" id="edge10_Node000007_Node000008" title=" " alt="" coords="239,190,272,190,272,195,239,195"/>
+<area shape="rect" id="Node000009" href="$crypt-utils_8c.html#aa926098a8843cf0ab6bd7eb8b3bbd2e6" title="Encrypt the *plaintext string using a AES 256 key." alt="" coords="521,230,625,256"/>
+<area shape="poly" id="edge11_Node000008_Node000009" title=" " alt="" coords="435,204,507,223,506,228,433,209"/>
+<area shape="rect" id="Node000010" href="$tcfs__utils_8c.html#a819d57d5c053a25772508a943d1bcc48" title="Convert a string to its hexadecimal representation." alt="" coords="523,179,623,206"/>
+<area shape="poly" id="edge12_Node000008_Node000010" title=" " alt="" coords="474,190,509,190,509,195,474,195"/>
+<area shape="poly" id="edge13_Node000010_Node000004" title=" " alt="" coords="599,176,677,135,679,139,602,181"/>
+</map>

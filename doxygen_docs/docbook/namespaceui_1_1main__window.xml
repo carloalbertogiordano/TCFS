@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_namespaceui_1_1main__window" xml:lang="en-US">
+<title>ui.main_window Namespace Reference</title>
+<indexterm><primary>ui.main_window</primary></indexterm>
+<simplesect>
+    <title>Classes    </title>
+        <itemizedlist>
+            <listitem><para>class <link linkend="_classui_1_1main__window_1_1Window">Window</link></para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Functions    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_namespaceui_1_1main__window_1ae9c066a65238b3103c5bd44f4950a9c9">modify_button_allign</link> (button, row, column)</para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Function Documentation</title>
+<anchor xml:id="_namespaceui_1_1main__window_1ae9c066a65238b3103c5bd44f4950a9c9"/><section>
+    <title>modify_button_allign()</title>
+<indexterm><primary>modify_button_allign</primary><secondary>ui.main_window</secondary></indexterm>
+<indexterm><primary>ui.main_window</primary><secondary>modify_button_allign</secondary></indexterm>
+<para><computeroutput>ui.main_window.modify_button_allign ( button,  row,  column)</computeroutput></para><para>
+Definition at line <link linkend="_main__window_8py_source_1l00004">4</link> of file <link linkend="_main__window_8py_source">main_window.py</link>.</para>
+</section>
+</section>
+</section>

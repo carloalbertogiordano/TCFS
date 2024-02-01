@@ -1,0 +1,250 @@
+\doxysection{tcfs\+\_\+utils.\+c}
+\hypertarget{tcfs__utils_8c_source}{}\label{tcfs__utils_8c_source}\index{userspace-\/module/utils/tcfs\_utils/tcfs\_utils.c@{userspace-\/module/utils/tcfs\_utils/tcfs\_utils.c}}
+\mbox{\hyperlink{tcfs__utils_8c}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00001}00001\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{tcfs__utils_8h}{tcfs\_utils.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00002}00002\ \textcolor{preprocessor}{\#include\ "{}../crypt-\/utils/crypt-\/utils.h"{}}}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00003}00003\ }
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00018}00018\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00019}\mbox{\hyperlink{tcfs__utils_8c_aac1b7fab3a13b4cfcc0b34eb7511df55}{00019}}\ \mbox{\hyperlink{tcfs__utils_8c_aac1b7fab3a13b4cfcc0b34eb7511df55}{get\_user\_name}}\ (\textcolor{keywordtype}{char}\ *buf,\ \textcolor{keywordtype}{size\_t}\ size)}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00020}00020\ \{}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00021}00021\ \ \ uid\_t\ uid\ =\ geteuid\ ();}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00022}00022\ \ \ \textcolor{keyword}{struct\ }passwd\ *pw\ =\ getpwuid\ (uid);}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00023}00023\ \ \ \textcolor{keywordflow}{if}\ (pw)}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00024}00024\ \ \ \ \ snprintf\ (buf,\ size,\ \textcolor{stringliteral}{"{}\%s"{}},\ pw-\/>pw\_name);}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00025}00025\ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00026}00026\ \ \ \ \ perror\ (\textcolor{stringliteral}{"{}Error:\ Could\ not\ retrieve\ username.\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00027}00027\ \}}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00028}00028\ }
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00034}00034\ \textcolor{keywordtype}{int}}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00035}\mbox{\hyperlink{tcfs__utils_8c_a71e44dc105c7af8349bc3e7eb9edf2b0}{00035}}\ \mbox{\hyperlink{tcfs__utils_8c_a71e44dc105c7af8349bc3e7eb9edf2b0}{is\_encrypted}}\ (\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *path)}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00036}00036\ \{}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00037}00037\ \ \ \textcolor{keywordtype}{int}\ ret;}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00038}00038\ \ \ \textcolor{keywordtype}{char}\ xattr\_val[5];}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00039}00039\ \ \ getxattr\ (path,\ \textcolor{stringliteral}{"{}user.encrypted"{}},\ xattr\_val,\ \textcolor{keyword}{sizeof}\ (\textcolor{keywordtype}{char})\ *\ 5);}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00040}00040\ \ \ xattr\_val[4]\ ==\ \textcolor{charliteral}{'\(\backslash\)n'};}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00041}00041\ }
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00042}00042\ \ \ \textcolor{keywordflow}{return}\ strcmp\ (xattr\_val,\ \textcolor{stringliteral}{"{}true"{}})\ ==\ 0\ ?\ true\ :\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00043}00043\ \}}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00044}00044\ }
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00052}00052\ \textcolor{keywordtype}{char}\ *}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00053}\mbox{\hyperlink{tcfs__utils_8c_ac4ff59963f4a122c9f802c0c2bf2abc8}{00053}}\ \mbox{\hyperlink{tcfs__utils_8c_ac4ff59963f4a122c9f802c0c2bf2abc8}{prefix\_path}}\ (\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *path,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *realpath)}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00054}00054\ \{}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00055}00055\ \ \ \textcolor{keywordflow}{if}\ (path\ ==\ NULL\ ||\ realpath\ ==\ NULL)}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00056}00056\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00057}00057\ \ \ \ \ \ \ fprintf\ (stderr,\ \textcolor{stringliteral}{"{}WARN:\ path\ or\ realpath\ is\ null\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00058}00058\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (path\ !=\ NULL)}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00059}00059\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (\textcolor{keywordtype}{char}\ *)path;}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00060}00060\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (realpath\ !=\ NULL)}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00061}00061\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (\textcolor{keywordtype}{char}\ *)realpath;}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00062}00062\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ NULL;}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00063}00063\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00064}00064\ }
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00065}00065\ \ \ \textcolor{keywordtype}{size\_t}\ len\ =\ strlen\ (path)\ +\ strlen\ (realpath)\ +\ 1;}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00066}00066\ \ \ \textcolor{keywordtype}{char}\ *root\_dir\ =\ malloc\ (len\ *\ \textcolor{keyword}{sizeof}\ (\textcolor{keywordtype}{char}));}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00067}00067\ }
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00068}00068\ \ \ \textcolor{keywordflow}{if}\ (root\_dir\ ==\ NULL)}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00069}00069\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00070}00070\ \ \ \ \ \ \ perror\ (\textcolor{stringliteral}{"{}Err:\ Could\ not\ allocate\ memory\ while\ in\ prefix\_path"{}});}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00071}00071\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ NULL;}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00072}00072\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00073}00073\ }
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00074}00074\ \ \ \textcolor{keywordflow}{if}\ (strcpy\ (root\_dir,\ realpath)\ ==\ NULL)}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00075}00075\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00076}00076\ \ \ \ \ \ \ perror\ (\textcolor{stringliteral}{"{}strcpy:\ Cannot\ copy\ path"{}});}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00077}00077\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ NULL;}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00078}00078\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00079}00079\ \ \ \textcolor{keywordflow}{if}\ (strcat\ (root\_dir,\ path)\ ==\ NULL)}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00080}00080\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00081}00081\ \ \ \ \ \ \ perror\ (\textcolor{stringliteral}{"{}strcat:\ in\ prefix\_path\ cannot\ concatenate\ the\ paths"{}});}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00082}00082\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ NULL;}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00083}00083\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00084}00084\ \ \ \textcolor{keywordflow}{return}\ root\_dir;}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00085}00085\ \}}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00086}00086\ }
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00094}00094\ \textcolor{keywordtype}{int}}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00095}\mbox{\hyperlink{tcfs__utils_8c_a42623317bb0b1ff095b4d946dc085bd6}{00095}}\ \mbox{\hyperlink{tcfs__utils_8c_a42623317bb0b1ff095b4d946dc085bd6}{read\_file}}\ (FILE\ *file)}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00096}00096\ \{}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00097}00097\ \ \ \textcolor{keywordtype}{int}\ c;}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00098}00098\ \ \ \textcolor{keywordtype}{int}\ file\_contains\_something\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00099}00099\ \ \ FILE\ *read\ =\ file;\ \textcolor{comment}{/*\ don't\ move\ original\ file\ pointer\ */}}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00100}00100\ \ \ \textcolor{keywordflow}{if}\ (read)}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00101}00101\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00102}00102\ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ ((c\ =\ getc\ (read))\ !=\ EOF)}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00103}00103\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00104}00104\ \ \ \ \ \ \ \ \ \ \ file\_contains\_something\ =\ 1;}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00105}00105\ \ \ \ \ \ \ \ \ \ \ putc\ (c,\ stderr);}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00106}00106\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00107}00107\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00108}00108\ \ \ \textcolor{keywordflow}{if}\ (!file\_contains\_something)}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00109}00109\ \ \ \ \ fprintf\ (stderr,\ \textcolor{stringliteral}{"{}file\ was\ empty\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00110}00110\ \ \ rewind\ (file);}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00111}00111\ \ \ \textcolor{comment}{/*\ fseek(tmpf,\ offset,\ SEEK\_END);\ */}}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00112}00112\ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00113}00113\ \}}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00114}00114\ }
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00122}00122\ \textcolor{keywordtype}{int}}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00123}\mbox{\hyperlink{tcfs__utils_8c_a4316eb58a0cb5afb4e90e75a55c9b3ea}{00123}}\ \mbox{\hyperlink{tcfs__utils_8c_a4316eb58a0cb5afb4e90e75a55c9b3ea}{get\_encrypted\_key}}\ (\textcolor{keywordtype}{char}\ *filepath,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *encrypted\_key)}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00124}00124\ \{}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00125}00125\ \ \ \mbox{\hyperlink{tcfs__utils_8c_a62b66e43a7ad8b8cf9fcad67f71a7a8b}{logMessage}}\ (\textcolor{stringliteral}{"{}\(\backslash\)tGet\ Encrypted\ key\ for\ file\ \%s\(\backslash\)n"{}},\ filepath);}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00126}00126\ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{tcfs__utils_8c_a71e44dc105c7af8349bc3e7eb9edf2b0}{is\_encrypted}}\ (filepath)\ ==\ 1)}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00127}00127\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00128}00128\ \ \ \ \ \ \ \mbox{\hyperlink{tcfs__utils_8c_a62b66e43a7ad8b8cf9fcad67f71a7a8b}{logMessage}}\ (\textcolor{stringliteral}{"{}\(\backslash\)t\(\backslash\)tencrypted\ file\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00129}00129\ }
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00130}00130\ \ \ \ \ \ \ FILE\ *src\_file\ =\ fopen\ (filepath,\ \textcolor{stringliteral}{"{}r"{}});}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00131}00131\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (src\_file\ ==\ NULL)}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00132}00132\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00133}00133\ \ \ \ \ \ \ \ \ \ \ fclose\ (src\_file);}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00134}00134\ \ \ \ \ \ \ \ \ \ \ perror\ (\textcolor{stringliteral}{"{}Could\ not\ open\ the\ file\ to\ get\ the\ key"{}});}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00135}00135\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ -\/errno;}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00136}00136\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00137}00137\ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ src\_fd;}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00138}00138\ \ \ \ \ \ \ src\_fd\ =\ fileno\ (src\_file);}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00139}00139\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (src\_fd\ ==\ -\/1)}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00140}00140\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00141}00141\ \ \ \ \ \ \ \ \ \ \ fclose\ (src\_file);}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00142}00142\ \ \ \ \ \ \ \ \ \ \ perror\ (\textcolor{stringliteral}{"{}Could\ not\ get\ fd\ for\ the\ file"{}});}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00143}00143\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ -\/errno;}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00144}00144\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00145}00145\ }
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00146}00146\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (fgetxattr\ (src\_fd,\ \textcolor{stringliteral}{"{}user.key"{}},\ encrypted\_key,\ 33)\ !=\ -\/1)}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00147}00147\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00148}00148\ \ \ \ \ \ \ \ \ \ \ fclose\ (src\_file);}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00149}00149\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00150}00150\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00151}00151\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00152}00152\ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00153}00153\ \}}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00154}00154\ }
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00164}00164\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00165}\mbox{\hyperlink{tcfs__utils_8c_a8c1c24299a2b01f6157b051cb56ebc52}{00165}}\ \mbox{\hyperlink{tcfs__utils_8c_a8c1c24299a2b01f6157b051cb56ebc52}{print\_aes\_key}}\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *key)}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00166}00166\ \{}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00167}00167\ \ \ \mbox{\hyperlink{tcfs__utils_8c_a62b66e43a7ad8b8cf9fcad67f71a7a8b}{logMessage}}\ (\textcolor{stringliteral}{"{}AES\ HEX:\%s\ -\/>\ "{}},\ key);}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00168}00168\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ 32;\ i++)}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00169}00169\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00170}00170\ \ \ \ \ \ \ \mbox{\hyperlink{tcfs__utils_8c_a62b66e43a7ad8b8cf9fcad67f71a7a8b}{logMessage}}\ (\textcolor{stringliteral}{"{}\%02x"{}},\ key[i]);}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00171}00171\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00172}00172\ \ \ \mbox{\hyperlink{tcfs__utils_8c_a62b66e43a7ad8b8cf9fcad67f71a7a8b}{logMessage}}\ (\textcolor{stringliteral}{"{}\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00173}00173\ \}}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00174}00174\ }
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00181}00181\ \textcolor{keywordtype}{char}\ *}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00182}\mbox{\hyperlink{tcfs__utils_8c_a819d57d5c053a25772508a943d1bcc48}{00182}}\ \mbox{\hyperlink{tcfs__utils_8c_a819d57d5c053a25772508a943d1bcc48}{string\_to\_hex}}\ (\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *input)}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00183}00183\ \{}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00184}00184\ \ \ \mbox{\hyperlink{tcfs__utils_8c_a62b66e43a7ad8b8cf9fcad67f71a7a8b}{logMessage}}\ (\textcolor{stringliteral}{"{}\(\backslash\)t\(\backslash\)tSTRING\ TO\ HEX\ GOT\ \%s\(\backslash\)n"{}},\ input);}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00185}00185\ }
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00186}00186\ \ \ \textcolor{keywordtype}{int}\ i;}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00187}00187\ \ \ \textcolor{keywordtype}{size\_t}\ len\ =\ strlen\ (input);}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00188}00188\ \ \ \textcolor{keywordtype}{char}\ hex[3];}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00189}00189\ \ \ \textcolor{keywordtype}{char}\ *output\ =\ (\textcolor{keywordtype}{char}\ *)malloc\ (2\ *\ len\ +\ 1);}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00190}00190\ }
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00191}00191\ \ \ \textcolor{keywordflow}{if}\ (!output)}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00192}00192\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00193}00193\ \ \ \ \ \ \ perror\ (\textcolor{stringliteral}{"{}Errore\ di\ allocazione\ di\ memoria"{}});}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00194}00194\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ NULL;}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00195}00195\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00196}00196\ }
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00197}00197\ \ \ \textcolor{comment}{//\ ensure\ that\ the\ resulting\ string\ is\ empty\ at\ the\ start.}}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00198}00198\ \ \ \textcolor{comment}{//\ Maybe\ it\ is\ not\ necessary,\ but\ some\ testing\ is\ required}}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00199}00199\ \ \ output[0]\ =\ \textcolor{charliteral}{'\(\backslash\)0'};}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00200}00200\ }
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00201}00201\ \ \ \textcolor{keywordflow}{for}\ (i\ =\ 0;\ i\ <\ len;\ i++)}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00202}00202\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00203}00203\ \ \ \ \ \ \ sprintf\ (hex,\ \textcolor{stringliteral}{"{}\%02X"{}},\ input[i]);}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00204}00204\ \ \ \ \ \ \ strcat\ (output,\ hex);}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00205}00205\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00206}00206\ }
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00207}00207\ \ \ \mbox{\hyperlink{tcfs__utils_8c_a62b66e43a7ad8b8cf9fcad67f71a7a8b}{logMessage}}\ (\textcolor{stringliteral}{"{}\(\backslash\)t\(\backslash\)tSTRING\ TO\ HEX\ WILL\ RETURN\ \%s\(\backslash\)n"{}},\ output);}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00208}00208\ \ \ \textcolor{keywordflow}{return}\ output;}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00209}00209\ \}}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00210}00210\ }
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00217}00217\ \textcolor{keywordtype}{char}\ *}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00218}\mbox{\hyperlink{tcfs__utils_8c_a6de1cb8448198da94080ad32d7e4eabf}{00218}}\ \mbox{\hyperlink{tcfs__utils_8c_a6de1cb8448198da94080ad32d7e4eabf}{hex\_to\_string}}\ (\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *input)}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00219}00219\ \{}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00220}00220\ \ \ \mbox{\hyperlink{tcfs__utils_8c_a62b66e43a7ad8b8cf9fcad67f71a7a8b}{logMessage}}\ (\textcolor{stringliteral}{"{}\(\backslash\)tHEX\ TO\ STRING\ GOT\ \%s\(\backslash\)n"{}},\ input);}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00221}00221\ \ \ \textcolor{keywordtype}{int}\ i,\ len\ =\ strlen\ (input)\ /\ 2;}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00222}00222\ \ \ \textcolor{keywordtype}{char}\ *output\ =\ (\textcolor{keywordtype}{char}\ *)malloc\ (len\ +\ 1);}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00223}00223\ }
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00224}00224\ \ \ \textcolor{keywordflow}{if}\ (!output)}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00225}00225\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00226}00226\ \ \ \ \ \ \ perror\ (\textcolor{stringliteral}{"{}Errore\ di\ allocazione\ di\ memoria"{}});}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00227}00227\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ NULL;}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00228}00228\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00229}00229\ }
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00230}00230\ \ \ \textcolor{comment}{//\ ensure\ that\ the\ resulting\ string\ is\ empty\ at\ the\ start.}}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00231}00231\ \ \ \textcolor{comment}{//\ Maybe\ it\ is\ not\ necessary,\ but\ some\ testing\ is\ required}}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00232}00232\ \ \ output[0]\ =\ \textcolor{charliteral}{'\(\backslash\)0'};}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00233}00233\ }
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00234}00234\ \ \ \textcolor{keywordflow}{for}\ (i\ =\ 0;\ i\ <\ len;\ i++)}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00235}00235\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00236}00236\ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ hex[3];}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00237}00237\ \ \ \ \ \ \ hex[0]\ =\ input[2\ *\ i];}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00238}00238\ \ \ \ \ \ \ hex[1]\ =\ input[2\ *\ i\ +\ 1];}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00239}00239\ \ \ \ \ \ \ hex[2]\ =\ \textcolor{charliteral}{'\(\backslash\)0'};}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00240}00240\ }
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00241}00241\ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ decimal;}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00242}00242\ \ \ \ \ \ \ sscanf\ (hex,\ \textcolor{stringliteral}{"{}\%X"{}},\ \&decimal);}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00243}00243\ }
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00244}00244\ \ \ \ \ \ \ output[i]\ =\ (char)decimal;}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00245}00245\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00246}00246\ }
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00247}00247\ \ \ output[len]\ =\ \textcolor{charliteral}{'\(\backslash\)0'};\ \textcolor{comment}{//\ Add\ a\ \(\backslash\)0\ terminator}}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00248}00248\ }
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00249}00249\ \ \ \mbox{\hyperlink{tcfs__utils_8c_a62b66e43a7ad8b8cf9fcad67f71a7a8b}{logMessage}}\ (\textcolor{stringliteral}{"{}\(\backslash\)tHEX\ TO\ STRING\ WILL\ RETURN\ \%s\(\backslash\)n"{}},\ output);}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00250}00250\ \ \ \textcolor{keywordflow}{return}\ output;}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00251}00251\ \}}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00252}00252\ }
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00262}\mbox{\hyperlink{tcfs__utils_8c_a62b66e43a7ad8b8cf9fcad67f71a7a8b}{00262}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{tcfs__utils_8c_a62b66e43a7ad8b8cf9fcad67f71a7a8b}{logMessage}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *format,\ ...)}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00263}00263\ \{}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00264}00264\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *home\_path\ =\ getenv(\textcolor{stringliteral}{"{}HOME"{}});}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00265}00265\ \ \ \textcolor{keywordflow}{if}\ (home\_path\ ==\ NULL)}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00266}00266\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00267}00267\ \ \ \ \ \ \ \textcolor{comment}{//\ Handle\ the\ case\ where\ HOME\ environment\ variable\ is\ not\ set}}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00268}00268\ \ \ \ \ \ \ perror(\textcolor{stringliteral}{"{}Cannot\ get\ HOME\ environment\ variable"{}});}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00269}00269\ \ \ \ \ \ \ home\_path\ =\ \textcolor{stringliteral}{"{}"{}};}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00270}00270\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00271}00271\ }
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00272}00272\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ log\_path\_length\ =\ strlen(home\_path)\ +\ strlen(\mbox{\hyperlink{tcfs__utils_8h_a6d3fef197146b932f5ad01fce683a66b}{LOGFILE}})\ +\ 1;}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00273}00273\ \ \ \textcolor{keywordtype}{char}\ *log\_path\ =\ malloc(log\_path\_length\ *\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{char}));}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00274}00274\ }
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00275}00275\ \ \ strcpy(log\_path,\ home\_path);}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00276}00276\ \ \ strcat(log\_path,\ \mbox{\hyperlink{tcfs__utils_8h_a6d3fef197146b932f5ad01fce683a66b}{LOGFILE}});}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00277}00277\ }
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00278}00278\ \ \ FILE\ *logFile\ =\ fopen(log\_path,\ \textcolor{stringliteral}{"{}a"{}});}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00279}00279\ \ \ \textcolor{keywordflow}{if}\ (logFile\ ==\ NULL)}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00280}00280\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00281}00281\ \ \ \ \ \ \ printf\ (\textcolor{stringliteral}{"{}OPEN\ FAILED\ \%s\(\backslash\)n"{}},\ log\_path);}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00282}00282\ \ \ \ \ \ \ perror(\textcolor{stringliteral}{"{}Cannot\ open\ log\ file"{}});}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00283}00283\ \ \ \ \ \ \ free(log\_path);}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00284}00284\ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00285}00285\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00286}00286\ }
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00287}00287\ \ \ time\_t\ rawtime;}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00288}00288\ \ \ \textcolor{keyword}{struct\ }tm\ *timeinfo;}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00289}00289\ \ \ time(\&rawtime);}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00290}00290\ \ \ timeinfo\ =\ localtime(\&rawtime);}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00291}00291\ }
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00292}00292\ \ \ fprintf(logFile,\ \textcolor{stringliteral}{"{}[\%04d-\/\%02d-\/\%02d\ \%02d:\%02d:\%02d]\ "{}},}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00293}00293\ \ \ \ \ \ \ \ \ \ \ \ timeinfo-\/>tm\_year\ +\ 1900,\ timeinfo-\/>tm\_mon\ +\ 1,\ timeinfo-\/>tm\_mday,}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00294}00294\ \ \ \ \ \ \ \ \ \ \ \ timeinfo-\/>tm\_hour,\ timeinfo-\/>tm\_min,\ timeinfo-\/>tm\_sec);}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00295}00295\ }
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00296}00296\ \ \ va\_list\ args;}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00297}00297\ \ \ va\_start(args,\ format);}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00298}00298\ \ \ vfprintf(logFile,\ format,\ args);}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00299}00299\ \ \ va\_end(args);}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00300}00300\ }
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00301}00301\ \ \ fprintf(logFile,\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00302}00302\ }
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00303}00303\ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{tcfs__utils_8h_ad72dbcf6d0153db1b8d8a58001feed83}{DEBUG}})}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00304}00304\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00305}00305\ \ \ \ \ \ \ va\_start(args,\ format);}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00306}00306\ \ \ \ \ \ \ vprintf(format,\ args);}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00307}00307\ \ \ \ \ \ \ va\_end(args);}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00308}00308\ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00309}00309\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00310}00310\ }
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00311}00311\ \ \ \textcolor{comment}{//\ Chiudi\ il\ file\ di\ log\ e\ libera\ la\ memoria\ allocata}}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00312}00312\ \ \ fclose(logFile);}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00313}00313\ \ \ free(log\_path);}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8c_source_l00314}00314\ \}}
+
+\end{DoxyCode}

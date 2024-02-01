@@ -1,0 +1,7 @@
+<map id="tcfs_getxattr" name="tcfs_getxattr">
+<area shape="rect" id="Node000001" title="Get extended attribute data." alt="" coords="132,31,226,57"/>
+<area shape="rect" id="Node000002" href="$tcfs_8c.html#a745384a010e20b082db26e16702a0129" title="Reads data from an open file." alt="" coords="7,5,82,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="117,35,82,28,83,23,118,30"/>
+<area shape="rect" id="Node000003" href="$tcfs_8c.html#adaba2baa5a036b8f77ec187599498a66" title="Writes data to an open file." alt="" coords="5,56,84,83"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="117,58,85,65,84,59,116,53"/>
+</map>

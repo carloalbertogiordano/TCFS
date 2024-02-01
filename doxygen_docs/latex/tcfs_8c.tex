@@ -1,0 +1,1755 @@
+\doxysection{userspace-\/module/tcfs.c File Reference}
+\hypertarget{tcfs_8c}{}\label{tcfs_8c}\index{userspace-\/module/tcfs.c@{userspace-\/module/tcfs.c}}
+{\ttfamily \#include "{}utils/crypt-\/utils/crypt-\/utils.\+h"{}}\newline
+{\ttfamily \#include "{}utils/tcfs\+\_\+utils/tcfs\+\_\+utils.\+h"{}}\newline
+{\ttfamily \#include $<$argp.\+h$>$}\newline
+{\ttfamily \#include $<$dirent.\+h$>$}\newline
+{\ttfamily \#include $<$errno.\+h$>$}\newline
+{\ttfamily \#include $<$fcntl.\+h$>$}\newline
+{\ttfamily \#include $<$fuse3/fuse.\+h$>$}\newline
+{\ttfamily \#include $<$limits.\+h$>$}\newline
+{\ttfamily \#include $<$linux/limits.\+h$>$}\newline
+{\ttfamily \#include $<$pwd.\+h$>$}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$sys/stat.\+h$>$}\newline
+{\ttfamily \#include $<$sys/time.\+h$>$}\newline
+{\ttfamily \#include $<$sys/xattr.\+h$>$}\newline
+{\ttfamily \#include $<$time.\+h$>$}\newline
+{\ttfamily \#include $<$unistd.\+h$>$}\newline
+Include dependency graph for tcfs.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tcfs_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structarguments}{arguments}}
+\begin{DoxyCompactList}\small\item\em Structure to store command-\/line arguments. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{tcfs_8c_a0919197af2e154da2c05727b6d87cbda}{FUSE\+\_\+\+USE\+\_\+\+VERSION}}~30
+\item 
+\#define \mbox{\hyperlink{tcfs_8c_ace5cb10bf13b2a61c0d3e01b4e0590a2}{HAVE\+\_\+\+SETXATTR}}
+\item 
+\#define \mbox{\hyperlink{tcfs_8c_a78c99ffd76a7bb3c8c74db76207e9ab4}{\+\_\+\+XOPEN\+\_\+\+SOURCE}}~500
+\item 
+\#define \mbox{\hyperlink{tcfs_8c_afa4c673b6383ea6994b5e5c95a7cc213}{TCFS\+\_\+\+SUCCESS}}~0
+\item 
+\#define \mbox{\hyperlink{tcfs_8c_ae05f9a61e45517eaca7278909e7959ec}{ERR\+\_\+inval\+\_\+arg\+\_\+len}}~1
+\item 
+\#define \mbox{\hyperlink{tcfs_8c_ac9de09fb2e7784a5778dec8a36db8ffa}{ERR\+\_\+inval\+\_\+key}}~2
+\item 
+\#define \mbox{\hyperlink{tcfs_8c_a37991e6ea390ac4a4d0f4e63c2a71146}{ERR\+\_\+invalid\+\_\+enc\+\_\+dir\+\_\+name}}~3
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static int \mbox{\hyperlink{tcfs_8c_a6a031c4e3c6dd59051c09789c4666657}{tcfs\+\_\+getxattr}} (const char \texorpdfstring{$\ast$}{*}fuse\+\_\+path, const char \texorpdfstring{$\ast$}{*}name, char \texorpdfstring{$\ast$}{*}value, size\+\_\+t size)
+\begin{DoxyCompactList}\small\item\em Get extended attribute data. \end{DoxyCompactList}\item 
+static int \mbox{\hyperlink{tcfs_8c_a92ebab5be45b159c2850a47a5072b58d}{tcfs\+\_\+opendir}} (const char \texorpdfstring{$\ast$}{*}fuse\+\_\+path, struct fuse\+\_\+file\+\_\+info \texorpdfstring{$\ast$}{*}fi)
+\begin{DoxyCompactList}\small\item\em Opens a directory. \end{DoxyCompactList}\item 
+static int \mbox{\hyperlink{tcfs_8c_a411eac4511d0eae4ce78a2fd3d22ac8c}{tcfs\+\_\+getattr}} (const char \texorpdfstring{$\ast$}{*}fuse\+\_\+path, struct stat \texorpdfstring{$\ast$}{*}stbuf, struct fuse\+\_\+file\+\_\+info \texorpdfstring{$\ast$}{*}fi)
+\begin{DoxyCompactList}\small\item\em Gets file attributes. \end{DoxyCompactList}\item 
+static int \mbox{\hyperlink{tcfs_8c_a76af7857833338c73b9cafdce59ca01d}{tcfs\+\_\+access}} (const char \texorpdfstring{$\ast$}{*}fuse\+\_\+path, int mask)
+\begin{DoxyCompactList}\small\item\em Checks file access permissions. \end{DoxyCompactList}\item 
+static int \mbox{\hyperlink{tcfs_8c_acb1e081efcbf61b6f34e8bbdf7af8979}{tcfs\+\_\+readlink}} (const char \texorpdfstring{$\ast$}{*}fuse\+\_\+path, char \texorpdfstring{$\ast$}{*}buf, size\+\_\+t size)
+\begin{DoxyCompactList}\small\item\em Reads the target of a symbolic link. \end{DoxyCompactList}\item 
+static int \mbox{\hyperlink{tcfs_8c_a1a713549c892f56a6522e6487c581d69}{tcfs\+\_\+readdir}} (const char \texorpdfstring{$\ast$}{*}fuse\+\_\+path, void \texorpdfstring{$\ast$}{*}buf, fuse\+\_\+fill\+\_\+dir\+\_\+t filler, off\+\_\+t offset, struct fuse\+\_\+file\+\_\+info \texorpdfstring{$\ast$}{*}fi, enum fuse\+\_\+readdir\+\_\+flags frdf)
+\begin{DoxyCompactList}\small\item\em Reads a directory. \end{DoxyCompactList}\item 
+static int \mbox{\hyperlink{tcfs_8c_a151f53359474a95c52f5e79d438869bd}{tcfs\+\_\+mknod}} (const char \texorpdfstring{$\ast$}{*}fuse\+\_\+path, mode\+\_\+t mode, dev\+\_\+t rdev)
+\begin{DoxyCompactList}\small\item\em Creates a regular file or a special file (block or character). \end{DoxyCompactList}\item 
+static int \mbox{\hyperlink{tcfs_8c_a682b553345b6d872453d1ace7339bb9e}{tcfs\+\_\+mkdir}} (const char \texorpdfstring{$\ast$}{*}fuse\+\_\+path, mode\+\_\+t mode)
+\begin{DoxyCompactList}\small\item\em Creates a directory. \end{DoxyCompactList}\item 
+static int \mbox{\hyperlink{tcfs_8c_ac6d3a8a626363a6f98de64e585968b09}{tcfs\+\_\+unlink}} (const char \texorpdfstring{$\ast$}{*}fuse\+\_\+path)
+\begin{DoxyCompactList}\small\item\em Removes a file. \end{DoxyCompactList}\item 
+static int \mbox{\hyperlink{tcfs_8c_a2853593dded66a922afbdc36afb15a50}{tcfs\+\_\+rmdir}} (const char \texorpdfstring{$\ast$}{*}fuse\+\_\+path)
+\begin{DoxyCompactList}\small\item\em Removes a directory. \end{DoxyCompactList}\item 
+static int \mbox{\hyperlink{tcfs_8c_ac1d223f9b998d5af6bec3947d03be0fc}{tcfs\+\_\+symlink}} (const char \texorpdfstring{$\ast$}{*}from, const char \texorpdfstring{$\ast$}{*}to)
+\begin{DoxyCompactList}\small\item\em Creates a symbolic link. \end{DoxyCompactList}\item 
+static int \mbox{\hyperlink{tcfs_8c_aee96b732a1569a607e63bac6fbe5c403}{tcfs\+\_\+rename}} (const char \texorpdfstring{$\ast$}{*}from, const char \texorpdfstring{$\ast$}{*}to, unsigned int flags)
+\begin{DoxyCompactList}\small\item\em Renames a file or a directory. \end{DoxyCompactList}\item 
+static int \mbox{\hyperlink{tcfs_8c_a271df7bd878f5ed132e1f98487e8aebd}{tcfs\+\_\+link}} (const char \texorpdfstring{$\ast$}{*}from, const char \texorpdfstring{$\ast$}{*}to)
+\begin{DoxyCompactList}\small\item\em Creates a hard link. \end{DoxyCompactList}\item 
+static int \mbox{\hyperlink{tcfs_8c_a3cb10be0f6147667dc0e757636e9892f}{tcfs\+\_\+chmod}} (const char \texorpdfstring{$\ast$}{*}fuse\+\_\+path, mode\+\_\+t mode, struct fuse\+\_\+file\+\_\+info \texorpdfstring{$\ast$}{*}fi)
+\begin{DoxyCompactList}\small\item\em Changes the permissions of a file. \end{DoxyCompactList}\item 
+static int \mbox{\hyperlink{tcfs_8c_afff31b61fa0723502cf85922816f14f9}{tcfs\+\_\+chown}} (const char \texorpdfstring{$\ast$}{*}fuse\+\_\+path, uid\+\_\+t uid, gid\+\_\+t gid, struct fuse\+\_\+file\+\_\+info \texorpdfstring{$\ast$}{*}fi)
+\begin{DoxyCompactList}\small\item\em Changes the owner and group of a file. \end{DoxyCompactList}\item 
+static int \mbox{\hyperlink{tcfs_8c_a7e7f7a65b4e76cc96505d0c6d62fba9c}{tcfs\+\_\+truncate}} (const char \texorpdfstring{$\ast$}{*}fuse\+\_\+path, off\+\_\+t size, struct fuse\+\_\+file\+\_\+info \texorpdfstring{$\ast$}{*}fi)
+\begin{DoxyCompactList}\small\item\em Truncates or extends the size of a file. \end{DoxyCompactList}\item 
+static int \mbox{\hyperlink{tcfs_8c_aca5dccf989dfc270ca31e1d8b20bb60e}{tcfs\+\_\+utimens}} (const char \texorpdfstring{$\ast$}{*}fuse\+\_\+path, const struct timespec ts\mbox{[}2\mbox{]}, struct fuse\+\_\+file\+\_\+info \texorpdfstring{$\ast$}{*}fi)
+\begin{DoxyCompactList}\small\item\em Modify the access and modification timestamps of a file in the TCFS file system. \end{DoxyCompactList}\item 
+static int \mbox{\hyperlink{tcfs_8c_af0c6a7d66189cc1e9fbfafba5255e60d}{tcfs\+\_\+open}} (const char \texorpdfstring{$\ast$}{*}fuse\+\_\+path, struct fuse\+\_\+file\+\_\+info \texorpdfstring{$\ast$}{*}fi)
+\begin{DoxyCompactList}\small\item\em Opens a file. \end{DoxyCompactList}\item 
+static int \mbox{\hyperlink{tcfs_8c_a996d4e078d075e74e800288e6c92fd59}{file\+\_\+size}} (FILE \texorpdfstring{$\ast$}{*}file)
+\begin{DoxyCompactList}\small\item\em Get the size of a file in the TCFS file system. \end{DoxyCompactList}\item 
+static int \mbox{\hyperlink{tcfs_8c_a745384a010e20b082db26e16702a0129}{tcfs\+\_\+read}} (const char \texorpdfstring{$\ast$}{*}fuse\+\_\+path, char \texorpdfstring{$\ast$}{*}buf, size\+\_\+t size, off\+\_\+t offset, struct fuse\+\_\+file\+\_\+info \texorpdfstring{$\ast$}{*}fi)
+\begin{DoxyCompactList}\small\item\em Reads data from an open file. \end{DoxyCompactList}\item 
+static int \mbox{\hyperlink{tcfs_8c_adaba2baa5a036b8f77ec187599498a66}{tcfs\+\_\+write}} (const char \texorpdfstring{$\ast$}{*}fuse\+\_\+path, const char \texorpdfstring{$\ast$}{*}buf, size\+\_\+t size, off\+\_\+t offset, struct fuse\+\_\+file\+\_\+info \texorpdfstring{$\ast$}{*}fi)
+\begin{DoxyCompactList}\small\item\em Writes data to an open file. \end{DoxyCompactList}\item 
+static int \mbox{\hyperlink{tcfs_8c_ae14ebf4581d4cbc45737ae75af82a887}{tcfs\+\_\+statfs}} (const char \texorpdfstring{$\ast$}{*}fuse\+\_\+path, struct statvfs \texorpdfstring{$\ast$}{*}stbuf)
+\begin{DoxyCompactList}\small\item\em Get file system statistics. \end{DoxyCompactList}\item 
+static int \mbox{\hyperlink{tcfs_8c_ad3c328fdcd93c8203e1ce9c785fd3a14}{tcfs\+\_\+setxattr}} (const char \texorpdfstring{$\ast$}{*}fuse\+\_\+path, const char \texorpdfstring{$\ast$}{*}name, const char \texorpdfstring{$\ast$}{*}value, size\+\_\+t size, int flags)
+\begin{DoxyCompactList}\small\item\em Sets extended attributes. \end{DoxyCompactList}\item 
+static int \mbox{\hyperlink{tcfs_8c_ad973ad9d6ab7d6276bf85cd8fecd0657}{tcfs\+\_\+create}} (const char \texorpdfstring{$\ast$}{*}fuse\+\_\+path, mode\+\_\+t mode, struct fuse\+\_\+file\+\_\+info \texorpdfstring{$\ast$}{*}fi)
+\begin{DoxyCompactList}\small\item\em Create and open a file. \end{DoxyCompactList}\item 
+static int \mbox{\hyperlink{tcfs_8c_a1241e1fcfe6bb4a5d49d8c8d4e737bcd}{tcfs\+\_\+release}} (const char \texorpdfstring{$\ast$}{*}fuse\+\_\+path, struct fuse\+\_\+file\+\_\+info \texorpdfstring{$\ast$}{*}fi)
+\begin{DoxyCompactList}\small\item\em Releases an open file. \end{DoxyCompactList}\item 
+static int \mbox{\hyperlink{tcfs_8c_a014853840814f4d5225e2e28e129f9e5}{tcfs\+\_\+fsync}} (const char \texorpdfstring{$\ast$}{*}fuse\+\_\+path, int isdatasync, struct fuse\+\_\+file\+\_\+info \texorpdfstring{$\ast$}{*}fi)
+\begin{DoxyCompactList}\small\item\em Synchronizes file contents. \end{DoxyCompactList}\item 
+static int \mbox{\hyperlink{tcfs_8c_ae6edcf6a80467925a9a2112172395de1}{tcfs\+\_\+listxattr}} (const char \texorpdfstring{$\ast$}{*}fuse\+\_\+path, char \texorpdfstring{$\ast$}{*}list, size\+\_\+t size)
+\begin{DoxyCompactList}\small\item\em Lists extended attributes. \end{DoxyCompactList}\item 
+static int \mbox{\hyperlink{tcfs_8c_acfe2c6a9467bd25a5ba6dc1a65209262}{tcfs\+\_\+removexattr}} (const char \texorpdfstring{$\ast$}{*}fuse\+\_\+path, const char \texorpdfstring{$\ast$}{*}name)
+\begin{DoxyCompactList}\small\item\em Remove an extended attribute. \end{DoxyCompactList}\item 
+static error\+\_\+t \mbox{\hyperlink{tcfs_8c_a35ee63236273ebb9325c444cacf00159}{parse\+\_\+opt}} (int key, char \texorpdfstring{$\ast$}{*}arg, struct argp\+\_\+state \texorpdfstring{$\ast$}{*}state)
+\begin{DoxyCompactList}\small\item\em Parse command-\/line options. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{tcfs_8c_a0ddf1224851353fc92bfbff6f499fa97}{main}} (int argc, char \texorpdfstring{$\ast$}{*}argv\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em Main entry point for TCFS. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{tcfs_8c_ab33cf7205359ee0f91488c87df1577a0}{root\+\_\+path}}
+\begin{DoxyCompactList}\small\item\em Contains the fullpath to the mounted directory. \end{DoxyCompactList}\item 
+char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{tcfs_8c_a9dbb300e28bc21c8dab41b01883918eb}{password}}
+\begin{DoxyCompactList}\small\item\em Contains the password passed to TCFS when started. \end{DoxyCompactList}\item 
+static struct fuse\+\_\+operations \mbox{\hyperlink{tcfs_8c_a53c12b201809f3165da8a2779d152b3a}{tcfs\+\_\+oper}}
+\begin{DoxyCompactList}\small\item\em TCFS file system operations. \end{DoxyCompactList}\item 
+const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{tcfs_8c_a62f73ea01c816f1996aed4c66f57c4fb}{argp\+\_\+program\+\_\+version}} = "{}TCFS Alpha"{}
+\begin{DoxyCompactList}\small\item\em TCFS version information. \end{DoxyCompactList}\item 
+const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{tcfs_8c_aaa037e59f26a80a8a2e35e6f2364004d}{argp\+\_\+program\+\_\+bug\+\_\+address}} = "{}carloalbertogiordano@duck.\+com"{}
+\begin{DoxyCompactList}\small\item\em TCFS bug report email address. \end{DoxyCompactList}\item 
+static char \mbox{\hyperlink{tcfs_8c_af6164deb8a824f8cb2b9147cfc3174f5}{doc}} \mbox{[}$\,$\mbox{]}
+\begin{DoxyCompactList}\small\item\em Documentation string for TCFS. \end{DoxyCompactList}\item 
+static char \mbox{\hyperlink{tcfs_8c_a91b08784b3668a8a1fbe2eec1947fb9d}{args\+\_\+doc}} \mbox{[}$\,$\mbox{]} = "{}"{}
+\begin{DoxyCompactList}\small\item\em Argument documentation string for TCFS. \end{DoxyCompactList}\item 
+static struct argp\+\_\+option \mbox{\hyperlink{tcfs_8c_abc1fd3a47aea6a8944038c9100eb9135}{options}} \mbox{[}$\,$\mbox{]}
+\begin{DoxyCompactList}\small\item\em TCFS command-\/line options. \end{DoxyCompactList}\item 
+static struct \mbox{\hyperlink{structargp}{argp}} \mbox{\hyperlink{tcfs_8c_ab70c96531b1b652d70c221cfaf3207f3}{argp}} = \{ \mbox{\hyperlink{user__tcfs_8c_ac88b371bbf7f89ab6440cb9fe629288c}{options}}, \mbox{\hyperlink{user__tcfs_8c_a35ee63236273ebb9325c444cacf00159}{parse\+\_\+opt}}, \mbox{\hyperlink{tcfs_8c_a91b08784b3668a8a1fbe2eec1947fb9d}{args\+\_\+doc}}, \mbox{\hyperlink{user__tcfs_8c_a3a72da5720995770156f9f9879ce6fa9}{doc}}, 0, NULL, NULL \}
+\begin{DoxyCompactList}\small\item\em TCFS argp structure. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{tcfs_8c_a78c99ffd76a7bb3c8c74db76207e9ab4}\label{tcfs_8c_a78c99ffd76a7bb3c8c74db76207e9ab4} 
+\index{tcfs.c@{tcfs.c}!\_XOPEN\_SOURCE@{\_XOPEN\_SOURCE}}
+\index{\_XOPEN\_SOURCE@{\_XOPEN\_SOURCE}!tcfs.c@{tcfs.c}}
+\doxysubsubsection{\texorpdfstring{\_XOPEN\_SOURCE}{\_XOPEN\_SOURCE}}
+{\footnotesize\ttfamily \#define \+\_\+\+XOPEN\+\_\+\+SOURCE~500}
+
+
+
+Definition at line \mbox{\hyperlink{tcfs_8c_source_l00017}{17}} of file \mbox{\hyperlink{tcfs_8c_source}{tcfs.\+c}}.
+
+\Hypertarget{tcfs_8c_ae05f9a61e45517eaca7278909e7959ec}\label{tcfs_8c_ae05f9a61e45517eaca7278909e7959ec} 
+\index{tcfs.c@{tcfs.c}!ERR\_inval\_arg\_len@{ERR\_inval\_arg\_len}}
+\index{ERR\_inval\_arg\_len@{ERR\_inval\_arg\_len}!tcfs.c@{tcfs.c}}
+\doxysubsubsection{\texorpdfstring{ERR\_inval\_arg\_len}{ERR\_inval\_arg\_len}}
+{\footnotesize\ttfamily \#define ERR\+\_\+inval\+\_\+arg\+\_\+len~1}
+
+
+
+Definition at line \mbox{\hyperlink{tcfs_8c_source_l00021}{21}} of file \mbox{\hyperlink{tcfs_8c_source}{tcfs.\+c}}.
+
+\Hypertarget{tcfs_8c_ac9de09fb2e7784a5778dec8a36db8ffa}\label{tcfs_8c_ac9de09fb2e7784a5778dec8a36db8ffa} 
+\index{tcfs.c@{tcfs.c}!ERR\_inval\_key@{ERR\_inval\_key}}
+\index{ERR\_inval\_key@{ERR\_inval\_key}!tcfs.c@{tcfs.c}}
+\doxysubsubsection{\texorpdfstring{ERR\_inval\_key}{ERR\_inval\_key}}
+{\footnotesize\ttfamily \#define ERR\+\_\+inval\+\_\+key~2}
+
+
+
+Definition at line \mbox{\hyperlink{tcfs_8c_source_l00022}{22}} of file \mbox{\hyperlink{tcfs_8c_source}{tcfs.\+c}}.
+
+\Hypertarget{tcfs_8c_a37991e6ea390ac4a4d0f4e63c2a71146}\label{tcfs_8c_a37991e6ea390ac4a4d0f4e63c2a71146} 
+\index{tcfs.c@{tcfs.c}!ERR\_invalid\_enc\_dir\_name@{ERR\_invalid\_enc\_dir\_name}}
+\index{ERR\_invalid\_enc\_dir\_name@{ERR\_invalid\_enc\_dir\_name}!tcfs.c@{tcfs.c}}
+\doxysubsubsection{\texorpdfstring{ERR\_invalid\_enc\_dir\_name}{ERR\_invalid\_enc\_dir\_name}}
+{\footnotesize\ttfamily \#define ERR\+\_\+invalid\+\_\+enc\+\_\+dir\+\_\+name~3}
+
+
+
+Definition at line \mbox{\hyperlink{tcfs_8c_source_l00023}{23}} of file \mbox{\hyperlink{tcfs_8c_source}{tcfs.\+c}}.
+
+\Hypertarget{tcfs_8c_a0919197af2e154da2c05727b6d87cbda}\label{tcfs_8c_a0919197af2e154da2c05727b6d87cbda} 
+\index{tcfs.c@{tcfs.c}!FUSE\_USE\_VERSION@{FUSE\_USE\_VERSION}}
+\index{FUSE\_USE\_VERSION@{FUSE\_USE\_VERSION}!tcfs.c@{tcfs.c}}
+\doxysubsubsection{\texorpdfstring{FUSE\_USE\_VERSION}{FUSE\_USE\_VERSION}}
+{\footnotesize\ttfamily \#define FUSE\+\_\+\+USE\+\_\+\+VERSION~30}
+
+
+
+Definition at line \mbox{\hyperlink{tcfs_8c_source_l00006}{6}} of file \mbox{\hyperlink{tcfs_8c_source}{tcfs.\+c}}.
+
+\Hypertarget{tcfs_8c_ace5cb10bf13b2a61c0d3e01b4e0590a2}\label{tcfs_8c_ace5cb10bf13b2a61c0d3e01b4e0590a2} 
+\index{tcfs.c@{tcfs.c}!HAVE\_SETXATTR@{HAVE\_SETXATTR}}
+\index{HAVE\_SETXATTR@{HAVE\_SETXATTR}!tcfs.c@{tcfs.c}}
+\doxysubsubsection{\texorpdfstring{HAVE\_SETXATTR}{HAVE\_SETXATTR}}
+{\footnotesize\ttfamily \#define HAVE\+\_\+\+SETXATTR}
+
+
+
+Definition at line \mbox{\hyperlink{tcfs_8c_source_l00007}{7}} of file \mbox{\hyperlink{tcfs_8c_source}{tcfs.\+c}}.
+
+\Hypertarget{tcfs_8c_afa4c673b6383ea6994b5e5c95a7cc213}\label{tcfs_8c_afa4c673b6383ea6994b5e5c95a7cc213} 
+\index{tcfs.c@{tcfs.c}!TCFS\_SUCCESS@{TCFS\_SUCCESS}}
+\index{TCFS\_SUCCESS@{TCFS\_SUCCESS}!tcfs.c@{tcfs.c}}
+\doxysubsubsection{\texorpdfstring{TCFS\_SUCCESS}{TCFS\_SUCCESS}}
+{\footnotesize\ttfamily \#define TCFS\+\_\+\+SUCCESS~0}
+
+
+
+Definition at line \mbox{\hyperlink{tcfs_8c_source_l00020}{20}} of file \mbox{\hyperlink{tcfs_8c_source}{tcfs.\+c}}.
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{tcfs_8c_a996d4e078d075e74e800288e6c92fd59}\label{tcfs_8c_a996d4e078d075e74e800288e6c92fd59} 
+\index{tcfs.c@{tcfs.c}!file\_size@{file\_size}}
+\index{file\_size@{file\_size}!tcfs.c@{tcfs.c}}
+\doxysubsubsection{\texorpdfstring{file\_size()}{file\_size()}}
+{\footnotesize\ttfamily static int file\+\_\+size (\begin{DoxyParamCaption}\item[{FILE \texorpdfstring{$\ast$}{*}}]{file }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Get the size of a file in the TCFS file system. 
+
+This function is called when the {\ttfamily getattr} operation is performed on a file in the TCFS to obtain file attributes.
+
+
+\begin{DoxyParams}{Parameters}
+{\em fuse\+\_\+path} & The path of the encrypted file for which the size is requested. \\
+\hline
+{\em stbuf} & Buffer to store the file attributes, including the size. \\
+\hline
+{\em fi} & File information structure provided by FUSE. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+TCFS\+\_\+\+SUCCESS on success, negative error code on failure.
+\end{DoxyReturn}
+The {\ttfamily tcfs\+\_\+file\+\_\+size} function is invoked to retrieve the size of a file within the TCFS. It decodes the encrypted file path, translates it into the actual file path on the underlying file system, and then uses the {\ttfamily getattr} function to obtain the file attributes, including the file size.
+
+
+\begin{DoxyParams}{Parameters}
+{\em fuse\+\_\+path} & The path of the encrypted file within the TCFS. \\
+\hline
+{\em stbuf} & Buffer to store the file attributes, including the file size. \\
+\hline
+{\em fi} & File information provided by FUSE, which may be used to obtain additional details about the file if needed.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true on success. On failure, it returns a negative error code representing the type of error encountered.
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+
+\begin{DoxyItemize}
+\item The function is a crucial part of file attribute retrieval, and the size is a fundamental attribute of a file.
+\item The correct functioning of this function is essential for providing accurate information about the file size.
+\end{DoxyItemize}
+\end{DoxyNote}
+\begin{DoxyWarning}{Warning}
+
+\begin{DoxyItemize}
+\item Ensure that the function correctly translates the encrypted file path into the actual file path on the underlying file system.
+\item Verify that the file attributes, especially the size, are accurately retrieved and reported in the {\ttfamily stbuf} buffer. 
+\end{DoxyItemize}
+\end{DoxyWarning}
+
+
+Definition at line \mbox{\hyperlink{tcfs_8c_source_l00711}{711}} of file \mbox{\hyperlink{tcfs_8c_source}{tcfs.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{tcfs_8c_source_l00734}{tcfs\+\_\+read()}}, and \mbox{\hyperlink{tcfs_8c_source_l00830}{tcfs\+\_\+write()}}.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=227pt]{tcfs_8c_a996d4e078d075e74e800288e6c92fd59_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{tcfs_8c_a0ddf1224851353fc92bfbff6f499fa97}\label{tcfs_8c_a0ddf1224851353fc92bfbff6f499fa97} 
+\index{tcfs.c@{tcfs.c}!main@{main}}
+\index{main@{main}!tcfs.c@{tcfs.c}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char \texorpdfstring{$\ast$}{*}}]{argv\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})}
+
+
+
+Main entry point for TCFS. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em argc} & Number of command-\/line arguments. \\
+\hline
+{\em argv} & Array of command-\/line arguments.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success, error code on failure. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{tcfs_8c_source_l01412}{1412}} of file \mbox{\hyperlink{tcfs_8c_source}{tcfs.\+c}}.
+
+
+
+References \mbox{\hyperlink{tcfs_8c_source_l01360}{arguments\+::destination}}, \mbox{\hyperlink{tcfs_8c_source_l00021}{ERR\+\_\+inval\+\_\+arg\+\_\+len}}, \mbox{\hyperlink{tcfs_8c_source_l00022}{ERR\+\_\+inval\+\_\+key}}, \mbox{\hyperlink{crypt-utils_8c_source_l00388}{is\+\_\+valid\+\_\+key()}}, \mbox{\hyperlink{tcfs__utils_8c_source_l00262}{log\+Message()}}, \mbox{\hyperlink{tcfs_8c_source_l00052}{password}}, \mbox{\hyperlink{tcfs_8c_source_l01361}{arguments\+::password}}, \mbox{\hyperlink{tcfs_8c_source_l00047}{root\+\_\+path}}, \mbox{\hyperlink{tcfs_8c_source_l01359}{arguments\+::source}}, \mbox{\hyperlink{tcfs_8c_source_l01294}{tcfs\+\_\+oper}}, and \mbox{\hyperlink{tcfs_8c_source_l00020}{TCFS\+\_\+\+SUCCESS}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=223pt]{tcfs_8c_a0ddf1224851353fc92bfbff6f499fa97_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{tcfs_8c_a35ee63236273ebb9325c444cacf00159}\label{tcfs_8c_a35ee63236273ebb9325c444cacf00159} 
+\index{tcfs.c@{tcfs.c}!parse\_opt@{parse\_opt}}
+\index{parse\_opt@{parse\_opt}!tcfs.c@{tcfs.c}}
+\doxysubsubsection{\texorpdfstring{parse\_opt()}{parse\_opt()}}
+{\footnotesize\ttfamily static error\+\_\+t parse\+\_\+opt (\begin{DoxyParamCaption}\item[{int}]{key,  }\item[{char \texorpdfstring{$\ast$}{*}}]{arg,  }\item[{struct argp\+\_\+state \texorpdfstring{$\ast$}{*}}]{state }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Parse command-\/line options. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em key} & Option key. \\
+\hline
+{\em arg} & Option argument. \\
+\hline
+{\em state} & Parser state.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success, error code on failure. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{tcfs_8c_source_l01374}{1374}} of file \mbox{\hyperlink{tcfs_8c_source}{tcfs.\+c}}.
+
+
+
+References \mbox{\hyperlink{tcfs_8c_source_l01360}{arguments\+::destination}}, \mbox{\hyperlink{tcfs_8c_source_l01361}{arguments\+::password}}, \mbox{\hyperlink{tcfs_8c_source_l01359}{arguments\+::source}}, and \mbox{\hyperlink{tcfs_8c_source_l00020}{TCFS\+\_\+\+SUCCESS}}.
+
+\Hypertarget{tcfs_8c_a76af7857833338c73b9cafdce59ca01d}\label{tcfs_8c_a76af7857833338c73b9cafdce59ca01d} 
+\index{tcfs.c@{tcfs.c}!tcfs\_access@{tcfs\_access}}
+\index{tcfs\_access@{tcfs\_access}!tcfs.c@{tcfs.c}}
+\doxysubsubsection{\texorpdfstring{tcfs\_access()}{tcfs\_access()}}
+{\footnotesize\ttfamily static int tcfs\+\_\+access (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{fuse\+\_\+path,  }\item[{int}]{mask }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Checks file access permissions. 
+
+This function is called to check file access permissions.
+
+
+\begin{DoxyParams}{Parameters}
+{\em fuse\+\_\+path} & The path to the file/directory. \\
+\hline
+{\em mask} & The requested access permissions. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true on success, a negative error code on failure. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{tcfs_8c_source_l00132}{132}} of file \mbox{\hyperlink{tcfs_8c_source}{tcfs.\+c}}.
+
+
+
+References \mbox{\hyperlink{crypt-utils_8c_source_l00420}{encrypt\+\_\+path()}}, \mbox{\hyperlink{tcfs__utils_8c_source_l00262}{log\+Message()}}, \mbox{\hyperlink{tcfs_8c_source_l00052}{password}}, \mbox{\hyperlink{tcfs__utils_8c_source_l00053}{prefix\+\_\+path()}}, \mbox{\hyperlink{tcfs_8c_source_l00047}{root\+\_\+path}}, and \mbox{\hyperlink{tcfs_8c_source_l00020}{TCFS\+\_\+\+SUCCESS}}.
+
+
+
+Referenced by \mbox{\hyperlink{tcfs_8c_source_l00830}{tcfs\+\_\+write()}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tcfs_8c_a76af7857833338c73b9cafdce59ca01d_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=244pt]{tcfs_8c_a76af7857833338c73b9cafdce59ca01d_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{tcfs_8c_a3cb10be0f6147667dc0e757636e9892f}\label{tcfs_8c_a3cb10be0f6147667dc0e757636e9892f} 
+\index{tcfs.c@{tcfs.c}!tcfs\_chmod@{tcfs\_chmod}}
+\index{tcfs\_chmod@{tcfs\_chmod}!tcfs.c@{tcfs.c}}
+\doxysubsubsection{\texorpdfstring{tcfs\_chmod()}{tcfs\_chmod()}}
+{\footnotesize\ttfamily static int tcfs\+\_\+chmod (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{fuse\+\_\+path,  }\item[{mode\+\_\+t}]{mode,  }\item[{struct fuse\+\_\+file\+\_\+info \texorpdfstring{$\ast$}{*}}]{fi }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Changes the permissions of a file. 
+
+This function is called to change the permissions of a file.
+
+
+\begin{DoxyParams}{Parameters}
+{\em fuse\+\_\+path} & The path to the file. \\
+\hline
+{\em mode} & New file mode. \\
+\hline
+{\em fi} & File information. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true on success, a negative error code on failure. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{tcfs_8c_source_l00497}{497}} of file \mbox{\hyperlink{tcfs_8c_source}{tcfs.\+c}}.
+
+
+
+References \mbox{\hyperlink{crypt-utils_8c_source_l00420}{encrypt\+\_\+path()}}, \mbox{\hyperlink{tcfs__utils_8c_source_l00262}{log\+Message()}}, \mbox{\hyperlink{tcfs_8c_source_l00052}{password}}, \mbox{\hyperlink{tcfs__utils_8c_source_l00053}{prefix\+\_\+path()}}, \mbox{\hyperlink{tcfs_8c_source_l00047}{root\+\_\+path}}, and \mbox{\hyperlink{tcfs_8c_source_l00020}{TCFS\+\_\+\+SUCCESS}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tcfs_8c_a3cb10be0f6147667dc0e757636e9892f_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{tcfs_8c_afff31b61fa0723502cf85922816f14f9}\label{tcfs_8c_afff31b61fa0723502cf85922816f14f9} 
+\index{tcfs.c@{tcfs.c}!tcfs\_chown@{tcfs\_chown}}
+\index{tcfs\_chown@{tcfs\_chown}!tcfs.c@{tcfs.c}}
+\doxysubsubsection{\texorpdfstring{tcfs\_chown()}{tcfs\_chown()}}
+{\footnotesize\ttfamily static int tcfs\+\_\+chown (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{fuse\+\_\+path,  }\item[{uid\+\_\+t}]{uid,  }\item[{gid\+\_\+t}]{gid,  }\item[{struct fuse\+\_\+file\+\_\+info \texorpdfstring{$\ast$}{*}}]{fi }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Changes the owner and group of a file. 
+
+This function is called to change the owner and group of a file.
+
+
+\begin{DoxyParams}{Parameters}
+{\em fuse\+\_\+path} & The path to the file. \\
+\hline
+{\em uid} & New user ID. \\
+\hline
+{\em gid} & New group ID. \\
+\hline
+{\em fi} & File information. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true on success, a negative error code on failure. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{tcfs_8c_source_l00530}{530}} of file \mbox{\hyperlink{tcfs_8c_source}{tcfs.\+c}}.
+
+
+
+References \mbox{\hyperlink{crypt-utils_8c_source_l00420}{encrypt\+\_\+path()}}, \mbox{\hyperlink{tcfs__utils_8c_source_l00262}{log\+Message()}}, \mbox{\hyperlink{tcfs_8c_source_l00052}{password}}, \mbox{\hyperlink{tcfs__utils_8c_source_l00053}{prefix\+\_\+path()}}, \mbox{\hyperlink{tcfs_8c_source_l00047}{root\+\_\+path}}, and \mbox{\hyperlink{tcfs_8c_source_l00020}{TCFS\+\_\+\+SUCCESS}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tcfs_8c_afff31b61fa0723502cf85922816f14f9_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{tcfs_8c_ad973ad9d6ab7d6276bf85cd8fecd0657}\label{tcfs_8c_ad973ad9d6ab7d6276bf85cd8fecd0657} 
+\index{tcfs.c@{tcfs.c}!tcfs\_create@{tcfs\_create}}
+\index{tcfs\_create@{tcfs\_create}!tcfs.c@{tcfs.c}}
+\doxysubsubsection{\texorpdfstring{tcfs\_create()}{tcfs\_create()}}
+{\footnotesize\ttfamily static int tcfs\+\_\+create (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{fuse\+\_\+path,  }\item[{mode\+\_\+t}]{mode,  }\item[{struct fuse\+\_\+file\+\_\+info \texorpdfstring{$\ast$}{*}}]{fi }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Create and open a file. 
+
+This function is called when a new file is created in the TCFS file system.
+
+
+\begin{DoxyParams}{Parameters}
+{\em fuse\+\_\+path} & The path of the file to be created. \\
+\hline
+{\em mode} & The mode of the file (permissions). \\
+\hline
+{\em fi} & File information, including flags and an open file handle. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+TCFS\+\_\+\+SUCCESS on success, negative error code on failure.
+\end{DoxyReturn}
+The {\ttfamily create} function is invoked when a new file is created in the TCFS file system. It is responsible for setting up the necessary data structures, allocating resources, and opening the file for subsequent read and write operations.
+
+
+\begin{DoxyParams}{Parameters}
+{\em fuse\+\_\+path} & The path of the file within the TCFS. \\
+\hline
+{\em mode} & The mode of the file, specifying permissions and other attributes. \\
+\hline
+{\em fi} & File information containing flags and an open file handle.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true on success. On failure, it returns a negative error code representing the type of error encountered.
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+
+\begin{DoxyItemize}
+\item The function must create the file and return an open file handle in the {\ttfamily fi} structure.
+\item Ensure proper handling of file permissions, resource allocation, and any other relevant attributes.
+\end{DoxyItemize}
+\end{DoxyNote}
+\begin{DoxyWarning}{Warning}
+
+\begin{DoxyItemize}
+\item Verify that the function correctly handles errors and returns the appropriate error codes.
+\item Implement necessary checks to ensure the file is created successfully and is ready for subsequent operations. 
+\end{DoxyItemize}
+\end{DoxyWarning}
+
+
+Definition at line \mbox{\hyperlink{tcfs_8c_source_l01031}{1031}} of file \mbox{\hyperlink{tcfs_8c_source}{tcfs.\+c}}.
+
+
+
+References \mbox{\hyperlink{crypt-utils_8c_source_l00532}{encrypt\+\_\+path\+\_\+and\+\_\+filename()}}, \mbox{\hyperlink{crypt-utils_8c_source_l00278}{encrypt\+\_\+string()}}, \mbox{\hyperlink{crypt-utils_8c_source_l00235}{generate\+\_\+key()}}, \mbox{\hyperlink{crypt-utils_8c_source_l00388}{is\+\_\+valid\+\_\+key()}}, \mbox{\hyperlink{tcfs__utils_8c_source_l00262}{log\+Message()}}, \mbox{\hyperlink{tcfs_8c_source_l00052}{password}}, \mbox{\hyperlink{tcfs__utils_8c_source_l00053}{prefix\+\_\+path()}}, \mbox{\hyperlink{tcfs_8c_source_l00047}{root\+\_\+path}}, \mbox{\hyperlink{tcfs_8c_source_l00979}{tcfs\+\_\+setxattr()}}, and \mbox{\hyperlink{tcfs_8c_source_l00020}{TCFS\+\_\+\+SUCCESS}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tcfs_8c_ad973ad9d6ab7d6276bf85cd8fecd0657_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{tcfs_8c_a014853840814f4d5225e2e28e129f9e5}\label{tcfs_8c_a014853840814f4d5225e2e28e129f9e5} 
+\index{tcfs.c@{tcfs.c}!tcfs\_fsync@{tcfs\_fsync}}
+\index{tcfs\_fsync@{tcfs\_fsync}!tcfs.c@{tcfs.c}}
+\doxysubsubsection{\texorpdfstring{tcfs\_fsync()}{tcfs\_fsync()}}
+{\footnotesize\ttfamily static int tcfs\+\_\+fsync (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{fuse\+\_\+path,  }\item[{int}]{isdatasync,  }\item[{struct fuse\+\_\+file\+\_\+info \texorpdfstring{$\ast$}{*}}]{fi }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Synchronizes file contents. 
+
+This function is called to synchronize file contents.
+
+
+\begin{DoxyParams}{Parameters}
+{\em fuse\+\_\+path} & The path to the file. \\
+\hline
+{\em datasync} & Flag indicating whether to sync only data. \\
+\hline
+{\em fi} & File information. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true on success, a negative error code on failure. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{tcfs_8c_source_l01140}{1140}} of file \mbox{\hyperlink{tcfs_8c_source}{tcfs.\+c}}.
+
+
+
+References \mbox{\hyperlink{crypt-utils_8c_source_l00532}{encrypt\+\_\+path\+\_\+and\+\_\+filename()}}, \mbox{\hyperlink{tcfs__utils_8c_source_l00262}{log\+Message()}}, \mbox{\hyperlink{tcfs_8c_source_l00052}{password}}, \mbox{\hyperlink{tcfs__utils_8c_source_l00053}{prefix\+\_\+path()}}, \mbox{\hyperlink{tcfs_8c_source_l00047}{root\+\_\+path}}, and \mbox{\hyperlink{tcfs_8c_source_l00020}{TCFS\+\_\+\+SUCCESS}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tcfs_8c_a014853840814f4d5225e2e28e129f9e5_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{tcfs_8c_a411eac4511d0eae4ce78a2fd3d22ac8c}\label{tcfs_8c_a411eac4511d0eae4ce78a2fd3d22ac8c} 
+\index{tcfs.c@{tcfs.c}!tcfs\_getattr@{tcfs\_getattr}}
+\index{tcfs\_getattr@{tcfs\_getattr}!tcfs.c@{tcfs.c}}
+\doxysubsubsection{\texorpdfstring{tcfs\_getattr()}{tcfs\_getattr()}}
+{\footnotesize\ttfamily static int tcfs\+\_\+getattr (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{fuse\+\_\+path,  }\item[{struct stat \texorpdfstring{$\ast$}{*}}]{stbuf,  }\item[{struct fuse\+\_\+file\+\_\+info \texorpdfstring{$\ast$}{*}}]{fi }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Gets file attributes. 
+
+This function is called to get attributes for a file or directory.
+
+
+\begin{DoxyParams}{Parameters}
+{\em fuse\+\_\+path} & The path to the file/directory. \\
+\hline
+{\em stbuf} & Buffer to fill with attributes. \\
+\hline
+{\em fi} & File information. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+TCFS\+\_\+\+SUCCESS on success, a negative error code on failure. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{tcfs_8c_source_l00099}{99}} of file \mbox{\hyperlink{tcfs_8c_source}{tcfs.\+c}}.
+
+
+
+References \mbox{\hyperlink{crypt-utils_8c_source_l00420}{encrypt\+\_\+path()}}, \mbox{\hyperlink{tcfs__utils_8c_source_l00262}{log\+Message()}}, \mbox{\hyperlink{tcfs_8c_source_l00052}{password}}, \mbox{\hyperlink{tcfs__utils_8c_source_l00053}{prefix\+\_\+path()}}, \mbox{\hyperlink{tcfs_8c_source_l00047}{root\+\_\+path}}, and \mbox{\hyperlink{tcfs_8c_source_l00020}{TCFS\+\_\+\+SUCCESS}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tcfs_8c_a411eac4511d0eae4ce78a2fd3d22ac8c_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{tcfs_8c_a6a031c4e3c6dd59051c09789c4666657}\label{tcfs_8c_a6a031c4e3c6dd59051c09789c4666657} 
+\index{tcfs.c@{tcfs.c}!tcfs\_getxattr@{tcfs\_getxattr}}
+\index{tcfs\_getxattr@{tcfs\_getxattr}!tcfs.c@{tcfs.c}}
+\doxysubsubsection{\texorpdfstring{tcfs\_getxattr()}{tcfs\_getxattr()}}
+{\footnotesize\ttfamily static int tcfs\+\_\+getxattr (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{fuse\+\_\+path,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{name,  }\item[{char \texorpdfstring{$\ast$}{*}}]{value,  }\item[{size\+\_\+t}]{size }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Get extended attribute data. 
+
+This function is called to retrieve the value of an extended attribute for a specified file or directory.
+
+
+\begin{DoxyParams}{Parameters}
+{\em fuse\+\_\+path} & The path of the file or directory within the TCFS. \\
+\hline
+{\em name} & The name of the extended attribute. \\
+\hline
+{\em value} & Buffer to store the value of the extended attribute. \\
+\hline
+{\em size} & The size of the buffer. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Size of the extended attribute value on success, negative error code on failure.
+\end{DoxyReturn}
+The {\ttfamily getxattr} function is invoked to obtain the value of an extended attribute associated with a file or directory within the TCFS file system. The attribute value is stored in the provided buffer ({\ttfamily value}) with a specified size.
+
+
+\begin{DoxyParams}{Parameters}
+{\em fuse\+\_\+path} & The path of the file or directory. \\
+\hline
+{\em name} & The name of the extended attribute to retrieve. \\
+\hline
+{\em value} & Buffer to store the value of the extended attribute. \\
+\hline
+{\em size} & The size of the buffer.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+On success, the function returns the size of the extended attribute value. On failure, it returns a negative error code representing the type of error encountered.
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+
+\begin{DoxyItemize}
+\item The function must ensure that the attribute value is properly retrieved and stored in the provided buffer.
+\item Verify that the correct error codes are returned in case of failures or insufficient buffer size.
+\item Implement appropriate checks to handle different scenarios and edge cases. 
+\end{DoxyItemize}
+\end{DoxyNote}
+
+
+Definition at line \mbox{\hyperlink{tcfs_8c_source_l01199}{1199}} of file \mbox{\hyperlink{tcfs_8c_source}{tcfs.\+c}}.
+
+
+
+References \mbox{\hyperlink{crypt-utils_8c_source_l00532}{encrypt\+\_\+path\+\_\+and\+\_\+filename()}}, \mbox{\hyperlink{tcfs__utils_8c_source_l00262}{log\+Message()}}, \mbox{\hyperlink{tcfs_8c_source_l00052}{password}}, \mbox{\hyperlink{tcfs__utils_8c_source_l00053}{prefix\+\_\+path()}}, and \mbox{\hyperlink{tcfs_8c_source_l00047}{root\+\_\+path}}.
+
+
+
+Referenced by \mbox{\hyperlink{tcfs_8c_source_l00734}{tcfs\+\_\+read()}}, and \mbox{\hyperlink{tcfs_8c_source_l00830}{tcfs\+\_\+write()}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tcfs_8c_a6a031c4e3c6dd59051c09789c4666657_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=246pt]{tcfs_8c_a6a031c4e3c6dd59051c09789c4666657_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{tcfs_8c_a271df7bd878f5ed132e1f98487e8aebd}\label{tcfs_8c_a271df7bd878f5ed132e1f98487e8aebd} 
+\index{tcfs.c@{tcfs.c}!tcfs\_link@{tcfs\_link}}
+\index{tcfs\_link@{tcfs\_link}!tcfs.c@{tcfs.c}}
+\doxysubsubsection{\texorpdfstring{tcfs\_link()}{tcfs\_link()}}
+{\footnotesize\ttfamily static int tcfs\+\_\+link (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{from,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{to }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Creates a hard link. 
+
+This function is called to create a hard link.
+
+
+\begin{DoxyParams}{Parameters}
+{\em from} & Source path. \\
+\hline
+{\em to} & Target path. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true on success, a negative error code on failure. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{tcfs_8c_source_l00465}{465}} of file \mbox{\hyperlink{tcfs_8c_source}{tcfs.\+c}}.
+
+
+
+References \mbox{\hyperlink{crypt-utils_8c_source_l00532}{encrypt\+\_\+path\+\_\+and\+\_\+filename()}}, \mbox{\hyperlink{tcfs__utils_8c_source_l00262}{log\+Message()}}, \mbox{\hyperlink{tcfs_8c_source_l00052}{password}}, \mbox{\hyperlink{tcfs__utils_8c_source_l00053}{prefix\+\_\+path()}}, \mbox{\hyperlink{tcfs_8c_source_l00047}{root\+\_\+path}}, and \mbox{\hyperlink{tcfs_8c_source_l00020}{TCFS\+\_\+\+SUCCESS}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tcfs_8c_a271df7bd878f5ed132e1f98487e8aebd_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{tcfs_8c_ae6edcf6a80467925a9a2112172395de1}\label{tcfs_8c_ae6edcf6a80467925a9a2112172395de1} 
+\index{tcfs.c@{tcfs.c}!tcfs\_listxattr@{tcfs\_listxattr}}
+\index{tcfs\_listxattr@{tcfs\_listxattr}!tcfs.c@{tcfs.c}}
+\doxysubsubsection{\texorpdfstring{tcfs\_listxattr()}{tcfs\_listxattr()}}
+{\footnotesize\ttfamily static int tcfs\+\_\+listxattr (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{fuse\+\_\+path,  }\item[{char \texorpdfstring{$\ast$}{*}}]{list,  }\item[{size\+\_\+t}]{size }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Lists extended attributes. 
+
+This function is called to list extended attributes.
+
+
+\begin{DoxyParams}{Parameters}
+{\em fuse\+\_\+path} & The path to the file. \\
+\hline
+{\em list} & Buffer to fill with the attribute list. \\
+\hline
+{\em size} & Size of the buffer. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Size of the attribute list on success, a negative error code on failure. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{tcfs_8c_source_l01229}{1229}} of file \mbox{\hyperlink{tcfs_8c_source}{tcfs.\+c}}.
+
+
+
+References \mbox{\hyperlink{crypt-utils_8c_source_l00532}{encrypt\+\_\+path\+\_\+and\+\_\+filename()}}, \mbox{\hyperlink{tcfs__utils_8c_source_l00262}{log\+Message()}}, \mbox{\hyperlink{tcfs_8c_source_l00052}{password}}, \mbox{\hyperlink{tcfs__utils_8c_source_l00053}{prefix\+\_\+path()}}, and \mbox{\hyperlink{tcfs_8c_source_l00047}{root\+\_\+path}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tcfs_8c_ae6edcf6a80467925a9a2112172395de1_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{tcfs_8c_a682b553345b6d872453d1ace7339bb9e}\label{tcfs_8c_a682b553345b6d872453d1ace7339bb9e} 
+\index{tcfs.c@{tcfs.c}!tcfs\_mkdir@{tcfs\_mkdir}}
+\index{tcfs\_mkdir@{tcfs\_mkdir}!tcfs.c@{tcfs.c}}
+\doxysubsubsection{\texorpdfstring{tcfs\_mkdir()}{tcfs\_mkdir()}}
+{\footnotesize\ttfamily static int tcfs\+\_\+mkdir (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{fuse\+\_\+path,  }\item[{mode\+\_\+t}]{mode }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Creates a directory. 
+
+This function is called to create a directory.
+
+
+\begin{DoxyParams}{Parameters}
+{\em fuse\+\_\+path} & The path to the directory. \\
+\hline
+{\em mode} & Directory mode. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true on success, a negative error code on failure. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{tcfs_8c_source_l00324}{324}} of file \mbox{\hyperlink{tcfs_8c_source}{tcfs.\+c}}.
+
+
+
+References \mbox{\hyperlink{crypt-utils_8c_source_l00420}{encrypt\+\_\+path()}}, \mbox{\hyperlink{tcfs__utils_8c_source_l00262}{log\+Message()}}, \mbox{\hyperlink{tcfs_8c_source_l00052}{password}}, \mbox{\hyperlink{tcfs__utils_8c_source_l00053}{prefix\+\_\+path()}}, \mbox{\hyperlink{tcfs_8c_source_l00047}{root\+\_\+path}}, and \mbox{\hyperlink{tcfs_8c_source_l00020}{TCFS\+\_\+\+SUCCESS}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tcfs_8c_a682b553345b6d872453d1ace7339bb9e_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{tcfs_8c_a151f53359474a95c52f5e79d438869bd}\label{tcfs_8c_a151f53359474a95c52f5e79d438869bd} 
+\index{tcfs.c@{tcfs.c}!tcfs\_mknod@{tcfs\_mknod}}
+\index{tcfs\_mknod@{tcfs\_mknod}!tcfs.c@{tcfs.c}}
+\doxysubsubsection{\texorpdfstring{tcfs\_mknod()}{tcfs\_mknod()}}
+{\footnotesize\ttfamily static int tcfs\+\_\+mknod (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{fuse\+\_\+path,  }\item[{mode\+\_\+t}]{mode,  }\item[{dev\+\_\+t}]{rdev }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Creates a regular file or a special file (block or character). 
+
+This function is called to create a regular file or a special file.
+
+
+\begin{DoxyParams}{Parameters}
+{\em fuse\+\_\+path} & The path to the file. \\
+\hline
+{\em mode} & File mode. \\
+\hline
+{\em rdev} & Device numbers (if the file is a special file). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true on success, a negative error code on failure. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{tcfs_8c_source_l00286}{286}} of file \mbox{\hyperlink{tcfs_8c_source}{tcfs.\+c}}.
+
+
+
+References \mbox{\hyperlink{crypt-utils_8c_source_l00420}{encrypt\+\_\+path()}}, \mbox{\hyperlink{tcfs__utils_8c_source_l00262}{log\+Message()}}, \mbox{\hyperlink{tcfs_8c_source_l00052}{password}}, \mbox{\hyperlink{tcfs__utils_8c_source_l00053}{prefix\+\_\+path()}}, \mbox{\hyperlink{tcfs_8c_source_l00047}{root\+\_\+path}}, and \mbox{\hyperlink{tcfs_8c_source_l00020}{TCFS\+\_\+\+SUCCESS}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tcfs_8c_a151f53359474a95c52f5e79d438869bd_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{tcfs_8c_af0c6a7d66189cc1e9fbfafba5255e60d}\label{tcfs_8c_af0c6a7d66189cc1e9fbfafba5255e60d} 
+\index{tcfs.c@{tcfs.c}!tcfs\_open@{tcfs\_open}}
+\index{tcfs\_open@{tcfs\_open}!tcfs.c@{tcfs.c}}
+\doxysubsubsection{\texorpdfstring{tcfs\_open()}{tcfs\_open()}}
+{\footnotesize\ttfamily static int tcfs\+\_\+open (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{fuse\+\_\+path,  }\item[{struct fuse\+\_\+file\+\_\+info \texorpdfstring{$\ast$}{*}}]{fi }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Opens a file. 
+
+This function is called to open a file.
+
+
+\begin{DoxyParams}{Parameters}
+{\em fuse\+\_\+path} & The path to the file. \\
+\hline
+{\em fi} & File information. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true on success, a negative error code on failure. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{tcfs_8c_source_l00651}{651}} of file \mbox{\hyperlink{tcfs_8c_source}{tcfs.\+c}}.
+
+
+
+References \mbox{\hyperlink{crypt-utils_8c_source_l00420}{encrypt\+\_\+path()}}, \mbox{\hyperlink{tcfs__utils_8c_source_l00262}{log\+Message()}}, \mbox{\hyperlink{tcfs_8c_source_l00052}{password}}, \mbox{\hyperlink{tcfs__utils_8c_source_l00053}{prefix\+\_\+path()}}, \mbox{\hyperlink{tcfs_8c_source_l00047}{root\+\_\+path}}, and \mbox{\hyperlink{tcfs_8c_source_l00020}{TCFS\+\_\+\+SUCCESS}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tcfs_8c_af0c6a7d66189cc1e9fbfafba5255e60d_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{tcfs_8c_a92ebab5be45b159c2850a47a5072b58d}\label{tcfs_8c_a92ebab5be45b159c2850a47a5072b58d} 
+\index{tcfs.c@{tcfs.c}!tcfs\_opendir@{tcfs\_opendir}}
+\index{tcfs\_opendir@{tcfs\_opendir}!tcfs.c@{tcfs.c}}
+\doxysubsubsection{\texorpdfstring{tcfs\_opendir()}{tcfs\_opendir()}}
+{\footnotesize\ttfamily static int tcfs\+\_\+opendir (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{fuse\+\_\+path,  }\item[{struct fuse\+\_\+file\+\_\+info \texorpdfstring{$\ast$}{*}}]{fi }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Opens a directory. 
+
+This function is called when a directory is opened.
+
+
+\begin{DoxyParams}{Parameters}
+{\em fuse\+\_\+path} & The path to the directory. \\
+\hline
+{\em fi} & File information. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+TCFS\+\_\+\+SUCCESS on success, a negative error code on failure. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{tcfs_8c_source_l00067}{67}} of file \mbox{\hyperlink{tcfs_8c_source}{tcfs.\+c}}.
+
+
+
+References \mbox{\hyperlink{crypt-utils_8c_source_l00420}{encrypt\+\_\+path()}}, \mbox{\hyperlink{tcfs__utils_8c_source_l00262}{log\+Message()}}, \mbox{\hyperlink{tcfs_8c_source_l00052}{password}}, \mbox{\hyperlink{tcfs__utils_8c_source_l00053}{prefix\+\_\+path()}}, \mbox{\hyperlink{tcfs_8c_source_l00047}{root\+\_\+path}}, and \mbox{\hyperlink{tcfs_8c_source_l00020}{TCFS\+\_\+\+SUCCESS}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tcfs_8c_a92ebab5be45b159c2850a47a5072b58d_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{tcfs_8c_a745384a010e20b082db26e16702a0129}\label{tcfs_8c_a745384a010e20b082db26e16702a0129} 
+\index{tcfs.c@{tcfs.c}!tcfs\_read@{tcfs\_read}}
+\index{tcfs\_read@{tcfs\_read}!tcfs.c@{tcfs.c}}
+\doxysubsubsection{\texorpdfstring{tcfs\_read()}{tcfs\_read()}}
+{\footnotesize\ttfamily static int tcfs\+\_\+read (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{fuse\+\_\+path,  }\item[{char \texorpdfstring{$\ast$}{*}}]{buf,  }\item[{size\+\_\+t}]{size,  }\item[{off\+\_\+t}]{offset,  }\item[{struct fuse\+\_\+file\+\_\+info \texorpdfstring{$\ast$}{*}}]{fi }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Reads data from an open file. 
+
+This function is called to read data from an open file.
+
+
+\begin{DoxyParams}{Parameters}
+{\em fuse\+\_\+path} & The path to the file. \\
+\hline
+{\em buf} & Buffer to fill with data. \\
+\hline
+{\em size} & Number of bytes to read. \\
+\hline
+{\em offset} & Offset within the file. \\
+\hline
+{\em fi} & File information. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The number of bytes read, or a negative error code on failure. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{tcfs_8c_source_l00734}{734}} of file \mbox{\hyperlink{tcfs_8c_source}{tcfs.\+c}}.
+
+
+
+References \mbox{\hyperlink{crypt-utils_8h_source_l00032}{DECRYPT}}, \mbox{\hyperlink{crypt-utils_8c_source_l00330}{decrypt\+\_\+string()}}, \mbox{\hyperlink{crypt-utils_8c_source_l00063}{do\+\_\+crypt()}}, \mbox{\hyperlink{crypt-utils_8c_source_l00420}{encrypt\+\_\+path()}}, \mbox{\hyperlink{tcfs_8c_source_l00711}{file\+\_\+size()}}, \mbox{\hyperlink{tcfs__utils_8c_source_l00019}{get\+\_\+user\+\_\+name()}}, \mbox{\hyperlink{tcfs__utils_8c_source_l00262}{log\+Message()}}, \mbox{\hyperlink{tcfs_8c_source_l00052}{password}}, \mbox{\hyperlink{tcfs__utils_8c_source_l00053}{prefix\+\_\+path()}}, \mbox{\hyperlink{tcfs_8c_source_l00047}{root\+\_\+path}}, and \mbox{\hyperlink{tcfs_8c_source_l01199}{tcfs\+\_\+getxattr()}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tcfs_8c_a745384a010e20b082db26e16702a0129_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{tcfs_8c_a1a713549c892f56a6522e6487c581d69}\label{tcfs_8c_a1a713549c892f56a6522e6487c581d69} 
+\index{tcfs.c@{tcfs.c}!tcfs\_readdir@{tcfs\_readdir}}
+\index{tcfs\_readdir@{tcfs\_readdir}!tcfs.c@{tcfs.c}}
+\doxysubsubsection{\texorpdfstring{tcfs\_readdir()}{tcfs\_readdir()}}
+{\footnotesize\ttfamily static int tcfs\+\_\+readdir (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{fuse\+\_\+path,  }\item[{void \texorpdfstring{$\ast$}{*}}]{buf,  }\item[{fuse\+\_\+fill\+\_\+dir\+\_\+t}]{filler,  }\item[{off\+\_\+t}]{offset,  }\item[{struct fuse\+\_\+file\+\_\+info \texorpdfstring{$\ast$}{*}}]{fi,  }\item[{enum fuse\+\_\+readdir\+\_\+flags}]{frdf }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Reads a directory. 
+
+This function is called to read the contents of a directory.
+
+
+\begin{DoxyParams}{Parameters}
+{\em fuse\+\_\+path} & The path to the directory. \\
+\hline
+{\em buf} & Buffer to fill with directory entries. \\
+\hline
+{\em filler} & Callback function to add entries to the buffer. \\
+\hline
+{\em offset} & The offset within the directory. \\
+\hline
+{\em fi} & File information. \\
+\hline
+{\em frdf} & Additional flags for readdir operation. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true on success, a negative error code on failure. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{tcfs_8c_source_l00196}{196}} of file \mbox{\hyperlink{tcfs_8c_source}{tcfs.\+c}}.
+
+
+
+References \mbox{\hyperlink{crypt-utils_8c_source_l00406}{decrypt\+\_\+file\+\_\+name\+\_\+with\+\_\+hex()}}, \mbox{\hyperlink{crypt-utils_8c_source_l00645}{decrypt\+\_\+path()}}, \mbox{\hyperlink{crypt-utils_8c_source_l00420}{encrypt\+\_\+path()}}, \mbox{\hyperlink{tcfs_8c_source_l00023}{ERR\+\_\+invalid\+\_\+enc\+\_\+dir\+\_\+name}}, \mbox{\hyperlink{tcfs__utils_8c_source_l00262}{log\+Message()}}, \mbox{\hyperlink{tcfs_8c_source_l00052}{password}}, \mbox{\hyperlink{tcfs__utils_8c_source_l00053}{prefix\+\_\+path()}}, \mbox{\hyperlink{tcfs_8c_source_l00047}{root\+\_\+path}}, and \mbox{\hyperlink{tcfs_8c_source_l00020}{TCFS\+\_\+\+SUCCESS}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tcfs_8c_a1a713549c892f56a6522e6487c581d69_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{tcfs_8c_acb1e081efcbf61b6f34e8bbdf7af8979}\label{tcfs_8c_acb1e081efcbf61b6f34e8bbdf7af8979} 
+\index{tcfs.c@{tcfs.c}!tcfs\_readlink@{tcfs\_readlink}}
+\index{tcfs\_readlink@{tcfs\_readlink}!tcfs.c@{tcfs.c}}
+\doxysubsubsection{\texorpdfstring{tcfs\_readlink()}{tcfs\_readlink()}}
+{\footnotesize\ttfamily static int tcfs\+\_\+readlink (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{fuse\+\_\+path,  }\item[{char \texorpdfstring{$\ast$}{*}}]{buf,  }\item[{size\+\_\+t}]{size }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Reads the target of a symbolic link. 
+
+This function is called to read the target of a symbolic link.
+
+
+\begin{DoxyParams}{Parameters}
+{\em fuse\+\_\+path} & The path to the symbolic link. \\
+\hline
+{\em buf} & Buffer to fill with the link target. \\
+\hline
+{\em size} & The size of the buffer. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true on success, a negative error code on failure. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{tcfs_8c_source_l00162}{162}} of file \mbox{\hyperlink{tcfs_8c_source}{tcfs.\+c}}.
+
+
+
+References \mbox{\hyperlink{crypt-utils_8c_source_l00420}{encrypt\+\_\+path()}}, \mbox{\hyperlink{tcfs__utils_8c_source_l00262}{log\+Message()}}, \mbox{\hyperlink{tcfs_8c_source_l00052}{password}}, \mbox{\hyperlink{tcfs__utils_8c_source_l00053}{prefix\+\_\+path()}}, \mbox{\hyperlink{tcfs_8c_source_l00047}{root\+\_\+path}}, and \mbox{\hyperlink{tcfs_8c_source_l00020}{TCFS\+\_\+\+SUCCESS}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tcfs_8c_acb1e081efcbf61b6f34e8bbdf7af8979_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{tcfs_8c_a1241e1fcfe6bb4a5d49d8c8d4e737bcd}\label{tcfs_8c_a1241e1fcfe6bb4a5d49d8c8d4e737bcd} 
+\index{tcfs.c@{tcfs.c}!tcfs\_release@{tcfs\_release}}
+\index{tcfs\_release@{tcfs\_release}!tcfs.c@{tcfs.c}}
+\doxysubsubsection{\texorpdfstring{tcfs\_release()}{tcfs\_release()}}
+{\footnotesize\ttfamily static int tcfs\+\_\+release (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{fuse\+\_\+path,  }\item[{struct fuse\+\_\+file\+\_\+info \texorpdfstring{$\ast$}{*}}]{fi }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Releases an open file. 
+
+This function is called to release an open file.
+
+
+\begin{DoxyParams}{Parameters}
+{\em fuse\+\_\+path} & The path to the file. \\
+\hline
+{\em fi} & File information. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true on success, a negative error code on failure. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{tcfs_8c_source_l01111}{1111}} of file \mbox{\hyperlink{tcfs_8c_source}{tcfs.\+c}}.
+
+
+
+References \mbox{\hyperlink{crypt-utils_8c_source_l00532}{encrypt\+\_\+path\+\_\+and\+\_\+filename()}}, \mbox{\hyperlink{tcfs__utils_8c_source_l00262}{log\+Message()}}, \mbox{\hyperlink{tcfs_8c_source_l00052}{password}}, \mbox{\hyperlink{tcfs__utils_8c_source_l00053}{prefix\+\_\+path()}}, \mbox{\hyperlink{tcfs_8c_source_l00047}{root\+\_\+path}}, and \mbox{\hyperlink{tcfs_8c_source_l00020}{TCFS\+\_\+\+SUCCESS}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tcfs_8c_a1241e1fcfe6bb4a5d49d8c8d4e737bcd_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{tcfs_8c_acfe2c6a9467bd25a5ba6dc1a65209262}\label{tcfs_8c_acfe2c6a9467bd25a5ba6dc1a65209262} 
+\index{tcfs.c@{tcfs.c}!tcfs\_removexattr@{tcfs\_removexattr}}
+\index{tcfs\_removexattr@{tcfs\_removexattr}!tcfs.c@{tcfs.c}}
+\doxysubsubsection{\texorpdfstring{tcfs\_removexattr()}{tcfs\_removexattr()}}
+{\footnotesize\ttfamily static int tcfs\+\_\+removexattr (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{fuse\+\_\+path,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{name }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Remove an extended attribute. 
+
+This function is called to remove an extended attribute for a specified file or directory.
+
+
+\begin{DoxyParams}{Parameters}
+{\em fuse\+\_\+path} & The path of the file or directory within the TCFS. \\
+\hline
+{\em name} & The name of the extended attribute to remove. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+TCFS\+\_\+\+SUCCESS on success, negative error code on failure.
+\end{DoxyReturn}
+The {\ttfamily removexattr} function is invoked to remove the specified extended attribute associated with a file or directory within the TCFS file system.
+
+
+\begin{DoxyParams}{Parameters}
+{\em fuse\+\_\+path} & The path of the file or directory. \\
+\hline
+{\em name} & The name of the extended attribute to remove.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+On success, the function returns TCFS\+\_\+\+SUCCESS. On failure, it returns a negative error code representing the type of error encountered.
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+
+\begin{DoxyItemize}
+\item The function must ensure the proper removal of the specified extended attribute.
+\item Verify that the correct error codes are returned in case of failures.
+\item Implement appropriate checks to handle different scenarios and edge cases. 
+\end{DoxyItemize}
+\end{DoxyNote}
+
+
+Definition at line \mbox{\hyperlink{tcfs_8c_source_l01273}{1273}} of file \mbox{\hyperlink{tcfs_8c_source}{tcfs.\+c}}.
+
+
+
+References \mbox{\hyperlink{crypt-utils_8c_source_l00532}{encrypt\+\_\+path\+\_\+and\+\_\+filename()}}, \mbox{\hyperlink{tcfs__utils_8c_source_l00262}{log\+Message()}}, \mbox{\hyperlink{tcfs_8c_source_l00052}{password}}, \mbox{\hyperlink{tcfs__utils_8c_source_l00053}{prefix\+\_\+path()}}, \mbox{\hyperlink{tcfs_8c_source_l00047}{root\+\_\+path}}, and \mbox{\hyperlink{tcfs_8c_source_l00020}{TCFS\+\_\+\+SUCCESS}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tcfs_8c_acfe2c6a9467bd25a5ba6dc1a65209262_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{tcfs_8c_aee96b732a1569a607e63bac6fbe5c403}\label{tcfs_8c_aee96b732a1569a607e63bac6fbe5c403} 
+\index{tcfs.c@{tcfs.c}!tcfs\_rename@{tcfs\_rename}}
+\index{tcfs\_rename@{tcfs\_rename}!tcfs.c@{tcfs.c}}
+\doxysubsubsection{\texorpdfstring{tcfs\_rename()}{tcfs\_rename()}}
+{\footnotesize\ttfamily static int tcfs\+\_\+rename (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{from,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{to,  }\item[{unsigned int}]{flags }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Renames a file or a directory. 
+
+This function is called to rename a file or a directory.
+
+
+\begin{DoxyParams}{Parameters}
+{\em from} & Source path. \\
+\hline
+{\em to} & Target path. \\
+\hline
+{\em flags} & Flags for the rename operation. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true on success, a negative error code on failure. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{tcfs_8c_source_l00436}{436}} of file \mbox{\hyperlink{tcfs_8c_source}{tcfs.\+c}}.
+
+
+
+References \mbox{\hyperlink{crypt-utils_8c_source_l00532}{encrypt\+\_\+path\+\_\+and\+\_\+filename()}}, \mbox{\hyperlink{tcfs__utils_8c_source_l00262}{log\+Message()}}, \mbox{\hyperlink{tcfs_8c_source_l00052}{password}}, \mbox{\hyperlink{tcfs__utils_8c_source_l00053}{prefix\+\_\+path()}}, \mbox{\hyperlink{tcfs_8c_source_l00047}{root\+\_\+path}}, and \mbox{\hyperlink{tcfs_8c_source_l00020}{TCFS\+\_\+\+SUCCESS}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tcfs_8c_aee96b732a1569a607e63bac6fbe5c403_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{tcfs_8c_a2853593dded66a922afbdc36afb15a50}\label{tcfs_8c_a2853593dded66a922afbdc36afb15a50} 
+\index{tcfs.c@{tcfs.c}!tcfs\_rmdir@{tcfs\_rmdir}}
+\index{tcfs\_rmdir@{tcfs\_rmdir}!tcfs.c@{tcfs.c}}
+\doxysubsubsection{\texorpdfstring{tcfs\_rmdir()}{tcfs\_rmdir()}}
+{\footnotesize\ttfamily static int tcfs\+\_\+rmdir (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{fuse\+\_\+path }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Removes a directory. 
+
+This function is called to remove a directory.
+
+
+\begin{DoxyParams}{Parameters}
+{\em fuse\+\_\+path} & The path to the directory. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true on success, a negative error code on failure. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{tcfs_8c_source_l00377}{377}} of file \mbox{\hyperlink{tcfs_8c_source}{tcfs.\+c}}.
+
+
+
+References \mbox{\hyperlink{crypt-utils_8c_source_l00420}{encrypt\+\_\+path()}}, \mbox{\hyperlink{tcfs__utils_8c_source_l00262}{log\+Message()}}, \mbox{\hyperlink{tcfs_8c_source_l00052}{password}}, \mbox{\hyperlink{tcfs__utils_8c_source_l00053}{prefix\+\_\+path()}}, \mbox{\hyperlink{tcfs_8c_source_l00047}{root\+\_\+path}}, and \mbox{\hyperlink{tcfs_8c_source_l00020}{TCFS\+\_\+\+SUCCESS}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tcfs_8c_a2853593dded66a922afbdc36afb15a50_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{tcfs_8c_ad3c328fdcd93c8203e1ce9c785fd3a14}\label{tcfs_8c_ad3c328fdcd93c8203e1ce9c785fd3a14} 
+\index{tcfs.c@{tcfs.c}!tcfs\_setxattr@{tcfs\_setxattr}}
+\index{tcfs\_setxattr@{tcfs\_setxattr}!tcfs.c@{tcfs.c}}
+\doxysubsubsection{\texorpdfstring{tcfs\_setxattr()}{tcfs\_setxattr()}}
+{\footnotesize\ttfamily static int tcfs\+\_\+setxattr (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{fuse\+\_\+path,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{name,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{value,  }\item[{size\+\_\+t}]{size,  }\item[{int}]{flags }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Sets extended attributes. 
+
+This function is called to set extended attributes.
+
+
+\begin{DoxyParams}{Parameters}
+{\em fuse\+\_\+path} & The path to the file. \\
+\hline
+{\em name} & Attribute name. \\
+\hline
+{\em value} & Attribute value. \\
+\hline
+{\em size} & Size of the value. \\
+\hline
+{\em flags} & Flags for the setxattr operation. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true on success, a negative error code on failure. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{tcfs_8c_source_l00979}{979}} of file \mbox{\hyperlink{tcfs_8c_source}{tcfs.\+c}}.
+
+
+
+References \mbox{\hyperlink{crypt-utils_8c_source_l00420}{encrypt\+\_\+path()}}, \mbox{\hyperlink{tcfs__utils_8c_source_l00262}{log\+Message()}}, \mbox{\hyperlink{tcfs_8c_source_l00052}{password}}, \mbox{\hyperlink{tcfs__utils_8c_source_l00053}{prefix\+\_\+path()}}, \mbox{\hyperlink{tcfs_8c_source_l00047}{root\+\_\+path}}, and \mbox{\hyperlink{tcfs_8c_source_l00020}{TCFS\+\_\+\+SUCCESS}}.
+
+
+
+Referenced by \mbox{\hyperlink{tcfs_8c_source_l01031}{tcfs\+\_\+create()}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tcfs_8c_ad3c328fdcd93c8203e1ce9c785fd3a14_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=252pt]{tcfs_8c_ad3c328fdcd93c8203e1ce9c785fd3a14_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{tcfs_8c_ae14ebf4581d4cbc45737ae75af82a887}\label{tcfs_8c_ae14ebf4581d4cbc45737ae75af82a887} 
+\index{tcfs.c@{tcfs.c}!tcfs\_statfs@{tcfs\_statfs}}
+\index{tcfs\_statfs@{tcfs\_statfs}!tcfs.c@{tcfs.c}}
+\doxysubsubsection{\texorpdfstring{tcfs\_statfs()}{tcfs\_statfs()}}
+{\footnotesize\ttfamily static int tcfs\+\_\+statfs (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{fuse\+\_\+path,  }\item[{struct statvfs \texorpdfstring{$\ast$}{*}}]{stbuf }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Get file system statistics. 
+
+This function is called when the {\ttfamily statfs} operation is performed to obtain statistics about the TCFS file system.
+
+
+\begin{DoxyParams}{Parameters}
+{\em fuse\+\_\+path} & The path of the file system for which statistics are requested. \\
+\hline
+{\em stbuf} & Buffer to store file system statistics. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+TCFS\+\_\+\+SUCCESS on success, negative error code on failure.
+\end{DoxyReturn}
+The {\ttfamily tcfs\+\_\+statfs} function is invoked to retrieve statistics about the TCFS file system. It may include information such as the total size, free space, and available space.
+
+
+\begin{DoxyParams}{Parameters}
+{\em fuse\+\_\+path} & The path of the file system within the TCFS. \\
+\hline
+{\em stbuf} & Buffer to store the file system statistics.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true on success. On failure, it returns a negative error code representing the type of error encountered.
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+
+\begin{DoxyItemize}
+\item The function is essential for providing information about the overall status of the TCFS file system.
+\item Ensure that the file system statistics are accurately retrieved and reported in the {\ttfamily stbuf} buffer.
+\end{DoxyItemize}
+\end{DoxyNote}
+\begin{DoxyWarning}{Warning}
+
+\begin{DoxyItemize}
+\item Verify that the function correctly handles errors and returns the appropriate error codes.
+\item The accuracy of the reported statistics is crucial for applications that rely on file system information. 
+\end{DoxyItemize}
+\end{DoxyWarning}
+
+
+Definition at line \mbox{\hyperlink{tcfs_8c_source_l00952}{952}} of file \mbox{\hyperlink{tcfs_8c_source}{tcfs.\+c}}.
+
+
+
+References \mbox{\hyperlink{tcfs__utils_8c_source_l00262}{log\+Message()}}, \mbox{\hyperlink{tcfs__utils_8c_source_l00053}{prefix\+\_\+path()}}, \mbox{\hyperlink{tcfs_8c_source_l00047}{root\+\_\+path}}, and \mbox{\hyperlink{tcfs_8c_source_l00020}{TCFS\+\_\+\+SUCCESS}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=247pt]{tcfs_8c_ae14ebf4581d4cbc45737ae75af82a887_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{tcfs_8c_ac1d223f9b998d5af6bec3947d03be0fc}\label{tcfs_8c_ac1d223f9b998d5af6bec3947d03be0fc} 
+\index{tcfs.c@{tcfs.c}!tcfs\_symlink@{tcfs\_symlink}}
+\index{tcfs\_symlink@{tcfs\_symlink}!tcfs.c@{tcfs.c}}
+\doxysubsubsection{\texorpdfstring{tcfs\_symlink()}{tcfs\_symlink()}}
+{\footnotesize\ttfamily static int tcfs\+\_\+symlink (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{from,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{to }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Creates a symbolic link. 
+
+This function is called to create a symbolic link.
+
+
+\begin{DoxyParams}{Parameters}
+{\em from} & Source path of the symbolic link. \\
+\hline
+{\em to} & Target path of the symbolic link. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true on success, a negative error code on failure. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{tcfs_8c_source_l00404}{404}} of file \mbox{\hyperlink{tcfs_8c_source}{tcfs.\+c}}.
+
+
+
+References \mbox{\hyperlink{crypt-utils_8c_source_l00532}{encrypt\+\_\+path\+\_\+and\+\_\+filename()}}, \mbox{\hyperlink{tcfs__utils_8c_source_l00262}{log\+Message()}}, \mbox{\hyperlink{tcfs_8c_source_l00052}{password}}, \mbox{\hyperlink{tcfs__utils_8c_source_l00053}{prefix\+\_\+path()}}, \mbox{\hyperlink{tcfs_8c_source_l00047}{root\+\_\+path}}, and \mbox{\hyperlink{tcfs_8c_source_l00020}{TCFS\+\_\+\+SUCCESS}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tcfs_8c_ac1d223f9b998d5af6bec3947d03be0fc_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{tcfs_8c_a7e7f7a65b4e76cc96505d0c6d62fba9c}\label{tcfs_8c_a7e7f7a65b4e76cc96505d0c6d62fba9c} 
+\index{tcfs.c@{tcfs.c}!tcfs\_truncate@{tcfs\_truncate}}
+\index{tcfs\_truncate@{tcfs\_truncate}!tcfs.c@{tcfs.c}}
+\doxysubsubsection{\texorpdfstring{tcfs\_truncate()}{tcfs\_truncate()}}
+{\footnotesize\ttfamily static int tcfs\+\_\+truncate (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{fuse\+\_\+path,  }\item[{off\+\_\+t}]{size,  }\item[{struct fuse\+\_\+file\+\_\+info \texorpdfstring{$\ast$}{*}}]{fi }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Truncates or extends the size of a file. 
+
+This function is called to truncate or extend the size of a file.
+
+
+\begin{DoxyParams}{Parameters}
+{\em fuse\+\_\+path} & The path to the file. \\
+\hline
+{\em size} & New size of the file. \\
+\hline
+{\em fi} & File information. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true on success, a negative error code on failure. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{tcfs_8c_source_l00559}{559}} of file \mbox{\hyperlink{tcfs_8c_source}{tcfs.\+c}}.
+
+
+
+References \mbox{\hyperlink{crypt-utils_8c_source_l00420}{encrypt\+\_\+path()}}, \mbox{\hyperlink{tcfs__utils_8c_source_l00262}{log\+Message()}}, \mbox{\hyperlink{tcfs_8c_source_l00052}{password}}, \mbox{\hyperlink{tcfs__utils_8c_source_l00053}{prefix\+\_\+path()}}, \mbox{\hyperlink{tcfs_8c_source_l00047}{root\+\_\+path}}, and \mbox{\hyperlink{tcfs_8c_source_l00020}{TCFS\+\_\+\+SUCCESS}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tcfs_8c_a7e7f7a65b4e76cc96505d0c6d62fba9c_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{tcfs_8c_ac6d3a8a626363a6f98de64e585968b09}\label{tcfs_8c_ac6d3a8a626363a6f98de64e585968b09} 
+\index{tcfs.c@{tcfs.c}!tcfs\_unlink@{tcfs\_unlink}}
+\index{tcfs\_unlink@{tcfs\_unlink}!tcfs.c@{tcfs.c}}
+\doxysubsubsection{\texorpdfstring{tcfs\_unlink()}{tcfs\_unlink()}}
+{\footnotesize\ttfamily static int tcfs\+\_\+unlink (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{fuse\+\_\+path }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Removes a file. 
+
+This function is called to remove a file.
+
+
+\begin{DoxyParams}{Parameters}
+{\em fuse\+\_\+path} & The path to the file. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true on success, a negative error code on failure. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{tcfs_8c_source_l00351}{351}} of file \mbox{\hyperlink{tcfs_8c_source}{tcfs.\+c}}.
+
+
+
+References \mbox{\hyperlink{crypt-utils_8c_source_l00420}{encrypt\+\_\+path()}}, \mbox{\hyperlink{tcfs__utils_8c_source_l00262}{log\+Message()}}, \mbox{\hyperlink{tcfs_8c_source_l00052}{password}}, \mbox{\hyperlink{tcfs__utils_8c_source_l00053}{prefix\+\_\+path()}}, \mbox{\hyperlink{tcfs_8c_source_l00047}{root\+\_\+path}}, and \mbox{\hyperlink{tcfs_8c_source_l00020}{TCFS\+\_\+\+SUCCESS}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tcfs_8c_ac6d3a8a626363a6f98de64e585968b09_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{tcfs_8c_aca5dccf989dfc270ca31e1d8b20bb60e}\label{tcfs_8c_aca5dccf989dfc270ca31e1d8b20bb60e} 
+\index{tcfs.c@{tcfs.c}!tcfs\_utimens@{tcfs\_utimens}}
+\index{tcfs\_utimens@{tcfs\_utimens}!tcfs.c@{tcfs.c}}
+\doxysubsubsection{\texorpdfstring{tcfs\_utimens()}{tcfs\_utimens()}}
+{\footnotesize\ttfamily static int tcfs\+\_\+utimens (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{fuse\+\_\+path,  }\item[{const struct timespec}]{ts\mbox{[}2\mbox{]},  }\item[{struct fuse\+\_\+file\+\_\+info \texorpdfstring{$\ast$}{*}}]{fi }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Modify the access and modification timestamps of a file in the TCFS file system. 
+
+This function is called when the {\ttfamily utimens} operation is performed on a file in the TCFS.
+
+
+\begin{DoxyParams}{Parameters}
+{\em fuse\+\_\+path} & The path of the encrypted file for which timestamps need to be modified. \\
+\hline
+{\em ts} & An array of two timespec structures containing the new access and modification timestamps. \\
+\hline
+{\em fi} & File information structure provided by FUSE. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+TCFS\+\_\+\+SUCCESS on success, negative error code on failure.
+\end{DoxyReturn}
+The {\ttfamily tcfs\+\_\+utimens} function is invoked to modify the access and modification timestamps of a file within the TCFS. It decodes the encrypted file path, translates it into the actual file path on the underlying file system, and then uses the {\ttfamily utimes} function to apply the changes to the file timestamps.
+
+
+\begin{DoxyParams}{Parameters}
+{\em fuse\+\_\+path} & The path of the encrypted file within the TCFS. \\
+\hline
+{\em ts} & An array containing two timespec structures. The first structure represents the new access timestamp, and the second represents the new modification timestamp. \\
+\hline
+{\em fi} & File information provided by FUSE, which may be used to obtain additional details about the file if needed.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true on success. On failure, it returns a negative error code representing the type of error encountered. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{tcfs_8c_source_l00612}{612}} of file \mbox{\hyperlink{tcfs_8c_source}{tcfs.\+c}}.
+
+
+
+References \mbox{\hyperlink{crypt-utils_8c_source_l00420}{encrypt\+\_\+path()}}, \mbox{\hyperlink{tcfs__utils_8c_source_l00262}{log\+Message()}}, \mbox{\hyperlink{tcfs_8c_source_l00052}{password}}, \mbox{\hyperlink{tcfs__utils_8c_source_l00053}{prefix\+\_\+path()}}, \mbox{\hyperlink{tcfs_8c_source_l00047}{root\+\_\+path}}, and \mbox{\hyperlink{tcfs_8c_source_l00020}{TCFS\+\_\+\+SUCCESS}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tcfs_8c_aca5dccf989dfc270ca31e1d8b20bb60e_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{tcfs_8c_adaba2baa5a036b8f77ec187599498a66}\label{tcfs_8c_adaba2baa5a036b8f77ec187599498a66} 
+\index{tcfs.c@{tcfs.c}!tcfs\_write@{tcfs\_write}}
+\index{tcfs\_write@{tcfs\_write}!tcfs.c@{tcfs.c}}
+\doxysubsubsection{\texorpdfstring{tcfs\_write()}{tcfs\_write()}}
+{\footnotesize\ttfamily static int tcfs\+\_\+write (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{fuse\+\_\+path,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{buf,  }\item[{size\+\_\+t}]{size,  }\item[{off\+\_\+t}]{offset,  }\item[{struct fuse\+\_\+file\+\_\+info \texorpdfstring{$\ast$}{*}}]{fi }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Writes data to an open file. 
+
+This function is called to write data to an open file.
+
+
+\begin{DoxyParams}{Parameters}
+{\em fuse\+\_\+path} & The path to the file. \\
+\hline
+{\em buf} & Data to write. \\
+\hline
+{\em size} & Number of bytes to write. \\
+\hline
+{\em offset} & Offset within the file. \\
+\hline
+{\em fi} & File information. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The number of bytes written, or a negative error code on failure. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{tcfs_8c_source_l00830}{830}} of file \mbox{\hyperlink{tcfs_8c_source}{tcfs.\+c}}.
+
+
+
+References \mbox{\hyperlink{crypt-utils_8h_source_l00032}{DECRYPT}}, \mbox{\hyperlink{crypt-utils_8c_source_l00330}{decrypt\+\_\+string()}}, \mbox{\hyperlink{crypt-utils_8c_source_l00063}{do\+\_\+crypt()}}, \mbox{\hyperlink{crypt-utils_8h_source_l00027}{ENCRYPT}}, \mbox{\hyperlink{crypt-utils_8c_source_l00420}{encrypt\+\_\+path()}}, \mbox{\hyperlink{tcfs_8c_source_l00711}{file\+\_\+size()}}, \mbox{\hyperlink{tcfs__utils_8c_source_l00262}{log\+Message()}}, \mbox{\hyperlink{tcfs_8c_source_l00052}{password}}, \mbox{\hyperlink{tcfs__utils_8c_source_l00053}{prefix\+\_\+path()}}, \mbox{\hyperlink{tcfs_8c_source_l00047}{root\+\_\+path}}, \mbox{\hyperlink{tcfs_8c_source_l00132}{tcfs\+\_\+access()}}, \mbox{\hyperlink{tcfs_8c_source_l01199}{tcfs\+\_\+getxattr()}}, and \mbox{\hyperlink{tcfs_8c_source_l00020}{TCFS\+\_\+\+SUCCESS}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tcfs_8c_adaba2baa5a036b8f77ec187599498a66_cgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{tcfs_8c_ab70c96531b1b652d70c221cfaf3207f3}\label{tcfs_8c_ab70c96531b1b652d70c221cfaf3207f3} 
+\index{tcfs.c@{tcfs.c}!argp@{argp}}
+\index{argp@{argp}!tcfs.c@{tcfs.c}}
+\doxysubsubsection{\texorpdfstring{argp}{argp}}
+{\footnotesize\ttfamily struct \mbox{\hyperlink{structargp}{argp}} \mbox{\hyperlink{structargp}{argp}} = \{ \mbox{\hyperlink{user__tcfs_8c_ac88b371bbf7f89ab6440cb9fe629288c}{options}}, \mbox{\hyperlink{user__tcfs_8c_a35ee63236273ebb9325c444cacf00159}{parse\+\_\+opt}}, \mbox{\hyperlink{tcfs_8c_a91b08784b3668a8a1fbe2eec1947fb9d}{args\+\_\+doc}}, \mbox{\hyperlink{user__tcfs_8c_a3a72da5720995770156f9f9879ce6fa9}{doc}}, 0, NULL, NULL \}\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+TCFS argp structure. 
+
+
+
+Definition at line \mbox{\hyperlink{tcfs_8c_source_l01401}{1401}} of file \mbox{\hyperlink{tcfs_8c_source}{tcfs.\+c}}.
+
+\Hypertarget{tcfs_8c_aaa037e59f26a80a8a2e35e6f2364004d}\label{tcfs_8c_aaa037e59f26a80a8a2e35e6f2364004d} 
+\index{tcfs.c@{tcfs.c}!argp\_program\_bug\_address@{argp\_program\_bug\_address}}
+\index{argp\_program\_bug\_address@{argp\_program\_bug\_address}!tcfs.c@{tcfs.c}}
+\doxysubsubsection{\texorpdfstring{argp\_program\_bug\_address}{argp\_program\_bug\_address}}
+{\footnotesize\ttfamily const char\texorpdfstring{$\ast$}{*} argp\+\_\+program\+\_\+bug\+\_\+address = "{}carloalbertogiordano@duck.\+com"{}}
+
+
+
+TCFS bug report email address. 
+
+
+
+Definition at line \mbox{\hyperlink{tcfs_8c_source_l01332}{1332}} of file \mbox{\hyperlink{tcfs_8c_source}{tcfs.\+c}}.
+
+\Hypertarget{tcfs_8c_a62f73ea01c816f1996aed4c66f57c4fb}\label{tcfs_8c_a62f73ea01c816f1996aed4c66f57c4fb} 
+\index{tcfs.c@{tcfs.c}!argp\_program\_version@{argp\_program\_version}}
+\index{argp\_program\_version@{argp\_program\_version}!tcfs.c@{tcfs.c}}
+\doxysubsubsection{\texorpdfstring{argp\_program\_version}{argp\_program\_version}}
+{\footnotesize\ttfamily const char\texorpdfstring{$\ast$}{*} argp\+\_\+program\+\_\+version = "{}TCFS Alpha"{}}
+
+
+
+TCFS version information. 
+
+
+
+Definition at line \mbox{\hyperlink{tcfs_8c_source_l01327}{1327}} of file \mbox{\hyperlink{tcfs_8c_source}{tcfs.\+c}}.
+
+\Hypertarget{tcfs_8c_a91b08784b3668a8a1fbe2eec1947fb9d}\label{tcfs_8c_a91b08784b3668a8a1fbe2eec1947fb9d} 
+\index{tcfs.c@{tcfs.c}!args\_doc@{args\_doc}}
+\index{args\_doc@{args\_doc}!tcfs.c@{tcfs.c}}
+\doxysubsubsection{\texorpdfstring{args\_doc}{args\_doc}}
+{\footnotesize\ttfamily char args\+\_\+doc\mbox{[}$\,$\mbox{]} = "{}"{}\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Argument documentation string for TCFS. 
+
+
+
+Definition at line \mbox{\hyperlink{tcfs_8c_source_l01343}{1343}} of file \mbox{\hyperlink{tcfs_8c_source}{tcfs.\+c}}.
+
+\Hypertarget{tcfs_8c_af6164deb8a824f8cb2b9147cfc3174f5}\label{tcfs_8c_af6164deb8a824f8cb2b9147cfc3174f5} 
+\index{tcfs.c@{tcfs.c}!doc@{doc}}
+\index{doc@{doc}!tcfs.c@{tcfs.c}}
+\doxysubsubsection{\texorpdfstring{doc}{doc}}
+{\footnotesize\ttfamily char doc\mbox{[}$\,$\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \textcolor{stringliteral}{"{}This\ is\ an\ implementation\ on\ TCFS\(\backslash\)ntcfs\ -\/s\ <source\_path>\ "{}}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}-\/d\ <dest\_path>\ -\/p\ <password>\ [fuse\ arguments]"{}}}
+
+\end{DoxyCode}
+
+
+Documentation string for TCFS. 
+
+
+
+Definition at line \mbox{\hyperlink{tcfs_8c_source_l01337}{1337}} of file \mbox{\hyperlink{tcfs_8c_source}{tcfs.\+c}}.
+
+\Hypertarget{tcfs_8c_abc1fd3a47aea6a8944038c9100eb9135}\label{tcfs_8c_abc1fd3a47aea6a8944038c9100eb9135} 
+\index{tcfs.c@{tcfs.c}!options@{options}}
+\index{options@{options}!tcfs.c@{tcfs.c}}
+\doxysubsubsection{\texorpdfstring{options}{options}}
+{\footnotesize\ttfamily struct argp\+\_\+option options\mbox{[}$\,$\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \{\ \{\ \textcolor{stringliteral}{"{}source"{}},\ \textcolor{charliteral}{'s'},\ \textcolor{stringliteral}{"{}SOURCE"{}},\ 0,\ \textcolor{stringliteral}{"{}Source\ file\ path"{}},\ -\/1\ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{\ \textcolor{stringliteral}{"{}destination"{}},\ \textcolor{charliteral}{'d'},\ \textcolor{stringliteral}{"{}DESTINATION"{}},\ 0,\ \textcolor{stringliteral}{"{}Destination\ file\ path"{}},\ -\/1\ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{\ \textcolor{stringliteral}{"{}password"{}},\ \textcolor{charliteral}{'p'},\ \textcolor{stringliteral}{"{}PASSWORD"{}},\ 0,\ \textcolor{stringliteral}{"{}Password"{}},\ -\/1\ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{\ NULL\ \}\ \}}
+
+\end{DoxyCode}
+
+
+TCFS command-\/line options. 
+
+
+
+Definition at line \mbox{\hyperlink{tcfs_8c_source_l01348}{1348}} of file \mbox{\hyperlink{tcfs_8c_source}{tcfs.\+c}}.
+
+\Hypertarget{tcfs_8c_a9dbb300e28bc21c8dab41b01883918eb}\label{tcfs_8c_a9dbb300e28bc21c8dab41b01883918eb} 
+\index{tcfs.c@{tcfs.c}!password@{password}}
+\index{password@{password}!tcfs.c@{tcfs.c}}
+\doxysubsubsection{\texorpdfstring{password}{password}}
+{\footnotesize\ttfamily password}
+
+
+
+Contains the password passed to TCFS when started. 
+
+
+
+Definition at line \mbox{\hyperlink{tcfs_8c_source_l00052}{52}} of file \mbox{\hyperlink{tcfs_8c_source}{tcfs.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{tcfs_8c_source_l01412}{main()}}, \mbox{\hyperlink{tcfs_8c_source_l00132}{tcfs\+\_\+access()}}, \mbox{\hyperlink{tcfs_8c_source_l00497}{tcfs\+\_\+chmod()}}, \mbox{\hyperlink{tcfs_8c_source_l00530}{tcfs\+\_\+chown()}}, \mbox{\hyperlink{tcfs_8c_source_l01031}{tcfs\+\_\+create()}}, \mbox{\hyperlink{tcfs_8c_source_l01140}{tcfs\+\_\+fsync()}}, \mbox{\hyperlink{tcfs_8c_source_l00099}{tcfs\+\_\+getattr()}}, \mbox{\hyperlink{tcfs_8c_source_l01199}{tcfs\+\_\+getxattr()}}, \mbox{\hyperlink{tcfs_8c_source_l00465}{tcfs\+\_\+link()}}, \mbox{\hyperlink{tcfs_8c_source_l01229}{tcfs\+\_\+listxattr()}}, \mbox{\hyperlink{tcfs_8c_source_l00324}{tcfs\+\_\+mkdir()}}, \mbox{\hyperlink{tcfs_8c_source_l00286}{tcfs\+\_\+mknod()}}, \mbox{\hyperlink{tcfs_8c_source_l00651}{tcfs\+\_\+open()}}, \mbox{\hyperlink{tcfs_8c_source_l00067}{tcfs\+\_\+opendir()}}, \mbox{\hyperlink{tcfs_8c_source_l00734}{tcfs\+\_\+read()}}, \mbox{\hyperlink{tcfs_8c_source_l00196}{tcfs\+\_\+readdir()}}, \mbox{\hyperlink{tcfs_8c_source_l00162}{tcfs\+\_\+readlink()}}, \mbox{\hyperlink{tcfs_8c_source_l01111}{tcfs\+\_\+release()}}, \mbox{\hyperlink{tcfs_8c_source_l01273}{tcfs\+\_\+removexattr()}}, \mbox{\hyperlink{tcfs_8c_source_l00436}{tcfs\+\_\+rename()}}, \mbox{\hyperlink{tcfs_8c_source_l00377}{tcfs\+\_\+rmdir()}}, \mbox{\hyperlink{tcfs_8c_source_l00979}{tcfs\+\_\+setxattr()}}, \mbox{\hyperlink{tcfs_8c_source_l00404}{tcfs\+\_\+symlink()}}, \mbox{\hyperlink{tcfs_8c_source_l00559}{tcfs\+\_\+truncate()}}, \mbox{\hyperlink{tcfs_8c_source_l00351}{tcfs\+\_\+unlink()}}, \mbox{\hyperlink{tcfs_8c_source_l00612}{tcfs\+\_\+utimens()}}, and \mbox{\hyperlink{tcfs_8c_source_l00830}{tcfs\+\_\+write()}}.
+
+\Hypertarget{tcfs_8c_ab33cf7205359ee0f91488c87df1577a0}\label{tcfs_8c_ab33cf7205359ee0f91488c87df1577a0} 
+\index{tcfs.c@{tcfs.c}!root\_path@{root\_path}}
+\index{root\_path@{root\_path}!tcfs.c@{tcfs.c}}
+\doxysubsubsection{\texorpdfstring{root\_path}{root\_path}}
+{\footnotesize\ttfamily root\+\_\+path}
+
+
+
+Contains the fullpath to the mounted directory. 
+
+
+
+Definition at line \mbox{\hyperlink{tcfs_8c_source_l00047}{47}} of file \mbox{\hyperlink{tcfs_8c_source}{tcfs.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{tcfs_8c_source_l01412}{main()}}, \mbox{\hyperlink{tcfs_8c_source_l00132}{tcfs\+\_\+access()}}, \mbox{\hyperlink{tcfs_8c_source_l00497}{tcfs\+\_\+chmod()}}, \mbox{\hyperlink{tcfs_8c_source_l00530}{tcfs\+\_\+chown()}}, \mbox{\hyperlink{tcfs_8c_source_l01031}{tcfs\+\_\+create()}}, \mbox{\hyperlink{tcfs_8c_source_l01140}{tcfs\+\_\+fsync()}}, \mbox{\hyperlink{tcfs_8c_source_l00099}{tcfs\+\_\+getattr()}}, \mbox{\hyperlink{tcfs_8c_source_l01199}{tcfs\+\_\+getxattr()}}, \mbox{\hyperlink{tcfs_8c_source_l00465}{tcfs\+\_\+link()}}, \mbox{\hyperlink{tcfs_8c_source_l01229}{tcfs\+\_\+listxattr()}}, \mbox{\hyperlink{tcfs_8c_source_l00324}{tcfs\+\_\+mkdir()}}, \mbox{\hyperlink{tcfs_8c_source_l00286}{tcfs\+\_\+mknod()}}, \mbox{\hyperlink{tcfs_8c_source_l00651}{tcfs\+\_\+open()}}, \mbox{\hyperlink{tcfs_8c_source_l00067}{tcfs\+\_\+opendir()}}, \mbox{\hyperlink{tcfs_8c_source_l00734}{tcfs\+\_\+read()}}, \mbox{\hyperlink{tcfs_8c_source_l00196}{tcfs\+\_\+readdir()}}, \mbox{\hyperlink{tcfs_8c_source_l00162}{tcfs\+\_\+readlink()}}, \mbox{\hyperlink{tcfs_8c_source_l01111}{tcfs\+\_\+release()}}, \mbox{\hyperlink{tcfs_8c_source_l01273}{tcfs\+\_\+removexattr()}}, \mbox{\hyperlink{tcfs_8c_source_l00436}{tcfs\+\_\+rename()}}, \mbox{\hyperlink{tcfs_8c_source_l00377}{tcfs\+\_\+rmdir()}}, \mbox{\hyperlink{tcfs_8c_source_l00979}{tcfs\+\_\+setxattr()}}, \mbox{\hyperlink{tcfs_8c_source_l00952}{tcfs\+\_\+statfs()}}, \mbox{\hyperlink{tcfs_8c_source_l00404}{tcfs\+\_\+symlink()}}, \mbox{\hyperlink{tcfs_8c_source_l00559}{tcfs\+\_\+truncate()}}, \mbox{\hyperlink{tcfs_8c_source_l00351}{tcfs\+\_\+unlink()}}, \mbox{\hyperlink{tcfs_8c_source_l00612}{tcfs\+\_\+utimens()}}, and \mbox{\hyperlink{tcfs_8c_source_l00830}{tcfs\+\_\+write()}}.
+
+\Hypertarget{tcfs_8c_a53c12b201809f3165da8a2779d152b3a}\label{tcfs_8c_a53c12b201809f3165da8a2779d152b3a} 
+\index{tcfs.c@{tcfs.c}!tcfs\_oper@{tcfs\_oper}}
+\index{tcfs\_oper@{tcfs\_oper}!tcfs.c@{tcfs.c}}
+\doxysubsubsection{\texorpdfstring{tcfs\_oper}{tcfs\_oper}}
+{\footnotesize\ttfamily struct fuse\+\_\+operations tcfs\+\_\+oper\hspace{0.3cm}{\ttfamily [static]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \{}
+\DoxyCodeLine{\ \ .opendir\ =\ \mbox{\hyperlink{tcfs_8c_a92ebab5be45b159c2850a47a5072b58d}{tcfs\_opendir}},}
+\DoxyCodeLine{\ \ .getattr\ =\ \mbox{\hyperlink{tcfs_8c_a411eac4511d0eae4ce78a2fd3d22ac8c}{tcfs\_getattr}},}
+\DoxyCodeLine{\ \ .access\ =\ \mbox{\hyperlink{tcfs_8c_a76af7857833338c73b9cafdce59ca01d}{tcfs\_access}},}
+\DoxyCodeLine{\ \ .readlink\ =\ \mbox{\hyperlink{tcfs_8c_acb1e081efcbf61b6f34e8bbdf7af8979}{tcfs\_readlink}},}
+\DoxyCodeLine{\ \ .readdir\ =\ \mbox{\hyperlink{tcfs_8c_a1a713549c892f56a6522e6487c581d69}{tcfs\_readdir}},}
+\DoxyCodeLine{\ \ .mknod\ =\ \mbox{\hyperlink{tcfs_8c_a151f53359474a95c52f5e79d438869bd}{tcfs\_mknod}},}
+\DoxyCodeLine{\ \ .mkdir\ =\ \mbox{\hyperlink{tcfs_8c_a682b553345b6d872453d1ace7339bb9e}{tcfs\_mkdir}},}
+\DoxyCodeLine{\ \ .symlink\ =\ \mbox{\hyperlink{tcfs_8c_ac1d223f9b998d5af6bec3947d03be0fc}{tcfs\_symlink}},}
+\DoxyCodeLine{\ \ .unlink\ =\ \mbox{\hyperlink{tcfs_8c_ac6d3a8a626363a6f98de64e585968b09}{tcfs\_unlink}},}
+\DoxyCodeLine{\ \ .rmdir\ =\ \mbox{\hyperlink{tcfs_8c_a2853593dded66a922afbdc36afb15a50}{tcfs\_rmdir}},}
+\DoxyCodeLine{\ \ .rename\ =\ \mbox{\hyperlink{tcfs_8c_aee96b732a1569a607e63bac6fbe5c403}{tcfs\_rename}},}
+\DoxyCodeLine{\ \ .link\ =\ \mbox{\hyperlink{tcfs_8c_a271df7bd878f5ed132e1f98487e8aebd}{tcfs\_link}},}
+\DoxyCodeLine{\ \ .chmod\ =\ \mbox{\hyperlink{tcfs_8c_a3cb10be0f6147667dc0e757636e9892f}{tcfs\_chmod}},}
+\DoxyCodeLine{\ \ .chown\ =\ \mbox{\hyperlink{tcfs_8c_afff31b61fa0723502cf85922816f14f9}{tcfs\_chown}},}
+\DoxyCodeLine{\ \ .truncate\ =\ \mbox{\hyperlink{tcfs_8c_a7e7f7a65b4e76cc96505d0c6d62fba9c}{tcfs\_truncate}},}
+\DoxyCodeLine{\ \ .utimens\ =\ \mbox{\hyperlink{tcfs_8c_aca5dccf989dfc270ca31e1d8b20bb60e}{tcfs\_utimens}},}
+\DoxyCodeLine{\ \ .open\ =\ \mbox{\hyperlink{tcfs_8c_af0c6a7d66189cc1e9fbfafba5255e60d}{tcfs\_open}},}
+\DoxyCodeLine{\ \ .read\ =\ \mbox{\hyperlink{tcfs_8c_a745384a010e20b082db26e16702a0129}{tcfs\_read}},}
+\DoxyCodeLine{\ \ .write\ =\ \mbox{\hyperlink{tcfs_8c_adaba2baa5a036b8f77ec187599498a66}{tcfs\_write}},}
+\DoxyCodeLine{\ \ .statfs\ =\ \mbox{\hyperlink{tcfs_8c_ae14ebf4581d4cbc45737ae75af82a887}{tcfs\_statfs}},}
+\DoxyCodeLine{\ \ .create\ =\ \mbox{\hyperlink{tcfs_8c_ad973ad9d6ab7d6276bf85cd8fecd0657}{tcfs\_create}},}
+\DoxyCodeLine{\ \ .release\ =\ \mbox{\hyperlink{tcfs_8c_a1241e1fcfe6bb4a5d49d8c8d4e737bcd}{tcfs\_release}},}
+\DoxyCodeLine{\ \ .fsync\ =\ \mbox{\hyperlink{tcfs_8c_a014853840814f4d5225e2e28e129f9e5}{tcfs\_fsync}},}
+\DoxyCodeLine{\ \ .setxattr\ =\ \mbox{\hyperlink{tcfs_8c_ad3c328fdcd93c8203e1ce9c785fd3a14}{tcfs\_setxattr}},}
+\DoxyCodeLine{\ \ .getxattr\ =\ \mbox{\hyperlink{tcfs_8c_a6a031c4e3c6dd59051c09789c4666657}{tcfs\_getxattr}},}
+\DoxyCodeLine{\ \ .listxattr\ =\ \mbox{\hyperlink{tcfs_8c_ae6edcf6a80467925a9a2112172395de1}{tcfs\_listxattr}},}
+\DoxyCodeLine{\ \ .removexattr\ =\ \mbox{\hyperlink{tcfs_8c_acfe2c6a9467bd25a5ba6dc1a65209262}{tcfs\_removexattr}},}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+TCFS file system operations. 
+
+This structure defines the operations supported by the TCFS file system. 
+
+Definition at line \mbox{\hyperlink{tcfs_8c_source_l01294}{1294}} of file \mbox{\hyperlink{tcfs_8c_source}{tcfs.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{tcfs_8c_source_l01412}{main()}}.
+

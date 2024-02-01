@@ -1,0 +1,207 @@
+\doxysection{user/old\+\_\+stuff/user\+\_\+tcfs.c File Reference}
+\hypertarget{user__tcfs_8c}{}\label{user__tcfs_8c}\index{user/old\_stuff/user\_tcfs.c@{user/old\_stuff/user\_tcfs.c}}
+
+
+Help the user that wants to use TCFS.  
+
+
+{\ttfamily \#include "{}tcfs\+\_\+helper\+\_\+tools.\+h"{}}\newline
+{\ttfamily \#include $<$argp.\+h$>$}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+Include dependency graph for user\+\_\+tcfs.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{user__tcfs_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structarguments}{arguments}}
+\begin{DoxyCompactList}\small\item\em Structure to store command-\/line arguments. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static error\+\_\+t \mbox{\hyperlink{user__tcfs_8c_a35ee63236273ebb9325c444cacf00159}{parse\+\_\+opt}} (int key, char \texorpdfstring{$\ast$}{*}arg, struct argp\+\_\+state \texorpdfstring{$\ast$}{*}state)
+\begin{DoxyCompactList}\small\item\em Parse the operation, used by argp. This function is marked as internal and should not be used by the user. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{user__tcfs_8c_a0ddf1224851353fc92bfbff6f499fa97}{main}} (int argc, char \texorpdfstring{$\ast$}{*}argv\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em main function for the TCFS user helper program. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{user__tcfs_8c_a2026b95fe28c77f392e54ca5b26a0899}{argp\+\_\+program\+\_\+version}} = "{}TCFS user helper program"{}
+\begin{DoxyCompactList}\small\item\em Program version. This variable is marked as internal and should not be used by the user. \end{DoxyCompactList}\item 
+const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{user__tcfs_8c_a794b57947d8e4dc6456b6a8a31de2579}{argp\+\_\+program\+\_\+bug\+\_\+address}} = "{}carloalbertogiordano@duck.\+com"{}
+\begin{DoxyCompactList}\small\item\em Mail for bug reports. This variable is marked as internal and should not be used by the user. \end{DoxyCompactList}\item 
+static char \mbox{\hyperlink{user__tcfs_8c_a3a72da5720995770156f9f9879ce6fa9}{doc}} \mbox{[}$\,$\mbox{]}
+\begin{DoxyCompactList}\small\item\em Documentation for argp. This variable is marked as internal and should not be used by the user. \end{DoxyCompactList}\item 
+static struct argp\+\_\+option \mbox{\hyperlink{user__tcfs_8c_ac88b371bbf7f89ab6440cb9fe629288c}{options}} \mbox{[}$\,$\mbox{]}
+\begin{DoxyCompactList}\small\item\em Option accepted by tcfs helper program. This variable is marked as internal and should not be used by the user. \end{DoxyCompactList}\item 
+static struct \mbox{\hyperlink{structargp}{argp}} \mbox{\hyperlink{user__tcfs_8c_ab70c96531b1b652d70c221cfaf3207f3}{argp}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Help the user that wants to use TCFS. 
+
+
+
+Definition in file \mbox{\hyperlink{user__tcfs_8c_source}{user\+\_\+tcfs.\+c}}.
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{user__tcfs_8c_a0ddf1224851353fc92bfbff6f499fa97}\label{user__tcfs_8c_a0ddf1224851353fc92bfbff6f499fa97} 
+\index{user\_tcfs.c@{user\_tcfs.c}!main@{main}}
+\index{main@{main}!user\_tcfs.c@{user\_tcfs.c}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char \texorpdfstring{$\ast$}{*}}]{argv\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})}
+
+
+
+main function for the TCFS user helper program. 
+
+
+
+Definition at line \mbox{\hyperlink{user__tcfs_8c_source_l00104}{104}} of file \mbox{\hyperlink{user__tcfs_8c_source}{user\+\_\+tcfs.\+c}}.
+
+
+
+References \mbox{\hyperlink{tcfs__helper__tools_8c_source_l00025}{do\+\_\+mount()}}, \mbox{\hyperlink{user__tcfs_8c_source_l00050}{arguments\+::operation}}, and \mbox{\hyperlink{tcfs__helper__tools_8c_source_l00405}{setup\+\_\+tcfs\+\_\+env()}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{user__tcfs_8c_a0ddf1224851353fc92bfbff6f499fa97_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{user__tcfs_8c_a35ee63236273ebb9325c444cacf00159}\label{user__tcfs_8c_a35ee63236273ebb9325c444cacf00159} 
+\index{user\_tcfs.c@{user\_tcfs.c}!parse\_opt@{parse\_opt}}
+\index{parse\_opt@{parse\_opt}!user\_tcfs.c@{user\_tcfs.c}}
+\doxysubsubsection{\texorpdfstring{parse\_opt()}{parse\_opt()}}
+{\footnotesize\ttfamily static error\+\_\+t parse\+\_\+opt (\begin{DoxyParamCaption}\item[{int}]{key,  }\item[{char \texorpdfstring{$\ast$}{*}}]{arg,  }\item[{struct argp\+\_\+state \texorpdfstring{$\ast$}{*}}]{state }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Parse the operation, used by argp. This function is marked as internal and should not be used by the user. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em key} & The option character \\
+\hline
+{\em arg} & The argument string (unused) \\
+\hline
+{\em state} & The state object of argp \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+static error\+\_\+t The error code (0 for success, ARGP\+\_\+\+ERR\+\_\+\+UNKNOWN for unknown option) 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{user__tcfs_8c_source_l00064}{64}} of file \mbox{\hyperlink{user__tcfs_8c_source}{user\+\_\+tcfs.\+c}}.
+
+
+
+References \mbox{\hyperlink{user__tcfs_8c_source_l00050}{arguments\+::operation}}.
+
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{user__tcfs_8c_ab70c96531b1b652d70c221cfaf3207f3}\label{user__tcfs_8c_ab70c96531b1b652d70c221cfaf3207f3} 
+\index{user\_tcfs.c@{user\_tcfs.c}!argp@{argp}}
+\index{argp@{argp}!user\_tcfs.c@{user\_tcfs.c}}
+\doxysubsubsection{\texorpdfstring{argp}{argp}}
+{\footnotesize\ttfamily struct \mbox{\hyperlink{structargp}{argp}} \mbox{\hyperlink{structargp}{argp}}\hspace{0.3cm}{\ttfamily [static]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \{\ .options\ =\ \mbox{\hyperlink{user__tcfs_8c_ac88b371bbf7f89ab6440cb9fe629288c}{options}},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .parser\ =\ \mbox{\hyperlink{user__tcfs_8c_a35ee63236273ebb9325c444cacf00159}{parse\_opt}},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .doc\ =\ \mbox{\hyperlink{user__tcfs_8c_a3a72da5720995770156f9f9879ce6fa9}{doc}},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .args\_doc\ =\ NULL,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .children\ =\ NULL,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ .help\_filter\ =\ NULL\ \}}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{user__tcfs_8c_source_l00093}{93}} of file \mbox{\hyperlink{user__tcfs_8c_source}{user\+\_\+tcfs.\+c}}.
+
+\Hypertarget{user__tcfs_8c_a794b57947d8e4dc6456b6a8a31de2579}\label{user__tcfs_8c_a794b57947d8e4dc6456b6a8a31de2579} 
+\index{user\_tcfs.c@{user\_tcfs.c}!argp\_program\_bug\_address@{argp\_program\_bug\_address}}
+\index{argp\_program\_bug\_address@{argp\_program\_bug\_address}!user\_tcfs.c@{user\_tcfs.c}}
+\doxysubsubsection{\texorpdfstring{argp\_program\_bug\_address}{argp\_program\_bug\_address}}
+{\footnotesize\ttfamily argp\+\_\+program\+\_\+bug\+\_\+address = "{}carloalbertogiordano@duck.\+com"{}}
+
+
+
+Mail for bug reports. This variable is marked as internal and should not be used by the user. 
+
+
+
+Definition at line \mbox{\hyperlink{user__tcfs_8c_source_l00022}{22}} of file \mbox{\hyperlink{user__tcfs_8c_source}{user\+\_\+tcfs.\+c}}.
+
+\Hypertarget{user__tcfs_8c_a2026b95fe28c77f392e54ca5b26a0899}\label{user__tcfs_8c_a2026b95fe28c77f392e54ca5b26a0899} 
+\index{user\_tcfs.c@{user\_tcfs.c}!argp\_program\_version@{argp\_program\_version}}
+\index{argp\_program\_version@{argp\_program\_version}!user\_tcfs.c@{user\_tcfs.c}}
+\doxysubsubsection{\texorpdfstring{argp\_program\_version}{argp\_program\_version}}
+{\footnotesize\ttfamily argp\+\_\+program\+\_\+version = "{}TCFS user helper program"{}}
+
+
+
+Program version. This variable is marked as internal and should not be used by the user. 
+
+
+
+Definition at line \mbox{\hyperlink{user__tcfs_8c_source_l00016}{16}} of file \mbox{\hyperlink{user__tcfs_8c_source}{user\+\_\+tcfs.\+c}}.
+
+\Hypertarget{user__tcfs_8c_a3a72da5720995770156f9f9879ce6fa9}\label{user__tcfs_8c_a3a72da5720995770156f9f9879ce6fa9} 
+\index{user\_tcfs.c@{user\_tcfs.c}!doc@{doc}}
+\index{doc@{doc}!user\_tcfs.c@{user\_tcfs.c}}
+\doxysubsubsection{\texorpdfstring{doc}{doc}}
+{\footnotesize\ttfamily doc\hspace{0.3cm}{\ttfamily [static]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \textcolor{stringliteral}{"{}TCFS\ user\ accepts\ one\ of\ three\ arguments:\ mount,\ "{}}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}create-\/shared,\ or\ umount."{}}}
+
+\end{DoxyCode}
+
+
+Documentation for argp. This variable is marked as internal and should not be used by the user. 
+
+
+
+Definition at line \mbox{\hyperlink{user__tcfs_8c_source_l00028}{28}} of file \mbox{\hyperlink{user__tcfs_8c_source}{user\+\_\+tcfs.\+c}}.
+
+\Hypertarget{user__tcfs_8c_ac88b371bbf7f89ab6440cb9fe629288c}\label{user__tcfs_8c_ac88b371bbf7f89ab6440cb9fe629288c} 
+\index{user\_tcfs.c@{user\_tcfs.c}!options@{options}}
+\index{options@{options}!user\_tcfs.c@{user\_tcfs.c}}
+\doxysubsubsection{\texorpdfstring{options}{options}}
+{\footnotesize\ttfamily options\hspace{0.3cm}{\ttfamily [static]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \{\ \{\ \textcolor{stringliteral}{"{}mount"{}},\ \textcolor{charliteral}{'m'},\ 0,\ 0,\ \textcolor{stringliteral}{"{}Perform\ mount\ operation"{}},\ -\/1\ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{\ \textcolor{stringliteral}{"{}create-\/shared"{}},\ \textcolor{charliteral}{'c'},\ 0,\ 0,\ \textcolor{stringliteral}{"{}Perform\ create-\/shared\ operation"{}},\ -\/1\ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{\ \textcolor{stringliteral}{"{}umount"{}},\ \textcolor{charliteral}{'u'},\ 0,\ 0,\ \textcolor{stringliteral}{"{}Perform\ umount\ operation"{}},\ -\/1\ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{\ \textcolor{stringliteral}{"{}setup-\/env"{}},\ \textcolor{charliteral}{'s'},\ 0,\ 0,\ \textcolor{stringliteral}{"{}Perform\ the\ setup\ of\ the\ .tcfs\ folder"{}},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ -\/1\ \},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{\ NULL\ \}\ \}}
+
+\end{DoxyCode}
+
+
+Option accepted by tcfs helper program. This variable is marked as internal and should not be used by the user. 
+
+
+
+Definition at line \mbox{\hyperlink{user__tcfs_8c_source_l00036}{36}} of file \mbox{\hyperlink{user__tcfs_8c_source}{user\+\_\+tcfs.\+c}}.
+

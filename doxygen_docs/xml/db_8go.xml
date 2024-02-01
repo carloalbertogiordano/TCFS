@@ -1,0 +1,169 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="db_8go" kind="file" language="C++">
+    <compoundname>db.go</compoundname>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline><highlight class="normal">package<sp/>DB</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">import<sp/>(</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>&quot;database/sql&quot;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>&quot;errors&quot;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>&quot;fmt&quot;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>_<sp/>&quot;github.com/go-sql-driver/mysql&quot;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>TCFSTypes<sp/>&quot;serverTCFS/types&quot;</highlight></codeline>
+<codeline><highlight class="normal">)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">var<sp/>db<sp/>*sql.DB</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">//<sp/>Init<sp/>initializes<sp/>the<sp/>MariaDB<sp/>client<sp/>with<sp/>the<sp/>specified<sp/>options.</highlight></codeline>
+<codeline><highlight class="normal">func<sp/>Init(host<sp/>string,<sp/>port<sp/>string,<sp/>dbname<sp/>string,<sp/>username<sp/>string,<sp/>password<sp/>string)<sp/>error<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>var<sp/>err<sp/>error</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>dbConnectionString<sp/>:=<sp/>username<sp/>+<sp/>&quot;:&quot;<sp/>+<sp/>password<sp/>+<sp/>&quot;@tcp(&quot;<sp/>+<sp/>host<sp/>+<sp/>&quot;:&quot;<sp/>+<sp/>port<sp/>+<sp/>&quot;)/&quot;<sp/>+<sp/>dbname</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>db,<sp/>err<sp/>=<sp/>sql.Open(&quot;mysql&quot;,<sp/>dbConnectionString)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>if<sp/>err<sp/>!=<sp/>nil<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fmt.Printf(&quot;ERR:<sp/>%v\n&quot;,<sp/>err)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>return<sp/>err</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>//<sp/>Check<sp/>if<sp/>the<sp/>connection<sp/>is<sp/>valid</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>err<sp/>=<sp/>db.Ping()</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>if<sp/>err<sp/>!=<sp/>nil<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fmt.Printf(&quot;ERR:<sp/>%v\n&quot;,<sp/>err)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>return<sp/>err</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>fmt.Println(&quot;DB<sp/>initialized&quot;)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>return<sp/>nil</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">//<sp/>Close<sp/>is<sp/>a<sp/>method<sp/>to<sp/>close<sp/>the<sp/>database<sp/>connection</highlight></codeline>
+<codeline><highlight class="normal">func<sp/>Close()<sp/>error<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>err<sp/>:=<sp/>db.Close()</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>if<sp/>err<sp/>!=<sp/>nil<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fmt.Printf(&quot;ERR:<sp/>%v&quot;,<sp/>err)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>return<sp/>err</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>return<sp/>nil</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">//<sp/>InsertRegisteredUser<sp/>inserts<sp/>a<sp/>new<sp/>registered<sp/>user<sp/>into<sp/>the<sp/>RegisteredUsers<sp/>table.</highlight></codeline>
+<codeline><highlight class="normal">func<sp/>InsertRegisteredUser(username<sp/>string,<sp/>passwordHash<sp/>string)<sp/>error<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>_,<sp/>err<sp/>:=<sp/>db.Exec(&quot;INSERT<sp/>INTO<sp/>RegisteredUsers<sp/>(username,<sp/>password_hash)<sp/>VALUES<sp/>(?,<sp/>?)&quot;,<sp/>username,<sp/>passwordHash)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>if<sp/>err<sp/>!=<sp/>nil<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fmt.Printf(&quot;ERR:<sp/>%v&quot;,<sp/>err)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>return<sp/>err</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>return<sp/>nil</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">//<sp/>InsertLoggedUser<sp/>inserts<sp/>a<sp/>new<sp/>logged<sp/>user<sp/>into<sp/>the<sp/>LoggedUsers<sp/>table.</highlight></codeline>
+<codeline><highlight class="normal">func<sp/>InsertLoggedUser(username<sp/>string,<sp/>publicKey<sp/>string)<sp/>error<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>_,<sp/>err<sp/>:=<sp/>db.Exec(&quot;INSERT<sp/>INTO<sp/>LoggedUsers<sp/>(username,<sp/>public_key)<sp/>VALUES<sp/>(?,<sp/>?)&quot;,<sp/>username,<sp/>publicKey)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>if<sp/>err<sp/>!=<sp/>nil<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fmt.Printf(&quot;ERR:<sp/>%v&quot;,<sp/>err)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>return<sp/>err</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>return<sp/>nil</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">func<sp/>DeleteLoggedUser(username<sp/>string)<sp/>error<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>_,<sp/>err<sp/>:=<sp/>db.Exec(&quot;DELETE<sp/>FROM<sp/>LoggedUsers<sp/>WHERE<sp/>username=?&quot;,<sp/>username)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>if<sp/>err<sp/>!=<sp/>nil<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fmt.Printf(&quot;ERR:<sp/>%v&quot;,<sp/>err)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>return<sp/>err</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>return<sp/>nil</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">func<sp/>GetPasswordHash(username<sp/>string)<sp/>(string,<sp/>error)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>//<sp/>Query<sp/>to<sp/>obtain<sp/>password<sp/>hash</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>var<sp/>passwordHash<sp/>string</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>err<sp/>:=<sp/>db.QueryRow(&quot;SELECT<sp/>password_hash<sp/>FROM<sp/>RegisteredUsers<sp/>WHERE<sp/>username<sp/>=<sp/>?&quot;,<sp/>username).Scan(&amp;passwordHash)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>if<sp/>err<sp/>!=<sp/>nil<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fmt.Printf(&quot;ERR:<sp/>%v&quot;,<sp/>err)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>return<sp/>&quot;&quot;,<sp/>err</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>return<sp/>passwordHash,<sp/>nil</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">//<sp/>InsertSharedFile<sp/>inserts<sp/>a<sp/>new<sp/>shared<sp/>file<sp/>into<sp/>the<sp/>SharedFiles<sp/>table.</highlight></codeline>
+<codeline><highlight class="normal">func<sp/>InsertSharedFile(username<sp/>string,<sp/>fileID<sp/>int,<sp/>keypart<sp/>string)<sp/>error<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>_,<sp/>err<sp/>:=<sp/>db.Exec(&quot;INSERT<sp/>INTO<sp/>SharedFiles<sp/>(username,<sp/>fileID,<sp/>keypart)<sp/>VALUES<sp/>(?,<sp/>?,<sp/>?)&quot;,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>username,<sp/>fileID,<sp/>keypart)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>if<sp/>err<sp/>!=<sp/>nil<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fmt.Printf(&quot;ERR:<sp/>%v&quot;,<sp/>err)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>return<sp/>err</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>return<sp/>nil</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">func<sp/>GetNewFileID()<sp/>(int,<sp/>error)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>var<sp/>lastFileID<sp/>int</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>//<sp/>Execute<sp/>stored<sp/>procedure<sp/>GetLastFileID</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>_,<sp/>err<sp/>:=<sp/>db.Exec(&quot;CALL<sp/>GetLastFileID(@output);&quot;)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>if<sp/>err<sp/>!=<sp/>nil<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>return<sp/>0,<sp/>fmt.Errorf(&quot;failed<sp/>to<sp/>execute<sp/>GetLastFileID:<sp/>%w&quot;,<sp/>err)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>//<sp/>Fetch<sp/>the<sp/>output</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>err<sp/>=<sp/>db.QueryRow(&quot;SELECT<sp/>@output&quot;).Scan(&amp;lastFileID)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>if<sp/>err<sp/>!=<sp/>nil<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>return<sp/>0,<sp/>fmt.Errorf(&quot;failed<sp/>to<sp/>get<sp/>last<sp/>file<sp/>ID:<sp/>%w&quot;,<sp/>err)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>//<sp/>Execute<sp/>the<sp/>stored<sp/>procedure<sp/>IncrementLastFileID</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>_,<sp/>err<sp/>=<sp/>db.Exec(&quot;CALL<sp/>IncrementLastFileID();&quot;)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>if<sp/>err<sp/>!=<sp/>nil<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>return<sp/>0,<sp/>fmt.Errorf(&quot;failed<sp/>to<sp/>increment<sp/>last<sp/>file<sp/>ID:<sp/>%w&quot;,<sp/>err)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>return<sp/>lastFileID,<sp/>nil</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">//<sp/>InsertMultipleSharedFiles<sp/>Saves<sp/>the<sp/>shared<sp/>files<sp/>described<sp/>by<sp/>a<sp/>slice<sp/>of<sp/>SharedFile<sp/>structs<sp/>in<sp/>the<sp/>DB</highlight></codeline>
+<codeline><highlight class="normal">func<sp/>InsertMultipleSharedFiles(sharedFilesList<sp/>[]TCFSTypes.SharedFile)<sp/>error<sp/>{</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>for<sp/>_,<sp/>sharedFile<sp/>:=<sp/>range<sp/>sharedFilesList<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>err<sp/>:=<sp/>InsertSharedFile(sharedFile.User.Username,<sp/>sharedFile.FileID,<sp/>sharedFile.EncryptedShare)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>if<sp/>err<sp/>!=<sp/>nil<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>return<sp/>err</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>return<sp/>nil</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">//<sp/>LoadUserInfoByName<sp/>retrieves<sp/>user<sp/>information<sp/>from<sp/>the<sp/>LoggedUsers<sp/>table<sp/>based<sp/>on<sp/>the<sp/>provided<sp/>username.</highlight></codeline>
+<codeline><highlight class="normal">func<sp/>LoadUserInfoByName(user<sp/>*TCFSTypes.TCFSUser)<sp/>error<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>//<sp/>SQL<sp/>query<sp/>to<sp/>retrieve<sp/>information<sp/>from<sp/>LoggedUsers<sp/>based<sp/>on<sp/>the<sp/>username</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>query<sp/>:=<sp/>&quot;SELECT<sp/>username,<sp/>public_key<sp/>FROM<sp/>LoggedUsers<sp/>WHERE<sp/>username<sp/>=<sp/>?&quot;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>//<sp/>Execute<sp/>the<sp/>query</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>row<sp/>:=<sp/>db.QueryRow(query,<sp/>user.Username)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>//<sp/>Variables<sp/>to<sp/>store<sp/>the<sp/>query<sp/>results</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>var<sp/>username<sp/>string</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>var<sp/>publicKey<sp/>string</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>//<sp/>Scan<sp/>the<sp/>results<sp/>into<sp/>the<sp/>corresponding<sp/>variable</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>if<sp/>err<sp/>:=<sp/>row.Scan(&amp;username,<sp/>&amp;publicKey);<sp/>err<sp/>!=<sp/>nil<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>if<sp/>errors.Is(err,<sp/>sql.ErrNoRows)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>return<sp/>fmt.Errorf(&quot;user<sp/>not<sp/>found:<sp/>%s&quot;,<sp/>user.Username)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>return<sp/>err</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>//<sp/>Update<sp/>the<sp/>TCFSUser<sp/>object<sp/>with<sp/>the<sp/>retrieved<sp/>information</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>user.PublicKey<sp/>=<sp/>publicKey</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>return<sp/>nil</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="ServerREST/db/db.go"/>
+  </compounddef>
+</doxygen>

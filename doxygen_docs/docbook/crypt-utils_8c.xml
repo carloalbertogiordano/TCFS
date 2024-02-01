@@ -1,0 +1,859 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_crypt-utils_8c" xml:lang="en-US">
+<title>userspace-module/utils/crypt-utils/crypt-utils.c File Reference</title>
+<indexterm><primary>userspace-module/utils/crypt-utils/crypt-utils.c</primary></indexterm>
+<para>
+
+<para>Implementation file for cryptographic utility functions. </para>
+ 
+</para>
+<programlisting linenumbering="unnumbered">#include &quot;crypt-utils.h&quot;<?linebreak?></programlisting>Include dependency graph for crypt-utils.c:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="crypt-utils_8c__incl.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+<simplesect>
+    <title>Macros    </title>
+        <itemizedlist>
+            <listitem><para>#define <link linkend="_crypt-utils_8c_1afcf795f5a96fd55561abe69f56224630">BLOCKSIZE</link>&#160;&#160;&#160;1024</para>
+
+<para>This defines the max size of a block that can be cyphered. This definition is marked as internal and should not be used directly by the user. </para>
+</listitem>
+            <listitem><para>#define <link linkend="_crypt-utils_8c_1ad7bb30dbf5882fdf05331918e8a0cc84">IV_SIZE</link>&#160;&#160;&#160;32</para>
+
+<para>The fixed size of the initialization vector <link linkend="_">IV </link>. This definition is marked as internal and should not be used directly by the user. </para>
+</listitem>
+            <listitem><para>#define <link linkend="_crypt-utils_8c_1a2d996237e082b78b41771b5aa1a6eae1">KEY_SIZE</link>&#160;&#160;&#160;32</para>
+
+<para>The fixed size of the key. This definition is marked as internal and should not be used directly by the user. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Functions    </title>
+        <itemizedlist>
+            <listitem><para>int <link linkend="_crypt-utils_8c_1a94b5b388b3f00982ccee72b192077e76">do_crypt</link> (FILE *in, FILE *out, int action, unsigned char *key_str)</para>
+
+<para>High level function interface for performing AES encryption on FILE pointers Uses OpenSSL libcrypto EVP API <?linebreak?>. </para>
+</listitem>
+            <listitem><para>int <link linkend="_crypt-utils_8c_1aa377df016f593aa771013264acc9b86b">check_entropy</link> (void)</para>
+
+<para>Verify if there is enough entropy in the system to generate a key. </para>
+</listitem>
+            <listitem><para>void <link linkend="_crypt-utils_8c_1a53b5762e00daafcc3644c03e2fd9b2c4">add_entropy</link> (void)</para>
+
+<para>Force new entropy in /dev/urandom. </para>
+</listitem>
+            <listitem><para>void <link linkend="_crypt-utils_8c_1a8845f5705eaafda836aac91d5881876f">generate_key</link> (unsigned char *destination)</para>
+
+<para>Generate a new AES 256 key for a file. </para>
+</listitem>
+            <listitem><para>unsigned char * <link linkend="_crypt-utils_8c_1aa926098a8843cf0ab6bd7eb8b3bbd2e6">encrypt_string</link> (unsigned char *plaintext, const char *key, int *encrypted_key_len)</para>
+
+<para>Encrypt the *plaintext string using a AES 256 key. </para>
+</listitem>
+            <listitem><para>unsigned char * <link linkend="_crypt-utils_8c_1a22f528907ee4f078e333501b747d5435">decrypt_string</link> (unsigned char *ciphertext, const char *key)</para>
+
+<para>Decrypt the *ciphertext string using a AES 256 key. </para>
+</listitem>
+            <listitem><para>int <link linkend="_crypt-utils_8c_1a36c2342a7c47b8f41bf628bf473b1c97">is_valid_key</link> (const unsigned char *key)</para>
+
+<para>Check if a given key is valid. </para>
+</listitem>
+            <listitem><para>const char * <link linkend="_crypt-utils_8c_1aa4a7facde8c6f63a7225c07e92232b2e">encrypt_file_name_with_hex</link> (const char *file, const char *key)</para>
+</listitem>
+            <listitem><para>const char * <link linkend="_crypt-utils_8c_1a3b003481e5c188ac1d6f63e09e6f3a34">decrypt_file_name_with_hex</link> (const char *enc_file, const char *key)</para>
+</listitem>
+            <listitem><para>const char * <link linkend="_crypt-utils_8c_1ad9b10366ade9f2129ec2613fdc76df80">encrypt_path</link> (const char *path, const char *key)</para>
+
+<para>Encrypts each part of the given path using a specified key. </para>
+</listitem>
+            <listitem><para>const char * <link linkend="_crypt-utils_8c_1a5c45db4d3db3ef274fb6356e1a95e644">encrypt_path_and_filename</link> (const char *path, const char *key)</para>
+
+<para>Encrypts the given filename with its path using a specified key. </para>
+</listitem>
+            <listitem><para>const char * <link linkend="_crypt-utils_8c_1a1899c23a523d11ed1cb5601eabdb023d">decrypt_path</link> (const char *encrypted_path, const char *key)</para>
+
+<para>Decrypts each part of the given encrypted path using a specified key. </para>
+</listitem>
+            <listitem><para>const char * <link linkend="_crypt-utils_8c_1a373f8aedbcd8b6ce22fe7bdfeb2961c2">decrypt_path_and_filename</link> (const char *encrypted_path, const char *key)</para>
+
+<para>Decrypts the given encrypted filename with its path using a specified key. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Detailed Description</title>
+
+<para>Implementation file for cryptographic utility functions. </para>
+
+<para>This file contains the implementation of various cryptographic utility functions, including AES encryption and decryption, key generation, entropy checks, and path encryption/decryption.</para>
+
+<para><formalpara><title>Author</title>
+
+<para>By Carlo Alberto Giordnano <?linebreak?>Created 18/10/23 by [Carlo Alberto Giordano] <?linebreak?></para>
+</formalpara>
+</para>
+<para>
+Definition in file <link linkend="_crypt-utils_8c_source">crypt-utils.c</link>.</para>
+</section>
+<section>
+<title>Macro Definition Documentation</title>
+<anchor xml:id="_crypt-utils_8c_1afcf795f5a96fd55561abe69f56224630"/><section>
+    <title>BLOCKSIZE</title>
+<indexterm><primary>BLOCKSIZE</primary><secondary>crypt-utils.c</secondary></indexterm>
+<indexterm><primary>crypt-utils.c</primary><secondary>BLOCKSIZE</secondary></indexterm>
+<para><computeroutput>#define BLOCKSIZE&#160;&#160;&#160;1024</computeroutput></para><para>
+
+<para>This defines the max size of a block that can be cyphered. This definition is marked as internal and should not be used directly by the user. </para>
+</para>
+<para>
+Definition at line <link linkend="_crypt-utils_8c_source_1l00021">21</link> of file <link linkend="_crypt-utils_8c_source">crypt-utils.c</link>.</para>
+</section>
+<anchor xml:id="_crypt-utils_8c_1ad7bb30dbf5882fdf05331918e8a0cc84"/><section>
+    <title>IV_SIZE</title>
+<indexterm><primary>IV_SIZE</primary><secondary>crypt-utils.c</secondary></indexterm>
+<indexterm><primary>crypt-utils.c</primary><secondary>IV_SIZE</secondary></indexterm>
+<para><computeroutput>#define IV_SIZE&#160;&#160;&#160;32</computeroutput></para><para>
+
+<para>The fixed size of the initialization vector <link linkend="_">IV </link>. This definition is marked as internal and should not be used directly by the user. </para>
+</para>
+<para>
+Definition at line <link linkend="_crypt-utils_8c_source_1l00028">28</link> of file <link linkend="_crypt-utils_8c_source">crypt-utils.c</link>.</para>
+</section>
+<anchor xml:id="_crypt-utils_8c_1a2d996237e082b78b41771b5aa1a6eae1"/><section>
+    <title>KEY_SIZE</title>
+<indexterm><primary>KEY_SIZE</primary><secondary>crypt-utils.c</secondary></indexterm>
+<indexterm><primary>crypt-utils.c</primary><secondary>KEY_SIZE</secondary></indexterm>
+<para><computeroutput>#define KEY_SIZE&#160;&#160;&#160;32</computeroutput></para><para>
+
+<para>The fixed size of the key. This definition is marked as internal and should not be used directly by the user. </para>
+</para>
+<para>
+Definition at line <link linkend="_crypt-utils_8c_source_1l00034">34</link> of file <link linkend="_crypt-utils_8c_source">crypt-utils.c</link>.</para>
+</section>
+</section>
+<section>
+<title>Function Documentation</title>
+<anchor xml:id="_crypt-utils_8c_1a53b5762e00daafcc3644c03e2fd9b2c4"/><section>
+    <title>add_entropy()</title>
+<indexterm><primary>add_entropy</primary><secondary>crypt-utils.c</secondary></indexterm>
+<indexterm><primary>crypt-utils.c</primary><secondary>add_entropy</secondary></indexterm>
+<para><computeroutput>void add_entropy (void )</computeroutput></para><para>
+
+<para>Force new entropy in /dev/urandom. </para>
+</para>
+
+<para><formalpara><title>Returns</title>
+
+<para>void </para>
+</formalpara>
+<note><title>Note</title>
+
+<para>Very dangerous, if this fails an error will be printed and the program will exit with EXIT_FAILURE </para>
+</note>
+</para>
+<para>
+Definition at line <link linkend="_crypt-utils_8c_source_1l00202">202</link> of file <link linkend="_crypt-utils_8c_source">crypt-utils.c</link>.</para>
+<para>
+Referenced by <link linkend="_crypt-utils_8c_source_1l00235">generate_key()</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="crypt-utils_8c_a53b5762e00daafcc3644c03e2fd9b2c4_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_crypt-utils_8c_1aa377df016f593aa771013264acc9b86b"/><section>
+    <title>check_entropy()</title>
+<indexterm><primary>check_entropy</primary><secondary>crypt-utils.c</secondary></indexterm>
+<indexterm><primary>crypt-utils.c</primary><secondary>check_entropy</secondary></indexterm>
+<para><computeroutput>int check_entropy (void )</computeroutput></para><para>
+
+<para>Verify if there is enough entropy in the system to generate a key. </para>
+</para>
+
+<para><formalpara><title>Returns</title>
+
+<para>A value greater than 0 corresponding to the entropy level, if an error occurs false is returned </para>
+</formalpara>
+<note><title>Note</title>
+
+<para>This function evaluates the entropy by checking the /proc/sys/kernel/random/entropy_avail file. </para>
+</note>
+<formalpara><title>See also</title>
+
+<para>man page 4 for random </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_crypt-utils_8c_source_1l00174">174</link> of file <link linkend="_crypt-utils_8c_source">crypt-utils.c</link>.</para>
+<para>
+Referenced by <link linkend="_crypt-utils_8c_source_1l00235">generate_key()</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="crypt-utils_8c_aa377df016f593aa771013264acc9b86b_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_crypt-utils_8c_1a3b003481e5c188ac1d6f63e09e6f3a34"/><section>
+    <title>decrypt_file_name_with_hex()</title>
+<indexterm><primary>decrypt_file_name_with_hex</primary><secondary>crypt-utils.c</secondary></indexterm>
+<indexterm><primary>crypt-utils.c</primary><secondary>decrypt_file_name_with_hex</secondary></indexterm>
+<para><computeroutput>const char * decrypt_file_name_with_hex (const char * enc_file, const char * key)</computeroutput></para><para>
+Definition at line <link linkend="_crypt-utils_8c_source_1l00406">406</link> of file <link linkend="_crypt-utils_8c_source">crypt-utils.c</link>.</para>
+<para>
+References <link linkend="_crypt-utils_8c_source_1l00330">decrypt_string()</link>, and <link linkend="_tcfs__utils_8c_source_1l00218">hex_to_string()</link>.</para>
+<para>
+Referenced by <link linkend="_crypt-utils_8c_source_1l00645">decrypt_path()</link>, <link linkend="_crypt-utils_8c_source_1l00759">decrypt_path_and_filename()</link>, and <link linkend="_tcfs_8c_source_1l00196">tcfs_readdir()</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="crypt-utils_8c_a3b003481e5c188ac1d6f63e09e6f3a34_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="crypt-utils_8c_a3b003481e5c188ac1d6f63e09e6f3a34_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_crypt-utils_8c_1a1899c23a523d11ed1cb5601eabdb023d"/><section>
+    <title>decrypt_path()</title>
+<indexterm><primary>decrypt_path</primary><secondary>crypt-utils.c</secondary></indexterm>
+<indexterm><primary>crypt-utils.c</primary><secondary>decrypt_path</secondary></indexterm>
+<para><computeroutput>const char * decrypt_path (const char * encrypted_path, const char * key)</computeroutput></para><para>
+
+<para>Decrypts each part of the given encrypted path using a specified key. </para>
+</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>encrypted_path</entry><entry>
+<para>The input encrypted path to be decrypted. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>key</entry><entry>
+<para>The decryption key. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>A dynamically allocated string containing the decrypted path. It is the responsibility of the caller to free this memory. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_crypt-utils_8c_source_1l00645">645</link> of file <link linkend="_crypt-utils_8c_source">crypt-utils.c</link>.</para>
+<para>
+References <link linkend="_crypt-utils_8c_source_1l00406">decrypt_file_name_with_hex()</link>, and <link linkend="_tcfs__utils_8c_source_1l00262">logMessage()</link>.</para>
+<para>
+Referenced by <link linkend="_tcfs_8c_source_1l00196">tcfs_readdir()</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="crypt-utils_8c_a1899c23a523d11ed1cb5601eabdb023d_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="crypt-utils_8c_a1899c23a523d11ed1cb5601eabdb023d_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_crypt-utils_8c_1a373f8aedbcd8b6ce22fe7bdfeb2961c2"/><section>
+    <title>decrypt_path_and_filename()</title>
+<indexterm><primary>decrypt_path_and_filename</primary><secondary>crypt-utils.c</secondary></indexterm>
+<indexterm><primary>crypt-utils.c</primary><secondary>decrypt_path_and_filename</secondary></indexterm>
+<para><computeroutput>const char * decrypt_path_and_filename (const char * encrypted_path, const char * key)</computeroutput></para><para>
+
+<para>Decrypts the given encrypted filename with its path using a specified key. </para>
+</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>encrypted_path</entry><entry>
+<para>The input encrypted path to be decrypted. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>key</entry><entry>
+<para>The decryption key. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>A dynamically allocated string containing the decrypted path with the decrypted filename. It is the responsibility of the caller to free this memory. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_crypt-utils_8c_source_1l00759">759</link> of file <link linkend="_crypt-utils_8c_source">crypt-utils.c</link>.</para>
+<para>
+References <link linkend="_crypt-utils_8c_source_1l00406">decrypt_file_name_with_hex()</link>, and <link linkend="_tcfs__utils_8c_source_1l00262">logMessage()</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="crypt-utils_8c_a373f8aedbcd8b6ce22fe7bdfeb2961c2_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_crypt-utils_8c_1a22f528907ee4f078e333501b747d5435"/><section>
+    <title>decrypt_string()</title>
+<indexterm><primary>decrypt_string</primary><secondary>crypt-utils.c</secondary></indexterm>
+<indexterm><primary>crypt-utils.c</primary><secondary>decrypt_string</secondary></indexterm>
+<para><computeroutput>unsigned char * decrypt_string (unsigned char * ciphertext, const char * key)</computeroutput></para><para>
+
+<para>Decrypt the *ciphertext string using a AES 256 key. </para>
+</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>ciphertext</entry><entry>
+<para>This is the string to decrypt in HEX format </para>
+</entry>
+                            </row>
+                            <row>
+<entry>key</entry><entry>
+<para>The AES 256 KEY </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>unsigned char * The plaintext string will be allocated and then returned </para>
+</formalpara>
+<note><title>Note</title>
+
+<para>After the use remember to free the result </para>
+</note>
+</para>
+<para>
+Definition at line <link linkend="_crypt-utils_8c_source_1l00330">330</link> of file <link linkend="_crypt-utils_8c_source">crypt-utils.c</link>.</para>
+<para>
+References <link linkend="_tcfs__utils_8c_source_1l00262">logMessage()</link>.</para>
+<para>
+Referenced by <link linkend="_crypt-utils_8c_source_1l00406">decrypt_file_name_with_hex()</link>, <link linkend="_tcfs_8c_source_1l00734">tcfs_read()</link>, and <link linkend="_tcfs_8c_source_1l00830">tcfs_write()</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="crypt-utils_8c_a22f528907ee4f078e333501b747d5435_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="crypt-utils_8c_a22f528907ee4f078e333501b747d5435_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_crypt-utils_8c_1a94b5b388b3f00982ccee72b192077e76"/><section>
+    <title>do_crypt()</title>
+<indexterm><primary>do_crypt</primary><secondary>crypt-utils.c</secondary></indexterm>
+<indexterm><primary>crypt-utils.c</primary><secondary>do_crypt</secondary></indexterm>
+<para><computeroutput>int do_crypt (FILE * in, FILE * out, int action, unsigned char * key_str)<computeroutput>[extern]</computeroutput></computeroutput></para><para>
+
+<para>High level function interface for performing AES encryption on FILE pointers Uses OpenSSL libcrypto EVP API <?linebreak?>. </para>
+</para>
+
+<para><formalpara><title>Author</title>
+
+<para>By Andy Sayler (www.andysayler.com) <?linebreak?> Created 04/17/12 <?linebreak?> </para>
+
+<para>Modified 18/10/23 by [Carlo Alberto Giordano] <?linebreak?></para>
+</formalpara>
+Derived from OpenSSL.org EVP_Encrypt_* Manpage Examples <?linebreak?> <link xlink:href="http://www.openssl.org/docs/crypto/EVP_EncryptInit.html#EXAMPLES">http://www.openssl.org/docs/crypto/EVP_EncryptInit.html#EXAMPLES</link> <?linebreak?> With additional information from Saju Pillai&apos;s OpenSSL AES Example <?linebreak?> <link xlink:href="http://saju.net.in/blog/?p=36">http://saju.net.in/blog/?p=36</link> <?linebreak?> <link xlink:href="http://saju.net.in/code/misc/openssl_aes.c.txt">http://saju.net.in/code/misc/openssl_aes.c.txt</link> <?linebreak?>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>in</entry><entry>
+<para>The input file </para>
+</entry>
+                            </row>
+                            <row>
+<entry>out</entry><entry>
+<para>The output file </para>
+</entry>
+                            </row>
+                            <row>
+<entry>action</entry><entry>
+<para>Defines if the action to do on the input file should be of encryption or decryption. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>See also</title>
+
+<para><link linkend="_crypt-utils_8h_1a1cb0c60ca582db30ae87362ca43e8c19">ENCRYPT</link> </para>
+
+<para><link linkend="_crypt-utils_8h_1a36fab47015485191712a579a059a7c20">DECRYPT</link> </para>
+</formalpara>
+
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>key_str</entry><entry>
+<para>The key that must be AES 256 </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>1 if successful, 0 otherwise. An error might be printen by print_err() function, </para>
+</formalpara>
+<formalpara><title>See also</title>
+
+<para>print_err </para>
+</formalpara>
+<note><title>Note</title>
+
+<para>This function cyphers using AES 256 CBC </para>
+</note>
+</para>
+<para>
+Definition at line <link linkend="_crypt-utils_8c_source_1l00063">63</link> of file <link linkend="_crypt-utils_8c_source">crypt-utils.c</link>.</para>
+<para>
+References <link linkend="_crypt-utils_8c_source_1l00021">BLOCKSIZE</link>, <link linkend="_crypt-utils_8c_source_1l00028">IV_SIZE</link>, and <link linkend="_crypt-utils_8c_source_1l00034">KEY_SIZE</link>.</para>
+<para>
+Referenced by <link linkend="_tcfs_8c_source_1l00734">tcfs_read()</link>, and <link linkend="_tcfs_8c_source_1l00830">tcfs_write()</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="crypt-utils_8c_a94b5b388b3f00982ccee72b192077e76_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_crypt-utils_8c_1aa4a7facde8c6f63a7225c07e92232b2e"/><section>
+    <title>encrypt_file_name_with_hex()</title>
+<indexterm><primary>encrypt_file_name_with_hex</primary><secondary>crypt-utils.c</secondary></indexterm>
+<indexterm><primary>crypt-utils.c</primary><secondary>encrypt_file_name_with_hex</secondary></indexterm>
+<para><computeroutput>const char * encrypt_file_name_with_hex (const char * file, const char * key)</computeroutput></para><para>
+Definition at line <link linkend="_crypt-utils_8c_source_1l00398">398</link> of file <link linkend="_crypt-utils_8c_source">crypt-utils.c</link>.</para>
+<para>
+References <link linkend="_crypt-utils_8c_source_1l00278">encrypt_string()</link>, and <link linkend="_tcfs__utils_8c_source_1l00182">string_to_hex()</link>.</para>
+<para>
+Referenced by <link linkend="_crypt-utils_8c_source_1l00420">encrypt_path()</link>, and <link linkend="_crypt-utils_8c_source_1l00532">encrypt_path_and_filename()</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="crypt-utils_8c_aa4a7facde8c6f63a7225c07e92232b2e_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="crypt-utils_8c_aa4a7facde8c6f63a7225c07e92232b2e_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_crypt-utils_8c_1ad9b10366ade9f2129ec2613fdc76df80"/><section>
+    <title>encrypt_path()</title>
+<indexterm><primary>encrypt_path</primary><secondary>crypt-utils.c</secondary></indexterm>
+<indexterm><primary>crypt-utils.c</primary><secondary>encrypt_path</secondary></indexterm>
+<para><computeroutput>const char * encrypt_path (const char * path, const char * key)</computeroutput></para><para>
+
+<para>Encrypts each part of the given path using a specified key. </para>
+</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>path</entry><entry>
+<para>The input path to be encrypted. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>key</entry><entry>
+<para>The encryption key. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>A dynamically allocated string containing the encrypted path. It is the responsibility of the caller to free this memory. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_crypt-utils_8c_source_1l00420">420</link> of file <link linkend="_crypt-utils_8c_source">crypt-utils.c</link>.</para>
+<para>
+References <link linkend="_crypt-utils_8c_source_1l00398">encrypt_file_name_with_hex()</link>, and <link linkend="_tcfs__utils_8c_source_1l00262">logMessage()</link>.</para>
+<para>
+Referenced by <link linkend="_tcfs_8c_source_1l00132">tcfs_access()</link>, <link linkend="_tcfs_8c_source_1l00497">tcfs_chmod()</link>, <link linkend="_tcfs_8c_source_1l00530">tcfs_chown()</link>, <link linkend="_tcfs_8c_source_1l00099">tcfs_getattr()</link>, <link linkend="_tcfs_8c_source_1l00324">tcfs_mkdir()</link>, <link linkend="_tcfs_8c_source_1l00286">tcfs_mknod()</link>, <link linkend="_tcfs_8c_source_1l00651">tcfs_open()</link>, <link linkend="_tcfs_8c_source_1l00067">tcfs_opendir()</link>, <link linkend="_tcfs_8c_source_1l00734">tcfs_read()</link>, <link linkend="_tcfs_8c_source_1l00196">tcfs_readdir()</link>, <link linkend="_tcfs_8c_source_1l00162">tcfs_readlink()</link>, <link linkend="_tcfs_8c_source_1l00377">tcfs_rmdir()</link>, <link linkend="_tcfs_8c_source_1l00979">tcfs_setxattr()</link>, <link linkend="_tcfs_8c_source_1l00559">tcfs_truncate()</link>, <link linkend="_tcfs_8c_source_1l00351">tcfs_unlink()</link>, <link linkend="_tcfs_8c_source_1l00612">tcfs_utimens()</link>, and <link linkend="_tcfs_8c_source_1l00830">tcfs_write()</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="crypt-utils_8c_ad9b10366ade9f2129ec2613fdc76df80_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="crypt-utils_8c_ad9b10366ade9f2129ec2613fdc76df80_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_crypt-utils_8c_1a5c45db4d3db3ef274fb6356e1a95e644"/><section>
+    <title>encrypt_path_and_filename()</title>
+<indexterm><primary>encrypt_path_and_filename</primary><secondary>crypt-utils.c</secondary></indexterm>
+<indexterm><primary>crypt-utils.c</primary><secondary>encrypt_path_and_filename</secondary></indexterm>
+<para><computeroutput>const char * encrypt_path_and_filename (const char * path, const char * key)</computeroutput></para><para>
+
+<para>Encrypts the given filename with its path using a specified key. </para>
+</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>path</entry><entry>
+<para>The input path to be encrypted. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>key</entry><entry>
+<para>The encryption key. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>A dynamically allocated string containing the encrypted path with the encrypted filename. It is the responsibility of the caller to free this memory. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_crypt-utils_8c_source_1l00532">532</link> of file <link linkend="_crypt-utils_8c_source">crypt-utils.c</link>.</para>
+<para>
+References <link linkend="_crypt-utils_8c_source_1l00398">encrypt_file_name_with_hex()</link>, and <link linkend="_tcfs__utils_8c_source_1l00262">logMessage()</link>.</para>
+<para>
+Referenced by <link linkend="_tcfs_8c_source_1l01031">tcfs_create()</link>, <link linkend="_tcfs_8c_source_1l01140">tcfs_fsync()</link>, <link linkend="_tcfs_8c_source_1l01199">tcfs_getxattr()</link>, <link linkend="_tcfs_8c_source_1l00465">tcfs_link()</link>, <link linkend="_tcfs_8c_source_1l01229">tcfs_listxattr()</link>, <link linkend="_tcfs_8c_source_1l01111">tcfs_release()</link>, <link linkend="_tcfs_8c_source_1l01273">tcfs_removexattr()</link>, <link linkend="_tcfs_8c_source_1l00436">tcfs_rename()</link>, and <link linkend="_tcfs_8c_source_1l00404">tcfs_symlink()</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="crypt-utils_8c_a5c45db4d3db3ef274fb6356e1a95e644_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="crypt-utils_8c_a5c45db4d3db3ef274fb6356e1a95e644_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_crypt-utils_8c_1aa926098a8843cf0ab6bd7eb8b3bbd2e6"/><section>
+    <title>encrypt_string()</title>
+<indexterm><primary>encrypt_string</primary><secondary>crypt-utils.c</secondary></indexterm>
+<indexterm><primary>crypt-utils.c</primary><secondary>encrypt_string</secondary></indexterm>
+<para><computeroutput>unsigned char * encrypt_string (unsigned char * plaintext, const char * key, int * encrypted_key_len)</computeroutput></para><para>
+
+<para>Encrypt the *plaintext string using a AES 256 key. </para>
+</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>plaintext</entry><entry>
+<para>This is the string to encrypt </para>
+</entry>
+                            </row>
+                            <row>
+<entry>key</entry><entry>
+<para>The AES 256 KEY </para>
+</entry>
+                            </row>
+                            <row>
+<entry>encrypted_len</entry><entry>
+<para>This will be set to the encrypted string length </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>unsigned char * The encrypted string will be allocated and then returned </para>
+</formalpara>
+<note><title>Note</title>
+
+<para>After the use remember to free the result </para>
+</note>
+</para>
+<para>
+Definition at line <link linkend="_crypt-utils_8c_source_1l00278">278</link> of file <link linkend="_crypt-utils_8c_source">crypt-utils.c</link>.</para>
+<para>
+Referenced by <link linkend="_crypt-utils_8c_source_1l00398">encrypt_file_name_with_hex()</link>, and <link linkend="_tcfs_8c_source_1l01031">tcfs_create()</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="crypt-utils_8c_aa926098a8843cf0ab6bd7eb8b3bbd2e6_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_crypt-utils_8c_1a8845f5705eaafda836aac91d5881876f"/><section>
+    <title>generate_key()</title>
+<indexterm><primary>generate_key</primary><secondary>crypt-utils.c</secondary></indexterm>
+<indexterm><primary>crypt-utils.c</primary><secondary>generate_key</secondary></indexterm>
+<para><computeroutput>void generate_key (unsigned char * destination)</computeroutput></para><para>
+
+<para>Generate a new AES 256 key for a file. </para>
+</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>destination</entry><entry>
+<para>Pointer to the string in which the generated key will be saved. If an error occurs it will be set to NULL </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>void </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_crypt-utils_8c_source_1l00235">235</link> of file <link linkend="_crypt-utils_8c_source">crypt-utils.c</link>.</para>
+<para>
+References <link linkend="_crypt-utils_8c_source_1l00202">add_entropy()</link>, <link linkend="_crypt-utils_8c_source_1l00174">check_entropy()</link>, <link linkend="_crypt-utils_8c_source_1l00388">is_valid_key()</link>, <link linkend="_tcfs__utils_8c_source_1l00262">logMessage()</link>, and <link linkend="_tcfs__utils_8c_source_1l00165">print_aes_key()</link>.</para>
+<para>
+Referenced by <link linkend="_tcfs_8c_source_1l01031">tcfs_create()</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="crypt-utils_8c_a8845f5705eaafda836aac91d5881876f_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="crypt-utils_8c_a8845f5705eaafda836aac91d5881876f_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_crypt-utils_8c_1a36c2342a7c47b8f41bf628bf473b1c97"/><section>
+    <title>is_valid_key()</title>
+<indexterm><primary>is_valid_key</primary><secondary>crypt-utils.c</secondary></indexterm>
+<indexterm><primary>crypt-utils.c</primary><secondary>is_valid_key</secondary></indexterm>
+<para><computeroutput>int is_valid_key (const unsigned char * key)</computeroutput></para><para>
+
+<para>Check if a given key is valid. </para>
+</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>key</entry><entry>
+<para>The key to validate </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>1 if successful, 0 otherwise. An error might be printen by print_err() function, </para>
+</formalpara>
+<formalpara><title>See also</title>
+
+<para>print_err </para>
+</formalpara>
+<note><title>Note</title>
+
+<para>This function only checks for key length </para>
+</note>
+</para>
+<para>
+Definition at line <link linkend="_crypt-utils_8c_source_1l00388">388</link> of file <link linkend="_crypt-utils_8c_source">crypt-utils.c</link>.</para>
+<para>
+Referenced by <link linkend="_crypt-utils_8c_source_1l00235">generate_key()</link>, <link linkend="_tcfs_8c_source_1l01412">main()</link>, and <link linkend="_tcfs_8c_source_1l01031">tcfs_create()</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="crypt-utils_8c_a36c2342a7c47b8f41bf628bf473b1c97_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+</section>
+</section>

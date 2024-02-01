@@ -1,0 +1,517 @@
+\doxysection{user/old\+\_\+stuff/tcfs\+\_\+helper\+\_\+tools.c File Reference}
+\hypertarget{tcfs__helper__tools_8c}{}\label{tcfs__helper__tools_8c}\index{user/old\_stuff/tcfs\_helper\_tools.c@{user/old\_stuff/tcfs\_helper\_tools.c}}
+
+
+This file contains the logic and implementation of functions needed to perform the operations requested in \doxylink{user__tcfs_8c}{user\+\_\+tcfs.\+c}.  
+
+
+{\ttfamily \#include "{}tcfs\+\_\+helper\+\_\+tools.\+h"{}}\newline
+Include dependency graph for tcfs\+\_\+helper\+\_\+tools.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tcfs__helper__tools_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{tcfs__helper__tools_8c_afc6f770387ff27f9a3cf832b785d28dc}{PASS\+\_\+\+SIZE}}~33
+\begin{DoxyCompactList}\small\item\em Set the password size to 33 as AES 256 uses a 32 byte key. An \textbackslash{}0 is added for safety. This definition is marked as internal and should not be used directly by the user. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{tcfs__helper__tools_8c_a816c2bcaa3d059abc79cb9b021957dbf}{handle\+\_\+local\+\_\+mount}} ()
+\item 
+int \mbox{\hyperlink{tcfs__helper__tools_8c_aa5b1203d82818e149ae3ad3fd3840a40}{handle\+\_\+remote\+\_\+mount}} ()
+\item 
+int \mbox{\hyperlink{tcfs__helper__tools_8c_afaed41fa1136b829eb00a7de26a3739b}{handle\+\_\+folder\+\_\+mount}} ()
+\item 
+int \mbox{\hyperlink{tcfs__helper__tools_8c_a769edcf066efb97f5ae3a81e3507a793}{do\+\_\+mount}} ()
+\begin{DoxyCompactList}\small\item\em Execute the mount of either a Network FS (for ex NFS), Local FS (for ex a block device), Local folder (a folder of the system) \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{tcfs__helper__tools_8c_a8ef1473d59fd1cfc680fe1b227604a02}{generate\+\_\+random\+\_\+string}} (char \texorpdfstring{$\ast$}{*}str)
+\begin{DoxyCompactList}\small\item\em Generate a random string that will be used as a folder name for the mount. This function is marked as internal and should not be used by the user. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{tcfs__helper__tools_8c_ab3cdcc12b3bc92a382784027c94a2027}{directory\+\_\+exists}} (const char \texorpdfstring{$\ast$}{*}path)
+\begin{DoxyCompactList}\small\item\em Check if a directory already exists. This function is marked as internal and should not be used by the user. \end{DoxyCompactList}\item 
+char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{tcfs__helper__tools_8c_a3644c45d6131fe1528ce36163e299fd9}{setup\+\_\+tcfs\+\_\+mount\+\_\+folder}} ()
+\begin{DoxyCompactList}\small\item\em Creates the .tcfs folder in the user HOME. Then this creates a folder with a random name so that create\+\_\+tcfs\+\_\+mount\+\_\+local\+\_\+folder function can use it. \doxylink{tcfs__helper__tools_8c_ae930b52ef70f640efde8bda574b6b234}{create\+\_\+tcfs\+\_\+mount\+\_\+local\+\_\+folder} This function is marked as internal and should not be used by the user. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{tcfs__helper__tools_8c_a1bef5d2cdd74c07b3ae025c6424dfbd5}{get\+\_\+pass}} (char \texorpdfstring{$\ast$}{*}pw)
+\begin{DoxyCompactList}\small\item\em fetch the password of the current user. This function is marked as internal and should not be used by the user \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{tcfs__helper__tools_8c_ae1746adb62f9476a6d8166b62faa7a91}{get\+\_\+source\+\_\+dest}} (char \texorpdfstring{$\ast$}{*}source, char \texorpdfstring{$\ast$}{*}dest)
+\item 
+char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{tcfs__helper__tools_8c_ae930b52ef70f640efde8bda574b6b234}{create\+\_\+tcfs\+\_\+mount\+\_\+local\+\_\+folder}} ()
+\begin{DoxyCompactList}\small\item\em Create a temporary folder in HOME/.tcfs. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{tcfs__helper__tools_8c_a26931b8bdf24be94e03f4d77e991d063}{mount\+\_\+tcfs\+\_\+folder}} (char \texorpdfstring{$\ast$}{*}tmp\+\_\+path, char \texorpdfstring{$\ast$}{*}destination)
+\item 
+void \mbox{\hyperlink{tcfs__helper__tools_8c_acfa06becac8f67e9f278cfcbf91cc51b}{clear\+Keyboard\+Buffer}} ()
+\item 
+int \mbox{\hyperlink{tcfs__helper__tools_8c_abe60a9bd3f55341eb2496670553f9d26}{setup\+\_\+tcfs\+\_\+env}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This file contains the logic and implementation of functions needed to perform the operations requested in \doxylink{user__tcfs_8c}{user\+\_\+tcfs.\+c}. 
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{user__tcfs_8c}{user\+\_\+tcfs.\+c} 
+\end{DoxySeeAlso}
+
+
+Definition in file \mbox{\hyperlink{tcfs__helper__tools_8c_source}{tcfs\+\_\+helper\+\_\+tools.\+c}}.
+
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{tcfs__helper__tools_8c_afc6f770387ff27f9a3cf832b785d28dc}\label{tcfs__helper__tools_8c_afc6f770387ff27f9a3cf832b785d28dc} 
+\index{tcfs\_helper\_tools.c@{tcfs\_helper\_tools.c}!PASS\_SIZE@{PASS\_SIZE}}
+\index{PASS\_SIZE@{PASS\_SIZE}!tcfs\_helper\_tools.c@{tcfs\_helper\_tools.c}}
+\doxysubsubsection{\texorpdfstring{PASS\_SIZE}{PASS\_SIZE}}
+{\footnotesize\ttfamily \#define PASS\+\_\+\+SIZE~33}
+
+
+
+Set the password size to 33 as AES 256 uses a 32 byte key. An \textbackslash{}0 is added for safety. This definition is marked as internal and should not be used directly by the user. 
+
+
+
+Definition at line \mbox{\hyperlink{tcfs__helper__tools_8c_source_l00014}{14}} of file \mbox{\hyperlink{tcfs__helper__tools_8c_source}{tcfs\+\_\+helper\+\_\+tools.\+c}}.
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{tcfs__helper__tools_8c_acfa06becac8f67e9f278cfcbf91cc51b}\label{tcfs__helper__tools_8c_acfa06becac8f67e9f278cfcbf91cc51b} 
+\index{tcfs\_helper\_tools.c@{tcfs\_helper\_tools.c}!clearKeyboardBuffer@{clearKeyboardBuffer}}
+\index{clearKeyboardBuffer@{clearKeyboardBuffer}!tcfs\_helper\_tools.c@{tcfs\_helper\_tools.c}}
+\doxysubsubsection{\texorpdfstring{clearKeyboardBuffer()}{clearKeyboardBuffer()}}
+{\footnotesize\ttfamily void clear\+Keyboard\+Buffer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{tcfs__helper__tools_8c_source_l00339}{339}} of file \mbox{\hyperlink{tcfs__helper__tools_8c_source}{tcfs\+\_\+helper\+\_\+tools.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{tcfs__helper__tools_8c_source_l00347}{handle\+\_\+remote\+\_\+mount()}}.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tcfs__helper__tools_8c_acfa06becac8f67e9f278cfcbf91cc51b_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{tcfs__helper__tools_8c_ae930b52ef70f640efde8bda574b6b234}\label{tcfs__helper__tools_8c_ae930b52ef70f640efde8bda574b6b234} 
+\index{tcfs\_helper\_tools.c@{tcfs\_helper\_tools.c}!create\_tcfs\_mount\_local\_folder@{create\_tcfs\_mount\_local\_folder}}
+\index{create\_tcfs\_mount\_local\_folder@{create\_tcfs\_mount\_local\_folder}!tcfs\_helper\_tools.c@{tcfs\_helper\_tools.c}}
+\doxysubsubsection{\texorpdfstring{create\_tcfs\_mount\_local\_folder()}{create\_tcfs\_mount\_local\_folder()}}
+{\footnotesize\ttfamily char \texorpdfstring{$\ast$}{*} create\+\_\+tcfs\+\_\+mount\+\_\+local\+\_\+folder (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Create a temporary folder in HOME/.tcfs. 
+
+\begin{DoxyReturn}{Returns}
+char \texorpdfstring{$\ast$}{*} the fullpath to the generated folder 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{tcfs__helper__tools_8c_source_l00219}{219}} of file \mbox{\hyperlink{tcfs__helper__tools_8c_source}{tcfs\+\_\+helper\+\_\+tools.\+c}}.
+
+
+
+References \mbox{\hyperlink{tcfs__helper__tools_8c_source_l00095}{setup\+\_\+tcfs\+\_\+mount\+\_\+folder()}}.
+
+
+
+Referenced by \mbox{\hyperlink{tcfs__helper__tools_8c_source_l00274}{handle\+\_\+local\+\_\+mount()}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tcfs__helper__tools_8c_ae930b52ef70f640efde8bda574b6b234_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tcfs__helper__tools_8c_ae930b52ef70f640efde8bda574b6b234_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{tcfs__helper__tools_8c_ab3cdcc12b3bc92a382784027c94a2027}\label{tcfs__helper__tools_8c_ab3cdcc12b3bc92a382784027c94a2027} 
+\index{tcfs\_helper\_tools.c@{tcfs\_helper\_tools.c}!directory\_exists@{directory\_exists}}
+\index{directory\_exists@{directory\_exists}!tcfs\_helper\_tools.c@{tcfs\_helper\_tools.c}}
+\doxysubsubsection{\texorpdfstring{directory\_exists()}{directory\_exists()}}
+{\footnotesize\ttfamily int directory\+\_\+exists (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{path }\end{DoxyParamCaption})}
+
+
+
+Check if a directory already exists. This function is marked as internal and should not be used by the user. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em path} & Fullpath to the dir \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int \+\_\+ret 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{tcfs__helper__tools_8c_source_l00083}{83}} of file \mbox{\hyperlink{tcfs__helper__tools_8c_source}{tcfs\+\_\+helper\+\_\+tools.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{tcfs__helper__tools_8c_source_l00095}{setup\+\_\+tcfs\+\_\+mount\+\_\+folder()}}.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tcfs__helper__tools_8c_ab3cdcc12b3bc92a382784027c94a2027_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{tcfs__helper__tools_8c_a769edcf066efb97f5ae3a81e3507a793}\label{tcfs__helper__tools_8c_a769edcf066efb97f5ae3a81e3507a793} 
+\index{tcfs\_helper\_tools.c@{tcfs\_helper\_tools.c}!do\_mount@{do\_mount}}
+\index{do\_mount@{do\_mount}!tcfs\_helper\_tools.c@{tcfs\_helper\_tools.c}}
+\doxysubsubsection{\texorpdfstring{do\_mount()}{do\_mount()}}
+{\footnotesize\ttfamily int do\+\_\+mount (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Execute the mount of either a Network FS (for ex NFS), Local FS (for ex a block device), Local folder (a folder of the system) 
+
+\begin{DoxyReturn}{Returns}
+\+\_\+ret 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{tcfs__helper__tools_8c_source_l00025}{25}} of file \mbox{\hyperlink{tcfs__helper__tools_8c_source}{tcfs\+\_\+helper\+\_\+tools.\+c}}.
+
+
+
+References \mbox{\hyperlink{tcfs__helper__tools_8c_source_l00318}{handle\+\_\+folder\+\_\+mount()}}, \mbox{\hyperlink{tcfs__helper__tools_8c_source_l00274}{handle\+\_\+local\+\_\+mount()}}, and \mbox{\hyperlink{tcfs__helper__tools_8c_source_l00347}{handle\+\_\+remote\+\_\+mount()}}.
+
+
+
+Referenced by \mbox{\hyperlink{user__tcfs_8c_source_l00104}{main()}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tcfs__helper__tools_8c_a769edcf066efb97f5ae3a81e3507a793_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=212pt]{tcfs__helper__tools_8c_a769edcf066efb97f5ae3a81e3507a793_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{tcfs__helper__tools_8c_a8ef1473d59fd1cfc680fe1b227604a02}\label{tcfs__helper__tools_8c_a8ef1473d59fd1cfc680fe1b227604a02} 
+\index{tcfs\_helper\_tools.c@{tcfs\_helper\_tools.c}!generate\_random\_string@{generate\_random\_string}}
+\index{generate\_random\_string@{generate\_random\_string}!tcfs\_helper\_tools.c@{tcfs\_helper\_tools.c}}
+\doxysubsubsection{\texorpdfstring{generate\_random\_string()}{generate\_random\_string()}}
+{\footnotesize\ttfamily int generate\+\_\+random\+\_\+string (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{str }\end{DoxyParamCaption})}
+
+
+
+Generate a random string that will be used as a folder name for the mount. This function is marked as internal and should not be used by the user. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em str} & The result will be saved here \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int \+\_\+ret 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{tcfs__helper__tools_8c_source_l00064}{64}} of file \mbox{\hyperlink{tcfs__helper__tools_8c_source}{tcfs\+\_\+helper\+\_\+tools.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{tcfs__helper__tools_8c_source_l00095}{setup\+\_\+tcfs\+\_\+mount\+\_\+folder()}}.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tcfs__helper__tools_8c_a8ef1473d59fd1cfc680fe1b227604a02_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{tcfs__helper__tools_8c_a1bef5d2cdd74c07b3ae025c6424dfbd5}\label{tcfs__helper__tools_8c_a1bef5d2cdd74c07b3ae025c6424dfbd5} 
+\index{tcfs\_helper\_tools.c@{tcfs\_helper\_tools.c}!get\_pass@{get\_pass}}
+\index{get\_pass@{get\_pass}!tcfs\_helper\_tools.c@{tcfs\_helper\_tools.c}}
+\doxysubsubsection{\texorpdfstring{get\_pass()}{get\_pass()}}
+{\footnotesize\ttfamily void get\+\_\+pass (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{pw }\end{DoxyParamCaption})}
+
+
+
+fetch the password of the current user. This function is marked as internal and should not be used by the user 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pw} & String to save the password to \\
+\hline
+\end{DoxyParams}
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000001}{Todo}}]This will be changed when a public/private key model will be avilable to TCFS userspace module \end{DoxyRefDesc}
+
+
+Definition at line \mbox{\hyperlink{tcfs__helper__tools_8c_source_l00162}{162}} of file \mbox{\hyperlink{tcfs__helper__tools_8c_source}{tcfs\+\_\+helper\+\_\+tools.\+c}}.
+
+
+
+References \mbox{\hyperlink{tcfs__helper__tools_8c_source_l00014}{PASS\+\_\+\+SIZE}}.
+
+
+
+Referenced by \mbox{\hyperlink{tcfs__helper__tools_8c_source_l00235}{mount\+\_\+tcfs\+\_\+folder()}}.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tcfs__helper__tools_8c_a1bef5d2cdd74c07b3ae025c6424dfbd5_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{tcfs__helper__tools_8c_ae1746adb62f9476a6d8166b62faa7a91}\label{tcfs__helper__tools_8c_ae1746adb62f9476a6d8166b62faa7a91} 
+\index{tcfs\_helper\_tools.c@{tcfs\_helper\_tools.c}!get\_source\_dest@{get\_source\_dest}}
+\index{get\_source\_dest@{get\_source\_dest}!tcfs\_helper\_tools.c@{tcfs\_helper\_tools.c}}
+\doxysubsubsection{\texorpdfstring{get\_source\_dest()}{get\_source\_dest()}}
+{\footnotesize\ttfamily void get\+\_\+source\+\_\+dest (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{source,  }\item[{char \texorpdfstring{$\ast$}{*}}]{dest }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em Ask} & the user to insert the source and the destination of the mount. This function is marked as internal and should not be used by the user \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{tcfs__helper__tools_8c_source_l00204}{204}} of file \mbox{\hyperlink{tcfs__helper__tools_8c_source}{tcfs\+\_\+helper\+\_\+tools.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{tcfs__helper__tools_8c_source_l00318}{handle\+\_\+folder\+\_\+mount()}}, and \mbox{\hyperlink{tcfs__helper__tools_8c_source_l00274}{handle\+\_\+local\+\_\+mount()}}.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tcfs__helper__tools_8c_ae1746adb62f9476a6d8166b62faa7a91_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{tcfs__helper__tools_8c_afaed41fa1136b829eb00a7de26a3739b}\label{tcfs__helper__tools_8c_afaed41fa1136b829eb00a7de26a3739b} 
+\index{tcfs\_helper\_tools.c@{tcfs\_helper\_tools.c}!handle\_folder\_mount@{handle\_folder\_mount}}
+\index{handle\_folder\_mount@{handle\_folder\_mount}!tcfs\_helper\_tools.c@{tcfs\_helper\_tools.c}}
+\doxysubsubsection{\texorpdfstring{handle\_folder\_mount()}{handle\_folder\_mount()}}
+{\footnotesize\ttfamily int handle\+\_\+folder\+\_\+mount (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{tcfs__helper__tools_8c_source_l00318}{318}} of file \mbox{\hyperlink{tcfs__helper__tools_8c_source}{tcfs\+\_\+helper\+\_\+tools.\+c}}.
+
+
+
+References \mbox{\hyperlink{tcfs__helper__tools_8c_source_l00204}{get\+\_\+source\+\_\+dest()}}, and \mbox{\hyperlink{tcfs__helper__tools_8c_source_l00235}{mount\+\_\+tcfs\+\_\+folder()}}.
+
+
+
+Referenced by \mbox{\hyperlink{tcfs__helper__tools_8c_source_l00025}{do\+\_\+mount()}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tcfs__helper__tools_8c_afaed41fa1136b829eb00a7de26a3739b_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tcfs__helper__tools_8c_afaed41fa1136b829eb00a7de26a3739b_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{tcfs__helper__tools_8c_a816c2bcaa3d059abc79cb9b021957dbf}\label{tcfs__helper__tools_8c_a816c2bcaa3d059abc79cb9b021957dbf} 
+\index{tcfs\_helper\_tools.c@{tcfs\_helper\_tools.c}!handle\_local\_mount@{handle\_local\_mount}}
+\index{handle\_local\_mount@{handle\_local\_mount}!tcfs\_helper\_tools.c@{tcfs\_helper\_tools.c}}
+\doxysubsubsection{\texorpdfstring{handle\_local\_mount()}{handle\_local\_mount()}}
+{\footnotesize\ttfamily int handle\+\_\+local\+\_\+mount (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{tcfs__helper__tools_8c_source_l00274}{274}} of file \mbox{\hyperlink{tcfs__helper__tools_8c_source}{tcfs\+\_\+helper\+\_\+tools.\+c}}.
+
+
+
+References \mbox{\hyperlink{tcfs__helper__tools_8c_source_l00219}{create\+\_\+tcfs\+\_\+mount\+\_\+local\+\_\+folder()}}, \mbox{\hyperlink{tcfs__helper__tools_8c_source_l00204}{get\+\_\+source\+\_\+dest()}}, and \mbox{\hyperlink{tcfs__helper__tools_8c_source_l00235}{mount\+\_\+tcfs\+\_\+folder()}}.
+
+
+
+Referenced by \mbox{\hyperlink{tcfs__helper__tools_8c_source_l00025}{do\+\_\+mount()}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tcfs__helper__tools_8c_a816c2bcaa3d059abc79cb9b021957dbf_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tcfs__helper__tools_8c_a816c2bcaa3d059abc79cb9b021957dbf_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{tcfs__helper__tools_8c_aa5b1203d82818e149ae3ad3fd3840a40}\label{tcfs__helper__tools_8c_aa5b1203d82818e149ae3ad3fd3840a40} 
+\index{tcfs\_helper\_tools.c@{tcfs\_helper\_tools.c}!handle\_remote\_mount@{handle\_remote\_mount}}
+\index{handle\_remote\_mount@{handle\_remote\_mount}!tcfs\_helper\_tools.c@{tcfs\_helper\_tools.c}}
+\doxysubsubsection{\texorpdfstring{handle\_remote\_mount()}{handle\_remote\_mount()}}
+{\footnotesize\ttfamily int handle\+\_\+remote\+\_\+mount (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{tcfs__helper__tools_8c_source_l00347}{347}} of file \mbox{\hyperlink{tcfs__helper__tools_8c_source}{tcfs\+\_\+helper\+\_\+tools.\+c}}.
+
+
+
+References \mbox{\hyperlink{tcfs__helper__tools_8c_source_l00339}{clear\+Keyboard\+Buffer()}}, and \mbox{\hyperlink{tcfs__helper__tools_8c_source_l00235}{mount\+\_\+tcfs\+\_\+folder()}}.
+
+
+
+Referenced by \mbox{\hyperlink{tcfs__helper__tools_8c_source_l00025}{do\+\_\+mount()}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tcfs__helper__tools_8c_aa5b1203d82818e149ae3ad3fd3840a40_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tcfs__helper__tools_8c_aa5b1203d82818e149ae3ad3fd3840a40_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{tcfs__helper__tools_8c_a26931b8bdf24be94e03f4d77e991d063}\label{tcfs__helper__tools_8c_a26931b8bdf24be94e03f4d77e991d063} 
+\index{tcfs\_helper\_tools.c@{tcfs\_helper\_tools.c}!mount\_tcfs\_folder@{mount\_tcfs\_folder}}
+\index{mount\_tcfs\_folder@{mount\_tcfs\_folder}!tcfs\_helper\_tools.c@{tcfs\_helper\_tools.c}}
+\doxysubsubsection{\texorpdfstring{mount\_tcfs\_folder()}{mount\_tcfs\_folder()}}
+{\footnotesize\ttfamily int mount\+\_\+tcfs\+\_\+folder (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{tmp\+\_\+path,  }\item[{char \texorpdfstring{$\ast$}{*}}]{destination }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{tcfs__helper__tools_8c_source_l00235}{235}} of file \mbox{\hyperlink{tcfs__helper__tools_8c_source}{tcfs\+\_\+helper\+\_\+tools.\+c}}.
+
+
+
+References \mbox{\hyperlink{tcfs__helper__tools_8c_source_l00162}{get\+\_\+pass()}}, and \mbox{\hyperlink{tcfs__helper__tools_8c_source_l00014}{PASS\+\_\+\+SIZE}}.
+
+
+
+Referenced by \mbox{\hyperlink{tcfs__helper__tools_8c_source_l00318}{handle\+\_\+folder\+\_\+mount()}}, \mbox{\hyperlink{tcfs__helper__tools_8c_source_l00274}{handle\+\_\+local\+\_\+mount()}}, and \mbox{\hyperlink{tcfs__helper__tools_8c_source_l00347}{handle\+\_\+remote\+\_\+mount()}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=266pt]{tcfs__helper__tools_8c_a26931b8bdf24be94e03f4d77e991d063_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tcfs__helper__tools_8c_a26931b8bdf24be94e03f4d77e991d063_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{tcfs__helper__tools_8c_abe60a9bd3f55341eb2496670553f9d26}\label{tcfs__helper__tools_8c_abe60a9bd3f55341eb2496670553f9d26} 
+\index{tcfs\_helper\_tools.c@{tcfs\_helper\_tools.c}!setup\_tcfs\_env@{setup\_tcfs\_env}}
+\index{setup\_tcfs\_env@{setup\_tcfs\_env}!tcfs\_helper\_tools.c@{tcfs\_helper\_tools.c}}
+\doxysubsubsection{\texorpdfstring{setup\_tcfs\_env()}{setup\_tcfs\_env()}}
+{\footnotesize\ttfamily int setup\+\_\+tcfs\+\_\+env (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{tcfs__helper__tools_8c_source_l00405}{405}} of file \mbox{\hyperlink{tcfs__helper__tools_8c_source}{tcfs\+\_\+helper\+\_\+tools.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{user__tcfs_8c_source_l00104}{main()}}.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=236pt]{tcfs__helper__tools_8c_abe60a9bd3f55341eb2496670553f9d26_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{tcfs__helper__tools_8c_a3644c45d6131fe1528ce36163e299fd9}\label{tcfs__helper__tools_8c_a3644c45d6131fe1528ce36163e299fd9} 
+\index{tcfs\_helper\_tools.c@{tcfs\_helper\_tools.c}!setup\_tcfs\_mount\_folder@{setup\_tcfs\_mount\_folder}}
+\index{setup\_tcfs\_mount\_folder@{setup\_tcfs\_mount\_folder}!tcfs\_helper\_tools.c@{tcfs\_helper\_tools.c}}
+\doxysubsubsection{\texorpdfstring{setup\_tcfs\_mount\_folder()}{setup\_tcfs\_mount\_folder()}}
+{\footnotesize\ttfamily char \texorpdfstring{$\ast$}{*} setup\+\_\+tcfs\+\_\+mount\+\_\+folder (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Creates the .tcfs folder in the user HOME. Then this creates a folder with a random name so that create\+\_\+tcfs\+\_\+mount\+\_\+local\+\_\+folder function can use it. \doxylink{tcfs__helper__tools_8c_ae930b52ef70f640efde8bda574b6b234}{create\+\_\+tcfs\+\_\+mount\+\_\+local\+\_\+folder} This function is marked as internal and should not be used by the user. 
+
+\begin{DoxyReturn}{Returns}
+a folder with a random name inside the \$\+HOME/.tcfs folder 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{tcfs__helper__tools_8c_source_l00095}{95}} of file \mbox{\hyperlink{tcfs__helper__tools_8c_source}{tcfs\+\_\+helper\+\_\+tools.\+c}}.
+
+
+
+References \mbox{\hyperlink{tcfs__helper__tools_8c_source_l00083}{directory\+\_\+exists()}}, and \mbox{\hyperlink{tcfs__helper__tools_8c_source_l00064}{generate\+\_\+random\+\_\+string()}}.
+
+
+
+Referenced by \mbox{\hyperlink{tcfs__helper__tools_8c_source_l00219}{create\+\_\+tcfs\+\_\+mount\+\_\+local\+\_\+folder()}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tcfs__helper__tools_8c_a3644c45d6131fe1528ce36163e299fd9_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tcfs__helper__tools_8c_a3644c45d6131fe1528ce36163e299fd9_icgraph}
+\end{center}
+\end{figure}

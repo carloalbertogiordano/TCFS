@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_main__window_8py" xml:lang="en-US">
+<title>user/ui/main_window.py File Reference</title>
+<indexterm><primary>user/ui/main_window.py</primary></indexterm>
+<simplesect>
+    <title>Classes    </title>
+        <itemizedlist>
+            <listitem><para>class <link linkend="_classui_1_1main__window_1_1Window">ui.main_window.Window</link></para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Namespaces    </title>
+        <itemizedlist>
+            <listitem><para>namespace <link linkend="_namespaceui">ui</link></para>
+</listitem>
+            <listitem><para>namespace <link linkend="_namespaceui_1_1main__window">ui.main_window</link></para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Functions    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_namespaceui_1_1main__window_1ae9c066a65238b3103c5bd44f4950a9c9">ui.main_window.modify_button_allign</link> (button, row, column)</para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+</section>

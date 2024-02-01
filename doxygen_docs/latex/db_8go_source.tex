@@ -1,0 +1,162 @@
+\doxysection{db.\+go}
+\hypertarget{db_8go_source}{}\label{db_8go_source}\index{ServerREST/db/db.go@{ServerREST/db/db.go}}
+\mbox{\hyperlink{db_8go}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00001}00001\ package\ DB}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00003}00003\ import\ (}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00004}00004\ \ \ \ \ "{}database/sql"{}}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00005}00005\ \ \ \ \ "{}errors"{}}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00006}00006\ \ \ \ \ "{}fmt"{}}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00007}00007\ \ \ \ \ \_\ "{}github.com/go-\/sql-\/driver/mysql"{}}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00008}00008\ \ \ \ \ TCFSTypes\ "{}serverTCFS/types"{}}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00009}00009\ )}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00010}00010\ }
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00011}00011\ var\ db\ *sql.DB}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00012}00012\ }
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00013}00013\ //\ Init\ initializes\ the\ MariaDB\ client\ with\ the\ specified\ options.}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00014}00014\ func\ Init(host\ string,\ port\ string,\ dbname\ string,\ username\ string,\ password\ string)\ error\ \{}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00015}00015\ \ \ \ \ var\ err\ error}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00016}00016\ \ \ \ \ dbConnectionString\ :=\ username\ +\ "{}:"{}\ +\ password\ +\ "{}@tcp("{}\ +\ host\ +\ "{}:"{}\ +\ port\ +\ "{})/"{}\ +\ dbname}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00017}00017\ \ \ \ \ db,\ err\ =\ sql.Open("{}mysql"{},\ dbConnectionString)}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00018}00018\ \ \ \ \ if\ err\ !=\ nil\ \{}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00019}00019\ \ \ \ \ \ \ \ \ fmt.Printf("{}ERR:\ \%v\(\backslash\)n"{},\ err)}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00020}00020\ \ \ \ \ \ \ \ \ return\ err}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00021}00021\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00022}00022\ }
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00023}00023\ \ \ \ \ //\ Check\ if\ the\ connection\ is\ valid}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00024}00024\ \ \ \ \ err\ =\ db.Ping()}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00025}00025\ \ \ \ \ if\ err\ !=\ nil\ \{}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00026}00026\ \ \ \ \ \ \ \ \ fmt.Printf("{}ERR:\ \%v\(\backslash\)n"{},\ err)}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00027}00027\ \ \ \ \ \ \ \ \ return\ err}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00028}00028\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00029}00029\ }
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00030}00030\ \ \ \ \ fmt.Println("{}DB\ initialized"{})}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00031}00031\ \ \ \ \ return\ nil}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00032}00032\ \}}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00033}00033\ }
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00034}00034\ //\ Close\ is\ a\ method\ to\ close\ the\ database\ connection}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00035}00035\ func\ Close()\ error\ \{}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00036}00036\ \ \ \ \ err\ :=\ db.Close()}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00037}00037\ \ \ \ \ if\ err\ !=\ nil\ \{}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00038}00038\ \ \ \ \ \ \ \ \ fmt.Printf("{}ERR:\ \%v"{},\ err)}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00039}00039\ \ \ \ \ \ \ \ \ return\ err}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00040}00040\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00041}00041\ \ \ \ \ return\ nil}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00042}00042\ \}}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00043}00043\ }
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00044}00044\ //\ InsertRegisteredUser\ inserts\ a\ new\ registered\ user\ into\ the\ RegisteredUsers\ table.}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00045}00045\ func\ InsertRegisteredUser(username\ string,\ passwordHash\ string)\ error\ \{}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00046}00046\ \ \ \ \ \_,\ err\ :=\ db.Exec("{}INSERT\ INTO\ RegisteredUsers\ (username,\ password\_hash)\ VALUES\ (?,\ ?)"{},\ username,\ passwordHash)}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00047}00047\ \ \ \ \ if\ err\ !=\ nil\ \{}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00048}00048\ \ \ \ \ \ \ \ \ fmt.Printf("{}ERR:\ \%v"{},\ err)}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00049}00049\ \ \ \ \ \ \ \ \ return\ err}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00050}00050\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00051}00051\ \ \ \ \ return\ nil}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00052}00052\ \}}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00053}00053\ }
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00054}00054\ //\ InsertLoggedUser\ inserts\ a\ new\ logged\ user\ into\ the\ LoggedUsers\ table.}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00055}00055\ func\ InsertLoggedUser(username\ string,\ publicKey\ string)\ error\ \{}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00056}00056\ \ \ \ \ \_,\ err\ :=\ db.Exec("{}INSERT\ INTO\ LoggedUsers\ (username,\ public\_key)\ VALUES\ (?,\ ?)"{},\ username,\ publicKey)}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00057}00057\ \ \ \ \ if\ err\ !=\ nil\ \{}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00058}00058\ \ \ \ \ \ \ \ \ fmt.Printf("{}ERR:\ \%v"{},\ err)}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00059}00059\ \ \ \ \ \ \ \ \ return\ err}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00060}00060\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00061}00061\ \ \ \ \ return\ nil}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00062}00062\ \}}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00063}00063\ }
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00064}00064\ func\ DeleteLoggedUser(username\ string)\ error\ \{}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00065}00065\ \ \ \ \ \_,\ err\ :=\ db.Exec("{}DELETE\ FROM\ LoggedUsers\ WHERE\ username=?"{},\ username)}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00066}00066\ \ \ \ \ if\ err\ !=\ nil\ \{}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00067}00067\ \ \ \ \ \ \ \ \ fmt.Printf("{}ERR:\ \%v"{},\ err)}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00068}00068\ \ \ \ \ \ \ \ \ return\ err}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00069}00069\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00070}00070\ \ \ \ \ return\ nil}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00071}00071\ \}}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00072}00072\ }
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00073}00073\ func\ GetPasswordHash(username\ string)\ (string,\ error)\ \{}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00074}00074\ \ \ \ \ //\ Query\ to\ obtain\ password\ hash}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00075}00075\ \ \ \ \ var\ passwordHash\ string}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00076}00076\ \ \ \ \ err\ :=\ db.QueryRow("{}SELECT\ password\_hash\ FROM\ RegisteredUsers\ WHERE\ username\ =\ ?"{},\ username).Scan(\&passwordHash)}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00077}00077\ \ \ \ \ if\ err\ !=\ nil\ \{}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00078}00078\ \ \ \ \ \ \ \ \ fmt.Printf("{}ERR:\ \%v"{},\ err)}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00079}00079\ \ \ \ \ \ \ \ \ return\ "{}"{},\ err}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00080}00080\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00081}00081\ }
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00082}00082\ \ \ \ \ return\ passwordHash,\ nil}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00083}00083\ \}}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00084}00084\ }
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00085}00085\ //\ InsertSharedFile\ inserts\ a\ new\ shared\ file\ into\ the\ SharedFiles\ table.}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00086}00086\ func\ InsertSharedFile(username\ string,\ fileID\ int,\ keypart\ string)\ error\ \{}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00087}00087\ \ \ \ \ \_,\ err\ :=\ db.Exec("{}INSERT\ INTO\ SharedFiles\ (username,\ fileID,\ keypart)\ VALUES\ (?,\ ?,\ ?)"{},}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00088}00088\ \ \ \ \ \ \ \ \ username,\ fileID,\ keypart)}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00089}00089\ \ \ \ \ if\ err\ !=\ nil\ \{}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00090}00090\ \ \ \ \ \ \ \ \ fmt.Printf("{}ERR:\ \%v"{},\ err)}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00091}00091\ \ \ \ \ \ \ \ \ return\ err}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00092}00092\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00093}00093\ \ \ \ \ return\ nil}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00094}00094\ \}}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00095}00095\ }
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00096}00096\ func\ GetNewFileID()\ (int,\ error)\ \{}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00097}00097\ \ \ \ \ var\ lastFileID\ int}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00098}00098\ }
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00099}00099\ \ \ \ \ //\ Execute\ stored\ procedure\ GetLastFileID}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00100}00100\ \ \ \ \ \_,\ err\ :=\ db.Exec("{}CALL\ GetLastFileID(@output);"{})}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00101}00101\ \ \ \ \ if\ err\ !=\ nil\ \{}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00102}00102\ \ \ \ \ \ \ \ \ return\ 0,\ fmt.Errorf("{}failed\ to\ execute\ GetLastFileID:\ \%w"{},\ err)}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00103}00103\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00104}00104\ }
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00105}00105\ \ \ \ \ //\ Fetch\ the\ output}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00106}00106\ \ \ \ \ err\ =\ db.QueryRow("{}SELECT\ @output"{}).Scan(\&lastFileID)}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00107}00107\ \ \ \ \ if\ err\ !=\ nil\ \{}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00108}00108\ \ \ \ \ \ \ \ \ return\ 0,\ fmt.Errorf("{}failed\ to\ get\ last\ file\ ID:\ \%w"{},\ err)}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00109}00109\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00110}00110\ }
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00111}00111\ \ \ \ \ //\ Execute\ the\ stored\ procedure\ IncrementLastFileID}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00112}00112\ \ \ \ \ \_,\ err\ =\ db.Exec("{}CALL\ IncrementLastFileID();"{})}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00113}00113\ \ \ \ \ if\ err\ !=\ nil\ \{}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00114}00114\ \ \ \ \ \ \ \ \ return\ 0,\ fmt.Errorf("{}failed\ to\ increment\ last\ file\ ID:\ \%w"{},\ err)}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00115}00115\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00116}00116\ }
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00117}00117\ \ \ \ \ return\ lastFileID,\ nil}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00118}00118\ \}}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00119}00119\ }
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00120}00120\ //\ InsertMultipleSharedFiles\ Saves\ the\ shared\ files\ described\ by\ a\ slice\ of\ SharedFile\ structs\ in\ the\ DB}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00121}00121\ func\ InsertMultipleSharedFiles(sharedFilesList\ []TCFSTypes.SharedFile)\ error\ \{}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00122}00122\ }
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00123}00123\ \ \ \ \ for\ \_,\ sharedFile\ :=\ range\ sharedFilesList\ \{}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00124}00124\ \ \ \ \ \ \ \ \ err\ :=\ InsertSharedFile(sharedFile.User.Username,\ sharedFile.FileID,\ sharedFile.EncryptedShare)}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00125}00125\ \ \ \ \ \ \ \ \ if\ err\ !=\ nil\ \{}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00126}00126\ \ \ \ \ \ \ \ \ \ \ \ \ return\ err}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00127}00127\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00128}00128\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00129}00129\ \ \ \ \ return\ nil}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00130}00130\ \}}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00131}00131\ }
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00132}00132\ //\ LoadUserInfoByName\ retrieves\ user\ information\ from\ the\ LoggedUsers\ table\ based\ on\ the\ provided\ username.}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00133}00133\ func\ LoadUserInfoByName(user\ *TCFSTypes.TCFSUser)\ error\ \{}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00134}00134\ \ \ \ \ //\ SQL\ query\ to\ retrieve\ information\ from\ LoggedUsers\ based\ on\ the\ username}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00135}00135\ \ \ \ \ query\ :=\ "{}SELECT\ username,\ public\_key\ FROM\ LoggedUsers\ WHERE\ username\ =\ ?"{}}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00136}00136\ }
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00137}00137\ \ \ \ \ //\ Execute\ the\ query}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00138}00138\ \ \ \ \ row\ :=\ db.QueryRow(query,\ user.Username)}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00139}00139\ }
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00140}00140\ \ \ \ \ //\ Variables\ to\ store\ the\ query\ results}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00141}00141\ \ \ \ \ var\ username\ string}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00142}00142\ \ \ \ \ var\ publicKey\ string}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00143}00143\ }
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00144}00144\ \ \ \ \ //\ Scan\ the\ results\ into\ the\ corresponding\ variable}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00145}00145\ \ \ \ \ if\ err\ :=\ row.Scan(\&username,\ \&publicKey);\ err\ !=\ nil\ \{}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00146}00146\ \ \ \ \ \ \ \ \ if\ errors.Is(err,\ sql.ErrNoRows)\ \{}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00147}00147\ \ \ \ \ \ \ \ \ \ \ \ \ return\ fmt.Errorf("{}user\ not\ found:\ \%s"{},\ user.Username)}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00148}00148\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00149}00149\ \ \ \ \ \ \ \ \ return\ err}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00150}00150\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00151}00151\ }
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00152}00152\ \ \ \ \ //\ Update\ the\ TCFSUser\ object\ with\ the\ retrieved\ information}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00153}00153\ \ \ \ \ user.PublicKey\ =\ publicKey}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00154}00154\ }
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00155}00155\ \ \ \ \ return\ nil}
+\DoxyCodeLine{\Hypertarget{db_8go_source_l00156}00156\ \}}
+
+\end{DoxyCode}

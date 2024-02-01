@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_dir_111cd2f11cffd6d6d28d89ee0389ee9e" xml:lang="en-US">
+<title>user Directory Reference</title>
+<indexterm><primary>user Directory Reference</primary></indexterm>
+<simplesect>
+    <title>Directories    </title>
+        <itemizedlist>
+            <listitem><para>directory <link linkend="_dir_eb0b66e006e4855153937e7046cf622c">command_handler</link></para>
+</listitem>
+            <listitem><para>directory <link linkend="_dir_be9ae40358cfd0b3633ecd24f4ddab18">old_stuff</link></para>
+</listitem>
+            <listitem><para>directory <link linkend="_dir_4aa3637474ce650d6302885fe35ba584">ui</link></para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Files    </title>
+        <itemizedlist>
+            <listitem><para>file <link linkend="_main_8py">main.py</link></para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+</section>

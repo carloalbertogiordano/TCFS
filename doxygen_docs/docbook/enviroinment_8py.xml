@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_enviroinment_8py" xml:lang="en-US">
+<title>user/command_handler/enviroinment.py File Reference</title>
+<indexterm><primary>user/command_handler/enviroinment.py</primary></indexterm>
+<simplesect>
+    <title>Namespaces    </title>
+        <itemizedlist>
+            <listitem><para>namespace <link linkend="_namespacecommand__handler">command_handler</link></para>
+</listitem>
+            <listitem><para>namespace <link linkend="_namespacecommand__handler_1_1enviroinment">command_handler.enviroinment</link></para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Functions    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_namespacecommand__handler_1_1enviroinment_1a8036811b5b79bce2e21a023ef33d4786">command_handler.enviroinment.countdown</link> (msg, delta)</para>
+</listitem>
+            <listitem><para><link linkend="_namespacecommand__handler_1_1enviroinment_1a79405ba6d662be42ecaacf8469b76494">command_handler.enviroinment.init_env</link> ()</para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+</section>

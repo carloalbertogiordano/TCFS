@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="tcfs-user_8go" kind="file" language="C++">
+    <compoundname>tcfs-user.go</compoundname>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline><highlight class="normal">package<sp/>TCFSTypes</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">import<sp/>&quot;fmt&quot;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">type<sp/>TCFSUser<sp/>struct<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>Username<sp/><sp/>string</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>Password<sp/><sp/>string</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PublicKey<sp/>string</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">type<sp/>SharedFile<sp/>struct<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>User<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TCFSUser</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>FileID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>int</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>Share<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>[]byte</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>EncryptedShare<sp/>string</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">func<sp/>(s<sp/>SharedFile)<sp/>String()<sp/>string<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>return<sp/>fmt.Sprintf(&quot;&quot;+</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;---------------------------------------------------------\n&quot;+</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;User:\n&quot;+</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;<sp/><sp/><sp/>Name%v\n&quot;+</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;<sp/><sp/><sp/>Pubkey%v\n&quot;+</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;<sp/><sp/><sp/>Pass%v\n&quot;+</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;FileID:<sp/>%v\n&quot;+</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;Share:<sp/>%v\n&quot;+</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;EncryptedShare<sp/>%v\n&quot;+</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;---------------------------------------------------------&quot;+</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;&quot;,<sp/>s.User.Username,<sp/>s.User.PublicKey,<sp/>s.User.Password,<sp/>s.FileID,<sp/>s.Share,<sp/>s.EncryptedShare)</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="ServerREST/types/tcfs-user.go"/>
+  </compounddef>
+</doxygen>

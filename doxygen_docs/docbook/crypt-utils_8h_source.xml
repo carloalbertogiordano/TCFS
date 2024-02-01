@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_crypt-utils_8h_source" xml:lang="en-US">
+<title>crypt-utils.h</title>
+<indexterm><primary>userspace-module/utils/crypt-utils/crypt-utils.h</primary></indexterm>
+Go to the documentation of this file.<programlisting linenumbering="unnumbered"><anchor xml:id="_crypt-utils_8h_source_1l00001"/>00001 
+<anchor xml:id="_crypt-utils_8h_source_1l00007"/>00007 <emphasis role="preprocessor">#include&#32;&lt;ctype.h&gt;</emphasis>
+<anchor xml:id="_crypt-utils_8h_source_1l00008"/>00008 <emphasis role="preprocessor">#include&#32;&lt;libgen.h&gt;</emphasis>
+<anchor xml:id="_crypt-utils_8h_source_1l00009"/>00009 <emphasis role="preprocessor">#include&#32;&lt;stdio.h&gt;</emphasis>
+<anchor xml:id="_crypt-utils_8h_source_1l00010"/>00010 <emphasis role="preprocessor">#include&#32;&lt;stdlib.h&gt;</emphasis>
+<anchor xml:id="_crypt-utils_8h_source_1l00011"/>00011 <emphasis role="preprocessor">#include&#32;&lt;string.h&gt;</emphasis>
+<anchor xml:id="_crypt-utils_8h_source_1l00012"/>00012 <emphasis role="preprocessor">#include&#32;&lt;sys/mman.h&gt;</emphasis>
+<anchor xml:id="_crypt-utils_8h_source_1l00013"/>00013 <emphasis role="preprocessor">#include&#32;&lt;unistd.h&gt;</emphasis>
+<anchor xml:id="_crypt-utils_8h_source_1l00014"/>00014 
+<anchor xml:id="_crypt-utils_8h_source_1l00015"/>00015 <emphasis role="preprocessor">#include&#32;&lt;openssl/aes.h&gt;</emphasis>
+<anchor xml:id="_crypt-utils_8h_source_1l00016"/>00016 <emphasis role="preprocessor">#include&#32;&lt;openssl/bio.h&gt;</emphasis>
+<anchor xml:id="_crypt-utils_8h_source_1l00017"/>00017 <emphasis role="preprocessor">#include&#32;&lt;openssl/buffer.h&gt;</emphasis>
+<anchor xml:id="_crypt-utils_8h_source_1l00018"/>00018 <emphasis role="preprocessor">#include&#32;&lt;openssl/evp.h&gt;</emphasis>
+<anchor xml:id="_crypt-utils_8h_source_1l00019"/>00019 <emphasis role="preprocessor">#include&#32;&lt;openssl/rand.h&gt;</emphasis>
+<anchor xml:id="_crypt-utils_8h_source_1l00020"/>00020 
+<anchor xml:id="_crypt-utils_8h_source_1l00021"/>00021 <emphasis role="preprocessor">#include&#32;&quot;../tcfs_utils/tcfs_utils.h&quot;</emphasis>&#32;<emphasis role="comment">//TODO:&#32;Remove,&#32;for&#32;debugging&#32;only</emphasis>
+<anchor xml:id="_crypt-utils_8h_source_1l00022"/>00022 
+<anchor xml:id="_crypt-utils_8h_source_1l00027"/><link linkend="_crypt-utils_8h_1a1cb0c60ca582db30ae87362ca43e8c19">00027</link> <emphasis role="preprocessor">#define&#32;ENCRYPT&#32;true</emphasis>
+<anchor xml:id="_crypt-utils_8h_source_1l00032"/><link linkend="_crypt-utils_8h_1a36fab47015485191712a579a059a7c20">00032</link> <emphasis role="preprocessor">#define&#32;DECRYPT&#32;false</emphasis>
+<anchor xml:id="_crypt-utils_8h_source_1l00033"/>00033 
+<anchor xml:id="_crypt-utils_8h_source_1l00034"/>00034 <emphasis role="keyword">extern</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>&#32;<link linkend="_crypt-utils_8h_1a94b5b388b3f00982ccee72b192077e76">do_crypt</link>&#32;(FILE&#32;*in,&#32;FILE&#32;*out,&#32;<emphasis role="keywordtype">int</emphasis>&#32;action,&#32;<emphasis role="keywordtype">unsigned</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*key_str);
+<anchor xml:id="_crypt-utils_8h_source_1l00035"/>00035 
+<anchor xml:id="_crypt-utils_8h_source_1l00036"/>00036 <emphasis role="keywordtype">void</emphasis>&#32;<link linkend="_crypt-utils_8h_1a8845f5705eaafda836aac91d5881876f">generate_key</link>&#32;(<emphasis role="keywordtype">unsigned</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*destination);
+<anchor xml:id="_crypt-utils_8h_source_1l00037"/>00037 
+<anchor xml:id="_crypt-utils_8h_source_1l00038"/>00038 <emphasis role="keywordtype">unsigned</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*<link linkend="_crypt-utils_8h_1a8bf9483dae26e9c0a1c45d77b8f1dce8">encrypt_string</link>&#32;(<emphasis role="keywordtype">unsigned</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*plaintext,&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*key,
+<anchor xml:id="_crypt-utils_8h_source_1l00039"/>00039 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;*encrypted_len);
+<anchor xml:id="_crypt-utils_8h_source_1l00040"/>00040 
+<anchor xml:id="_crypt-utils_8h_source_1l00041"/>00041 <emphasis role="keywordtype">unsigned</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*<link linkend="_crypt-utils_8h_1a02ee5ac64d2d2d441edcca915e480503">decrypt_string</link>&#32;(<emphasis role="keywordtype">unsigned</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*base64_ciphertext,
+<anchor xml:id="_crypt-utils_8h_source_1l00042"/>00042 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*key);
+<anchor xml:id="_crypt-utils_8h_source_1l00043"/>00043 
+<anchor xml:id="_crypt-utils_8h_source_1l00044"/>00044 <emphasis role="keywordtype">int</emphasis>&#32;<link linkend="_crypt-utils_8h_1a36c2342a7c47b8f41bf628bf473b1c97">is_valid_key</link>&#32;(<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">unsigned</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*key);
+<anchor xml:id="_crypt-utils_8h_source_1l00045"/>00045 
+<anchor xml:id="_crypt-utils_8h_source_1l00046"/>00046 <emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*<link linkend="_crypt-utils_8h_1aa4a7facde8c6f63a7225c07e92232b2e">encrypt_file_name_with_hex</link>&#32;(<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*file,&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*key);
+<anchor xml:id="_crypt-utils_8h_source_1l00047"/>00047 
+<anchor xml:id="_crypt-utils_8h_source_1l00048"/>00048 <emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*<link linkend="_crypt-utils_8h_1a3b003481e5c188ac1d6f63e09e6f3a34">decrypt_file_name_with_hex</link>&#32;(<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*enc_file,&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*key);
+<anchor xml:id="_crypt-utils_8h_source_1l00049"/>00049 
+<anchor xml:id="_crypt-utils_8h_source_1l00050"/>00050 <emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*<link linkend="_crypt-utils_8h_1ad9b10366ade9f2129ec2613fdc76df80">encrypt_path</link>&#32;(<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*path,&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*key);
+<anchor xml:id="_crypt-utils_8h_source_1l00051"/>00051 
+<anchor xml:id="_crypt-utils_8h_source_1l00052"/>00052 <emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*<link linkend="_crypt-utils_8h_1a5c45db4d3db3ef274fb6356e1a95e644">encrypt_path_and_filename</link>&#32;(<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*path,&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*key);
+<anchor xml:id="_crypt-utils_8h_source_1l00053"/>00053 
+<anchor xml:id="_crypt-utils_8h_source_1l00054"/>00054 <emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*<link linkend="_crypt-utils_8h_1a1899c23a523d11ed1cb5601eabdb023d">decrypt_path</link>&#32;(<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*encrypted_path,&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*key);
+<anchor xml:id="_crypt-utils_8h_source_1l00055"/>00055 
+<anchor xml:id="_crypt-utils_8h_source_1l00056"/>00056 <emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*<link linkend="_crypt-utils_8h_1a373f8aedbcd8b6ce22fe7bdfeb2961c2">decrypt_path_and_filename</link>&#32;(<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*encrypted_path,
+<anchor xml:id="_crypt-utils_8h_source_1l00057"/>00057 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*key);
+</programlisting></section>

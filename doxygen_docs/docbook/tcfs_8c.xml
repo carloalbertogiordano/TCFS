@@ -1,0 +1,2508 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_tcfs_8c" xml:lang="en-US">
+<title>userspace-module/tcfs.c File Reference</title>
+<indexterm><primary>userspace-module/tcfs.c</primary></indexterm>
+<programlisting linenumbering="unnumbered">#include &quot;utils/crypt-utils/crypt-utils.h&quot;<?linebreak?>#include &quot;utils/tcfs_utils/tcfs_utils.h&quot;<?linebreak?>#include &lt;argp.h&gt;<?linebreak?>#include &lt;dirent.h&gt;<?linebreak?>#include &lt;errno.h&gt;<?linebreak?>#include &lt;fcntl.h&gt;<?linebreak?>#include &lt;fuse3/fuse.h&gt;<?linebreak?>#include &lt;limits.h&gt;<?linebreak?>#include &lt;linux/limits.h&gt;<?linebreak?>#include &lt;pwd.h&gt;<?linebreak?>#include &lt;stdio.h&gt;<?linebreak?>#include &lt;string.h&gt;<?linebreak?>#include &lt;sys/stat.h&gt;<?linebreak?>#include &lt;sys/time.h&gt;<?linebreak?>#include &lt;sys/xattr.h&gt;<?linebreak?>#include &lt;time.h&gt;<?linebreak?>#include &lt;unistd.h&gt;<?linebreak?></programlisting>Include dependency graph for tcfs.c:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="tcfs_8c__incl.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+<simplesect>
+    <title>Classes    </title>
+        <itemizedlist>
+            <listitem><para>struct <link linkend="_structarguments">arguments</link></para>
+
+<para>Structure to store command-line arguments. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Macros    </title>
+        <itemizedlist>
+            <listitem><para>#define <link linkend="_tcfs_8c_1a0919197af2e154da2c05727b6d87cbda">FUSE_USE_VERSION</link>&#160;&#160;&#160;30</para>
+</listitem>
+            <listitem><para>#define <link linkend="_tcfs_8c_1ace5cb10bf13b2a61c0d3e01b4e0590a2">HAVE_SETXATTR</link></para>
+</listitem>
+            <listitem><para>#define <link linkend="_tcfs_8c_1a78c99ffd76a7bb3c8c74db76207e9ab4">_XOPEN_SOURCE</link>&#160;&#160;&#160;500</para>
+</listitem>
+            <listitem><para>#define <link linkend="_tcfs_8c_1afa4c673b6383ea6994b5e5c95a7cc213">TCFS_SUCCESS</link>&#160;&#160;&#160;0</para>
+</listitem>
+            <listitem><para>#define <link linkend="_tcfs_8c_1ae05f9a61e45517eaca7278909e7959ec">ERR_inval_arg_len</link>&#160;&#160;&#160;1</para>
+</listitem>
+            <listitem><para>#define <link linkend="_tcfs_8c_1ac9de09fb2e7784a5778dec8a36db8ffa">ERR_inval_key</link>&#160;&#160;&#160;2</para>
+</listitem>
+            <listitem><para>#define <link linkend="_tcfs_8c_1a37991e6ea390ac4a4d0f4e63c2a71146">ERR_invalid_enc_dir_name</link>&#160;&#160;&#160;3</para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Functions    </title>
+        <itemizedlist>
+            <listitem><para>static int <link linkend="_tcfs_8c_1a6a031c4e3c6dd59051c09789c4666657">tcfs_getxattr</link> (const char *fuse_path, const char *name, char *value, size_t size)</para>
+
+<para>Get extended attribute data. </para>
+</listitem>
+            <listitem><para>static int <link linkend="_tcfs_8c_1a92ebab5be45b159c2850a47a5072b58d">tcfs_opendir</link> (const char *fuse_path, struct fuse_file_info *fi)</para>
+
+<para>Opens a directory. </para>
+</listitem>
+            <listitem><para>static int <link linkend="_tcfs_8c_1a411eac4511d0eae4ce78a2fd3d22ac8c">tcfs_getattr</link> (const char *fuse_path, struct stat *stbuf, struct fuse_file_info *fi)</para>
+
+<para>Gets file attributes. </para>
+</listitem>
+            <listitem><para>static int <link linkend="_tcfs_8c_1a76af7857833338c73b9cafdce59ca01d">tcfs_access</link> (const char *fuse_path, int mask)</para>
+
+<para>Checks file access permissions. </para>
+</listitem>
+            <listitem><para>static int <link linkend="_tcfs_8c_1acb1e081efcbf61b6f34e8bbdf7af8979">tcfs_readlink</link> (const char *fuse_path, char *buf, size_t size)</para>
+
+<para>Reads the target of a symbolic link. </para>
+</listitem>
+            <listitem><para>static int <link linkend="_tcfs_8c_1a1a713549c892f56a6522e6487c581d69">tcfs_readdir</link> (const char *fuse_path, void *buf, fuse_fill_dir_t filler, off_t offset, struct fuse_file_info *fi, enum fuse_readdir_flags frdf)</para>
+
+<para>Reads a directory. </para>
+</listitem>
+            <listitem><para>static int <link linkend="_tcfs_8c_1a151f53359474a95c52f5e79d438869bd">tcfs_mknod</link> (const char *fuse_path, mode_t mode, dev_t rdev)</para>
+
+<para>Creates a regular file or a special file (block or character). </para>
+</listitem>
+            <listitem><para>static int <link linkend="_tcfs_8c_1a682b553345b6d872453d1ace7339bb9e">tcfs_mkdir</link> (const char *fuse_path, mode_t mode)</para>
+
+<para>Creates a directory. </para>
+</listitem>
+            <listitem><para>static int <link linkend="_tcfs_8c_1ac6d3a8a626363a6f98de64e585968b09">tcfs_unlink</link> (const char *fuse_path)</para>
+
+<para>Removes a file. </para>
+</listitem>
+            <listitem><para>static int <link linkend="_tcfs_8c_1a2853593dded66a922afbdc36afb15a50">tcfs_rmdir</link> (const char *fuse_path)</para>
+
+<para>Removes a directory. </para>
+</listitem>
+            <listitem><para>static int <link linkend="_tcfs_8c_1ac1d223f9b998d5af6bec3947d03be0fc">tcfs_symlink</link> (const char *from, const char *to)</para>
+
+<para>Creates a symbolic link. </para>
+</listitem>
+            <listitem><para>static int <link linkend="_tcfs_8c_1aee96b732a1569a607e63bac6fbe5c403">tcfs_rename</link> (const char *from, const char *to, unsigned int flags)</para>
+
+<para>Renames a file or a directory. </para>
+</listitem>
+            <listitem><para>static int <link linkend="_tcfs_8c_1a271df7bd878f5ed132e1f98487e8aebd">tcfs_link</link> (const char *from, const char *to)</para>
+
+<para>Creates a hard link. </para>
+</listitem>
+            <listitem><para>static int <link linkend="_tcfs_8c_1a3cb10be0f6147667dc0e757636e9892f">tcfs_chmod</link> (const char *fuse_path, mode_t mode, struct fuse_file_info *fi)</para>
+
+<para>Changes the permissions of a file. </para>
+</listitem>
+            <listitem><para>static int <link linkend="_tcfs_8c_1afff31b61fa0723502cf85922816f14f9">tcfs_chown</link> (const char *fuse_path, uid_t uid, gid_t gid, struct fuse_file_info *fi)</para>
+
+<para>Changes the owner and group of a file. </para>
+</listitem>
+            <listitem><para>static int <link linkend="_tcfs_8c_1a7e7f7a65b4e76cc96505d0c6d62fba9c">tcfs_truncate</link> (const char *fuse_path, off_t size, struct fuse_file_info *fi)</para>
+
+<para>Truncates or extends the size of a file. </para>
+</listitem>
+            <listitem><para>static int <link linkend="_tcfs_8c_1aca5dccf989dfc270ca31e1d8b20bb60e">tcfs_utimens</link> (const char *fuse_path, const struct timespec ts[2], struct fuse_file_info *fi)</para>
+
+<para>Modify the access and modification timestamps of a file in the TCFS file system. </para>
+</listitem>
+            <listitem><para>static int <link linkend="_tcfs_8c_1af0c6a7d66189cc1e9fbfafba5255e60d">tcfs_open</link> (const char *fuse_path, struct fuse_file_info *fi)</para>
+
+<para>Opens a file. </para>
+</listitem>
+            <listitem><para>static int <link linkend="_tcfs_8c_1a996d4e078d075e74e800288e6c92fd59">file_size</link> (FILE *file)</para>
+
+<para>Get the size of a file in the TCFS file system. </para>
+</listitem>
+            <listitem><para>static int <link linkend="_tcfs_8c_1a745384a010e20b082db26e16702a0129">tcfs_read</link> (const char *fuse_path, char *buf, size_t size, off_t offset, struct fuse_file_info *fi)</para>
+
+<para>Reads data from an open file. </para>
+</listitem>
+            <listitem><para>static int <link linkend="_tcfs_8c_1adaba2baa5a036b8f77ec187599498a66">tcfs_write</link> (const char *fuse_path, const char *buf, size_t size, off_t offset, struct fuse_file_info *fi)</para>
+
+<para>Writes data to an open file. </para>
+</listitem>
+            <listitem><para>static int <link linkend="_tcfs_8c_1ae14ebf4581d4cbc45737ae75af82a887">tcfs_statfs</link> (const char *fuse_path, struct statvfs *stbuf)</para>
+
+<para>Get file system statistics. </para>
+</listitem>
+            <listitem><para>static int <link linkend="_tcfs_8c_1ad3c328fdcd93c8203e1ce9c785fd3a14">tcfs_setxattr</link> (const char *fuse_path, const char *name, const char *value, size_t size, int flags)</para>
+
+<para>Sets extended attributes. </para>
+</listitem>
+            <listitem><para>static int <link linkend="_tcfs_8c_1ad973ad9d6ab7d6276bf85cd8fecd0657">tcfs_create</link> (const char *fuse_path, mode_t mode, struct fuse_file_info *fi)</para>
+
+<para>Create and open a file. </para>
+</listitem>
+            <listitem><para>static int <link linkend="_tcfs_8c_1a1241e1fcfe6bb4a5d49d8c8d4e737bcd">tcfs_release</link> (const char *fuse_path, struct fuse_file_info *fi)</para>
+
+<para>Releases an open file. </para>
+</listitem>
+            <listitem><para>static int <link linkend="_tcfs_8c_1a014853840814f4d5225e2e28e129f9e5">tcfs_fsync</link> (const char *fuse_path, int isdatasync, struct fuse_file_info *fi)</para>
+
+<para>Synchronizes file contents. </para>
+</listitem>
+            <listitem><para>static int <link linkend="_tcfs_8c_1ae6edcf6a80467925a9a2112172395de1">tcfs_listxattr</link> (const char *fuse_path, char *list, size_t size)</para>
+
+<para>Lists extended attributes. </para>
+</listitem>
+            <listitem><para>static int <link linkend="_tcfs_8c_1acfe2c6a9467bd25a5ba6dc1a65209262">tcfs_removexattr</link> (const char *fuse_path, const char *name)</para>
+
+<para>Remove an extended attribute. </para>
+</listitem>
+            <listitem><para>static error_t <link linkend="_tcfs_8c_1a35ee63236273ebb9325c444cacf00159">parse_opt</link> (int key, char *arg, struct argp_state *state)</para>
+
+<para>Parse command-line options. </para>
+</listitem>
+            <listitem><para>int <link linkend="_tcfs_8c_1a0ddf1224851353fc92bfbff6f499fa97">main</link> (int argc, char *argv[])</para>
+
+<para>Main entry point for TCFS. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Variables    </title>
+        <itemizedlist>
+            <listitem><para>char * <link linkend="_tcfs_8c_1ab33cf7205359ee0f91488c87df1577a0">root_path</link></para>
+
+<para>Contains the fullpath to the mounted directory. </para>
+</listitem>
+            <listitem><para>char * <link linkend="_tcfs_8c_1a9dbb300e28bc21c8dab41b01883918eb">password</link></para>
+
+<para>Contains the password passed to TCFS when started. </para>
+</listitem>
+            <listitem><para>static struct fuse_operations <link linkend="_tcfs_8c_1a53c12b201809f3165da8a2779d152b3a">tcfs_oper</link></para>
+
+<para>TCFS file system operations. </para>
+</listitem>
+            <listitem><para>const char * <link linkend="_tcfs_8c_1a62f73ea01c816f1996aed4c66f57c4fb">argp_program_version</link> = &quot;TCFS Alpha&quot;</para>
+
+<para>TCFS version information. </para>
+</listitem>
+            <listitem><para>const char * <link linkend="_tcfs_8c_1aaa037e59f26a80a8a2e35e6f2364004d">argp_program_bug_address</link> = &quot;carloalbertogiordano@duck.com&quot;</para>
+
+<para>TCFS bug report email address. </para>
+</listitem>
+            <listitem><para>static char <link linkend="_tcfs_8c_1af6164deb8a824f8cb2b9147cfc3174f5">doc</link> []</para>
+
+<para>Documentation string for TCFS. </para>
+</listitem>
+            <listitem><para>static char <link linkend="_tcfs_8c_1a91b08784b3668a8a1fbe2eec1947fb9d">args_doc</link> [] = &quot;&quot;</para>
+
+<para>Argument documentation string for TCFS. </para>
+</listitem>
+            <listitem><para>static struct argp_option <link linkend="_tcfs_8c_1abc1fd3a47aea6a8944038c9100eb9135">options</link> []</para>
+
+<para>TCFS command-line options. </para>
+</listitem>
+            <listitem><para>static struct <link linkend="_structargp">argp</link> <link linkend="_tcfs_8c_1ab70c96531b1b652d70c221cfaf3207f3">argp</link> = { <link linkend="_user__tcfs_8c_1ac88b371bbf7f89ab6440cb9fe629288c">options</link>, <link linkend="_user__tcfs_8c_1a35ee63236273ebb9325c444cacf00159">parse_opt</link>, <link linkend="_tcfs_8c_1a91b08784b3668a8a1fbe2eec1947fb9d">args_doc</link>, <link linkend="_user__tcfs_8c_1a3a72da5720995770156f9f9879ce6fa9">doc</link>, 0, NULL, NULL }</para>
+
+<para>TCFS argp structure. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Macro Definition Documentation</title>
+<anchor xml:id="_tcfs_8c_1a78c99ffd76a7bb3c8c74db76207e9ab4"/><section>
+    <title>_XOPEN_SOURCE</title>
+<indexterm><primary>_XOPEN_SOURCE</primary><secondary>tcfs.c</secondary></indexterm>
+<indexterm><primary>tcfs.c</primary><secondary>_XOPEN_SOURCE</secondary></indexterm>
+<para><computeroutput>#define _XOPEN_SOURCE&#160;&#160;&#160;500</computeroutput></para><para>
+Definition at line <link linkend="_tcfs_8c_source_1l00017">17</link> of file <link linkend="_tcfs_8c_source">tcfs.c</link>.</para>
+</section>
+<anchor xml:id="_tcfs_8c_1ae05f9a61e45517eaca7278909e7959ec"/><section>
+    <title>ERR_inval_arg_len</title>
+<indexterm><primary>ERR_inval_arg_len</primary><secondary>tcfs.c</secondary></indexterm>
+<indexterm><primary>tcfs.c</primary><secondary>ERR_inval_arg_len</secondary></indexterm>
+<para><computeroutput>#define ERR_inval_arg_len&#160;&#160;&#160;1</computeroutput></para><para>
+Definition at line <link linkend="_tcfs_8c_source_1l00021">21</link> of file <link linkend="_tcfs_8c_source">tcfs.c</link>.</para>
+</section>
+<anchor xml:id="_tcfs_8c_1ac9de09fb2e7784a5778dec8a36db8ffa"/><section>
+    <title>ERR_inval_key</title>
+<indexterm><primary>ERR_inval_key</primary><secondary>tcfs.c</secondary></indexterm>
+<indexterm><primary>tcfs.c</primary><secondary>ERR_inval_key</secondary></indexterm>
+<para><computeroutput>#define ERR_inval_key&#160;&#160;&#160;2</computeroutput></para><para>
+Definition at line <link linkend="_tcfs_8c_source_1l00022">22</link> of file <link linkend="_tcfs_8c_source">tcfs.c</link>.</para>
+</section>
+<anchor xml:id="_tcfs_8c_1a37991e6ea390ac4a4d0f4e63c2a71146"/><section>
+    <title>ERR_invalid_enc_dir_name</title>
+<indexterm><primary>ERR_invalid_enc_dir_name</primary><secondary>tcfs.c</secondary></indexterm>
+<indexterm><primary>tcfs.c</primary><secondary>ERR_invalid_enc_dir_name</secondary></indexterm>
+<para><computeroutput>#define ERR_invalid_enc_dir_name&#160;&#160;&#160;3</computeroutput></para><para>
+Definition at line <link linkend="_tcfs_8c_source_1l00023">23</link> of file <link linkend="_tcfs_8c_source">tcfs.c</link>.</para>
+</section>
+<anchor xml:id="_tcfs_8c_1a0919197af2e154da2c05727b6d87cbda"/><section>
+    <title>FUSE_USE_VERSION</title>
+<indexterm><primary>FUSE_USE_VERSION</primary><secondary>tcfs.c</secondary></indexterm>
+<indexterm><primary>tcfs.c</primary><secondary>FUSE_USE_VERSION</secondary></indexterm>
+<para><computeroutput>#define FUSE_USE_VERSION&#160;&#160;&#160;30</computeroutput></para><para>
+Definition at line <link linkend="_tcfs_8c_source_1l00006">6</link> of file <link linkend="_tcfs_8c_source">tcfs.c</link>.</para>
+</section>
+<anchor xml:id="_tcfs_8c_1ace5cb10bf13b2a61c0d3e01b4e0590a2"/><section>
+    <title>HAVE_SETXATTR</title>
+<indexterm><primary>HAVE_SETXATTR</primary><secondary>tcfs.c</secondary></indexterm>
+<indexterm><primary>tcfs.c</primary><secondary>HAVE_SETXATTR</secondary></indexterm>
+<para><computeroutput>#define HAVE_SETXATTR</computeroutput></para><para>
+Definition at line <link linkend="_tcfs_8c_source_1l00007">7</link> of file <link linkend="_tcfs_8c_source">tcfs.c</link>.</para>
+</section>
+<anchor xml:id="_tcfs_8c_1afa4c673b6383ea6994b5e5c95a7cc213"/><section>
+    <title>TCFS_SUCCESS</title>
+<indexterm><primary>TCFS_SUCCESS</primary><secondary>tcfs.c</secondary></indexterm>
+<indexterm><primary>tcfs.c</primary><secondary>TCFS_SUCCESS</secondary></indexterm>
+<para><computeroutput>#define TCFS_SUCCESS&#160;&#160;&#160;0</computeroutput></para><para>
+Definition at line <link linkend="_tcfs_8c_source_1l00020">20</link> of file <link linkend="_tcfs_8c_source">tcfs.c</link>.</para>
+</section>
+</section>
+<section>
+<title>Function Documentation</title>
+<anchor xml:id="_tcfs_8c_1a996d4e078d075e74e800288e6c92fd59"/><section>
+    <title>file_size()</title>
+<indexterm><primary>file_size</primary><secondary>tcfs.c</secondary></indexterm>
+<indexterm><primary>tcfs.c</primary><secondary>file_size</secondary></indexterm>
+<para><computeroutput>static int file_size (FILE * file)<computeroutput>[inline]</computeroutput>, <computeroutput>[static]</computeroutput></computeroutput></para><para>
+
+<para>Get the size of a file in the TCFS file system. </para>
+</para>
+
+<para>This function is called when the <computeroutput>getattr</computeroutput> operation is performed on a file in the TCFS to obtain file attributes.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>fuse_path</entry><entry>
+<para>The path of the encrypted file for which the size is requested. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>stbuf</entry><entry>
+<para>Buffer to store the file attributes, including the size. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>fi</entry><entry>
+<para>File information structure provided by FUSE. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>TCFS_SUCCESS on success, negative error code on failure.</para>
+</formalpara>
+The <computeroutput>tcfs_file_size</computeroutput> function is invoked to retrieve the size of a file within the TCFS. It decodes the encrypted file path, translates it into the actual file path on the underlying file system, and then uses the <computeroutput>getattr</computeroutput> function to obtain the file attributes, including the file size.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>fuse_path</entry><entry>
+<para>The path of the encrypted file within the TCFS. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>stbuf</entry><entry>
+<para>Buffer to store the file attributes, including the file size. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>fi</entry><entry>
+<para>File information provided by FUSE, which may be used to obtain additional details about the file if needed.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>true on success. On failure, it returns a negative error code representing the type of error encountered.</para>
+</formalpara>
+<note><title>Note</title>
+
+<para><itemizedlist>
+<listitem>
+<para>The function is a crucial part of file attribute retrieval, and the size is a fundamental attribute of a file.</para>
+</listitem><listitem>
+<para>The correct functioning of this function is essential for providing accurate information about the file size.</para>
+</listitem></itemizedlist>
+</para>
+</note>
+<warning><title>Warning</title>
+
+<para><itemizedlist>
+<listitem>
+<para>Ensure that the function correctly translates the encrypted file path into the actual file path on the underlying file system.</para>
+</listitem><listitem>
+<para>Verify that the file attributes, especially the size, are accurately retrieved and reported in the <computeroutput>stbuf</computeroutput> buffer. </para>
+</listitem></itemizedlist>
+</para>
+</warning>
+</para>
+<para>
+Definition at line <link linkend="_tcfs_8c_source_1l00711">711</link> of file <link linkend="_tcfs_8c_source">tcfs.c</link>.</para>
+<para>
+Referenced by <link linkend="_tcfs_8c_source_1l00734">tcfs_read()</link>, and <link linkend="_tcfs_8c_source_1l00830">tcfs_write()</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="tcfs_8c_a996d4e078d075e74e800288e6c92fd59_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_tcfs_8c_1a0ddf1224851353fc92bfbff6f499fa97"/><section>
+    <title>main()</title>
+<indexterm><primary>main</primary><secondary>tcfs.c</secondary></indexterm>
+<indexterm><primary>tcfs.c</primary><secondary>main</secondary></indexterm>
+<para><computeroutput>int main (int argc, char * argv[])</computeroutput></para><para>
+
+<para>Main entry point for TCFS. </para>
+</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>argc</entry><entry>
+<para>Number of command-line arguments. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>argv</entry><entry>
+<para>Array of command-line arguments.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>0 on success, error code on failure. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_tcfs_8c_source_1l01412">1412</link> of file <link linkend="_tcfs_8c_source">tcfs.c</link>.</para>
+<para>
+References <link linkend="_tcfs_8c_source_1l01360">arguments::destination</link>, <link linkend="_tcfs_8c_source_1l00021">ERR_inval_arg_len</link>, <link linkend="_tcfs_8c_source_1l00022">ERR_inval_key</link>, <link linkend="_crypt-utils_8c_source_1l00388">is_valid_key()</link>, <link linkend="_tcfs__utils_8c_source_1l00262">logMessage()</link>, <link linkend="_tcfs_8c_source_1l00052">password</link>, <link linkend="_tcfs_8c_source_1l01361">arguments::password</link>, <link linkend="_tcfs_8c_source_1l00047">root_path</link>, <link linkend="_tcfs_8c_source_1l01359">arguments::source</link>, <link linkend="_tcfs_8c_source_1l01294">tcfs_oper</link>, and <link linkend="_tcfs_8c_source_1l00020">TCFS_SUCCESS</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="tcfs_8c_a0ddf1224851353fc92bfbff6f499fa97_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_tcfs_8c_1a35ee63236273ebb9325c444cacf00159"/><section>
+    <title>parse_opt()</title>
+<indexterm><primary>parse_opt</primary><secondary>tcfs.c</secondary></indexterm>
+<indexterm><primary>tcfs.c</primary><secondary>parse_opt</secondary></indexterm>
+<para><computeroutput>static error_t parse_opt (int key, char * arg, struct argp_state * state)<computeroutput>[static]</computeroutput></computeroutput></para><para>
+
+<para>Parse command-line options. </para>
+</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>key</entry><entry>
+<para>Option key. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>arg</entry><entry>
+<para>Option argument. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>state</entry><entry>
+<para>Parser state.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>0 on success, error code on failure. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_tcfs_8c_source_1l01374">1374</link> of file <link linkend="_tcfs_8c_source">tcfs.c</link>.</para>
+<para>
+References <link linkend="_tcfs_8c_source_1l01360">arguments::destination</link>, <link linkend="_tcfs_8c_source_1l01361">arguments::password</link>, <link linkend="_tcfs_8c_source_1l01359">arguments::source</link>, and <link linkend="_tcfs_8c_source_1l00020">TCFS_SUCCESS</link>.</para>
+</section>
+<anchor xml:id="_tcfs_8c_1a76af7857833338c73b9cafdce59ca01d"/><section>
+    <title>tcfs_access()</title>
+<indexterm><primary>tcfs_access</primary><secondary>tcfs.c</secondary></indexterm>
+<indexterm><primary>tcfs.c</primary><secondary>tcfs_access</secondary></indexterm>
+<para><computeroutput>static int tcfs_access (const char * fuse_path, int mask)<computeroutput>[static]</computeroutput></computeroutput></para><para>
+
+<para>Checks file access permissions. </para>
+</para>
+
+<para>This function is called to check file access permissions.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>fuse_path</entry><entry>
+<para>The path to the file/directory. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>mask</entry><entry>
+<para>The requested access permissions. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>true on success, a negative error code on failure. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_tcfs_8c_source_1l00132">132</link> of file <link linkend="_tcfs_8c_source">tcfs.c</link>.</para>
+<para>
+References <link linkend="_crypt-utils_8c_source_1l00420">encrypt_path()</link>, <link linkend="_tcfs__utils_8c_source_1l00262">logMessage()</link>, <link linkend="_tcfs_8c_source_1l00052">password</link>, <link linkend="_tcfs__utils_8c_source_1l00053">prefix_path()</link>, <link linkend="_tcfs_8c_source_1l00047">root_path</link>, and <link linkend="_tcfs_8c_source_1l00020">TCFS_SUCCESS</link>.</para>
+<para>
+Referenced by <link linkend="_tcfs_8c_source_1l00830">tcfs_write()</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="tcfs_8c_a76af7857833338c73b9cafdce59ca01d_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="tcfs_8c_a76af7857833338c73b9cafdce59ca01d_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_tcfs_8c_1a3cb10be0f6147667dc0e757636e9892f"/><section>
+    <title>tcfs_chmod()</title>
+<indexterm><primary>tcfs_chmod</primary><secondary>tcfs.c</secondary></indexterm>
+<indexterm><primary>tcfs.c</primary><secondary>tcfs_chmod</secondary></indexterm>
+<para><computeroutput>static int tcfs_chmod (const char * fuse_path, mode_t mode, struct fuse_file_info * fi)<computeroutput>[static]</computeroutput></computeroutput></para><para>
+
+<para>Changes the permissions of a file. </para>
+</para>
+
+<para>This function is called to change the permissions of a file.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>fuse_path</entry><entry>
+<para>The path to the file. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>mode</entry><entry>
+<para>New file mode. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>fi</entry><entry>
+<para>File information. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>true on success, a negative error code on failure. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_tcfs_8c_source_1l00497">497</link> of file <link linkend="_tcfs_8c_source">tcfs.c</link>.</para>
+<para>
+References <link linkend="_crypt-utils_8c_source_1l00420">encrypt_path()</link>, <link linkend="_tcfs__utils_8c_source_1l00262">logMessage()</link>, <link linkend="_tcfs_8c_source_1l00052">password</link>, <link linkend="_tcfs__utils_8c_source_1l00053">prefix_path()</link>, <link linkend="_tcfs_8c_source_1l00047">root_path</link>, and <link linkend="_tcfs_8c_source_1l00020">TCFS_SUCCESS</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="tcfs_8c_a3cb10be0f6147667dc0e757636e9892f_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_tcfs_8c_1afff31b61fa0723502cf85922816f14f9"/><section>
+    <title>tcfs_chown()</title>
+<indexterm><primary>tcfs_chown</primary><secondary>tcfs.c</secondary></indexterm>
+<indexterm><primary>tcfs.c</primary><secondary>tcfs_chown</secondary></indexterm>
+<para><computeroutput>static int tcfs_chown (const char * fuse_path, uid_t uid, gid_t gid, struct fuse_file_info * fi)<computeroutput>[static]</computeroutput></computeroutput></para><para>
+
+<para>Changes the owner and group of a file. </para>
+</para>
+
+<para>This function is called to change the owner and group of a file.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>fuse_path</entry><entry>
+<para>The path to the file. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>uid</entry><entry>
+<para>New user ID. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>gid</entry><entry>
+<para>New group ID. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>fi</entry><entry>
+<para>File information. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>true on success, a negative error code on failure. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_tcfs_8c_source_1l00530">530</link> of file <link linkend="_tcfs_8c_source">tcfs.c</link>.</para>
+<para>
+References <link linkend="_crypt-utils_8c_source_1l00420">encrypt_path()</link>, <link linkend="_tcfs__utils_8c_source_1l00262">logMessage()</link>, <link linkend="_tcfs_8c_source_1l00052">password</link>, <link linkend="_tcfs__utils_8c_source_1l00053">prefix_path()</link>, <link linkend="_tcfs_8c_source_1l00047">root_path</link>, and <link linkend="_tcfs_8c_source_1l00020">TCFS_SUCCESS</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="tcfs_8c_afff31b61fa0723502cf85922816f14f9_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_tcfs_8c_1ad973ad9d6ab7d6276bf85cd8fecd0657"/><section>
+    <title>tcfs_create()</title>
+<indexterm><primary>tcfs_create</primary><secondary>tcfs.c</secondary></indexterm>
+<indexterm><primary>tcfs.c</primary><secondary>tcfs_create</secondary></indexterm>
+<para><computeroutput>static int tcfs_create (const char * fuse_path, mode_t mode, struct fuse_file_info * fi)<computeroutput>[static]</computeroutput></computeroutput></para><para>
+
+<para>Create and open a file. </para>
+</para>
+
+<para>This function is called when a new file is created in the TCFS file system.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>fuse_path</entry><entry>
+<para>The path of the file to be created. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>mode</entry><entry>
+<para>The mode of the file (permissions). </para>
+</entry>
+                            </row>
+                            <row>
+<entry>fi</entry><entry>
+<para>File information, including flags and an open file handle. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>TCFS_SUCCESS on success, negative error code on failure.</para>
+</formalpara>
+The <computeroutput>create</computeroutput> function is invoked when a new file is created in the TCFS file system. It is responsible for setting up the necessary data structures, allocating resources, and opening the file for subsequent read and write operations.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>fuse_path</entry><entry>
+<para>The path of the file within the TCFS. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>mode</entry><entry>
+<para>The mode of the file, specifying permissions and other attributes. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>fi</entry><entry>
+<para>File information containing flags and an open file handle.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>true on success. On failure, it returns a negative error code representing the type of error encountered.</para>
+</formalpara>
+<note><title>Note</title>
+
+<para><itemizedlist>
+<listitem>
+<para>The function must create the file and return an open file handle in the <computeroutput>fi</computeroutput> structure.</para>
+</listitem><listitem>
+<para>Ensure proper handling of file permissions, resource allocation, and any other relevant attributes.</para>
+</listitem></itemizedlist>
+</para>
+</note>
+<warning><title>Warning</title>
+
+<para><itemizedlist>
+<listitem>
+<para>Verify that the function correctly handles errors and returns the appropriate error codes.</para>
+</listitem><listitem>
+<para>Implement necessary checks to ensure the file is created successfully and is ready for subsequent operations. </para>
+</listitem></itemizedlist>
+</para>
+</warning>
+</para>
+<para>
+Definition at line <link linkend="_tcfs_8c_source_1l01031">1031</link> of file <link linkend="_tcfs_8c_source">tcfs.c</link>.</para>
+<para>
+References <link linkend="_crypt-utils_8c_source_1l00532">encrypt_path_and_filename()</link>, <link linkend="_crypt-utils_8c_source_1l00278">encrypt_string()</link>, <link linkend="_crypt-utils_8c_source_1l00235">generate_key()</link>, <link linkend="_crypt-utils_8c_source_1l00388">is_valid_key()</link>, <link linkend="_tcfs__utils_8c_source_1l00262">logMessage()</link>, <link linkend="_tcfs_8c_source_1l00052">password</link>, <link linkend="_tcfs__utils_8c_source_1l00053">prefix_path()</link>, <link linkend="_tcfs_8c_source_1l00047">root_path</link>, <link linkend="_tcfs_8c_source_1l00979">tcfs_setxattr()</link>, and <link linkend="_tcfs_8c_source_1l00020">TCFS_SUCCESS</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="tcfs_8c_ad973ad9d6ab7d6276bf85cd8fecd0657_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_tcfs_8c_1a014853840814f4d5225e2e28e129f9e5"/><section>
+    <title>tcfs_fsync()</title>
+<indexterm><primary>tcfs_fsync</primary><secondary>tcfs.c</secondary></indexterm>
+<indexterm><primary>tcfs.c</primary><secondary>tcfs_fsync</secondary></indexterm>
+<para><computeroutput>static int tcfs_fsync (const char * fuse_path, int isdatasync, struct fuse_file_info * fi)<computeroutput>[static]</computeroutput></computeroutput></para><para>
+
+<para>Synchronizes file contents. </para>
+</para>
+
+<para>This function is called to synchronize file contents.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>fuse_path</entry><entry>
+<para>The path to the file. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>datasync</entry><entry>
+<para>Flag indicating whether to sync only data. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>fi</entry><entry>
+<para>File information. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>true on success, a negative error code on failure. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_tcfs_8c_source_1l01140">1140</link> of file <link linkend="_tcfs_8c_source">tcfs.c</link>.</para>
+<para>
+References <link linkend="_crypt-utils_8c_source_1l00532">encrypt_path_and_filename()</link>, <link linkend="_tcfs__utils_8c_source_1l00262">logMessage()</link>, <link linkend="_tcfs_8c_source_1l00052">password</link>, <link linkend="_tcfs__utils_8c_source_1l00053">prefix_path()</link>, <link linkend="_tcfs_8c_source_1l00047">root_path</link>, and <link linkend="_tcfs_8c_source_1l00020">TCFS_SUCCESS</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="tcfs_8c_a014853840814f4d5225e2e28e129f9e5_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_tcfs_8c_1a411eac4511d0eae4ce78a2fd3d22ac8c"/><section>
+    <title>tcfs_getattr()</title>
+<indexterm><primary>tcfs_getattr</primary><secondary>tcfs.c</secondary></indexterm>
+<indexterm><primary>tcfs.c</primary><secondary>tcfs_getattr</secondary></indexterm>
+<para><computeroutput>static int tcfs_getattr (const char * fuse_path, struct stat * stbuf, struct fuse_file_info * fi)<computeroutput>[static]</computeroutput></computeroutput></para><para>
+
+<para>Gets file attributes. </para>
+</para>
+
+<para>This function is called to get attributes for a file or directory.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>fuse_path</entry><entry>
+<para>The path to the file/directory. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>stbuf</entry><entry>
+<para>Buffer to fill with attributes. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>fi</entry><entry>
+<para>File information. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>TCFS_SUCCESS on success, a negative error code on failure. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_tcfs_8c_source_1l00099">99</link> of file <link linkend="_tcfs_8c_source">tcfs.c</link>.</para>
+<para>
+References <link linkend="_crypt-utils_8c_source_1l00420">encrypt_path()</link>, <link linkend="_tcfs__utils_8c_source_1l00262">logMessage()</link>, <link linkend="_tcfs_8c_source_1l00052">password</link>, <link linkend="_tcfs__utils_8c_source_1l00053">prefix_path()</link>, <link linkend="_tcfs_8c_source_1l00047">root_path</link>, and <link linkend="_tcfs_8c_source_1l00020">TCFS_SUCCESS</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="tcfs_8c_a411eac4511d0eae4ce78a2fd3d22ac8c_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_tcfs_8c_1a6a031c4e3c6dd59051c09789c4666657"/><section>
+    <title>tcfs_getxattr()</title>
+<indexterm><primary>tcfs_getxattr</primary><secondary>tcfs.c</secondary></indexterm>
+<indexterm><primary>tcfs.c</primary><secondary>tcfs_getxattr</secondary></indexterm>
+<para><computeroutput>static int tcfs_getxattr (const char * fuse_path, const char * name, char * value, size_t size)<computeroutput>[static]</computeroutput></computeroutput></para><para>
+
+<para>Get extended attribute data. </para>
+</para>
+
+<para>This function is called to retrieve the value of an extended attribute for a specified file or directory.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>fuse_path</entry><entry>
+<para>The path of the file or directory within the TCFS. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>name</entry><entry>
+<para>The name of the extended attribute. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>value</entry><entry>
+<para>Buffer to store the value of the extended attribute. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>size</entry><entry>
+<para>The size of the buffer. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>Size of the extended attribute value on success, negative error code on failure.</para>
+</formalpara>
+The <computeroutput>getxattr</computeroutput> function is invoked to obtain the value of an extended attribute associated with a file or directory within the TCFS file system. The attribute value is stored in the provided buffer (<computeroutput>value</computeroutput>) with a specified size.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>fuse_path</entry><entry>
+<para>The path of the file or directory. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>name</entry><entry>
+<para>The name of the extended attribute to retrieve. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>value</entry><entry>
+<para>Buffer to store the value of the extended attribute. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>size</entry><entry>
+<para>The size of the buffer.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>On success, the function returns the size of the extended attribute value. On failure, it returns a negative error code representing the type of error encountered.</para>
+</formalpara>
+<note><title>Note</title>
+
+<para><itemizedlist>
+<listitem>
+<para>The function must ensure that the attribute value is properly retrieved and stored in the provided buffer.</para>
+</listitem><listitem>
+<para>Verify that the correct error codes are returned in case of failures or insufficient buffer size.</para>
+</listitem><listitem>
+<para>Implement appropriate checks to handle different scenarios and edge cases. </para>
+</listitem></itemizedlist>
+</para>
+</note>
+</para>
+<para>
+Definition at line <link linkend="_tcfs_8c_source_1l01199">1199</link> of file <link linkend="_tcfs_8c_source">tcfs.c</link>.</para>
+<para>
+References <link linkend="_crypt-utils_8c_source_1l00532">encrypt_path_and_filename()</link>, <link linkend="_tcfs__utils_8c_source_1l00262">logMessage()</link>, <link linkend="_tcfs_8c_source_1l00052">password</link>, <link linkend="_tcfs__utils_8c_source_1l00053">prefix_path()</link>, and <link linkend="_tcfs_8c_source_1l00047">root_path</link>.</para>
+<para>
+Referenced by <link linkend="_tcfs_8c_source_1l00734">tcfs_read()</link>, and <link linkend="_tcfs_8c_source_1l00830">tcfs_write()</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="tcfs_8c_a6a031c4e3c6dd59051c09789c4666657_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="tcfs_8c_a6a031c4e3c6dd59051c09789c4666657_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_tcfs_8c_1a271df7bd878f5ed132e1f98487e8aebd"/><section>
+    <title>tcfs_link()</title>
+<indexterm><primary>tcfs_link</primary><secondary>tcfs.c</secondary></indexterm>
+<indexterm><primary>tcfs.c</primary><secondary>tcfs_link</secondary></indexterm>
+<para><computeroutput>static int tcfs_link (const char * from, const char * to)<computeroutput>[static]</computeroutput></computeroutput></para><para>
+
+<para>Creates a hard link. </para>
+</para>
+
+<para>This function is called to create a hard link.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>from</entry><entry>
+<para>Source path. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>to</entry><entry>
+<para>Target path. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>true on success, a negative error code on failure. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_tcfs_8c_source_1l00465">465</link> of file <link linkend="_tcfs_8c_source">tcfs.c</link>.</para>
+<para>
+References <link linkend="_crypt-utils_8c_source_1l00532">encrypt_path_and_filename()</link>, <link linkend="_tcfs__utils_8c_source_1l00262">logMessage()</link>, <link linkend="_tcfs_8c_source_1l00052">password</link>, <link linkend="_tcfs__utils_8c_source_1l00053">prefix_path()</link>, <link linkend="_tcfs_8c_source_1l00047">root_path</link>, and <link linkend="_tcfs_8c_source_1l00020">TCFS_SUCCESS</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="tcfs_8c_a271df7bd878f5ed132e1f98487e8aebd_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_tcfs_8c_1ae6edcf6a80467925a9a2112172395de1"/><section>
+    <title>tcfs_listxattr()</title>
+<indexterm><primary>tcfs_listxattr</primary><secondary>tcfs.c</secondary></indexterm>
+<indexterm><primary>tcfs.c</primary><secondary>tcfs_listxattr</secondary></indexterm>
+<para><computeroutput>static int tcfs_listxattr (const char * fuse_path, char * list, size_t size)<computeroutput>[static]</computeroutput></computeroutput></para><para>
+
+<para>Lists extended attributes. </para>
+</para>
+
+<para>This function is called to list extended attributes.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>fuse_path</entry><entry>
+<para>The path to the file. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>list</entry><entry>
+<para>Buffer to fill with the attribute list. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>size</entry><entry>
+<para>Size of the buffer. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>Size of the attribute list on success, a negative error code on failure. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_tcfs_8c_source_1l01229">1229</link> of file <link linkend="_tcfs_8c_source">tcfs.c</link>.</para>
+<para>
+References <link linkend="_crypt-utils_8c_source_1l00532">encrypt_path_and_filename()</link>, <link linkend="_tcfs__utils_8c_source_1l00262">logMessage()</link>, <link linkend="_tcfs_8c_source_1l00052">password</link>, <link linkend="_tcfs__utils_8c_source_1l00053">prefix_path()</link>, and <link linkend="_tcfs_8c_source_1l00047">root_path</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="tcfs_8c_ae6edcf6a80467925a9a2112172395de1_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_tcfs_8c_1a682b553345b6d872453d1ace7339bb9e"/><section>
+    <title>tcfs_mkdir()</title>
+<indexterm><primary>tcfs_mkdir</primary><secondary>tcfs.c</secondary></indexterm>
+<indexterm><primary>tcfs.c</primary><secondary>tcfs_mkdir</secondary></indexterm>
+<para><computeroutput>static int tcfs_mkdir (const char * fuse_path, mode_t mode)<computeroutput>[static]</computeroutput></computeroutput></para><para>
+
+<para>Creates a directory. </para>
+</para>
+
+<para>This function is called to create a directory.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>fuse_path</entry><entry>
+<para>The path to the directory. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>mode</entry><entry>
+<para>Directory mode. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>true on success, a negative error code on failure. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_tcfs_8c_source_1l00324">324</link> of file <link linkend="_tcfs_8c_source">tcfs.c</link>.</para>
+<para>
+References <link linkend="_crypt-utils_8c_source_1l00420">encrypt_path()</link>, <link linkend="_tcfs__utils_8c_source_1l00262">logMessage()</link>, <link linkend="_tcfs_8c_source_1l00052">password</link>, <link linkend="_tcfs__utils_8c_source_1l00053">prefix_path()</link>, <link linkend="_tcfs_8c_source_1l00047">root_path</link>, and <link linkend="_tcfs_8c_source_1l00020">TCFS_SUCCESS</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="tcfs_8c_a682b553345b6d872453d1ace7339bb9e_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_tcfs_8c_1a151f53359474a95c52f5e79d438869bd"/><section>
+    <title>tcfs_mknod()</title>
+<indexterm><primary>tcfs_mknod</primary><secondary>tcfs.c</secondary></indexterm>
+<indexterm><primary>tcfs.c</primary><secondary>tcfs_mknod</secondary></indexterm>
+<para><computeroutput>static int tcfs_mknod (const char * fuse_path, mode_t mode, dev_t rdev)<computeroutput>[static]</computeroutput></computeroutput></para><para>
+
+<para>Creates a regular file or a special file (block or character). </para>
+</para>
+
+<para>This function is called to create a regular file or a special file.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>fuse_path</entry><entry>
+<para>The path to the file. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>mode</entry><entry>
+<para>File mode. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>rdev</entry><entry>
+<para>Device numbers (if the file is a special file). </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>true on success, a negative error code on failure. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_tcfs_8c_source_1l00286">286</link> of file <link linkend="_tcfs_8c_source">tcfs.c</link>.</para>
+<para>
+References <link linkend="_crypt-utils_8c_source_1l00420">encrypt_path()</link>, <link linkend="_tcfs__utils_8c_source_1l00262">logMessage()</link>, <link linkend="_tcfs_8c_source_1l00052">password</link>, <link linkend="_tcfs__utils_8c_source_1l00053">prefix_path()</link>, <link linkend="_tcfs_8c_source_1l00047">root_path</link>, and <link linkend="_tcfs_8c_source_1l00020">TCFS_SUCCESS</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="tcfs_8c_a151f53359474a95c52f5e79d438869bd_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_tcfs_8c_1af0c6a7d66189cc1e9fbfafba5255e60d"/><section>
+    <title>tcfs_open()</title>
+<indexterm><primary>tcfs_open</primary><secondary>tcfs.c</secondary></indexterm>
+<indexterm><primary>tcfs.c</primary><secondary>tcfs_open</secondary></indexterm>
+<para><computeroutput>static int tcfs_open (const char * fuse_path, struct fuse_file_info * fi)<computeroutput>[static]</computeroutput></computeroutput></para><para>
+
+<para>Opens a file. </para>
+</para>
+
+<para>This function is called to open a file.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>fuse_path</entry><entry>
+<para>The path to the file. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>fi</entry><entry>
+<para>File information. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>true on success, a negative error code on failure. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_tcfs_8c_source_1l00651">651</link> of file <link linkend="_tcfs_8c_source">tcfs.c</link>.</para>
+<para>
+References <link linkend="_crypt-utils_8c_source_1l00420">encrypt_path()</link>, <link linkend="_tcfs__utils_8c_source_1l00262">logMessage()</link>, <link linkend="_tcfs_8c_source_1l00052">password</link>, <link linkend="_tcfs__utils_8c_source_1l00053">prefix_path()</link>, <link linkend="_tcfs_8c_source_1l00047">root_path</link>, and <link linkend="_tcfs_8c_source_1l00020">TCFS_SUCCESS</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="tcfs_8c_af0c6a7d66189cc1e9fbfafba5255e60d_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_tcfs_8c_1a92ebab5be45b159c2850a47a5072b58d"/><section>
+    <title>tcfs_opendir()</title>
+<indexterm><primary>tcfs_opendir</primary><secondary>tcfs.c</secondary></indexterm>
+<indexterm><primary>tcfs.c</primary><secondary>tcfs_opendir</secondary></indexterm>
+<para><computeroutput>static int tcfs_opendir (const char * fuse_path, struct fuse_file_info * fi)<computeroutput>[static]</computeroutput></computeroutput></para><para>
+
+<para>Opens a directory. </para>
+</para>
+
+<para>This function is called when a directory is opened.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>fuse_path</entry><entry>
+<para>The path to the directory. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>fi</entry><entry>
+<para>File information. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>TCFS_SUCCESS on success, a negative error code on failure. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_tcfs_8c_source_1l00067">67</link> of file <link linkend="_tcfs_8c_source">tcfs.c</link>.</para>
+<para>
+References <link linkend="_crypt-utils_8c_source_1l00420">encrypt_path()</link>, <link linkend="_tcfs__utils_8c_source_1l00262">logMessage()</link>, <link linkend="_tcfs_8c_source_1l00052">password</link>, <link linkend="_tcfs__utils_8c_source_1l00053">prefix_path()</link>, <link linkend="_tcfs_8c_source_1l00047">root_path</link>, and <link linkend="_tcfs_8c_source_1l00020">TCFS_SUCCESS</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="tcfs_8c_a92ebab5be45b159c2850a47a5072b58d_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_tcfs_8c_1a745384a010e20b082db26e16702a0129"/><section>
+    <title>tcfs_read()</title>
+<indexterm><primary>tcfs_read</primary><secondary>tcfs.c</secondary></indexterm>
+<indexterm><primary>tcfs.c</primary><secondary>tcfs_read</secondary></indexterm>
+<para><computeroutput>static int tcfs_read (const char * fuse_path, char * buf, size_t size, off_t offset, struct fuse_file_info * fi)<computeroutput>[static]</computeroutput></computeroutput></para><para>
+
+<para>Reads data from an open file. </para>
+</para>
+
+<para>This function is called to read data from an open file.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>fuse_path</entry><entry>
+<para>The path to the file. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>buf</entry><entry>
+<para>Buffer to fill with data. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>size</entry><entry>
+<para>Number of bytes to read. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>offset</entry><entry>
+<para>Offset within the file. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>fi</entry><entry>
+<para>File information. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>The number of bytes read, or a negative error code on failure. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_tcfs_8c_source_1l00734">734</link> of file <link linkend="_tcfs_8c_source">tcfs.c</link>.</para>
+<para>
+References <link linkend="_crypt-utils_8h_source_1l00032">DECRYPT</link>, <link linkend="_crypt-utils_8c_source_1l00330">decrypt_string()</link>, <link linkend="_crypt-utils_8c_source_1l00063">do_crypt()</link>, <link linkend="_crypt-utils_8c_source_1l00420">encrypt_path()</link>, <link linkend="_tcfs_8c_source_1l00711">file_size()</link>, <link linkend="_tcfs__utils_8c_source_1l00019">get_user_name()</link>, <link linkend="_tcfs__utils_8c_source_1l00262">logMessage()</link>, <link linkend="_tcfs_8c_source_1l00052">password</link>, <link linkend="_tcfs__utils_8c_source_1l00053">prefix_path()</link>, <link linkend="_tcfs_8c_source_1l00047">root_path</link>, and <link linkend="_tcfs_8c_source_1l01199">tcfs_getxattr()</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="tcfs_8c_a745384a010e20b082db26e16702a0129_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_tcfs_8c_1a1a713549c892f56a6522e6487c581d69"/><section>
+    <title>tcfs_readdir()</title>
+<indexterm><primary>tcfs_readdir</primary><secondary>tcfs.c</secondary></indexterm>
+<indexterm><primary>tcfs.c</primary><secondary>tcfs_readdir</secondary></indexterm>
+<para><computeroutput>static int tcfs_readdir (const char * fuse_path, void * buf, fuse_fill_dir_t filler, off_t offset, struct fuse_file_info * fi, enum fuse_readdir_flags frdf)<computeroutput>[static]</computeroutput></computeroutput></para><para>
+
+<para>Reads a directory. </para>
+</para>
+
+<para>This function is called to read the contents of a directory.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>fuse_path</entry><entry>
+<para>The path to the directory. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>buf</entry><entry>
+<para>Buffer to fill with directory entries. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>filler</entry><entry>
+<para>Callback function to add entries to the buffer. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>offset</entry><entry>
+<para>The offset within the directory. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>fi</entry><entry>
+<para>File information. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>frdf</entry><entry>
+<para>Additional flags for readdir operation. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>true on success, a negative error code on failure. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_tcfs_8c_source_1l00196">196</link> of file <link linkend="_tcfs_8c_source">tcfs.c</link>.</para>
+<para>
+References <link linkend="_crypt-utils_8c_source_1l00406">decrypt_file_name_with_hex()</link>, <link linkend="_crypt-utils_8c_source_1l00645">decrypt_path()</link>, <link linkend="_crypt-utils_8c_source_1l00420">encrypt_path()</link>, <link linkend="_tcfs_8c_source_1l00023">ERR_invalid_enc_dir_name</link>, <link linkend="_tcfs__utils_8c_source_1l00262">logMessage()</link>, <link linkend="_tcfs_8c_source_1l00052">password</link>, <link linkend="_tcfs__utils_8c_source_1l00053">prefix_path()</link>, <link linkend="_tcfs_8c_source_1l00047">root_path</link>, and <link linkend="_tcfs_8c_source_1l00020">TCFS_SUCCESS</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="tcfs_8c_a1a713549c892f56a6522e6487c581d69_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_tcfs_8c_1acb1e081efcbf61b6f34e8bbdf7af8979"/><section>
+    <title>tcfs_readlink()</title>
+<indexterm><primary>tcfs_readlink</primary><secondary>tcfs.c</secondary></indexterm>
+<indexterm><primary>tcfs.c</primary><secondary>tcfs_readlink</secondary></indexterm>
+<para><computeroutput>static int tcfs_readlink (const char * fuse_path, char * buf, size_t size)<computeroutput>[static]</computeroutput></computeroutput></para><para>
+
+<para>Reads the target of a symbolic link. </para>
+</para>
+
+<para>This function is called to read the target of a symbolic link.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>fuse_path</entry><entry>
+<para>The path to the symbolic link. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>buf</entry><entry>
+<para>Buffer to fill with the link target. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>size</entry><entry>
+<para>The size of the buffer. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>true on success, a negative error code on failure. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_tcfs_8c_source_1l00162">162</link> of file <link linkend="_tcfs_8c_source">tcfs.c</link>.</para>
+<para>
+References <link linkend="_crypt-utils_8c_source_1l00420">encrypt_path()</link>, <link linkend="_tcfs__utils_8c_source_1l00262">logMessage()</link>, <link linkend="_tcfs_8c_source_1l00052">password</link>, <link linkend="_tcfs__utils_8c_source_1l00053">prefix_path()</link>, <link linkend="_tcfs_8c_source_1l00047">root_path</link>, and <link linkend="_tcfs_8c_source_1l00020">TCFS_SUCCESS</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="tcfs_8c_acb1e081efcbf61b6f34e8bbdf7af8979_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_tcfs_8c_1a1241e1fcfe6bb4a5d49d8c8d4e737bcd"/><section>
+    <title>tcfs_release()</title>
+<indexterm><primary>tcfs_release</primary><secondary>tcfs.c</secondary></indexterm>
+<indexterm><primary>tcfs.c</primary><secondary>tcfs_release</secondary></indexterm>
+<para><computeroutput>static int tcfs_release (const char * fuse_path, struct fuse_file_info * fi)<computeroutput>[static]</computeroutput></computeroutput></para><para>
+
+<para>Releases an open file. </para>
+</para>
+
+<para>This function is called to release an open file.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>fuse_path</entry><entry>
+<para>The path to the file. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>fi</entry><entry>
+<para>File information. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>true on success, a negative error code on failure. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_tcfs_8c_source_1l01111">1111</link> of file <link linkend="_tcfs_8c_source">tcfs.c</link>.</para>
+<para>
+References <link linkend="_crypt-utils_8c_source_1l00532">encrypt_path_and_filename()</link>, <link linkend="_tcfs__utils_8c_source_1l00262">logMessage()</link>, <link linkend="_tcfs_8c_source_1l00052">password</link>, <link linkend="_tcfs__utils_8c_source_1l00053">prefix_path()</link>, <link linkend="_tcfs_8c_source_1l00047">root_path</link>, and <link linkend="_tcfs_8c_source_1l00020">TCFS_SUCCESS</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="tcfs_8c_a1241e1fcfe6bb4a5d49d8c8d4e737bcd_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_tcfs_8c_1acfe2c6a9467bd25a5ba6dc1a65209262"/><section>
+    <title>tcfs_removexattr()</title>
+<indexterm><primary>tcfs_removexattr</primary><secondary>tcfs.c</secondary></indexterm>
+<indexterm><primary>tcfs.c</primary><secondary>tcfs_removexattr</secondary></indexterm>
+<para><computeroutput>static int tcfs_removexattr (const char * fuse_path, const char * name)<computeroutput>[static]</computeroutput></computeroutput></para><para>
+
+<para>Remove an extended attribute. </para>
+</para>
+
+<para>This function is called to remove an extended attribute for a specified file or directory.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>fuse_path</entry><entry>
+<para>The path of the file or directory within the TCFS. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>name</entry><entry>
+<para>The name of the extended attribute to remove. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>TCFS_SUCCESS on success, negative error code on failure.</para>
+</formalpara>
+The <computeroutput>removexattr</computeroutput> function is invoked to remove the specified extended attribute associated with a file or directory within the TCFS file system.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>fuse_path</entry><entry>
+<para>The path of the file or directory. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>name</entry><entry>
+<para>The name of the extended attribute to remove.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>On success, the function returns TCFS_SUCCESS. On failure, it returns a negative error code representing the type of error encountered.</para>
+</formalpara>
+<note><title>Note</title>
+
+<para><itemizedlist>
+<listitem>
+<para>The function must ensure the proper removal of the specified extended attribute.</para>
+</listitem><listitem>
+<para>Verify that the correct error codes are returned in case of failures.</para>
+</listitem><listitem>
+<para>Implement appropriate checks to handle different scenarios and edge cases. </para>
+</listitem></itemizedlist>
+</para>
+</note>
+</para>
+<para>
+Definition at line <link linkend="_tcfs_8c_source_1l01273">1273</link> of file <link linkend="_tcfs_8c_source">tcfs.c</link>.</para>
+<para>
+References <link linkend="_crypt-utils_8c_source_1l00532">encrypt_path_and_filename()</link>, <link linkend="_tcfs__utils_8c_source_1l00262">logMessage()</link>, <link linkend="_tcfs_8c_source_1l00052">password</link>, <link linkend="_tcfs__utils_8c_source_1l00053">prefix_path()</link>, <link linkend="_tcfs_8c_source_1l00047">root_path</link>, and <link linkend="_tcfs_8c_source_1l00020">TCFS_SUCCESS</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="tcfs_8c_acfe2c6a9467bd25a5ba6dc1a65209262_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_tcfs_8c_1aee96b732a1569a607e63bac6fbe5c403"/><section>
+    <title>tcfs_rename()</title>
+<indexterm><primary>tcfs_rename</primary><secondary>tcfs.c</secondary></indexterm>
+<indexterm><primary>tcfs.c</primary><secondary>tcfs_rename</secondary></indexterm>
+<para><computeroutput>static int tcfs_rename (const char * from, const char * to, unsigned int flags)<computeroutput>[static]</computeroutput></computeroutput></para><para>
+
+<para>Renames a file or a directory. </para>
+</para>
+
+<para>This function is called to rename a file or a directory.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>from</entry><entry>
+<para>Source path. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>to</entry><entry>
+<para>Target path. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>flags</entry><entry>
+<para>Flags for the rename operation. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>true on success, a negative error code on failure. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_tcfs_8c_source_1l00436">436</link> of file <link linkend="_tcfs_8c_source">tcfs.c</link>.</para>
+<para>
+References <link linkend="_crypt-utils_8c_source_1l00532">encrypt_path_and_filename()</link>, <link linkend="_tcfs__utils_8c_source_1l00262">logMessage()</link>, <link linkend="_tcfs_8c_source_1l00052">password</link>, <link linkend="_tcfs__utils_8c_source_1l00053">prefix_path()</link>, <link linkend="_tcfs_8c_source_1l00047">root_path</link>, and <link linkend="_tcfs_8c_source_1l00020">TCFS_SUCCESS</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="tcfs_8c_aee96b732a1569a607e63bac6fbe5c403_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_tcfs_8c_1a2853593dded66a922afbdc36afb15a50"/><section>
+    <title>tcfs_rmdir()</title>
+<indexterm><primary>tcfs_rmdir</primary><secondary>tcfs.c</secondary></indexterm>
+<indexterm><primary>tcfs.c</primary><secondary>tcfs_rmdir</secondary></indexterm>
+<para><computeroutput>static int tcfs_rmdir (const char * fuse_path)<computeroutput>[static]</computeroutput></computeroutput></para><para>
+
+<para>Removes a directory. </para>
+</para>
+
+<para>This function is called to remove a directory.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>fuse_path</entry><entry>
+<para>The path to the directory. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>true on success, a negative error code on failure. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_tcfs_8c_source_1l00377">377</link> of file <link linkend="_tcfs_8c_source">tcfs.c</link>.</para>
+<para>
+References <link linkend="_crypt-utils_8c_source_1l00420">encrypt_path()</link>, <link linkend="_tcfs__utils_8c_source_1l00262">logMessage()</link>, <link linkend="_tcfs_8c_source_1l00052">password</link>, <link linkend="_tcfs__utils_8c_source_1l00053">prefix_path()</link>, <link linkend="_tcfs_8c_source_1l00047">root_path</link>, and <link linkend="_tcfs_8c_source_1l00020">TCFS_SUCCESS</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="tcfs_8c_a2853593dded66a922afbdc36afb15a50_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_tcfs_8c_1ad3c328fdcd93c8203e1ce9c785fd3a14"/><section>
+    <title>tcfs_setxattr()</title>
+<indexterm><primary>tcfs_setxattr</primary><secondary>tcfs.c</secondary></indexterm>
+<indexterm><primary>tcfs.c</primary><secondary>tcfs_setxattr</secondary></indexterm>
+<para><computeroutput>static int tcfs_setxattr (const char * fuse_path, const char * name, const char * value, size_t size, int flags)<computeroutput>[static]</computeroutput></computeroutput></para><para>
+
+<para>Sets extended attributes. </para>
+</para>
+
+<para>This function is called to set extended attributes.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>fuse_path</entry><entry>
+<para>The path to the file. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>name</entry><entry>
+<para>Attribute name. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>value</entry><entry>
+<para>Attribute value. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>size</entry><entry>
+<para>Size of the value. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>flags</entry><entry>
+<para>Flags for the setxattr operation. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>true on success, a negative error code on failure. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_tcfs_8c_source_1l00979">979</link> of file <link linkend="_tcfs_8c_source">tcfs.c</link>.</para>
+<para>
+References <link linkend="_crypt-utils_8c_source_1l00420">encrypt_path()</link>, <link linkend="_tcfs__utils_8c_source_1l00262">logMessage()</link>, <link linkend="_tcfs_8c_source_1l00052">password</link>, <link linkend="_tcfs__utils_8c_source_1l00053">prefix_path()</link>, <link linkend="_tcfs_8c_source_1l00047">root_path</link>, and <link linkend="_tcfs_8c_source_1l00020">TCFS_SUCCESS</link>.</para>
+<para>
+Referenced by <link linkend="_tcfs_8c_source_1l01031">tcfs_create()</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="tcfs_8c_ad3c328fdcd93c8203e1ce9c785fd3a14_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="tcfs_8c_ad3c328fdcd93c8203e1ce9c785fd3a14_icgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_tcfs_8c_1ae14ebf4581d4cbc45737ae75af82a887"/><section>
+    <title>tcfs_statfs()</title>
+<indexterm><primary>tcfs_statfs</primary><secondary>tcfs.c</secondary></indexterm>
+<indexterm><primary>tcfs.c</primary><secondary>tcfs_statfs</secondary></indexterm>
+<para><computeroutput>static int tcfs_statfs (const char * fuse_path, struct statvfs * stbuf)<computeroutput>[static]</computeroutput></computeroutput></para><para>
+
+<para>Get file system statistics. </para>
+</para>
+
+<para>This function is called when the <computeroutput>statfs</computeroutput> operation is performed to obtain statistics about the TCFS file system.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>fuse_path</entry><entry>
+<para>The path of the file system for which statistics are requested. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>stbuf</entry><entry>
+<para>Buffer to store file system statistics. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>TCFS_SUCCESS on success, negative error code on failure.</para>
+</formalpara>
+The <computeroutput>tcfs_statfs</computeroutput> function is invoked to retrieve statistics about the TCFS file system. It may include information such as the total size, free space, and available space.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>fuse_path</entry><entry>
+<para>The path of the file system within the TCFS. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>stbuf</entry><entry>
+<para>Buffer to store the file system statistics.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>true on success. On failure, it returns a negative error code representing the type of error encountered.</para>
+</formalpara>
+<note><title>Note</title>
+
+<para><itemizedlist>
+<listitem>
+<para>The function is essential for providing information about the overall status of the TCFS file system.</para>
+</listitem><listitem>
+<para>Ensure that the file system statistics are accurately retrieved and reported in the <computeroutput>stbuf</computeroutput> buffer.</para>
+</listitem></itemizedlist>
+</para>
+</note>
+<warning><title>Warning</title>
+
+<para><itemizedlist>
+<listitem>
+<para>Verify that the function correctly handles errors and returns the appropriate error codes.</para>
+</listitem><listitem>
+<para>The accuracy of the reported statistics is crucial for applications that rely on file system information. </para>
+</listitem></itemizedlist>
+</para>
+</warning>
+</para>
+<para>
+Definition at line <link linkend="_tcfs_8c_source_1l00952">952</link> of file <link linkend="_tcfs_8c_source">tcfs.c</link>.</para>
+<para>
+References <link linkend="_tcfs__utils_8c_source_1l00262">logMessage()</link>, <link linkend="_tcfs__utils_8c_source_1l00053">prefix_path()</link>, <link linkend="_tcfs_8c_source_1l00047">root_path</link>, and <link linkend="_tcfs_8c_source_1l00020">TCFS_SUCCESS</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="tcfs_8c_ae14ebf4581d4cbc45737ae75af82a887_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_tcfs_8c_1ac1d223f9b998d5af6bec3947d03be0fc"/><section>
+    <title>tcfs_symlink()</title>
+<indexterm><primary>tcfs_symlink</primary><secondary>tcfs.c</secondary></indexterm>
+<indexterm><primary>tcfs.c</primary><secondary>tcfs_symlink</secondary></indexterm>
+<para><computeroutput>static int tcfs_symlink (const char * from, const char * to)<computeroutput>[static]</computeroutput></computeroutput></para><para>
+
+<para>Creates a symbolic link. </para>
+</para>
+
+<para>This function is called to create a symbolic link.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>from</entry><entry>
+<para>Source path of the symbolic link. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>to</entry><entry>
+<para>Target path of the symbolic link. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>true on success, a negative error code on failure. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_tcfs_8c_source_1l00404">404</link> of file <link linkend="_tcfs_8c_source">tcfs.c</link>.</para>
+<para>
+References <link linkend="_crypt-utils_8c_source_1l00532">encrypt_path_and_filename()</link>, <link linkend="_tcfs__utils_8c_source_1l00262">logMessage()</link>, <link linkend="_tcfs_8c_source_1l00052">password</link>, <link linkend="_tcfs__utils_8c_source_1l00053">prefix_path()</link>, <link linkend="_tcfs_8c_source_1l00047">root_path</link>, and <link linkend="_tcfs_8c_source_1l00020">TCFS_SUCCESS</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="tcfs_8c_ac1d223f9b998d5af6bec3947d03be0fc_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_tcfs_8c_1a7e7f7a65b4e76cc96505d0c6d62fba9c"/><section>
+    <title>tcfs_truncate()</title>
+<indexterm><primary>tcfs_truncate</primary><secondary>tcfs.c</secondary></indexterm>
+<indexterm><primary>tcfs.c</primary><secondary>tcfs_truncate</secondary></indexterm>
+<para><computeroutput>static int tcfs_truncate (const char * fuse_path, off_t size, struct fuse_file_info * fi)<computeroutput>[static]</computeroutput></computeroutput></para><para>
+
+<para>Truncates or extends the size of a file. </para>
+</para>
+
+<para>This function is called to truncate or extend the size of a file.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>fuse_path</entry><entry>
+<para>The path to the file. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>size</entry><entry>
+<para>New size of the file. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>fi</entry><entry>
+<para>File information. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>true on success, a negative error code on failure. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_tcfs_8c_source_1l00559">559</link> of file <link linkend="_tcfs_8c_source">tcfs.c</link>.</para>
+<para>
+References <link linkend="_crypt-utils_8c_source_1l00420">encrypt_path()</link>, <link linkend="_tcfs__utils_8c_source_1l00262">logMessage()</link>, <link linkend="_tcfs_8c_source_1l00052">password</link>, <link linkend="_tcfs__utils_8c_source_1l00053">prefix_path()</link>, <link linkend="_tcfs_8c_source_1l00047">root_path</link>, and <link linkend="_tcfs_8c_source_1l00020">TCFS_SUCCESS</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="tcfs_8c_a7e7f7a65b4e76cc96505d0c6d62fba9c_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_tcfs_8c_1ac6d3a8a626363a6f98de64e585968b09"/><section>
+    <title>tcfs_unlink()</title>
+<indexterm><primary>tcfs_unlink</primary><secondary>tcfs.c</secondary></indexterm>
+<indexterm><primary>tcfs.c</primary><secondary>tcfs_unlink</secondary></indexterm>
+<para><computeroutput>static int tcfs_unlink (const char * fuse_path)<computeroutput>[static]</computeroutput></computeroutput></para><para>
+
+<para>Removes a file. </para>
+</para>
+
+<para>This function is called to remove a file.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>fuse_path</entry><entry>
+<para>The path to the file. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>true on success, a negative error code on failure. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_tcfs_8c_source_1l00351">351</link> of file <link linkend="_tcfs_8c_source">tcfs.c</link>.</para>
+<para>
+References <link linkend="_crypt-utils_8c_source_1l00420">encrypt_path()</link>, <link linkend="_tcfs__utils_8c_source_1l00262">logMessage()</link>, <link linkend="_tcfs_8c_source_1l00052">password</link>, <link linkend="_tcfs__utils_8c_source_1l00053">prefix_path()</link>, <link linkend="_tcfs_8c_source_1l00047">root_path</link>, and <link linkend="_tcfs_8c_source_1l00020">TCFS_SUCCESS</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="tcfs_8c_ac6d3a8a626363a6f98de64e585968b09_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_tcfs_8c_1aca5dccf989dfc270ca31e1d8b20bb60e"/><section>
+    <title>tcfs_utimens()</title>
+<indexterm><primary>tcfs_utimens</primary><secondary>tcfs.c</secondary></indexterm>
+<indexterm><primary>tcfs.c</primary><secondary>tcfs_utimens</secondary></indexterm>
+<para><computeroutput>static int tcfs_utimens (const char * fuse_path, const struct timespec ts[2], struct fuse_file_info * fi)<computeroutput>[static]</computeroutput></computeroutput></para><para>
+
+<para>Modify the access and modification timestamps of a file in the TCFS file system. </para>
+</para>
+
+<para>This function is called when the <computeroutput>utimens</computeroutput> operation is performed on a file in the TCFS.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>fuse_path</entry><entry>
+<para>The path of the encrypted file for which timestamps need to be modified. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>ts</entry><entry>
+<para>An array of two timespec structures containing the new access and modification timestamps. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>fi</entry><entry>
+<para>File information structure provided by FUSE. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>TCFS_SUCCESS on success, negative error code on failure.</para>
+</formalpara>
+The <computeroutput>tcfs_utimens</computeroutput> function is invoked to modify the access and modification timestamps of a file within the TCFS. It decodes the encrypted file path, translates it into the actual file path on the underlying file system, and then uses the <computeroutput>utimes</computeroutput> function to apply the changes to the file timestamps.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>fuse_path</entry><entry>
+<para>The path of the encrypted file within the TCFS. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>ts</entry><entry>
+<para>An array containing two timespec structures. The first structure represents the new access timestamp, and the second represents the new modification timestamp. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>fi</entry><entry>
+<para>File information provided by FUSE, which may be used to obtain additional details about the file if needed.</para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>true on success. On failure, it returns a negative error code representing the type of error encountered. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_tcfs_8c_source_1l00612">612</link> of file <link linkend="_tcfs_8c_source">tcfs.c</link>.</para>
+<para>
+References <link linkend="_crypt-utils_8c_source_1l00420">encrypt_path()</link>, <link linkend="_tcfs__utils_8c_source_1l00262">logMessage()</link>, <link linkend="_tcfs_8c_source_1l00052">password</link>, <link linkend="_tcfs__utils_8c_source_1l00053">prefix_path()</link>, <link linkend="_tcfs_8c_source_1l00047">root_path</link>, and <link linkend="_tcfs_8c_source_1l00020">TCFS_SUCCESS</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="tcfs_8c_aca5dccf989dfc270ca31e1d8b20bb60e_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_tcfs_8c_1adaba2baa5a036b8f77ec187599498a66"/><section>
+    <title>tcfs_write()</title>
+<indexterm><primary>tcfs_write</primary><secondary>tcfs.c</secondary></indexterm>
+<indexterm><primary>tcfs.c</primary><secondary>tcfs_write</secondary></indexterm>
+<para><computeroutput>static int tcfs_write (const char * fuse_path, const char * buf, size_t size, off_t offset, struct fuse_file_info * fi)<computeroutput>[static]</computeroutput></computeroutput></para><para>
+
+<para>Writes data to an open file. </para>
+</para>
+
+<para>This function is called to write data to an open file.</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>fuse_path</entry><entry>
+<para>The path to the file. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>buf</entry><entry>
+<para>Data to write. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>size</entry><entry>
+<para>Number of bytes to write. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>offset</entry><entry>
+<para>Offset within the file. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>fi</entry><entry>
+<para>File information. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>The number of bytes written, or a negative error code on failure. </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="_tcfs_8c_source_1l00830">830</link> of file <link linkend="_tcfs_8c_source">tcfs.c</link>.</para>
+<para>
+References <link linkend="_crypt-utils_8h_source_1l00032">DECRYPT</link>, <link linkend="_crypt-utils_8c_source_1l00330">decrypt_string()</link>, <link linkend="_crypt-utils_8c_source_1l00063">do_crypt()</link>, <link linkend="_crypt-utils_8h_source_1l00027">ENCRYPT</link>, <link linkend="_crypt-utils_8c_source_1l00420">encrypt_path()</link>, <link linkend="_tcfs_8c_source_1l00711">file_size()</link>, <link linkend="_tcfs__utils_8c_source_1l00262">logMessage()</link>, <link linkend="_tcfs_8c_source_1l00052">password</link>, <link linkend="_tcfs__utils_8c_source_1l00053">prefix_path()</link>, <link linkend="_tcfs_8c_source_1l00047">root_path</link>, <link linkend="_tcfs_8c_source_1l00132">tcfs_access()</link>, <link linkend="_tcfs_8c_source_1l01199">tcfs_getxattr()</link>, and <link linkend="_tcfs_8c_source_1l00020">TCFS_SUCCESS</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="tcfs_8c_adaba2baa5a036b8f77ec187599498a66_cgraph.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+</section>
+<section>
+<title>Variable Documentation</title>
+<anchor xml:id="_tcfs_8c_1ab70c96531b1b652d70c221cfaf3207f3"/><section>
+    <title>argp</title>
+<indexterm><primary>argp</primary><secondary>tcfs.c</secondary></indexterm>
+<indexterm><primary>tcfs.c</primary><secondary>argp</secondary></indexterm>
+<para><computeroutput>struct <link linkend="_structargp">argp</link> <link linkend="_structargp">argp</link> = { <link linkend="_user__tcfs_8c_1ac88b371bbf7f89ab6440cb9fe629288c">options</link>, <link linkend="_user__tcfs_8c_1a35ee63236273ebb9325c444cacf00159">parse_opt</link>, <link linkend="_tcfs_8c_1a91b08784b3668a8a1fbe2eec1947fb9d">args_doc</link>, <link linkend="_user__tcfs_8c_1a3a72da5720995770156f9f9879ce6fa9">doc</link>, 0, NULL, NULL }<computeroutput>[static]</computeroutput></computeroutput></para><para>
+
+<para>TCFS argp structure. </para>
+</para>
+<para>
+Definition at line <link linkend="_tcfs_8c_source_1l01401">1401</link> of file <link linkend="_tcfs_8c_source">tcfs.c</link>.</para>
+</section>
+<anchor xml:id="_tcfs_8c_1aaa037e59f26a80a8a2e35e6f2364004d"/><section>
+    <title>argp_program_bug_address</title>
+<indexterm><primary>argp_program_bug_address</primary><secondary>tcfs.c</secondary></indexterm>
+<indexterm><primary>tcfs.c</primary><secondary>argp_program_bug_address</secondary></indexterm>
+<para><computeroutput>const char* argp_program_bug_address = &quot;carloalbertogiordano@duck.com&quot;</computeroutput></para><para>
+
+<para>TCFS bug report email address. </para>
+</para>
+<para>
+Definition at line <link linkend="_tcfs_8c_source_1l01332">1332</link> of file <link linkend="_tcfs_8c_source">tcfs.c</link>.</para>
+</section>
+<anchor xml:id="_tcfs_8c_1a62f73ea01c816f1996aed4c66f57c4fb"/><section>
+    <title>argp_program_version</title>
+<indexterm><primary>argp_program_version</primary><secondary>tcfs.c</secondary></indexterm>
+<indexterm><primary>tcfs.c</primary><secondary>argp_program_version</secondary></indexterm>
+<para><computeroutput>const char* argp_program_version = &quot;TCFS Alpha&quot;</computeroutput></para><para>
+
+<para>TCFS version information. </para>
+</para>
+<para>
+Definition at line <link linkend="_tcfs_8c_source_1l01327">1327</link> of file <link linkend="_tcfs_8c_source">tcfs.c</link>.</para>
+</section>
+<anchor xml:id="_tcfs_8c_1a91b08784b3668a8a1fbe2eec1947fb9d"/><section>
+    <title>args_doc</title>
+<indexterm><primary>args_doc</primary><secondary>tcfs.c</secondary></indexterm>
+<indexterm><primary>tcfs.c</primary><secondary>args_doc</secondary></indexterm>
+<para><computeroutput>char args_doc[] = &quot;&quot;<computeroutput>[static]</computeroutput></computeroutput></para><para>
+
+<para>Argument documentation string for TCFS. </para>
+</para>
+<para>
+Definition at line <link linkend="_tcfs_8c_source_1l01343">1343</link> of file <link linkend="_tcfs_8c_source">tcfs.c</link>.</para>
+</section>
+<anchor xml:id="_tcfs_8c_1af6164deb8a824f8cb2b9147cfc3174f5"/><section>
+    <title>doc</title>
+<indexterm><primary>doc</primary><secondary>tcfs.c</secondary></indexterm>
+<indexterm><primary>tcfs.c</primary><secondary>doc</secondary></indexterm>
+<para><computeroutput>char doc[]<computeroutput>[static]</computeroutput></computeroutput></para><emphasis role="strong">Initial value:</emphasis><programlisting linenumbering="unnumbered">=&#32;<emphasis role="stringliteral">&quot;This&#32;is&#32;an&#32;implementation&#32;on&#32;TCFS\ntcfs&#32;-s&#32;&lt;source_path&gt;&#32;&quot;</emphasis>
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="stringliteral">&quot;-d&#32;&lt;dest_path&gt;&#32;-p&#32;&lt;password&gt;&#32;[fuse&#32;arguments]&quot;</emphasis>
+</programlisting><para>
+
+<para>Documentation string for TCFS. </para>
+</para>
+<para>
+Definition at line <link linkend="_tcfs_8c_source_1l01337">1337</link> of file <link linkend="_tcfs_8c_source">tcfs.c</link>.</para>
+</section>
+<anchor xml:id="_tcfs_8c_1abc1fd3a47aea6a8944038c9100eb9135"/><section>
+    <title>options</title>
+<indexterm><primary>options</primary><secondary>tcfs.c</secondary></indexterm>
+<indexterm><primary>tcfs.c</primary><secondary>options</secondary></indexterm>
+<para><computeroutput>struct argp_option options[]<computeroutput>[static]</computeroutput></computeroutput></para><emphasis role="strong">Initial value:</emphasis><programlisting linenumbering="unnumbered">=&#32;{&#32;{&#32;<emphasis role="stringliteral">&quot;source&quot;</emphasis>,&#32;<emphasis role="charliteral">&apos;s&apos;</emphasis>,&#32;<emphasis role="stringliteral">&quot;SOURCE&quot;</emphasis>,&#32;0,&#32;<emphasis role="stringliteral">&quot;Source&#32;file&#32;path&quot;</emphasis>,&#32;-1&#32;},
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{&#32;<emphasis role="stringliteral">&quot;destination&quot;</emphasis>,&#32;<emphasis role="charliteral">&apos;d&apos;</emphasis>,&#32;<emphasis role="stringliteral">&quot;DESTINATION&quot;</emphasis>,&#32;0,&#32;<emphasis role="stringliteral">&quot;Destination&#32;file&#32;path&quot;</emphasis>,&#32;-1&#32;},
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{&#32;<emphasis role="stringliteral">&quot;password&quot;</emphasis>,&#32;<emphasis role="charliteral">&apos;p&apos;</emphasis>,&#32;<emphasis role="stringliteral">&quot;PASSWORD&quot;</emphasis>,&#32;0,&#32;<emphasis role="stringliteral">&quot;Password&quot;</emphasis>,&#32;-1&#32;},
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{&#32;NULL&#32;}&#32;}
+</programlisting><para>
+
+<para>TCFS command-line options. </para>
+</para>
+<para>
+Definition at line <link linkend="_tcfs_8c_source_1l01348">1348</link> of file <link linkend="_tcfs_8c_source">tcfs.c</link>.</para>
+</section>
+<anchor xml:id="_tcfs_8c_1a9dbb300e28bc21c8dab41b01883918eb"/><section>
+    <title>password</title>
+<indexterm><primary>password</primary><secondary>tcfs.c</secondary></indexterm>
+<indexterm><primary>tcfs.c</primary><secondary>password</secondary></indexterm>
+<para><computeroutput>password</computeroutput></para><para>
+
+<para>Contains the password passed to TCFS when started. </para>
+</para>
+<para>
+Definition at line <link linkend="_tcfs_8c_source_1l00052">52</link> of file <link linkend="_tcfs_8c_source">tcfs.c</link>.</para>
+<para>
+Referenced by <link linkend="_tcfs_8c_source_1l01412">main()</link>, <link linkend="_tcfs_8c_source_1l00132">tcfs_access()</link>, <link linkend="_tcfs_8c_source_1l00497">tcfs_chmod()</link>, <link linkend="_tcfs_8c_source_1l00530">tcfs_chown()</link>, <link linkend="_tcfs_8c_source_1l01031">tcfs_create()</link>, <link linkend="_tcfs_8c_source_1l01140">tcfs_fsync()</link>, <link linkend="_tcfs_8c_source_1l00099">tcfs_getattr()</link>, <link linkend="_tcfs_8c_source_1l01199">tcfs_getxattr()</link>, <link linkend="_tcfs_8c_source_1l00465">tcfs_link()</link>, <link linkend="_tcfs_8c_source_1l01229">tcfs_listxattr()</link>, <link linkend="_tcfs_8c_source_1l00324">tcfs_mkdir()</link>, <link linkend="_tcfs_8c_source_1l00286">tcfs_mknod()</link>, <link linkend="_tcfs_8c_source_1l00651">tcfs_open()</link>, <link linkend="_tcfs_8c_source_1l00067">tcfs_opendir()</link>, <link linkend="_tcfs_8c_source_1l00734">tcfs_read()</link>, <link linkend="_tcfs_8c_source_1l00196">tcfs_readdir()</link>, <link linkend="_tcfs_8c_source_1l00162">tcfs_readlink()</link>, <link linkend="_tcfs_8c_source_1l01111">tcfs_release()</link>, <link linkend="_tcfs_8c_source_1l01273">tcfs_removexattr()</link>, <link linkend="_tcfs_8c_source_1l00436">tcfs_rename()</link>, <link linkend="_tcfs_8c_source_1l00377">tcfs_rmdir()</link>, <link linkend="_tcfs_8c_source_1l00979">tcfs_setxattr()</link>, <link linkend="_tcfs_8c_source_1l00404">tcfs_symlink()</link>, <link linkend="_tcfs_8c_source_1l00559">tcfs_truncate()</link>, <link linkend="_tcfs_8c_source_1l00351">tcfs_unlink()</link>, <link linkend="_tcfs_8c_source_1l00612">tcfs_utimens()</link>, and <link linkend="_tcfs_8c_source_1l00830">tcfs_write()</link>.</para>
+</section>
+<anchor xml:id="_tcfs_8c_1ab33cf7205359ee0f91488c87df1577a0"/><section>
+    <title>root_path</title>
+<indexterm><primary>root_path</primary><secondary>tcfs.c</secondary></indexterm>
+<indexterm><primary>tcfs.c</primary><secondary>root_path</secondary></indexterm>
+<para><computeroutput>root_path</computeroutput></para><para>
+
+<para>Contains the fullpath to the mounted directory. </para>
+</para>
+<para>
+Definition at line <link linkend="_tcfs_8c_source_1l00047">47</link> of file <link linkend="_tcfs_8c_source">tcfs.c</link>.</para>
+<para>
+Referenced by <link linkend="_tcfs_8c_source_1l01412">main()</link>, <link linkend="_tcfs_8c_source_1l00132">tcfs_access()</link>, <link linkend="_tcfs_8c_source_1l00497">tcfs_chmod()</link>, <link linkend="_tcfs_8c_source_1l00530">tcfs_chown()</link>, <link linkend="_tcfs_8c_source_1l01031">tcfs_create()</link>, <link linkend="_tcfs_8c_source_1l01140">tcfs_fsync()</link>, <link linkend="_tcfs_8c_source_1l00099">tcfs_getattr()</link>, <link linkend="_tcfs_8c_source_1l01199">tcfs_getxattr()</link>, <link linkend="_tcfs_8c_source_1l00465">tcfs_link()</link>, <link linkend="_tcfs_8c_source_1l01229">tcfs_listxattr()</link>, <link linkend="_tcfs_8c_source_1l00324">tcfs_mkdir()</link>, <link linkend="_tcfs_8c_source_1l00286">tcfs_mknod()</link>, <link linkend="_tcfs_8c_source_1l00651">tcfs_open()</link>, <link linkend="_tcfs_8c_source_1l00067">tcfs_opendir()</link>, <link linkend="_tcfs_8c_source_1l00734">tcfs_read()</link>, <link linkend="_tcfs_8c_source_1l00196">tcfs_readdir()</link>, <link linkend="_tcfs_8c_source_1l00162">tcfs_readlink()</link>, <link linkend="_tcfs_8c_source_1l01111">tcfs_release()</link>, <link linkend="_tcfs_8c_source_1l01273">tcfs_removexattr()</link>, <link linkend="_tcfs_8c_source_1l00436">tcfs_rename()</link>, <link linkend="_tcfs_8c_source_1l00377">tcfs_rmdir()</link>, <link linkend="_tcfs_8c_source_1l00979">tcfs_setxattr()</link>, <link linkend="_tcfs_8c_source_1l00952">tcfs_statfs()</link>, <link linkend="_tcfs_8c_source_1l00404">tcfs_symlink()</link>, <link linkend="_tcfs_8c_source_1l00559">tcfs_truncate()</link>, <link linkend="_tcfs_8c_source_1l00351">tcfs_unlink()</link>, <link linkend="_tcfs_8c_source_1l00612">tcfs_utimens()</link>, and <link linkend="_tcfs_8c_source_1l00830">tcfs_write()</link>.</para>
+</section>
+<anchor xml:id="_tcfs_8c_1a53c12b201809f3165da8a2779d152b3a"/><section>
+    <title>tcfs_oper</title>
+<indexterm><primary>tcfs_oper</primary><secondary>tcfs.c</secondary></indexterm>
+<indexterm><primary>tcfs.c</primary><secondary>tcfs_oper</secondary></indexterm>
+<para><computeroutput>struct fuse_operations tcfs_oper<computeroutput>[static]</computeroutput></computeroutput></para><emphasis role="strong">Initial value:</emphasis><programlisting linenumbering="unnumbered">=&#32;{
+&#32;&#32;.opendir&#32;=&#32;<link linkend="_tcfs_8c_1a92ebab5be45b159c2850a47a5072b58d">tcfs_opendir</link>,
+&#32;&#32;.getattr&#32;=&#32;<link linkend="_tcfs_8c_1a411eac4511d0eae4ce78a2fd3d22ac8c">tcfs_getattr</link>,
+&#32;&#32;.access&#32;=&#32;<link linkend="_tcfs_8c_1a76af7857833338c73b9cafdce59ca01d">tcfs_access</link>,
+&#32;&#32;.readlink&#32;=&#32;<link linkend="_tcfs_8c_1acb1e081efcbf61b6f34e8bbdf7af8979">tcfs_readlink</link>,
+&#32;&#32;.readdir&#32;=&#32;<link linkend="_tcfs_8c_1a1a713549c892f56a6522e6487c581d69">tcfs_readdir</link>,
+&#32;&#32;.mknod&#32;=&#32;<link linkend="_tcfs_8c_1a151f53359474a95c52f5e79d438869bd">tcfs_mknod</link>,
+&#32;&#32;.mkdir&#32;=&#32;<link linkend="_tcfs_8c_1a682b553345b6d872453d1ace7339bb9e">tcfs_mkdir</link>,
+&#32;&#32;.symlink&#32;=&#32;<link linkend="_tcfs_8c_1ac1d223f9b998d5af6bec3947d03be0fc">tcfs_symlink</link>,
+&#32;&#32;.unlink&#32;=&#32;<link linkend="_tcfs_8c_1ac6d3a8a626363a6f98de64e585968b09">tcfs_unlink</link>,
+&#32;&#32;.rmdir&#32;=&#32;<link linkend="_tcfs_8c_1a2853593dded66a922afbdc36afb15a50">tcfs_rmdir</link>,
+&#32;&#32;.rename&#32;=&#32;<link linkend="_tcfs_8c_1aee96b732a1569a607e63bac6fbe5c403">tcfs_rename</link>,
+&#32;&#32;.link&#32;=&#32;<link linkend="_tcfs_8c_1a271df7bd878f5ed132e1f98487e8aebd">tcfs_link</link>,
+&#32;&#32;.chmod&#32;=&#32;<link linkend="_tcfs_8c_1a3cb10be0f6147667dc0e757636e9892f">tcfs_chmod</link>,
+&#32;&#32;.chown&#32;=&#32;<link linkend="_tcfs_8c_1afff31b61fa0723502cf85922816f14f9">tcfs_chown</link>,
+&#32;&#32;.truncate&#32;=&#32;<link linkend="_tcfs_8c_1a7e7f7a65b4e76cc96505d0c6d62fba9c">tcfs_truncate</link>,
+&#32;&#32;.utimens&#32;=&#32;<link linkend="_tcfs_8c_1aca5dccf989dfc270ca31e1d8b20bb60e">tcfs_utimens</link>,
+&#32;&#32;.open&#32;=&#32;<link linkend="_tcfs_8c_1af0c6a7d66189cc1e9fbfafba5255e60d">tcfs_open</link>,
+&#32;&#32;.read&#32;=&#32;<link linkend="_tcfs_8c_1a745384a010e20b082db26e16702a0129">tcfs_read</link>,
+&#32;&#32;.write&#32;=&#32;<link linkend="_tcfs_8c_1adaba2baa5a036b8f77ec187599498a66">tcfs_write</link>,
+&#32;&#32;.statfs&#32;=&#32;<link linkend="_tcfs_8c_1ae14ebf4581d4cbc45737ae75af82a887">tcfs_statfs</link>,
+&#32;&#32;.create&#32;=&#32;<link linkend="_tcfs_8c_1ad973ad9d6ab7d6276bf85cd8fecd0657">tcfs_create</link>,
+&#32;&#32;.release&#32;=&#32;<link linkend="_tcfs_8c_1a1241e1fcfe6bb4a5d49d8c8d4e737bcd">tcfs_release</link>,
+&#32;&#32;.fsync&#32;=&#32;<link linkend="_tcfs_8c_1a014853840814f4d5225e2e28e129f9e5">tcfs_fsync</link>,
+&#32;&#32;.setxattr&#32;=&#32;<link linkend="_tcfs_8c_1ad3c328fdcd93c8203e1ce9c785fd3a14">tcfs_setxattr</link>,
+&#32;&#32;.getxattr&#32;=&#32;<link linkend="_tcfs_8c_1a6a031c4e3c6dd59051c09789c4666657">tcfs_getxattr</link>,
+&#32;&#32;.listxattr&#32;=&#32;<link linkend="_tcfs_8c_1ae6edcf6a80467925a9a2112172395de1">tcfs_listxattr</link>,
+&#32;&#32;.removexattr&#32;=&#32;<link linkend="_tcfs_8c_1acfe2c6a9467bd25a5ba6dc1a65209262">tcfs_removexattr</link>,
+}
+</programlisting><para>
+
+<para>TCFS file system operations. </para>
+</para>
+
+<para>This structure defines the operations supported by the TCFS file system. </para>
+<para>
+Definition at line <link linkend="_tcfs_8c_source_1l01294">1294</link> of file <link linkend="_tcfs_8c_source">tcfs.c</link>.</para>
+<para>
+Referenced by <link linkend="_tcfs_8c_source_1l01412">main()</link>.</para>
+</section>
+</section>
+</section>

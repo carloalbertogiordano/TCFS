@@ -1,0 +1,119 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="namespacemain" kind="namespace" language="Python">
+    <compoundname>main</compoundname>
+    <sectiondef kind="var">
+      <memberdef kind="variable" id="namespacemain_1a57bcba58678fbd9dd73e9c194bdf38c0" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>main.win</definition>
+        <argsstring></argsstring>
+        <name>win</name>
+        <qualifiedname>main.win</qualifiedname>
+        <initializer>=  <ref refid="classui_1_1main__window_1_1Window" kindref="compound">Window</ref>(&quot;TCFS user helper&quot;, &quot;200x200&quot;)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="user/main.py" line="8" column="1" bodyfile="user/main.py" bodystart="8" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacemain_1a9e90a5249dbf0270acae944b9a31b8c0" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>main.init_env_butt</definition>
+        <argsstring></argsstring>
+        <name>init_env_butt</name>
+        <qualifiedname>main.init_env_butt</qualifiedname>
+        <initializer>=  win.add_button(&quot;Initialize the environment&quot;, <ref refid="namespacemain_1a63aa822869c78f66d4bbcc9fbf8ee0e7" kindref="member">foo</ref>, row=0, col=0)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="user/main.py" line="10" column="1" bodyfile="user/main.py" bodystart="10" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacemain_1a8f55266ef83cf13a1c30d1bf8bd065b0" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>main.mount_butt</definition>
+        <argsstring></argsstring>
+        <name>mount_butt</name>
+        <qualifiedname>main.mount_butt</qualifiedname>
+        <initializer>=  win.add_button(&quot;Mount TCFS&quot;, <ref refid="namespacemain_1a63aa822869c78f66d4bbcc9fbf8ee0e7" kindref="member">foo</ref>, row=1, col=0)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="user/main.py" line="11" column="1" bodyfile="user/main.py" bodystart="11" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacemain_1a30b47e625be9d65c53cd3cef9926f704" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>main.umount_butt</definition>
+        <argsstring></argsstring>
+        <name>umount_butt</name>
+        <qualifiedname>main.umount_butt</qualifiedname>
+        <initializer>=  win.add_button(&quot;Umount TCFS&quot;, <ref refid="namespacemain_1a63aa822869c78f66d4bbcc9fbf8ee0e7" kindref="member">foo</ref>, row=2, col=0)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="user/main.py" line="12" column="1" bodyfile="user/main.py" bodystart="12" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacemain_1a7adbb7f4a582ed0929b7db6fd0991278" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>main.shared_butt</definition>
+        <argsstring></argsstring>
+        <name>shared_butt</name>
+        <qualifiedname>main.shared_butt</qualifiedname>
+        <initializer>=  win.add_button(&quot;Threshold share&quot;, <ref refid="namespacemain_1a63aa822869c78f66d4bbcc9fbf8ee0e7" kindref="member">foo</ref>, row=3, col=0)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="user/main.py" line="13" column="1" bodyfile="user/main.py" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacemain_1a4b95678c3a22414574c3b2dd83d89c83" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>main.logout_butt</definition>
+        <argsstring></argsstring>
+        <name>logout_butt</name>
+        <qualifiedname>main.logout_butt</qualifiedname>
+        <initializer>=  win.add_button(&quot;Logout&quot;, <ref refid="namespacemain_1a63aa822869c78f66d4bbcc9fbf8ee0e7" kindref="member">foo</ref>, row=4, col=0)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="user/main.py" line="14" column="1" bodyfile="user/main.py" bodystart="14" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="namespacemain_1a63aa822869c78f66d4bbcc9fbf8ee0e7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>main.foo</definition>
+        <argsstring>()</argsstring>
+        <name>foo</name>
+        <qualifiedname>main.foo</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="user/main.py" line="4" column="1" bodyfile="user/main.py" bodystart="4" bodyend="7"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="user/main.py" line="1" column="1"/>
+  </compounddef>
+</doxygen>

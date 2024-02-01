@@ -1,0 +1,11 @@
+<map id="setup_tcfs_mount_folder" name="setup_tcfs_mount_folder">
+<area shape="rect" id="Node000001" title="Creates the .tcfs folder in the user HOME. Then this creates a folder with a random name so that crea..." alt="" coords="625,13,789,40"/>
+<area shape="rect" id="Node000002" href="$tcfs__helper__tools_8c.html#ae930b52ef70f640efde8bda574b6b234" title="Create a temporary folder in HOME/.tcfs." alt="" coords="413,5,577,48"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="609,29,577,29,577,24,609,24"/>
+<area shape="rect" id="Node000003" href="$tcfs__helper__tools_8c.html#a816c2bcaa3d059abc79cb9b021957dbf" title=" " alt="" coords="229,13,365,40"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="399,29,366,29,366,24,399,24"/>
+<area shape="rect" id="Node000004" href="$tcfs__helper__tools_8c.html#a769edcf066efb97f5ae3a81e3507a793" title="Execute the mount of either a Network FS (for ex NFS), Local FS (for ex a block device),..." alt="" coords="103,13,181,40"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="214,29,181,29,181,24,214,24"/>
+<area shape="rect" id="Node000005" href="$user__tcfs_8c.html#a0ddf1224851353fc92bfbff6f499fa97" title="main function for the TCFS user helper program." alt="" coords="5,13,55,40"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="88,29,55,29,55,24,88,24"/>
+</map>

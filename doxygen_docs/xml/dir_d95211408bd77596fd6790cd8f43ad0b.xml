@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="dir_d95211408bd77596fd6790cd8f43ad0b" kind="dir">
+    <compoundname>userspace-module/utils/tcfs_utils</compoundname>
+    <innerfile refid="tcfs__utils_8c">tcfs_utils.c</innerfile>
+    <innerfile refid="tcfs__utils_8h">tcfs_utils.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="userspace-module/utils/tcfs_utils/"/>
+  </compounddef>
+</doxygen>

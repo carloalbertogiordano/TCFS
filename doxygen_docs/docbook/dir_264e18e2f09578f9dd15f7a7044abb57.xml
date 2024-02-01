@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_dir_264e18e2f09578f9dd15f7a7044abb57" xml:lang="en-US">
+<title>userspace-module/utils/crypt-utils Directory Reference</title>
+<indexterm><primary>userspace-module/utils/crypt-utils Directory Reference</primary></indexterm>
+Directory dependency graph for crypt-utils:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="dir_264e18e2f09578f9dd15f7a7044abb57_dep.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+<simplesect>
+    <title>Files    </title>
+        <itemizedlist>
+            <listitem><para>file <link linkend="_crypt-utils_8c">crypt-utils.c</link></para>
+
+<para>Implementation file for cryptographic utility functions. </para>
+</listitem>
+            <listitem><para>file <link linkend="_crypt-utils_8h">crypt-utils.h</link></para>
+
+<para>Header file for <link linkend="_crypt-utils_8c">crypt-utils.c</link>, which provides functions for encryption and decryption using AES-256, as well as other utility functions. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+</section>

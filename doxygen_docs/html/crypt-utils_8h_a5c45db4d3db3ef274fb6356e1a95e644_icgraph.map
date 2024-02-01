@@ -1,0 +1,25 @@
+<map id="encrypt_path_and_filename" name="encrypt_path_and_filename">
+<area shape="rect" id="Node000001" title="Encrypts the given filename with its path using a specified key." alt="" coords="299,208,479,235"/>
+<area shape="rect" id="Node000002" href="$tcfs_8c.html#ad973ad9d6ab7d6276bf85cd8fecd0657" title="Create and open a file." alt="" coords="148,5,235,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="371,197,323,123,288,82,249,46,230,35,233,30,253,42,292,79,327,120,376,194"/>
+<area shape="rect" id="Node000003" href="$tcfs_8c.html#a014853840814f4d5225e2e28e129f9e5" title="Synchronizes file contents." alt="" coords="150,56,233,83"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="364,199,314,148,250,97,229,86,231,81,252,92,318,144,368,195"/>
+<area shape="rect" id="Node000004" href="$tcfs_8c.html#a6a031c4e3c6dd59051c09789c4666657" title="Get extended attribute data." alt="" coords="144,107,239,133"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="351,203,250,148,225,136,227,131,252,143,353,198"/>
+<area shape="rect" id="Node000007" href="$tcfs_8c.html#a271df7bd878f5ed132e1f98487e8aebd" title="Creates a hard link." alt="" coords="156,157,227,184"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="319,206,226,182,227,177,321,201"/>
+<area shape="rect" id="Node000008" href="$tcfs_8c.html#ae6edcf6a80467925a9a2112172395de1" title="Lists extended attributes." alt="" coords="145,208,238,235"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="285,224,238,224,238,219,285,219"/>
+<area shape="rect" id="Node000009" href="$tcfs_8c.html#a1241e1fcfe6bb4a5d49d8c8d4e737bcd" title="Releases an open file." alt="" coords="145,259,238,285"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="321,241,238,263,237,258,319,236"/>
+<area shape="rect" id="Node000010" href="$tcfs_8c.html#acfe2c6a9467bd25a5ba6dc1a65209262" title="Remove an extended attribute." alt="" coords="132,309,251,336"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="353,245,252,300,227,311,225,306,250,295,351,240"/>
+<area shape="rect" id="Node000011" href="$tcfs_8c.html#aee96b732a1569a607e63bac6fbe5c403" title="Renames a file or a directory." alt="" coords="145,360,238,387"/>
+<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="368,248,318,298,252,350,231,362,229,357,250,346,314,294,364,244"/>
+<area shape="rect" id="Node000012" href="$tcfs_8c.html#ac1d223f9b998d5af6bec3947d03be0fc" title="Creates a symbolic link." alt="" coords="144,411,239,437"/>
+<area shape="poly" id="edge11_Node000001_Node000012" title=" " alt="" coords="376,249,327,323,292,364,253,401,233,413,230,408,249,397,288,360,323,320,371,246"/>
+<area shape="rect" id="Node000005" href="$tcfs_8c.html#a745384a010e20b082db26e16702a0129" title="Reads data from an open file." alt="" coords="7,81,82,108"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="129,112,82,104,83,98,130,107"/>
+<area shape="rect" id="Node000006" href="$tcfs_8c.html#adaba2baa5a036b8f77ec187599498a66" title="Writes data to an open file." alt="" coords="5,132,84,159"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="130,133,84,141,84,136,129,128"/>
+</map>

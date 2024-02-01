@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_todo" xml:lang="en-US">
+<title>Todo List</title>
+<indexterm><primary>Todo List</primary></indexterm>
+
+<para><variablelist>
+<varlistentry><term>Member <link linkend="_tcfs__helper__tools_8c_1a1bef5d2cdd74c07b3ae025c6424dfbd5">get_pass</link>  (char *pw)</term>
+<listitem>
+<para><anchor xml:id="_todo_1_todo000001"/>This will be changed when a public/private key model will be avilable to TCFS userspace module </para>
+</listitem></varlistentry>
+</variablelist>
+</para>
+</section>

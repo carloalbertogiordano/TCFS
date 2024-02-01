@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_dir_c891d3656b12946829f8f9d8986f4c41" xml:lang="en-US">
+<title>userspace-module/utils Directory Reference</title>
+<indexterm><primary>userspace-module/utils Directory Reference</primary></indexterm>
+Directory dependency graph for utils:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="dir_c891d3656b12946829f8f9d8986f4c41_dep.svg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+<simplesect>
+    <title>Directories    </title>
+        <itemizedlist>
+            <listitem><para>directory <link linkend="_dir_264e18e2f09578f9dd15f7a7044abb57">crypt-utils</link></para>
+</listitem>
+            <listitem><para>directory <link linkend="_dir_b81a58de3bb52b393027480da145ec9d">password_manager</link></para>
+</listitem>
+            <listitem><para>directory <link linkend="_dir_d95211408bd77596fd6790cd8f43ad0b">tcfs_utils</link></para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+</section>

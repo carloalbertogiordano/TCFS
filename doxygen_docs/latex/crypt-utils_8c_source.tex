@@ -1,0 +1,741 @@
+\doxysection{crypt-\/utils.c}
+\hypertarget{crypt-utils_8c_source}{}\label{crypt-utils_8c_source}\index{userspace-\/module/utils/crypt-\/utils/crypt-\/utils.c@{userspace-\/module/utils/crypt-\/utils/crypt-\/utils.c}}
+\mbox{\hyperlink{crypt-utils_8c}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00001}00001\ }
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00014}00014\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{crypt-utils_8h}{crypt-\/utils.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00021}\mbox{\hyperlink{crypt-utils_8c_afcf795f5a96fd55561abe69f56224630}{00021}}\ \textcolor{preprocessor}{\#define\ BLOCKSIZE\ 1024}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00028}\mbox{\hyperlink{crypt-utils_8c_ad7bb30dbf5882fdf05331918e8a0cc84}{00028}}\ \textcolor{preprocessor}{\#define\ IV\_SIZE\ 32}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00034}\mbox{\hyperlink{crypt-utils_8c_a2d996237e082b78b41771b5aa1a6eae1}{00034}}\ \textcolor{preprocessor}{\#define\ KEY\_SIZE\ 32}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00035}00035\ }
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00062}00062\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{int}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00063}\mbox{\hyperlink{crypt-utils_8c_a94b5b388b3f00982ccee72b192077e76}{00063}}\ \mbox{\hyperlink{crypt-utils_8c_a94b5b388b3f00982ccee72b192077e76}{do\_crypt}}\ (FILE\ *in,\ FILE\ *out,\ \textcolor{keywordtype}{int}\ action,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *key\_str)}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00064}00064\ \{}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00065}00065\ \ \ \textcolor{comment}{/*\ Buffers\ */}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00066}00066\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ inbuf[\mbox{\hyperlink{crypt-utils_8c_afcf795f5a96fd55561abe69f56224630}{BLOCKSIZE}}];}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00067}00067\ \ \ \textcolor{keywordtype}{int}\ inlen;}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00068}00068\ \ \ \textcolor{comment}{/*\ Allow\ enough\ space\ in\ output\ buffer\ for\ additional\ cipher\ block\ */}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00069}00069\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ outbuf[\mbox{\hyperlink{crypt-utils_8c_afcf795f5a96fd55561abe69f56224630}{BLOCKSIZE}}\ +\ EVP\_MAX\_BLOCK\_LENGTH];}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00070}00070\ \ \ \textcolor{keywordtype}{int}\ outlen;}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00071}00071\ \ \ \textcolor{keywordtype}{int}\ writelen;}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00072}00072\ }
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00073}00073\ \ \ \textcolor{comment}{/*\ OpenSSL\ libcrypto\ vars\ */}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00074}00074\ \ \ EVP\_CIPHER\_CTX\ *ctx;}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00075}00075\ \ \ ctx\ =\ EVP\_CIPHER\_CTX\_new\ ();}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00076}00076\ }
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00077}00077\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ key[\mbox{\hyperlink{crypt-utils_8c_a2d996237e082b78b41771b5aa1a6eae1}{KEY\_SIZE}}];}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00078}00078\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ iv[\mbox{\hyperlink{crypt-utils_8c_ad7bb30dbf5882fdf05331918e8a0cc84}{IV\_SIZE}}];}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00079}00079\ \ \ \textcolor{keywordtype}{int}\ nrounds\ =\ 5;}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00080}00080\ }
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00081}00081\ \ \ \textcolor{comment}{/*\ tmp\ vars\ */}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00082}00082\ \ \ \textcolor{keywordtype}{int}\ i;}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00083}00083\ \ \ \textcolor{comment}{/*\ Setup\ Encryption\ Key\ and\ Cipher\ Engine\ if\ in\ cipher\ mode\ */}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00084}00084\ \ \ \textcolor{keywordflow}{if}\ (action\ >=\ 0)}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00085}00085\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00086}00086\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!key\_str)}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00087}00087\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00088}00088\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Error\ */}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00089}00089\ \ \ \ \ \ \ \ \ \ \ fprintf\ (stderr,\ \textcolor{stringliteral}{"{}Key\_str\ must\ not\ be\ NULL\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00090}00090\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00091}00091\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00092}00092\ \ \ \ \ \ \ \textcolor{comment}{/*\ Build\ Key\ from\ String\ */}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00093}00093\ \ \ \ \ \ \ i\ =\ EVP\_BytesToKey\ (EVP\_aes\_256\_cbc\ (),\ EVP\_sha1\ (),\ NULL,\ key\_str,}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00094}00094\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\textcolor{keywordtype}{int})strlen\ ((\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *)key\_str),\ nrounds,\ key,}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00095}00095\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ iv);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00096}00096\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (i\ !=\ 32)}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00097}00097\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00098}00098\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Error\ */}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00099}00099\ \ \ \ \ \ \ \ \ \ \ fprintf\ (stderr,\ \textcolor{stringliteral}{"{}Key\ size\ is\ \%d\ bits\ -\/\ should\ be\ 256\ bits\(\backslash\)n"{}},}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00100}00100\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ i\ *\ 8);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00101}00101\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00102}00102\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00103}00103\ \ \ \ \ \ \ \textcolor{comment}{/*\ Init\ Engine\ */}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00104}00104\ \ \ \ \ \ \ EVP\_CIPHER\_CTX\_init\ (ctx);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00105}00105\ \ \ \ \ \ \ EVP\_CipherInit\_ex\ (ctx,\ EVP\_aes\_256\_cbc\ (),\ NULL,\ key,\ iv,\ action);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00106}00106\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00107}00107\ }
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00108}00108\ \ \ \textcolor{comment}{/*\ Loop\ through\ Input\ File*/}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00109}00109\ \ \ \textcolor{keywordflow}{for}\ (;;)}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00110}00110\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00111}00111\ \ \ \ \ \ \ \textcolor{comment}{/*\ Read\ Block\ */}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00112}00112\ \ \ \ \ \ \ inlen\ =\ fread\ (inbuf,\ \textcolor{keyword}{sizeof}\ (*inbuf),\ \mbox{\hyperlink{crypt-utils_8c_afcf795f5a96fd55561abe69f56224630}{BLOCKSIZE}},\ in);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00113}00113\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (inlen\ <=\ 0)}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00114}00114\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00115}00115\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ EOF\ -\/>\ Break\ Loop\ */}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00116}00116\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00117}00117\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00118}00118\ }
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00119}00119\ \ \ \ \ \ \ \textcolor{comment}{/*\ If\ in\ cipher\ mode,\ perform\ cipher\ transform\ on\ block\ */}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00120}00120\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (action\ >=\ 0)}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00121}00121\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00122}00122\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!EVP\_CipherUpdate\ (ctx,\ outbuf,\ \&outlen,\ inbuf,\ inlen))}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00123}00123\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00124}00124\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Error\ */}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00125}00125\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ EVP\_CIPHER\_CTX\_cleanup\ (ctx);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00126}00126\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00127}00127\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00128}00128\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00129}00129\ \ \ \ \ \ \ \textcolor{comment}{/*\ If\ in\ pass-\/through\ mode.\ copy\ block\ as\ is\ */}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00130}00130\ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00131}00131\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00132}00132\ \ \ \ \ \ \ \ \ \ \ memcpy\ (outbuf,\ inbuf,\ inlen);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00133}00133\ \ \ \ \ \ \ \ \ \ \ outlen\ =\ inlen;}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00134}00134\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00135}00135\ }
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00136}00136\ \ \ \ \ \ \ \textcolor{comment}{/*\ Write\ Block\ */}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00137}00137\ \ \ \ \ \ \ writelen\ =\ fwrite\ (outbuf,\ \textcolor{keyword}{sizeof}\ (*outbuf),\ outlen,\ out);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00138}00138\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (writelen\ !=\ outlen)}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00139}00139\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00140}00140\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Error\ */}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00141}00141\ \ \ \ \ \ \ \ \ \ \ perror\ (\textcolor{stringliteral}{"{}fwrite\ error"{}});}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00142}00142\ \ \ \ \ \ \ \ \ \ \ EVP\_CIPHER\_CTX\_cleanup\ (ctx);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00143}00143\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00144}00144\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00145}00145\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00146}00146\ }
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00147}00147\ \ \ \textcolor{comment}{/*\ If\ in\ cipher\ mode,\ handle\ necessary\ padding\ */}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00148}00148\ \ \ \textcolor{keywordflow}{if}\ (action\ >=\ 0)}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00149}00149\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00150}00150\ \ \ \ \ \ \ \textcolor{comment}{/*\ Handle\ remaining\ cipher\ block\ +\ padding\ */}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00151}00151\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!EVP\_CipherFinal\_ex\ (ctx,\ outbuf,\ \&outlen))}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00152}00152\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00153}00153\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Error\ */}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00154}00154\ \ \ \ \ \ \ \ \ \ \ EVP\_CIPHER\_CTX\_cleanup\ (ctx);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00155}00155\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00156}00156\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00157}00157\ \ \ \ \ \ \ \textcolor{comment}{/*\ Write\ remainign\ cipher\ block\ +\ padding*/}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00158}00158\ \ \ \ \ \ \ fwrite\ (outbuf,\ \textcolor{keyword}{sizeof}\ (*inbuf),\ outlen,\ out);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00159}00159\ \ \ \ \ \ \ EVP\_CIPHER\_CTX\_cleanup\ (ctx);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00160}00160\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00161}00161\ }
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00162}00162\ \ \ \textcolor{comment}{/*\ Success\ */}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00163}00163\ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00164}00164\ \}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00165}00165\ }
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00173}00173\ \textcolor{keywordtype}{int}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00174}\mbox{\hyperlink{crypt-utils_8c_aa377df016f593aa771013264acc9b86b}{00174}}\ \mbox{\hyperlink{crypt-utils_8c_aa377df016f593aa771013264acc9b86b}{check\_entropy}}\ (\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00175}00175\ \{}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00176}00176\ \ \ FILE\ *entropy\_file\ =\ fopen\ (\textcolor{stringliteral}{"{}/proc/sys/kernel/random/entropy\_avail"{}},\ \textcolor{stringliteral}{"{}r"{}});}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00177}00177\ \ \ \textcolor{keywordflow}{if}\ (entropy\_file\ ==\ NULL)}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00178}00178\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00179}00179\ \ \ \ \ \ \ perror\ (\textcolor{stringliteral}{"{}Err:\ Cannot\ open\ entropy\ file"{}});}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00180}00180\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00181}00181\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00182}00182\ }
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00183}00183\ \ \ \textcolor{keywordtype}{int}\ entropy\_value;}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00184}00184\ \ \ \textcolor{keywordflow}{if}\ (fscanf\ (entropy\_file,\ \textcolor{stringliteral}{"{}\%d"{}},\ \&entropy\_value)\ !=\ \textcolor{keyword}{true})}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00185}00185\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00186}00186\ \ \ \ \ \ \ perror\ (\textcolor{stringliteral}{"{}Err:\ Cannot\ estimate\ entropy"{}});}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00187}00187\ \ \ \ \ \ \ fclose\ (entropy\_file);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00188}00188\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00189}00189\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00190}00190\ }
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00191}00191\ \ \ fclose\ (entropy\_file);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00192}00192\ \ \ \textcolor{keywordflow}{return}\ entropy\_value;}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00193}00193\ \}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00194}00194\ }
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00201}00201\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00202}\mbox{\hyperlink{crypt-utils_8c_a53b5762e00daafcc3644c03e2fd9b2c4}{00202}}\ \mbox{\hyperlink{crypt-utils_8c_a53b5762e00daafcc3644c03e2fd9b2c4}{add\_entropy}}\ (\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00203}00203\ \{}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00204}00204\ \ \ FILE\ *urandom\ =\ fopen\ (\textcolor{stringliteral}{"{}/dev/urandom"{}},\ \textcolor{stringliteral}{"{}rb"{}});}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00205}00205\ \ \ \textcolor{keywordflow}{if}\ (urandom\ ==\ NULL)}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00206}00206\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00207}00207\ \ \ \ \ \ \ perror\ (\textcolor{stringliteral}{"{}Err:\ Cannot\ open\ /dev/urandom"{}});}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00208}00208\ \ \ \ \ \ \ exit\ (EXIT\_FAILURE);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00209}00209\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00210}00210\ }
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00211}00211\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ random\_data[32];}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00212}00212\ \ \ \textcolor{keywordtype}{size\_t}\ bytes\_read\ =\ fread\ (random\_data,\ 1,\ \textcolor{keyword}{sizeof}\ (random\_data),\ urandom);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00213}00213\ \ \ fclose\ (urandom);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00214}00214\ }
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00215}00215\ \ \ \textcolor{keywordflow}{if}\ (bytes\_read\ !=\ \textcolor{keyword}{sizeof}\ (random\_data))}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00216}00216\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00217}00217\ \ \ \ \ \ \ fprintf\ (stderr,\ \textcolor{stringliteral}{"{}Err:\ Cannot\ read\ data\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00218}00218\ \ \ \ \ \ \ exit\ (EXIT\_FAILURE);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00219}00219\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00220}00220\ }
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00221}00221\ \ \ \textcolor{comment}{//\ Use\ random\ data\ to\ fill\ up\ entropy}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00222}00222\ \ \ RAND\_add\ (random\_data,\ \textcolor{keyword}{sizeof}\ (random\_data),}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00223}00223\ \ \ \ \ \ \ \ \ \ \ \ \ 0.5);\ \textcolor{comment}{//\ 0.5\ is\ an\ arbitrary\ weight}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00224}00224\ }
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00225}00225\ \ \ fprintf\ (stdout,\ \textcolor{stringliteral}{"{}Entropy\ added\ successfully!\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00226}00226\ \}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00227}00227\ }
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00234}00234\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00235}\mbox{\hyperlink{crypt-utils_8c_a8845f5705eaafda836aac91d5881876f}{00235}}\ \mbox{\hyperlink{crypt-utils_8c_a8845f5705eaafda836aac91d5881876f}{generate\_key}}\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *destination)}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00236}00236\ \{}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00237}00237\ \ \ fprintf\ (stdout,\ \textcolor{stringliteral}{"{}Generating\ a\ new\ key...\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00238}00238\ }
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00239}00239\ \ \ \textcolor{comment}{//\ Why?\ Because\ if\ we\ try\ to\ create\ a\ large\ number\ of\ files\ there\ might\ not}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00240}00240\ \ \ \textcolor{comment}{//\ be\ enough\ random\ bytes\ in\ the\ system\ to\ generate\ a\ key}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00241}00241\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ 10;\ i++)}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00242}00242\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00243}00243\ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ entropy\ =\ \mbox{\hyperlink{crypt-utils_8c_aa377df016f593aa771013264acc9b86b}{check\_entropy}}\ ();}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00244}00244\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (entropy\ <\ 128)}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00245}00245\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00246}00246\ \ \ \ \ \ \ \ \ \ \ fprintf\ (stderr,\ \textcolor{stringliteral}{"{}WARN:\ not\ enough\ entropy,\ creating\ some...\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00247}00247\ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{crypt-utils_8c_a53b5762e00daafcc3644c03e2fd9b2c4}{add\_entropy}}\ ();}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00248}00248\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00249}00249\ }
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00250}00250\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (RAND\_bytes\ (destination,\ 32)\ !=\ \textcolor{keyword}{true})}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00251}00251\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00252}00252\ \ \ \ \ \ \ \ \ \ \ fprintf\ (stderr,\ \textcolor{stringliteral}{"{}Err:\ Cannot\ generate\ key\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00253}00253\ \ \ \ \ \ \ \ \ \ \ destination\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00254}00254\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00255}00255\ }
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00256}00256\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (strlen\ ((\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *)destination)\ ==\ 32)}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00257}00257\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00258}00258\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00259}00259\ }
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00260}00260\ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{crypt-utils_8c_a36c2342a7c47b8f41bf628bf473b1c97}{is\_valid\_key}}\ (destination)\ ==\ \textcolor{keyword}{false})}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00261}00261\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00262}00262\ \ \ \ \ \ \ \mbox{\hyperlink{tcfs__utils_8c_a62b66e43a7ad8b8cf9fcad67f71a7a8b}{logMessage}}(\textcolor{stringliteral}{"{}ERR:\ Generated\ key\ is\ invalid\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00263}00263\ \ \ \ \ \ \ \mbox{\hyperlink{tcfs__utils_8c_a8c1c24299a2b01f6157b051cb56ebc52}{print\_aes\_key}}\ (destination);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00264}00264\ \ \ \ \ \ \ destination\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00265}00265\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00266}00266\ \}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00267}00267\ }
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00277}00277\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00278}\mbox{\hyperlink{crypt-utils_8c_aa926098a8843cf0ab6bd7eb8b3bbd2e6}{00278}}\ \mbox{\hyperlink{crypt-utils_8c_aa926098a8843cf0ab6bd7eb8b3bbd2e6}{encrypt\_string}}\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *plaintext,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *key,}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00279}00279\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ *encrypted\_key\_len)}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00280}00280\ \{}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00281}00281\ \ \ EVP\_CIPHER\_CTX\ *ctx;}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00282}00282\ \ \ \textcolor{keyword}{const}\ EVP\_CIPHER\ *cipher\ =\ EVP\_aes\_256\_cbc\ ();}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00283}00283\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ iv[AES\_BLOCK\_SIZE];}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00284}00284\ \ \ memset\ (iv,\ 0,\ AES\_BLOCK\_SIZE);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00285}00285\ }
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00286}00286\ \ \ ctx\ =\ EVP\_CIPHER\_CTX\_new\ ();}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00287}00287\ \ \ \textcolor{keywordflow}{if}\ (!ctx)}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00288}00288\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00289}00289\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ NULL;}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00290}00290\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00291}00291\ }
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00292}00292\ \ \ EVP\_EncryptInit\_ex\ (ctx,\ cipher,\ NULL,\ (\textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *)key,\ iv);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00293}00293\ }
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00294}00294\ \ \ \textcolor{keywordtype}{size\_t}\ plaintext\_len\ =\ strlen\ ((\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *)plaintext);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00295}00295\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ ciphertext[plaintext\_len\ +\ AES\_BLOCK\_SIZE];}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00296}00296\ \ \ memset\ (ciphertext,\ 0,\ \textcolor{keyword}{sizeof}\ (ciphertext));}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00297}00297\ }
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00298}00298\ \ \ \textcolor{keywordtype}{int}\ len,\ total\_len\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00299}00299\ \ \ EVP\_EncryptUpdate\ (ctx,\ ciphertext,\ \&len,\ plaintext,\ (\textcolor{keywordtype}{int})plaintext\_len);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00300}00300\ \ \ total\_len\ +=\ len;}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00301}00301\ \ \ EVP\_EncryptFinal\_ex\ (ctx,\ ciphertext\ +\ total\_len,\ \&len);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00302}00302\ \ \ total\_len\ +=\ len;}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00303}00303\ \ \ EVP\_CIPHER\_CTX\_free\ (ctx);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00304}00304\ }
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00305}00305\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *encoded\_string\ =\ malloc\ (total\_len\ *\ 2\ +\ 1);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00306}00306\ \ \ \textcolor{keywordflow}{if}\ (!encoded\_string)}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00307}00307\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00308}00308\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ NULL;}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00309}00309\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00310}00310\ }
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00311}00311\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ total\_len;\ i++)}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00312}00312\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00313}00313\ \ \ \ \ \ \ sprintf\ ((\textcolor{keywordtype}{char}\ *)\&encoded\_string[i\ *\ 2],\ \textcolor{stringliteral}{"{}\%02x"{}},\ ciphertext[i]);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00314}00314\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00315}00315\ \ \ encoded\_string[total\_len\ *\ 2]\ =\ \textcolor{charliteral}{'\(\backslash\)0'};}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00316}00316\ }
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00317}00317\ \ \ *encrypted\_key\_len\ =\ total\_len\ *\ 2;}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00318}00318\ \ \ \textcolor{keywordflow}{return}\ encoded\_string;}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00319}00319\ \}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00320}00320\ }
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00329}00329\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00330}\mbox{\hyperlink{crypt-utils_8c_a22f528907ee4f078e333501b747d5435}{00330}}\ \mbox{\hyperlink{crypt-utils_8c_a22f528907ee4f078e333501b747d5435}{decrypt\_string}}\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *ciphertext,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *key)}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00331}00331\ \{}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00332}00332\ \ \ \mbox{\hyperlink{tcfs__utils_8c_a62b66e43a7ad8b8cf9fcad67f71a7a8b}{logMessage}}\ (\textcolor{stringliteral}{"{}\(\backslash\)t\(\backslash\)tHEX\ TO\ STRING\ GOT\ \%s\(\backslash\)n"{}},\ ciphertext);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00333}00333\ \ \ EVP\_CIPHER\_CTX\ *ctx;}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00334}00334\ \ \ \textcolor{keyword}{const}\ EVP\_CIPHER\ *cipher\ =\ EVP\_aes\_256\_cbc\ ();}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00335}00335\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ iv[AES\_BLOCK\_SIZE];}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00336}00336\ \ \ memset\ (iv,\ 0,\ AES\_BLOCK\_SIZE);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00337}00337\ }
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00338}00338\ \ \ ctx\ =\ EVP\_CIPHER\_CTX\_new\ ();}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00339}00339\ \ \ EVP\_DecryptInit\_ex\ (ctx,\ cipher,\ NULL,\ (\textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *)key,\ iv);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00340}00340\ }
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00341}00341\ \ \ \textcolor{keywordtype}{size\_t}\ ciphertext\_len\ =\ strlen\ ((\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *)ciphertext)\ /\ 2;}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00342}00342\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *decoded\_ciphertext\ =\ malloc\ (ciphertext\_len);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00343}00343\ }
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00344}00344\ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ ciphertext\_len;\ i++)}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00345}00345\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00346}00346\ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ hex[3]}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00347}00347\ \ \ \ \ \ \ \ \ \ \ =\ \{\ (char)ciphertext[i\ *\ 2],\ (\textcolor{keywordtype}{char})ciphertext[i\ *\ 2\ +\ 1],\ \textcolor{charliteral}{'\(\backslash\)0'}\ \};}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00348}00348\ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ *endptr;}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00349}00349\ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{byte}\ =\ strtoul\ (hex,\ \&endptr,\ 16);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00350}00350\ }
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00351}00351\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (*endptr\ !=\ \textcolor{charliteral}{'\(\backslash\)0'}\ ||\ \textcolor{keywordtype}{byte}\ >\ UCHAR\_MAX)}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00352}00352\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00353}00353\ \ \ \ \ \ \ \ \ \ \ perror\ (\textcolor{stringliteral}{"{}decrypt\ string\ error"{}});}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00354}00354\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ NULL;}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00355}00355\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00356}00356\ \ \ \ \ \ \ decoded\_ciphertext[i]\ =\ byte;}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00357}00357\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00358}00358\ }
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00359}00359\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ plaintext[ciphertext\_len\ +\ AES\_BLOCK\_SIZE\ +\ 1];}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00360}00360\ \ \ memset\ (plaintext,\ 0,\ \textcolor{keyword}{sizeof}\ (plaintext));}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00361}00361\ }
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00362}00362\ \ \ \textcolor{keywordtype}{int}\ len;}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00363}00363\ \ \ EVP\_DecryptUpdate\ (ctx,\ plaintext,\ \&len,\ decoded\_ciphertext,}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00364}00364\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\textcolor{keywordtype}{int})ciphertext\_len);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00365}00365\ \ \ \textcolor{keywordtype}{int}\ padding\_len;}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00366}00366\ \ \ EVP\_DecryptFinal\_ex\ (ctx,\ plaintext\ +\ len,\ \&padding\_len);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00367}00367\ \ \ EVP\_CIPHER\_CTX\_free\ (ctx);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00368}00368\ }
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00369}00369\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *decrypted\_string}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00370}00370\ \ \ \ \ \ \ =\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *)malloc\ (len\ +\ padding\_len\ +\ 1);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00371}00371\ \ \ memcpy\ (decrypted\_string,\ plaintext,\ len\ +\ padding\_len);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00372}00372\ \ \ decrypted\_string[len\ +\ padding\_len]\ =\ \textcolor{charliteral}{'\(\backslash\)0'};}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00373}00373\ }
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00374}00374\ \ \ \mbox{\hyperlink{tcfs__utils_8c_a62b66e43a7ad8b8cf9fcad67f71a7a8b}{logMessage}}\ (\textcolor{stringliteral}{"{}\(\backslash\)t\(\backslash\)tdecoded\_ciphertext\ \%s,\ decrypted\_string\ \%s\(\backslash\)n"{}},}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00375}00375\ \ \ \ \ \ \ \ \ \ \ decoded\_ciphertext,\ decrypted\_string);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00376}00376\ \ \ free\ (decoded\_ciphertext);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00377}00377\ }
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00378}00378\ \ \ \textcolor{keywordflow}{return}\ decrypted\_string;}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00379}00379\ \}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00380}00380\ }
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00387}00387\ \textcolor{keywordtype}{int}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00388}\mbox{\hyperlink{crypt-utils_8c_a36c2342a7c47b8f41bf628bf473b1c97}{00388}}\ \mbox{\hyperlink{crypt-utils_8c_a36c2342a7c47b8f41bf628bf473b1c97}{is\_valid\_key}}\ (\textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *key)}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00389}00389\ \{}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00390}00390\ \ \ \textcolor{keywordtype}{char}\ str[33];}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00391}00391\ \ \ memcpy\ (str,\ key,\ 32);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00392}00392\ \ \ str[32]\ =\ \textcolor{charliteral}{'\(\backslash\)0'};}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00393}00393\ \ \ \textcolor{keywordtype}{size\_t}\ key\_length\ =\ strlen\ (str);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00394}00394\ \ \ \textcolor{keywordflow}{return}\ key\_length\ !=\ 32\ ?\ false\ :\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00395}00395\ \}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00396}00396\ }
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00397}00397\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00398}\mbox{\hyperlink{crypt-utils_8c_aa4a7facde8c6f63a7225c07e92232b2e}{00398}}\ \mbox{\hyperlink{crypt-utils_8c_aa4a7facde8c6f63a7225c07e92232b2e}{encrypt\_file\_name\_with\_hex}}\ (\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *file,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *key)}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00399}00399\ \{}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00400}00400\ \ \ \textcolor{keywordtype}{int}\ len\ =\ -\/1;}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00401}00401\ \ \ \textcolor{keywordflow}{return}\ (\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *)\mbox{\hyperlink{crypt-utils_8c_aa926098a8843cf0ab6bd7eb8b3bbd2e6}{encrypt\_string}}\ ((\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *)\mbox{\hyperlink{tcfs__utils_8c_a819d57d5c053a25772508a943d1bcc48}{string\_to\_hex}}\ (file),}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00402}00402\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ key,\ \&len);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00403}00403\ \}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00404}00404\ }
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00405}00405\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00406}\mbox{\hyperlink{crypt-utils_8c_a3b003481e5c188ac1d6f63e09e6f3a34}{00406}}\ \mbox{\hyperlink{crypt-utils_8c_a3b003481e5c188ac1d6f63e09e6f3a34}{decrypt\_file\_name\_with\_hex}}\ (\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *enc\_file,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *key)}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00407}00407\ \{}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00408}00408\ \ \ \textcolor{keywordflow}{return}\ (\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *)\mbox{\hyperlink{tcfs__utils_8c_a6de1cb8448198da94080ad32d7e4eabf}{hex\_to\_string}}\ (}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00409}00409\ \ \ \ \ \ \ (\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *)\mbox{\hyperlink{crypt-utils_8c_a22f528907ee4f078e333501b747d5435}{decrypt\_string}}\ ((\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *)enc\_file,\ key));}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00410}00410\ \}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00411}00411\ }
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00419}00419\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00420}\mbox{\hyperlink{crypt-utils_8c_ad9b10366ade9f2129ec2613fdc76df80}{00420}}\ \mbox{\hyperlink{crypt-utils_8c_ad9b10366ade9f2129ec2613fdc76df80}{encrypt\_path}}\ (\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *path,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *key)}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00421}00421\ \{}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00422}00422\ \ \ \textcolor{keywordtype}{char}\ *result\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00423}00423\ \ \ \textcolor{keywordtype}{char}\ *token,\ *saveptr;}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00424}00424\ }
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00425}00425\ \ \ \textcolor{comment}{//\ Check\ if\ the\ path\ is\ "{}."{},\ "{}.."{}}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00426}00426\ \ \ \textcolor{keywordflow}{if}\ (strcmp\ (path,\ \textcolor{stringliteral}{"{}."{}})\ ==\ 0\ ||\ strcmp\ (path,\ \textcolor{stringliteral}{"{}.."{}})\ ==\ 0)}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00427}00427\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00428}00428\ \ \ \ \ \ \ \textcolor{comment}{//\ If\ it\ is,\ no\ encryption\ is\ applied}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00429}00429\ \ \ \ \ \ \ result\ =\ strdup\ (path);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00430}00430\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!result)}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00431}00431\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00432}00432\ \ \ \ \ \ \ \ \ \ \ perror\ (\textcolor{stringliteral}{"{}Error\ allocating\ memory"{}});}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00433}00433\ \ \ \ \ \ \ \ \ \ \ exit\ (EXIT\_FAILURE);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00434}00434\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00435}00435\ \ \ \ \ \ \ \mbox{\hyperlink{tcfs__utils_8c_a62b66e43a7ad8b8cf9fcad67f71a7a8b}{logMessage}}\ (\textcolor{stringliteral}{"{}\(\backslash\)tencrypt\ path\ got\ a\ special\ case,\ returning\ \%s\(\backslash\)n"{}},\ result);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00436}00436\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00437}00437\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00438}00438\ \ \ \textcolor{comment}{//\ Check\ if\ the\ path\ is\ /}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00439}00439\ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (strcmp\ (path,\ \textcolor{stringliteral}{"{}/"{}})\ ==\ 0)}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00440}00440\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00441}00441\ \ \ \ \ \ \ \mbox{\hyperlink{tcfs__utils_8c_a62b66e43a7ad8b8cf9fcad67f71a7a8b}{logMessage}}\ (\textcolor{stringliteral}{"{}\(\backslash\)tgot\ root\ path\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00442}00442\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}"{}};}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00443}00443\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00444}00444\ }
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00445}00445\ \ \ \textcolor{comment}{//\ Copy\ the\ original\ path}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00446}00446\ \ \ \textcolor{keywordtype}{char}\ *path\_copy\ =\ strdup\ (path);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00447}00447\ \ \ \textcolor{keywordflow}{if}\ (!path\_copy)}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00448}00448\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00449}00449\ \ \ \ \ \ \ perror\ (\textcolor{stringliteral}{"{}Error\ allocating\ memory"{}});}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00450}00450\ \ \ \ \ \ \ exit\ (EXIT\_FAILURE);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00451}00451\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00452}00452\ }
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00453}00453\ \ \ \textcolor{comment}{//\ Start\ encryption}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00454}00454\ \ \ token\ =\ strtok\_r\ (path\_copy,\ \textcolor{stringliteral}{"{}/"{}},\ \&saveptr);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00455}00455\ \ \ \textcolor{keywordflow}{while}\ (token\ !=\ NULL)}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00456}00456\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00457}00457\ \ \ \ \ \ \ \textcolor{comment}{//\ Check\ if\ the\ directory\ is\ "{}."{}\ or\ "{}.."{}}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00458}00458\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (strcmp\ (token,\ \textcolor{stringliteral}{"{}."{}})\ ==\ 0\ ||\ strcmp\ (token,\ \textcolor{stringliteral}{"{}.."{}})\ ==\ 0)}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00459}00459\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00460}00460\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ If\ it\ is,\ no\ encryption\ is\ applied}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00461}00461\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00462}00462\ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00463}00463\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00464}00464\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Encrypt\ each\ part\ of\ the\ path}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00465}00465\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *encrypted\_part\ =\ \mbox{\hyperlink{crypt-utils_8c_aa4a7facde8c6f63a7225c07e92232b2e}{encrypt\_file\_name\_with\_hex}}\ (token,\ key);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00466}00466\ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{tcfs__utils_8c_a62b66e43a7ad8b8cf9fcad67f71a7a8b}{logMessage}}\ (\textcolor{stringliteral}{"{}\(\backslash\)tEncrypted\ \%s\ -\/-\/>\ \%s\(\backslash\)n"{}},\ token,\ encrypted\_part);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00467}00467\ }
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00468}00468\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Concatenate\ to\ the\ result\ string}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00469}00469\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (result\ ==\ NULL)}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00470}00470\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00471}00471\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Check\ if\ the\ first\ character\ of\ encrypted\_part\ is\ '/'}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00472}00472\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (encrypted\_part[0]\ !=\ \textcolor{charliteral}{'/'})}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00473}00473\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00474}00474\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result\ =\ malloc\ (strlen\ (encrypted\_part)\ +\ 2);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00475}00475\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!result)}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00476}00476\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00477}00477\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ perror\ (\textcolor{stringliteral}{"{}Error\ allocating\ memory"{}});}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00478}00478\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ exit\ (EXIT\_FAILURE);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00479}00479\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00480}00480\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ strcpy\ (result,\ \textcolor{stringliteral}{"{}/"{}});}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00481}00481\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ strcat\ (result,\ encrypted\_part);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00482}00482\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00483}00483\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00484}00484\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00485}00485\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result\ =\ strdup\ (encrypted\_part);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00486}00486\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00487}00487\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00488}00488\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00489}00489\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00490}00490\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ result\_len\ =\ strlen\ (result);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00491}00491\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ encrypted\_len\ =\ strlen\ (encrypted\_part);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00492}00492\ }
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00493}00493\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result\ =\ realloc\ (result,\ result\_len\ +\ 1\ +\ encrypted\_len\ +\ 1);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00494}00494\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!result)}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00495}00495\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00496}00496\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ perror\ (\textcolor{stringliteral}{"{}Error\ allocating\ memory"{}});}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00497}00497\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ exit\ (EXIT\_FAILURE);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00498}00498\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00499}00499\ }
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00500}00500\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Check\ if\ the\ first\ character\ of\ encrypted\_part\ is\ '/'}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00501}00501\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (encrypted\_part[0]\ !=\ \textcolor{charliteral}{'/'})}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00502}00502\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00503}00503\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ strcat\ (result,\ \textcolor{stringliteral}{"{}/"{}});}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00504}00504\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00505}00505\ }
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00506}00506\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ strcat\ (result,\ encrypted\_part);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00507}00507\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{tcfs__utils_8c_a62b66e43a7ad8b8cf9fcad67f71a7a8b}{logMessage}}\ (\textcolor{stringliteral}{"{}\(\backslash\)t\(\backslash\)tTempresult:\ \%s\(\backslash\)n"{}},\ result);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00508}00508\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00509}00509\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00510}00510\ }
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00511}00511\ \ \ \ \ \ \ \textcolor{comment}{//\ Move\ to\ the\ next\ part\ of\ the\ path}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00512}00512\ \ \ \ \ \ \ token\ =\ strtok\_r\ (NULL,\ \textcolor{stringliteral}{"{}/"{}},\ \&saveptr);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00513}00513\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00514}00514\ }
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00515}00515\ \ \ \textcolor{comment}{//\ Free\ the\ memory\ allocated\ for\ the\ path\ copy}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00516}00516\ \ \ \mbox{\hyperlink{tcfs__utils_8c_a62b66e43a7ad8b8cf9fcad67f71a7a8b}{logMessage}}\ (\textcolor{stringliteral}{"{}\(\backslash\)t\(\backslash\)tpathcopy\ \%s\(\backslash\)n"{}},\ path\_copy);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00517}00517\ \ \ free\ (path\_copy);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00518}00518\ }
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00519}00519\ \ \ \mbox{\hyperlink{tcfs__utils_8c_a62b66e43a7ad8b8cf9fcad67f71a7a8b}{logMessage}}\ (\textcolor{stringliteral}{"{}\(\backslash\)tencrypt\_path\ will\ return\ \%s\(\backslash\)n"{}},\ result);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00520}00520\ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00521}00521\ \}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00522}00522\ }
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00531}00531\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00532}\mbox{\hyperlink{crypt-utils_8c_a5c45db4d3db3ef274fb6356e1a95e644}{00532}}\ \mbox{\hyperlink{crypt-utils_8c_a5c45db4d3db3ef274fb6356e1a95e644}{encrypt\_path\_and\_filename}}\ (\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *path,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *key)}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00533}00533\ \{}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00534}00534\ \ \ \textcolor{keywordtype}{char}\ *result\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00535}00535\ \ \ \textcolor{keywordtype}{char}\ *token,\ *saveptr;}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00536}00536\ }
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00537}00537\ \ \ \textcolor{comment}{//\ Check\ if\ the\ path\ is\ "{}."{},\ "{}.."{}}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00538}00538\ \ \ \textcolor{keywordflow}{if}\ (strcmp\ (path,\ \textcolor{stringliteral}{"{}."{}})\ ==\ 0\ ||\ strcmp\ (path,\ \textcolor{stringliteral}{"{}.."{}})\ ==\ 0)}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00539}00539\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00540}00540\ \ \ \ \ \ \ \textcolor{comment}{//\ If\ it\ is,\ no\ encryption\ is\ applied}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00541}00541\ \ \ \ \ \ \ result\ =\ strdup\ (path);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00542}00542\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!result)}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00543}00543\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00544}00544\ \ \ \ \ \ \ \ \ \ \ perror\ (\textcolor{stringliteral}{"{}Error\ allocating\ memory"{}});}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00545}00545\ \ \ \ \ \ \ \ \ \ \ exit\ (EXIT\_FAILURE);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00546}00546\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00547}00547\ \ \ \ \ \ \ \mbox{\hyperlink{tcfs__utils_8c_a62b66e43a7ad8b8cf9fcad67f71a7a8b}{logMessage}}\ (}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00548}00548\ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}\(\backslash\)tencrypt\_filename\_with\_path\ got\ a\ special\ case,\ returning\ \%s\(\backslash\)n"{}},}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00549}00549\ \ \ \ \ \ \ \ \ \ \ result);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00550}00550\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00551}00551\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00552}00552\ \ \ \textcolor{comment}{//\ Check\ if\ the\ path\ is\ /}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00553}00553\ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (strcmp\ (path,\ \textcolor{stringliteral}{"{}/"{}})\ ==\ 0)}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00554}00554\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00555}00555\ \ \ \ \ \ \ \mbox{\hyperlink{tcfs__utils_8c_a62b66e43a7ad8b8cf9fcad67f71a7a8b}{logMessage}}\ (\textcolor{stringliteral}{"{}\(\backslash\)tgot\ root\ path\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00556}00556\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}"{}};}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00557}00557\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00558}00558\ }
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00559}00559\ \ \ \textcolor{comment}{//\ Copy\ the\ original\ path}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00560}00560\ \ \ \textcolor{keywordtype}{char}\ *path\_copy\ =\ strdup\ (path);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00561}00561\ \ \ \textcolor{keywordflow}{if}\ (!path\_copy)}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00562}00562\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00563}00563\ \ \ \ \ \ \ perror\ (\textcolor{stringliteral}{"{}Error\ allocating\ memory"{}});}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00564}00564\ \ \ \ \ \ \ exit\ (EXIT\_FAILURE);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00565}00565\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00566}00566\ }
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00567}00567\ \ \ \textcolor{comment}{//\ Start\ encryption}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00568}00568\ \ \ token\ =\ strtok\_r\ (path\_copy,\ \textcolor{stringliteral}{"{}/"{}},\ \&saveptr);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00569}00569\ \ \ \textcolor{keywordflow}{while}\ (token\ !=\ NULL)}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00570}00570\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00571}00571\ \ \ \ \ \ \ \textcolor{comment}{//\ Check\ if\ the\ directory\ is\ "{}."{}\ or\ "{}.."{}}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00572}00572\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (strcmp\ (token,\ \textcolor{stringliteral}{"{}."{}})\ ==\ 0\ ||\ strcmp\ (token,\ \textcolor{stringliteral}{"{}.."{}})\ ==\ 0)}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00573}00573\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00574}00574\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ If\ it\ is,\ no\ encryption\ is\ applied}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00575}00575\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00576}00576\ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00577}00577\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00578}00578\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Encrypt\ each\ part\ of\ the\ path}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00579}00579\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *encrypted\_part\ =\ \mbox{\hyperlink{crypt-utils_8c_aa4a7facde8c6f63a7225c07e92232b2e}{encrypt\_file\_name\_with\_hex}}\ (token,\ key);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00580}00580\ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{tcfs__utils_8c_a62b66e43a7ad8b8cf9fcad67f71a7a8b}{logMessage}}\ (\textcolor{stringliteral}{"{}\(\backslash\)tEncrypted\ \%s\ -\/-\/>\ \%s\(\backslash\)n"{}},\ token,\ encrypted\_part);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00581}00581\ }
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00582}00582\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Concatenate\ to\ the\ result\ string}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00583}00583\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (result\ ==\ NULL)}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00584}00584\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00585}00585\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Check\ if\ the\ first\ character\ of\ encrypted\_part\ is\ '/'}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00586}00586\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (encrypted\_part[0]\ !=\ \textcolor{charliteral}{'/'})}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00587}00587\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00588}00588\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result\ =\ malloc\ (strlen\ (encrypted\_part)\ +\ 2);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00589}00589\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!result)}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00590}00590\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00591}00591\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ perror\ (\textcolor{stringliteral}{"{}Error\ allocating\ memory"{}});}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00592}00592\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ exit\ (EXIT\_FAILURE);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00593}00593\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00594}00594\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ strcpy\ (result,\ \textcolor{stringliteral}{"{}/"{}});}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00595}00595\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ strcat\ (result,\ encrypted\_part);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00596}00596\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00597}00597\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00598}00598\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00599}00599\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result\ =\ strdup\ (encrypted\_part);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00600}00600\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00601}00601\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00602}00602\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00603}00603\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00604}00604\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ result\_len\ =\ strlen\ (result);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00605}00605\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ encrypted\_len\ =\ strlen\ (encrypted\_part);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00606}00606\ }
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00607}00607\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result\ =\ realloc\ (result,\ result\_len\ +\ 1\ +\ encrypted\_len\ +\ 1);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00608}00608\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!result)}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00609}00609\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00610}00610\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ perror\ (\textcolor{stringliteral}{"{}Error\ allocating\ memory"{}});}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00611}00611\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ exit\ (EXIT\_FAILURE);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00612}00612\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00613}00613\ }
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00614}00614\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Check\ if\ the\ first\ character\ of\ encrypted\_part\ is\ '/'}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00615}00615\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (encrypted\_part[0]\ !=\ \textcolor{charliteral}{'/'})}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00616}00616\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00617}00617\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ strcat\ (result,\ \textcolor{stringliteral}{"{}/"{}});}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00618}00618\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00619}00619\ }
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00620}00620\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ strcat\ (result,\ encrypted\_part);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00621}00621\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{tcfs__utils_8c_a62b66e43a7ad8b8cf9fcad67f71a7a8b}{logMessage}}\ (\textcolor{stringliteral}{"{}\(\backslash\)t\(\backslash\)tTempresult:\ \%s\(\backslash\)n"{}},\ result);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00622}00622\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00623}00623\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00624}00624\ }
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00625}00625\ \ \ \ \ \ \ \textcolor{comment}{//\ Move\ to\ the\ next\ part\ of\ the\ path}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00626}00626\ \ \ \ \ \ \ token\ =\ strtok\_r\ (NULL,\ \textcolor{stringliteral}{"{}/"{}},\ \&saveptr);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00627}00627\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00628}00628\ }
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00629}00629\ \ \ \textcolor{comment}{//\ Free\ the\ memory\ allocated\ for\ the\ path\ copy}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00630}00630\ \ \ \mbox{\hyperlink{tcfs__utils_8c_a62b66e43a7ad8b8cf9fcad67f71a7a8b}{logMessage}}\ (\textcolor{stringliteral}{"{}\(\backslash\)t\(\backslash\)tpathcopy\ \%s\(\backslash\)n"{}},\ path\_copy);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00631}00631\ \ \ free\ (path\_copy);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00632}00632\ }
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00633}00633\ \ \ \mbox{\hyperlink{tcfs__utils_8c_a62b66e43a7ad8b8cf9fcad67f71a7a8b}{logMessage}}\ (\textcolor{stringliteral}{"{}\(\backslash\)tencrypt\_filename\_with\_path\ will\ return\ \%s\(\backslash\)n"{}},\ result);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00634}00634\ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00635}00635\ \}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00636}00636\ }
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00644}00644\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00645}\mbox{\hyperlink{crypt-utils_8c_a1899c23a523d11ed1cb5601eabdb023d}{00645}}\ \mbox{\hyperlink{crypt-utils_8c_a1899c23a523d11ed1cb5601eabdb023d}{decrypt\_path}}\ (\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *encrypted\_path,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *key)}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00646}00646\ \{}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00647}00647\ \ \ \mbox{\hyperlink{tcfs__utils_8c_a62b66e43a7ad8b8cf9fcad67f71a7a8b}{logMessage}}\ (\textcolor{stringliteral}{"{}decrypt\ path\ got\ \%s\(\backslash\)n"{}},\ encrypted\_path);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00648}00648\ \ \ \textcolor{keywordtype}{char}\ *result\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00649}00649\ \ \ \textcolor{keywordtype}{char}\ *token,\ *saveptr;}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00650}00650\ }
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00651}00651\ \ \ \textcolor{comment}{//\ Check\ if\ the\ encrypted\_path\ is\ "{}."{},\ "{}.."{}}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00652}00652\ \ \ \textcolor{keywordflow}{if}\ (strcmp\ (encrypted\_path,\ \textcolor{stringliteral}{"{}."{}})\ ==\ 0\ ||\ strcmp\ (encrypted\_path,\ \textcolor{stringliteral}{"{}.."{}})\ ==\ 0)}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00653}00653\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00654}00654\ \ \ \ \ \ \ \textcolor{comment}{//\ If\ it\ is,\ no\ decryption\ is\ applied}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00655}00655\ \ \ \ \ \ \ result\ =\ strdup\ (encrypted\_path);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00656}00656\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!result)}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00657}00657\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00658}00658\ \ \ \ \ \ \ \ \ \ \ perror\ (\textcolor{stringliteral}{"{}Error\ allocating\ memory"{}});}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00659}00659\ \ \ \ \ \ \ \ \ \ \ exit\ (EXIT\_FAILURE);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00660}00660\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00661}00661\ \ \ \ \ \ \ \mbox{\hyperlink{tcfs__utils_8c_a62b66e43a7ad8b8cf9fcad67f71a7a8b}{logMessage}}\ (\textcolor{stringliteral}{"{}\(\backslash\)tdecrypt\_path\ got\ a\ special\ case,\ returning\ \%s\(\backslash\)n"{}},\ result);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00662}00662\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00663}00663\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00664}00664\ \ \ \textcolor{comment}{//\ Check\ if\ the\ encrypted\_path\ is\ /}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00665}00665\ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (strcmp\ (encrypted\_path,\ \textcolor{stringliteral}{"{}/"{}})\ ==\ 0)}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00666}00666\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00667}00667\ \ \ \ \ \ \ \mbox{\hyperlink{tcfs__utils_8c_a62b66e43a7ad8b8cf9fcad67f71a7a8b}{logMessage}}\ (\textcolor{stringliteral}{"{}\(\backslash\)tgot\ root\ path\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00668}00668\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}"{}};}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00669}00669\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00670}00670\ }
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00671}00671\ \ \ \textcolor{comment}{//\ Copy\ the\ original\ encrypted\_path}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00672}00672\ \ \ \textcolor{keywordtype}{char}\ *encrypted\_path\_copy\ =\ strdup\ (encrypted\_path);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00673}00673\ \ \ \textcolor{keywordflow}{if}\ (!encrypted\_path\_copy)}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00674}00674\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00675}00675\ \ \ \ \ \ \ perror\ (\textcolor{stringliteral}{"{}Error\ allocating\ memory"{}});}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00676}00676\ \ \ \ \ \ \ exit\ (EXIT\_FAILURE);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00677}00677\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00678}00678\ }
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00679}00679\ \ \ \textcolor{comment}{//\ Start\ decryption}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00680}00680\ \ \ token\ =\ strtok\_r\ (encrypted\_path\_copy,\ \textcolor{stringliteral}{"{}/"{}},\ \&saveptr);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00681}00681\ \ \ \textcolor{keywordflow}{while}\ (token\ !=\ NULL)}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00682}00682\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00683}00683\ \ \ \ \ \ \ \textcolor{comment}{//\ Check\ if\ the\ directory\ is\ "{}."{}\ or\ "{}.."{}}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00684}00684\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (strcmp\ (token,\ \textcolor{stringliteral}{"{}."{}})\ ==\ 0\ ||\ strcmp\ (token,\ \textcolor{stringliteral}{"{}.."{}})\ ==\ 0)}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00685}00685\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00686}00686\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ If\ it\ is,\ no\ decryption\ is\ applied}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00687}00687\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00688}00688\ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00689}00689\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00690}00690\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Decrypt\ each\ part\ of\ the\ path}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00691}00691\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *decrypted\_part\ =\ \mbox{\hyperlink{crypt-utils_8c_a3b003481e5c188ac1d6f63e09e6f3a34}{decrypt\_file\_name\_with\_hex}}\ (token,\ key);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00692}00692\ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{tcfs__utils_8c_a62b66e43a7ad8b8cf9fcad67f71a7a8b}{logMessage}}\ (\textcolor{stringliteral}{"{}\(\backslash\)tDecrypted\ \%s\ -\/-\/>\ \%s\(\backslash\)n"{}},\ token,\ decrypted\_part);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00693}00693\ }
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00694}00694\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Concatenate\ to\ the\ result\ string}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00695}00695\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (result\ ==\ NULL)}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00696}00696\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00697}00697\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Check\ if\ the\ first\ character\ of\ decrypted\_part\ is\ '/'}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00698}00698\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (decrypted\_part[0]\ !=\ \textcolor{charliteral}{'/'})}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00699}00699\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00700}00700\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result\ =\ malloc\ (strlen\ (decrypted\_part)\ +\ 2);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00701}00701\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!result)}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00702}00702\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00703}00703\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ perror\ (\textcolor{stringliteral}{"{}Error\ allocating\ memory"{}});}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00704}00704\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ exit\ (EXIT\_FAILURE);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00705}00705\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00706}00706\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ strcpy\ (result,\ \textcolor{stringliteral}{"{}/"{}});}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00707}00707\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ strcat\ (result,\ decrypted\_part);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00708}00708\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00709}00709\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00710}00710\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00711}00711\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result\ =\ strdup\ (decrypted\_part);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00712}00712\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00713}00713\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00714}00714\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00715}00715\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00716}00716\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ result\_len\ =\ strlen\ (result);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00717}00717\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ decrypted\_len\ =\ strlen\ (decrypted\_part);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00718}00718\ }
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00719}00719\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result\ =\ realloc\ (result,\ result\_len\ +\ 1\ +\ decrypted\_len\ +\ 1);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00720}00720\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!result)}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00721}00721\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00722}00722\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ perror\ (\textcolor{stringliteral}{"{}Error\ allocating\ memory"{}});}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00723}00723\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ exit\ (EXIT\_FAILURE);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00724}00724\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00725}00725\ }
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00726}00726\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Check\ if\ the\ first\ character\ of\ decrypted\_part\ is\ '/'}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00727}00727\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (decrypted\_part[0]\ !=\ \textcolor{charliteral}{'/'})}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00728}00728\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00729}00729\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ strcat\ (result,\ \textcolor{stringliteral}{"{}/"{}});}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00730}00730\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00731}00731\ }
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00732}00732\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ strcat\ (result,\ decrypted\_part);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00733}00733\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{tcfs__utils_8c_a62b66e43a7ad8b8cf9fcad67f71a7a8b}{logMessage}}\ (\textcolor{stringliteral}{"{}\(\backslash\)t\(\backslash\)tTempresult:\ \%s\(\backslash\)n"{}},\ result);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00734}00734\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00735}00735\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00736}00736\ }
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00737}00737\ \ \ \ \ \ \ \textcolor{comment}{//\ Move\ to\ the\ next\ part\ of\ the\ encrypted\_path}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00738}00738\ \ \ \ \ \ \ token\ =\ strtok\_r\ (NULL,\ \textcolor{stringliteral}{"{}/"{}},\ \&saveptr);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00739}00739\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00740}00740\ }
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00741}00741\ \ \ \textcolor{comment}{//\ Free\ the\ memory\ allocated\ for\ the\ encrypted\_path\ copy}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00742}00742\ \ \ \mbox{\hyperlink{tcfs__utils_8c_a62b66e43a7ad8b8cf9fcad67f71a7a8b}{logMessage}}\ (\textcolor{stringliteral}{"{}\(\backslash\)t\(\backslash\)tencrypted\_path\_copy\ \%s\(\backslash\)n"{}},\ encrypted\_path\_copy);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00743}00743\ \ \ free\ (encrypted\_path\_copy);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00744}00744\ }
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00745}00745\ \ \ \mbox{\hyperlink{tcfs__utils_8c_a62b66e43a7ad8b8cf9fcad67f71a7a8b}{logMessage}}\ (\textcolor{stringliteral}{"{}\(\backslash\)tdecrypt\_path\ will\ return\ \%s\(\backslash\)n"{}},\ result);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00746}00746\ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00747}00747\ \}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00748}00748\ }
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00758}00758\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00759}\mbox{\hyperlink{crypt-utils_8c_a373f8aedbcd8b6ce22fe7bdfeb2961c2}{00759}}\ \mbox{\hyperlink{crypt-utils_8c_a373f8aedbcd8b6ce22fe7bdfeb2961c2}{decrypt\_path\_and\_filename}}\ (\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *encrypted\_path,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *key)}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00760}00760\ \{}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00761}00761\ \ \ \textcolor{keywordtype}{char}\ *result\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00762}00762\ \ \ \textcolor{keywordtype}{char}\ *token,\ *saveptr;}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00763}00763\ }
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00764}00764\ \ \ \textcolor{comment}{//\ Check\ if\ the\ encrypted\_path\ is\ "{}."{},\ "{}.."{}}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00765}00765\ \ \ \textcolor{keywordflow}{if}\ (strcmp\ (encrypted\_path,\ \textcolor{stringliteral}{"{}."{}})\ ==\ 0\ ||\ strcmp\ (encrypted\_path,\ \textcolor{stringliteral}{"{}.."{}})\ ==\ 0)}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00766}00766\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00767}00767\ \ \ \ \ \ \ \textcolor{comment}{//\ If\ it\ is,\ no\ decryption\ is\ applied}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00768}00768\ \ \ \ \ \ \ result\ =\ strdup\ (encrypted\_path);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00769}00769\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!result)}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00770}00770\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00771}00771\ \ \ \ \ \ \ \ \ \ \ perror\ (\textcolor{stringliteral}{"{}Error\ allocating\ memory"{}});}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00772}00772\ \ \ \ \ \ \ \ \ \ \ exit\ (EXIT\_FAILURE);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00773}00773\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00774}00774\ \ \ \ \ \ \ \mbox{\hyperlink{tcfs__utils_8c_a62b66e43a7ad8b8cf9fcad67f71a7a8b}{logMessage}}\ (}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00775}00775\ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}\(\backslash\)tdecrypt\_filename\_with\_path\ got\ a\ special\ case,\ returning\ \%s\(\backslash\)n"{}},}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00776}00776\ \ \ \ \ \ \ \ \ \ \ result);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00777}00777\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00778}00778\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00779}00779\ \ \ \textcolor{comment}{//\ Check\ if\ the\ encrypted\_path\ is\ /}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00780}00780\ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (strcmp\ (encrypted\_path,\ \textcolor{stringliteral}{"{}/"{}})\ ==\ 0)}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00781}00781\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00782}00782\ \ \ \ \ \ \ \mbox{\hyperlink{tcfs__utils_8c_a62b66e43a7ad8b8cf9fcad67f71a7a8b}{logMessage}}\ (\textcolor{stringliteral}{"{}\(\backslash\)tgot\ root\ path\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00783}00783\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}"{}};}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00784}00784\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00785}00785\ }
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00786}00786\ \ \ \textcolor{comment}{//\ Copy\ the\ original\ encrypted\_path}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00787}00787\ \ \ \textcolor{keywordtype}{char}\ *encrypted\_path\_copy\ =\ strdup\ (encrypted\_path);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00788}00788\ \ \ \textcolor{keywordflow}{if}\ (!encrypted\_path\_copy)}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00789}00789\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00790}00790\ \ \ \ \ \ \ perror\ (\textcolor{stringliteral}{"{}Error\ allocating\ memory"{}});}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00791}00791\ \ \ \ \ \ \ exit\ (EXIT\_FAILURE);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00792}00792\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00793}00793\ }
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00794}00794\ \ \ \textcolor{comment}{//\ Start\ decryption}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00795}00795\ \ \ token\ =\ strtok\_r\ (encrypted\_path\_copy,\ \textcolor{stringliteral}{"{}/"{}},\ \&saveptr);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00796}00796\ \ \ \textcolor{keywordflow}{while}\ (token\ !=\ NULL)}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00797}00797\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00798}00798\ \ \ \ \ \ \ \textcolor{comment}{//\ Check\ if\ the\ directory\ is\ "{}."{}\ or\ "{}.."{}}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00799}00799\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (strcmp\ (token,\ \textcolor{stringliteral}{"{}."{}})\ ==\ 0\ ||\ strcmp\ (token,\ \textcolor{stringliteral}{"{}.."{}})\ ==\ 0)}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00800}00800\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00801}00801\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ If\ it\ is,\ no\ decryption\ is\ applied}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00802}00802\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00803}00803\ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00804}00804\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00805}00805\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Decrypt\ each\ part\ of\ the\ path}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00806}00806\ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *decrypted\_part\ =\ \mbox{\hyperlink{crypt-utils_8c_a3b003481e5c188ac1d6f63e09e6f3a34}{decrypt\_file\_name\_with\_hex}}\ (token,\ key);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00807}00807\ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{tcfs__utils_8c_a62b66e43a7ad8b8cf9fcad67f71a7a8b}{logMessage}}\ (\textcolor{stringliteral}{"{}\(\backslash\)tDecrypted\ \%s\ -\/-\/>\ \%s\(\backslash\)n"{}},\ token,\ decrypted\_part);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00808}00808\ }
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00809}00809\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Concatenate\ to\ the\ result\ string}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00810}00810\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (result\ ==\ NULL)}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00811}00811\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00812}00812\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Check\ if\ the\ first\ character\ of\ decrypted\_part\ is\ '/'}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00813}00813\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (decrypted\_part[0]\ !=\ \textcolor{charliteral}{'/'})}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00814}00814\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00815}00815\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result\ =\ malloc\ (strlen\ (decrypted\_part)\ +\ 2);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00816}00816\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!result)}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00817}00817\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00818}00818\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ perror\ (\textcolor{stringliteral}{"{}Error\ allocating\ memory"{}});}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00819}00819\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ exit\ (EXIT\_FAILURE);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00820}00820\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00821}00821\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ strcpy\ (result,\ \textcolor{stringliteral}{"{}/"{}});}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00822}00822\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ strcat\ (result,\ decrypted\_part);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00823}00823\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00824}00824\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00825}00825\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00826}00826\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result\ =\ strdup\ (decrypted\_part);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00827}00827\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00828}00828\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00829}00829\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00830}00830\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00831}00831\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ result\_len\ =\ strlen\ (result);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00832}00832\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ decrypted\_len\ =\ strlen\ (decrypted\_part);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00833}00833\ }
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00834}00834\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result\ =\ realloc\ (result,\ result\_len\ +\ 1\ +\ decrypted\_len\ +\ 1);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00835}00835\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!result)}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00836}00836\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00837}00837\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ perror\ (\textcolor{stringliteral}{"{}Error\ allocating\ memory"{}});}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00838}00838\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ exit\ (EXIT\_FAILURE);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00839}00839\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00840}00840\ }
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00841}00841\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Check\ if\ the\ first\ character\ of\ decrypted\_part\ is\ '/'}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00842}00842\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (decrypted\_part[0]\ !=\ \textcolor{charliteral}{'/'})}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00843}00843\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00844}00844\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ strcat\ (result,\ \textcolor{stringliteral}{"{}/"{}});}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00845}00845\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00846}00846\ }
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00847}00847\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ strcat\ (result,\ decrypted\_part);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00848}00848\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{tcfs__utils_8c_a62b66e43a7ad8b8cf9fcad67f71a7a8b}{logMessage}}\ (\textcolor{stringliteral}{"{}\(\backslash\)t\(\backslash\)tTempresult:\ \%s\(\backslash\)n"{}},\ result);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00849}00849\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00850}00850\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00851}00851\ }
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00852}00852\ \ \ \ \ \ \ \textcolor{comment}{//\ Move\ to\ the\ next\ part\ of\ the\ encrypted\_path}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00853}00853\ \ \ \ \ \ \ token\ =\ strtok\_r\ (NULL,\ \textcolor{stringliteral}{"{}/"{}},\ \&saveptr);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00854}00854\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00855}00855\ }
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00856}00856\ \ \ \textcolor{comment}{//\ Free\ the\ memory\ allocated\ for\ the\ encrypted\_path\ copy}}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00857}00857\ \ \ \mbox{\hyperlink{tcfs__utils_8c_a62b66e43a7ad8b8cf9fcad67f71a7a8b}{logMessage}}\ (\textcolor{stringliteral}{"{}\(\backslash\)t\(\backslash\)tencrypted\_path\_copy\ \%s\(\backslash\)n"{}},\ encrypted\_path\_copy);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00858}00858\ \ \ free\ (encrypted\_path\_copy);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00859}00859\ }
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00860}00860\ \ \ \mbox{\hyperlink{tcfs__utils_8c_a62b66e43a7ad8b8cf9fcad67f71a7a8b}{logMessage}}\ (\textcolor{stringliteral}{"{}\(\backslash\)tdecrypt\_filename\_with\_path\ will\ return\ \%s\(\backslash\)n"{}},\ result);}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00861}00861\ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{\Hypertarget{crypt-utils_8c_source_l00862}00862\ \}}
+
+\end{DoxyCode}

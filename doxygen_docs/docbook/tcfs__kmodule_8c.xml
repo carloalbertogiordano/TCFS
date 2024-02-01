@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_tcfs__kmodule_8c" xml:lang="en-US">
+<title>kernel-module/tcfs_kmodule.c File Reference</title>
+<indexterm><primary>kernel-module/tcfs_kmodule.c</primary></indexterm>
+<para>
+
+<para>This will host the kernel module implementation in the future. It is not beeing currently developed. </para>
+ 
+</para>
+<section>
+<title>Detailed Description</title>
+
+<para>This will host the kernel module implementation in the future. It is not beeing currently developed. </para>
+<para>
+Definition in file <link linkend="_tcfs__kmodule_8c_source">tcfs_kmodule.c</link>.</para>
+</section>
+</section>

@@ -1,0 +1,39 @@
+<map id="tcfs_create" name="tcfs_create">
+<area shape="rect" id="Node000001" title="Create and open a file." alt="" coords="5,293,92,319"/>
+<area shape="rect" id="Node000002" href="$crypt-utils_8c.html#a5c45db4d3db3ef274fb6356e1a95e644" title="Encrypts the given filename with its path using a specified key." alt="" coords="287,90,467,117"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="50,291,59,258,76,215,101,170,118,150,138,133,169,116,203,104,272,94,273,100,204,110,171,121,141,137,122,154,106,173,80,217,64,260,55,293"/>
+<area shape="rect" id="Node000004" href="$crypt-utils_8c.html#aa926098a8843cf0ab6bd7eb8b3bbd2e6" title="Encrypt the *plaintext string using a AES 256 key." alt="" coords="750,39,853,66"/>
+<area shape="poly" id="edge7_Node000001_Node000004" title=" " alt="" coords="49,292,55,252,71,199,97,144,116,118,138,97,173,74,210,54,289,25,372,9,456,3,537,5,613,12,736,33,735,39,613,17,537,10,456,9,373,15,290,31,212,59,176,78,141,101,119,122,102,146,76,201,61,254,54,293"/>
+<area shape="rect" id="Node000006" href="$tcfs__utils_8c.html#a62b66e43a7ad8b8cf9fcad67f71a7a8b" title="Logs a formatted message to a file with timestamp." alt="" coords="901,242,992,269"/>
+<area shape="poly" id="edge16_Node000001_Node000006" title=" " alt="" coords="67,290,105,263,157,231,220,200,286,177,341,169,410,169,570,184,730,209,854,231,887,238,886,243,852,237,729,214,569,189,410,174,342,175,288,182,222,205,160,236,107,268,70,294"/>
+<area shape="rect" id="Node000007" href="$crypt-utils_8c.html#a8845f5705eaafda836aac91d5881876f" title="Generate a new AES 256 key for a file." alt="" coords="140,293,239,319"/>
+<area shape="poly" id="edge8_Node000001_Node000007" title=" " alt="" coords="92,303,125,303,125,309,92,309"/>
+<area shape="rect" id="Node000010" href="$crypt-utils_8c.html#a36c2342a7c47b8f41bf628bf473b1c97" title="Check if a given key is valid." alt="" coords="331,394,424,421"/>
+<area shape="poly" id="edge15_Node000001_Node000010" title=" " alt="" coords="93,316,318,387,316,392,91,322"/>
+<area shape="rect" id="Node000012" href="$tcfs__utils_8c.html#ac4ff59963f4a122c9f802c0c2bf2abc8" title="Prefix the realpath to the fuse path." alt="" coords="335,546,420,573"/>
+<area shape="poly" id="edge17_Node000001_Node000012" title=" " alt="" coords="55,319,63,355,80,402,105,451,122,474,141,493,183,520,230,538,277,549,320,554,319,560,276,554,228,543,181,525,138,497,118,477,101,454,75,404,58,356,50,320"/>
+<area shape="rect" id="Node000013" href="$tcfs_8c.html#ad3c328fdcd93c8203e1ce9c785fd3a14" title="Sets extended attributes." alt="" coords="142,457,237,483"/>
+<area shape="poly" id="edge18_Node000001_Node000013" title=" " alt="" coords="64,318,169,443,165,447,60,322"/>
+<area shape="rect" id="Node000003" href="$crypt-utils_8c.html#aa4a7facde8c6f63a7225c07e92232b2e" title=" " alt="" coords="515,141,702,167"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="442,115,531,134,529,139,441,120"/>
+<area shape="poly" id="edge6_Node000002_Node000006" title=" " alt="" coords="448,87,534,76,639,74,694,79,750,88,804,104,854,126,882,147,906,174,937,227,932,230,901,177,879,151,852,131,802,109,748,93,694,84,639,80,535,82,449,92"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="635,138,760,71,763,76,637,142"/>
+<area shape="rect" id="Node000005" href="$tcfs__utils_8c.html#a819d57d5c053a25772508a943d1bcc48" title="Convert a string to its hexadecimal representation." alt="" coords="752,141,851,167"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="702,151,737,151,737,157,702,157"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="827,166,855,184,918,230,915,235,851,188,824,170"/>
+<area shape="poly" id="edge12_Node000007_Node000006" title=" " alt="" coords="235,289,287,278,457,260,625,251,775,249,886,251,886,256,775,254,626,256,457,265,287,283,236,295"/>
+<area shape="rect" id="Node000008" href="$crypt-utils_8c.html#a53b5762e00daafcc3644c03e2fd9b2c4" title="Force new entropy in /dev/urandom." alt="" coords="331,191,423,218"/>
+<area shape="poly" id="edge9_Node000007_Node000008" title=" " alt="" coords="205,290,241,263,286,234,316,221,318,226,288,239,244,267,208,294"/>
+<area shape="rect" id="Node000009" href="$crypt-utils_8c.html#aa377df016f593aa771013264acc9b86b" title="Verify if there is enough entropy in the system to generate a key." alt="" coords="324,293,430,319"/>
+<area shape="poly" id="edge10_Node000007_Node000009" title=" " alt="" coords="239,303,310,303,310,309,239,309"/>
+<area shape="poly" id="edge11_Node000007_Node000010" title=" " alt="" coords="208,318,244,345,288,373,318,386,315,391,286,378,241,349,205,322"/>
+<area shape="rect" id="Node000011" href="$tcfs__utils_8c.html#a8c1c24299a2b01f6157b051cb56ebc52" title="Print the value of an AES key." alt="" coords="557,325,660,351"/>
+<area shape="poly" id="edge13_Node000007_Node000011" title=" " alt="" coords="235,317,287,329,355,336,423,339,542,338,543,344,423,344,355,341,287,334,234,323"/>
+<area shape="poly" id="edge14_Node000011_Node000006" title=" " alt="" coords="659,323,886,267,887,272,661,328"/>
+<area shape="poly" id="edge22_Node000013_Node000006" title=" " alt="" coords="237,475,287,481,405,487,498,482,588,464,701,427,780,397,812,379,851,352,892,316,924,279,928,282,895,319,855,356,815,384,782,402,703,432,590,469,499,488,405,492,287,486,237,480"/>
+<area shape="poly" id="edge23_Node000013_Node000012" title=" " alt="" coords="213,482,288,525,322,539,320,544,286,530,210,486"/>
+<area shape="rect" id="Node000014" href="$crypt-utils_8c.html#ad9b10366ade9f2129ec2613fdc76df80" title="Encrypts each part of the given path using a specified key." alt="" coords="329,445,425,471"/>
+<area shape="poly" id="edge19_Node000013_Node000014" title=" " alt="" coords="237,464,314,459,315,465,237,470"/>
+<area shape="poly" id="edge20_Node000014_Node000003" title=" " alt="" coords="425,450,447,443,466,431,487,404,495,377,501,347,513,312,552,238,588,178,593,181,557,241,518,314,506,348,500,378,492,406,469,435,449,448,427,455"/>
+<area shape="poly" id="edge21_Node000014_Node000006" title=" " alt="" coords="425,445,615,393,734,353,852,305,910,274,912,279,854,310,736,358,617,398,426,450"/>
+</map>

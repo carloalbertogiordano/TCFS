@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="dir_b228d1183f6a9446da9c28454f9272ea" kind="dir">
+    <compoundname>ServerREST/types</compoundname>
+    <innerfile refid="tcfs-user_8go">tcfs-user.go</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="ServerREST/types/"/>
+  </compounddef>
+</doxygen>

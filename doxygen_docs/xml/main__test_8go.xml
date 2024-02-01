@@ -1,0 +1,245 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="main__test_8go" kind="file" language="C++">
+    <compoundname>main_test.go</compoundname>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline><highlight class="normal">package<sp/>main</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">import<sp/>(</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>&quot;bytes&quot;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>&quot;encoding/json&quot;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>&quot;fmt&quot;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>&quot;io/ioutil&quot;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>&quot;net/http&quot;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>&quot;testing&quot;</highlight></codeline>
+<codeline><highlight class="normal">)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">func<sp/>TestRegister(t<sp/>*testing.T)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>user<sp/>:=<sp/>map[string]string{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;username&quot;:<sp/>&quot;testUser&quot;,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;password&quot;:<sp/>&quot;pass&quot;,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>requestBody,<sp/>err<sp/>:=<sp/>json.Marshal(user)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>if<sp/>err<sp/>!=<sp/>nil<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>t.Fatal(err)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>request,<sp/>err<sp/>:=<sp/>http.NewRequest(&quot;POST&quot;,<sp/>&quot;http://127.0.0.1:1234/register&quot;,<sp/>bytes.NewBuffer(requestBody))</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>if<sp/>err<sp/>!=<sp/>nil<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>t.Fatal(err)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>//<sp/>Esegui<sp/>la<sp/>richiesta<sp/>HTTP</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>client<sp/>:=<sp/>&amp;http.Client{}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>response,<sp/>err<sp/>:=<sp/>client.Do(request)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>if<sp/>err<sp/>!=<sp/>nil<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>t.Fatal(err)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>defer<sp/>response.Body.Close()</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>//<sp/>Leggi<sp/>il<sp/>corpo<sp/>della<sp/>risposta</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>body,<sp/>err<sp/>:=<sp/>ioutil.ReadAll(response.Body)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>if<sp/>err<sp/>!=<sp/>nil<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>t.Fatal(err)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>//<sp/>Verifica<sp/>che<sp/>lo<sp/>status<sp/>code<sp/>sia<sp/>200</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>if<sp/>response.StatusCode<sp/>!=<sp/>http.StatusOK<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>t.Errorf(&quot;handler<sp/>returned<sp/>wrong<sp/>status<sp/>code:<sp/>got<sp/>%v<sp/>want<sp/>%v&quot;,<sp/>response.StatusCode,<sp/>http.StatusOK)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>//<sp/>Verifica<sp/>che<sp/>il<sp/>messaggio<sp/>di<sp/>successo<sp/>sia<sp/>corretto</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>expectedResponse<sp/>:=<sp/>&quot;User<sp/>registered<sp/>successfully&quot;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>if<sp/>string(body)<sp/>!=<sp/>expectedResponse<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>t.Errorf(&quot;handler<sp/>returned<sp/>unexpected<sp/>body:<sp/>got<sp/>%v<sp/>want<sp/>%v&quot;,<sp/>string(body),<sp/>expectedResponse)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">func<sp/>TestLogin(t<sp/>*testing.T)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>//<sp/>Crea<sp/>una<sp/>richiesta<sp/>HTTP<sp/>POST</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>user<sp/>:=<sp/>map[string]string{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;username&quot;:<sp/>&quot;testUser&quot;,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;password&quot;:<sp/>&quot;pass&quot;,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>requestBody,<sp/>err<sp/>:=<sp/>json.Marshal(user)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>if<sp/>err<sp/>!=<sp/>nil<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>t.Fatal(err)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>request,<sp/>err<sp/>:=<sp/>http.NewRequest(&quot;POST&quot;,<sp/>&quot;http://localhost:1234/login&quot;,<sp/>bytes.NewBuffer(requestBody))</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>if<sp/>err<sp/>!=<sp/>nil<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>t.Fatal(err)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>//<sp/>Esegui<sp/>la<sp/>richiesta<sp/>HTTP</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>client<sp/>:=<sp/>&amp;http.Client{}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>response,<sp/>err<sp/>:=<sp/>client.Do(request)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>if<sp/>err<sp/>!=<sp/>nil<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>t.Fatal(err)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>defer<sp/>response.Body.Close()</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>//<sp/>Leggi<sp/>il<sp/>corpo<sp/>della<sp/>risposta</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>body,<sp/>err<sp/>:=<sp/>ioutil.ReadAll(response.Body)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>if<sp/>err<sp/>!=<sp/>nil<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>t.Fatal(err)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>//<sp/>Verifica<sp/>che<sp/>lo<sp/>status<sp/>code<sp/>sia<sp/>200</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>if<sp/>response.StatusCode<sp/>!=<sp/>http.StatusOK<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>t.Errorf(&quot;handler<sp/>returned<sp/>wrong<sp/>status<sp/>code:<sp/>got<sp/>%v<sp/>want<sp/>%v&quot;,<sp/>response.StatusCode,<sp/>http.StatusOK)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>//<sp/>Verifica<sp/>che<sp/>il<sp/>messaggio<sp/>di<sp/>successo<sp/>sia<sp/>corretto</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>expectedResponse<sp/>:=<sp/>&quot;User<sp/>logged<sp/>in<sp/>successfully&quot;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>if<sp/>string(body)<sp/>!=<sp/>expectedResponse<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>t.Errorf(&quot;handler<sp/>returned<sp/>unexpected<sp/>body:<sp/>got<sp/>%v<sp/>want<sp/>%v&quot;,<sp/>string(body),<sp/>expectedResponse)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">func<sp/>TestLogout(t<sp/>*testing.T)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>//<sp/>Crea<sp/>una<sp/>richiesta<sp/>HTTP<sp/>POST</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>user<sp/>:=<sp/>map[string]string{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;username&quot;:<sp/>&quot;testUser&quot;,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>requestBody,<sp/>err<sp/>:=<sp/>json.Marshal(user)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>if<sp/>err<sp/>!=<sp/>nil<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>t.Fatal(err)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>request,<sp/>err<sp/>:=<sp/>http.NewRequest(&quot;POST&quot;,<sp/>&quot;http://localhost:1234/logout&quot;,<sp/>bytes.NewBuffer(requestBody))</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>if<sp/>err<sp/>!=<sp/>nil<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>t.Fatal(err)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>//<sp/>Esegui<sp/>la<sp/>richiesta<sp/>HTTP</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>client<sp/>:=<sp/>&amp;http.Client{}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>response,<sp/>err<sp/>:=<sp/>client.Do(request)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>if<sp/>err<sp/>!=<sp/>nil<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>t.Fatal(err)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>defer<sp/>response.Body.Close()</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>//<sp/>Leggi<sp/>il<sp/>corpo<sp/>della<sp/>risposta</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>body,<sp/>err<sp/>:=<sp/>ioutil.ReadAll(response.Body)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>if<sp/>err<sp/>!=<sp/>nil<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>t.Fatal(err)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>//<sp/>Verifica<sp/>che<sp/>lo<sp/>status<sp/>code<sp/>sia<sp/>200</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>if<sp/>response.StatusCode<sp/>!=<sp/>http.StatusOK<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>t.Errorf(&quot;handler<sp/>returned<sp/>wrong<sp/>status<sp/>code:<sp/>got<sp/>%v<sp/>want<sp/>%v&quot;,<sp/>response.StatusCode,<sp/>http.StatusOK)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>//<sp/>Verifica<sp/>che<sp/>il<sp/>messaggio<sp/>di<sp/>successo<sp/>sia<sp/>corretto</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>expectedResponse<sp/>:=<sp/>&quot;User<sp/>logged<sp/>out<sp/>successfully&quot;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>if<sp/>string(body)<sp/>!=<sp/>expectedResponse<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>t.Errorf(&quot;handler<sp/>returned<sp/>unexpected<sp/>body:<sp/>got<sp/>%v<sp/>want<sp/>%v&quot;,<sp/>string(body),<sp/>expectedResponse)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">func<sp/>TestShareFile(t<sp/>*testing.T)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>//register<sp/>some<sp/>users</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>for<sp/>i<sp/>:=<sp/>0;<sp/>i<sp/>&lt;<sp/>10;<sp/>i++<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>user<sp/>:=<sp/>map[string]string{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;username&quot;:<sp/>fmt.Sprintf(&quot;testUser%v&quot;,<sp/>i),</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;password&quot;:<sp/>&quot;pass&quot;,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>requestBody,<sp/>err<sp/>:=<sp/>json.Marshal(user)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>if<sp/>err<sp/>!=<sp/>nil<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>t.Fatal(err)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>request,<sp/>err<sp/>:=<sp/>http.NewRequest(&quot;POST&quot;,<sp/>&quot;http://127.0.0.1:1234/register&quot;,<sp/>bytes.NewBuffer(requestBody))</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>if<sp/>err<sp/>!=<sp/>nil<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>t.Fatal(err)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>//<sp/>Esegui<sp/>la<sp/>richiesta<sp/>HTTP</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>client<sp/>:=<sp/>&amp;http.Client{}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>_,<sp/>err<sp/>=<sp/>client.Do(request)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>if<sp/>err<sp/>!=<sp/>nil<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>t.Fatal(err)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>//Log<sp/>in<sp/>the<sp/>users</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>//register<sp/>some<sp/>users</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>for<sp/>i<sp/>:=<sp/>0;<sp/>i<sp/>&lt;<sp/>10;<sp/>i++<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>user<sp/>:=<sp/>map[string]string{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;username&quot;:<sp/><sp/>fmt.Sprintf(&quot;testUser%v&quot;,<sp/>i),</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;password&quot;:<sp/><sp/>&quot;pass&quot;,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;publickey&quot;:<sp/>&quot;-----BEGIN<sp/>PUBLIC<sp/>KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzJy21YMY4pGMWRJwQvZe\n7gXIuvPS5JeCxXXn/6xCsC5aeHlojP+/nLd+f1339Vrz1hXOJO1hEjFLsO8ZQCWk\nMpSSrMjy/z1/dg0U58yN9h1yitHtmeXSdEmU/UdLeTN5ztoRKJYTF3cywG4Bo6u/\nMCCowctVGSMUXibhbEbRVdxzQMm9I3AgEV6gD5UBLiAyuEkD7sLD/nolnJKP9hvi\nvvPvw982G/Kbe+Prs0FlJ9zPw4b+eSt7cNRUW+sRWRoUsC9Yuu2Gqs/8P1p8EY+S\n+pfTa7kjIILGR/DnbDglr2WdYS2/5CMXTV0qKRMt0HFt+5eSF/Te4gsm3E2SvJKZ\nCQIDAQAB\n-----END<sp/>PUBLIC<sp/>KEY-----&quot;,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>requestBody,<sp/>err<sp/>:=<sp/>json.Marshal(user)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>if<sp/>err<sp/>!=<sp/>nil<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>t.Fatal(err)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>request,<sp/>err<sp/>:=<sp/>http.NewRequest(&quot;POST&quot;,<sp/>&quot;http://127.0.0.1:1234/login&quot;,<sp/>bytes.NewBuffer(requestBody))</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>if<sp/>err<sp/>!=<sp/>nil<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>t.Fatal(err)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>//<sp/>Esegui<sp/>la<sp/>richiesta<sp/>HTTP</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>client<sp/>:=<sp/>&amp;http.Client{}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>_,<sp/>err<sp/>=<sp/>client.Do(request)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>if<sp/>err<sp/>!=<sp/>nil<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>t.Fatal(err)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>//Now<sp/>share<sp/>a<sp/>file</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>sharedFilesRequest<sp/>:=<sp/>map[string]interface{}{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;users&quot;:<sp/>[]map[string]string{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{&quot;username&quot;:<sp/>&quot;testUser0&quot;},</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{&quot;username&quot;:<sp/>&quot;testUser1&quot;},</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{&quot;username&quot;:<sp/>&quot;testUser2&quot;},</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{&quot;username&quot;:<sp/>&quot;testUser3&quot;},</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{&quot;username&quot;:<sp/>&quot;testUser4&quot;},</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{&quot;username&quot;:<sp/>&quot;testUser5&quot;},</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{&quot;username&quot;:<sp/>&quot;testUser6&quot;},</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{&quot;username&quot;:<sp/>&quot;testUser7&quot;},</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{&quot;username&quot;:<sp/>&quot;testUser8&quot;},</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{&quot;username&quot;:<sp/>&quot;testUser9&quot;},</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>//<sp/>Aggiungi<sp/>altri<sp/>utenti<sp/>qui<sp/>se<sp/>necessario</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>},</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;k&quot;:<sp/>4,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>requestBody,<sp/>err<sp/>:=<sp/>json.Marshal(sharedFilesRequest)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>if<sp/>err<sp/>!=<sp/>nil<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>t.Fatal(err)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>request,<sp/>err<sp/>:=<sp/>http.NewRequest(&quot;POST&quot;,<sp/>&quot;http://localhost:1234/createSharedFile&quot;,<sp/>bytes.NewBuffer(requestBody))</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>//<sp/>Esegui<sp/>la<sp/>richiesta<sp/>HTTP</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>client<sp/>:=<sp/>&amp;http.Client{}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>response,<sp/>err<sp/>:=<sp/>client.Do(request)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>if<sp/>err<sp/>!=<sp/>nil<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>t.Fatal(err)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>defer<sp/>response.Body.Close()</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>//<sp/>Leggi<sp/>il<sp/>corpo<sp/>della<sp/>risposta</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>body,<sp/>err<sp/>:=<sp/>ioutil.ReadAll(response.Body)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>if<sp/>err<sp/>!=<sp/>nil<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>t.Fatal(err)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>//<sp/>Verifica<sp/>che<sp/>lo<sp/>status<sp/>code<sp/>sia<sp/>200</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>if<sp/>response.StatusCode<sp/>!=<sp/>http.StatusOK<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>t.Errorf(&quot;handler<sp/>returned<sp/>wrong<sp/>status<sp/>code:<sp/>got<sp/>%v<sp/>want<sp/>%v&quot;,<sp/>response.StatusCode,<sp/>http.StatusOK)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>fmt.Printf(&quot;%v\n&quot;,<sp/>string(body))</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="ServerREST/main_test.go"/>
+  </compounddef>
+</doxygen>

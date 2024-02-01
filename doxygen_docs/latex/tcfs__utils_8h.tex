@@ -1,0 +1,400 @@
+\doxysection{userspace-\/module/utils/tcfs\+\_\+utils/tcfs\+\_\+utils.h File Reference}
+\hypertarget{tcfs__utils_8h}{}\label{tcfs__utils_8h}\index{userspace-\/module/utils/tcfs\_utils/tcfs\_utils.h@{userspace-\/module/utils/tcfs\_utils/tcfs\_utils.h}}
+
+
+Header file containing utility functions used by TCFS (Transparent Cryptographic Filesystem)  
+
+
+{\ttfamily \#include $<$errno.\+h$>$}\newline
+{\ttfamily \#include $<$pwd.\+h$>$}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$sys/xattr.\+h$>$}\newline
+{\ttfamily \#include $<$unistd.\+h$>$}\newline
+{\ttfamily \#include $<$stdbool.\+h$>$}\newline
+Include dependency graph for tcfs\+\_\+utils.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tcfs__utils_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tcfs__utils_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{tcfs__utils_8h_a6d3fef197146b932f5ad01fce683a66b}{LOGFILE}}~"{}/.tcfs/tcfs.\+log"{}
+\begin{DoxyCompactList}\small\item\em The path to the logfile of tcfs. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{tcfs__utils_8h_ad72dbcf6d0153db1b8d8a58001feed83}{DEBUG}}~1
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{tcfs__utils_8h_aac1b7fab3a13b4cfcc0b34eb7511df55}{get\+\_\+user\+\_\+name}} (char \texorpdfstring{$\ast$}{*}buf, size\+\_\+t size)
+\begin{DoxyCompactList}\small\item\em Fetch the username of the current user. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{tcfs__utils_8h_a71e44dc105c7af8349bc3e7eb9edf2b0}{is\+\_\+encrypted}} (const char \texorpdfstring{$\ast$}{*}path)
+\begin{DoxyCompactList}\small\item\em Check if a file is encrypted by TCFS. \end{DoxyCompactList}\item 
+char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{tcfs__utils_8h_ac4ff59963f4a122c9f802c0c2bf2abc8}{prefix\+\_\+path}} (const char \texorpdfstring{$\ast$}{*}path, const char \texorpdfstring{$\ast$}{*}realpath)
+\begin{DoxyCompactList}\small\item\em Prefix the realpath to the fuse path. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{tcfs__utils_8h_a8c1c24299a2b01f6157b051cb56ebc52}{print\+\_\+aes\+\_\+key}} (unsigned char \texorpdfstring{$\ast$}{*}key)
+\begin{DoxyCompactList}\small\item\em Print the value of an AES key. \end{DoxyCompactList}\item 
+char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{tcfs__utils_8h_a819d57d5c053a25772508a943d1bcc48}{string\+\_\+to\+\_\+hex}} (const char \texorpdfstring{$\ast$}{*}input)
+\begin{DoxyCompactList}\small\item\em Convert a string to its hexadecimal representation. \end{DoxyCompactList}\item 
+char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{tcfs__utils_8h_a6de1cb8448198da94080ad32d7e4eabf}{hex\+\_\+to\+\_\+string}} (const char \texorpdfstring{$\ast$}{*}input)
+\begin{DoxyCompactList}\small\item\em Convert a hexadecimal string to its ASCII representation. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{tcfs__utils_8h_a62b66e43a7ad8b8cf9fcad67f71a7a8b}{log\+Message}} (const char \texorpdfstring{$\ast$}{*}format,...)
+\begin{DoxyCompactList}\small\item\em Logs a formatted message to a file with timestamp. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Header file containing utility functions used by TCFS (Transparent Cryptographic Filesystem) 
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{tcfs__utils_8c}{tcfs\+\_\+utils.\+c} 
+\end{DoxySeeAlso}
+
+
+Definition in file \mbox{\hyperlink{tcfs__utils_8h_source}{tcfs\+\_\+utils.\+h}}.
+
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{tcfs__utils_8h_ad72dbcf6d0153db1b8d8a58001feed83}\label{tcfs__utils_8h_ad72dbcf6d0153db1b8d8a58001feed83} 
+\index{tcfs\_utils.h@{tcfs\_utils.h}!DEBUG@{DEBUG}}
+\index{DEBUG@{DEBUG}!tcfs\_utils.h@{tcfs\_utils.h}}
+\doxysubsubsection{\texorpdfstring{DEBUG}{DEBUG}}
+{\footnotesize\ttfamily \#define DEBUG~1}
+
+
+
+Definition at line \mbox{\hyperlink{tcfs__utils_8h_source_l00022}{22}} of file \mbox{\hyperlink{tcfs__utils_8h_source}{tcfs\+\_\+utils.\+h}}.
+
+\Hypertarget{tcfs__utils_8h_a6d3fef197146b932f5ad01fce683a66b}\label{tcfs__utils_8h_a6d3fef197146b932f5ad01fce683a66b} 
+\index{tcfs\_utils.h@{tcfs\_utils.h}!LOGFILE@{LOGFILE}}
+\index{LOGFILE@{LOGFILE}!tcfs\_utils.h@{tcfs\_utils.h}}
+\doxysubsubsection{\texorpdfstring{LOGFILE}{LOGFILE}}
+{\footnotesize\ttfamily \#define LOGFILE~"{}/.tcfs/tcfs.\+log"{}}
+
+
+
+The path to the logfile of tcfs. 
+
+
+
+Definition at line \mbox{\hyperlink{tcfs__utils_8h_source_l00020}{20}} of file \mbox{\hyperlink{tcfs__utils_8h_source}{tcfs\+\_\+utils.\+h}}.
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{tcfs__utils_8h_aac1b7fab3a13b4cfcc0b34eb7511df55}\label{tcfs__utils_8h_aac1b7fab3a13b4cfcc0b34eb7511df55} 
+\index{tcfs\_utils.h@{tcfs\_utils.h}!get\_user\_name@{get\_user\_name}}
+\index{get\_user\_name@{get\_user\_name}!tcfs\_utils.h@{tcfs\_utils.h}}
+\doxysubsubsection{\texorpdfstring{get\_user\_name()}{get\_user\_name()}}
+{\footnotesize\ttfamily void get\+\_\+user\+\_\+name (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{buf,  }\item[{size\+\_\+t}]{size }\end{DoxyParamCaption})}
+
+
+
+Fetch the username of the current user. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em buf} & The buffer where the username will be written. \\
+\hline
+{\em size} & The size of the buffer. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+If an error occurs, it will be printed, and the buffer will not be modified. 
+\end{DoxyNote}
+
+
+Definition at line \mbox{\hyperlink{tcfs__utils_8c_source_l00019}{19}} of file \mbox{\hyperlink{tcfs__utils_8c_source}{tcfs\+\_\+utils.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{tcfs_8c_source_l00734}{tcfs\+\_\+read()}}.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=255pt]{tcfs__utils_8h_aac1b7fab3a13b4cfcc0b34eb7511df55_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{tcfs__utils_8h_a6de1cb8448198da94080ad32d7e4eabf}\label{tcfs__utils_8h_a6de1cb8448198da94080ad32d7e4eabf} 
+\index{tcfs\_utils.h@{tcfs\_utils.h}!hex\_to\_string@{hex\_to\_string}}
+\index{hex\_to\_string@{hex\_to\_string}!tcfs\_utils.h@{tcfs\_utils.h}}
+\doxysubsubsection{\texorpdfstring{hex\_to\_string()}{hex\_to\_string()}}
+{\footnotesize\ttfamily char \texorpdfstring{$\ast$}{*} hex\+\_\+to\+\_\+string (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{input }\end{DoxyParamCaption})}
+
+
+
+Convert a hexadecimal string to its ASCII representation. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em input} & The input hexadecimal string. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+char \texorpdfstring{$\ast$}{*} The ASCII representation of the input hexadecimal string. 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Remember to free the result after use. 
+\end{DoxyNote}
+
+
+Definition at line \mbox{\hyperlink{tcfs__utils_8c_source_l00218}{218}} of file \mbox{\hyperlink{tcfs__utils_8c_source}{tcfs\+\_\+utils.\+c}}.
+
+
+
+References \mbox{\hyperlink{tcfs__utils_8c_source_l00262}{log\+Message()}}.
+
+
+
+Referenced by \mbox{\hyperlink{crypt-utils_8c_source_l00406}{decrypt\+\_\+file\+\_\+name\+\_\+with\+\_\+hex()}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=259pt]{tcfs__utils_8h_a6de1cb8448198da94080ad32d7e4eabf_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tcfs__utils_8h_a6de1cb8448198da94080ad32d7e4eabf_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{tcfs__utils_8h_a71e44dc105c7af8349bc3e7eb9edf2b0}\label{tcfs__utils_8h_a71e44dc105c7af8349bc3e7eb9edf2b0} 
+\index{tcfs\_utils.h@{tcfs\_utils.h}!is\_encrypted@{is\_encrypted}}
+\index{is\_encrypted@{is\_encrypted}!tcfs\_utils.h@{tcfs\_utils.h}}
+\doxysubsubsection{\texorpdfstring{is\_encrypted()}{is\_encrypted()}}
+{\footnotesize\ttfamily int is\+\_\+encrypted (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{path }\end{DoxyParamCaption})}
+
+
+
+Check if a file is encrypted by TCFS. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em path} & The full path of the file. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+1 if successful, 0 otherwise. An error might be printen by print\+\_\+err() function, 
+\end{DoxyReturn}
+\begin{DoxySeeAlso}{See also}
+print\+\_\+err 
+\end{DoxySeeAlso}
+
+
+Definition at line \mbox{\hyperlink{tcfs__utils_8c_source_l00035}{35}} of file \mbox{\hyperlink{tcfs__utils_8c_source}{tcfs\+\_\+utils.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{tcfs__utils_8c_source_l00123}{get\+\_\+encrypted\+\_\+key()}}.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=286pt]{tcfs__utils_8h_a71e44dc105c7af8349bc3e7eb9edf2b0_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{tcfs__utils_8h_a62b66e43a7ad8b8cf9fcad67f71a7a8b}\label{tcfs__utils_8h_a62b66e43a7ad8b8cf9fcad67f71a7a8b} 
+\index{tcfs\_utils.h@{tcfs\_utils.h}!logMessage@{logMessage}}
+\index{logMessage@{logMessage}!tcfs\_utils.h@{tcfs\_utils.h}}
+\doxysubsubsection{\texorpdfstring{logMessage()}{logMessage()}}
+{\footnotesize\ttfamily void log\+Message (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{format,  }\item[{}]{... }\end{DoxyParamCaption})}
+
+
+
+Logs a formatted message to a file with timestamp. 
+
+This function logs a formatted message to a specified log file along with a timestamp. It accepts a variable number of parameters, similar to printf.
+
+
+\begin{DoxyParams}{Parameters}
+{\em format} & The format string for the log message. \\
+\hline
+{\em ...} & Additional parameters to be formatted into the log message. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{tcfs__utils_8c_source_l00262}{262}} of file \mbox{\hyperlink{tcfs__utils_8c_source}{tcfs\+\_\+utils.\+c}}.
+
+
+
+References \mbox{\hyperlink{tcfs__utils_8h_source_l00022}{DEBUG}}, and \mbox{\hyperlink{tcfs__utils_8h_source_l00020}{LOGFILE}}.
+
+
+
+Referenced by \mbox{\hyperlink{crypt-utils_8c_source_l00645}{decrypt\+\_\+path()}}, \mbox{\hyperlink{crypt-utils_8c_source_l00759}{decrypt\+\_\+path\+\_\+and\+\_\+filename()}}, \mbox{\hyperlink{crypt-utils_8c_source_l00330}{decrypt\+\_\+string()}}, \mbox{\hyperlink{crypt-utils_8c_source_l00420}{encrypt\+\_\+path()}}, \mbox{\hyperlink{crypt-utils_8c_source_l00532}{encrypt\+\_\+path\+\_\+and\+\_\+filename()}}, \mbox{\hyperlink{crypt-utils_8c_source_l00235}{generate\+\_\+key()}}, \mbox{\hyperlink{tcfs__utils_8c_source_l00123}{get\+\_\+encrypted\+\_\+key()}}, \mbox{\hyperlink{tcfs__utils_8c_source_l00218}{hex\+\_\+to\+\_\+string()}}, \mbox{\hyperlink{tcfs_8c_source_l01412}{main()}}, \mbox{\hyperlink{tcfs__utils_8c_source_l00165}{print\+\_\+aes\+\_\+key()}}, \mbox{\hyperlink{tcfs__utils_8c_source_l00182}{string\+\_\+to\+\_\+hex()}}, \mbox{\hyperlink{tcfs_8c_source_l00132}{tcfs\+\_\+access()}}, \mbox{\hyperlink{tcfs_8c_source_l00497}{tcfs\+\_\+chmod()}}, \mbox{\hyperlink{tcfs_8c_source_l00530}{tcfs\+\_\+chown()}}, \mbox{\hyperlink{tcfs_8c_source_l01031}{tcfs\+\_\+create()}}, \mbox{\hyperlink{tcfs_8c_source_l01140}{tcfs\+\_\+fsync()}}, \mbox{\hyperlink{tcfs_8c_source_l00099}{tcfs\+\_\+getattr()}}, \mbox{\hyperlink{tcfs_8c_source_l01199}{tcfs\+\_\+getxattr()}}, \mbox{\hyperlink{tcfs_8c_source_l00465}{tcfs\+\_\+link()}}, \mbox{\hyperlink{tcfs_8c_source_l01229}{tcfs\+\_\+listxattr()}}, \mbox{\hyperlink{tcfs_8c_source_l00324}{tcfs\+\_\+mkdir()}}, \mbox{\hyperlink{tcfs_8c_source_l00286}{tcfs\+\_\+mknod()}}, \mbox{\hyperlink{tcfs_8c_source_l00651}{tcfs\+\_\+open()}}, \mbox{\hyperlink{tcfs_8c_source_l00067}{tcfs\+\_\+opendir()}}, \mbox{\hyperlink{tcfs_8c_source_l00734}{tcfs\+\_\+read()}}, \mbox{\hyperlink{tcfs_8c_source_l00196}{tcfs\+\_\+readdir()}}, \mbox{\hyperlink{tcfs_8c_source_l00162}{tcfs\+\_\+readlink()}}, \mbox{\hyperlink{tcfs_8c_source_l01111}{tcfs\+\_\+release()}}, \mbox{\hyperlink{tcfs_8c_source_l01273}{tcfs\+\_\+removexattr()}}, \mbox{\hyperlink{tcfs_8c_source_l00436}{tcfs\+\_\+rename()}}, \mbox{\hyperlink{tcfs_8c_source_l00377}{tcfs\+\_\+rmdir()}}, \mbox{\hyperlink{tcfs_8c_source_l00979}{tcfs\+\_\+setxattr()}}, \mbox{\hyperlink{tcfs_8c_source_l00952}{tcfs\+\_\+statfs()}}, \mbox{\hyperlink{tcfs_8c_source_l00404}{tcfs\+\_\+symlink()}}, \mbox{\hyperlink{tcfs_8c_source_l00559}{tcfs\+\_\+truncate()}}, \mbox{\hyperlink{tcfs_8c_source_l00351}{tcfs\+\_\+unlink()}}, \mbox{\hyperlink{tcfs_8c_source_l00612}{tcfs\+\_\+utimens()}}, and \mbox{\hyperlink{tcfs_8c_source_l00830}{tcfs\+\_\+write()}}.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{tcfs__utils_8h_a62b66e43a7ad8b8cf9fcad67f71a7a8b_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{tcfs__utils_8h_ac4ff59963f4a122c9f802c0c2bf2abc8}\label{tcfs__utils_8h_ac4ff59963f4a122c9f802c0c2bf2abc8} 
+\index{tcfs\_utils.h@{tcfs\_utils.h}!prefix\_path@{prefix\_path}}
+\index{prefix\_path@{prefix\_path}!tcfs\_utils.h@{tcfs\_utils.h}}
+\doxysubsubsection{\texorpdfstring{prefix\_path()}{prefix\_path()}}
+{\footnotesize\ttfamily char \texorpdfstring{$\ast$}{*} prefix\+\_\+path (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{path,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{realpath }\end{DoxyParamCaption})}
+
+
+
+Prefix the realpath to the fuse path. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em path} & The fuse path. \\
+\hline
+{\em realpath} & The realpath to the directory mounted by TCFS. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+char \texorpdfstring{$\ast$}{*} An allocated string containing the full path to the file. 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Please free the result after use. 
+\end{DoxyNote}
+
+
+Definition at line \mbox{\hyperlink{tcfs__utils_8c_source_l00053}{53}} of file \mbox{\hyperlink{tcfs__utils_8c_source}{tcfs\+\_\+utils.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{tcfs_8c_source_l00132}{tcfs\+\_\+access()}}, \mbox{\hyperlink{tcfs_8c_source_l00497}{tcfs\+\_\+chmod()}}, \mbox{\hyperlink{tcfs_8c_source_l00530}{tcfs\+\_\+chown()}}, \mbox{\hyperlink{tcfs_8c_source_l01031}{tcfs\+\_\+create()}}, \mbox{\hyperlink{tcfs_8c_source_l01140}{tcfs\+\_\+fsync()}}, \mbox{\hyperlink{tcfs_8c_source_l00099}{tcfs\+\_\+getattr()}}, \mbox{\hyperlink{tcfs_8c_source_l01199}{tcfs\+\_\+getxattr()}}, \mbox{\hyperlink{tcfs_8c_source_l00465}{tcfs\+\_\+link()}}, \mbox{\hyperlink{tcfs_8c_source_l01229}{tcfs\+\_\+listxattr()}}, \mbox{\hyperlink{tcfs_8c_source_l00324}{tcfs\+\_\+mkdir()}}, \mbox{\hyperlink{tcfs_8c_source_l00286}{tcfs\+\_\+mknod()}}, \mbox{\hyperlink{tcfs_8c_source_l00651}{tcfs\+\_\+open()}}, \mbox{\hyperlink{tcfs_8c_source_l00067}{tcfs\+\_\+opendir()}}, \mbox{\hyperlink{tcfs_8c_source_l00734}{tcfs\+\_\+read()}}, \mbox{\hyperlink{tcfs_8c_source_l00196}{tcfs\+\_\+readdir()}}, \mbox{\hyperlink{tcfs_8c_source_l00162}{tcfs\+\_\+readlink()}}, \mbox{\hyperlink{tcfs_8c_source_l01111}{tcfs\+\_\+release()}}, \mbox{\hyperlink{tcfs_8c_source_l01273}{tcfs\+\_\+removexattr()}}, \mbox{\hyperlink{tcfs_8c_source_l00436}{tcfs\+\_\+rename()}}, \mbox{\hyperlink{tcfs_8c_source_l00377}{tcfs\+\_\+rmdir()}}, \mbox{\hyperlink{tcfs_8c_source_l00979}{tcfs\+\_\+setxattr()}}, \mbox{\hyperlink{tcfs_8c_source_l00952}{tcfs\+\_\+statfs()}}, \mbox{\hyperlink{tcfs_8c_source_l00404}{tcfs\+\_\+symlink()}}, \mbox{\hyperlink{tcfs_8c_source_l00559}{tcfs\+\_\+truncate()}}, \mbox{\hyperlink{tcfs_8c_source_l00351}{tcfs\+\_\+unlink()}}, \mbox{\hyperlink{tcfs_8c_source_l00612}{tcfs\+\_\+utimens()}}, and \mbox{\hyperlink{tcfs_8c_source_l00830}{tcfs\+\_\+write()}}.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{tcfs__utils_8h_ac4ff59963f4a122c9f802c0c2bf2abc8_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{tcfs__utils_8h_a8c1c24299a2b01f6157b051cb56ebc52}\label{tcfs__utils_8h_a8c1c24299a2b01f6157b051cb56ebc52} 
+\index{tcfs\_utils.h@{tcfs\_utils.h}!print\_aes\_key@{print\_aes\_key}}
+\index{print\_aes\_key@{print\_aes\_key}!tcfs\_utils.h@{tcfs\_utils.h}}
+\doxysubsubsection{\texorpdfstring{print\_aes\_key()}{print\_aes\_key()}}
+{\footnotesize\ttfamily void print\+\_\+aes\+\_\+key (\begin{DoxyParamCaption}\item[{unsigned char \texorpdfstring{$\ast$}{*}}]{key }\end{DoxyParamCaption})}
+
+
+
+Print the value of an AES key. 
+
+\begin{DoxyRefDesc}{Deprecated}
+\item[\mbox{\hyperlink{deprecated__deprecated000003}{Deprecated}}]Currently has no use. Printing the AES key is considered excessive. \end{DoxyRefDesc}
+\begin{DoxyWarning}{Warning}
+THIS WILL PRINT THE AES KEY TO STDOUT. TCFS trusts the user by design, but this is excessive. 
+\end{DoxyWarning}
+
+\begin{DoxyParams}{Parameters}
+{\em key} & The string containing the key. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{tcfs__utils_8c_source_l00165}{165}} of file \mbox{\hyperlink{tcfs__utils_8c_source}{tcfs\+\_\+utils.\+c}}.
+
+
+
+References \mbox{\hyperlink{tcfs__utils_8c_source_l00262}{log\+Message()}}.
+
+
+
+Referenced by \mbox{\hyperlink{crypt-utils_8c_source_l00235}{generate\+\_\+key()}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=261pt]{tcfs__utils_8h_a8c1c24299a2b01f6157b051cb56ebc52_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tcfs__utils_8h_a8c1c24299a2b01f6157b051cb56ebc52_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{tcfs__utils_8h_a819d57d5c053a25772508a943d1bcc48}\label{tcfs__utils_8h_a819d57d5c053a25772508a943d1bcc48} 
+\index{tcfs\_utils.h@{tcfs\_utils.h}!string\_to\_hex@{string\_to\_hex}}
+\index{string\_to\_hex@{string\_to\_hex}!tcfs\_utils.h@{tcfs\_utils.h}}
+\doxysubsubsection{\texorpdfstring{string\_to\_hex()}{string\_to\_hex()}}
+{\footnotesize\ttfamily char \texorpdfstring{$\ast$}{*} string\+\_\+to\+\_\+hex (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{input }\end{DoxyParamCaption})}
+
+
+
+Convert a string to its hexadecimal representation. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em input} & The input string. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+char \texorpdfstring{$\ast$}{*} The hexadecimal representation of the input string. 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Remember to free the result after use. 
+\end{DoxyNote}
+
+
+Definition at line \mbox{\hyperlink{tcfs__utils_8c_source_l00182}{182}} of file \mbox{\hyperlink{tcfs__utils_8c_source}{tcfs\+\_\+utils.\+c}}.
+
+
+
+References \mbox{\hyperlink{tcfs__utils_8c_source_l00262}{log\+Message()}}.
+
+
+
+Referenced by \mbox{\hyperlink{crypt-utils_8c_source_l00398}{encrypt\+\_\+file\+\_\+name\+\_\+with\+\_\+hex()}}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=259pt]{tcfs__utils_8h_a819d57d5c053a25772508a943d1bcc48_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tcfs__utils_8h_a819d57d5c053a25772508a943d1bcc48_icgraph}
+\end{center}
+\end{figure}

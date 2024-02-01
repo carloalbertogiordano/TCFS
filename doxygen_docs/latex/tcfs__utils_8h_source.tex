@@ -1,0 +1,33 @@
+\doxysection{tcfs\+\_\+utils.\+h}
+\hypertarget{tcfs__utils_8h_source}{}\label{tcfs__utils_8h_source}\index{userspace-\/module/utils/tcfs\_utils/tcfs\_utils.h@{userspace-\/module/utils/tcfs\_utils/tcfs\_utils.h}}
+\mbox{\hyperlink{tcfs__utils_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8h_source_l00001}00001\ }
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8h_source_l00007}00007\ \textcolor{preprocessor}{\#include\ <errno.h>}}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8h_source_l00008}00008\ \textcolor{preprocessor}{\#include\ <pwd.h>}}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8h_source_l00009}00009\ \textcolor{preprocessor}{\#include\ <stdio.h>}}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8h_source_l00010}00010\ \textcolor{preprocessor}{\#include\ <stdlib.h>}}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8h_source_l00011}00011\ \textcolor{preprocessor}{\#include\ <string.h>}}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8h_source_l00012}00012\ \textcolor{preprocessor}{\#include\ <sys/xattr.h>}}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8h_source_l00013}00013\ \textcolor{preprocessor}{\#include\ <unistd.h>}}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8h_source_l00014}00014\ \textcolor{preprocessor}{\#include\ <stdbool.h>}}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8h_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8h_source_l00020}\mbox{\hyperlink{tcfs__utils_8h_a6d3fef197146b932f5ad01fce683a66b}{00020}}\ \textcolor{preprocessor}{\#define\ LOGFILE\ "{}/.tcfs/tcfs.log"{}}}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8h_source_l00021}00021\ }
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8h_source_l00022}\mbox{\hyperlink{tcfs__utils_8h_ad72dbcf6d0153db1b8d8a58001feed83}{00022}}\ \textcolor{preprocessor}{\#define\ DEBUG\ 1\ }\textcolor{comment}{//TODO:\ find\ a\ better\ way\ to\ do\ this}}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8h_source_l00023}00023\ }
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8h_source_l00024}00024\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{tcfs__utils_8h_aac1b7fab3a13b4cfcc0b34eb7511df55}{get\_user\_name}}\ (\textcolor{keywordtype}{char}\ *buf,\ \textcolor{keywordtype}{size\_t}\ size);}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8h_source_l00025}00025\ }
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8h_source_l00026}00026\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{tcfs__utils_8h_a71e44dc105c7af8349bc3e7eb9edf2b0}{is\_encrypted}}\ (\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *path);}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8h_source_l00027}00027\ }
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8h_source_l00028}00028\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{tcfs__utils_8h_ac4ff59963f4a122c9f802c0c2bf2abc8}{prefix\_path}}\ (\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *path,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *realpath);}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8h_source_l00029}00029\ }
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8h_source_l00030}00030\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{tcfs__utils_8h_a8c1c24299a2b01f6157b051cb56ebc52}{print\_aes\_key}}\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *key);}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8h_source_l00031}00031\ }
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8h_source_l00032}00032\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{tcfs__utils_8h_a819d57d5c053a25772508a943d1bcc48}{string\_to\_hex}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *input);}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8h_source_l00033}00033\ }
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8h_source_l00034}00034\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{tcfs__utils_8h_a6de1cb8448198da94080ad32d7e4eabf}{hex\_to\_string}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *input);}
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8h_source_l00035}00035\ }
+\DoxyCodeLine{\Hypertarget{tcfs__utils_8h_source_l00036}00036\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{tcfs__utils_8h_a62b66e43a7ad8b8cf9fcad67f71a7a8b}{logMessage}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *format,\ ...);}
+
+\end{DoxyCode}

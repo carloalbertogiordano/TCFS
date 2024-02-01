@@ -1,0 +1,463 @@
+.TH "userspace-module/utils/crypt-utils/crypt-utils.c" 3 "Thu Feb 1 2024 17:25:40" "Version 0.3.2" "TCFS" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+userspace-module/utils/crypt-utils/crypt-utils.c \- Implementation file for cryptographic utility functions\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+\fC#include 'crypt\-utils\&.h'\fP
+.br
+
+.SS "Macros"
+
+.in +1c
+.ti -1c
+.RI "#define \fBBLOCKSIZE\fP   1024"
+.br
+.RI "This defines the max size of a block that can be cyphered\&. This definition is marked as internal and should not be used directly by the user\&. "
+.ti -1c
+.RI "#define \fBIV_SIZE\fP   32"
+.br
+.RI "The fixed size of the initialization vector \fBIV \fP\&. This definition is marked as internal and should not be used directly by the user\&. "
+.ti -1c
+.RI "#define \fBKEY_SIZE\fP   32"
+.br
+.RI "The fixed size of the key\&. This definition is marked as internal and should not be used directly by the user\&. "
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "int \fBdo_crypt\fP (FILE *in, FILE *out, int action, unsigned char *key_str)"
+.br
+.RI "High level function interface for performing AES encryption on FILE pointers Uses OpenSSL libcrypto EVP API 
+.br
+\&. "
+.ti -1c
+.RI "int \fBcheck_entropy\fP (void)"
+.br
+.RI "Verify if there is enough entropy in the system to generate a key\&. "
+.ti -1c
+.RI "void \fBadd_entropy\fP (void)"
+.br
+.RI "Force new entropy in /dev/urandom\&. "
+.ti -1c
+.RI "void \fBgenerate_key\fP (unsigned char *destination)"
+.br
+.RI "Generate a new AES 256 key for a file\&. "
+.ti -1c
+.RI "unsigned char * \fBencrypt_string\fP (unsigned char *plaintext, const char *key, int *encrypted_key_len)"
+.br
+.RI "Encrypt the *plaintext string using a AES 256 key\&. "
+.ti -1c
+.RI "unsigned char * \fBdecrypt_string\fP (unsigned char *ciphertext, const char *key)"
+.br
+.RI "Decrypt the *ciphertext string using a AES 256 key\&. "
+.ti -1c
+.RI "int \fBis_valid_key\fP (const unsigned char *key)"
+.br
+.RI "Check if a given key is valid\&. "
+.ti -1c
+.RI "const char * \fBencrypt_file_name_with_hex\fP (const char *file, const char *key)"
+.br
+.ti -1c
+.RI "const char * \fBdecrypt_file_name_with_hex\fP (const char *enc_file, const char *key)"
+.br
+.ti -1c
+.RI "const char * \fBencrypt_path\fP (const char *path, const char *key)"
+.br
+.RI "Encrypts each part of the given path using a specified key\&. "
+.ti -1c
+.RI "const char * \fBencrypt_path_and_filename\fP (const char *path, const char *key)"
+.br
+.RI "Encrypts the given filename with its path using a specified key\&. "
+.ti -1c
+.RI "const char * \fBdecrypt_path\fP (const char *encrypted_path, const char *key)"
+.br
+.RI "Decrypts each part of the given encrypted path using a specified key\&. "
+.ti -1c
+.RI "const char * \fBdecrypt_path_and_filename\fP (const char *encrypted_path, const char *key)"
+.br
+.RI "Decrypts the given encrypted filename with its path using a specified key\&. "
+.in -1c
+.SH "Detailed Description"
+.PP 
+Implementation file for cryptographic utility functions\&. 
+
+This file contains the implementation of various cryptographic utility functions, including AES encryption and decryption, key generation, entropy checks, and path encryption/decryption\&.
+.PP
+\fBAuthor\fP
+.RS 4
+By Carlo Alberto Giordnano 
+.br
+Created 18/10/23 by [Carlo Alberto Giordano] 
+.br
+.RE
+.PP
+
+.PP
+Definition in file \fBcrypt\-utils\&.c\fP\&.
+.SH "Macro Definition Documentation"
+.PP 
+.SS "#define BLOCKSIZE   1024"
+
+.PP
+This defines the max size of a block that can be cyphered\&. This definition is marked as internal and should not be used directly by the user\&. 
+.PP
+Definition at line \fB21\fP of file \fBcrypt\-utils\&.c\fP\&.
+.SS "#define IV_SIZE   32"
+
+.PP
+The fixed size of the initialization vector \fBIV \fP\&. This definition is marked as internal and should not be used directly by the user\&. 
+.PP
+Definition at line \fB28\fP of file \fBcrypt\-utils\&.c\fP\&.
+.SS "#define KEY_SIZE   32"
+
+.PP
+The fixed size of the key\&. This definition is marked as internal and should not be used directly by the user\&. 
+.PP
+Definition at line \fB34\fP of file \fBcrypt\-utils\&.c\fP\&.
+.SH "Function Documentation"
+.PP 
+.SS "void add_entropy (void)"
+
+.PP
+Force new entropy in /dev/urandom\&. 
+.PP
+\fBReturns\fP
+.RS 4
+void 
+.RE
+.PP
+\fBNote\fP
+.RS 4
+Very dangerous, if this fails an error will be printed and the program will exit with EXIT_FAILURE 
+.RE
+.PP
+
+.PP
+Definition at line \fB202\fP of file \fBcrypt\-utils\&.c\fP\&.
+.PP
+Referenced by \fBgenerate_key()\fP\&.
+.SS "int check_entropy (void)"
+
+.PP
+Verify if there is enough entropy in the system to generate a key\&. 
+.PP
+\fBReturns\fP
+.RS 4
+A value greater than 0 corresponding to the entropy level, if an error occurs false is returned 
+.RE
+.PP
+\fBNote\fP
+.RS 4
+This function evaluates the entropy by checking the /proc/sys/kernel/random/entropy_avail file\&. 
+.RE
+.PP
+\fBSee also\fP
+.RS 4
+man page 4 for random 
+.RE
+.PP
+
+.PP
+Definition at line \fB174\fP of file \fBcrypt\-utils\&.c\fP\&.
+.PP
+Referenced by \fBgenerate_key()\fP\&.
+.SS "const char * decrypt_file_name_with_hex (const char * enc_file, const char * key)"
+
+.PP
+Definition at line \fB406\fP of file \fBcrypt\-utils\&.c\fP\&.
+.PP
+References \fBdecrypt_string()\fP, and \fBhex_to_string()\fP\&.
+.PP
+Referenced by \fBdecrypt_path()\fP, \fBdecrypt_path_and_filename()\fP, and \fBtcfs_readdir()\fP\&.
+.SS "const char * decrypt_path (const char * encrypted_path, const char * key)"
+
+.PP
+Decrypts each part of the given encrypted path using a specified key\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIencrypted_path\fP The input encrypted path to be decrypted\&. 
+.br
+\fIkey\fP The decryption key\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+A dynamically allocated string containing the decrypted path\&. It is the responsibility of the caller to free this memory\&. 
+.RE
+.PP
+
+.PP
+Definition at line \fB645\fP of file \fBcrypt\-utils\&.c\fP\&.
+.PP
+References \fBdecrypt_file_name_with_hex()\fP, and \fBlogMessage()\fP\&.
+.PP
+Referenced by \fBtcfs_readdir()\fP\&.
+.SS "const char * decrypt_path_and_filename (const char * encrypted_path, const char * key)"
+
+.PP
+Decrypts the given encrypted filename with its path using a specified key\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIencrypted_path\fP The input encrypted path to be decrypted\&. 
+.br
+\fIkey\fP The decryption key\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+A dynamically allocated string containing the decrypted path with the decrypted filename\&. It is the responsibility of the caller to free this memory\&. 
+.RE
+.PP
+
+.PP
+Definition at line \fB759\fP of file \fBcrypt\-utils\&.c\fP\&.
+.PP
+References \fBdecrypt_file_name_with_hex()\fP, and \fBlogMessage()\fP\&.
+.SS "unsigned char * decrypt_string (unsigned char * ciphertext, const char * key)"
+
+.PP
+Decrypt the *ciphertext string using a AES 256 key\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIciphertext\fP This is the string to decrypt in HEX format 
+.br
+\fIkey\fP The AES 256 KEY 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+unsigned char * The plaintext string will be allocated and then returned 
+.RE
+.PP
+\fBNote\fP
+.RS 4
+After the use remember to free the result 
+.RE
+.PP
+
+.PP
+Definition at line \fB330\fP of file \fBcrypt\-utils\&.c\fP\&.
+.PP
+References \fBlogMessage()\fP\&.
+.PP
+Referenced by \fBdecrypt_file_name_with_hex()\fP, \fBtcfs_read()\fP, and \fBtcfs_write()\fP\&.
+.SS "int do_crypt (FILE * in, FILE * out, int action, unsigned char * key_str)\fC [extern]\fP"
+
+.PP
+High level function interface for performing AES encryption on FILE pointers Uses OpenSSL libcrypto EVP API 
+.br
+\&. 
+.PP
+\fBAuthor\fP
+.RS 4
+By Andy Sayler (www\&.andysayler\&.com) 
+.br
+ Created 04/17/12 
+.br
+ 
+.PP
+Modified 18/10/23 by [Carlo Alberto Giordano] 
+.br
+.RE
+.PP
+Derived from OpenSSL\&.org EVP_Encrypt_* Manpage Examples 
+.br
+ http://www.openssl.org/docs/crypto/EVP_EncryptInit.html#EXAMPLES 
+.br
+ With additional information from Saju Pillai's OpenSSL AES Example 
+.br
+ http://saju.net.in/blog/?p=36 
+.br
+ http://saju.net.in/code/misc/openssl_aes.c.txt 
+.br
+\fBParameters\fP
+.RS 4
+\fIin\fP The input file 
+.br
+\fIout\fP The output file 
+.br
+\fIaction\fP Defines if the action to do on the input file should be of encryption or decryption\&. 
+.RE
+.PP
+\fBSee also\fP
+.RS 4
+\fBENCRYPT\fP 
+.PP
+\fBDECRYPT\fP 
+.RE
+.PP
+\fBParameters\fP
+.RS 4
+\fIkey_str\fP The key that must be AES 256 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+1 if successful, 0 otherwise\&. An error might be printen by print_err() function, 
+.RE
+.PP
+\fBSee also\fP
+.RS 4
+print_err 
+.RE
+.PP
+\fBNote\fP
+.RS 4
+This function cyphers using AES 256 CBC 
+.RE
+.PP
+
+.PP
+Definition at line \fB63\fP of file \fBcrypt\-utils\&.c\fP\&.
+.PP
+References \fBBLOCKSIZE\fP, \fBIV_SIZE\fP, and \fBKEY_SIZE\fP\&.
+.PP
+Referenced by \fBtcfs_read()\fP, and \fBtcfs_write()\fP\&.
+.SS "const char * encrypt_file_name_with_hex (const char * file, const char * key)"
+
+.PP
+Definition at line \fB398\fP of file \fBcrypt\-utils\&.c\fP\&.
+.PP
+References \fBencrypt_string()\fP, and \fBstring_to_hex()\fP\&.
+.PP
+Referenced by \fBencrypt_path()\fP, and \fBencrypt_path_and_filename()\fP\&.
+.SS "const char * encrypt_path (const char * path, const char * key)"
+
+.PP
+Encrypts each part of the given path using a specified key\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIpath\fP The input path to be encrypted\&. 
+.br
+\fIkey\fP The encryption key\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+A dynamically allocated string containing the encrypted path\&. It is the responsibility of the caller to free this memory\&. 
+.RE
+.PP
+
+.PP
+Definition at line \fB420\fP of file \fBcrypt\-utils\&.c\fP\&.
+.PP
+References \fBencrypt_file_name_with_hex()\fP, and \fBlogMessage()\fP\&.
+.PP
+Referenced by \fBtcfs_access()\fP, \fBtcfs_chmod()\fP, \fBtcfs_chown()\fP, \fBtcfs_getattr()\fP, \fBtcfs_mkdir()\fP, \fBtcfs_mknod()\fP, \fBtcfs_open()\fP, \fBtcfs_opendir()\fP, \fBtcfs_read()\fP, \fBtcfs_readdir()\fP, \fBtcfs_readlink()\fP, \fBtcfs_rmdir()\fP, \fBtcfs_setxattr()\fP, \fBtcfs_truncate()\fP, \fBtcfs_unlink()\fP, \fBtcfs_utimens()\fP, and \fBtcfs_write()\fP\&.
+.SS "const char * encrypt_path_and_filename (const char * path, const char * key)"
+
+.PP
+Encrypts the given filename with its path using a specified key\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIpath\fP The input path to be encrypted\&. 
+.br
+\fIkey\fP The encryption key\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+A dynamically allocated string containing the encrypted path with the encrypted filename\&. It is the responsibility of the caller to free this memory\&. 
+.RE
+.PP
+
+.PP
+Definition at line \fB532\fP of file \fBcrypt\-utils\&.c\fP\&.
+.PP
+References \fBencrypt_file_name_with_hex()\fP, and \fBlogMessage()\fP\&.
+.PP
+Referenced by \fBtcfs_create()\fP, \fBtcfs_fsync()\fP, \fBtcfs_getxattr()\fP, \fBtcfs_link()\fP, \fBtcfs_listxattr()\fP, \fBtcfs_release()\fP, \fBtcfs_removexattr()\fP, \fBtcfs_rename()\fP, and \fBtcfs_symlink()\fP\&.
+.SS "unsigned char * encrypt_string (unsigned char * plaintext, const char * key, int * encrypted_key_len)"
+
+.PP
+Encrypt the *plaintext string using a AES 256 key\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIplaintext\fP This is the string to encrypt 
+.br
+\fIkey\fP The AES 256 KEY 
+.br
+\fIencrypted_len\fP This will be set to the encrypted string length 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+unsigned char * The encrypted string will be allocated and then returned 
+.RE
+.PP
+\fBNote\fP
+.RS 4
+After the use remember to free the result 
+.RE
+.PP
+
+.PP
+Definition at line \fB278\fP of file \fBcrypt\-utils\&.c\fP\&.
+.PP
+Referenced by \fBencrypt_file_name_with_hex()\fP, and \fBtcfs_create()\fP\&.
+.SS "void generate_key (unsigned char * destination)"
+
+.PP
+Generate a new AES 256 key for a file\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIdestination\fP Pointer to the string in which the generated key will be saved\&. If an error occurs it will be set to NULL 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+void 
+.RE
+.PP
+
+.PP
+Definition at line \fB235\fP of file \fBcrypt\-utils\&.c\fP\&.
+.PP
+References \fBadd_entropy()\fP, \fBcheck_entropy()\fP, \fBis_valid_key()\fP, \fBlogMessage()\fP, and \fBprint_aes_key()\fP\&.
+.PP
+Referenced by \fBtcfs_create()\fP\&.
+.SS "int is_valid_key (const unsigned char * key)"
+
+.PP
+Check if a given key is valid\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIkey\fP The key to validate 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+1 if successful, 0 otherwise\&. An error might be printen by print_err() function, 
+.RE
+.PP
+\fBSee also\fP
+.RS 4
+print_err 
+.RE
+.PP
+\fBNote\fP
+.RS 4
+This function only checks for key length 
+.RE
+.PP
+
+.PP
+Definition at line \fB388\fP of file \fBcrypt\-utils\&.c\fP\&.
+.PP
+Referenced by \fBgenerate_key()\fP, \fBmain()\fP, and \fBtcfs_create()\fP\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for TCFS from the source code\&.

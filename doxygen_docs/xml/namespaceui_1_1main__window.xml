@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="namespaceui_1_1main__window" kind="namespace" language="Python">
+    <compoundname>ui::main_window</compoundname>
+    <innerclass refid="classui_1_1main__window_1_1Window" prot="public">ui::main_window::Window</innerclass>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="namespaceui_1_1main__window_1ae9c066a65238b3103c5bd44f4950a9c9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>ui.main_window.modify_button_allign</definition>
+        <argsstring>(button, row, column)</argsstring>
+        <name>modify_button_allign</name>
+        <qualifiedname>ui.main_window.modify_button_allign</qualifiedname>
+        <param>
+          <type>button</type>
+          <defname>button</defname>
+        </param>
+        <param>
+          <type>row</type>
+          <defname>row</defname>
+        </param>
+        <param>
+          <type>column</type>
+          <defname>column</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="user/ui/main_window.py" line="4" column="1" bodyfile="user/ui/main_window.py" bodystart="4" bodyend="7"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="user/ui/main_window.py" line="1" column="1"/>
+  </compounddef>
+</doxygen>

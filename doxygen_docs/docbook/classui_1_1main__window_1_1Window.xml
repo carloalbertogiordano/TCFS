@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_classui_1_1main__window_1_1Window" xml:lang="en-US">
+<title>ui.main_window.Window Class Reference</title>
+<indexterm><primary>ui.main_window.Window</primary></indexterm>
+<simplesect>
+    <title>Public Member Functions    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_classui_1_1main__window_1_1Window_1a75bf25c45091f2edb8aaeffe62b922d5">__init__</link> (self, str title, str geometry)</para>
+</listitem>
+            <listitem><para><link linkend="_classui_1_1main__window_1_1Window_1a61bcd34a3ad36ae9edf579ca78eee795">add_button</link> (self, str text, function, row=0, col=0)</para>
+</listitem>
+            <listitem><para><link linkend="_classui_1_1main__window_1_1Window_1aa4cd7c3b0514d223feac32a3aedea325">start_window</link> (self)</para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Public Attributes    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_classui_1_1main__window_1_1Window_1a42aa4b5e9230c0c16b1ba2a922332375">window</link></para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Detailed Description</title>
+<para>
+Definition at line <link linkend="_main__window_8py_source_1l00008">8</link> of file <link linkend="_main__window_8py_source">main_window.py</link>.</para>
+</section>
+<section>
+<title>Constructor &amp; Destructor Documentation</title>
+<anchor xml:id="_classui_1_1main__window_1_1Window_1a75bf25c45091f2edb8aaeffe62b922d5"/><section>
+    <title>__init__()</title>
+<indexterm><primary>__init__</primary><secondary>ui.main_window.Window</secondary></indexterm>
+<indexterm><primary>ui.main_window.Window</primary><secondary>__init__</secondary></indexterm>
+<para><computeroutput>ui.main_window.Window.__init__ ( self, str title, str geometry)</computeroutput></para><para>
+Definition at line <link linkend="_main__window_8py_source_1l00010">10</link> of file <link linkend="_main__window_8py_source">main_window.py</link>.</para>
+</section>
+</section>
+<section>
+<title>Member Function Documentation</title>
+<anchor xml:id="_classui_1_1main__window_1_1Window_1a61bcd34a3ad36ae9edf579ca78eee795"/><section>
+    <title>add_button()</title>
+<indexterm><primary>add_button</primary><secondary>ui.main_window.Window</secondary></indexterm>
+<indexterm><primary>ui.main_window.Window</primary><secondary>add_button</secondary></indexterm>
+<para><computeroutput>ui.main_window.Window.add_button ( self, str text,  function,  row = <computeroutput>0</computeroutput>
+,  col = <computeroutput>0</computeroutput>
+)</computeroutput></para><para>
+Definition at line <link linkend="_main__window_8py_source_1l00015">15</link> of file <link linkend="_main__window_8py_source">main_window.py</link>.</para>
+<para>
+References <link linkend="_main__window_8py_source_1l00011">ui.main_window.Window.window</link>.</para>
+</section>
+<anchor xml:id="_classui_1_1main__window_1_1Window_1aa4cd7c3b0514d223feac32a3aedea325"/><section>
+    <title>start_window()</title>
+<indexterm><primary>start_window</primary><secondary>ui.main_window.Window</secondary></indexterm>
+<indexterm><primary>ui.main_window.Window</primary><secondary>start_window</secondary></indexterm>
+<para><computeroutput>ui.main_window.Window.start_window ( self)</computeroutput></para><para>
+Definition at line <link linkend="_main__window_8py_source_1l00020">20</link> of file <link linkend="_main__window_8py_source">main_window.py</link>.</para>
+<para>
+References <link linkend="_main__window_8py_source_1l00011">ui.main_window.Window.window</link>.</para>
+</section>
+</section>
+<section>
+<title>Member Data Documentation</title>
+<anchor xml:id="_classui_1_1main__window_1_1Window_1a42aa4b5e9230c0c16b1ba2a922332375"/><section>
+    <title>window</title>
+<indexterm><primary>window</primary><secondary>ui.main_window.Window</secondary></indexterm>
+<indexterm><primary>ui.main_window.Window</primary><secondary>window</secondary></indexterm>
+<para><computeroutput>ui.main_window.Window.window</computeroutput></para><para>
+Definition at line <link linkend="_main__window_8py_source_1l00011">11</link> of file <link linkend="_main__window_8py_source">main_window.py</link>.</para>
+<para>
+Referenced by <link linkend="_main__window_8py_source_1l00015">ui.main_window.Window.add_button()</link>, and <link linkend="_main__window_8py_source_1l00020">ui.main_window.Window.start_window()</link>.</para>
+</section>
+<para>
+The documentation for this class was generated from the following file:</para>
+user/ui/<link linkend="_main__window_8py">main_window.py</link></section>
+</section>

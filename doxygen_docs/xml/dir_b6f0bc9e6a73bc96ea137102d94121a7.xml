@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="dir_b6f0bc9e6a73bc96ea137102d94121a7" kind="dir">
+    <compoundname>ServerREST/serverTools</compoundname>
+    <innerfile refid="REST__functions_8go">REST_functions.go</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="ServerREST/serverTools/"/>
+  </compounddef>
+</doxygen>
