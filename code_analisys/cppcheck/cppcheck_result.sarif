@@ -37,49 +37,49 @@ user/old_stuff/tcfs_helper_tools.c:102:26: note: Null pointer dereference
 user/old_stuff/tcfs_helper_tools.c:166:10: style: Variable 'ch' is assigned a value that is never used. [unreadVariable]
   int ch = 0;
          ^
-userspace-module/tcfs.c:762:7: error: Resource leak: path_ptr [resourceLeak]
+userspace-module/tcfs.c:735:7: error: Resource leak: path_ptr [resourceLeak]
       return -errno;
       ^
-userspace-module/tcfs.c:762:7: error: Resource leak: tmpf [resourceLeak]
+userspace-module/tcfs.c:735:7: error: Resource leak: tmpf [resourceLeak]
       return -errno;
       ^
-userspace-module/tcfs.c:773:7: error: Resource leak: path_ptr [resourceLeak]
+userspace-module/tcfs.c:746:7: error: Resource leak: path_ptr [resourceLeak]
       return -errno;
       ^
-userspace-module/tcfs.c:773:7: error: Resource leak: tmpf [resourceLeak]
+userspace-module/tcfs.c:746:7: error: Resource leak: tmpf [resourceLeak]
       return -errno;
       ^
-userspace-module/tcfs.c:854:7: error: Resource leak: path_ptr [resourceLeak]
+userspace-module/tcfs.c:827:7: error: Resource leak: path_ptr [resourceLeak]
       return -errno;
       ^
-userspace-module/tcfs.c:866:7: error: Resource leak: path_ptr [resourceLeak]
+userspace-module/tcfs.c:839:7: error: Resource leak: path_ptr [resourceLeak]
       return -errno;
       ^
-userspace-module/tcfs.c:872:3: error: Memory leak: decrypted_key [memleak]
+userspace-module/tcfs.c:845:3: error: Memory leak: decrypted_key [memleak]
   decrypted_key = decrypt_string (encrypted_key, password);
   ^
-userspace-module/tcfs.c:1062:7: error: Resource leak: res [resourceLeak]
+userspace-module/tcfs.c:1018:7: error: Resource leak: res [resourceLeak]
       return -errno;
       ^
-userspace-module/tcfs.c:1067:7: error: Resource leak: res [resourceLeak]
+userspace-module/tcfs.c:1023:7: error: Resource leak: res [resourceLeak]
       return -1;
       ^
-userspace-module/tcfs.c:1081:7: error: Resource leak: res [resourceLeak]
+userspace-module/tcfs.c:1037:7: error: Resource leak: res [resourceLeak]
       return -errno;
       ^
-userspace-module/tcfs.c:1092:7: error: Resource leak: res [resourceLeak]
+userspace-module/tcfs.c:1048:7: error: Resource leak: res [resourceLeak]
       return -errno;
       ^
-userspace-module/tcfs.c:1056:3: warning: Either the condition 'key==NULL' is redundant or there is possible null pointer dereference: key. [nullPointerRedundantCheck]
+userspace-module/tcfs.c:1012:3: warning: Either the condition 'key==NULL' is redundant or there is possible null pointer dereference: key. [nullPointerRedundantCheck]
   key[32] = '\0';
   ^
-userspace-module/tcfs.c:1059:11: note: Assuming that condition 'key==NULL' is not redundant
+userspace-module/tcfs.c:1015:11: note: Assuming that condition 'key==NULL' is not redundant
   if (key == NULL)
           ^
-userspace-module/tcfs.c:1056:3: note: Null pointer dereference
+userspace-module/tcfs.c:1012:3: note: Null pointer dereference
   key[32] = '\0';
   ^
-userspace-module/tcfs.c:267:11: style: Consecutive return, break, continue, goto or throw statements are unnecessary. [duplicateBreak]
+userspace-module/tcfs.c:258:11: style: Consecutive return, break, continue, goto or throw statements are unnecessary. [duplicateBreak]
           break;
           ^
 userspace-module/utils/crypt-utils/crypt-utils.c:264:7: warning: Assignment of function parameter has no effect outside the function. Did you forget dereferencing it? [uselessAssignmentPtrArg]
@@ -121,7 +121,7 @@ unsigned char *decrypt_string (unsigned char *base64_ciphertext,
 userspace-module/utils/crypt-utils/crypt-utils.c:330:32: note: Function 'decrypt_string' argument 1 names different: declaration 'base64_ciphertext' definition 'ciphertext'.
 decrypt_string (unsigned char *ciphertext, const char *key)
                                ^
-userspace-module/utils/tcfs_utils/tcfs_utils.c:242:7: warning: %X in format string (no. 1) requires 'unsigned int *' but the argument type is 'signed int *'. [invalidScanfArgType_int]
+userspace-module/utils/tcfs_utils/tcfs_utils.c:174:7: warning: %X in format string (no. 1) requires 'unsigned int *' but the argument type is 'signed int *'. [invalidScanfArgType_int]
       sscanf (hex, "%X", &decimal);
       ^
 userspace-module/utils/tcfs_utils/tcfs_utils.c:77:7: error: Memory leak: root_dir [memleak]
@@ -129,21 +129,6 @@ userspace-module/utils/tcfs_utils/tcfs_utils.c:77:7: error: Memory leak: root_di
       ^
 userspace-module/utils/tcfs_utils/tcfs_utils.c:82:7: error: Memory leak: root_dir [memleak]
       return NULL;
-      ^
-userspace-module/utils/tcfs_utils/tcfs_utils.c:133:19: warning: Either the condition 'src_file==NULL' is redundant or there is possible null pointer dereference: src_file. [nullPointerRedundantCheck]
-          fclose (src_file);
-                  ^
-userspace-module/utils/tcfs_utils/tcfs_utils.c:131:20: note: Assuming that condition 'src_file==NULL' is not redundant
-      if (src_file == NULL)
-                   ^
-userspace-module/utils/tcfs_utils/tcfs_utils.c:133:19: note: Null pointer dereference
-          fclose (src_file);
-                  ^
-userspace-module/utils/tcfs_utils/tcfs_utils.c:133:19: error: Null pointer dereference [nullPointer]
-          fclose (src_file);
-                  ^
-userspace-module/utils/tcfs_utils/tcfs_utils.c:97:7: style: The scope of the variable 'c' can be reduced. [variableScope]
-  int c;
       ^
 userspace-module/utils/tcfs_utils/tcfs_utils.c:40:16: warning:inconclusive: Found suspicious equality comparison. Did you intend to assign a value instead? [constStatement]
   xattr_val[4] == '\n';
@@ -154,10 +139,7 @@ userspace-module/utils/tcfs_utils/tcfs_utils.c:37:7: style: Unused variable: ret
 userspace-module/utils/crypt-utils/crypt-utils.c:759:0: style: The function 'decrypt_path_and_filename' is never used. [unusedFunction]
 
 ^
-userspace-module/utils/tcfs_utils/tcfs_utils.c:123:0: style: The function 'get_encrypted_key' is never used. [unusedFunction]
-
-^
-userspace-module/utils/tcfs_utils/tcfs_utils.c:95:0: style: The function 'read_file' is never used. [unusedFunction]
+userspace-module/utils/tcfs_utils/tcfs_utils.c:35:0: style: The function 'is_encrypted' is never used. [unusedFunction]
 
 ^
 nofile:0:0: information: Cppcheck cannot find all the include files (use --check-config for details) [missingIncludeSystem]
