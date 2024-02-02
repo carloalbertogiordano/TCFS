@@ -37,52 +37,214 @@ user/old_stuff/tcfs_helper_tools.c:102:26: note: Null pointer dereference
 user/old_stuff/tcfs_helper_tools.c:166:10: style: Variable 'ch' is assigned a value that is never used. [unreadVariable]
   int ch = 0;
          ^
-userspace-module/tcfs.c:735:7: error: Resource leak: path_ptr [resourceLeak]
-      return -errno;
+userspace-module/tcfs.c:824:3: error: Resource handle 'path_ptr' freed twice. [doubleFree]
+  fclose (path_ptr);
+  ^
+userspace-module/tcfs.c:815:7: note: Resource handle 'path_ptr' freed twice.
+      fclose (path_ptr);
       ^
-userspace-module/tcfs.c:735:7: error: Resource leak: tmpf [resourceLeak]
-      return -errno;
+userspace-module/tcfs.c:824:3: note: Resource handle 'path_ptr' freed twice.
+  fclose (path_ptr);
+  ^
+userspace-module/tcfs.c:825:3: error: Resource handle 'tmpf' freed twice. [doubleFree]
+  fclose (tmpf);
+  ^
+userspace-module/tcfs.c:816:7: note: Resource handle 'tmpf' freed twice.
+      fclose (tmpf);
       ^
-userspace-module/tcfs.c:746:7: error: Resource leak: path_ptr [resourceLeak]
-      return -errno;
+userspace-module/tcfs.c:825:3: note: Resource handle 'tmpf' freed twice.
+  fclose (tmpf);
+  ^
+userspace-module/tcfs.c:826:3: error: Memory pointed to by 'enc_fuse_path' is freed twice. [doubleFree]
+  free ((void *)enc_fuse_path);
+  ^
+userspace-module/tcfs.c:817:7: note: Memory pointed to by 'enc_fuse_path' is freed twice.
+      free ((void *)enc_fuse_path);
       ^
-userspace-module/tcfs.c:746:7: error: Resource leak: tmpf [resourceLeak]
-      return -errno;
+userspace-module/tcfs.c:826:3: note: Memory pointed to by 'enc_fuse_path' is freed twice.
+  free ((void *)enc_fuse_path);
+  ^
+userspace-module/tcfs.c:827:3: error: Memory pointed to by 'path' is freed twice. [doubleFree]
+  free ((void *)path);
+  ^
+userspace-module/tcfs.c:818:7: note: Memory pointed to by 'path' is freed twice.
+      free ((void *)path);
       ^
-userspace-module/tcfs.c:827:7: error: Resource leak: path_ptr [resourceLeak]
-      return -errno;
+userspace-module/tcfs.c:827:3: note: Memory pointed to by 'path' is freed twice.
+  free ((void *)path);
+  ^
+userspace-module/tcfs.c:828:3: error: Memory pointed to by 'encrypted_key' is freed twice. [doubleFree]
+  free((void *)encrypted_key);
+  ^
+userspace-module/tcfs.c:819:7: note: Memory pointed to by 'encrypted_key' is freed twice.
+      free((void *)encrypted_key);
       ^
-userspace-module/tcfs.c:839:7: error: Resource leak: path_ptr [resourceLeak]
-      return -errno;
+userspace-module/tcfs.c:828:3: note: Memory pointed to by 'encrypted_key' is freed twice.
+  free((void *)encrypted_key);
+  ^
+userspace-module/tcfs.c:829:3: error: Memory pointed to by 'decrypted_key' is freed twice. [doubleFree]
+  free ((void *) decrypted_key);
+  ^
+userspace-module/tcfs.c:820:7: note: Memory pointed to by 'decrypted_key' is freed twice.
+      free ((void *) decrypted_key);
       ^
-userspace-module/tcfs.c:845:3: error: Memory leak: decrypted_key [memleak]
+userspace-module/tcfs.c:829:3: note: Memory pointed to by 'decrypted_key' is freed twice.
+  free ((void *) decrypted_key);
+  ^
+userspace-module/tcfs.c:897:3: error: Memory leak: decrypted_key [memleak]
   decrypted_key = decrypt_string (encrypted_key, password);
   ^
-userspace-module/tcfs.c:1018:7: error: Resource leak: res [resourceLeak]
+userspace-module/tcfs.c:949:7: error: Resource handle 'path_ptr' freed twice. [doubleFree]
+      fclose (path_ptr);
+      ^
+userspace-module/tcfs.c:936:7: note: Resource handle 'path_ptr' freed twice.
+      fclose (path_ptr);
+      ^
+userspace-module/tcfs.c:949:7: note: Resource handle 'path_ptr' freed twice.
+      fclose (path_ptr);
+      ^
+userspace-module/tcfs.c:950:7: error: Resource handle 'tmpf' freed twice. [doubleFree]
+      fclose (tmpf);
+      ^
+userspace-module/tcfs.c:937:7: note: Resource handle 'tmpf' freed twice.
+      fclose (tmpf);
+      ^
+userspace-module/tcfs.c:950:7: note: Resource handle 'tmpf' freed twice.
+      fclose (tmpf);
+      ^
+userspace-module/tcfs.c:951:7: error: Memory pointed to by 'enc_fuse_path' is freed twice. [doubleFree]
+      free((void *)enc_fuse_path);
+      ^
+userspace-module/tcfs.c:938:7: note: Memory pointed to by 'enc_fuse_path' is freed twice.
+      free((void *)enc_fuse_path);
+      ^
+userspace-module/tcfs.c:951:7: note: Memory pointed to by 'enc_fuse_path' is freed twice.
+      free((void *)enc_fuse_path);
+      ^
+userspace-module/tcfs.c:952:7: error: Memory pointed to by 'size_key_char' is freed twice. [doubleFree]
+      free((void *)size_key_char);
+      ^
+userspace-module/tcfs.c:939:7: note: Memory pointed to by 'size_key_char' is freed twice.
+      free((void *)size_key_char);
+      ^
+userspace-module/tcfs.c:952:7: note: Memory pointed to by 'size_key_char' is freed twice.
+      free((void *)size_key_char);
+      ^
+userspace-module/tcfs.c:953:7: error: Memory pointed to by 'encrypted_key' is freed twice. [doubleFree]
+      free ((void *)encrypted_key);
+      ^
+userspace-module/tcfs.c:940:7: note: Memory pointed to by 'encrypted_key' is freed twice.
+      free ((void *)encrypted_key);
+      ^
+userspace-module/tcfs.c:953:7: note: Memory pointed to by 'encrypted_key' is freed twice.
+      free ((void *)encrypted_key);
+      ^
+userspace-module/tcfs.c:954:7: error: Memory pointed to by 'decrypted_key' is freed twice. [doubleFree]
+      free ((void *)decrypted_key);
+      ^
+userspace-module/tcfs.c:941:7: note: Memory pointed to by 'decrypted_key' is freed twice.
+      free ((void *)decrypted_key);
+      ^
+userspace-module/tcfs.c:954:7: note: Memory pointed to by 'decrypted_key' is freed twice.
+      free ((void *)decrypted_key);
+      ^
+userspace-module/tcfs.c:958:3: error: Resource handle 'path_ptr' freed twice. [doubleFree]
+  fclose (path_ptr);
+  ^
+userspace-module/tcfs.c:936:7: note: Resource handle 'path_ptr' freed twice.
+      fclose (path_ptr);
+      ^
+userspace-module/tcfs.c:958:3: note: Resource handle 'path_ptr' freed twice.
+  fclose (path_ptr);
+  ^
+userspace-module/tcfs.c:959:3: error: Resource handle 'tmpf' freed twice. [doubleFree]
+  fclose (tmpf);
+  ^
+userspace-module/tcfs.c:937:7: note: Resource handle 'tmpf' freed twice.
+      fclose (tmpf);
+      ^
+userspace-module/tcfs.c:959:3: note: Resource handle 'tmpf' freed twice.
+  fclose (tmpf);
+  ^
+userspace-module/tcfs.c:961:3: error: Memory pointed to by 'size_key_char' is freed twice. [doubleFree]
+  free((void *)size_key_char);
+  ^
+userspace-module/tcfs.c:939:7: note: Memory pointed to by 'size_key_char' is freed twice.
+      free((void *)size_key_char);
+      ^
+userspace-module/tcfs.c:961:3: note: Memory pointed to by 'size_key_char' is freed twice.
+  free((void *)size_key_char);
+  ^
+userspace-module/tcfs.c:962:3: error: Memory pointed to by 'encrypted_key' is freed twice. [doubleFree]
+  free ((void *)encrypted_key);
+  ^
+userspace-module/tcfs.c:940:7: note: Memory pointed to by 'encrypted_key' is freed twice.
+      free ((void *)encrypted_key);
+      ^
+userspace-module/tcfs.c:962:3: note: Memory pointed to by 'encrypted_key' is freed twice.
+  free ((void *)encrypted_key);
+  ^
+userspace-module/tcfs.c:1096:7: error: Resource leak: res [resourceLeak]
       return -errno;
       ^
-userspace-module/tcfs.c:1023:7: error: Resource leak: res [resourceLeak]
+userspace-module/tcfs.c:1101:7: error: Resource leak: res [resourceLeak]
       return -1;
       ^
-userspace-module/tcfs.c:1037:7: error: Resource leak: res [resourceLeak]
+userspace-module/tcfs.c:1115:7: error: Resource leak: res [resourceLeak]
       return -errno;
       ^
-userspace-module/tcfs.c:1048:7: error: Resource leak: res [resourceLeak]
+userspace-module/tcfs.c:1126:7: error: Resource leak: res [resourceLeak]
       return -errno;
       ^
-userspace-module/tcfs.c:1012:3: warning: Either the condition 'key==NULL' is redundant or there is possible null pointer dereference: key. [nullPointerRedundantCheck]
+userspace-module/tcfs.c:778:15: warning: Either the condition 'path_ptr==NULL' is redundant or there is possible null pointer dereference: path_ptr. [nullPointerRedundantCheck]
+      fclose (path_ptr);
+              ^
+userspace-module/tcfs.c:776:16: note: Assuming that condition 'path_ptr==NULL' is not redundant
+  if (path_ptr == NULL || tmpf == NULL)
+               ^
+userspace-module/tcfs.c:778:15: note: Null pointer dereference
+      fclose (path_ptr);
+              ^
+userspace-module/tcfs.c:779:15: warning: Either the condition 'tmpf==NULL' is redundant or there is possible null pointer dereference: tmpf. [nullPointerRedundantCheck]
+      fclose (tmpf);
+              ^
+userspace-module/tcfs.c:776:32: note: Assuming that condition 'tmpf==NULL' is not redundant
+  if (path_ptr == NULL || tmpf == NULL)
+                               ^
+userspace-module/tcfs.c:779:15: note: Null pointer dereference
+      fclose (tmpf);
+              ^
+userspace-module/tcfs.c:903:15: warning: Either the condition 'path_ptr==NULL' is redundant or there is possible null pointer dereference: path_ptr. [nullPointerRedundantCheck]
+      fclose (path_ptr);
+              ^
+userspace-module/tcfs.c:900:16: note: Assuming that condition 'path_ptr==NULL' is not redundant
+  if (path_ptr == NULL || tmpf == NULL)
+               ^
+userspace-module/tcfs.c:903:15: note: Null pointer dereference
+      fclose (path_ptr);
+              ^
+userspace-module/tcfs.c:904:15: warning: Either the condition 'tmpf==NULL' is redundant or there is possible null pointer dereference: tmpf. [nullPointerRedundantCheck]
+      fclose (tmpf);
+              ^
+userspace-module/tcfs.c:900:32: note: Assuming that condition 'tmpf==NULL' is not redundant
+  if (path_ptr == NULL || tmpf == NULL)
+                               ^
+userspace-module/tcfs.c:904:15: note: Null pointer dereference
+      fclose (tmpf);
+              ^
+userspace-module/tcfs.c:1090:3: warning: Either the condition 'key==NULL' is redundant or there is possible null pointer dereference: key. [nullPointerRedundantCheck]
   key[32] = '\0';
   ^
-userspace-module/tcfs.c:1015:11: note: Assuming that condition 'key==NULL' is not redundant
+userspace-module/tcfs.c:1093:11: note: Assuming that condition 'key==NULL' is not redundant
   if (key == NULL)
           ^
-userspace-module/tcfs.c:1012:3: note: Null pointer dereference
+userspace-module/tcfs.c:1090:3: note: Null pointer dereference
   key[32] = '\0';
   ^
 userspace-module/tcfs.c:258:11: style: Consecutive return, break, continue, goto or throw statements are unnecessary. [duplicateBreak]
           break;
           ^
-userspace-module/utils/crypt-utils/crypt-utils.c:264:7: warning: Assignment of function parameter has no effect outside the function. Did you forget dereferencing it? [uselessAssignmentPtrArg]
+userspace-module/utils/crypt-utils/crypt-utils.c:263:7: warning: Assignment of function parameter has no effect outside the function. Did you forget dereferencing it? [uselessAssignmentPtrArg]
       destination = NULL;
       ^
 userspace-module/utils/crypt-utils/crypt-utils.c:67:7: style: The scope of the variable 'inlen' can be reduced. [variableScope]
@@ -103,43 +265,31 @@ userspace-module/utils/crypt-utils/crypt-utils.c:79:7: style: The scope of the v
 userspace-module/utils/crypt-utils/crypt-utils.c:82:7: style: The scope of the variable 'i' can be reduced. [variableScope]
   int i;
       ^
-userspace-module/utils/crypt-utils/crypt-utils.c:279:22: style:inconclusive: Function 'encrypt_string' argument 3 names different: declaration 'encrypted_len' definition 'encrypted_key_len'. [funcArgNamesDifferent]
+userspace-module/utils/crypt-utils/crypt-utils.c:278:22: style:inconclusive: Function 'encrypt_string' argument 3 names different: declaration 'encrypted_len' definition 'encrypted_key_len'. [funcArgNamesDifferent]
                 int *encrypted_key_len)
                      ^
 userspace-module/utils/crypt-utils/crypt-utils.h:39:37: note: Function 'encrypt_string' argument 3 names different: declaration 'encrypted_len' definition 'encrypted_key_len'.
                                int *encrypted_len);
                                     ^
-userspace-module/utils/crypt-utils/crypt-utils.c:279:22: note: Function 'encrypt_string' argument 3 names different: declaration 'encrypted_len' definition 'encrypted_key_len'.
+userspace-module/utils/crypt-utils/crypt-utils.c:278:22: note: Function 'encrypt_string' argument 3 names different: declaration 'encrypted_len' definition 'encrypted_key_len'.
                 int *encrypted_key_len)
                      ^
-userspace-module/utils/crypt-utils/crypt-utils.c:330:32: style:inconclusive: Function 'decrypt_string' argument 1 names different: declaration 'base64_ciphertext' definition 'ciphertext'. [funcArgNamesDifferent]
+userspace-module/utils/crypt-utils/crypt-utils.c:331:32: style:inconclusive: Function 'decrypt_string' argument 1 names different: declaration 'base64_ciphertext' definition 'ciphertext'. [funcArgNamesDifferent]
 decrypt_string (unsigned char *ciphertext, const char *key)
                                ^
 userspace-module/utils/crypt-utils/crypt-utils.h:41:47: note: Function 'decrypt_string' argument 1 names different: declaration 'base64_ciphertext' definition 'ciphertext'.
 unsigned char *decrypt_string (unsigned char *base64_ciphertext,
                                               ^
-userspace-module/utils/crypt-utils/crypt-utils.c:330:32: note: Function 'decrypt_string' argument 1 names different: declaration 'base64_ciphertext' definition 'ciphertext'.
+userspace-module/utils/crypt-utils/crypt-utils.c:331:32: note: Function 'decrypt_string' argument 1 names different: declaration 'base64_ciphertext' definition 'ciphertext'.
 decrypt_string (unsigned char *ciphertext, const char *key)
                                ^
-userspace-module/utils/tcfs_utils/tcfs_utils.c:174:7: warning: %X in format string (no. 1) requires 'unsigned int *' but the argument type is 'signed int *'. [invalidScanfArgType_int]
+userspace-module/utils/tcfs_utils/tcfs_utils.c:156:7: warning: %X in format string (no. 1) requires 'unsigned int *' but the argument type is 'signed int *'. [invalidScanfArgType_int]
       sscanf (hex, "%X", &decimal);
       ^
-userspace-module/utils/tcfs_utils/tcfs_utils.c:77:7: error: Memory leak: root_dir [memleak]
-      return NULL;
-      ^
-userspace-module/utils/tcfs_utils/tcfs_utils.c:82:7: error: Memory leak: root_dir [memleak]
-      return NULL;
-      ^
-userspace-module/utils/tcfs_utils/tcfs_utils.c:40:16: warning:inconclusive: Found suspicious equality comparison. Did you intend to assign a value instead? [constStatement]
-  xattr_val[4] == '\n';
-               ^
-userspace-module/utils/tcfs_utils/tcfs_utils.c:37:7: style: Unused variable: ret [unusedVariable]
-  int ret;
-      ^
-userspace-module/utils/crypt-utils/crypt-utils.c:759:0: style: The function 'decrypt_path_and_filename' is never used. [unusedFunction]
+userspace-module/utils/crypt-utils/crypt-utils.c:777:0: style: The function 'decrypt_path_and_filename' is never used. [unusedFunction]
 
 ^
-userspace-module/utils/tcfs_utils/tcfs_utils.c:35:0: style: The function 'is_encrypted' is never used. [unusedFunction]
+userspace-module/utils/tcfs_utils/tcfs_utils.c:83:0: style: The function 'print_aes_key' is never used. [unusedFunction]
 
 ^
 nofile:0:0: information: Cppcheck cannot find all the include files (use --check-config for details) [missingIncludeSystem]
