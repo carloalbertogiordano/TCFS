@@ -23,23 +23,7 @@ get_user_name (char *buf, size_t size)
   if (pw)
     snprintf (buf, size, "%s", pw->pw_name);
   else
-    perror ("Error: Could not retrieve username.\n");
-}
-
-/**
- * @brief Check if a file is encrypted by TCFS.
- * @param path The full path of the file.
- * @return \ret
- */
-int
-is_encrypted (const char *path)
-{
-  int ret;
-  char xattr_val[5];
-  getxattr (path, "user.encrypted", xattr_val, sizeof (char) * 5);
-  xattr_val[4] == '\n';
-
-  return strcmp (xattr_val, "true") == 0 ? true : false;
+    perror ("Could not retrieve username");
 }
 
 /**
@@ -54,7 +38,7 @@ prefix_path (const char *path, const char *realpath)
 {
   if (path == NULL || realpath == NULL)
     {
-      fprintf (stderr, "WARN: path or realpath is null\n");
+      logMessage("WARN: path or realpath is null");
       if (path != NULL)
         return (char *)path;
       if (realpath != NULL)
@@ -74,11 +58,13 @@ prefix_path (const char *path, const char *realpath)
   if (strcpy (root_dir, realpath) == NULL)
     {
       perror ("strcpy: Cannot copy path");
+      free ((void *)root_dir);
       return NULL;
     }
   if (strcat (root_dir, path) == NULL)
     {
       perror ("strcat: in prefix_path cannot concatenate the paths");
+      free ((void *)root_dir);
       return NULL;
     }
   return root_dir;
@@ -113,8 +99,6 @@ print_aes_key (unsigned char *key)
 char *
 string_to_hex (const char *input)
 {
-  logMessage ("\t\tSTRING TO HEX GOT %s\n", input);
-
   int i;
   size_t len = strlen (input);
   char hex[3];
@@ -122,7 +106,7 @@ string_to_hex (const char *input)
 
   if (!output)
     {
-      perror ("Errore di allocazione di memoria");
+      perror ("Error cannot allocate memory for string_to_hex output");
       return NULL;
     }
 
@@ -135,8 +119,6 @@ string_to_hex (const char *input)
       sprintf (hex, "%02X", input[i]);
       strcat (output, hex);
     }
-
-  logMessage ("\t\tSTRING TO HEX WILL RETURN %s\n", output);
   return output;
 }
 
@@ -149,13 +131,13 @@ string_to_hex (const char *input)
 char *
 hex_to_string (const char *input)
 {
-  logMessage ("\tHEX TO STRING GOT %s\n", input);
-  int i, len = strlen (input) / 2;
+  size_t len = strlen (input) / 2;
+  int i;
   char *output = (char *)malloc (len + 1);
 
   if (!output)
     {
-      perror ("Errore di allocazione di memoria");
+      perror ("Error cannot allocate memory for hex_to_string output");
       return NULL;
     }
 
@@ -210,7 +192,7 @@ void logMessage(const char *format, ...)
   FILE *logFile = fopen(log_path, "a");
   if (logFile == NULL)
     {
-      printf ("OPEN FAILED %s\n", log_path);
+      logMessage("OPEN FAILED %s", log_path);
       perror("Cannot open log file");
       free(log_path);
       return;

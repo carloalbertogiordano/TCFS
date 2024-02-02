@@ -195,8 +195,8 @@ check_entropy (void)
 /**
  * @brief Force new entropy in /dev/urandom
  * @return void
- * @note Very dangerous, if this fails an error will be printed and the program
- * will exit with EXIT_FAILURE
+ * @warning Very dangerous, if this fails an error will be printed and the
+ * program will exit with EXIT_FAILURE
  * */
 void
 add_entropy (void)
@@ -243,13 +243,13 @@ generate_key (unsigned char *destination)
       int entropy = check_entropy ();
       if (entropy < 128)
         {
-          fprintf (stderr, "WARN: not enough entropy, creating some...\n");
+          logMessage ("WARN: not enough entropy, creating some...");
           add_entropy ();
         }
 
       if (RAND_bytes (destination, 32) != true)
         {
-          fprintf (stderr, "Err: Cannot generate key\n");
+          logMessage ("Err: Cannot generate key");
           destination = NULL;
         }
 
@@ -259,8 +259,7 @@ generate_key (unsigned char *destination)
 
   if (is_valid_key (destination) == false)
     {
-      logMessage("ERR: Generated key is invalid\n");
-      print_aes_key (destination);
+      logMessage ("ERR: Generated key is invalid\n");
       destination = NULL;
     }
 }
@@ -272,7 +271,7 @@ generate_key (unsigned char *destination)
  * @param encrypted_len This will be set to the encrypted string length
  * @return unsigned char *  The encrypted string will be allocated and then
  * returned
- * @note    After the use remember to free the result
+ * @note After the use remember to free the result
  * */
 unsigned char *
 encrypt_string (unsigned char *plaintext, const char *key,
@@ -305,6 +304,8 @@ encrypt_string (unsigned char *plaintext, const char *key,
   unsigned char *encoded_string = malloc (total_len * 2 + 1);
   if (!encoded_string)
     {
+      logMessage (
+          "Err: Cannot allocate memory for encrypt_string encoded_string");
       return NULL;
     }
 
@@ -324,7 +325,7 @@ encrypt_string (unsigned char *plaintext, const char *key,
  * @param key The AES 256 KEY
  * @return unsigned char *  The plaintext string will be allocated and then
  * returned
- * @note    After the use remember to free the result
+ * @note After the use remember to free the result
  * */
 unsigned char *
 decrypt_string (unsigned char *ciphertext, const char *key)
@@ -341,6 +342,13 @@ decrypt_string (unsigned char *ciphertext, const char *key)
   size_t ciphertext_len = strlen ((const char *)ciphertext) / 2;
   unsigned char *decoded_ciphertext = malloc (ciphertext_len);
 
+  if (!decoded_ciphertext)
+    {
+      logMessage (
+          "Err: Cannot allocate memory for decrypt_string decoded_ciphertext");
+      return NULL;
+    }
+
   for (size_t i = 0; i < ciphertext_len; i++)
     {
       char hex[3]
@@ -351,6 +359,7 @@ decrypt_string (unsigned char *ciphertext, const char *key)
       if (*endptr != '\0' || byte > UCHAR_MAX)
         {
           perror ("decrypt string error");
+          free ((void *)decoded_ciphertext);
           return NULL;
         }
       decoded_ciphertext[i] = byte;
@@ -368,11 +377,18 @@ decrypt_string (unsigned char *ciphertext, const char *key)
 
   unsigned char *decrypted_string
       = (unsigned char *)malloc (len + padding_len + 1);
+
+  if (!decrypted_string)
+    {
+      perror ("Err: Cannot allocate memory for decrypt_string decrypted_string");
+      return NULL;
+    }
+
   memcpy (decrypted_string, plaintext, len + padding_len);
   decrypted_string[len + padding_len] = '\0';
 
   logMessage ("\t\tdecoded_ciphertext %s, decrypted_string %s\n",
-          decoded_ciphertext, decrypted_string);
+              decoded_ciphertext, decrypted_string);
   free (decoded_ciphertext);
 
   return decrypted_string;
@@ -475,6 +491,7 @@ encrypt_path (const char *path, const char *key)
                   if (!result)
                     {
                       perror ("Error allocating memory");
+                      free ((void *)path_copy);
                       exit (EXIT_FAILURE);
                     }
                   strcpy (result, "/");
@@ -754,6 +771,7 @@ decrypt_path (const char *encrypted_path, const char *key)
  * @return A dynamically allocated string containing the decrypted path with
  * the decrypted filename. It is the responsibility of the caller to free this
  * memory.
+ * @note This function has currently no use
  */
 const char *
 decrypt_path_and_filename (const char *encrypted_path, const char *key)

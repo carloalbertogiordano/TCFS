@@ -732,6 +732,10 @@ tcfs_read (const char *fuse_path, char *buf, size_t size, off_t offset,
   if (tcfs_getxattr (fuse_path, "user.key_len", size_key_char, 20) == -1)
     {
       perror ("Could not get file key size");
+      fclose (path_ptr);
+      fclose (tmpf);
+      free ((void *)enc_fuse_path);
+      free ((void *)path);
       return -errno;
     }
   ssize_t size_key = strtol (size_key_char, NULL, 10);
@@ -743,6 +747,11 @@ tcfs_read (const char *fuse_path, char *buf, size_t size, off_t offset,
       == -1)
     {
       perror ("Could not get encrypted key for file in tcfs_read");
+      fclose (path_ptr);
+      fclose (tmpf);
+      free ((void *)enc_fuse_path);
+      free ((void *)path);
+      free((void *)encrypted_key);
       return -errno;
     }
 
@@ -754,21 +763,47 @@ tcfs_read (const char *fuse_path, char *buf, size_t size, off_t offset,
   if (do_crypt (path_ptr, tmpf, DECRYPT, decrypted_key) != true)
     {
       perror ("Err: do_crypt cannot decrypt file");
+      fclose (path_ptr);
+      fclose (tmpf);
+      free ((void *)enc_fuse_path);
+      free ((void *)path);
+      free((void *)encrypted_key);
+      free ((void *) decrypted_key);
       return -errno;
     }
 
   /* Something went terribly wrong if this is the case. */
   if (path_ptr == NULL || tmpf == NULL)
-    return -errno;
+    {
+      fclose (path_ptr);
+      fclose (tmpf);
+      free ((void *)enc_fuse_path);
+      free ((void *)path);
+      free((void *)encrypted_key);
+      free ((void *) decrypted_key);
+      return -errno;
+    }
 
   if (fflush (tmpf) != 0)
     {
       perror ("Err: Cannot flush file in read process");
+      fclose (path_ptr);
+      fclose (tmpf);
+      free ((void *)enc_fuse_path);
+      free ((void *)path);
+      free((void *)encrypted_key);
+      free ((void *) decrypted_key);
       return -errno;
     }
   if (fseek (tmpf, offset, SEEK_SET) != 0)
     {
       perror ("Err: cannot fseek while reading file");
+      fclose (path_ptr);
+      fclose (tmpf);
+      free ((void *)enc_fuse_path);
+      free ((void *)path);
+      free((void *)encrypted_key);
+      free ((void *) decrypted_key);
       return -errno;
     }
 
@@ -777,13 +812,21 @@ tcfs_read (const char *fuse_path, char *buf, size_t size, off_t offset,
   if (res == -1)
     {
       perror ("Err: cannot fread whine in read");
+      fclose (path_ptr);
+      fclose (tmpf);
+      free ((void *)enc_fuse_path);
+      free ((void *)path);
+      free((void *)encrypted_key);
+      free ((void *) decrypted_key);
       res = -errno;
     }
 
-  fclose (tmpf);
   fclose (path_ptr);
-  free (encrypted_key);
-  free (decrypted_key);
+  fclose (tmpf);
+  free ((void *)enc_fuse_path);
+  free ((void *)path);
+  free((void *)encrypted_key);
+  free ((void *) decrypted_key);
   return res;
 }
 
@@ -824,6 +867,10 @@ tcfs_write (const char *fuse_path, const char *buf, size_t size, off_t offset,
   if (tcfs_getxattr (fuse_path, "user.key_len", size_key_char, 20) == -1)
     {
       perror ("Could not get file key size");
+      fclose (path_ptr);
+      fclose (tmpf);
+      free((void *)enc_fuse_path);
+      free((void *)size_key_char);
       return -errno;
     }
   ssize_t size_key = strtol (size_key_char, NULL, 10);
@@ -836,6 +883,11 @@ tcfs_write (const char *fuse_path, const char *buf, size_t size, off_t offset,
       == -1)
     {
       perror ("Could not get file encrypted key in tcfs write");
+      fclose (path_ptr);
+      fclose (tmpf);
+      free((void *)enc_fuse_path);
+      free((void *)size_key_char);
+      free ((void *)encrypted_key);
       return -errno;
     }
 
@@ -848,6 +900,12 @@ tcfs_write (const char *fuse_path, const char *buf, size_t size, off_t offset,
   if (path_ptr == NULL || tmpf == NULL)
     {
       perror ("Something went terribly wrong, cannot create new files");
+      fclose (path_ptr);
+      fclose (tmpf);
+      free((void *)enc_fuse_path);
+      free((void *)size_key_char);
+      free ((void *)encrypted_key);
+      free ((void *)decrypted_key);
       return -errno;
     }
 
@@ -857,7 +915,13 @@ tcfs_write (const char *fuse_path, const char *buf, size_t size, off_t offset,
       if (do_crypt (path_ptr, tmpf, DECRYPT, decrypted_key) == false)
         {
           perror ("do_crypt: Cannot cypher file\n");
-          return --errno;
+          fclose (path_ptr);
+          fclose (tmpf);
+          free((void *)enc_fuse_path);
+          free((void *)size_key_char);
+          free ((void *)encrypted_key);
+          free ((void *)decrypted_key);
+          return -errno;
         }
       rewind (path_ptr);
       rewind (tmpf);
@@ -869,6 +933,12 @@ tcfs_write (const char *fuse_path, const char *buf, size_t size, off_t offset,
     {
       logMessage ("%d\n", res);
       perror ("pwrite: cannot read tmpfile into the buffer\n");
+      fclose (path_ptr);
+      fclose (tmpf);
+      free((void *)enc_fuse_path);
+      free((void *)size_key_char);
+      free ((void *)encrypted_key);
+      free ((void *)decrypted_key);
       res = -errno;
     }
 
@@ -876,13 +946,21 @@ tcfs_write (const char *fuse_path, const char *buf, size_t size, off_t offset,
   if (do_crypt (tmpf, path_ptr, ENCRYPT, decrypted_key) == false)
     {
       perror ("do_crypt 2: cannot cypher file\n");
+      fclose (path_ptr);
+      fclose (tmpf);
+      free((void *)enc_fuse_path);
+      free((void *)size_key_char);
+      free ((void *)encrypted_key);
+      free ((void *)decrypted_key);
       return -errno;
     }
 
-  fclose (tmpf);
   fclose (path_ptr);
-  free (encrypted_key);
-  free (decrypted_key);
+  fclose (tmpf);
+  free((void *)enc_fuse_path);
+  free((void *)size_key_char);
+  free ((void *)encrypted_key);
+  free ((void *)decrypted_key);
 
   return res;
 }
