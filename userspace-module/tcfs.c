@@ -1468,8 +1468,8 @@ main (int argc, char *argv[])
   fuse_opt_add_arg (&args_fuse,
                     "-f"); // TODO: this is forced for now, but will be passed
                            // via options in the future
-  fuse_opt_add_arg (&args_fuse,
-                    "-s"); // TODO: this is forced for now, but will be passed
+  //fuse_opt_add_arg (&args_fuse,
+                    //"-s"); // TODO: this is forced for now, but will be passed
                            // via options in the future
 
   // Print what we are passing to fuse TODO: This will be removed
