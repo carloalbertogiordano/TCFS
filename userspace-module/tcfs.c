@@ -892,9 +892,7 @@ tcfs_write (const char *fuse_path, const char *buf, size_t size, off_t offset,
     }
 
   // Decrypt the file key
-  unsigned char *decrypted_key = malloc (sizeof (unsigned char) * 33);
-  decrypted_key[32] = '\0';
-  decrypted_key = decrypt_string (encrypted_key, password);
+  unsigned char *decrypted_key = decrypt_string (encrypted_key, password);
 
   /* Something went terribly wrong if this is the case. */
   if (path_ptr == NULL || tmpf == NULL)
@@ -1469,8 +1467,7 @@ main (int argc, char *argv[])
                     "-f"); // TODO: this is forced for now, but will be passed
                            // via options in the future
   //fuse_opt_add_arg (&args_fuse,
-                    //"-s"); // TODO: this is forced for now, but will be passed
-                           // via options in the future
+                    //"-s");
 
   // Print what we are passing to fuse TODO: This will be removed
   for (int i = 0; i < args_fuse.argc; i++)
