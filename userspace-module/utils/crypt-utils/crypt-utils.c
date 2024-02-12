@@ -455,7 +455,12 @@ encrypt_path (const char *path, const char *key)
   else if (strcmp (path, "/") == 0)
     {
       logMessage ("\tgot root path\n");
-      return "";
+      result = malloc(1 * sizeof(char));
+      if (result == NULL) {
+          perror("Error allocating memory");
+          return NULL;
+        }
+      result[0] = '\0';
     }
 
   // Copy the original path
@@ -570,7 +575,12 @@ encrypt_path_and_filename (const char *path, const char *key)
   else if (strcmp (path, "/") == 0)
     {
       logMessage ("\tgot root path\n");
-      return "";
+      result = malloc(1 * sizeof(char));
+      if (result == NULL) {
+          perror("Error allocating memory");
+          return NULL;
+        }
+      result[0] = '\0';
     }
 
   // Copy the original path
@@ -682,7 +692,12 @@ decrypt_path (const char *encrypted_path, const char *key)
   else if (strcmp (encrypted_path, "/") == 0)
     {
       logMessage ("\tgot root path\n");
-      return "";
+      result = malloc(1 * sizeof(char));
+      if (result == NULL) {
+          perror("Error allocating memory");
+          return NULL;
+        }
+      result[0] = '\0';
     }
 
   // Copy the original encrypted_path
@@ -798,7 +813,12 @@ decrypt_path_and_filename (const char *encrypted_path, const char *key)
   else if (strcmp (encrypted_path, "/") == 0)
     {
       logMessage ("\tgot root path\n");
-      return "";
+      result = malloc(1 * sizeof(char));
+      if (result == NULL) {
+          perror("Error allocating memory");
+          return NULL;
+        }
+      result[0] = '\0';
     }
 
   // Copy the original encrypted_path

@@ -34,39 +34,59 @@ get_user_name (char *buf, size_t size)
  * @note Please free the result after use.
  */
 char *
-prefix_path (const char *path, const char *realpath)
-{
-  if (path == NULL || realpath == NULL)
-    {
+prefix_path(const char *path, const char *realpath) {
+  if (path == NULL || realpath == NULL) {
       logMessage("WARN: path or realpath is null");
       if (path != NULL)
-        return (char *)path;
+        return strdup(path); // Restituisci una copia di path
       if (realpath != NULL)
-        return (char *)realpath;
+        return strdup(realpath); // Restituisci una copia di realpath
       return NULL;
     }
 
-  size_t len = strlen (path) + strlen (realpath) + 1;
-  char *root_dir = malloc (len * sizeof (char));
+  // Copia di path e realpath
+  char *path_clone = strdup(path);
+  char *realpath_clone = strdup(realpath);
 
-  if (root_dir == NULL)
-    {
-      perror ("Err: Could not allocate memory while in prefix_path");
+  if (path_clone == NULL || realpath_clone == NULL) {
+      perror("Err: Could not allocate memory while cloning strings");
+      free(path_clone);
+      free(realpath_clone);
       return NULL;
     }
 
-  if (strcpy (root_dir, realpath) == NULL)
-    {
-      perror ("strcpy: Cannot copy path");
-      free ((void *)root_dir);
+  size_t len = strlen(path_clone) + strlen(realpath_clone) + 1;
+  char *root_dir = malloc(len * sizeof(char));
+
+  if (root_dir == NULL) {
+      perror("Err: Could not allocate memory while in prefix_path");
+      free(path_clone);
+      free(realpath_clone);
       return NULL;
     }
-  if (strcat (root_dir, path) == NULL)
-    {
-      perror ("strcat: in prefix_path cannot concatenate the paths");
-      free ((void *)root_dir);
+
+  // Copia realpath_clone in root_dir
+  if (strcpy(root_dir, realpath_clone) == NULL) {
+      perror("strcpy: Cannot copy realpath_clone");
+      free(path_clone);
+      free(realpath_clone);
+      free(root_dir);
       return NULL;
     }
+
+  // Concatena path_clone a root_dir
+  if (strcat(root_dir, path_clone) == NULL) {
+      perror("strcat: in prefix_path cannot concatenate the paths");
+      free(path_clone);
+      free(realpath_clone);
+      free(root_dir);
+      return NULL;
+    }
+
+  // Libera la memoria delle stringhe clonate
+  free(path_clone);
+  free(realpath_clone);
+
   return root_dir;
 }
 

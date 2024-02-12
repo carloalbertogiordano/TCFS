@@ -15,7 +15,8 @@
 #define TCFS_SUCCESS 0
 #define ERR_inval_arg_len 1
 #define ERR_inval_key 2
-#define ERR_invalid_enc_dir_name 3
+#define ERR_inval_enc_dir_name 3
+#define ERR_inval_file_size 1
 
 #include "utils/crypt-utils/crypt-utils.h"
 #include "utils/tcfs_utils/tcfs_utils.h"
@@ -24,6 +25,7 @@
 #include <errno.h>
 #include <fcntl.h> /* Definition of AT_* constants */
 #include <fuse3/fuse.h>
+#include <setjmp.h>
 #include <stdio.h>
 #include <string.h>
 #include <sys/stat.h>
@@ -42,6 +44,8 @@ char *root_path;
  * */
 char *password;
 
+static jmp_buf jump_buffer;
+
 static int tcfs_getxattr (const char *fuse_path, const char *name, char *value,
                           size_t size);
 
@@ -58,20 +62,36 @@ static int
 tcfs_opendir (const char *fuse_path, struct fuse_file_info *fi)
 {
   (void)fi;
+  const char *enc_fuse_path = NULL;
+  const char *new_path = NULL;
+  DIR *dp = NULL;
 
-  logMessage ("Called opendir %s\n", fuse_path);
-
-  const char *enc_fuse_path = encrypt_path (fuse_path, password);
-  const char *new_path = prefix_path (enc_fuse_path, root_path);
-  logMessage ("\topendir new_path %s\n", new_path);
-
-  DIR *dp = opendir (new_path);
-  if (dp == NULL)
+  if (setjmp (jump_buffer) != 0)
     {
-      perror ("Could not open the directory");
+      if (enc_fuse_path)
+        free ((void *)enc_fuse_path);
+      if (new_path)
+        free ((void *)new_path);
+      if (dp)
+        closedir (dp);
+      perror ("Error occurred in opendir");
       return -errno;
     }
 
+  logMessage ("Called opendir %s\n", fuse_path);
+
+  enc_fuse_path = encrypt_path (fuse_path, password);
+  new_path = prefix_path (enc_fuse_path, root_path);
+  logMessage ("\topendir new_path %s\n", new_path);
+
+  dp = opendir (new_path);
+  if (dp == NULL)
+    {
+      longjmp (jump_buffer, 1);
+    }
+
+  free ((void *)enc_fuse_path);
+  free ((void *)new_path);
   closedir (dp);
   return TCFS_SUCCESS;
 }
@@ -94,19 +114,33 @@ tcfs_getattr (const char *fuse_path, struct stat *stbuf,
   logMessage ("Called getattr on %s%s\n", root_path, fuse_path);
 
   int res;
-  const char *enc_fuse_path = encrypt_path (fuse_path, password);
+  const char *enc_fuse_path = NULL;
+  const char *new_path = NULL;
+
+  if (setjmp (jump_buffer) != 0)
+    {
+      if (enc_fuse_path)
+        free ((void *)enc_fuse_path);
+      if (new_path)
+        free ((void *)new_path);
+      perror ("Error occured in getattr");
+      return -errno;
+    }
+
+  enc_fuse_path = encrypt_path (fuse_path, password);
   logMessage ("\tgetattr enc_fuse_path: %s\n", enc_fuse_path);
-  const char *new_path = prefix_path (enc_fuse_path, root_path);
+  new_path = prefix_path (enc_fuse_path, root_path);
   logMessage ("\tgetattr new_path on %s\n", new_path);
 
   res = stat (new_path, stbuf);
   if (res == -1)
     {
       logMessage ("\taccess: Stat returned -1, err:%d\n", -errno);
-      perror ("getattr err");
-      return -errno;
+      longjmp (jump_buffer, 1);
     }
 
+  free ((void *)new_path);
+  free ((void *)enc_fuse_path);
   return TCFS_SUCCESS;
 }
 
@@ -124,17 +158,31 @@ tcfs_access (const char *fuse_path, int mask)
 {
   logMessage ("Callen access on %s\n", fuse_path);
   int res;
+  const char *enc_fuse_path = NULL;
+  const char *full_path = NULL;
 
-  const char *enc_fuse_path = encrypt_path (fuse_path, password);
-  const char *full_path = prefix_path (enc_fuse_path, root_path);
+  if (setjmp (jump_buffer) != 0)
+    {
+      if (full_path)
+        free ((void *)full_path);
+      if (enc_fuse_path)
+        free ((void *)enc_fuse_path);
+      perror ("Error in access");
+      return -errno;
+    }
+
+  enc_fuse_path = encrypt_path (fuse_path, password);
+  full_path = prefix_path (enc_fuse_path, root_path);
   logMessage ("\taccess encrypt_path %s\n", full_path);
 
   res = access (full_path, mask);
   if (res == -1)
     {
-      perror ("access error");
-      return -errno;
+      longjmp (jump_buffer, 1);
     }
+
+  free ((void *)full_path);
+  free ((void *)enc_fuse_path);
 
   return TCFS_SUCCESS;
 }
@@ -154,19 +202,34 @@ tcfs_readlink (const char *fuse_path, char *buf, size_t size)
 {
   logMessage ("called readlink\n");
 
-  const char *enc_fuse_path = encrypt_path (fuse_path, password);
-  char *path = prefix_path (enc_fuse_path, root_path);
-  logMessage ("\treadlink on %s\n", path);
-
+  const char *enc_fuse_path = NULL;
+  char *path = NULL;
   size_t res;
-  res = readlink (path, buf, size - 1);
-  if (res == -1UL)
+
+  if (setjmp (jump_buffer) != 0)
     {
-      perror ("readlink error");
+      if (path)
+        free ((void *)path);
+      if (enc_fuse_path)
+        free ((void *)enc_fuse_path);
+      perror ("Error in readlink");
       return -errno;
     }
 
+  enc_fuse_path = encrypt_path (fuse_path, password);
+  path = prefix_path (enc_fuse_path, root_path);
+  logMessage ("\treadlink on %s\n", path);
+
+  res = readlink (path, buf, size - 1);
+  if (res == -1UL)
+    {
+      longjmp (jump_buffer, 1);
+    }
   buf[res] = '\0';
+
+  free ((void *)path);
+  free ((void *)enc_fuse_path);
+
   return TCFS_SUCCESS;
 }
 
@@ -192,19 +255,36 @@ tcfs_readdir (const char *fuse_path, void *buf, fuse_fill_dir_t filler,
   (void)fi;
   (void)frdf;
 
-  logMessage ("Called readdir %s\n", fuse_path);
-  const char *enc_path = encrypt_path (fuse_path, password);
-  char *path = prefix_path (enc_path, root_path);
-  logMessage ("readdir on %s\n", path);
-
+  const char *enc_path = NULL;
+  char *path = NULL;
   DIR *dp = NULL;
   struct dirent *de;
+  int error_return_number = TCFS_SUCCESS;
+
+  if (setjmp (jump_buffer) != 0)
+    {
+      if (path)
+        free ((void *)path);
+      if (enc_path)
+        free ((void *)enc_path);
+      if (dp)
+        closedir (dp);
+      if (de)
+        free ((void *)de);
+      perror ("Error in readdir");
+      return -error_return_number;
+    }
+
+  logMessage ("Called readdir %s\n", fuse_path);
+  enc_path = encrypt_path (fuse_path, password);
+  path = prefix_path (enc_path, root_path);
+  logMessage ("readdir on %s\n", path);
 
   dp = opendir (path);
   if (dp == NULL)
     {
-      perror ("Could not open the directory");
-      return -errno;
+      error_return_number = errno;
+      longjmp (jump_buffer, 1);
     }
   logMessage ("Dir %s opened\n", path);
 
@@ -230,14 +310,14 @@ tcfs_readdir (const char *fuse_path, void *buf, fuse_fill_dir_t filler,
       else
         {
           logMessage (
-              "\tchecking for %s is %s\n", de->d_name,
+              "\tchecking foreturn -errno;r %s is %s\n", de->d_name,
               decrypt_file_name_with_hex ((const char *)de->d_name, password));
 
           const char *dec_dirname = decrypt_path (de->d_name, password);
           if (dec_dirname == NULL)
             {
-              perror ("Could not decipher dir name");
-              return -ERR_invalid_enc_dir_name;
+              error_return_number = -ERR_inval_enc_dir_name;
+              longjmp (jump_buffer, 1);
             }
 
           // We must avoid the initial / of dec_dirname
@@ -252,14 +332,17 @@ tcfs_readdir (const char *fuse_path, void *buf, fuse_fill_dir_t filler,
       if (can_break)
         {
           logMessage ("Breaking out\n");
-          perror ("readdir error");
-          closedir (dp);
-          return -errno;
+          error_return_number = errno;
+          longjmp (jump_buffer, 1);
           break;
         }
     }
 
+  free ((void *)path);
+  free ((void *)enc_path);
   closedir (dp);
+  free ((void *)de);
+
   return TCFS_SUCCESS;
 }
 
@@ -278,11 +361,23 @@ tcfs_mknod (const char *fuse_path, mode_t mode, dev_t rdev)
 {
   logMessage ("Called mknod\n");
 
-  const char *enc_fuse_path = encrypt_path (fuse_path, password);
-  char *path = prefix_path (enc_fuse_path, root_path);
-  logMessage ("\tmknod on %s\n", path);
-
+  const char *enc_fuse_path = NULL;
+  char *path = NULL;
   int res;
+
+  if (setjmp (jump_buffer) != 0)
+    {
+      if (path)
+        free ((void *)path);
+      if (enc_fuse_path)
+        free ((void *)enc_fuse_path);
+      perror ("Error in mknod");
+      return -errno;
+    }
+
+  enc_fuse_path = encrypt_path (fuse_path, password);
+  path = prefix_path (enc_fuse_path, root_path);
+  logMessage ("\tmknod on %s\n", path);
 
   /* On Linux this could just be 'mknod(path, mode, rdev)' but this
      is more portable */
@@ -297,7 +392,10 @@ tcfs_mknod (const char *fuse_path, mode_t mode, dev_t rdev)
   else
     res = mknod (path, mode, rdev);
   if (res == -1)
-    return -errno;
+    longjmp (jump_buffer, 1);
+
+  free ((void *)path);
+  free ((void *)enc_fuse_path);
 
   return TCFS_SUCCESS;
 }
@@ -314,18 +412,33 @@ tcfs_mknod (const char *fuse_path, mode_t mode, dev_t rdev)
 static int
 tcfs_mkdir (const char *fuse_path, mode_t mode)
 {
-  logMessage ("!!! Called mkdir on %s\n", fuse_path);
+  const char *enc_path = NULL;
+  char *path = NULL;
+  int res;
 
-  const char *enc_path = encrypt_path (fuse_path, password);
+  if (setjmp (jump_buffer) != 0)
+    {
+      if (path)
+        free ((void *)path);
+      if (enc_path)
+        free ((void *)enc_path);
+      perror ("Error in mkdir");
+      return -errno;
+    }
 
+  logMessage ("Called mkdir on %s\n", fuse_path);
+
+  enc_path = encrypt_path (fuse_path, password);
   logMessage ("\tmkdir prefix_path (%s, %s)\n", enc_path, root_path);
-  char *path = prefix_path (enc_path, root_path);
+  path = prefix_path (enc_path, root_path);
   logMessage ("\tmkdir %s\n", path);
 
-  int res;
   res = mkdir (path, mode);
   if (res == -1)
-    return -errno;
+    longjmp (jump_buffer, 1);
+
+  free ((void *)path);
+  free ((void *)enc_path);
 
   return TCFS_SUCCESS;
 }
@@ -341,17 +454,32 @@ tcfs_mkdir (const char *fuse_path, mode_t mode)
 static int
 tcfs_unlink (const char *fuse_path)
 {
+  const char *enc_fuse_path = NULL;
+  char *path = NULL;
+  int res;
+
+  if (setjmp (jump_buffer) != 0)
+    {
+      if (path)
+        free ((void *)path);
+      if (enc_fuse_path)
+        free ((void *)enc_fuse_path);
+      perror ("Error in unlink");
+      return -errno;
+    }
+
   logMessage ("Called unlink\n");
 
-  const char *enc_fuse_path = encrypt_path (fuse_path, password);
-  char *path = prefix_path (enc_fuse_path, root_path);
+  enc_fuse_path = encrypt_path (fuse_path, password);
+  path = prefix_path (enc_fuse_path, root_path);
   logMessage ("\tunlink on %s\n", path);
-
-  int res;
 
   res = unlink (path);
   if (res == -1)
-    return -errno;
+    longjmp (jump_buffer, 1);
+
+  free ((void *)path);
+  free ((void *)enc_fuse_path);
 
   return TCFS_SUCCESS;
 }
@@ -367,17 +495,30 @@ tcfs_unlink (const char *fuse_path)
 static int
 tcfs_rmdir (const char *fuse_path)
 {
+  const char *enc_fuse_path = NULL;
+  char *path = NULL;
+  int res;
+
+  if (setjmp (jump_buffer) != 0)
+    {
+      if (path)
+        free ((void *)path);
+      if (enc_fuse_path)
+        free ((void *)enc_fuse_path);
+    }
+
   logMessage ("Called rmdir\n");
 
-  const char *enc_fuse_path = encrypt_path (fuse_path, password);
-  char *path = prefix_path (enc_fuse_path, root_path);
+  enc_fuse_path = encrypt_path (fuse_path, password);
+  path = prefix_path (enc_fuse_path, root_path);
   logMessage ("\trmdir on %s\n", path);
-
-  int res;
 
   res = rmdir (path);
   if (res == -1)
-    return -errno;
+    longjmp (jump_buffer, 1);
+
+  free ((void *)path);
+  free ((void *)enc_fuse_path);
 
   return TCFS_SUCCESS;
 }
@@ -394,21 +535,45 @@ tcfs_rmdir (const char *fuse_path)
 static int
 tcfs_symlink (const char *from, const char *to)
 {
-  logMessage ("Called symlink %s->%s\n", from, to);
+  const char *enc_from_path = NULL;
+  char *enc_from = NULL;
+  const char *enc_to_path = NULL;
+  char *enc_to = NULL;
   int res;
 
-  const char *enc_from_path = encrypt_path_and_filename (from, password);
-  char *enc_from = prefix_path (enc_from_path, root_path);
-  const char *enc_to_path = encrypt_path_and_filename (to, password);
-  char *enc_to = prefix_path (enc_to_path, root_path);
-  logMessage ("\trmdir from %s to %s\n", enc_from_path, enc_to_path);
+  logMessage ("Called symlink %s->%s\n", from, to);
+
+  if (setjmp (jump_buffer) != 0)
+    {
+      if (enc_from)
+        free ((void *)enc_from);
+      if (enc_to)
+        free ((void *)enc_to);
+      if (enc_from_path)
+        free ((void *)enc_from_path);
+      if (enc_to_path)
+        free ((void *)enc_to_path);
+      perror ("Error in symlink");
+      return -errno;
+    }
+
+  enc_from_path = encrypt_path_and_filename (from, password);
+  enc_from = prefix_path (enc_from_path, root_path);
+
+  enc_to_path = encrypt_path_and_filename (to, password);
+  enc_to = prefix_path (enc_to_path, root_path);
+  logMessage ("symlink from %s to %s\n", enc_from_path, enc_to_path);
 
   res = symlink (enc_from, enc_to);
   if (res == -1)
     {
-      perror ("symlink error");
-      return -errno;
+      longjmp (jump_buffer, 1);
     }
+
+  free ((void *)enc_from);
+  free ((void *)enc_to);
+  free ((void *)enc_from_path);
+  free ((void *)enc_to_path);
 
   return TCFS_SUCCESS;
 }
@@ -427,18 +592,43 @@ static int
 tcfs_rename (const char *from, const char *to, unsigned int flags)
 {
   (void)flags; // FUSE does not use this parameter
-  logMessage ("Called rename\n");
+
+  const char *enc_from_path = NULL;
+  char *enc_from = NULL;
+  const char *enc_to_path = NULL;
+  char *enc_to = NULL;
   int res;
 
-  const char *enc_from_path = encrypt_path_and_filename (from, password);
-  char *enc_from = prefix_path (enc_from_path, root_path);
-  const char *enc_to_path = encrypt_path_and_filename (to, password);
-  char *enc_to = prefix_path (enc_to_path, root_path);
-  logMessage ("\trmdir from %s to %s\n", enc_from_path, enc_to_path);
+  logMessage ("Called rename\n");
+
+  if (setjmp (jump_buffer) != 0)
+    {
+      if (enc_from)
+        free ((void *)enc_from);
+      if (enc_to)
+        free ((void *)enc_to);
+      if (enc_from_path)
+        free ((void *)enc_from_path);
+      if (enc_to_path)
+        free ((void *)enc_to_path);
+      perror ("Error in rename");
+      return -errno;
+    }
+
+  enc_from_path = encrypt_path_and_filename (from, password);
+  enc_from = prefix_path (enc_from_path, root_path);
+  enc_to_path = encrypt_path_and_filename (to, password);
+  enc_to = prefix_path (enc_to_path, root_path);
+  logMessage ("rename from %s to %s\n", enc_from_path, enc_to_path);
 
   res = rename (enc_from, enc_to);
   if (res == -1)
-    return -errno;
+    longjmp (jump_buffer, 1);
+
+  free ((void *)enc_from);
+  free ((void *)enc_from_path);
+  free ((void *)enc_to);
+  free ((void *)enc_to_path);
 
   return TCFS_SUCCESS;
 }
@@ -455,21 +645,44 @@ tcfs_rename (const char *from, const char *to, unsigned int flags)
 static int
 tcfs_link (const char *from, const char *to)
 {
-  logMessage ("Called link\n");
+  const char *enc_from_path = NULL;
+  char *enc_from = NULL;
+  const char *enc_to_path = NULL;
+  char *enc_to = NULL;
   int res;
 
-  const char *enc_from_path = encrypt_path_and_filename (from, password);
-  char *enc_from = prefix_path (enc_from_path, root_path);
-  const char *enc_to_path = encrypt_path_and_filename (to, password);
-  char *enc_to = prefix_path (enc_to_path, root_path);
-  logMessage ("\trmdir from %s to %s\n", enc_from, enc_to);
+  if (setjmp (jump_buffer) != 0)
+    {
+      if (enc_from)
+        free ((void *)enc_from);
+      if (enc_to)
+        free ((void *)enc_to);
+      if (enc_from_path)
+        free ((void *)enc_from_path);
+      if (enc_to_path)
+        free ((void *)enc_to_path);
+      perror ("Error in rename");
+      return -errno;
+    }
+
+  logMessage ("Called link\n");
+
+  enc_from_path = encrypt_path_and_filename (from, password);
+  enc_from = prefix_path (enc_from_path, root_path);
+  enc_to_path = encrypt_path_and_filename (to, password);
+  enc_to = prefix_path (enc_to_path, root_path);
+  logMessage ("link from %s to %s\n", enc_from, enc_to);
 
   res = link (enc_from, enc_to);
   if (res == -1)
     {
-      perror ("link error");
-      return -errno;
+      longjmp (jump_buffer, 1);
     }
+
+  free ((void *)enc_from);
+  free ((void *)enc_from_path);
+  free ((void *)enc_to);
+  free ((void *)enc_to_path);
 
   return TCFS_SUCCESS;
 }
@@ -488,20 +701,34 @@ static int
 tcfs_chmod (const char *fuse_path, mode_t mode, struct fuse_file_info *fi)
 {
   (void)fi;
+
   int res;
+  const char *enc_fuse_path = NULL;
+  const char *path = NULL;
 
   logMessage ("Called chmod\n");
 
-  const char *enc_fuse_path = encrypt_path (fuse_path, password);
-  const char *path = prefix_path (enc_fuse_path, root_path);
-  logMessage ("\taccess encrypt_path %s\n", path);
+  if (setjmp (jump_buffer) != 0)
+    {
+      if (path)
+        free ((void *)path);
+      if (enc_fuse_path)
+        free ((void *)enc_fuse_path);
+      perror ("Error in chmod");
+      return -errno;
+    }
+
+  enc_fuse_path = encrypt_path (fuse_path, password);
+  path = prefix_path (enc_fuse_path, root_path);
 
   res = chmod (path, mode);
   if (res == -1)
     {
-      perror ("chmod error");
-      return -errno;
+      longjmp (jump_buffer, 1);
     }
+
+  free ((void *)path);
+  free ((void *)enc_fuse_path);
 
   return TCFS_SUCCESS;
 }
@@ -522,16 +749,32 @@ tcfs_chown (const char *fuse_path, uid_t uid, gid_t gid,
             struct fuse_file_info *fi)
 {
   (void)fi;
+
+  const char *enc_fuse_path = NULL;
+  const char *path = NULL;
+
   logMessage ("Called chown\n");
 
-  const char *enc_fuse_path = encrypt_path (fuse_path, password);
-  const char *path = prefix_path (enc_fuse_path, root_path);
-  logMessage ("\tchown encrypt_path %s\n", path);
+  if (setjmp (jump_buffer))
+    {
+      if (path)
+        free ((void *)path);
+      if (enc_fuse_path)
+        free ((void *)enc_fuse_path);
+      perror ("Error in chown");
+      return -errno;
+    }
+
+  enc_fuse_path = encrypt_path (fuse_path, password);
+  path = prefix_path (enc_fuse_path, root_path);
 
   int res;
   res = lchown (path, uid, gid);
   if (res == -1)
-    return -errno;
+    longjmp (jump_buffer, 1);
+
+  free ((void *)path);
+  free ((void *)enc_fuse_path);
 
   return TCFS_SUCCESS;
 }
@@ -550,29 +793,39 @@ static int
 tcfs_truncate (const char *fuse_path, off_t size, struct fuse_file_info *fi)
 {
   (void)fi;
+  const char *enc_fuse_path = NULL;
+  const char *path = NULL;
+  int res;
+
   logMessage ("Called truncate\n");
 
-  const char *enc_fuse_path = encrypt_path (fuse_path, password);
-  const char *path = prefix_path (enc_fuse_path, root_path);
-  logMessage ("\ttruncate encrypt_path %s\n", path);
+  if (setjmp (jump_buffer) != 0)
+    {
+      if (path)
+        free ((void *)path);
+      if (enc_fuse_path)
+        free ((void *)enc_fuse_path);
+    }
 
-  int res;
+  enc_fuse_path = encrypt_path (fuse_path, password);
+  path = prefix_path (enc_fuse_path, root_path);
+
   res = truncate (path, size);
   if (res == -1)
     {
-      perror ("truncate error");
-      return -errno;
+      longjmp (jump_buffer, 1);
     }
+
+  free ((void *)path);
+  free ((void *)enc_fuse_path);
 
   return TCFS_SUCCESS;
 }
 
 /**
- * @brief Modify the access and modification timestamps of a file in the TCFS
- * file system.
- *
- * This function is called when the `utimens` operation is performed on a file
- * in the TCFS.
+ * @brief Modify the access and timestamps of a file in the TCFS
+ * file system. This function is called when the `utimens` operation is
+ * performed on a file.
  *
  * @param fuse_path The path of the encrypted file for which timestamps need to
  * be modified.
@@ -596,14 +849,26 @@ tcfs_utimens (const char *fuse_path, const struct timespec ts[2],
               struct fuse_file_info *fi)
 {
   (void)fi;
-  logMessage ("Called utimens\n");
 
-  const char *enc_fuse_path = encrypt_path (fuse_path, password);
-  char *path = prefix_path (enc_fuse_path, root_path);
-  logMessage ("\tutimesns on %s\n", path);
-
+  const char *enc_fuse_path = NULL;
+  char *path = NULL;
   int res;
   struct timeval tv[2];
+
+  logMessage ("Called utimens\n");
+
+  if (setjmp (jump_buffer) != 0)
+    {
+      if (path)
+        free ((void *)path);
+      if (enc_fuse_path)
+        free ((void *)enc_fuse_path);
+      perror ("Error in utimens");
+      return -errno;
+    }
+
+  enc_fuse_path = encrypt_path (fuse_path, password);
+  path = prefix_path (enc_fuse_path, root_path);
 
   tv[0].tv_sec = ts[0].tv_sec;
   tv[0].tv_usec = ts[0].tv_nsec / 1000;
@@ -613,17 +878,17 @@ tcfs_utimens (const char *fuse_path, const struct timespec ts[2],
   res = utimes (path, tv);
   if (res == -1)
     {
-      perror ("utimes error");
-      return -errno;
+      longjmp (jump_buffer, 1);
     }
+
+  free ((void *)path);
+  free ((void *)enc_fuse_path);
 
   return TCFS_SUCCESS;
 }
 
 /**
- * @brief Opens a file.
- *
- * This function is called to open a file.
+ * @brief This function is called to open a file.
  *
  * @param fuse_path The path to the file.
  * @param fi File information.
@@ -632,22 +897,36 @@ tcfs_utimens (const char *fuse_path, const struct timespec ts[2],
 static int
 tcfs_open (const char *fuse_path, struct fuse_file_info *fi)
 {
+  const char *enc_fuse_path = NULL;
+  char *path = NULL;
+  int res = 0;
+
   logMessage ("Called open\n");
 
-  const char *enc_fuse_path = encrypt_path (fuse_path, password);
-  char *path = prefix_path (enc_fuse_path, root_path);
-  logMessage ("\topen on %s\n", path);
+  if (setjmp (jump_buffer) != 0)
+    {
+      if (path)
+        free ((void *)path);
+      if (enc_fuse_path)
+        free ((void *)enc_fuse_path);
+      perror ("Error in open");
+      return -errno;
+    }
 
-  int res;
+  enc_fuse_path = encrypt_path (fuse_path, password);
+  path = prefix_path (enc_fuse_path, root_path);
+  logMessage ("\topen on %s\n", path);
 
   res = open (path, fi->flags);
   if (res == -1)
     {
-      perror ("open error");
-      return -errno;
+      longjmp (jump_buffer, 1);
     }
 
   close (res);
+  free ((void *)path);
+  free ((void *)enc_fuse_path);
+
   return TCFS_SUCCESS;
 }
 
@@ -688,7 +967,7 @@ file_size (FILE *file)
   if (fstat (fileno (file), &st) == 0)
     return st.st_size;
 
-  return -1;
+  return -ERR_inval_file_size;
 }
 
 /**
@@ -710,17 +989,42 @@ tcfs_read (const char *fuse_path, char *buf, size_t size, off_t offset,
   (void)size;
   (void)fi;
 
-  logMessage ("Calling read\n");
-  FILE *path_ptr, *tmpf;
+  FILE *path_ptr = NULL, *tmpf = NULL;
   char *path;
   int res;
-
-  // Retrieve the username
   char username_buf[1024];
   size_t username_buf_size = 1024;
+  const char *enc_fuse_path = NULL;
+  char *size_key_char = NULL;
+  ssize_t size_key;
+  unsigned char *encrypted_key = NULL;
+  unsigned char *decrypted_key = NULL;
+  char err_string[80];
+
+  logMessage ("Calling read\n");
+
+  if (setjmp (jump_buffer) != 0)
+    {
+      if (path_ptr)
+        fclose (path_ptr);
+      if (tmpf)
+        fclose (tmpf);
+      if (path)
+        free ((void *)path);
+      if (enc_fuse_path)
+        free ((void *)enc_fuse_path);
+      if (encrypted_key)
+        free ((void *)encrypted_key);
+      if (decrypted_key)
+        free ((void *)decrypted_key);
+      perror (err_string);
+      return -errno;
+    }
+
+  // Retrieve the username
   get_user_name (username_buf, username_buf_size);
 
-  const char *enc_fuse_path = encrypt_path (fuse_path, password);
+  enc_fuse_path = encrypt_path (fuse_path, password);
   path = prefix_path (enc_fuse_path, root_path);
   logMessage ("\tread on %s\n", path);
 
@@ -728,105 +1032,68 @@ tcfs_read (const char *fuse_path, char *buf, size_t size, off_t offset,
   tmpf = tmpfile ();
 
   // Get key size
-  char *size_key_char = malloc (sizeof (char) * 20);
+  size_key_char = malloc (sizeof (char) * 20);
   if (tcfs_getxattr (fuse_path, "user.key_len", size_key_char, 20) == -1)
     {
-      perror ("Could not get file key size");
-      fclose (path_ptr);
-      fclose (tmpf);
-      free ((void *)enc_fuse_path);
-      free ((void *)path);
-      return -errno;
+      strcpy (err_string, "Error in read,, could not get file key size");
+      longjmp (jump_buffer, 1);
     }
-  ssize_t size_key = strtol (size_key_char, NULL, 10);
+  size_key = strtol (size_key_char, NULL, 10);
 
   // Retrive the file key
-  unsigned char *encrypted_key = malloc ((size_key + 1) * sizeof (char));
+  encrypted_key = malloc ((size_key + 1) * sizeof (char));
   encrypted_key[size_key] = '\0';
   if (tcfs_getxattr (fuse_path, "user.key", (char *)encrypted_key, size_key)
       == -1)
     {
-      perror ("Could not get encrypted key for file in tcfs_read");
-      fclose (path_ptr);
-      fclose (tmpf);
-      free ((void *)enc_fuse_path);
-      free ((void *)path);
-      free((void *)encrypted_key);
-      return -errno;
+      strcpy (
+          err_string,
+          "Error in read, could not get encrypted key for file in tcfs_read");
+      longjmp (jump_buffer, 1);
     }
 
   // Decrypt the file key
-  unsigned char *decrypted_key;
   decrypted_key = decrypt_string (encrypted_key, password);
 
   /* Decrypt*/
   if (do_crypt (path_ptr, tmpf, DECRYPT, decrypted_key) != true)
     {
-      perror ("Err: do_crypt cannot decrypt file");
-      fclose (path_ptr);
-      fclose (tmpf);
-      free ((void *)enc_fuse_path);
-      free ((void *)path);
-      free((void *)encrypted_key);
-      free ((void *) decrypted_key);
-      return -errno;
+      strcpy (err_string, "Error in read, do_crypt cannot decrypt file");
+      longjmp (jump_buffer, 1);
     }
 
   /* Something went terribly wrong if this is the case. */
   if (path_ptr == NULL || tmpf == NULL)
     {
-      fclose (path_ptr);
-      fclose (tmpf);
-      free ((void *)enc_fuse_path);
-      free ((void *)path);
-      free((void *)encrypted_key);
-      free ((void *) decrypted_key);
-      return -errno;
+      strcpy (err_string, "Error in read, we lost some files");
+      longjmp (jump_buffer, 1);
     }
 
   if (fflush (tmpf) != 0)
     {
-      perror ("Err: Cannot flush file in read process");
-      fclose (path_ptr);
-      fclose (tmpf);
-      free ((void *)enc_fuse_path);
-      free ((void *)path);
-      free((void *)encrypted_key);
-      free ((void *) decrypted_key);
-      return -errno;
+      strcpy (err_string, "Error in read, cannot fflush file");
+      longjmp (jump_buffer, 1);
     }
   if (fseek (tmpf, offset, SEEK_SET) != 0)
     {
-      perror ("Err: cannot fseek while reading file");
-      fclose (path_ptr);
-      fclose (tmpf);
-      free ((void *)enc_fuse_path);
-      free ((void *)path);
-      free((void *)encrypted_key);
-      free ((void *) decrypted_key);
-      return -errno;
+      strcpy (err_string, "Error in read, cannot fseek");
+      longjmp (jump_buffer, 1);
     }
 
   /* Read our tmpfile into the buffer. */
   res = fread (buf, 1, file_size (tmpf), tmpf);
   if (res == -1)
     {
-      perror ("Err: cannot fread whine in read");
-      fclose (path_ptr);
-      fclose (tmpf);
-      free ((void *)enc_fuse_path);
-      free ((void *)path);
-      free((void *)encrypted_key);
-      free ((void *) decrypted_key);
-      res = -errno;
+      strcpy (err_string, "Error in read, cannot fread");
+      longjmp (jump_buffer, 1);
     }
 
   fclose (path_ptr);
   fclose (tmpf);
-  free ((void *)enc_fuse_path);
   free ((void *)path);
-  free((void *)encrypted_key);
-  free ((void *) decrypted_key);
+  free ((void *)enc_fuse_path);
+  free ((void *)encrypted_key);
+  free ((void *)decrypted_key);
   return res;
 }
 
@@ -849,12 +1116,37 @@ tcfs_write (const char *fuse_path, const char *buf, size_t size, off_t offset,
   (void)fi;
   logMessage ("Called write\n");
 
-  FILE *path_ptr, *tmpf;
+  FILE *path_ptr = NULL, *tmpf = NULL;
   char *path;
   int res;
   int tmpf_descriptor;
+  const char *enc_fuse_path = NULL;
+  char *size_key_char = NULL;
+  unsigned char *encrypted_key = NULL;
+  unsigned char *decrypted_key = NULL;
+  char err_string[80] = "\0";
 
-  const char *enc_fuse_path = encrypt_path (fuse_path, password);
+  if (setjmp (jump_buffer) != 0)
+    {
+      if (path_ptr)
+        fclose (path_ptr);
+      if (tmpf)
+        fclose (tmpf);
+      if (path)
+        free (path);
+      if (enc_fuse_path)
+        free ((void *)enc_fuse_path);
+      if (size_key_char)
+        free ((void *)size_key_char);
+      if (encrypted_key)
+        free ((void *)encrypted_key);
+      if (decrypted_key)
+        free ((void *)decrypted_key);
+      perror (err_string);
+      return -errno;
+    }
+
+  enc_fuse_path = encrypt_path (fuse_path, password);
   path = prefix_path (enc_fuse_path, root_path);
   logMessage ("\twrite on %s\n", path);
 
@@ -863,63 +1155,42 @@ tcfs_write (const char *fuse_path, const char *buf, size_t size, off_t offset,
   tmpf_descriptor = fileno (tmpf);
 
   // Get the key size
-  char *size_key_char = malloc (sizeof (char) * 20);
+  size_key_char = malloc (sizeof (char) * 20);
   if (tcfs_getxattr (fuse_path, "user.key_len", size_key_char, 20) == -1)
     {
-      perror ("Could not get file key size");
-      fclose (path_ptr);
-      fclose (tmpf);
-      free((void *)enc_fuse_path);
-      free((void *)size_key_char);
-      return -errno;
+      strcpy (err_string, "Error in write, could not get file key size");
+      longjmp (jump_buffer, 1);
     }
   ssize_t size_key = strtol (size_key_char, NULL, 10);
 
   // Retrieve the file key
-  unsigned char *encrypted_key
-      = malloc (sizeof (unsigned char) * (size_key + 1));
+  encrypted_key = malloc (sizeof (unsigned char) * (size_key + 1));
   encrypted_key[size_key] = '\0';
   if (tcfs_getxattr (fuse_path, "user.key", (char *)encrypted_key, size_key)
       == -1)
     {
-      perror ("Could not get file encrypted key in tcfs write");
-      fclose (path_ptr);
-      fclose (tmpf);
-      free((void *)enc_fuse_path);
-      free((void *)size_key_char);
-      free ((void *)encrypted_key);
-      return -errno;
+      strcpy (err_string, "Error in write, could not get file encrypted key");
+      longjmp (jump_buffer, 1);
     }
 
   // Decrypt the file key
-  unsigned char *decrypted_key = decrypt_string (encrypted_key, password);
+  decrypted_key = decrypt_string (encrypted_key, password);
 
   /* Something went terribly wrong if this is the case. */
   if (path_ptr == NULL || tmpf == NULL)
     {
-      perror ("Something went terribly wrong, cannot create new files");
-      fclose (path_ptr);
-      fclose (tmpf);
-      free((void *)enc_fuse_path);
-      free((void *)size_key_char);
-      free ((void *)encrypted_key);
-      free ((void *)decrypted_key);
-      return -errno;
+      strcpy (err_string, "Error in write, cannot create new files");
+      longjmp (jump_buffer, 1);
     }
 
   /* if the file to write to exists, read it into the tempfile */
-  if (tcfs_access (fuse_path, R_OK) == TCFS_SUCCESS && file_size (path_ptr) > 0)
+  if (tcfs_access (fuse_path, R_OK) == TCFS_SUCCESS
+      && file_size (path_ptr) > 0)
     {
       if (do_crypt (path_ptr, tmpf, DECRYPT, decrypted_key) == false)
         {
-          perror ("do_crypt: Cannot cypher file\n");
-          fclose (path_ptr);
-          fclose (tmpf);
-          free((void *)enc_fuse_path);
-          free((void *)size_key_char);
-          free ((void *)encrypted_key);
-          free ((void *)decrypted_key);
-          return -errno;
+          strcpy (err_string, "Error in write, cannot cyper file");
+          longjmp (jump_buffer, 1);
         }
       rewind (path_ptr);
       rewind (tmpf);
@@ -929,34 +1200,23 @@ tcfs_write (const char *fuse_path, const char *buf, size_t size, off_t offset,
   res = pwrite (tmpf_descriptor, buf, size, offset);
   if (res == -1)
     {
-      logMessage ("%d\n", res);
-      perror ("pwrite: cannot read tmpfile into the buffer\n");
-      fclose (path_ptr);
-      fclose (tmpf);
-      free((void *)enc_fuse_path);
-      free((void *)size_key_char);
-      free ((void *)encrypted_key);
-      free ((void *)decrypted_key);
-      res = -errno;
+      strcpy (err_string,
+              "Error in write, cannot read tmpfile into the buffer");
+      longjmp (jump_buffer, 1);
     }
 
   /* Encrypt*/
   if (do_crypt (tmpf, path_ptr, ENCRYPT, decrypted_key) == false)
     {
-      perror ("do_crypt 2: cannot cypher file\n");
-      fclose (path_ptr);
-      fclose (tmpf);
-      free((void *)enc_fuse_path);
-      free((void *)size_key_char);
-      free ((void *)encrypted_key);
-      free ((void *)decrypted_key);
-      return -errno;
+      strcpy (err_string, "Error in write, cannot cypher file");
+      longjmp (jump_buffer, 1);
     }
 
   fclose (path_ptr);
   fclose (tmpf);
-  free((void *)enc_fuse_path);
-  free((void *)size_key_char);
+  free((void *) path);
+  free ((void *)enc_fuse_path);
+  free ((void *)size_key_char);
   free ((void *)encrypted_key);
   free ((void *)decrypted_key);
 
@@ -992,14 +1252,26 @@ tcfs_write (const char *fuse_path, const char *buf, size_t size, off_t offset,
 static int
 tcfs_statfs (const char *fuse_path, struct statvfs *stbuf)
 {
-  logMessage ("Called statfs\n");
-  char *path = prefix_path (fuse_path, root_path);
-
+  char *path = NULL;
   int res;
+
+  logMessage ("Called statfs\n");
+
+  if (setjmp (jump_buffer) != 0)
+    {
+      if (path)
+        free ((void *)path);
+      perror ("Error in statfs");
+      return -errno;
+    }
+
+  path = prefix_path (fuse_path, root_path);
 
   res = statvfs (path, stbuf);
   if (res == -1)
-    return -errno;
+    longjmp (jump_buffer, 1);
+
+  free ((void *)path);
 
   return TCFS_SUCCESS;
 }
@@ -1020,15 +1292,32 @@ static int
 tcfs_setxattr (const char *fuse_path, const char *name, const char *value,
                size_t size, int flags)
 {
-  const char *enc_fuse_path = encrypt_path (fuse_path, password);
-  const char *path = prefix_path (enc_fuse_path, root_path);
+  const char *enc_fuse_path = NULL;
+  const char *path = NULL;
+  int res = 1;
+
   logMessage ("\tsetxattr encrypt_path %s\n", path);
 
-  int res = 1;
-  if ((res = lsetxattr (path, name, value, size, flags)) == -1)
-    perror ("tcfs_lsetxattr");
+  if (setjmp (jump_buffer) != 0)
+    {
+      if (path)
+        free ((void *)path);
+      if (enc_fuse_path)
+        free ((void *)enc_fuse_path);
+      perror ("Error in setxattr");
+      return -errno;
+    }
+
+  enc_fuse_path = encrypt_path (fuse_path, password);
+  path = prefix_path (enc_fuse_path, root_path);
+
+  res = lsetxattr (path, name, value, size, flags);
   if (res == -1)
-    return -errno;
+    longjmp (jump_buffer, 1);
+
+  free ((void *)path);
+  free ((void *)enc_fuse_path);
+
   return TCFS_SUCCESS;
 }
 
@@ -1064,69 +1353,98 @@ tcfs_create (const char *fuse_path, mode_t mode, struct fuse_file_info *fi)
 {
   (void)fi;
   (void)mode;
+
+  const char *enc_fuse_path = NULL;
+  const char *fullpath = NULL;
+  unsigned char *key = NULL;
+  int encrypted_key_len = 0;
+  unsigned char *encrypted_key = NULL;
+  char encrypted_key_len_char[20];
+  FILE *res = NULL;
+  char err_string[80] = "\0";
+
   logMessage ("Called create on %s\n", fuse_path);
 
-  const char *enc_fuse_path = encrypt_path_and_filename (fuse_path, password);
-  const char *fullpath = prefix_path (enc_fuse_path, root_path);
-  logMessage ("\tcreating %s\n", fullpath);
-
-  FILE *res;
-  res = fopen (fullpath, "w");
-  if (res == NULL)
-    return -errno;
-
-  // Flag file as encrypted
-  if (tcfs_setxattr (fuse_path, "user.encrypted", "true", 4, 0)
-      != TCFS_SUCCESS) //(fsetxattr(fileno(res), "user.encrypted", "true", 4, 0) != 0)
+  if (setjmp (jump_buffer) != 0)
     {
-      fclose (res);
+      if (fullpath)
+        free ((void *)fullpath);
+      if (enc_fuse_path)
+        free ((void *)enc_fuse_path);
+      if (encrypted_key)
+        free ((void *)encrypted_key);
+      if (key)
+        free ((void *)key);
+      if (res)
+        fclose (res);
+      perror (err_string);
       return -errno;
     }
 
+  enc_fuse_path = encrypt_path_and_filename (fuse_path, password);
+  fullpath = prefix_path (enc_fuse_path, root_path);
+  logMessage ("\tcreating %s\n", fullpath);
+
+  res = fopen (fullpath, "w");
+  if (res == NULL)
+    {
+      strcpy (err_string, "Error in create, cannot open path");
+      longjmp (jump_buffer, 0);
+    }
+
+  // Flag file as encrypted
+  if (tcfs_setxattr (fuse_path, "user.encrypted", "true", 4, 0)
+      != TCFS_SUCCESS)
+    {
+      strcpy (err_string,
+              "Error in create, cannot set file ecrypted attribute");
+      longjmp (jump_buffer, 1);
+    }
+
   // Generate and set a new encrypted key for the file
-  unsigned char *key = malloc (sizeof (unsigned char) * 33);
+  key = malloc (sizeof (unsigned char) * 33);
   key[32] = '\0';
   generate_key (key);
 
   if (key == NULL)
     {
-      perror ("cannot generate file key");
-      return -errno;
+      strcpy (err_string, "Error in create, cannot generate file key");
+      longjmp (jump_buffer, 1);
     }
-  if (is_valid_key (key) == false)
+  /*if (is_valid_key (key) == false)
     {
       perror ("Generated key size invalid\n");
       return -1;
-    }
+    }This should not be needed anymore*/
 
   // Encrypt the generated key
-  int encrypted_key_len;
-  unsigned char *encrypted_key
-      = encrypt_string (key, password, &encrypted_key_len);
+  encrypted_key = encrypt_string (key, password, &encrypted_key_len);
 
   // Set the file key
   if (tcfs_setxattr (fuse_path, "user.key", (const char *)encrypted_key,
                      encrypted_key_len, 0)
-      != 0) //(fsetxattr(fileno(res), "user.key", encrypted_key, 32, 0) != 0)
+      != 0)
     {
-      perror ("Err setting key xattr");
-      return -errno;
+      strcpy (err_string, "Error in sreate, cannot set key xattr");
+      longjmp (jump_buffer, 1);
     }
   // Set key size
-  char encrypted_key_len_char[20];
   snprintf (encrypted_key_len_char, sizeof (encrypted_key_len_char), "%d",
-                encrypted_key_len);
+            encrypted_key_len);
   if (tcfs_setxattr (fuse_path, "user.key_len", encrypted_key_len_char,
                      sizeof (encrypted_key_len_char), 0)
-      != TCFS_SUCCESS) //(fsetxattr(fileno(res), "user.key", encrypted_key, 32, 0) != 0)
+      != TCFS_SUCCESS)
     {
-      perror ("Err setting key_len xattr");
-      return -errno;
+      strcpy (err_string, "Error in create, cannot set key_len xattr");
+      longjmp (jump_buffer, 1);
     }
 
-  free (encrypted_key);
-  free (key);
+  free ((void *)fullpath);
+  free ((void *)enc_fuse_path);
+  free ((void *)encrypted_key);
+  free ((void *)key);
   fclose (res);
+
   return TCFS_SUCCESS;
 }
 
@@ -1144,12 +1462,15 @@ tcfs_release (const char *fuse_path, struct fuse_file_info *fi)
 {
   const char *enc_fuse_path = encrypt_path_and_filename (fuse_path, password);
   const char *path = prefix_path (enc_fuse_path, root_path);
-  logMessage ("\trelease %s\n", path);
+  logMessage ("release %s\n", path);
 
   /* Close the file */
   int res = close (fi->fh);
   if (res == -1)
-    return -errno;
+    {
+      perror ("Release error");
+      return -errno;
+    }
 
   /* Free the path */
   free ((void *)path);
@@ -1466,8 +1787,8 @@ main (int argc, char *argv[])
   fuse_opt_add_arg (&args_fuse,
                     "-f"); // TODO: this is forced for now, but will be passed
                            // via options in the future
-  //fuse_opt_add_arg (&args_fuse,
-                    //"-s");
+  // fuse_opt_add_arg (&args_fuse,
+  //"-s");
 
   // Print what we are passing to fuse TODO: This will be removed
   for (int i = 0; i < args_fuse.argc; i++)
