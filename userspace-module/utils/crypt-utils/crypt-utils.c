@@ -14,153 +14,285 @@
 #include "crypt-utils.h"
 
 /**
- * @internal
- * @def BLOCKSIZE
- * @brief This defines the max size of a block that can be cyphered. \_def
- * */
-#define BLOCKSIZE 1024
+ * @internal @_def
+ * @def TAG_LEN
+ * @brief The length of the authentication tag.
+ */
+#define TAG_LEN 16
+
 /**
- * @internal
- * @def IV_SIZE
- * @brief The fixed size of the initialization vector \link
- * https://en.wikipedia.org/wiki/Initialization_vector IV \endlink. \_def
- * */
-#define IV_SIZE 32
+ * @internal @_var
+ * @var jump_buffer
+ * @brief Buffer for storing the environment for `setjmp` and `longjmp`.
+ */
+jmp_buf jump_buffer;
+
 /**
- * @internal
- * @def KEY_SIZE
- * @brief The fixed size of the key. \_def
- * */
-#define KEY_SIZE 32
+ * @internal @_func
+ * @brief
+ * This function retrieves the latest OpenSSL error message.
+ *
+ * @return
+ * Returns a string containing the error message.
+ * The caller is responsible for freeing this string.
+ *
+ * @note
+ * This function uses OpenSSL's BIO API to get the error message.
+ */
+static char *
+getOpenSSLError (void)
+{
+  BIO *bio = BIO_new (BIO_s_mem ());
+  ERR_print_errors (bio);
+  char *buf;
+  size_t len = BIO_get_mem_data (bio, &buf);
+  char *ret = (char *)malloc ((len + 1) * sizeof (char));
+  memcpy (ret, buf, len);
+  ret[len] = '\0';
+  BIO_free (bio);
+  return ret;
+}
+
+/**
+ * @internal @_func
+ * @brief
+ * This function handles errors by logging the latest OpenSSL error message and
+ * performing a non-local jump.
+ *
+ * @note
+ * This function uses `longjmp` to jump to the location stored in
+ * `jump_buffer`. This means that the function where `setjmp` was called with
+ * `jump_buffer` will return with the value 1. It's important to ensure that
+ * `setjmp` has been called before this function is used.
+ */
+static void
+handleErrors (void)
+{
+  char *error = getOpenSSLError ();
+  logMessage ("Error in openssl: %s", error);
+  if (error)
+    free (error);
+  longjmp (jump_buffer, 1);
+}
+
+/**
+ * @internal @_func
+ *
+ * @brief
+ * This function encrypts a file using AES 256 GCM.
+ *
+ * @param fp  The input file.
+ * @param plaintext  The plaintext to be encrypted.
+ * @param plaintext_len  The length of the plaintext.
+ * @param key  The AES 256 key.
+ * @param iv  The initialization vector.
+ *
+ * @return
+ * Returns the length of the encrypted ciphertext.
+ * In case of an error, it prints an error message and returns -1.
+ *
+ * @note
+ * This function encrypts using AES 256 GCM.
+ * The function encrypts the plaintext and writes the ciphertext and the
+ * authentication tag to the file. The function uses OpenSSL's EVP API for
+ * encryption. For each block the function writes: block_size|block|TAG. The
+ * decrypt_file_gcm depends on this behaviour.
+ */
+static int
+encrypt_file_gcm (FILE *fp, unsigned char *plaintext, int plaintext_len,
+                  unsigned char *key, unsigned char *iv)
+{
+  EVP_CIPHER_CTX *ctx;
+  int len;
+  int ciphertext_len;
+  unsigned char *ciphertext = NULL;
+  unsigned char tag[TAG_LEN];
+
+  if (setjmp (jump_buffer))
+    {
+      logMessage("An error occurred in encrypt_file_gcm! Freeing resources...\n");
+      EVP_CIPHER_CTX_free (ctx);
+      if (ciphertext)
+        free (ciphertext);
+      return false;
+    }
+
+  if (!(ctx = EVP_CIPHER_CTX_new ()))
+    handleErrors ();
+
+  if (1 != EVP_EncryptInit_ex (ctx, EVP_aes_256_gcm (), NULL, key, iv))
+    handleErrors ();
+
+  ciphertext = (unsigned char *)malloc (
+      plaintext_len + EVP_CIPHER_block_size (EVP_aes_256_gcm ()));
+  if (!ciphertext)
+    handleErrors ();
+
+  if (1 != EVP_EncryptUpdate (ctx, ciphertext, &len, plaintext, plaintext_len))
+    handleErrors ();
+  ciphertext_len = len;
+
+  if (1 != EVP_EncryptFinal_ex (ctx, ciphertext + len, &len))
+    handleErrors ();
+  ciphertext_len += len;
+
+  if (1 != EVP_CIPHER_CTX_ctrl (ctx, EVP_CTRL_GCM_GET_TAG, TAG_LEN, tag))
+    handleErrors ();
+
+  fwrite (&ciphertext_len, sizeof (int), 1, fp);
+
+  if (fwrite (ciphertext, sizeof (unsigned char), ciphertext_len, fp)
+      != (unsigned long)ciphertext_len)
+    {
+      handleErrors ();
+    }
+
+  if (fwrite (tag, sizeof (unsigned char), TAG_LEN, fp)
+      != (unsigned long)TAG_LEN)
+    {
+      handleErrors ();
+    }
+
+  EVP_CIPHER_CTX_free (ctx);
+
+  free (ciphertext);
+  return ciphertext_len;
+}
+
+/**
+ * @internal @_func
+ *
+ * @brief
+ * This function decrypts a file using AES 256 GCM.
+ *
+ * @param fp  The input file.
+ * @param key  The AES 256 key.
+ * @param iv  The initialization vector.
+ * @param plaintext  The decrypted text will be written here.
+ *
+ * @return
+ * Returns the length of the decrypted plaintext.
+ * In case of an error, it prints an error message and returns false.
+ *
+ * @note
+ * This function decrypts using AES 256 GCM.
+ * The function reads the ciphertext and the authentication tag from the file,
+ * then decrypts the ciphertext and writes the plaintext to the provided
+ * pointer. The function expects each block to be written as:
+ * block_size|block|TAG
+ *
+ * @warning
+ * The plaintext variable will be allocated by this function,
+ * it is the responsibility of the caller to free it.
+ */
+static int
+decrypt_file_gcm (FILE *fp, unsigned char *key, unsigned char *iv,
+                  unsigned char **plaintext)
+{
+  EVP_CIPHER_CTX *ctx;
+  int len;
+  int plaintext_len = 0;
+  unsigned char *ciphertext = NULL;
+  unsigned char tag[TAG_LEN];
+
+  if (setjmp (jump_buffer))
+    {
+      logMessage("An error occurred in decrypt_file_gcm! Freeing resources...\n");
+      EVP_CIPHER_CTX_free (ctx);
+      if (ciphertext)
+        free (ciphertext);
+      return -1;
+    }
+
+  fseek (fp, 0, SEEK_END);
+  long fsize = ftell (fp);
+  fseek (fp, 0, SEEK_SET); // same as rewind(f);
+
+  *plaintext = NULL;
+
+  while (ftell (fp) < fsize)
+    {
+      int ciphertext_len;
+      fread (&ciphertext_len, sizeof (int), 1, fp);
+
+      ciphertext = malloc (ciphertext_len);
+      if (!ciphertext)
+        handleErrors ();
+
+      fread (ciphertext, sizeof (unsigned char), ciphertext_len, fp);
+
+      fread (tag, sizeof (unsigned char), TAG_LEN,
+             fp); // Read the tag from the file
+
+      if (!(ctx = EVP_CIPHER_CTX_new ()))
+        handleErrors ();
+
+      if (1 != EVP_DecryptInit_ex (ctx, EVP_aes_256_gcm (), NULL, key, iv))
+        handleErrors ();
+
+      if (!EVP_CIPHER_CTX_ctrl (ctx, EVP_CTRL_GCM_SET_TAG, TAG_LEN, tag))
+        handleErrors ();
+
+      *plaintext = realloc (*plaintext, plaintext_len + ciphertext_len);
+      if (!*plaintext)
+        handleErrors ();
+
+      if (1
+          != EVP_DecryptUpdate (ctx, *plaintext + plaintext_len, &len,
+                                ciphertext, ciphertext_len))
+        handleErrors ();
+      plaintext_len += len;
+
+      if (1 != EVP_DecryptFinal_ex (ctx, *plaintext + plaintext_len, &len))
+        handleErrors ();
+      plaintext_len += len;
+
+      EVP_CIPHER_CTX_free (ctx);
+
+      free (ciphertext);
+    }
+
+  return plaintext_len;
+}
 
 /**
  * @brief
- * High level function interface for performing AES encryption on FILE pointers
- * Uses OpenSSL libcrypto EVP API \n
+ * High-level function for performing AES encryption on FILE pointers.
+ * Uses OpenSSL libcrypto EVP API.
  *
- * @author
- * By Andy Sayler (www.andysayler.com) \n
- * Created  04/17/12 \n
- * @author
- * Modified 18/10/23 by [Carlo Alberto Giordano] \n
+ * @param mode  Defines if the action to be performed on the input file should
+ * be encryption or decryption.
+ * @param fp  The input file.
+ * @param text  The text to be encrypted and write to the file or where the
+ * decrypted text will be written
+ * @param len  The length of the text. Only needed in ENCRYPT mode
+ * @param key  The AES 256 key.
+ * @param iv  The initialization vector.
  *
- *@brief
- * Derived from OpenSSL.org EVP_Encrypt_* Manpage Examples \n
- * http://www.openssl.org/docs/crypto/EVP_EncryptInit.html#EXAMPLES \n
+ * @return
+ * Returns the result of the `encrypt_file_gcm` function if the mode is
+ * ENCRYPT, otherwise returns the result of the `decrypt_file_gcm` function if
+ * the mode is DECRYPT. In case of an error, it prints an error message and
+ * returns false.
  *
- * With additional information from Saju Pillai's OpenSSL AES Example \n
- * http://saju.net.in/blog/?p=36 \n
- * http://saju.net.in/code/misc/openssl_aes.c.txt \n
- * @param in  The input file
- * @param out The output file
- * @param action    Defines if the action to do on the input file should be
- *of encryption or decryption. \see ENCRYPT \see DECRYPT
- * @param key_str The key that must be AES 256
- * @return \ret
- * @note This function cyphers using AES 256 CBC
- * */
+ * @note This function encrypts using AES 256 CTX.
+ * @warning If the mode is DECRYPT the text variable will be allocated by this
+ * function, it is responsibility of the caller to free it
+ */
 extern int
-do_crypt (FILE *in, FILE *out, int action, unsigned char *key_str)
+do_crypt (int mode, FILE *fp, unsigned char **text, int len,
+          unsigned char *key, unsigned char *iv)
 {
-  /* Buffers */
-  unsigned char inbuf[BLOCKSIZE];
-  int inlen;
-  /* Allow enough space in output buffer for additional cipher block */
-  unsigned char outbuf[BLOCKSIZE + EVP_MAX_BLOCK_LENGTH];
-  int outlen;
-  int writelen;
-
-  /* OpenSSL libcrypto vars */
-  EVP_CIPHER_CTX *ctx;
-  ctx = EVP_CIPHER_CTX_new ();
-
-  unsigned char key[KEY_SIZE];
-  unsigned char iv[IV_SIZE];
-  int nrounds = 5;
-
-  /* tmp vars */
-  int i;
-  /* Setup Encryption Key and Cipher Engine if in cipher mode */
-  if (action >= 0)
+  if (mode == DECRYPT)
     {
-      if (!key_str)
-        {
-          /* Error */
-          fprintf (stderr, "Key_str must not be NULL\n");
-          return false;
-        }
-      /* Build Key from String */
-      i = EVP_BytesToKey (EVP_aes_256_cbc (), EVP_sha1 (), NULL, key_str,
-                          (int)strlen ((const char *)key_str), nrounds, key,
-                          iv);
-      if (i != 32)
-        {
-          /* Error */
-          fprintf (stderr, "Key size is %d bits - should be 256 bits\n",
-                   i * 8);
-          return false;
-        }
-      /* Init Engine */
-      EVP_CIPHER_CTX_init (ctx);
-      EVP_CipherInit_ex (ctx, EVP_aes_256_cbc (), NULL, key, iv, action);
+      return decrypt_file_gcm (fp, key, iv, text);
     }
-
-  /* Loop through Input File*/
-  for (;;)
+  else if (mode == ENCRYPT)
     {
-      /* Read Block */
-      inlen = fread (inbuf, sizeof (*inbuf), BLOCKSIZE, in);
-      if (inlen <= 0)
-        {
-          /* EOF -> Break Loop */
-          break;
-        }
-
-      /* If in cipher mode, perform cipher transform on block */
-      if (action >= 0)
-        {
-          if (!EVP_CipherUpdate (ctx, outbuf, &outlen, inbuf, inlen))
-            {
-              /* Error */
-              EVP_CIPHER_CTX_cleanup (ctx);
-              return false;
-            }
-        }
-      /* If in pass-through mode. copy block as is */
-      else
-        {
-          memcpy (outbuf, inbuf, inlen);
-          outlen = inlen;
-        }
-
-      /* Write Block */
-      writelen = fwrite (outbuf, sizeof (*outbuf), outlen, out);
-      if (writelen != outlen)
-        {
-          /* Error */
-          perror ("fwrite error");
-          EVP_CIPHER_CTX_cleanup (ctx);
-          return false;
-        }
+      return encrypt_file_gcm (fp, *text, len, key, iv);
     }
-
-  /* If in cipher mode, handle necessary padding */
-  if (action >= 0)
-    {
-      /* Handle remaining cipher block + padding */
-      if (!EVP_CipherFinal_ex (ctx, outbuf, &outlen))
-        {
-          /* Error */
-          EVP_CIPHER_CTX_cleanup (ctx);
-          return false;
-        }
-      /* Write remainign cipher block + padding*/
-      fwrite (outbuf, sizeof (*inbuf), outlen, out);
-      EVP_CIPHER_CTX_cleanup (ctx);
-    }
-
-  /* Success */
-  return true;
+  logMessage ("Error in do_crypt, undefined mode selected");
+  return false;
 }
 
 /**
@@ -330,7 +462,6 @@ encrypt_string (unsigned char *plaintext, const char *key,
 unsigned char *
 decrypt_string (unsigned char *ciphertext, const char *key)
 {
-  logMessage ("\t\tHEX TO STRING GOT %s\n", ciphertext);
   EVP_CIPHER_CTX *ctx;
   const EVP_CIPHER *cipher = EVP_aes_256_cbc ();
   unsigned char iv[AES_BLOCK_SIZE];
@@ -380,15 +511,14 @@ decrypt_string (unsigned char *ciphertext, const char *key)
 
   if (!decrypted_string)
     {
-      perror ("Err: Cannot allocate memory for decrypt_string decrypted_string");
+      perror (
+          "Err: Cannot allocate memory for decrypt_string decrypted_string");
       return NULL;
     }
 
   memcpy (decrypted_string, plaintext, len + padding_len);
   decrypted_string[len + padding_len] = '\0';
 
-  logMessage ("\t\tdecoded_ciphertext %s, decrypted_string %s\n",
-              decoded_ciphertext, decrypted_string);
   free (decoded_ciphertext);
 
   return decrypted_string;
@@ -455,9 +585,10 @@ encrypt_path (const char *path, const char *key)
   else if (strcmp (path, "/") == 0)
     {
       logMessage ("\tgot root path\n");
-      result = malloc(1 * sizeof(char));
-      if (result == NULL) {
-          perror("Error allocating memory");
+      result = malloc (1 * sizeof (char));
+      if (result == NULL)
+        {
+          perror ("Error allocating memory");
           return NULL;
         }
       result[0] = '\0';
@@ -484,7 +615,6 @@ encrypt_path (const char *path, const char *key)
         {
           // Encrypt each part of the path
           const char *encrypted_part = encrypt_file_name_with_hex (token, key);
-          logMessage ("\tEncrypted %s --> %s\n", token, encrypted_part);
 
           // Concatenate to the result string
           if (result == NULL)
@@ -535,10 +665,8 @@ encrypt_path (const char *path, const char *key)
     }
 
   // Free the memory allocated for the path copy
-  logMessage ("\t\tpathcopy %s\n", path_copy);
   free (path_copy);
 
-  logMessage ("\tencrypt_path will return %s\n", result);
   return result;
 }
 
@@ -566,18 +694,16 @@ encrypt_path_and_filename (const char *path, const char *key)
           perror ("Error allocating memory");
           exit (EXIT_FAILURE);
         }
-      logMessage (
-          "\tencrypt_filename_with_path got a special case, returning %s\n",
-          result);
       return result;
     }
   // Check if the path is /
   else if (strcmp (path, "/") == 0)
     {
       logMessage ("\tgot root path\n");
-      result = malloc(1 * sizeof(char));
-      if (result == NULL) {
-          perror("Error allocating memory");
+      result = malloc (1 * sizeof (char));
+      if (result == NULL)
+        {
+          perror ("Error allocating memory");
           return NULL;
         }
       result[0] = '\0';
@@ -654,10 +780,8 @@ encrypt_path_and_filename (const char *path, const char *key)
     }
 
   // Free the memory allocated for the path copy
-  logMessage ("\t\tpathcopy %s\n", path_copy);
   free (path_copy);
 
-  logMessage ("\tencrypt_filename_with_path will return %s\n", result);
   return result;
 }
 
@@ -692,9 +816,10 @@ decrypt_path (const char *encrypted_path, const char *key)
   else if (strcmp (encrypted_path, "/") == 0)
     {
       logMessage ("\tgot root path\n");
-      result = malloc(1 * sizeof(char));
-      if (result == NULL) {
-          perror("Error allocating memory");
+      result = malloc (1 * sizeof (char));
+      if (result == NULL)
+        {
+          perror ("Error allocating memory");
           return NULL;
         }
       result[0] = '\0';
@@ -813,9 +938,10 @@ decrypt_path_and_filename (const char *encrypted_path, const char *key)
   else if (strcmp (encrypted_path, "/") == 0)
     {
       logMessage ("\tgot root path\n");
-      result = malloc(1 * sizeof(char));
-      if (result == NULL) {
-          perror("Error allocating memory");
+      result = malloc (1 * sizeof (char));
+      if (result == NULL)
+        {
+          perror ("Error allocating memory");
           return NULL;
         }
       result[0] = '\0';
@@ -897,4 +1023,86 @@ decrypt_path_and_filename (const char *encrypted_path, const char *key)
 
   logMessage ("\tdecrypt_filename_with_path will return %s\n", result);
   return result;
+}
+
+/**
+ * @brief
+ * This function generates a random Initialization Vector (IV) for AES encryption.
+ *
+ * @return
+ * Returns a pointer to the generated IV.
+ * In case of an error, it prints an error message and returns NULL.
+ *
+ * @note
+ * This function uses OpenSSL's RAND_bytes function to generate a random IV.
+ * The size of the IV is defined by the IV_SIZE macro.
+ * The generated IV is dynamically allocated and it is the responsibility of the caller to free it.
+ */
+extern unsigned char *
+generate_iv (void)
+{
+  logMessage ("Generating IV...\n");
+  unsigned char *iv = malloc (IV_SIZE);
+  if (iv == NULL)
+    {
+      perror ("Error allocating memory for IV");
+      return NULL;
+    }
+  // Generate a random IV
+  if (RAND_bytes (iv, IV_SIZE) != 1)
+    {
+      perror ("Error generating IV");
+      free (iv);
+      return NULL;
+    }
+  return iv;
+}
+
+unsigned char *
+encrypt_buffer (const char *buf, size_t size, unsigned char *key)
+{
+  // Create and initialize the context
+  EVP_CIPHER_CTX *ctx;
+  if (!(ctx = EVP_CIPHER_CTX_new ()))
+    {
+      perror ("Error in encrypt_buffer, cannot create new EVP_CIPHER_CTX");
+      return NULL;
+    }
+
+  // Initialize the encryption operation
+  if (1 != EVP_EncryptInit_ex (ctx, EVP_aes_256_ctr (), NULL, key, NULL))
+    {
+      perror ("Error in encrypt_buffer, cannot initialize encryption");
+      EVP_CIPHER_CTX_free (ctx);
+      return NULL;
+    }
+
+  // Provide the message to be encrypted, and obtain the encrypted output
+  unsigned char *encrypted_buf = malloc (size + EVP_MAX_BLOCK_LENGTH);
+  int len;
+  if (1
+      != EVP_EncryptUpdate (ctx, encrypted_buf, &len,
+                            (const unsigned char *)buf, (int)size))
+    {
+      perror ("Error in encrypt_buffer, cannot encrypt buffer");
+      EVP_CIPHER_CTX_free (ctx);
+      free (encrypted_buf);
+      return NULL;
+    }
+
+  // Finalize the encryption
+  int ciphertext_len = len;
+  if (1 != EVP_EncryptFinal_ex (ctx, encrypted_buf + len, &len))
+    {
+      perror ("Error in encrypt_buffer, cannot finalize encryption");
+      EVP_CIPHER_CTX_free (ctx);
+      free (encrypted_buf);
+      return NULL;
+    }
+  ciphertext_len += len;
+
+  // Clean up
+  EVP_CIPHER_CTX_free (ctx);
+
+  return encrypted_buf;
 }

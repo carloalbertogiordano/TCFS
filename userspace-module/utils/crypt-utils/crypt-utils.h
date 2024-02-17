@@ -1,8 +1,8 @@
 /**
-* @file crypt-utils.h
-* @brief Header file for crypt-utils.c, which provides functions for encryption
-*        and decryption using AES-256, as well as other utility functions.
-*/
+ * @file crypt-utils.h
+ * @brief Header file for crypt-utils.c, which provides functions for
+ * encryption and decryption using AES-256, as well as other utility functions.
+ */
 
 #include <ctype.h>
 #include <libgen.h>
@@ -15,8 +15,10 @@
 #include <openssl/aes.h>
 #include <openssl/bio.h>
 #include <openssl/buffer.h>
+#include <openssl/err.h>
 #include <openssl/evp.h>
 #include <openssl/rand.h>
+#include <setjmp.h>
 
 #include "../tcfs_utils/tcfs_utils.h" //TODO: Remove, for debugging only
 
@@ -31,7 +33,23 @@
  * */
 #define DECRYPT false
 
-extern int do_crypt (FILE *in, FILE *out, int action, unsigned char *key_str);
+/**
+ * @def IV_SIZE
+ * @brief The fixed size of the initialization vector \link
+ * https://en.wikipedia.org/wiki/Initialization_vector IV \endlink. \_def
+ * */
+#define IV_SIZE 16 // 32
+
+/**
+ * @def KEY_SIZE
+ * @brief The fixed size of the key. \_def
+ * */
+#define KEY_SIZE 32
+
+// extern int do_crypt (FILE *in, FILE *out, int action, unsigned char
+// *key_str);
+extern int do_crypt (int mode, FILE *fp, unsigned char **text, int len, unsigned char *key, unsigned char *iv);
+
 
 void generate_key (unsigned char *destination);
 
@@ -55,3 +73,8 @@ const char *decrypt_path (const char *encrypted_path, const char *key);
 
 const char *decrypt_path_and_filename (const char *encrypted_path,
                                        const char *key);
+
+extern unsigned char *generate_iv (void);
+
+unsigned char *encrypt_buffer (const char *buf, size_t size,
+                               unsigned char *key);

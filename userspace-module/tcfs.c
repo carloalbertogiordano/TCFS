@@ -16,7 +16,8 @@
 #define ERR_inval_arg_len 1
 #define ERR_inval_key 2
 #define ERR_inval_enc_dir_name 3
-#define ERR_inval_file_size 1
+#define ERR_inval_file_size 4
+#define ERR_inval_read_buf_size 5
 
 #include "utils/crypt-utils/crypt-utils.h"
 #include "utils/tcfs_utils/tcfs_utils.h"
@@ -33,6 +34,8 @@
 #include <sys/xattr.h>
 #include <unistd.h>
 
+#define IV_ATTR_NAME "user.iv"
+
 /**
  * @var root_path
  * @brief Contains the fullpath to the mounted directory
@@ -48,6 +51,8 @@ static jmp_buf jump_buffer;
 
 static int tcfs_getxattr (const char *fuse_path, const char *name, char *value,
                           size_t size);
+static int tcfs_setxattr (const char *fuse_path, const char *name,
+                          const char *value, size_t size, int flags);
 
 /**
  * @brief Opens a directory.
@@ -971,16 +976,25 @@ file_size (FILE *file)
 }
 
 /**
- * @brief Reads data from an open file.
+ * @brief Reads encrypted data from an open file and decrypts it.
  *
- * This function is called to read data from an open file.
+ * This function is called to read encrypted data from an open file and decrypt it. It uses AES decryption.
  *
  * @param fuse_path The path to the file.
- * @param buf Buffer to fill with data.
+ * @param buf Buffer to fill with decrypted data.
  * @param size Number of bytes to read.
  * @param offset Offset within the file.
  * @param fi File information.
+ *
  * @return The number of bytes read, or a negative error code on failure.
+ *
+ * @note This function uses OpenSSL's RAND_bytes function to generate a random IV if the file is new.
+ * It retrieves the file key and the IV from the file's extended attributes, decrypts the data, and writes the decrypted data to the buffer.
+ * The function uses OpenSSL's EVP API for decryption.
+ * It also sets up error handling using setjmp.
+ *
+ * @warning This function allocates memory for various data including the IV, the file key, and the decrypted data.
+ * It is the responsibility of this function to free this memory before it returns.
  */
 static int
 tcfs_read (const char *fuse_path, char *buf, size_t size, off_t offset,
@@ -988,17 +1002,17 @@ tcfs_read (const char *fuse_path, char *buf, size_t size, off_t offset,
 {
   (void)size;
   (void)fi;
+  (void) offset; //TODO: use offset;
 
-  FILE *path_ptr = NULL, *tmpf = NULL;
+  FILE *path_ptr = NULL;
   char *path;
-  int res;
-  char username_buf[1024];
-  size_t username_buf_size = 1024;
   const char *enc_fuse_path = NULL;
   char *size_key_char = NULL;
   ssize_t size_key;
   unsigned char *encrypted_key = NULL;
   unsigned char *decrypted_key = NULL;
+  unsigned char *iv = NULL;
+  unsigned char *plaintext = NULL;
   char err_string[80];
 
   logMessage ("Calling read\n");
@@ -1007,8 +1021,6 @@ tcfs_read (const char *fuse_path, char *buf, size_t size, off_t offset,
     {
       if (path_ptr)
         fclose (path_ptr);
-      if (tmpf)
-        fclose (tmpf);
       if (path)
         free ((void *)path);
       if (enc_fuse_path)
@@ -1021,15 +1033,11 @@ tcfs_read (const char *fuse_path, char *buf, size_t size, off_t offset,
       return -errno;
     }
 
-  // Retrieve the username
-  get_user_name (username_buf, username_buf_size);
-
   enc_fuse_path = encrypt_path (fuse_path, password);
   path = prefix_path (enc_fuse_path, root_path);
   logMessage ("\tread on %s\n", path);
 
   path_ptr = fopen (path, "r");
-  tmpf = tmpfile ();
 
   // Get key size
   size_key_char = malloc (sizeof (char) * 20);
@@ -1052,86 +1060,88 @@ tcfs_read (const char *fuse_path, char *buf, size_t size, off_t offset,
       longjmp (jump_buffer, 1);
     }
 
-  // Decrypt the file key
-  decrypted_key = decrypt_string (encrypted_key, password);
+  //Retrieve the IV
+  iv = malloc ((IV_SIZE * sizeof (char )));
+  if (tcfs_getxattr (fuse_path, IV_ATTR_NAME, (char *)iv, IV_SIZE) < 0){
+      strcpy (err_string, "Error in read, could not get the IV");
+      longjmp (jump_buffer, 1);
+    }
 
-  /* Decrypt*/
-  if (do_crypt (path_ptr, tmpf, DECRYPT, decrypted_key) != true)
+  // Decrypt the file key
+  decrypted_key = decrypt_string (encrypted_key, (const char *)password);
+
+  // Decrypt
+  if (do_crypt (DECRYPT, path_ptr, &plaintext, 0, (unsigned char *)decrypted_key, iv) == false)
     {
       strcpy (err_string, "Error in read, do_crypt cannot decrypt file");
       longjmp (jump_buffer, 1);
     }
 
-  /* Something went terribly wrong if this is the case. */
-  if (path_ptr == NULL || tmpf == NULL)
-    {
-      strcpy (err_string, "Error in read, we lost some files");
+  // Copy the decrypted text into the buffer.
+  size_t plaintext_len = strlen((const char *)plaintext) + 1;
+  if (plaintext_len > size) {
+      strcpy(err_string, "Error: Buffer is not large enough for the decrypted data.\n");
+      errno = ERR_inval_read_buf_size;
       longjmp (jump_buffer, 1);
     }
 
-  if (fflush (tmpf) != 0)
-    {
-      strcpy (err_string, "Error in read, cannot fflush file");
-      longjmp (jump_buffer, 1);
-    }
-  if (fseek (tmpf, offset, SEEK_SET) != 0)
-    {
-      strcpy (err_string, "Error in read, cannot fseek");
-      longjmp (jump_buffer, 1);
-    }
-
-  /* Read our tmpfile into the buffer. */
-  res = fread (buf, 1, file_size (tmpf), tmpf);
-  if (res == -1)
-    {
-      strcpy (err_string, "Error in read, cannot fread");
-      longjmp (jump_buffer, 1);
-    }
+  memcpy (buf, plaintext, plaintext_len);
 
   fclose (path_ptr);
-  fclose (tmpf);
   free ((void *)path);
   free ((void *)enc_fuse_path);
   free ((void *)encrypted_key);
   free ((void *)decrypted_key);
-  return res;
+
+  return (int)plaintext_len;
 }
 
 /**
- * @brief Writes data to an open file.
+ * @brief Writes encrypted data to an open file.
  *
- * This function is called to write data to an open file.
+ * This function is called to write encrypted data to an open file. It uses AES encryption.
  *
  * @param fuse_path The path to the file.
  * @param buf Data to write.
  * @param size Number of bytes to write.
  * @param offset Offset within the file.
  * @param fi File information.
+ *
  * @return The number of bytes written, or a negative error code on failure.
+ *
+ * @note This function uses OpenSSL's RAND_bytes function to generate a random IV if the file is new.
+ * It retrieves the file key and the IV from the file's extended attributes, decrypts the file key,
+ * encrypts the data, and writes the encrypted data to the file.
+ * The function uses OpenSSL's EVP API for encryption.
+ * It also sets up error handling using setjmp.
+ *
+ * @warning This function allocates memory for various data including the IV, the file key, and the encrypted data.
+ * It is the responsibility of this function to free this memory before it returns.
  */
 static int
 tcfs_write (const char *fuse_path, const char *buf, size_t size, off_t offset,
             struct fuse_file_info *fi)
 {
   (void)fi;
+  (void) offset; //TODO: use offset;
+
   logMessage ("Called write\n");
 
-  FILE *path_ptr = NULL, *tmpf = NULL;
+  FILE *path_ptr = NULL;
   char *path;
-  int res;
-  int tmpf_descriptor;
   const char *enc_fuse_path = NULL;
   char *size_key_char = NULL;
   unsigned char *encrypted_key = NULL;
   unsigned char *decrypted_key = NULL;
+  unsigned char *iv = NULL;
+  unsigned char *enc_buf = NULL;
   char err_string[80] = "\0";
+  int encrypted_len;
 
   if (setjmp (jump_buffer) != 0)
     {
       if (path_ptr)
         fclose (path_ptr);
-      if (tmpf)
-        fclose (tmpf);
       if (path)
         free (path);
       if (enc_fuse_path)
@@ -1142,6 +1152,10 @@ tcfs_write (const char *fuse_path, const char *buf, size_t size, off_t offset,
         free ((void *)encrypted_key);
       if (decrypted_key)
         free ((void *)decrypted_key);
+      if (iv)
+        free ((void *)iv);
+      if (enc_buf)
+        free((void *) enc_buf);
       perror (err_string);
       return -errno;
     }
@@ -1150,9 +1164,11 @@ tcfs_write (const char *fuse_path, const char *buf, size_t size, off_t offset,
   path = prefix_path (enc_fuse_path, root_path);
   logMessage ("\twrite on %s\n", path);
 
-  path_ptr = fopen (path, "r+");
-  tmpf = tmpfile ();
-  tmpf_descriptor = fileno (tmpf);
+  path_ptr = fopen (path, "a+");
+  if (path_ptr == NULL) {
+      strcpy (err_string, "Read error, could not open file");
+      longjmp (jump_buffer, 1);
+    }
 
   // Get the key size
   size_key_char = malloc (sizeof (char) * 20);
@@ -1176,51 +1192,42 @@ tcfs_write (const char *fuse_path, const char *buf, size_t size, off_t offset,
   // Decrypt the file key
   decrypted_key = decrypt_string (encrypted_key, password);
 
-  /* Something went terribly wrong if this is the case. */
-  if (path_ptr == NULL || tmpf == NULL)
+  // Retrive the IV or generate a new one if the file is new
+  iv = malloc ((IV_SIZE * sizeof (char )));
+  if (tcfs_getxattr (fuse_path, IV_ATTR_NAME, (char *)iv, IV_SIZE) < 0){
+      iv = generate_iv();
+      logMessage ("DEBUG: IV generated");
+      int set_iv = tcfs_setxattr(fuse_path, IV_ATTR_NAME, (const char *)iv, IV_SIZE, 0);
+      if (set_iv < 0){
+          strcpy (err_string, "Error in write, cannot set the IV");
+          longjmp (jump_buffer, 1);
+        }
+    }
+
+  // Something went terribly wrong if this is the case.
+  if (path_ptr == NULL)
     {
       strcpy (err_string, "Error in write, cannot create new files");
       longjmp (jump_buffer, 1);
     }
 
-  /* if the file to write to exists, read it into the tempfile */
-  if (tcfs_access (fuse_path, R_OK) == TCFS_SUCCESS
-      && file_size (path_ptr) > 0)
-    {
-      if (do_crypt (path_ptr, tmpf, DECRYPT, decrypted_key) == false)
-        {
-          strcpy (err_string, "Error in write, cannot cyper file");
-          longjmp (jump_buffer, 1);
-        }
-      rewind (path_ptr);
-      rewind (tmpf);
-    }
-
-  /* Read our tmpfile into the buffer. */
-  res = pwrite (tmpf_descriptor, buf, size, offset);
-  if (res == -1)
-    {
-      strcpy (err_string,
-              "Error in write, cannot read tmpfile into the buffer");
-      longjmp (jump_buffer, 1);
-    }
-
-  /* Encrypt*/
-  if (do_crypt (tmpf, path_ptr, ENCRYPT, decrypted_key) == false)
+  // Encrypt
+  encrypted_len = do_crypt (ENCRYPT, path_ptr, (unsigned char **)&buf, (int)size, (unsigned char *)decrypted_key, iv);
+  if (encrypted_len == false)
     {
       strcpy (err_string, "Error in write, cannot cypher file");
       longjmp (jump_buffer, 1);
     }
 
   fclose (path_ptr);
-  fclose (tmpf);
-  free((void *) path);
+  free ((void *)path);
   free ((void *)enc_fuse_path);
   free ((void *)size_key_char);
   free ((void *)encrypted_key);
   free ((void *)decrypted_key);
+  free ((void *) enc_buf);
 
-  return res;
+  return encrypted_len;
 }
 
 /**
@@ -1296,7 +1303,7 @@ tcfs_setxattr (const char *fuse_path, const char *name, const char *value,
   const char *path = NULL;
   int res = 1;
 
-  logMessage ("\tsetxattr encrypt_path %s\n", path);
+  logMessage ("\tsetxattr encrypt_path %s settin%s:%s\n", path, name, value);
 
   if (setjmp (jump_buffer) != 0)
     {
@@ -1460,11 +1467,13 @@ tcfs_create (const char *fuse_path, mode_t mode, struct fuse_file_info *fi)
 static int
 tcfs_release (const char *fuse_path, struct fuse_file_info *fi)
 {
-  const char *enc_fuse_path = encrypt_path_and_filename (fuse_path, password);
+  (void) fuse_path;
+  (void) fi;
+  /*const char *enc_fuse_path = encrypt_path_and_filename (fuse_path, password);
   const char *path = prefix_path (enc_fuse_path, root_path);
   logMessage ("release %s\n", path);
 
-  /* Close the file */
+  //Close the file
   int res = close (fi->fh);
   if (res == -1)
     {
@@ -1472,9 +1481,9 @@ tcfs_release (const char *fuse_path, struct fuse_file_info *fi)
       return -errno;
     }
 
-  /* Free the path */
+  //Free the path
   free ((void *)path);
-  free ((void *)enc_fuse_path);
+  free ((void *)enc_fuse_path);*/
 
   return TCFS_SUCCESS;
 }
@@ -1549,7 +1558,6 @@ tcfs_getxattr (const char *fuse_path, const char *name, char *value,
 {
   const char *enc_fuse_path = encrypt_path_and_filename (fuse_path, password);
   const char *path = prefix_path (enc_fuse_path, root_path);
-  logMessage ("\tgetxattr %s\n", path);
 
   logMessage ("Called getxattr on %s name:%s size:%zu\n", path, name, size);
 
