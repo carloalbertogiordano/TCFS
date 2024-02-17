@@ -37,79 +37,76 @@ user/old_stuff/tcfs_helper_tools.c:102:26: note: Null pointer dereference
 user/old_stuff/tcfs_helper_tools.c:166:10: style: Variable 'ch' is assigned a value that is never used. [unreadVariable]
   int ch = 0;
          ^
-userspace-module/tcfs.c:1406:3: warning: Either the condition 'key==NULL' is redundant or there is possible null pointer dereference: key. [nullPointerRedundantCheck]
+userspace-module/tcfs.c:1413:3: warning: Either the condition 'key==NULL' is redundant or there is possible null pointer dereference: key. [nullPointerRedundantCheck]
   key[32] = '\0';
   ^
-userspace-module/tcfs.c:1409:11: note: Assuming that condition 'key==NULL' is not redundant
+userspace-module/tcfs.c:1416:11: note: Assuming that condition 'key==NULL' is not redundant
   if (key == NULL)
           ^
-userspace-module/tcfs.c:1406:3: note: Null pointer dereference
+userspace-module/tcfs.c:1413:3: note: Null pointer dereference
   key[32] = '\0';
   ^
-userspace-module/tcfs.c:337:11: style: Consecutive return, break, continue, goto or throw statements are unnecessary. [duplicateBreak]
+userspace-module/tcfs.c:342:11: style: Consecutive return, break, continue, goto or throw statements are unnecessary. [duplicateBreak]
           break;
           ^
-userspace-module/tcfs.c:272:11: error: Uninitialized variable: de [uninitvar]
+userspace-module/tcfs.c:277:11: error: Uninitialized variable: de [uninitvar]
       if (de)
           ^
-userspace-module/tcfs.c:1012:11: error: Uninitialized variable: path [uninitvar]
+userspace-module/tcfs.c:1024:11: error: Uninitialized variable: path [uninitvar]
       if (path)
           ^
-userspace-module/tcfs.c:1135:11: error: Uninitialized variable: path [uninitvar]
+userspace-module/tcfs.c:1145:11: error: Uninitialized variable: path [uninitvar]
       if (path)
           ^
-userspace-module/tcfs.c:286:27: style: Variable 'error_return_number' is assigned a value that is never used. [unreadVariable]
+userspace-module/tcfs.c:291:27: style: Variable 'error_return_number' is assigned a value that is never used. [unreadVariable]
       error_return_number = errno;
                           ^
-userspace-module/tcfs.c:319:35: style: Variable 'error_return_number' is assigned a value that is never used. [unreadVariable]
+userspace-module/tcfs.c:324:35: style: Variable 'error_return_number' is assigned a value that is never used. [unreadVariable]
               error_return_number = -ERR_inval_enc_dir_name;
                                   ^
-userspace-module/tcfs.c:335:31: style: Variable 'error_return_number' is assigned a value that is never used. [unreadVariable]
+userspace-module/tcfs.c:340:31: style: Variable 'error_return_number' is assigned a value that is never used. [unreadVariable]
           error_return_number = errno;
                               ^
-userspace-module/utils/crypt-utils/crypt-utils.c:263:7: warning: Assignment of function parameter has no effect outside the function. Did you forget dereferencing it? [uselessAssignmentPtrArg]
+userspace-module/utils/crypt-utils/crypt-utils.c:395:7: warning: Assignment of function parameter has no effect outside the function. Did you forget dereferencing it? [uselessAssignmentPtrArg]
       destination = NULL;
       ^
-userspace-module/utils/crypt-utils/crypt-utils.c:67:7: style: The scope of the variable 'inlen' can be reduced. [variableScope]
-  int inlen;
-      ^
-userspace-module/utils/crypt-utils/crypt-utils.c:71:7: style: The scope of the variable 'writelen' can be reduced. [variableScope]
-  int writelen;
-      ^
-userspace-module/utils/crypt-utils/crypt-utils.c:77:17: style: The scope of the variable 'key' can be reduced. [variableScope]
-  unsigned char key[KEY_SIZE];
-                ^
-userspace-module/utils/crypt-utils/crypt-utils.c:78:17: style: The scope of the variable 'iv' can be reduced. [variableScope]
-  unsigned char iv[IV_SIZE];
-                ^
-userspace-module/utils/crypt-utils/crypt-utils.c:79:7: style: The scope of the variable 'nrounds' can be reduced. [variableScope]
-  int nrounds = 5;
-      ^
-userspace-module/utils/crypt-utils/crypt-utils.c:82:7: style: The scope of the variable 'i' can be reduced. [variableScope]
-  int i;
-      ^
-userspace-module/utils/crypt-utils/crypt-utils.c:278:22: style:inconclusive: Function 'encrypt_string' argument 3 names different: declaration 'encrypted_len' definition 'encrypted_key_len'. [funcArgNamesDifferent]
+userspace-module/utils/crypt-utils/crypt-utils.c:410:22: style:inconclusive: Function 'encrypt_string' argument 3 names different: declaration 'encrypted_len' definition 'encrypted_key_len'. [funcArgNamesDifferent]
                 int *encrypted_key_len)
                      ^
-userspace-module/utils/crypt-utils/crypt-utils.h:39:37: note: Function 'encrypt_string' argument 3 names different: declaration 'encrypted_len' definition 'encrypted_key_len'.
+userspace-module/utils/crypt-utils/crypt-utils.h:57:37: note: Function 'encrypt_string' argument 3 names different: declaration 'encrypted_len' definition 'encrypted_key_len'.
                                int *encrypted_len);
                                     ^
-userspace-module/utils/crypt-utils/crypt-utils.c:278:22: note: Function 'encrypt_string' argument 3 names different: declaration 'encrypted_len' definition 'encrypted_key_len'.
+userspace-module/utils/crypt-utils/crypt-utils.c:410:22: note: Function 'encrypt_string' argument 3 names different: declaration 'encrypted_len' definition 'encrypted_key_len'.
                 int *encrypted_key_len)
                      ^
-userspace-module/utils/crypt-utils/crypt-utils.c:331:32: style:inconclusive: Function 'decrypt_string' argument 1 names different: declaration 'base64_ciphertext' definition 'ciphertext'. [funcArgNamesDifferent]
+userspace-module/utils/crypt-utils/crypt-utils.c:463:32: style:inconclusive: Function 'decrypt_string' argument 1 names different: declaration 'base64_ciphertext' definition 'ciphertext'. [funcArgNamesDifferent]
 decrypt_string (unsigned char *ciphertext, const char *key)
                                ^
-userspace-module/utils/crypt-utils/crypt-utils.h:41:47: note: Function 'decrypt_string' argument 1 names different: declaration 'base64_ciphertext' definition 'ciphertext'.
+userspace-module/utils/crypt-utils/crypt-utils.h:59:47: note: Function 'decrypt_string' argument 1 names different: declaration 'base64_ciphertext' definition 'ciphertext'.
 unsigned char *decrypt_string (unsigned char *base64_ciphertext,
                                               ^
-userspace-module/utils/crypt-utils/crypt-utils.c:331:32: note: Function 'decrypt_string' argument 1 names different: declaration 'base64_ciphertext' definition 'ciphertext'.
+userspace-module/utils/crypt-utils/crypt-utils.c:463:32: note: Function 'decrypt_string' argument 1 names different: declaration 'base64_ciphertext' definition 'ciphertext'.
 decrypt_string (unsigned char *ciphertext, const char *key)
                                ^
+userspace-module/utils/crypt-utils/crypt-utils.c:1094:22: style: Variable 'ciphertext_len' is assigned a value that is never used. [unreadVariable]
+  int ciphertext_len = len;
+                     ^
+userspace-module/utils/crypt-utils/crypt-utils.c:1102:18: style: Variable 'ciphertext_len' is assigned a value that is never used. [unreadVariable]
+  ciphertext_len += len;
+                 ^
 userspace-module/utils/tcfs_utils/tcfs_utils.c:176:7: warning: %X in format string (no. 1) requires 'unsigned int *' but the argument type is 'signed int *'. [invalidScanfArgType_int]
       sscanf (hex, "%X", &decimal);
       ^
-userspace-module/utils/crypt-utils/crypt-utils.c:792:0: style: The function 'decrypt_path_and_filename' is never used. [unusedFunction]
+userspace-module/utils/crypt-utils/crypt-utils.c:917:0: style: The function 'decrypt_path_and_filename' is never used. [unusedFunction]
+
+^
+userspace-module/utils/crypt-utils/crypt-utils.c:1062:0: style: The function 'encrypt_buffer' is never used. [unusedFunction]
+
+^
+userspace-module/tcfs.c:968:0: style: The function 'file_size' is never used. [unusedFunction]
+
+^
+userspace-module/utils/tcfs_utils/tcfs_utils.c:19:0: style: The function 'get_user_name' is never used. [unusedFunction]
 
 ^
 userspace-module/utils/tcfs_utils/tcfs_utils.c:103:0: style: The function 'print_aes_key' is never used. [unusedFunction]
