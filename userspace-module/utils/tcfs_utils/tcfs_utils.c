@@ -1,5 +1,6 @@
 #include "tcfs_utils.h"
 #include "../crypt-utils/crypt-utils.h"
+#include "../debug_utils/debug_helper.h"
 
 /**
  * @file tcfs_utils.c
@@ -23,7 +24,7 @@ get_user_name (char *buf, size_t size)
   if (pw)
     snprintf (buf, size, "%s", pw->pw_name);
   else
-    perror ("Could not retrieve username");
+    logErr ("Could not retrieve username");
 }
 
 /**
@@ -36,7 +37,7 @@ get_user_name (char *buf, size_t size)
 char *
 prefix_path(const char *path, const char *realpath) {
   if (path == NULL || realpath == NULL) {
-      logMessage("WARN: path or realpath is null");
+      logWarn("Path or realpath is null");
       if (path != NULL)
         return strdup(path); // Restituisci una copia di path
       if (realpath != NULL)
@@ -49,7 +50,7 @@ prefix_path(const char *path, const char *realpath) {
   char *realpath_clone = strdup(realpath);
 
   if (path_clone == NULL || realpath_clone == NULL) {
-      perror("Err: Could not allocate memory while cloning strings");
+      logErr("Could not allocate memory while cloning strings");
       free(path_clone);
       free(realpath_clone);
       return NULL;
@@ -59,7 +60,7 @@ prefix_path(const char *path, const char *realpath) {
   char *root_dir = malloc(len * sizeof(char));
 
   if (root_dir == NULL) {
-      perror("Err: Could not allocate memory while in prefix_path");
+      logErr("Could not allocate memory while in prefix_path");
       free(path_clone);
       free(realpath_clone);
       return NULL;
@@ -67,7 +68,7 @@ prefix_path(const char *path, const char *realpath) {
 
   // Copia realpath_clone in root_dir
   if (strcpy(root_dir, realpath_clone) == NULL) {
-      perror("strcpy: Cannot copy realpath_clone");
+      logErr("strcpy: Cannot copy realpath_clone");
       free(path_clone);
       free(realpath_clone);
       free(root_dir);
@@ -76,7 +77,7 @@ prefix_path(const char *path, const char *realpath) {
 
   // Concatena path_clone a root_dir
   if (strcat(root_dir, path_clone) == NULL) {
-      perror("strcat: in prefix_path cannot concatenate the paths");
+      logErr("strcat: in prefix_path cannot concatenate the paths");
       free(path_clone);
       free(realpath_clone);
       free(root_dir);
@@ -102,12 +103,12 @@ prefix_path(const char *path, const char *realpath) {
 void
 print_aes_key (unsigned char *key)
 {
-  logMessage ("AES HEX:%s -> ", key);
+  logDebug("AES HEX:%s -> ", key);
   for (int i = 0; i < 32; i++)
     {
-      logMessage ("%02x", key[i]);
+      logDebug ("%02x", key[i]);
     }
-  logMessage ("\n");
+  logDebug ("\n");
 }
 
 /**
@@ -126,7 +127,7 @@ string_to_hex (const char *input)
 
   if (!output)
     {
-      perror ("Error cannot allocate memory for string_to_hex output");
+      logErr ("Error cannot allocate memory for string_to_hex output");
       return NULL;
     }
 
@@ -157,7 +158,7 @@ hex_to_string (const char *input)
 
   if (!output)
     {
-      perror ("Error cannot allocate memory for hex_to_string output");
+      logErr("Cannot allocate memory for hex_to_string output");
       return NULL;
     }
 
@@ -180,69 +181,50 @@ hex_to_string (const char *input)
 
   output[len] = '\0'; // Add a \0 terminator
 
-  logMessage ("\tHEX TO STRING WILL RETURN %s\n", output);
+  logDebug ("\tHEX TO STRING WILL RETURN %s\n", output);
   return output;
 }
 
 /**
- * @brief Logs a formatted message to a file with timestamp.
+ * @brief Expands a given path, replacing '~' with the home directory.
  *
- * This function logs a formatted message to a specified log file along with a
- * timestamp. It accepts a variable number of parameters, similar to printf.
+ * This function takes a path as input and returns a new path. If the input path starts with '~',
+ * it replaces '~' with the path to the home directory. If the home directory cannot be found,
+ * it returns NULL. If the input path does not start with '~', it returns a duplicate of the input path.
  *
- * @param format The format string for the log message.
- * @param ... Additional parameters to be formatted into the log message.
+ * @param path The input path to be expanded.
+ * @return A new string containing the expanded path, or NULL if the path cannot be expanded.
+ * @note The caller is responsible for freeing the returned string.
  */
-void logMessage(const char *format, ...)
+char *
+expand_path (const char *path)
 {
-  const char *home_path = getenv("HOME");
-  if (home_path == NULL)
+  if (path[0] == '~')
     {
-      // Handle the case where HOME environment variable is not set
-      perror("Cannot get HOME environment variable");
-      home_path = "";
+      const char *home_dir = getenv ("HOME");
+      if (home_dir == NULL)
+        {
+          return NULL;
+        }
+
+      size_t home_len = strlen (home_dir);
+      size_t path_len = strlen (path) - 1;
+      size_t expanded_len
+          = home_len + path_len + 1;
+
+      char *expanded_path = malloc (expanded_len);
+      if (expanded_path == NULL)
+        {
+          return NULL;
+        }
+
+      strcpy (expanded_path, home_dir);
+      strcat (expanded_path, path + 1);
+
+      return expanded_path;
     }
-
-  unsigned long log_path_length = strlen(home_path) + strlen(LOGFILE) + 1;
-  char *log_path = malloc(log_path_length * sizeof(char));
-
-  strcpy(log_path, home_path);
-  strcat(log_path, LOGFILE);
-
-  FILE *logFile = fopen(log_path, "a");
-  if (logFile == NULL)
+  else
     {
-      logMessage("OPEN FAILED %s", log_path);
-      perror("Cannot open log file");
-      free(log_path);
-      return;
+      return strdup (path);
     }
-
-  time_t rawtime;
-  struct tm *timeinfo;
-  time(&rawtime);
-  timeinfo = localtime(&rawtime);
-
-  fprintf(logFile, "[%04d-%02d-%02d %02d:%02d:%02d] ",
-           timeinfo->tm_year + 1900, timeinfo->tm_mon + 1, timeinfo->tm_mday,
-           timeinfo->tm_hour, timeinfo->tm_min, timeinfo->tm_sec);
-
-  va_list args;
-  va_start(args, format);
-  vfprintf(logFile, format, args);
-  va_end(args);
-
-  fprintf(logFile, "\n");
-
-  if (DEBUG)
-    {
-      va_start(args, format);
-      vprintf(format, args);
-      va_end(args);
-      printf("\n");
-    }
-
-  // Chiudi il file di log e libera la memoria allocata
-  fclose(logFile);
-  free(log_path);
 }

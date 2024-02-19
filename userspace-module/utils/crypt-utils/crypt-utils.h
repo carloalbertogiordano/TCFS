@@ -20,8 +20,6 @@
 #include <openssl/rand.h>
 #include <setjmp.h>
 
-#include "../tcfs_utils/tcfs_utils.h" //TODO: Remove, for debugging only
-
 /**
  * @def ENCRYPT
  * @brief Signifies that the selected action is encryption

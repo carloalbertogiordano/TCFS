@@ -48,7 +48,7 @@ PROJECT_NAME           = "TCFS"
 # could be handy for archiving the generated documentation or if some version
 # control system is used.
 
-PROJECT_NUMBER         = 0.4.0
+PROJECT_NUMBER         = 0.4.1
 
 # Using the PROJECT_BRIEF tag one can provide an optional one line description
 # for a project that appears at the top of each page and should give viewer a
@@ -289,6 +289,7 @@ ALIASES                += "_var= This variable is marked as internal and should 
 ALIASES                += "_func= This function is marked as internal and should not be used by the user"
 ALIASES                += "_file= This file is marked as internal and the corresponding header should not be used by the user.^^ Please refer to the see section"
 ALIASES                += "_def= This definition is marked as internal and should not be used directly by the user"
+ALIASES                += "_struct= This struct is marked as internal and should not be used directly by the user"
 
 
 

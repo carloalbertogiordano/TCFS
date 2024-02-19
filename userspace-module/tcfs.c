@@ -19,6 +19,7 @@
 #define ERR_inval_file_size 4
 #define ERR_inval_read_buf_size 5
 
+#include "utils/config_utils/yaml_loader.h"
 #include "utils/crypt-utils/crypt-utils.h"
 #include "utils/tcfs_utils/tcfs_utils.h"
 #include <argp.h>
@@ -79,15 +80,15 @@ tcfs_opendir (const char *fuse_path, struct fuse_file_info *fi)
         free ((void *)new_path);
       if (dp)
         closedir (dp);
-      perror ("Error occurred in opendir");
+      logErr ("occurred in opendir");
       return -errno;
     }
 
-  logMessage ("Called opendir %s\n", fuse_path);
+  logInfo("Called opendir %s\n", fuse_path);
 
   enc_fuse_path = encrypt_path (fuse_path, password);
   new_path = prefix_path (enc_fuse_path, root_path);
-  logMessage ("\topendir new_path %s\n", new_path);
+  logInfo ("\topendir new_path %s\n", new_path);
 
   dp = opendir (new_path);
   if (dp == NULL)
@@ -116,7 +117,7 @@ tcfs_getattr (const char *fuse_path, struct stat *stbuf,
               struct fuse_file_info *fi)
 {
   (void)fi;
-  logMessage ("Called getattr on %s%s\n", root_path, fuse_path);
+  logInfo ("Called getattr on %s%s\n", root_path, fuse_path);
 
   int res;
   const char *enc_fuse_path = NULL;
@@ -128,19 +129,19 @@ tcfs_getattr (const char *fuse_path, struct stat *stbuf,
         free ((void *)enc_fuse_path);
       if (new_path)
         free ((void *)new_path);
-      perror ("Error occured in getattr");
+      logErr ("Error occured in getattr");
       return -errno;
     }
 
   enc_fuse_path = encrypt_path (fuse_path, password);
-  logMessage ("\tgetattr enc_fuse_path: %s\n", enc_fuse_path);
+  logInfo ("\tgetattr enc_fuse_path: %s\n", enc_fuse_path);
   new_path = prefix_path (enc_fuse_path, root_path);
-  logMessage ("\tgetattr new_path on %s\n", new_path);
+  logInfo ("\tgetattr new_path on %s\n", new_path);
 
   res = stat (new_path, stbuf);
   if (res == -1)
     {
-      logMessage ("\taccess: Stat returned -1, err:%d\n", -errno);
+      logErr("\taccess: Stat returned -1, err:%d\n", -errno);
       longjmp (jump_buffer, 1);
     }
 
@@ -161,7 +162,7 @@ tcfs_getattr (const char *fuse_path, struct stat *stbuf,
 static int
 tcfs_access (const char *fuse_path, int mask)
 {
-  logMessage ("Callen access on %s\n", fuse_path);
+  logInfo ("Callen access on %s\n", fuse_path);
   int res;
   const char *enc_fuse_path = NULL;
   const char *full_path = NULL;
@@ -172,13 +173,13 @@ tcfs_access (const char *fuse_path, int mask)
         free ((void *)full_path);
       if (enc_fuse_path)
         free ((void *)enc_fuse_path);
-      perror ("Error in access");
+      logErr ("Error in access");
       return -errno;
     }
 
   enc_fuse_path = encrypt_path (fuse_path, password);
   full_path = prefix_path (enc_fuse_path, root_path);
-  logMessage ("\taccess encrypt_path %s\n", full_path);
+  logInfo ("\taccess encrypt_path %s\n", full_path);
 
   res = access (full_path, mask);
   if (res == -1)
@@ -205,7 +206,7 @@ tcfs_access (const char *fuse_path, int mask)
 static int
 tcfs_readlink (const char *fuse_path, char *buf, size_t size)
 {
-  logMessage ("called readlink\n");
+  logInfo ("called readlink\n");
 
   const char *enc_fuse_path = NULL;
   char *path = NULL;
@@ -217,13 +218,13 @@ tcfs_readlink (const char *fuse_path, char *buf, size_t size)
         free ((void *)path);
       if (enc_fuse_path)
         free ((void *)enc_fuse_path);
-      perror ("Error in readlink");
+      logErr ("Error in readlink");
       return -errno;
     }
 
   enc_fuse_path = encrypt_path (fuse_path, password);
   path = prefix_path (enc_fuse_path, root_path);
-  logMessage ("\treadlink on %s\n", path);
+  logInfo ("\treadlink on %s\n", path);
 
   res = readlink (path, buf, size - 1);
   if (res == -1UL)
@@ -276,14 +277,14 @@ tcfs_readdir (const char *fuse_path, void *buf, fuse_fill_dir_t filler,
         closedir (dp);
       if (de)
         free ((void *)de);
-      perror ("Error in readdir");
+      logErr ("Error in readdir");
       return -error_return_number;
     }
 
-  logMessage ("Called readdir %s\n", fuse_path);
+  logInfo ("Called readdir %s\n", fuse_path);
   enc_path = encrypt_path (fuse_path, password);
   path = prefix_path (enc_path, root_path);
-  logMessage ("readdir on %s\n", path);
+  logInfo ("readdir on %s\n", path);
 
   dp = opendir (path);
   if (dp == NULL)
@@ -291,7 +292,7 @@ tcfs_readdir (const char *fuse_path, void *buf, fuse_fill_dir_t filler,
       error_return_number = errno;
       longjmp (jump_buffer, 1);
     }
-  logMessage ("Dir %s opened\n", path);
+  logInfo ("Dir %s opened\n", path);
 
   while ((de = readdir (dp)) != NULL)
     {
@@ -305,7 +306,6 @@ tcfs_readdir (const char *fuse_path, void *buf, fuse_fill_dir_t filler,
       if ((strcmp (de->d_name, ".") == 0 || strcmp (de->d_name, "..") == 0
            || strcmp (de->d_name, "/") == 0))
         {
-          logMessage ("ONE\n");
           filler_res = filler (buf, de->d_name, &st, 0, 0);
           if (filler_res != 0)
             {
@@ -314,7 +314,7 @@ tcfs_readdir (const char *fuse_path, void *buf, fuse_fill_dir_t filler,
         }
       else
         {
-          logMessage (
+          logInfo (
               "\tchecking foreturn -errno;r %s is %s\n", de->d_name,
               decrypt_file_name_with_hex ((const char *)de->d_name, password));
 
@@ -333,10 +333,10 @@ tcfs_readdir (const char *fuse_path, void *buf, fuse_fill_dir_t filler,
             }
         }
 
-      logMessage ("FILLER RES: %d, CAN BREAK %d\n", filler_res, can_break);
+      logInfo ("FILLER RES: %d, CAN BREAK %d\n", filler_res, can_break);
       if (can_break)
         {
-          logMessage ("Breaking out\n");
+          logInfo ("Breaking out\n");
           error_return_number = errno;
           longjmp (jump_buffer, 1);
           break;
@@ -364,7 +364,7 @@ tcfs_readdir (const char *fuse_path, void *buf, fuse_fill_dir_t filler,
 static int
 tcfs_mknod (const char *fuse_path, mode_t mode, dev_t rdev)
 {
-  logMessage ("Called mknod\n");
+  logInfo ("Called mknod\n");
 
   const char *enc_fuse_path = NULL;
   char *path = NULL;
@@ -376,13 +376,13 @@ tcfs_mknod (const char *fuse_path, mode_t mode, dev_t rdev)
         free ((void *)path);
       if (enc_fuse_path)
         free ((void *)enc_fuse_path);
-      perror ("Error in mknod");
+      logErr ("Error in mknod");
       return -errno;
     }
 
   enc_fuse_path = encrypt_path (fuse_path, password);
   path = prefix_path (enc_fuse_path, root_path);
-  logMessage ("\tmknod on %s\n", path);
+  logInfo ("\tmknod on %s\n", path);
 
   /* On Linux this could just be 'mknod(path, mode, rdev)' but this
      is more portable */
@@ -427,16 +427,16 @@ tcfs_mkdir (const char *fuse_path, mode_t mode)
         free ((void *)path);
       if (enc_path)
         free ((void *)enc_path);
-      perror ("Error in mkdir");
+      logErr ("Error in mkdir");
       return -errno;
     }
 
-  logMessage ("Called mkdir on %s\n", fuse_path);
+  logInfo ("Called mkdir on %s\n", fuse_path);
 
   enc_path = encrypt_path (fuse_path, password);
-  logMessage ("\tmkdir prefix_path (%s, %s)\n", enc_path, root_path);
+  logInfo ("\tmkdir prefix_path (%s, %s)\n", enc_path, root_path);
   path = prefix_path (enc_path, root_path);
-  logMessage ("\tmkdir %s\n", path);
+  logInfo ("\tmkdir %s\n", path);
 
   res = mkdir (path, mode);
   if (res == -1)
@@ -469,15 +469,15 @@ tcfs_unlink (const char *fuse_path)
         free ((void *)path);
       if (enc_fuse_path)
         free ((void *)enc_fuse_path);
-      perror ("Error in unlink");
+      logErr ("Error in unlink");
       return -errno;
     }
 
-  logMessage ("Called unlink\n");
+  logInfo ("Called unlink\n");
 
   enc_fuse_path = encrypt_path (fuse_path, password);
   path = prefix_path (enc_fuse_path, root_path);
-  logMessage ("\tunlink on %s\n", path);
+  logInfo ("\tunlink on %s\n", path);
 
   res = unlink (path);
   if (res == -1)
@@ -512,11 +512,11 @@ tcfs_rmdir (const char *fuse_path)
         free ((void *)enc_fuse_path);
     }
 
-  logMessage ("Called rmdir\n");
+  logInfo ("Called rmdir\n");
 
   enc_fuse_path = encrypt_path (fuse_path, password);
   path = prefix_path (enc_fuse_path, root_path);
-  logMessage ("\trmdir on %s\n", path);
+  logInfo ("\trmdir on %s\n", path);
 
   res = rmdir (path);
   if (res == -1)
@@ -546,7 +546,7 @@ tcfs_symlink (const char *from, const char *to)
   char *enc_to = NULL;
   int res;
 
-  logMessage ("Called symlink %s->%s\n", from, to);
+  logInfo ("Called symlink %s->%s\n", from, to);
 
   if (setjmp (jump_buffer) != 0)
     {
@@ -558,7 +558,7 @@ tcfs_symlink (const char *from, const char *to)
         free ((void *)enc_from_path);
       if (enc_to_path)
         free ((void *)enc_to_path);
-      perror ("Error in symlink");
+      logErr ("Error in symlink");
       return -errno;
     }
 
@@ -567,7 +567,7 @@ tcfs_symlink (const char *from, const char *to)
 
   enc_to_path = encrypt_path_and_filename (to, password);
   enc_to = prefix_path (enc_to_path, root_path);
-  logMessage ("symlink from %s to %s\n", enc_from_path, enc_to_path);
+  logInfo ("symlink from %s to %s\n", enc_from_path, enc_to_path);
 
   res = symlink (enc_from, enc_to);
   if (res == -1)
@@ -604,7 +604,7 @@ tcfs_rename (const char *from, const char *to, unsigned int flags)
   char *enc_to = NULL;
   int res;
 
-  logMessage ("Called rename\n");
+  logInfo ("Called rename\n");
 
   if (setjmp (jump_buffer) != 0)
     {
@@ -616,7 +616,7 @@ tcfs_rename (const char *from, const char *to, unsigned int flags)
         free ((void *)enc_from_path);
       if (enc_to_path)
         free ((void *)enc_to_path);
-      perror ("Error in rename");
+      logErr ("Error in rename");
       return -errno;
     }
 
@@ -624,7 +624,7 @@ tcfs_rename (const char *from, const char *to, unsigned int flags)
   enc_from = prefix_path (enc_from_path, root_path);
   enc_to_path = encrypt_path_and_filename (to, password);
   enc_to = prefix_path (enc_to_path, root_path);
-  logMessage ("rename from %s to %s\n", enc_from_path, enc_to_path);
+  logInfo ("rename from %s to %s\n", enc_from_path, enc_to_path);
 
   res = rename (enc_from, enc_to);
   if (res == -1)
@@ -666,17 +666,17 @@ tcfs_link (const char *from, const char *to)
         free ((void *)enc_from_path);
       if (enc_to_path)
         free ((void *)enc_to_path);
-      perror ("Error in rename");
+      logErr ("Error in rename");
       return -errno;
     }
 
-  logMessage ("Called link\n");
+  logInfo ("Called link\n");
 
   enc_from_path = encrypt_path_and_filename (from, password);
   enc_from = prefix_path (enc_from_path, root_path);
   enc_to_path = encrypt_path_and_filename (to, password);
   enc_to = prefix_path (enc_to_path, root_path);
-  logMessage ("link from %s to %s\n", enc_from, enc_to);
+  logInfo ("link from %s to %s\n", enc_from, enc_to);
 
   res = link (enc_from, enc_to);
   if (res == -1)
@@ -711,7 +711,7 @@ tcfs_chmod (const char *fuse_path, mode_t mode, struct fuse_file_info *fi)
   const char *enc_fuse_path = NULL;
   const char *path = NULL;
 
-  logMessage ("Called chmod\n");
+  logInfo ("Called chmod\n");
 
   if (setjmp (jump_buffer) != 0)
     {
@@ -719,7 +719,7 @@ tcfs_chmod (const char *fuse_path, mode_t mode, struct fuse_file_info *fi)
         free ((void *)path);
       if (enc_fuse_path)
         free ((void *)enc_fuse_path);
-      perror ("Error in chmod");
+      logErr("Cannot execute chmod");
       return -errno;
     }
 
@@ -758,7 +758,7 @@ tcfs_chown (const char *fuse_path, uid_t uid, gid_t gid,
   const char *enc_fuse_path = NULL;
   const char *path = NULL;
 
-  logMessage ("Called chown\n");
+  logInfo ("Called chown\n");
 
   if (setjmp (jump_buffer))
     {
@@ -766,7 +766,7 @@ tcfs_chown (const char *fuse_path, uid_t uid, gid_t gid,
         free ((void *)path);
       if (enc_fuse_path)
         free ((void *)enc_fuse_path);
-      perror ("Error in chown");
+      logErr ("Error in chown");
       return -errno;
     }
 
@@ -802,7 +802,7 @@ tcfs_truncate (const char *fuse_path, off_t size, struct fuse_file_info *fi)
   const char *path = NULL;
   int res;
 
-  logMessage ("Called truncate\n");
+  logInfo ("Called truncate\n");
 
   if (setjmp (jump_buffer) != 0)
     {
@@ -860,7 +860,7 @@ tcfs_utimens (const char *fuse_path, const struct timespec ts[2],
   int res;
   struct timeval tv[2];
 
-  logMessage ("Called utimens\n");
+  logInfo ("Called utimens\n");
 
   if (setjmp (jump_buffer) != 0)
     {
@@ -868,7 +868,7 @@ tcfs_utimens (const char *fuse_path, const struct timespec ts[2],
         free ((void *)path);
       if (enc_fuse_path)
         free ((void *)enc_fuse_path);
-      perror ("Error in utimens");
+      logErr("utimens invalid");
       return -errno;
     }
 
@@ -906,7 +906,7 @@ tcfs_open (const char *fuse_path, struct fuse_file_info *fi)
   char *path = NULL;
   int res = 0;
 
-  logMessage ("Called open\n");
+  logInfo ("Called open\n");
 
   if (setjmp (jump_buffer) != 0)
     {
@@ -914,13 +914,13 @@ tcfs_open (const char *fuse_path, struct fuse_file_info *fi)
         free ((void *)path);
       if (enc_fuse_path)
         free ((void *)enc_fuse_path);
-      perror ("Error in open");
+      logErr("cannot open");
       return -errno;
     }
 
   enc_fuse_path = encrypt_path (fuse_path, password);
   path = prefix_path (enc_fuse_path, root_path);
-  logMessage ("\topen on %s\n", path);
+  logInfo ("\topen on %s\n", path);
 
   res = open (path, fi->flags);
   if (res == -1)
@@ -1015,7 +1015,7 @@ tcfs_read (const char *fuse_path, char *buf, size_t size, off_t offset,
   unsigned char *plaintext = NULL;
   char err_string[80];
 
-  logMessage ("Calling read\n");
+  logInfo ("Calling read\n");
 
   if (setjmp (jump_buffer) != 0)
     {
@@ -1029,13 +1029,13 @@ tcfs_read (const char *fuse_path, char *buf, size_t size, off_t offset,
         free ((void *)encrypted_key);
       if (decrypted_key)
         free ((void *)decrypted_key);
-      perror (err_string);
+      logErr (err_string);
       return -errno;
     }
 
   enc_fuse_path = encrypt_path (fuse_path, password);
   path = prefix_path (enc_fuse_path, root_path);
-  logMessage ("\tread on %s\n", path);
+  logInfo ("\tread on %s\n", path);
 
   path_ptr = fopen (path, "r");
 
@@ -1125,7 +1125,7 @@ tcfs_write (const char *fuse_path, const char *buf, size_t size, off_t offset,
   (void)fi;
   (void) offset; //TODO: use offset;
 
-  logMessage ("Called write\n");
+  logInfo ("Called write\n");
 
   FILE *path_ptr = NULL;
   char *path;
@@ -1156,13 +1156,13 @@ tcfs_write (const char *fuse_path, const char *buf, size_t size, off_t offset,
         free ((void *)iv);
       if (enc_buf)
         free((void *) enc_buf);
-      perror (err_string);
+      logErr (err_string);
       return -errno;
     }
 
   enc_fuse_path = encrypt_path (fuse_path, password);
   path = prefix_path (enc_fuse_path, root_path);
-  logMessage ("\twrite on %s\n", path);
+  logInfo ("\twrite on %s\n", path);
 
   path_ptr = fopen (path, "a+");
   if (path_ptr == NULL) {
@@ -1196,7 +1196,7 @@ tcfs_write (const char *fuse_path, const char *buf, size_t size, off_t offset,
   iv = malloc ((IV_SIZE * sizeof (char )));
   if (tcfs_getxattr (fuse_path, IV_ATTR_NAME, (char *)iv, IV_SIZE) < 0){
       iv = generate_iv();
-      logMessage ("DEBUG: IV generated");
+      logInfo ("IV generated");
       int set_iv = tcfs_setxattr(fuse_path, IV_ATTR_NAME, (const char *)iv, IV_SIZE, 0);
       if (set_iv < 0){
           strcpy (err_string, "Error in write, cannot set the IV");
@@ -1262,13 +1262,13 @@ tcfs_statfs (const char *fuse_path, struct statvfs *stbuf)
   char *path = NULL;
   int res;
 
-  logMessage ("Called statfs\n");
+  logInfo ("Called statfs\n");
 
   if (setjmp (jump_buffer) != 0)
     {
       if (path)
         free ((void *)path);
-      perror ("Error in statfs");
+      logErr ("Error in statfs");
       return -errno;
     }
 
@@ -1303,7 +1303,7 @@ tcfs_setxattr (const char *fuse_path, const char *name, const char *value,
   const char *path = NULL;
   int res = 1;
 
-  logMessage ("\tsetxattr encrypt_path %s settin%s:%s\n", path, name, value);
+  logInfo ("\tsetxattr encrypt_path %s settin%s:%s\n", path, name, value);
 
   if (setjmp (jump_buffer) != 0)
     {
@@ -1311,7 +1311,7 @@ tcfs_setxattr (const char *fuse_path, const char *name, const char *value,
         free ((void *)path);
       if (enc_fuse_path)
         free ((void *)enc_fuse_path);
-      perror ("Error in setxattr");
+      logErr ("Error in setxattr");
       return -errno;
     }
 
@@ -1370,7 +1370,7 @@ tcfs_create (const char *fuse_path, mode_t mode, struct fuse_file_info *fi)
   FILE *res = NULL;
   char err_string[80] = "\0";
 
-  logMessage ("Called create on %s\n", fuse_path);
+  logInfo ("Called create on %s\n", fuse_path);
 
   if (setjmp (jump_buffer) != 0)
     {
@@ -1384,13 +1384,13 @@ tcfs_create (const char *fuse_path, mode_t mode, struct fuse_file_info *fi)
         free ((void *)key);
       if (res)
         fclose (res);
-      perror (err_string);
+      logErr (err_string);
       return -errno;
     }
 
   enc_fuse_path = encrypt_path_and_filename (fuse_path, password);
   fullpath = prefix_path (enc_fuse_path, root_path);
-  logMessage ("\tcreating %s\n", fullpath);
+  logInfo ("\tcreating %s\n", fullpath);
 
   res = fopen (fullpath, "w");
   if (res == NULL)
@@ -1504,7 +1504,7 @@ tcfs_fsync (const char *fuse_path, int isdatasync, struct fuse_file_info *fi)
   /* Get the real path */
   const char *enc_fuse_path = encrypt_path_and_filename (fuse_path, password);
   const char *path = prefix_path (enc_fuse_path, root_path);
-  logMessage ("\tfsync %s\n", path);
+  logInfo ("\tfsync %s\n", path);
 
   /* Synchronize the file's in-core state with storage device */
   int res;
@@ -1559,12 +1559,12 @@ tcfs_getxattr (const char *fuse_path, const char *name, char *value,
   const char *enc_fuse_path = encrypt_path_and_filename (fuse_path, password);
   const char *path = prefix_path (enc_fuse_path, root_path);
 
-  logMessage ("Called getxattr on %s name:%s size:%zu\n", path, name, size);
+  logInfo ("Called getxattr on %s name:%s size:%zu\n", path, name, size);
 
   int res = (int)lgetxattr (path, name, value, size);
   if (res == -1)
     {
-      perror ("Could not get xattr for file");
+      logErr ("Could not get xattr for file");
       return -errno;
     }
   return res;
@@ -1584,15 +1584,15 @@ tcfs_getxattr (const char *fuse_path, const char *name, char *value,
 static int
 tcfs_listxattr (const char *fuse_path, char *list, size_t size)
 {
-  logMessage ("Called listxattr\n");
+  logInfo ("Called listxattr\n");
   const char *enc_fuse_path = encrypt_path_and_filename (fuse_path, password);
   const char *path = prefix_path (enc_fuse_path, root_path);
-  logMessage ("\tlistxattr %s\n", path);
+  logInfo ("\tlistxattr %s\n", path);
 
   ssize_t res = llistxattr (path, list, size);
   if (res == -1L)
     {
-      perror ("listxattr error");
+      logErr ("listxattr error");
       return -errno;
     }
   return (int)res; // FUSE wants an int back
@@ -1623,15 +1623,15 @@ tcfs_listxattr (const char *fuse_path, char *list, size_t size)
 static int
 tcfs_removexattr (const char *fuse_path, const char *name)
 {
-  logMessage ("Called removexattr\n");
+  logInfo ("Called removexattr\n");
   const char *enc_fuse_path = encrypt_path_and_filename (fuse_path, password);
   const char *path = prefix_path (enc_fuse_path, root_path);
-  logMessage ("\tremovexattr %s\n", path);
+  logInfo ("\tremovexattr %s\n", path);
 
   int res = lremovexattr (path, name);
   if (res == -1)
     {
-      perror ("removexattr error");
+      logErr ("removexattr error");
       return -errno;
     }
   return TCFS_SUCCESS;
@@ -1673,139 +1673,85 @@ static struct fuse_operations tcfs_oper = {
 };
 
 /**
- * @brief TCFS version information.
- */
-const char *argp_program_version = "TCFS Alpha";
-
-/**
- * @brief TCFS bug report email address.
- */
-const char *argp_program_bug_address = "carloalbertogiordano@duck.com";
-
-/**
- * @brief Documentation string for TCFS.
- */
-static char doc[] = "This is an implementation on TCFS\ntcfs -s <source_path> "
-                    "-d <dest_path> -p <password> [fuse arguments]";
-
-/**
- * @brief Argument documentation string for TCFS.
- */
-static char args_doc[] = "";
-
-/**
- * @brief TCFS command-line options.
- */
-static struct argp_option options[]
-    = { { "source", 's', "SOURCE", 0, "Source file path", -1 },
-        { "destination", 'd', "DESTINATION", 0, "Destination file path", -1 },
-        { "password", 'p', "PASSWORD", 0, "Password", -1 },
-        { NULL } };
-
-/**
- * @brief Structure to store command-line arguments.
- */
-struct arguments
-{
-  char *source;
-  char *destination;
-  char *password;
-};
-
-/**
- * @brief Parse command-line options.
- *
- * @param key Option key.
- * @param arg Option argument.
- * @param state Parser state.
- *
- * @return 0 on success, error code on failure.
- */
-static error_t
-parse_opt (int key, char *arg, struct argp_state *state)
-{
-  struct arguments *arguments = state->input;
-
-  switch (key)
-    {
-    case 's':
-      arguments->source = arg;
-      break;
-    case 'd':
-      arguments->destination = arg;
-      break;
-    case 'p':
-      arguments->password = arg;
-      break;
-    case ARGP_KEY_ARG:
-      return ARGP_ERR_UNKNOWN;
-    default:
-      return ARGP_ERR_UNKNOWN;
-    }
-
-  return TCFS_SUCCESS;
-}
-
-/**
- * @brief TCFS argp structure.
- */
-static struct argp argp = { options, parse_opt, args_doc, doc, 0, NULL, NULL };
-
-/**
  * @brief Main entry point for TCFS.
  *
- * @param argc Number of command-line arguments.
- * @param argv Array of command-line arguments.
- *
- * @return 0 on success, error code on failure.
+ * @return fuse_main result on success, error code on failure.
  */
-int
-main (int argc, char *argv[])
-{
+
+int main(int argc, char *argv[]) {
+  struct config *conf = malloc (sizeof(struct config));
+  char *config_file = NULL;
+  int c;
+  int fuse_result;
+
+  //Change file permissions
   umask (0);
 
-  struct arguments arguments;
-
-  arguments.source = NULL;
-  arguments.destination = NULL;
-  arguments.password = NULL;
-
-  argp_parse (&argp, argc, argv, 0, 0, &arguments);
-
-  if (arguments.source == NULL || arguments.destination == NULL
-      || arguments.password == NULL)
-    {
-      logMessage ("Err: You need to specify at least 3 arguments\n");
-      return -ERR_inval_arg_len;
+  config_file = strdup(DEFAULT_CONFIG_FILE);
+  //Read if a different config file location is set
+  while ((c = getopt(argc, argv, "c:")) != -1) {
+      switch (c) {
+        case 'c':
+          config_file = strdup(optarg);
+          break;
+        case '?':
+          if (optopt == 'c')
+            logErr("Option -%c requires an argument.\n", optopt);
+          else
+            logErr("Unknown option `-%c'.\n", optopt);
+          return 1;
+        default:
+          abort();
+        }
     }
 
-  logMessage ("Source: %s\n", arguments.source);
-  logMessage ("Destination: %s\n", arguments.destination);
-  root_path = arguments.source;
+  // Load config
+  if (parse_config(config_file, conf) != true) {
+      logErr("Cannot load config from %s\n", config_file);
+      free(config_file);
+      return EXIT_FAILURE;
+    }
 
-  if (is_valid_key ((unsigned char *)arguments.password) == TCFS_SUCCESS)
+  // Set debug level
+  set_debug_level(conf->debug);
+
+  // Set log_to_console
+  enable_console_logging (conf->log_to_console);
+
+  // Set the root path
+  root_path = conf->source;
+
+  // Check if submitted key is valid
+  if (is_valid_key ((unsigned char *)conf->password) == TCFS_SUCCESS)
     {
-      logMessage ("ERR: Inserted key not valid\n");
+      logErr("Inserted key not valid\n");
       return -ERR_inval_key;
     }
 
+  // Load arguments in fuse
   struct fuse_args args_fuse = FUSE_ARGS_INIT (0, NULL);
   fuse_opt_add_arg (&args_fuse, "./tcfs");
-  fuse_opt_add_arg (&args_fuse, arguments.destination);
-  fuse_opt_add_arg (&args_fuse,
-                    "-f"); // TODO: this is forced for now, but will be passed
-                           // via options in the future
-  // fuse_opt_add_arg (&args_fuse,
-  //"-s");
+  fuse_opt_add_arg (&args_fuse, conf->destination);
+  fuse_opt_add_arg (&args_fuse,conf->params);
 
-  // Print what we are passing to fuse TODO: This will be removed
-  for (int i = 0; i < args_fuse.argc; i++)
-    {
-      logMessage ("%s ", args_fuse.argv[i]);
+  // Save the password. WARN: This is already deprecated, the next update will handle key with Keyutils
+  password = conf->password;
+
+  fuse_result = fuse_main (args_fuse.argc, args_fuse.argv, &tcfs_oper, NULL);
+  if (fuse_result != 0){
+      logWarn("Fuse stopped with an error");
+      return -EXIT_FAILURE;
     }
-  logMessage ("\n");
+  else{
+      logWarn("Fuse exited");
+    }
 
-  password = arguments.password;
+  // Free the memory used by the configuration
+  free(config_file);
+  free(conf->source);
+  free(conf->destination);
+  free(conf->key_id);
+  free(conf);
 
-  return fuse_main (args_fuse.argc, args_fuse.argv, &tcfs_oper, NULL);
+  return fuse_result;
 }

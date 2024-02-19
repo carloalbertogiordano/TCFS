@@ -12,6 +12,8 @@
  */
 
 #include "crypt-utils.h"
+#include "../debug_utils/debug_helper.h"
+#include "../tcfs_utils/tcfs_utils.h"
 
 /**
  * @internal @_def
@@ -69,7 +71,7 @@ static void
 handleErrors (void)
 {
   char *error = getOpenSSLError ();
-  logMessage ("Error in openssl: %s", error);
+  logErr("openssl: %s", error);
   if (error)
     free (error);
   longjmp (jump_buffer, 1);
@@ -110,7 +112,7 @@ encrypt_file_gcm (FILE *fp, unsigned char *plaintext, int plaintext_len,
 
   if (setjmp (jump_buffer))
     {
-      logMessage("An error occurred in encrypt_file_gcm! Freeing resources...\n");
+      logErr("An error occurred in encrypt_file_gcm! Freeing resources...\n");
       EVP_CIPHER_CTX_free (ctx);
       if (ciphertext)
         free (ciphertext);
@@ -197,11 +199,11 @@ decrypt_file_gcm (FILE *fp, unsigned char *key, unsigned char *iv,
 
   if (setjmp (jump_buffer))
     {
-      logMessage("An error occurred in decrypt_file_gcm! Freeing resources...\n");
+      logErr("An error occurred in decrypt_file_gcm! Freeing resources...\n");
       EVP_CIPHER_CTX_free (ctx);
       if (ciphertext)
         free (ciphertext);
-      return -1;
+      return false;
     }
 
   fseek (fp, 0, SEEK_END);
@@ -291,7 +293,7 @@ do_crypt (int mode, FILE *fp, unsigned char **text, int len,
     {
       return encrypt_file_gcm (fp, *text, len, key, iv);
     }
-  logMessage ("Error in do_crypt, undefined mode selected");
+  logErr("Error in do_crypt, undefined mode selected");
   return false;
 }
 
@@ -308,14 +310,14 @@ check_entropy (void)
   FILE *entropy_file = fopen ("/proc/sys/kernel/random/entropy_avail", "r");
   if (entropy_file == NULL)
     {
-      perror ("Err: Cannot open entropy file");
+      logErr ("Err: Cannot open entropy file");
       return false;
     }
 
   int entropy_value;
   if (fscanf (entropy_file, "%d", &entropy_value) != true)
     {
-      perror ("Err: Cannot estimate entropy");
+      logErr ("Err: Cannot estimate entropy");
       fclose (entropy_file);
       return false;
     }
@@ -336,7 +338,7 @@ add_entropy (void)
   FILE *urandom = fopen ("/dev/urandom", "rb");
   if (urandom == NULL)
     {
-      perror ("Err: Cannot open /dev/urandom");
+      logErr ("Err: Cannot open /dev/urandom");
       exit (EXIT_FAILURE);
     }
 
@@ -346,7 +348,7 @@ add_entropy (void)
 
   if (bytes_read != sizeof (random_data))
     {
-      fprintf (stderr, "Err: Cannot read data\n");
+      logErr("Cannot read entropy data");
       exit (EXIT_FAILURE);
     }
 
@@ -354,7 +356,7 @@ add_entropy (void)
   RAND_add (random_data, sizeof (random_data),
             0.5); // 0.5 is an arbitrary weight
 
-  fprintf (stdout, "Entropy added successfully!\n");
+  logDebug("Entropy added successfully!\n");
 }
 
 /**
@@ -366,7 +368,7 @@ add_entropy (void)
 void
 generate_key (unsigned char *destination)
 {
-  fprintf (stdout, "Generating a new key...\n");
+  logDebug("Generating a new key...");
 
   // Why? Because if we try to create a large number of files there might not
   // be enough random bytes in the system to generate a key
@@ -375,13 +377,13 @@ generate_key (unsigned char *destination)
       int entropy = check_entropy ();
       if (entropy < 128)
         {
-          logMessage ("WARN: not enough entropy, creating some...");
+          logWarn("Not enough entropy, creating some...");
           add_entropy ();
         }
 
       if (RAND_bytes (destination, 32) != true)
         {
-          logMessage ("Err: Cannot generate key");
+          logErr("Cannot generate key");
           destination = NULL;
         }
 
@@ -391,7 +393,7 @@ generate_key (unsigned char *destination)
 
   if (is_valid_key (destination) == false)
     {
-      logMessage ("ERR: Generated key is invalid\n");
+      logErr("ERR: Generated key is invalid\n");
       destination = NULL;
     }
 }
@@ -436,8 +438,8 @@ encrypt_string (unsigned char *plaintext, const char *key,
   unsigned char *encoded_string = malloc (total_len * 2 + 1);
   if (!encoded_string)
     {
-      logMessage (
-          "Err: Cannot allocate memory for encrypt_string encoded_string");
+      logErr(
+          "Cannot allocate memory for encrypt_string encoded_string");
       return NULL;
     }
 
@@ -475,8 +477,8 @@ decrypt_string (unsigned char *ciphertext, const char *key)
 
   if (!decoded_ciphertext)
     {
-      logMessage (
-          "Err: Cannot allocate memory for decrypt_string decoded_ciphertext");
+      logErr(
+          "Cannot allocate memory for decrypt_string decoded_ciphertext");
       return NULL;
     }
 
@@ -489,7 +491,7 @@ decrypt_string (unsigned char *ciphertext, const char *key)
 
       if (*endptr != '\0' || byte > UCHAR_MAX)
         {
-          perror ("decrypt string error");
+          logErr ("decrypt string error");
           free ((void *)decoded_ciphertext);
           return NULL;
         }
@@ -511,8 +513,8 @@ decrypt_string (unsigned char *ciphertext, const char *key)
 
   if (!decrypted_string)
     {
-      perror (
-          "Err: Cannot allocate memory for decrypt_string decrypted_string");
+      logErr (
+          "Cannot allocate memory for decrypt_string decrypted_string");
       return NULL;
     }
 
@@ -575,20 +577,20 @@ encrypt_path (const char *path, const char *key)
       result = strdup (path);
       if (!result)
         {
-          perror ("Error allocating memory");
+          logErr ("allocating memory");
           exit (EXIT_FAILURE);
         }
-      logMessage ("\tencrypt path got a special case, returning %s\n", result);
+      logDebug("encrypt path got a special case, returning %s\n", result);
       return result;
     }
   // Check if the path is /
   else if (strcmp (path, "/") == 0)
     {
-      logMessage ("\tgot root path\n");
+      logDebug("got root path\n");
       result = malloc (1 * sizeof (char));
       if (result == NULL)
         {
-          perror ("Error allocating memory");
+          logErr ("allocating memory");
           return NULL;
         }
       result[0] = '\0';
@@ -598,7 +600,7 @@ encrypt_path (const char *path, const char *key)
   char *path_copy = strdup (path);
   if (!path_copy)
     {
-      perror ("Error allocating memory");
+      logErr ("cannot allocate memory");
       exit (EXIT_FAILURE);
     }
 
@@ -625,7 +627,7 @@ encrypt_path (const char *path, const char *key)
                   result = malloc (strlen (encrypted_part) + 2);
                   if (!result)
                     {
-                      perror ("Error allocating memory");
+                      logErr ("Cannot allocate memory");
                       free ((void *)path_copy);
                       exit (EXIT_FAILURE);
                     }
@@ -645,7 +647,7 @@ encrypt_path (const char *path, const char *key)
               result = realloc (result, result_len + 1 + encrypted_len + 1);
               if (!result)
                 {
-                  perror ("Error allocating memory");
+                  logErr ("Cannot allocate memory");
                   exit (EXIT_FAILURE);
                 }
 
@@ -656,7 +658,7 @@ encrypt_path (const char *path, const char *key)
                 }
 
               strcat (result, encrypted_part);
-              logMessage ("\t\tTempresult: %s\n", result);
+              logDebug("Tempresult: %s\n", result);
             }
         }
 
@@ -691,7 +693,7 @@ encrypt_path_and_filename (const char *path, const char *key)
       result = strdup (path);
       if (!result)
         {
-          perror ("Error allocating memory");
+          logErr ("Cannot allocate memory");
           exit (EXIT_FAILURE);
         }
       return result;
@@ -699,11 +701,11 @@ encrypt_path_and_filename (const char *path, const char *key)
   // Check if the path is /
   else if (strcmp (path, "/") == 0)
     {
-      logMessage ("\tgot root path\n");
+      logDebug("got root path\n");
       result = malloc (1 * sizeof (char));
       if (result == NULL)
         {
-          perror ("Error allocating memory");
+          logErr ("Cannot allocate memory");
           return NULL;
         }
       result[0] = '\0';
@@ -713,7 +715,7 @@ encrypt_path_and_filename (const char *path, const char *key)
   char *path_copy = strdup (path);
   if (!path_copy)
     {
-      perror ("Error allocating memory");
+      logErr ("Cannot allocate memory");
       exit (EXIT_FAILURE);
     }
 
@@ -730,7 +732,7 @@ encrypt_path_and_filename (const char *path, const char *key)
         {
           // Encrypt each part of the path
           const char *encrypted_part = encrypt_file_name_with_hex (token, key);
-          logMessage ("\tEncrypted %s --> %s\n", token, encrypted_part);
+          logDebug("\tEncrypted %s --> %s\n", token, encrypted_part);
 
           // Concatenate to the result string
           if (result == NULL)
@@ -741,7 +743,7 @@ encrypt_path_and_filename (const char *path, const char *key)
                   result = malloc (strlen (encrypted_part) + 2);
                   if (!result)
                     {
-                      perror ("Error allocating memory");
+                      logErr ("Cannot allocate memory");
                       exit (EXIT_FAILURE);
                     }
                   strcpy (result, "/");
@@ -760,7 +762,7 @@ encrypt_path_and_filename (const char *path, const char *key)
               result = realloc (result, result_len + 1 + encrypted_len + 1);
               if (!result)
                 {
-                  perror ("Error allocating memory");
+                  logErr ("Cannot allocate memory");
                   exit (EXIT_FAILURE);
                 }
 
@@ -771,7 +773,7 @@ encrypt_path_and_filename (const char *path, const char *key)
                 }
 
               strcat (result, encrypted_part);
-              logMessage ("\t\tTempresult: %s\n", result);
+              logDebug("Tempresult: %s\n", result);
             }
         }
 
@@ -795,7 +797,7 @@ encrypt_path_and_filename (const char *path, const char *key)
 const char *
 decrypt_path (const char *encrypted_path, const char *key)
 {
-  logMessage ("decrypt path got %s\n", encrypted_path);
+  logDebug("decrypt path got %s\n", encrypted_path);
   char *result = NULL;
   char *token, *saveptr;
 
@@ -806,20 +808,20 @@ decrypt_path (const char *encrypted_path, const char *key)
       result = strdup (encrypted_path);
       if (!result)
         {
-          perror ("Error allocating memory");
+          logErr ("Error allocating memory");
           exit (EXIT_FAILURE);
         }
-      logMessage ("\tdecrypt_path got a special case, returning %s\n", result);
+      logDebug("decrypt_path got a special case, returning %s\n", result);
       return result;
     }
   // Check if the encrypted_path is /
   else if (strcmp (encrypted_path, "/") == 0)
     {
-      logMessage ("\tgot root path\n");
+      logDebug("got root path\n");
       result = malloc (1 * sizeof (char));
       if (result == NULL)
         {
-          perror ("Error allocating memory");
+          logErr("Cannot allocate memory");
           return NULL;
         }
       result[0] = '\0';
@@ -829,7 +831,7 @@ decrypt_path (const char *encrypted_path, const char *key)
   char *encrypted_path_copy = strdup (encrypted_path);
   if (!encrypted_path_copy)
     {
-      perror ("Error allocating memory");
+      logErr ("Error allocating memory");
       exit (EXIT_FAILURE);
     }
 
@@ -846,7 +848,7 @@ decrypt_path (const char *encrypted_path, const char *key)
         {
           // Decrypt each part of the path
           const char *decrypted_part = decrypt_file_name_with_hex (token, key);
-          logMessage ("\tDecrypted %s --> %s\n", token, decrypted_part);
+          logDebug("Decrypted %s --> %s", token, decrypted_part);
 
           // Concatenate to the result string
           if (result == NULL)
@@ -857,7 +859,7 @@ decrypt_path (const char *encrypted_path, const char *key)
                   result = malloc (strlen (decrypted_part) + 2);
                   if (!result)
                     {
-                      perror ("Error allocating memory");
+                      logErr ("Error allocating memory");
                       exit (EXIT_FAILURE);
                     }
                   strcpy (result, "/");
@@ -876,7 +878,7 @@ decrypt_path (const char *encrypted_path, const char *key)
               result = realloc (result, result_len + 1 + decrypted_len + 1);
               if (!result)
                 {
-                  perror ("Error allocating memory");
+                  logErr ("Error allocating memory");
                   exit (EXIT_FAILURE);
                 }
 
@@ -887,7 +889,7 @@ decrypt_path (const char *encrypted_path, const char *key)
                 }
 
               strcat (result, decrypted_part);
-              logMessage ("\t\tTempresult: %s\n", result);
+              logDebug("Tempresult: %s", result);
             }
         }
 
@@ -896,10 +898,10 @@ decrypt_path (const char *encrypted_path, const char *key)
     }
 
   // Free the memory allocated for the encrypted_path copy
-  logMessage ("\t\tencrypted_path_copy %s\n", encrypted_path_copy);
+  logDebug("encrypted_path_copy %s", encrypted_path_copy);
   free (encrypted_path_copy);
 
-  logMessage ("\tdecrypt_path will return %s\n", result);
+  logDebug("decrypt_path will return %s", result);
   return result;
 }
 
@@ -926,22 +928,22 @@ decrypt_path_and_filename (const char *encrypted_path, const char *key)
       result = strdup (encrypted_path);
       if (!result)
         {
-          perror ("Error allocating memory");
+          logErr ("Error allocating memory");
           exit (EXIT_FAILURE);
         }
-      logMessage (
-          "\tdecrypt_filename_with_path got a special case, returning %s\n",
+      logDebug(
+          "decrypt_filename_with_path got a special case, returning %s",
           result);
       return result;
     }
   // Check if the encrypted_path is /
   else if (strcmp (encrypted_path, "/") == 0)
     {
-      logMessage ("\tgot root path\n");
+      logDebug("got root path");
       result = malloc (1 * sizeof (char));
       if (result == NULL)
         {
-          perror ("Error allocating memory");
+          logErr ("Cannot allocate memory");
           return NULL;
         }
       result[0] = '\0';
@@ -951,7 +953,7 @@ decrypt_path_and_filename (const char *encrypted_path, const char *key)
   char *encrypted_path_copy = strdup (encrypted_path);
   if (!encrypted_path_copy)
     {
-      perror ("Error allocating memory");
+      logErr ("Cannot allocate memory");
       exit (EXIT_FAILURE);
     }
 
@@ -968,7 +970,7 @@ decrypt_path_and_filename (const char *encrypted_path, const char *key)
         {
           // Decrypt each part of the path
           const char *decrypted_part = decrypt_file_name_with_hex (token, key);
-          logMessage ("\tDecrypted %s --> %s\n", token, decrypted_part);
+          logDebug("Decrypted %s --> %s", token, decrypted_part);
 
           // Concatenate to the result string
           if (result == NULL)
@@ -979,7 +981,7 @@ decrypt_path_and_filename (const char *encrypted_path, const char *key)
                   result = malloc (strlen (decrypted_part) + 2);
                   if (!result)
                     {
-                      perror ("Error allocating memory");
+                      logErr("Cannot allocate memory");
                       exit (EXIT_FAILURE);
                     }
                   strcpy (result, "/");
@@ -998,7 +1000,7 @@ decrypt_path_and_filename (const char *encrypted_path, const char *key)
               result = realloc (result, result_len + 1 + decrypted_len + 1);
               if (!result)
                 {
-                  perror ("Error allocating memory");
+                  logErr("Cannot allocate memory");
                   exit (EXIT_FAILURE);
                 }
 
@@ -1009,7 +1011,7 @@ decrypt_path_and_filename (const char *encrypted_path, const char *key)
                 }
 
               strcat (result, decrypted_part);
-              logMessage ("\t\tTempresult: %s\n", result);
+              logDebug("Tempresult: %s", result);
             }
         }
 
@@ -1018,10 +1020,10 @@ decrypt_path_and_filename (const char *encrypted_path, const char *key)
     }
 
   // Free the memory allocated for the encrypted_path copy
-  logMessage ("\t\tencrypted_path_copy %s\n", encrypted_path_copy);
+  logDebug("encrypted_path_copy %s\n", encrypted_path_copy);
   free (encrypted_path_copy);
 
-  logMessage ("\tdecrypt_filename_with_path will return %s\n", result);
+  logDebug("decrypt_filename_with_path will return %s\n", result);
   return result;
 }
 
@@ -1041,17 +1043,17 @@ decrypt_path_and_filename (const char *encrypted_path, const char *key)
 extern unsigned char *
 generate_iv (void)
 {
-  logMessage ("Generating IV...\n");
+  logDebug("Generating IV...");
   unsigned char *iv = malloc (IV_SIZE);
   if (iv == NULL)
     {
-      perror ("Error allocating memory for IV");
+      logErr ("Cannot allocate memory for IV");
       return NULL;
     }
   // Generate a random IV
   if (RAND_bytes (iv, IV_SIZE) != 1)
     {
-      perror ("Error generating IV");
+      logErr("Cannot generate IV");
       free (iv);
       return NULL;
     }
@@ -1065,14 +1067,14 @@ encrypt_buffer (const char *buf, size_t size, unsigned char *key)
   EVP_CIPHER_CTX *ctx;
   if (!(ctx = EVP_CIPHER_CTX_new ()))
     {
-      perror ("Error in encrypt_buffer, cannot create new EVP_CIPHER_CTX");
+      logErr ("Cannot create new EVP_CIPHER_CTX");
       return NULL;
     }
 
   // Initialize the encryption operation
   if (1 != EVP_EncryptInit_ex (ctx, EVP_aes_256_ctr (), NULL, key, NULL))
     {
-      perror ("Error in encrypt_buffer, cannot initialize encryption");
+      logErr ("Cannot initialize encryption");
       EVP_CIPHER_CTX_free (ctx);
       return NULL;
     }
@@ -1084,7 +1086,7 @@ encrypt_buffer (const char *buf, size_t size, unsigned char *key)
       != EVP_EncryptUpdate (ctx, encrypted_buf, &len,
                             (const unsigned char *)buf, (int)size))
     {
-      perror ("Error in encrypt_buffer, cannot encrypt buffer");
+      logErr ("Cannot encrypt buffer");
       EVP_CIPHER_CTX_free (ctx);
       free (encrypted_buf);
       return NULL;
@@ -1094,7 +1096,7 @@ encrypt_buffer (const char *buf, size_t size, unsigned char *key)
   int ciphertext_len = len;
   if (1 != EVP_EncryptFinal_ex (ctx, encrypted_buf + len, &len))
     {
-      perror ("Error in encrypt_buffer, cannot finalize encryption");
+      logErr ("Cannot finalize encryption");
       EVP_CIPHER_CTX_free (ctx);
       free (encrypted_buf);
       return NULL;
