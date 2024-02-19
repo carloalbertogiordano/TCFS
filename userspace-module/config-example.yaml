@@ -1,0 +1,7 @@
+source: "/tmp/A"
+destination: "/tmp/B"
+key_id: "12345"
+password: "Sap5FWRA9QH2rzjm+6PG6SzxDvXkzEq1Y3OeJmzQJtc="
+params: "-f"
+debug: DEBUG_ALL
+log_to_console: true
