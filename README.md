@@ -21,7 +21,7 @@ it stable and complete :-).
 ## Technologies used
 To achieve our goal many different auxiliary programs and tech has found its way in TCFS
 - Securing the encryption Key
-  - GPG
+  - Keyutils
 - Database management
   - MariaDB
 - Documentation
@@ -44,17 +44,19 @@ integrates seamlessly with the existing file hierarchy. This allows users to int
 with their files just like any other files on their system.
 - Secure Data Storage: Files stored on an NFS server can be vulnerable during transit or
 at rest. TCFS addresses these security concerns by ensuring data is encrypted before it leaves the client system, offering end-to-end encryption for your files.
-- Transparency: No modifications to the NFS server are required.
+- Transparency: No modification to the remote server is required.
 
 ## Getting Started
 ### Documentation
 Documentation is lacking but it can be found [here](https://carloalbertogiordano.github.io/TCFS/)
 ### Prerequisites
-- FUSE: Ensure that FUSE and FUSE-dev are installed on your system. You can usually install it using
-your system's package manager (e.g., apt, yum, dnf, ecc).
-- OpenSSl: Install OpenSSL and its development package.
-- MariaDB: Install and start MariaDB
-- Go: Install a compiler for go
+- For the fuse module:
+  - FUSE: Ensure that FUSE and FUSE-dev are installed on your system. You can usually install it using
+  your system's package manager (e.g., apt, yum, dnf, ecc).
+  - OpenSSl: Install OpenSSL and its development package.
+- For the remote server (Unused for now) 
+  - MariaDB: Install and start MariaDB
+  - Go: Install a compiler for go
 ### Build
 - Clone the TCFS repository to your local machine:
 <pre>
@@ -69,14 +71,33 @@ git clone https://github.com/carloalbertogiordano/TCFS
 make all
 </code>
 </pre>
-- Run: Run the compiled file. NOTE: Password must be 256 bit or 32 bytes 
+- Create a configuration file
 <pre>
 <code>
-build/fuse-module/tcfs -s "source_dir" -d "dest_dir" -p "password"
+mkdir ~/.tcfs
+nano tcfs-config.yaml
+</code>
+</pre>
+Write this in the config file
+<pre>
+<code>
+source: "source directory"
+destination: "destination directory"
+key_id: "the id obtained by keyutils"
+params: "-f" (keep this if you want fuse to not detach from terminal)
+debug: DEBUG_ALL (you can chose between: DEBUG_NONE DEBUG_ERRORS, DEBUG_CALLS, DEBUG_ALL )
+log_to_console: true or false
+
+</code>
+</pre>
+- Run: Run the compiled file. 
+<pre>
+<code>
+build/fuse-module/tcfs
 </code>
 </pre>
 
-#### Build and run the REST server
+#### Build and run the REST server (Unused)
 - Build and install: To install the daemon run this commands in the DaemonREST directory
 <pre>
 <code>
@@ -84,7 +105,7 @@ go build server
 </code>
 </pre>
 
-#### Build and run the helper program
+#### Build and run the helper program (Unimplemented)
 - Compile: Run the Makefile in the user directory
 <pre>
 <code>
@@ -99,29 +120,10 @@ build/tcfs_helper/tcfs_helper
 </pre>
 
 #### Kernel module
-- This part of the project is not being developed at the moment.
+- This part of the project will not be developed in contrast to the original version of the TCFS filesystem
 
 ## Usage of the fuse module
-### This is not raccomended, consider using the tcfs_helper program
-### Mount an NFS share using TCFS:
-First, mount the NFS share to a directory, this directory will be called sourcedir.
-This will be done by the helper program in a future release.
-<pre>
-<code>
-    ./build-fs/tcfs-fuse-module/tcfs -s /fullpath/sourcedir -d /fullpath/destdir -p "your password here"
-</code>
-</pre>
-Access and modify files in the mounted directory as you normally would. TCFS will handle 
-encryption and decryption automatically. NOTE: This behaviour will be changed in the future, the kernel
-module will handle your password.
-
-### Unmount the NFS share when you're done:
-<pre>
-<code>
-    fusermount -u /fullpath/destdir
-</code>
-</pre>
-then unmount the NFS share.
+### This module is currently not in development
 
 
 ## Contributing
@@ -150,9 +152,8 @@ as we continue to build upon the foundations set by the original TCFS project.
 ## Roadmap
 - Key management:
   - ~~Store a per-file key in the extended attributes and use the user key to decipher it.~~
-  - Implement a kernel module to rebuild the private key to decipher the files. This module will use a certificate and your key to rebuild the private key
+  - ~~Implement a kernel module to rebuild the private key to decipher the files. This module will use a certificate and your key to rebuild the private key~~
   - Implement key recovery.
-  - Switch to public/private key (done in the server, fuse module is missing this feature at the moment)
 - Implement threshold sharing files (done in the server, fuse module is missing this feature at the moment).
 - Server:
   - ~~Implement user registration and deregistration~~
