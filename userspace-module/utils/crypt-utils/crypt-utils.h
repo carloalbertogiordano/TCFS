@@ -36,16 +36,8 @@
  * @brief The fixed size of the initialization vector \link
  * https://en.wikipedia.org/wiki/Initialization_vector IV \endlink. \_def
  * */
-#define IV_SIZE 16 // 32
+#define IV_SIZE 16
 
-/**
- * @def KEY_SIZE
- * @brief The fixed size of the key. \_def
- * */
-#define KEY_SIZE 32
-
-// extern int do_crypt (FILE *in, FILE *out, int action, unsigned char
-// *key_str);
 extern int do_crypt (int mode, FILE *fp, unsigned char **text, int len, unsigned char *key, unsigned char *iv);
 
 

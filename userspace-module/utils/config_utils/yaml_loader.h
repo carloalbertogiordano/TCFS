@@ -15,7 +15,6 @@ struct config {
   char *source; /**< Source path. */
   char *destination; /**< Destination path. */
   char *key_id; /**< Key ID. */
-  char *password; /**<@deprecated Password (deprecated). */
   char *params; /**< Parameters to pass to FUSE. */
   DebugLevel debug; /**< Debug mode (true if enabled, false if disabled). */
   bool log_to_console; /**< Specify if the logging should be written to the console */

@@ -21,6 +21,7 @@
 
 #include "utils/config_utils/yaml_loader.h"
 #include "utils/crypt-utils/crypt-utils.h"
+#include "utils/key_utils/key_utils.h"
 #include "utils/tcfs_utils/tcfs_utils.h"
 #include <argp.h>
 #include <dirent.h>
@@ -42,13 +43,10 @@
  * @brief Contains the fullpath to the mounted directory
  * */
 char *root_path;
-/**
- * @var password
- * @brief Contains the password passed to TCFS when started
- * */
-char *password;
 
 static jmp_buf jump_buffer;
+
+static const char *key_id = NULL;
 
 static int tcfs_getxattr (const char *fuse_path, const char *name, char *value,
                           size_t size);
@@ -70,6 +68,7 @@ tcfs_opendir (const char *fuse_path, struct fuse_file_info *fi)
   (void)fi;
   const char *enc_fuse_path = NULL;
   const char *new_path = NULL;
+  const char *key = NULL;
   DIR *dp = NULL;
 
   if (setjmp (jump_buffer) != 0)
@@ -84,9 +83,14 @@ tcfs_opendir (const char *fuse_path, struct fuse_file_info *fi)
       return -errno;
     }
 
-  logInfo("Called opendir %s\n", fuse_path);
+  logInfo ("Called opendir %s\n", fuse_path);
 
-  enc_fuse_path = encrypt_path (fuse_path, password);
+  // Get the key
+  key = get_key (key_id);
+  enc_fuse_path = encrypt_path (fuse_path, key);
+  // Free the key
+  free_key (key);
+
   new_path = prefix_path (enc_fuse_path, root_path);
   logInfo ("\topendir new_path %s\n", new_path);
 
@@ -122,6 +126,7 @@ tcfs_getattr (const char *fuse_path, struct stat *stbuf,
   int res;
   const char *enc_fuse_path = NULL;
   const char *new_path = NULL;
+  const char *key = NULL;
 
   if (setjmp (jump_buffer) != 0)
     {
@@ -133,7 +138,11 @@ tcfs_getattr (const char *fuse_path, struct stat *stbuf,
       return -errno;
     }
 
-  enc_fuse_path = encrypt_path (fuse_path, password);
+  // Get the key
+  key = get_key (key_id);
+  enc_fuse_path = encrypt_path (fuse_path, key);
+  free_key (key);
+
   logInfo ("\tgetattr enc_fuse_path: %s\n", enc_fuse_path);
   new_path = prefix_path (enc_fuse_path, root_path);
   logInfo ("\tgetattr new_path on %s\n", new_path);
@@ -141,7 +150,7 @@ tcfs_getattr (const char *fuse_path, struct stat *stbuf,
   res = stat (new_path, stbuf);
   if (res == -1)
     {
-      logErr("\taccess: Stat returned -1, err:%d\n", -errno);
+      logErr ("\taccess: Stat returned -1, err:%d\n", -errno);
       longjmp (jump_buffer, 1);
     }
 
@@ -166,6 +175,7 @@ tcfs_access (const char *fuse_path, int mask)
   int res;
   const char *enc_fuse_path = NULL;
   const char *full_path = NULL;
+  const char *key = NULL;
 
   if (setjmp (jump_buffer) != 0)
     {
@@ -177,7 +187,11 @@ tcfs_access (const char *fuse_path, int mask)
       return -errno;
     }
 
-  enc_fuse_path = encrypt_path (fuse_path, password);
+  // Get the key
+  key = get_key (key_id);
+  enc_fuse_path = encrypt_path (fuse_path, key);
+  free_key (key);
+
   full_path = prefix_path (enc_fuse_path, root_path);
   logInfo ("\taccess encrypt_path %s\n", full_path);
 
@@ -210,6 +224,7 @@ tcfs_readlink (const char *fuse_path, char *buf, size_t size)
 
   const char *enc_fuse_path = NULL;
   char *path = NULL;
+  const char *key;
   size_t res;
 
   if (setjmp (jump_buffer) != 0)
@@ -222,7 +237,11 @@ tcfs_readlink (const char *fuse_path, char *buf, size_t size)
       return -errno;
     }
 
-  enc_fuse_path = encrypt_path (fuse_path, password);
+  // Get the key
+  key = get_key (key_id);
+  enc_fuse_path = encrypt_path (fuse_path, key);
+  free_key (key);
+
   path = prefix_path (enc_fuse_path, root_path);
   logInfo ("\treadlink on %s\n", path);
 
@@ -263,6 +282,7 @@ tcfs_readdir (const char *fuse_path, void *buf, fuse_fill_dir_t filler,
 
   const char *enc_path = NULL;
   char *path = NULL;
+  const char *key = NULL;
   DIR *dp = NULL;
   struct dirent *de;
   int error_return_number = TCFS_SUCCESS;
@@ -282,7 +302,10 @@ tcfs_readdir (const char *fuse_path, void *buf, fuse_fill_dir_t filler,
     }
 
   logInfo ("Called readdir %s\n", fuse_path);
-  enc_path = encrypt_path (fuse_path, password);
+  // Get the key
+  key = get_key (key_id);
+  enc_path = encrypt_path (fuse_path, key);
+  free_key (key);
   path = prefix_path (enc_path, root_path);
   logInfo ("readdir on %s\n", path);
 
@@ -314,11 +337,10 @@ tcfs_readdir (const char *fuse_path, void *buf, fuse_fill_dir_t filler,
         }
       else
         {
-          logInfo (
-              "\tchecking foreturn -errno;r %s is %s\n", de->d_name,
-              decrypt_file_name_with_hex ((const char *)de->d_name, password));
-
-          const char *dec_dirname = decrypt_path (de->d_name, password);
+          // Get the key
+          key = get_key (key_id);
+          const char *dec_dirname = decrypt_path (de->d_name, key);
+          free_key (key);
           if (dec_dirname == NULL)
             {
               error_return_number = -ERR_inval_enc_dir_name;
@@ -367,6 +389,7 @@ tcfs_mknod (const char *fuse_path, mode_t mode, dev_t rdev)
   logInfo ("Called mknod\n");
 
   const char *enc_fuse_path = NULL;
+  const char *key = NULL;
   char *path = NULL;
   int res;
 
@@ -380,7 +403,10 @@ tcfs_mknod (const char *fuse_path, mode_t mode, dev_t rdev)
       return -errno;
     }
 
-  enc_fuse_path = encrypt_path (fuse_path, password);
+  // Get the key
+  key = get_key (key_id);
+  enc_fuse_path = encrypt_path (fuse_path, key);
+  free_key (key);
   path = prefix_path (enc_fuse_path, root_path);
   logInfo ("\tmknod on %s\n", path);
 
@@ -418,6 +444,7 @@ static int
 tcfs_mkdir (const char *fuse_path, mode_t mode)
 {
   const char *enc_path = NULL;
+  const char *key = NULL;
   char *path = NULL;
   int res;
 
@@ -433,7 +460,10 @@ tcfs_mkdir (const char *fuse_path, mode_t mode)
 
   logInfo ("Called mkdir on %s\n", fuse_path);
 
-  enc_path = encrypt_path (fuse_path, password);
+  // Get the key
+  key = get_key (key_id);
+  enc_path = encrypt_path (fuse_path, key);
+  free_key (key);
   logInfo ("\tmkdir prefix_path (%s, %s)\n", enc_path, root_path);
   path = prefix_path (enc_path, root_path);
   logInfo ("\tmkdir %s\n", path);
@@ -460,6 +490,7 @@ static int
 tcfs_unlink (const char *fuse_path)
 {
   const char *enc_fuse_path = NULL;
+  const char *key = NULL;
   char *path = NULL;
   int res;
 
@@ -475,7 +506,11 @@ tcfs_unlink (const char *fuse_path)
 
   logInfo ("Called unlink\n");
 
-  enc_fuse_path = encrypt_path (fuse_path, password);
+  // Get the key
+  key = get_key (key_id);
+  enc_fuse_path = encrypt_path (fuse_path, key);
+  free_key (key);
+
   path = prefix_path (enc_fuse_path, root_path);
   logInfo ("\tunlink on %s\n", path);
 
@@ -501,6 +536,7 @@ static int
 tcfs_rmdir (const char *fuse_path)
 {
   const char *enc_fuse_path = NULL;
+  const char *key = NULL;
   char *path = NULL;
   int res;
 
@@ -514,7 +550,11 @@ tcfs_rmdir (const char *fuse_path)
 
   logInfo ("Called rmdir\n");
 
-  enc_fuse_path = encrypt_path (fuse_path, password);
+  // Get the key
+  key = get_key (key_id);
+  enc_fuse_path = encrypt_path (fuse_path, key);
+  free_key (key);
+
   path = prefix_path (enc_fuse_path, root_path);
   logInfo ("\trmdir on %s\n", path);
 
@@ -544,6 +584,7 @@ tcfs_symlink (const char *from, const char *to)
   char *enc_from = NULL;
   const char *enc_to_path = NULL;
   char *enc_to = NULL;
+  const char *key = NULL;
   int res;
 
   logInfo ("Called symlink %s->%s\n", from, to);
@@ -562,10 +603,13 @@ tcfs_symlink (const char *from, const char *to)
       return -errno;
     }
 
-  enc_from_path = encrypt_path_and_filename (from, password);
-  enc_from = prefix_path (enc_from_path, root_path);
+  // Get the key
+  key = get_key (key_id);
+  enc_from_path = encrypt_path_and_filename (from, key);
+  enc_to_path = encrypt_path_and_filename (to, key);
+  free_key (key);
 
-  enc_to_path = encrypt_path_and_filename (to, password);
+  enc_from = prefix_path (enc_from_path, root_path);
   enc_to = prefix_path (enc_to_path, root_path);
   logInfo ("symlink from %s to %s\n", enc_from_path, enc_to_path);
 
@@ -602,6 +646,7 @@ tcfs_rename (const char *from, const char *to, unsigned int flags)
   char *enc_from = NULL;
   const char *enc_to_path = NULL;
   char *enc_to = NULL;
+  const char *key = NULL;
   int res;
 
   logInfo ("Called rename\n");
@@ -620,9 +665,13 @@ tcfs_rename (const char *from, const char *to, unsigned int flags)
       return -errno;
     }
 
-  enc_from_path = encrypt_path_and_filename (from, password);
+  // Get the key
+  key = get_key (key_id);
+  enc_from_path = encrypt_path_and_filename (from, key);
+  enc_to_path = encrypt_path_and_filename (to, key);
+  free_key (key);
+
   enc_from = prefix_path (enc_from_path, root_path);
-  enc_to_path = encrypt_path_and_filename (to, password);
   enc_to = prefix_path (enc_to_path, root_path);
   logInfo ("rename from %s to %s\n", enc_from_path, enc_to_path);
 
@@ -654,6 +703,7 @@ tcfs_link (const char *from, const char *to)
   char *enc_from = NULL;
   const char *enc_to_path = NULL;
   char *enc_to = NULL;
+  const char *key = NULL;
   int res;
 
   if (setjmp (jump_buffer) != 0)
@@ -672,9 +722,13 @@ tcfs_link (const char *from, const char *to)
 
   logInfo ("Called link\n");
 
-  enc_from_path = encrypt_path_and_filename (from, password);
+  // Get the key
+  key = get_key (key_id);
+  enc_from_path = encrypt_path_and_filename (from, key);
+  enc_to_path = encrypt_path_and_filename (to, key);
+  free_key (key);
+
   enc_from = prefix_path (enc_from_path, root_path);
-  enc_to_path = encrypt_path_and_filename (to, password);
   enc_to = prefix_path (enc_to_path, root_path);
   logInfo ("link from %s to %s\n", enc_from, enc_to);
 
@@ -710,6 +764,7 @@ tcfs_chmod (const char *fuse_path, mode_t mode, struct fuse_file_info *fi)
   int res;
   const char *enc_fuse_path = NULL;
   const char *path = NULL;
+  const char *key = NULL;
 
   logInfo ("Called chmod\n");
 
@@ -719,11 +774,15 @@ tcfs_chmod (const char *fuse_path, mode_t mode, struct fuse_file_info *fi)
         free ((void *)path);
       if (enc_fuse_path)
         free ((void *)enc_fuse_path);
-      logErr("Cannot execute chmod");
+      logErr ("Cannot execute chmod");
       return -errno;
     }
 
-  enc_fuse_path = encrypt_path (fuse_path, password);
+  // Get the key
+  key = get_key (key_id);
+  enc_fuse_path = encrypt_path (fuse_path, key);
+  free_key (key);
+
   path = prefix_path (enc_fuse_path, root_path);
 
   res = chmod (path, mode);
@@ -756,6 +815,7 @@ tcfs_chown (const char *fuse_path, uid_t uid, gid_t gid,
   (void)fi;
 
   const char *enc_fuse_path = NULL;
+  const char *key = NULL;
   const char *path = NULL;
 
   logInfo ("Called chown\n");
@@ -770,7 +830,11 @@ tcfs_chown (const char *fuse_path, uid_t uid, gid_t gid,
       return -errno;
     }
 
-  enc_fuse_path = encrypt_path (fuse_path, password);
+  // Get the key
+  key = get_key (key_id);
+  enc_fuse_path = encrypt_path (fuse_path, key);
+  free_key (key);
+
   path = prefix_path (enc_fuse_path, root_path);
 
   int res;
@@ -800,6 +864,7 @@ tcfs_truncate (const char *fuse_path, off_t size, struct fuse_file_info *fi)
   (void)fi;
   const char *enc_fuse_path = NULL;
   const char *path = NULL;
+  const char *key = NULL;
   int res;
 
   logInfo ("Called truncate\n");
@@ -812,7 +877,11 @@ tcfs_truncate (const char *fuse_path, off_t size, struct fuse_file_info *fi)
         free ((void *)enc_fuse_path);
     }
 
-  enc_fuse_path = encrypt_path (fuse_path, password);
+  // Get the key
+  key = get_key (key_id);
+  enc_fuse_path = encrypt_path (fuse_path, key);
+  free_key (key);
+
   path = prefix_path (enc_fuse_path, root_path);
 
   res = truncate (path, size);
@@ -856,6 +925,7 @@ tcfs_utimens (const char *fuse_path, const struct timespec ts[2],
   (void)fi;
 
   const char *enc_fuse_path = NULL;
+  const char *key = NULL;
   char *path = NULL;
   int res;
   struct timeval tv[2];
@@ -868,11 +938,15 @@ tcfs_utimens (const char *fuse_path, const struct timespec ts[2],
         free ((void *)path);
       if (enc_fuse_path)
         free ((void *)enc_fuse_path);
-      logErr("utimens invalid");
+      logErr ("utimens invalid");
       return -errno;
     }
 
-  enc_fuse_path = encrypt_path (fuse_path, password);
+  // Get the key
+  key = get_key (key_id);
+  enc_fuse_path = encrypt_path (fuse_path, key);
+  free_key (key);
+
   path = prefix_path (enc_fuse_path, root_path);
 
   tv[0].tv_sec = ts[0].tv_sec;
@@ -903,6 +977,7 @@ static int
 tcfs_open (const char *fuse_path, struct fuse_file_info *fi)
 {
   const char *enc_fuse_path = NULL;
+  const char *key = NULL;
   char *path = NULL;
   int res = 0;
 
@@ -914,11 +989,15 @@ tcfs_open (const char *fuse_path, struct fuse_file_info *fi)
         free ((void *)path);
       if (enc_fuse_path)
         free ((void *)enc_fuse_path);
-      logErr("cannot open");
+      logErr ("cannot open");
       return -errno;
     }
 
-  enc_fuse_path = encrypt_path (fuse_path, password);
+  // Get the key
+  key = get_key (key_id);
+  enc_fuse_path = encrypt_path (fuse_path, key);
+  free_key (key);
+
   path = prefix_path (enc_fuse_path, root_path);
   logInfo ("\topen on %s\n", path);
 
@@ -978,7 +1057,8 @@ file_size (FILE *file)
 /**
  * @brief Reads encrypted data from an open file and decrypts it.
  *
- * This function is called to read encrypted data from an open file and decrypt it. It uses AES decryption.
+ * This function is called to read encrypted data from an open file and decrypt
+ * it. It uses AES decryption.
  *
  * @param fuse_path The path to the file.
  * @param buf Buffer to fill with decrypted data.
@@ -988,13 +1068,15 @@ file_size (FILE *file)
  *
  * @return The number of bytes read, or a negative error code on failure.
  *
- * @note This function uses OpenSSL's RAND_bytes function to generate a random IV if the file is new.
- * It retrieves the file key and the IV from the file's extended attributes, decrypts the data, and writes the decrypted data to the buffer.
- * The function uses OpenSSL's EVP API for decryption.
- * It also sets up error handling using setjmp.
+ * @note This function uses OpenSSL's RAND_bytes function to generate a random
+ * IV if the file is new. It retrieves the file key and the IV from the file's
+ * extended attributes, decrypts the data, and writes the decrypted data to the
+ * buffer. The function uses OpenSSL's EVP API for decryption. It also sets up
+ * error handling using setjmp.
  *
- * @warning This function allocates memory for various data including the IV, the file key, and the decrypted data.
- * It is the responsibility of this function to free this memory before it returns.
+ * @warning This function allocates memory for various data including the IV,
+ * the file key, and the decrypted data. It is the responsibility of this
+ * function to free this memory before it returns.
  */
 static int
 tcfs_read (const char *fuse_path, char *buf, size_t size, off_t offset,
@@ -1002,7 +1084,7 @@ tcfs_read (const char *fuse_path, char *buf, size_t size, off_t offset,
 {
   (void)size;
   (void)fi;
-  (void) offset; //TODO: use offset;
+  (void)offset; // TODO: use offset;
 
   FILE *path_ptr = NULL;
   char *path;
@@ -1013,6 +1095,7 @@ tcfs_read (const char *fuse_path, char *buf, size_t size, off_t offset,
   unsigned char *decrypted_key = NULL;
   unsigned char *iv = NULL;
   unsigned char *plaintext = NULL;
+  const char *key = NULL;
   char err_string[80];
 
   logInfo ("Calling read\n");
@@ -1033,7 +1116,11 @@ tcfs_read (const char *fuse_path, char *buf, size_t size, off_t offset,
       return -errno;
     }
 
-  enc_fuse_path = encrypt_path (fuse_path, password);
+  // Get the key
+  key = get_key (key_id);
+  enc_fuse_path = encrypt_path (fuse_path, key);
+  free_key (key);
+
   path = prefix_path (enc_fuse_path, root_path);
   logInfo ("\tread on %s\n", path);
 
@@ -1060,27 +1147,34 @@ tcfs_read (const char *fuse_path, char *buf, size_t size, off_t offset,
       longjmp (jump_buffer, 1);
     }
 
-  //Retrieve the IV
-  iv = malloc ((IV_SIZE * sizeof (char )));
-  if (tcfs_getxattr (fuse_path, IV_ATTR_NAME, (char *)iv, IV_SIZE) < 0){
+  // Retrieve the IV
+  iv = malloc ((IV_SIZE * sizeof (char)));
+  if (tcfs_getxattr (fuse_path, IV_ATTR_NAME, (char *)iv, IV_SIZE) < 0)
+    {
       strcpy (err_string, "Error in read, could not get the IV");
       longjmp (jump_buffer, 1);
     }
 
   // Decrypt the file key
-  decrypted_key = decrypt_string (encrypted_key, (const char *)password);
+  key = get_key (key_id);
+  decrypted_key = decrypt_string (encrypted_key, key);
+  free_key (key);
 
   // Decrypt
-  if (do_crypt (DECRYPT, path_ptr, &plaintext, 0, (unsigned char *)decrypted_key, iv) == false)
+  if (do_crypt (DECRYPT, path_ptr, &plaintext, 0,
+                (unsigned char *)decrypted_key, iv)
+      == false)
     {
       strcpy (err_string, "Error in read, do_crypt cannot decrypt file");
       longjmp (jump_buffer, 1);
     }
 
   // Copy the decrypted text into the buffer.
-  size_t plaintext_len = strlen((const char *)plaintext) + 1;
-  if (plaintext_len > size) {
-      strcpy(err_string, "Error: Buffer is not large enough for the decrypted data.\n");
+  size_t plaintext_len = strlen ((const char *)plaintext) + 1;
+  if (plaintext_len > size)
+    {
+      strcpy (err_string,
+              "Error: Buffer is not large enough for the decrypted data.\n");
       errno = ERR_inval_read_buf_size;
       longjmp (jump_buffer, 1);
     }
@@ -1099,7 +1193,8 @@ tcfs_read (const char *fuse_path, char *buf, size_t size, off_t offset,
 /**
  * @brief Writes encrypted data to an open file.
  *
- * This function is called to write encrypted data to an open file. It uses AES encryption.
+ * This function is called to write encrypted data to an open file. It uses AES
+ * encryption.
  *
  * @param fuse_path The path to the file.
  * @param buf Data to write.
@@ -1109,27 +1204,29 @@ tcfs_read (const char *fuse_path, char *buf, size_t size, off_t offset,
  *
  * @return The number of bytes written, or a negative error code on failure.
  *
- * @note This function uses OpenSSL's RAND_bytes function to generate a random IV if the file is new.
- * It retrieves the file key and the IV from the file's extended attributes, decrypts the file key,
- * encrypts the data, and writes the encrypted data to the file.
- * The function uses OpenSSL's EVP API for encryption.
- * It also sets up error handling using setjmp.
+ * @note This function uses OpenSSL's RAND_bytes function to generate a random
+ * IV if the file is new. It retrieves the file key and the IV from the file's
+ * extended attributes, decrypts the file key, encrypts the data, and writes
+ * the encrypted data to the file. The function uses OpenSSL's EVP API for
+ * encryption. It also sets up error handling using setjmp.
  *
- * @warning This function allocates memory for various data including the IV, the file key, and the encrypted data.
- * It is the responsibility of this function to free this memory before it returns.
+ * @warning This function allocates memory for various data including the IV,
+ * the file key, and the encrypted data. It is the responsibility of this
+ * function to free this memory before it returns.
  */
 static int
 tcfs_write (const char *fuse_path, const char *buf, size_t size, off_t offset,
             struct fuse_file_info *fi)
 {
   (void)fi;
-  (void) offset; //TODO: use offset;
+  (void)offset; // TODO: use offset;
 
   logInfo ("Called write\n");
 
   FILE *path_ptr = NULL;
   char *path;
   const char *enc_fuse_path = NULL;
+  const char *key = NULL;
   char *size_key_char = NULL;
   unsigned char *encrypted_key = NULL;
   unsigned char *decrypted_key = NULL;
@@ -1155,17 +1252,22 @@ tcfs_write (const char *fuse_path, const char *buf, size_t size, off_t offset,
       if (iv)
         free ((void *)iv);
       if (enc_buf)
-        free((void *) enc_buf);
+        free ((void *)enc_buf);
       logErr (err_string);
       return -errno;
     }
 
-  enc_fuse_path = encrypt_path (fuse_path, password);
+  // Get the key
+  key = get_key (key_id);
+  enc_fuse_path = encrypt_path (fuse_path, key);
+  free_key (key);
+
   path = prefix_path (enc_fuse_path, root_path);
   logInfo ("\twrite on %s\n", path);
 
   path_ptr = fopen (path, "a+");
-  if (path_ptr == NULL) {
+  if (path_ptr == NULL)
+    {
       strcpy (err_string, "Read error, could not open file");
       longjmp (jump_buffer, 1);
     }
@@ -1190,15 +1292,20 @@ tcfs_write (const char *fuse_path, const char *buf, size_t size, off_t offset,
     }
 
   // Decrypt the file key
-  decrypted_key = decrypt_string (encrypted_key, password);
+  key = get_key (key_id);
+  decrypted_key = decrypt_string (encrypted_key, key);
+  free_key (key);
 
   // Retrive the IV or generate a new one if the file is new
-  iv = malloc ((IV_SIZE * sizeof (char )));
-  if (tcfs_getxattr (fuse_path, IV_ATTR_NAME, (char *)iv, IV_SIZE) < 0){
-      iv = generate_iv();
+  iv = malloc ((IV_SIZE * sizeof (char)));
+  if (tcfs_getxattr (fuse_path, IV_ATTR_NAME, (char *)iv, IV_SIZE) < 0)
+    {
+      iv = generate_iv ();
       logInfo ("IV generated");
-      int set_iv = tcfs_setxattr(fuse_path, IV_ATTR_NAME, (const char *)iv, IV_SIZE, 0);
-      if (set_iv < 0){
+      int set_iv = tcfs_setxattr (fuse_path, IV_ATTR_NAME, (const char *)iv,
+                                  IV_SIZE, 0);
+      if (set_iv < 0)
+        {
           strcpy (err_string, "Error in write, cannot set the IV");
           longjmp (jump_buffer, 1);
         }
@@ -1212,7 +1319,8 @@ tcfs_write (const char *fuse_path, const char *buf, size_t size, off_t offset,
     }
 
   // Encrypt
-  encrypted_len = do_crypt (ENCRYPT, path_ptr, (unsigned char **)&buf, (int)size, (unsigned char *)decrypted_key, iv);
+  encrypted_len = do_crypt (ENCRYPT, path_ptr, (unsigned char **)&buf,
+                            (int)size, (unsigned char *)decrypted_key, iv);
   if (encrypted_len == false)
     {
       strcpy (err_string, "Error in write, cannot cypher file");
@@ -1225,7 +1333,7 @@ tcfs_write (const char *fuse_path, const char *buf, size_t size, off_t offset,
   free ((void *)size_key_char);
   free ((void *)encrypted_key);
   free ((void *)decrypted_key);
-  free ((void *) enc_buf);
+  free ((void *)enc_buf);
 
   return encrypted_len;
 }
@@ -1300,10 +1408,9 @@ tcfs_setxattr (const char *fuse_path, const char *name, const char *value,
                size_t size, int flags)
 {
   const char *enc_fuse_path = NULL;
+  const char *key = NULL;
   const char *path = NULL;
   int res = 1;
-
-  logInfo ("\tsetxattr encrypt_path %s settin%s:%s\n", path, name, value);
 
   if (setjmp (jump_buffer) != 0)
     {
@@ -1315,8 +1422,14 @@ tcfs_setxattr (const char *fuse_path, const char *name, const char *value,
       return -errno;
     }
 
-  enc_fuse_path = encrypt_path (fuse_path, password);
+  // Get the key
+  key = get_key (key_id);
+  enc_fuse_path = encrypt_path (fuse_path, key);
+  free_key (key);
+
   path = prefix_path (enc_fuse_path, root_path);
+
+  logInfo ("\tsetxattr encrypt_path %s setting %s:%s\n", path, name, value);
 
   res = lsetxattr (path, name, value, size, flags);
   if (res == -1)
@@ -1363,7 +1476,8 @@ tcfs_create (const char *fuse_path, mode_t mode, struct fuse_file_info *fi)
 
   const char *enc_fuse_path = NULL;
   const char *fullpath = NULL;
-  unsigned char *key = NULL;
+  unsigned char *file_key = NULL;
+  const char *key = NULL;
   int encrypted_key_len = 0;
   unsigned char *encrypted_key = NULL;
   char encrypted_key_len_char[20];
@@ -1380,15 +1494,19 @@ tcfs_create (const char *fuse_path, mode_t mode, struct fuse_file_info *fi)
         free ((void *)enc_fuse_path);
       if (encrypted_key)
         free ((void *)encrypted_key);
-      if (key)
-        free ((void *)key);
+      if (file_key)
+        free ((void *)file_key);
       if (res)
         fclose (res);
       logErr (err_string);
       return -errno;
     }
 
-  enc_fuse_path = encrypt_path_and_filename (fuse_path, password);
+  // Get the key
+  key = get_key (key_id);
+  enc_fuse_path = encrypt_path_and_filename (fuse_path, key);
+  free_key (key);
+
   fullpath = prefix_path (enc_fuse_path, root_path);
   logInfo ("\tcreating %s\n", fullpath);
 
@@ -1399,6 +1517,7 @@ tcfs_create (const char *fuse_path, mode_t mode, struct fuse_file_info *fi)
       longjmp (jump_buffer, 0);
     }
 
+  logDebug ("Calling setxattr user.encrypted on %s", fuse_path);
   // Flag file as encrypted
   if (tcfs_setxattr (fuse_path, "user.encrypted", "true", 4, 0)
       != TCFS_SUCCESS)
@@ -1409,24 +1528,23 @@ tcfs_create (const char *fuse_path, mode_t mode, struct fuse_file_info *fi)
     }
 
   // Generate and set a new encrypted key for the file
-  key = malloc (sizeof (unsigned char) * 33);
-  key[32] = '\0';
-  generate_key (key);
+  file_key = malloc (sizeof (unsigned char) * 33);
+  file_key[32] = '\0';
+  generate_key (file_key);
 
-  if (key == NULL)
+  if (file_key == NULL)
     {
       strcpy (err_string, "Error in create, cannot generate file key");
       longjmp (jump_buffer, 1);
     }
-  /*if (is_valid_key (key) == false)
-    {
-      perror ("Generated key size invalid\n");
-      return -1;
-    }This should not be needed anymore*/
 
   // Encrypt the generated key
-  encrypted_key = encrypt_string (key, password, &encrypted_key_len);
+  logDebug ("Encrypting file key");
+  key = get_key (key_id);
+  encrypted_key = encrypt_string (file_key, key, &encrypted_key_len);
+  free_key (key);
 
+  logDebug ("Setting file key");
   // Set the file key
   if (tcfs_setxattr (fuse_path, "user.key", (const char *)encrypted_key,
                      encrypted_key_len, 0)
@@ -1449,7 +1567,7 @@ tcfs_create (const char *fuse_path, mode_t mode, struct fuse_file_info *fi)
   free ((void *)fullpath);
   free ((void *)enc_fuse_path);
   free ((void *)encrypted_key);
-  free ((void *)key);
+  free ((void *)file_key);
   fclose (res);
 
   return TCFS_SUCCESS;
@@ -1467,10 +1585,10 @@ tcfs_create (const char *fuse_path, mode_t mode, struct fuse_file_info *fi)
 static int
 tcfs_release (const char *fuse_path, struct fuse_file_info *fi)
 {
-  (void) fuse_path;
-  (void) fi;
-  /*const char *enc_fuse_path = encrypt_path_and_filename (fuse_path, password);
-  const char *path = prefix_path (enc_fuse_path, root_path);
+  (void)fuse_path;
+  (void)fi;
+  /*const char *enc_fuse_path = encrypt_path_and_filename (fuse_path,
+  password); const char *path = prefix_path (enc_fuse_path, root_path);
   logMessage ("release %s\n", path);
 
   //Close the file
@@ -1502,7 +1620,10 @@ static int
 tcfs_fsync (const char *fuse_path, int isdatasync, struct fuse_file_info *fi)
 {
   /* Get the real path */
-  const char *enc_fuse_path = encrypt_path_and_filename (fuse_path, password);
+  const char *key = get_key (key_id);
+  const char *enc_fuse_path = encrypt_path_and_filename (fuse_path, key);
+  free_key (key);
+
   const char *path = prefix_path (enc_fuse_path, root_path);
   logInfo ("\tfsync %s\n", path);
 
@@ -1556,7 +1677,10 @@ static int
 tcfs_getxattr (const char *fuse_path, const char *name, char *value,
                size_t size)
 {
-  const char *enc_fuse_path = encrypt_path_and_filename (fuse_path, password);
+  const char *key = get_key (key_id);
+  const char *enc_fuse_path = encrypt_path_and_filename (fuse_path, key);
+  free_key (key);
+
   const char *path = prefix_path (enc_fuse_path, root_path);
 
   logInfo ("Called getxattr on %s name:%s size:%zu\n", path, name, size);
@@ -1585,7 +1709,10 @@ static int
 tcfs_listxattr (const char *fuse_path, char *list, size_t size)
 {
   logInfo ("Called listxattr\n");
-  const char *enc_fuse_path = encrypt_path_and_filename (fuse_path, password);
+  const char *key = get_key (key_id);
+  const char *enc_fuse_path = encrypt_path_and_filename (fuse_path, key);
+  free_key (key_id);
+
   const char *path = prefix_path (enc_fuse_path, root_path);
   logInfo ("\tlistxattr %s\n", path);
 
@@ -1624,7 +1751,10 @@ static int
 tcfs_removexattr (const char *fuse_path, const char *name)
 {
   logInfo ("Called removexattr\n");
-  const char *enc_fuse_path = encrypt_path_and_filename (fuse_path, password);
+  const char *key = get_key (key_id);
+  const char *enc_fuse_path = encrypt_path_and_filename (fuse_path, key);
+  free_key (key);
+
   const char *path = prefix_path (enc_fuse_path, root_path);
   logInfo ("\tremovexattr %s\n", path);
 
@@ -1678,42 +1808,47 @@ static struct fuse_operations tcfs_oper = {
  * @return fuse_main result on success, error code on failure.
  */
 
-int main(int argc, char *argv[]) {
-  struct config *conf = malloc (sizeof(struct config));
+int
+main (int argc, char *argv[])
+{
+  struct config *conf = malloc (sizeof (struct config));
   char *config_file = NULL;
   int c;
   int fuse_result;
 
-  //Change file permissions
+  // Change file permissions
   umask (0);
 
-  config_file = strdup(DEFAULT_CONFIG_FILE);
-  //Read if a different config file location is set
-  while ((c = getopt(argc, argv, "c:")) != -1) {
-      switch (c) {
+  config_file = strdup (DEFAULT_CONFIG_FILE);
+  // Read if a different config file location is set
+  while ((c = getopt (argc, argv, "c:")) != -1)
+    {
+      switch (c)
+        {
         case 'c':
-          config_file = strdup(optarg);
+          config_file = strdup (optarg);
           break;
         case '?':
           if (optopt == 'c')
-            logErr("Option -%c requires an argument.\n", optopt);
+            logErr ("Option -%c requires an argument.\n", optopt);
           else
-            logErr("Unknown option `-%c'.\n", optopt);
-          return 1;
+            logErr ("Unknown option `-%c'.\n", optopt);
+          return -ERR_inval_arg_len;
         default:
-          abort();
+          abort ();
         }
     }
 
   // Load config
-  if (parse_config(config_file, conf) != true) {
-      logErr("Cannot load config from %s\n", config_file);
-      free(config_file);
+  if (parse_config (config_file, conf) != true)
+    {
+      logErr ("Cannot load config from %s\n", config_file);
+      free (config_file);
       return EXIT_FAILURE;
     }
 
   // Set debug level
-  set_debug_level(conf->debug);
+  set_debug_level (conf->debug);
 
   // Set log_to_console
   enable_console_logging (conf->log_to_console);
@@ -1721,37 +1856,32 @@ int main(int argc, char *argv[]) {
   // Set the root path
   root_path = conf->source;
 
-  // Check if submitted key is valid
-  if (is_valid_key ((unsigned char *)conf->password) == TCFS_SUCCESS)
-    {
-      logErr("Inserted key not valid\n");
-      return -ERR_inval_key;
-    }
+  // Set key id
+  key_id = conf->key_id;
 
   // Load arguments in fuse
   struct fuse_args args_fuse = FUSE_ARGS_INIT (0, NULL);
   fuse_opt_add_arg (&args_fuse, "./tcfs");
   fuse_opt_add_arg (&args_fuse, conf->destination);
-  fuse_opt_add_arg (&args_fuse,conf->params);
-
-  // Save the password. WARN: This is already deprecated, the next update will handle key with Keyutils
-  password = conf->password;
+  fuse_opt_add_arg (&args_fuse, conf->params);
 
   fuse_result = fuse_main (args_fuse.argc, args_fuse.argv, &tcfs_oper, NULL);
-  if (fuse_result != 0){
-      logWarn("Fuse stopped with an error");
+  if (fuse_result != 0)
+    {
+      logWarn ("Fuse stopped with an error");
       return -EXIT_FAILURE;
     }
-  else{
-      logWarn("Fuse exited");
+  else
+    {
+      logWarn ("Fuse exited");
     }
 
   // Free the memory used by the configuration
-  free(config_file);
-  free(conf->source);
-  free(conf->destination);
-  free(conf->key_id);
-  free(conf);
+  free (config_file);
+  free (conf->source);
+  free (conf->destination);
+  free (conf->key_id);
+  free (conf);
 
   return fuse_result;
 }

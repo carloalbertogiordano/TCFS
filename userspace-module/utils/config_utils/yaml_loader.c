@@ -36,13 +36,13 @@ parse_config (const char *file_path, struct config *conf)
 
   if (!file)
     {
-      logErr("Failed to open logfile");
+      logErr ("Failed to open logfile");
       return false;
     }
 
   if (!yaml_parser_initialize (&parser))
     {
-      logErr("Failed to initialize the YAML parser");
+      logErr ("Failed to initialize the YAML parser");
       return false;
     }
 
@@ -71,10 +71,6 @@ parse_config (const char *file_path, struct config *conf)
               else if (strcmp (key, "key_id") == 0)
                 {
                   conf->key_id = strdup ((char *)event.data.scalar.value);
-                }
-              else if (strcmp (key, "password") == 0)
-                {
-                  conf->password = strdup ((char *)event.data.scalar.value);
                 }
               else if (strcmp (key, "params") == 0)
                 {
@@ -106,13 +102,14 @@ parse_config (const char *file_path, struct config *conf)
                 }
               else if (strcmp (key, "log_to_console") == 0)
                 {
-                  if (strcmp ((char *)event.data.scalar.value, "true") == 0){
-                    conf->log_to_console = true;
-                  }
-                  else{
-                    conf->log_to_console = false;
-                  }
-
+                  if (strcmp ((char *)event.data.scalar.value, "true") == 0)
+                    {
+                      conf->log_to_console = true;
+                    }
+                  else
+                    {
+                      conf->log_to_console = false;
+                    }
                 }
               value_next = false;
             }

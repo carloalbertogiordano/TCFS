@@ -24,11 +24,13 @@ static DebugLevel debug_level = DEBUG_NONE;
 /**
  * @brief Enables or disables console logging.
  *
- * This function is used to control whether log messages are also printed to the console.
- * If @p enable is true, log messages will be printed to the console. If @p enable is false,
- * log messages will not be printed to the console.
+ * This function is used to control whether log messages are also printed to
+ * the console. If @p enable is true, log messages will be printed to the
+ * console. If @p enable is false, log messages will not be printed to the
+ * console.
  *
- * @param enable A boolean value indicating whether to enable (true) or disable (false) console logging.
+ * @param enable A boolean value indicating whether to enable (true) or disable
+ * (false) console logging.
  */
 void
 enable_console_logging (bool enable)
@@ -126,14 +128,26 @@ logErr (const char *format, ...)
   va_list args;
   va_start (args, format);
 
-  va_list args_copy;
-  va_copy (args_copy, args);
-
-  log_to_file (format, args);
-  log_to_console_if_enabled (format, args_copy);
-
+  // Format the error message
+  char error_message[256]; // Arbitrary size for the error message
+  vsnprintf (error_message, sizeof (error_message), format, args);
   va_end (args);
-  va_end (args_copy);
+
+  // Get the actual error using perror
+  char perror_message[256]; // Arbitrary size for perror
+  snprintf (perror_message, sizeof (perror_message), ": %s", strerror (errno));
+
+  // Concatenate the actual error to the log message
+  strcat (error_message, perror_message);
+
+  // Log the complete error message
+  va_start (args, format);
+  log_to_file (error_message, args);
+  va_end (args);
+
+  va_start (args, format);
+  log_to_console_if_enabled (error_message, args);
+  va_end (args);
 }
 
 void
