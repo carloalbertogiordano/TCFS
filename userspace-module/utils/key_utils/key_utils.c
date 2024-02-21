@@ -64,14 +64,14 @@ get_key (const char *key_id_str)
  * @param key A pointer to the key to free.
  */
 void
-free_key (unsigned char *key)
+free_key (const char *key)
 {
   // Overwrite the memory used to store the key
-  memset (key, 0, 32);
+  memset ((void *)key, 0, 32);
 
   // Allow the process to generate a core dump
   prctl (PR_SET_DUMPABLE, 1);
 
   // Free the memory
-  free (key);
+  free ((void *)key);
 }
