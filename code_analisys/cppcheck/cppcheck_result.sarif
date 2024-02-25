@@ -37,34 +37,34 @@ user/old_stuff/tcfs_helper_tools.c:102:26: note: Null pointer dereference
 user/old_stuff/tcfs_helper_tools.c:166:10: style: Variable 'ch' is assigned a value that is never used. [unreadVariable]
   int ch = 0;
          ^
-userspace-module/tcfs.c:1534:3: warning: Either the condition 'file_key==NULL' is redundant or there is possible null pointer dereference: file_key. [nullPointerRedundantCheck]
+userspace-module/tcfs.c:1532:3: warning: Either the condition 'file_key==NULL' is redundant or there is possible null pointer dereference: file_key. [nullPointerRedundantCheck]
   file_key[32] = '\0';
   ^
-userspace-module/tcfs.c:1537:16: note: Assuming that condition 'file_key==NULL' is not redundant
+userspace-module/tcfs.c:1535:16: note: Assuming that condition 'file_key==NULL' is not redundant
   if (file_key == NULL)
                ^
-userspace-module/tcfs.c:1534:3: note: Null pointer dereference
+userspace-module/tcfs.c:1532:3: note: Null pointer dereference
   file_key[32] = '\0';
   ^
-userspace-module/tcfs.c:364:11: style: Consecutive return, break, continue, goto or throw statements are unnecessary. [duplicateBreak]
+userspace-module/tcfs.c:362:11: style: Consecutive return, break, continue, goto or throw statements are unnecessary. [duplicateBreak]
           break;
           ^
-userspace-module/tcfs.c:298:11: error: Uninitialized variable: de [uninitvar]
+userspace-module/tcfs.c:296:11: error: Uninitialized variable: de [uninitvar]
       if (de)
           ^
-userspace-module/tcfs.c:1107:11: error: Uninitialized variable: path [uninitvar]
+userspace-module/tcfs.c:1105:11: error: Uninitialized variable: path [uninitvar]
       if (path)
           ^
-userspace-module/tcfs.c:1244:11: error: Uninitialized variable: path [uninitvar]
+userspace-module/tcfs.c:1242:11: error: Uninitialized variable: path [uninitvar]
       if (path)
           ^
-userspace-module/tcfs.c:315:27: style: Variable 'error_return_number' is assigned a value that is never used. [unreadVariable]
+userspace-module/tcfs.c:313:27: style: Variable 'error_return_number' is assigned a value that is never used. [unreadVariable]
       error_return_number = errno;
                           ^
-userspace-module/tcfs.c:346:35: style: Variable 'error_return_number' is assigned a value that is never used. [unreadVariable]
+userspace-module/tcfs.c:344:35: style: Variable 'error_return_number' is assigned a value that is never used. [unreadVariable]
               error_return_number = -ERR_inval_enc_dir_name;
                                   ^
-userspace-module/tcfs.c:362:31: style: Variable 'error_return_number' is assigned a value that is never used. [unreadVariable]
+userspace-module/tcfs.c:360:31: style: Variable 'error_return_number' is assigned a value that is never used. [unreadVariable]
           error_return_number = errno;
                               ^
 userspace-module/utils/config_utils/yaml_loader.c:46:7: error: Resource leak: file [resourceLeak]
@@ -106,7 +106,7 @@ userspace-module/utils/crypt-utils/crypt-utils.c:952:0: style: The function 'dec
 userspace-module/utils/crypt-utils/crypt-utils.c:1098:0: style: The function 'encrypt_buffer' is never used. [unusedFunction]
 
 ^
-userspace-module/tcfs.c:1047:0: style: The function 'file_size' is never used. [unusedFunction]
+userspace-module/tcfs.c:1045:0: style: The function 'file_size' is never used. [unusedFunction]
 
 ^
 userspace-module/utils/tcfs_utils/tcfs_utils.c:20:0: style: The function 'get_user_name' is never used. [unusedFunction]
