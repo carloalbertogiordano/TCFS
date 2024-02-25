@@ -6,6 +6,8 @@
 #include <string.h>
 #include <sys/prctl.h>
 
+const char *key_id_str;
+
 /**
  * @brief Retrieves a key from the kernel keyring.
  *
@@ -17,7 +19,7 @@
  * occurred.
  */
 unsigned char *
-get_key (const char *key_id_str)
+get_key (void )
 {
   key_serial_t key_id;
   long ret;
@@ -74,4 +76,17 @@ free_key (const char *key)
 
   // Free the memory
   free ((void *)key);
+}
+
+extern bool
+set_key_id (const char *value)
+{
+  key_id_str = malloc (strlen (value) + 1);
+  if (!key_id_str)
+    {
+      logErr ("Cannot allocate memory for key id");
+      return false;
+    }
+  strcpy ((char *)key_id_str, value);
+  return true;
 }

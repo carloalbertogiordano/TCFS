@@ -46,8 +46,6 @@ char *root_path;
 
 static jmp_buf jump_buffer;
 
-static const char *key_id = NULL;
-
 static int tcfs_getxattr (const char *fuse_path, const char *name, char *value,
                           size_t size);
 static int tcfs_setxattr (const char *fuse_path, const char *name,
@@ -86,7 +84,7 @@ tcfs_opendir (const char *fuse_path, struct fuse_file_info *fi)
   logInfo ("Called opendir %s\n", fuse_path);
 
   // Get the key
-  key = get_key (key_id);
+  key = get_key ();
   enc_fuse_path = encrypt_path (fuse_path, key);
   // Free the key
   free_key (key);
@@ -139,7 +137,7 @@ tcfs_getattr (const char *fuse_path, struct stat *stbuf,
     }
 
   // Get the key
-  key = get_key (key_id);
+  key = get_key ();
   enc_fuse_path = encrypt_path (fuse_path, key);
   free_key (key);
 
@@ -188,7 +186,7 @@ tcfs_access (const char *fuse_path, int mask)
     }
 
   // Get the key
-  key = get_key (key_id);
+  key = get_key ();
   enc_fuse_path = encrypt_path (fuse_path, key);
   free_key (key);
 
@@ -238,7 +236,7 @@ tcfs_readlink (const char *fuse_path, char *buf, size_t size)
     }
 
   // Get the key
-  key = get_key (key_id);
+  key = get_key ();
   enc_fuse_path = encrypt_path (fuse_path, key);
   free_key (key);
 
@@ -303,7 +301,7 @@ tcfs_readdir (const char *fuse_path, void *buf, fuse_fill_dir_t filler,
 
   logInfo ("Called readdir %s\n", fuse_path);
   // Get the key
-  key = get_key (key_id);
+  key = get_key ();
   enc_path = encrypt_path (fuse_path, key);
   free_key (key);
   path = prefix_path (enc_path, root_path);
@@ -338,7 +336,7 @@ tcfs_readdir (const char *fuse_path, void *buf, fuse_fill_dir_t filler,
       else
         {
           // Get the key
-          key = get_key (key_id);
+          key = get_key ();
           const char *dec_dirname = decrypt_path (de->d_name, key);
           free_key (key);
           if (dec_dirname == NULL)
@@ -404,7 +402,7 @@ tcfs_mknod (const char *fuse_path, mode_t mode, dev_t rdev)
     }
 
   // Get the key
-  key = get_key (key_id);
+  key = get_key ();
   enc_fuse_path = encrypt_path (fuse_path, key);
   free_key (key);
   path = prefix_path (enc_fuse_path, root_path);
@@ -461,7 +459,7 @@ tcfs_mkdir (const char *fuse_path, mode_t mode)
   logInfo ("Called mkdir on %s\n", fuse_path);
 
   // Get the key
-  key = get_key (key_id);
+  key = get_key ();
   enc_path = encrypt_path (fuse_path, key);
   free_key (key);
   logInfo ("\tmkdir prefix_path (%s, %s)\n", enc_path, root_path);
@@ -507,7 +505,7 @@ tcfs_unlink (const char *fuse_path)
   logInfo ("Called unlink\n");
 
   // Get the key
-  key = get_key (key_id);
+  key = get_key ();
   enc_fuse_path = encrypt_path (fuse_path, key);
   free_key (key);
 
@@ -551,7 +549,7 @@ tcfs_rmdir (const char *fuse_path)
   logInfo ("Called rmdir\n");
 
   // Get the key
-  key = get_key (key_id);
+  key = get_key ();
   enc_fuse_path = encrypt_path (fuse_path, key);
   free_key (key);
 
@@ -604,7 +602,7 @@ tcfs_symlink (const char *from, const char *to)
     }
 
   // Get the key
-  key = get_key (key_id);
+  key = get_key ();
   enc_from_path = encrypt_path_and_filename (from, key);
   enc_to_path = encrypt_path_and_filename (to, key);
   free_key (key);
@@ -666,7 +664,7 @@ tcfs_rename (const char *from, const char *to, unsigned int flags)
     }
 
   // Get the key
-  key = get_key (key_id);
+  key = get_key ();
   enc_from_path = encrypt_path_and_filename (from, key);
   enc_to_path = encrypt_path_and_filename (to, key);
   free_key (key);
@@ -723,7 +721,7 @@ tcfs_link (const char *from, const char *to)
   logInfo ("Called link\n");
 
   // Get the key
-  key = get_key (key_id);
+  key = get_key ();
   enc_from_path = encrypt_path_and_filename (from, key);
   enc_to_path = encrypt_path_and_filename (to, key);
   free_key (key);
@@ -779,7 +777,7 @@ tcfs_chmod (const char *fuse_path, mode_t mode, struct fuse_file_info *fi)
     }
 
   // Get the key
-  key = get_key (key_id);
+  key = get_key ();
   enc_fuse_path = encrypt_path (fuse_path, key);
   free_key (key);
 
@@ -831,7 +829,7 @@ tcfs_chown (const char *fuse_path, uid_t uid, gid_t gid,
     }
 
   // Get the key
-  key = get_key (key_id);
+  key = get_key ();
   enc_fuse_path = encrypt_path (fuse_path, key);
   free_key (key);
 
@@ -878,7 +876,7 @@ tcfs_truncate (const char *fuse_path, off_t size, struct fuse_file_info *fi)
     }
 
   // Get the key
-  key = get_key (key_id);
+  key = get_key ();
   enc_fuse_path = encrypt_path (fuse_path, key);
   free_key (key);
 
@@ -943,7 +941,7 @@ tcfs_utimens (const char *fuse_path, const struct timespec ts[2],
     }
 
   // Get the key
-  key = get_key (key_id);
+  key = get_key ();
   enc_fuse_path = encrypt_path (fuse_path, key);
   free_key (key);
 
@@ -994,7 +992,7 @@ tcfs_open (const char *fuse_path, struct fuse_file_info *fi)
     }
 
   // Get the key
-  key = get_key (key_id);
+  key = get_key ();
   enc_fuse_path = encrypt_path (fuse_path, key);
   free_key (key);
 
@@ -1117,7 +1115,7 @@ tcfs_read (const char *fuse_path, char *buf, size_t size, off_t offset,
     }
 
   // Get the key
-  key = get_key (key_id);
+  key = get_key ();
   enc_fuse_path = encrypt_path (fuse_path, key);
   free_key (key);
 
@@ -1156,7 +1154,7 @@ tcfs_read (const char *fuse_path, char *buf, size_t size, off_t offset,
     }
 
   // Decrypt the file key
-  key = get_key (key_id);
+  key = get_key ();
   decrypted_key = decrypt_string (encrypted_key, key);
   free_key (key);
 
@@ -1260,7 +1258,7 @@ tcfs_write (const char *fuse_path, const char *buf, size_t size, off_t offset,
     }
 
   // Get the key
-  key = get_key (key_id);
+  key = get_key ();
   enc_fuse_path = encrypt_path (fuse_path, key);
   free_key (key);
 
@@ -1294,7 +1292,7 @@ tcfs_write (const char *fuse_path, const char *buf, size_t size, off_t offset,
     }
 
   // Decrypt the file key
-  key = get_key (key_id);
+  key = get_key ();
   decrypted_key = decrypt_string (encrypted_key, key);
   free_key (key);
 
@@ -1425,7 +1423,7 @@ tcfs_setxattr (const char *fuse_path, const char *name, const char *value,
     }
 
   // Get the key
-  key = get_key (key_id);
+  key = get_key ();
   enc_fuse_path = encrypt_path (fuse_path, key);
   free_key (key);
 
@@ -1505,7 +1503,7 @@ tcfs_create (const char *fuse_path, mode_t mode, struct fuse_file_info *fi)
     }
 
   // Get the key
-  key = get_key (key_id);
+  key = get_key ();
   enc_fuse_path = encrypt_path_and_filename (fuse_path, key);
   free_key (key);
 
@@ -1542,7 +1540,7 @@ tcfs_create (const char *fuse_path, mode_t mode, struct fuse_file_info *fi)
 
   // Encrypt the generated key
   logDebug ("Encrypting file key");
-  key = get_key (key_id);
+  key = get_key ();
   encrypted_key = encrypt_string (file_key, key, &encrypted_key_len);
   free_key (key);
 
@@ -1622,7 +1620,7 @@ static int
 tcfs_fsync (const char *fuse_path, int isdatasync, struct fuse_file_info *fi)
 {
   /* Get the real path */
-  const char *key = get_key (key_id);
+  const char *key = get_key ();
   const char *enc_fuse_path = encrypt_path_and_filename (fuse_path, key);
   free_key (key);
 
@@ -1679,7 +1677,7 @@ static int
 tcfs_getxattr (const char *fuse_path, const char *name, char *value,
                size_t size)
 {
-  const char *key = get_key (key_id);
+  const char *key = get_key ();
   const char *enc_fuse_path = encrypt_path_and_filename (fuse_path, key);
   free_key (key);
 
@@ -1711,9 +1709,9 @@ static int
 tcfs_listxattr (const char *fuse_path, char *list, size_t size)
 {
   logInfo ("Called listxattr\n");
-  const char *key = get_key (key_id);
+  const char *key = get_key ();
   const char *enc_fuse_path = encrypt_path_and_filename (fuse_path, key);
-  free_key (key_id);
+  free_key (key);
 
   const char *path = prefix_path (enc_fuse_path, root_path);
   logInfo ("\tlistxattr %s\n", path);
@@ -1753,7 +1751,7 @@ static int
 tcfs_removexattr (const char *fuse_path, const char *name)
 {
   logInfo ("Called removexattr\n");
-  const char *key = get_key (key_id);
+  const char *key = get_key ();
   const char *enc_fuse_path = encrypt_path_and_filename (fuse_path, key);
   free_key (key);
 
@@ -1859,7 +1857,8 @@ main (int argc, char *argv[])
   root_path = conf->source;
 
   // Set key id
-  key_id = conf->key_id;
+  set_key_id (conf->key_id);
+
 
   // Load arguments in fuse
   struct fuse_args args_fuse = FUSE_ARGS_INIT (0, NULL);
