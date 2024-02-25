@@ -37,13 +37,13 @@ user/old_stuff/tcfs_helper_tools.c:102:26: note: Null pointer dereference
 user/old_stuff/tcfs_helper_tools.c:166:10: style: Variable 'ch' is assigned a value that is never used. [unreadVariable]
   int ch = 0;
          ^
-userspace-module/tcfs.c:1532:3: warning: Either the condition 'file_key==NULL' is redundant or there is possible null pointer dereference: file_key. [nullPointerRedundantCheck]
+userspace-module/tcfs.c:1540:3: warning: Either the condition 'file_key==NULL' is redundant or there is possible null pointer dereference: file_key. [nullPointerRedundantCheck]
   file_key[32] = '\0';
   ^
-userspace-module/tcfs.c:1535:16: note: Assuming that condition 'file_key==NULL' is not redundant
+userspace-module/tcfs.c:1543:16: note: Assuming that condition 'file_key==NULL' is not redundant
   if (file_key == NULL)
                ^
-userspace-module/tcfs.c:1532:3: note: Null pointer dereference
+userspace-module/tcfs.c:1540:3: note: Null pointer dereference
   file_key[32] = '\0';
   ^
 userspace-module/tcfs.c:362:11: style: Consecutive return, break, continue, goto or throw statements are unnecessary. [duplicateBreak]
@@ -52,10 +52,10 @@ userspace-module/tcfs.c:362:11: style: Consecutive return, break, continue, goto
 userspace-module/tcfs.c:296:11: error: Uninitialized variable: de [uninitvar]
       if (de)
           ^
-userspace-module/tcfs.c:1105:11: error: Uninitialized variable: path [uninitvar]
+userspace-module/tcfs.c:1104:11: error: Uninitialized variable: path [uninitvar]
       if (path)
           ^
-userspace-module/tcfs.c:1242:11: error: Uninitialized variable: path [uninitvar]
+userspace-module/tcfs.c:1249:11: error: Uninitialized variable: path [uninitvar]
       if (path)
           ^
 userspace-module/tcfs.c:313:27: style: Variable 'error_return_number' is assigned a value that is never used. [unreadVariable]
@@ -70,40 +70,40 @@ userspace-module/tcfs.c:360:31: style: Variable 'error_return_number' is assigne
 userspace-module/utils/config_utils/yaml_loader.c:46:7: error: Resource leak: file [resourceLeak]
       return false;
       ^
-userspace-module/utils/crypt-utils/crypt-utils.c:433:7: warning: Assignment of function parameter has no effect outside the function. Did you forget dereferencing it? [uselessAssignmentPtrArg]
+userspace-module/utils/crypt-utils/crypt-utils.c:412:7: warning: Assignment of function parameter has no effect outside the function. Did you forget dereferencing it? [uselessAssignmentPtrArg]
       destination = NULL;
       ^
-userspace-module/utils/crypt-utils/crypt-utils.c:448:22: style:inconclusive: Function 'encrypt_string' argument 3 names different: declaration 'encrypted_len' definition 'encrypted_key_len'. [funcArgNamesDifferent]
+userspace-module/utils/crypt-utils/crypt-utils.c:427:22: style:inconclusive: Function 'encrypt_string' argument 3 names different: declaration 'encrypted_len' definition 'encrypted_key_len'. [funcArgNamesDifferent]
                 int *encrypted_key_len)
                      ^
 userspace-module/utils/crypt-utils/crypt-utils.h:47:37: note: Function 'encrypt_string' argument 3 names different: declaration 'encrypted_len' definition 'encrypted_key_len'.
                                int *encrypted_len);
                                     ^
-userspace-module/utils/crypt-utils/crypt-utils.c:448:22: note: Function 'encrypt_string' argument 3 names different: declaration 'encrypted_len' definition 'encrypted_key_len'.
+userspace-module/utils/crypt-utils/crypt-utils.c:427:22: note: Function 'encrypt_string' argument 3 names different: declaration 'encrypted_len' definition 'encrypted_key_len'.
                 int *encrypted_key_len)
                      ^
-userspace-module/utils/crypt-utils/crypt-utils.c:500:32: style:inconclusive: Function 'decrypt_string' argument 1 names different: declaration 'base64_ciphertext' definition 'ciphertext'. [funcArgNamesDifferent]
+userspace-module/utils/crypt-utils/crypt-utils.c:479:32: style:inconclusive: Function 'decrypt_string' argument 1 names different: declaration 'base64_ciphertext' definition 'ciphertext'. [funcArgNamesDifferent]
 decrypt_string (unsigned char *ciphertext, const char *key)
                                ^
 userspace-module/utils/crypt-utils/crypt-utils.h:49:47: note: Function 'decrypt_string' argument 1 names different: declaration 'base64_ciphertext' definition 'ciphertext'.
 unsigned char *decrypt_string (unsigned char *base64_ciphertext,
                                               ^
-userspace-module/utils/crypt-utils/crypt-utils.c:500:32: note: Function 'decrypt_string' argument 1 names different: declaration 'base64_ciphertext' definition 'ciphertext'.
+userspace-module/utils/crypt-utils/crypt-utils.c:479:32: note: Function 'decrypt_string' argument 1 names different: declaration 'base64_ciphertext' definition 'ciphertext'.
 decrypt_string (unsigned char *ciphertext, const char *key)
                                ^
-userspace-module/utils/crypt-utils/crypt-utils.c:1130:22: style: Variable 'ciphertext_len' is assigned a value that is never used. [unreadVariable]
+userspace-module/utils/crypt-utils/crypt-utils.c:1109:22: style: Variable 'ciphertext_len' is assigned a value that is never used. [unreadVariable]
   int ciphertext_len = len;
                      ^
-userspace-module/utils/crypt-utils/crypt-utils.c:1138:18: style: Variable 'ciphertext_len' is assigned a value that is never used. [unreadVariable]
+userspace-module/utils/crypt-utils/crypt-utils.c:1117:18: style: Variable 'ciphertext_len' is assigned a value that is never used. [unreadVariable]
   ciphertext_len += len;
                  ^
 userspace-module/utils/tcfs_utils/tcfs_utils.c:183:7: warning: %X in format string (no. 1) requires 'unsigned int *' but the argument type is 'signed int *'. [invalidScanfArgType_int]
       sscanf (hex, "%X", &decimal);
       ^
-userspace-module/utils/crypt-utils/crypt-utils.c:952:0: style: The function 'decrypt_path_and_filename' is never used. [unusedFunction]
+userspace-module/utils/crypt-utils/crypt-utils.c:931:0: style: The function 'decrypt_path_and_filename' is never used. [unusedFunction]
 
 ^
-userspace-module/utils/crypt-utils/crypt-utils.c:1098:0: style: The function 'encrypt_buffer' is never used. [unusedFunction]
+userspace-module/utils/crypt-utils/crypt-utils.c:1077:0: style: The function 'encrypt_buffer' is never used. [unusedFunction]
 
 ^
 userspace-module/tcfs.c:1045:0: style: The function 'file_size' is never used. [unusedFunction]
