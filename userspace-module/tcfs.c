@@ -1619,6 +1619,8 @@ tcfs_release (const char *fuse_path, struct fuse_file_info *fi)
 static int
 tcfs_fsync (const char *fuse_path, int isdatasync, struct fuse_file_info *fi)
 {
+  (void )fi;
+  
   /* Get the real path */
   const char *key = get_key ();
   const char *enc_fuse_path = encrypt_path_and_filename (fuse_path, key);
@@ -1627,15 +1629,28 @@ tcfs_fsync (const char *fuse_path, int isdatasync, struct fuse_file_info *fi)
   const char *path = prefix_path (enc_fuse_path, root_path);
   logInfo ("\tfsync %s\n", path);
 
+  /* Open the file */
+  int fd = open(path, O_RDWR);
+  if (fd == -1) {
+      perror("open");
+      return -errno;
+    }
+
   /* Synchronize the file's in-core state with storage device */
   int res;
   if (isdatasync)
-    res = fdatasync ((int)fi->fh); // God, please do not let this overflow
+    res = fdatasync (fd);
   else
-    res = fsync ((int)fi->fh); // Also this
+    res = fsync (fd);
 
-  if (res == -1)
-    return -errno;
+  if (res == -1) {
+      perror("fsync error");
+      close(fd);
+      return -errno;
+    }
+
+  /* Close the file */
+  close(fd);
 
   /* Free the path */
   free ((void *)path);
