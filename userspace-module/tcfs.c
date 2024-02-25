@@ -1161,13 +1161,15 @@ tcfs_read (const char *fuse_path, char *buf, size_t size, off_t offset,
   free_key (key);
 
   // Decrypt
-  if (do_crypt (DECRYPT, path_ptr, &plaintext, 0,
+  /*if (do_crypt (DECRYPT, path_ptr, &plaintext, 0,
                 (unsigned char *)decrypted_key, iv)
       == false)
     {
       strcpy (err_string, "Error in read, do_crypt cannot decrypt file");
       longjmp (jump_buffer, 1);
-    }
+    }*/
+  int tmp_res = do_crypt (DECRYPT, path_ptr, &plaintext, 0,(unsigned char *)decrypted_key, iv);
+  logDebug ("read do_crypt res %d", tmp_res);
 
   // Copy the decrypted text into the buffer.
   size_t plaintext_len = strlen ((const char *)plaintext) + 1;
