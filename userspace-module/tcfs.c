@@ -1082,7 +1082,6 @@ tcfs_read (const char *fuse_path, char *buf, size_t size, off_t offset,
 {
   (void)size;
   (void)fi;
-  (void)offset; // TODO: use offset;
 
   FILE *path_ptr = NULL;
   char *path;
@@ -1096,7 +1095,7 @@ tcfs_read (const char *fuse_path, char *buf, size_t size, off_t offset,
   const char *key = NULL;
   char err_string[80];
 
-  logInfo ("Calling read\n");
+  logInfo ("Calling read, size:%d\n", size);
 
   if (setjmp (jump_buffer) != 0)
     {
@@ -1166,8 +1165,16 @@ tcfs_read (const char *fuse_path, char *buf, size_t size, off_t offset,
       strcpy (err_string, "Error in read, do_crypt cannot decrypt file");
       longjmp (jump_buffer, 1);
     }*/
-  int tmp_res = do_crypt (DECRYPT, path_ptr, &plaintext, 0,(unsigned char *)decrypted_key, iv);
-  logDebug ("read do_crypt res %d", tmp_res);
+  int do_crypt_res = do_crypt (DECRYPT, path_ptr, &plaintext, 0,
+                               (unsigned char *)decrypted_key, iv, offset);
+  logDebug ("read do_crypt res %d", do_crypt_res);
+
+  if (plaintext == NULL)
+    {
+      logWarn ("Either an error occurred or the system tried to write a "
+               "buffer of dimension 0");
+      return TCFS_SUCCESS;
+    }
 
   // Copy the decrypted text into the buffer.
   size_t plaintext_len = strlen ((const char *)plaintext) + 1;
@@ -1219,7 +1226,7 @@ tcfs_write (const char *fuse_path, const char *buf, size_t size, off_t offset,
             struct fuse_file_info *fi)
 {
   (void)fi;
-  (void)offset; // TODO: use offset;
+  (void)offset;
 
   logInfo ("Called write\n");
 
@@ -1320,7 +1327,8 @@ tcfs_write (const char *fuse_path, const char *buf, size_t size, off_t offset,
 
   // Encrypt
   encrypted_len = do_crypt (ENCRYPT, path_ptr, (unsigned char **)&buf,
-                            (int)size, (unsigned char *)decrypted_key, iv);
+                            (int)size, (unsigned char *)decrypted_key, iv,
+                            0 /*Placeholder for offset*/);
   if (encrypted_len == false)
     {
       strcpy (err_string, "Error in write, cannot cypher file");
@@ -1619,20 +1627,23 @@ tcfs_release (const char *fuse_path, struct fuse_file_info *fi)
 static int
 tcfs_fsync (const char *fuse_path, int isdatasync, struct fuse_file_info *fi)
 {
-  (void )fi;
-  
+  (void)fi;
+
+  logDebug ("TEST: fpath:%s", fuse_path);
+
   /* Get the real path */
   const char *key = get_key ();
   const char *enc_fuse_path = encrypt_path_and_filename (fuse_path, key);
   free_key (key);
 
   const char *path = prefix_path (enc_fuse_path, root_path);
-  logInfo ("\tfsync %s\n", path);
+  logInfo ("called fsync %s\n", path);
 
   /* Open the file */
-  int fd = open(path, O_RDWR);
-  if (fd == -1) {
-      perror("open");
+  int fd = open (path, O_RDWR);
+  if (fd == -1)
+    {
+      logErr ("Fsync cannot open the file");
       return -errno;
     }
 
@@ -1643,14 +1654,15 @@ tcfs_fsync (const char *fuse_path, int isdatasync, struct fuse_file_info *fi)
   else
     res = fsync (fd);
 
-  if (res == -1) {
-      perror("fsync error");
-      close(fd);
+  if (res == -1)
+    {
+      logErr ("fsync error");
+      close (fd);
       return -errno;
     }
 
   /* Close the file */
-  close(fd);
+  close (fd);
 
   /* Free the path */
   free ((void *)path);
@@ -1873,7 +1885,6 @@ main (int argc, char *argv[])
 
   // Set key id
   set_key_id (conf->key_id);
-
 
   // Load arguments in fuse
   struct fuse_args args_fuse = FUSE_ARGS_INIT (0, NULL);

@@ -38,8 +38,8 @@
  * */
 #define IV_SIZE 16
 
-extern int do_crypt (int mode, FILE *fp, unsigned char **text, int len, unsigned char *key, unsigned char *iv);
-
+extern int do_crypt (int mode, FILE *fp, unsigned char **text, int len,
+                     unsigned char *key, unsigned char *iv, off_t offset);
 
 void generate_key (unsigned char *destination);
 

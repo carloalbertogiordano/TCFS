@@ -22,6 +22,8 @@
  */
 #define TAG_LEN 16
 
+#define BLOCK_SIZE 16
+
 /**
  * @internal @_var
  * @var jump_buffer
@@ -112,7 +114,8 @@ encrypt_file_gcm (FILE *fp, unsigned char *plaintext, int plaintext_len,
 
   if (setjmp (jump_buffer))
     {
-      logErr ("An error occurred in encrypt_file_gcm! Freeing resources...\n");
+      logErr (
+          "An error occurred in encrypt_file_gcm! Freeing resources... error");
       EVP_CIPHER_CTX_free (ctx);
       if (ciphertext)
         free (ciphertext);
@@ -148,7 +151,6 @@ encrypt_file_gcm (FILE *fp, unsigned char *plaintext, int plaintext_len,
     {
       handleErrors ();
     }
-
   if (fwrite (tag, sizeof (unsigned char), TAG_LEN, fp)
       != (unsigned long)TAG_LEN)
     {
@@ -156,7 +158,6 @@ encrypt_file_gcm (FILE *fp, unsigned char *plaintext, int plaintext_len,
     }
 
   EVP_CIPHER_CTX_free (ctx);
-
   free (ciphertext);
   return ciphertext_len;
 }
@@ -188,9 +189,9 @@ encrypt_file_gcm (FILE *fp, unsigned char *plaintext, int plaintext_len,
  * it is the responsibility of the caller to free it.
  */
 static int
-decrypt_file_gcm (FILE *fp, unsigned char **plaintext, unsigned char *key, unsigned char *iv)
+decrypt_file_gcm (FILE *fp, unsigned char *key, unsigned char *iv,
+                  unsigned char **plaintext, off_t offset)
 {
-  logDebug ("Starting decrypt_file_gcm");
   EVP_CIPHER_CTX *ctx = NULL;
   int len;
   int plaintext_len = 0;
@@ -199,97 +200,75 @@ decrypt_file_gcm (FILE *fp, unsigned char **plaintext, unsigned char *key, unsig
 
   if (setjmp (jump_buffer))
     {
-      logErr ("decrypt An error occurred in decrypt_file_gcm! Freeing resources...\n");
+      logErr (
+          "An error occurred in decrypt_file_gcm! Freeing resources... error");
       if (ctx)
         EVP_CIPHER_CTX_free (ctx);
       if (ciphertext)
         free (ciphertext);
-      return false;
+      return -1;
     }
 
-  logDebug ("decrypt Creating new EVP_CIPHER_CTX...");
-  ctx = EVP_CIPHER_CTX_new ();
-  if (!ctx)
+  // Get file size
+  fseek (fp, 0, SEEK_END);
+  long fsize = ftell (fp);
+  fseek (fp, 0, SEEK_SET); // same as rewind(f);
+
+  // Align to offset
+  off_t aligned_offset = (offset / BLOCK_SIZE) * BLOCK_SIZE;
+  fseek (fp, aligned_offset, SEEK_SET);
+
+  logDebug ("read offset:%ul aligned %ul", offset, aligned_offset);
+
+  *plaintext = NULL;
+
+  while (ftell (fp) < fsize)
     {
-      perror ("decrypt EVP_CIPHER_CTX_new error");
-      handleErrors ();
-    }
-  logDebug ("decrypt EVP_CIPHER_CTX created successfully.");
+      int ciphertext_len;
+      fread (&ciphertext_len, sizeof (int), 1, fp);
 
-  int ciphertext_len;
-  logDebug ("decrypt Reading ciphertext length...");
-  fread (&ciphertext_len, sizeof (int), 1, fp);
-  logDebug ("decrypt Ciphertext length: %d", ciphertext_len);
+      ciphertext = malloc (ciphertext_len);
+      if (!ciphertext)
+        handleErrors ();
 
-  logDebug ("decrypt Allocating memory for ciphertext...");
-  ciphertext = (unsigned char *)malloc (ciphertext_len);
-  if (!ciphertext)
-    {
-      perror ("decrypt Ciphertext allocation failed");
-      handleErrors ();
-    }
-  logDebug ("decrypt Memory allocated for ciphertext.");
+      fread (ciphertext, sizeof (unsigned char), ciphertext_len, fp);
 
-  logDebug ("decrypt Reading ciphertext and tag...");
-  fread (ciphertext, sizeof (unsigned char), ciphertext_len, fp);
-  fread (tag, sizeof (unsigned char), TAG_LEN, fp);
-  logDebug ("decrypt Ciphertext and tag read successfully.");
+      fread (tag, sizeof (unsigned char), TAG_LEN,
+             fp); // Read the tag from the file
 
-  logDebug ("decrypt Initializing decryption...");
-  int decrypt_init_result = EVP_DecryptInit_ex (ctx, EVP_aes_256_gcm (), NULL, key, iv);
-  logDebug ("decrypt EVP_DecryptInit_ex result: %d", decrypt_init_result);
-  if (decrypt_init_result != 1 && decrypt_init_result != 0)
-    {
-      perror ("decrypt EVP_DecryptInit_ex failed");
-      handleErrors ();
-    }
+      if (!(ctx = EVP_CIPHER_CTX_new ()))
+        handleErrors ();
 
-  logDebug ("decrypt Setting decryption tag...");
-  int ctrl_result = EVP_CIPHER_CTX_ctrl (ctx, EVP_CTRL_GCM_SET_TAG, TAG_LEN, tag);
-  logDebug ("decrypt EVP_CIPHER_CTX_ctrl result: %d", ctrl_result);
-  if (!ctrl_result)
-    {
-      perror ("decrypt EVP_CIPHER_CTX_ctrl failed");
-      handleErrors ();
-    }
+      if (1 != EVP_DecryptInit_ex (ctx, EVP_aes_256_gcm (), NULL, key, iv))
+        handleErrors ();
 
-  logDebug ("decrypt Allocating memory for plaintext...");
-  *plaintext = (unsigned char *)malloc (ciphertext_len);
-  if (!*plaintext)
-    {
-      perror ("decrypt Plaintext allocation failed");
-      handleErrors ();
+      if (!EVP_CIPHER_CTX_ctrl (ctx, EVP_CTRL_GCM_SET_TAG, TAG_LEN, tag))
+        handleErrors ();
+
+      *plaintext = realloc (*plaintext, plaintext_len + ciphertext_len);
+      if (!*plaintext)
+        handleErrors ();
+
+      if (1
+          != EVP_DecryptUpdate (ctx, *plaintext + plaintext_len, &len,
+                                ciphertext, ciphertext_len))
+        handleErrors ();
+      plaintext_len += len;
+
+      int decrypt_final_result
+          = EVP_DecryptFinal_ex (ctx, *plaintext + len, &len);
+      logDebug ("decrypt EVP_DecryptFinal_ex result: %d",
+                decrypt_final_result);
+      if (decrypt_final_result != 1 && decrypt_final_result != 0)
+        handleErrors ();
+
+      plaintext_len += len;
+
+      EVP_CIPHER_CTX_free (ctx);
+
+      free (ciphertext);
     }
 
-  logDebug ("decrypt Updating decryption...");
-  int decrypt_update_result = EVP_DecryptUpdate (ctx, *plaintext, &len, ciphertext, ciphertext_len);
-  logDebug ("EVP_DecryptUpdate result: %d", decrypt_update_result);
-  if (decrypt_update_result != 1)
-    {
-      perror ("decrypt EVP_DecryptUpdate failed");
-      handleErrors ();
-    }
-  plaintext_len = len;
-
-  logDebug ("decrypt Finalizing decryption...");
-  int decrypt_final_result = EVP_DecryptFinal_ex (ctx, *plaintext + len, &len);
-  logDebug ("decrypt EVP_DecryptFinal_ex result: %d", decrypt_final_result);
-  if (decrypt_final_result != 1 && decrypt_final_result != 0)
-    {
-      perror ("decrypt EVP_DecryptFinal_ex failed");
-      handleErrors ();
-    }
-  plaintext_len += len;
-
-  logDebug ("decrypt Freeing EVP_CIPHER_CTX...");
-  EVP_CIPHER_CTX_free (ctx);
-  logDebug ("decrypt EVP_CIPHER_CTX freed.");
-
-  logDebug ("decrypt Freeing ciphertext...");
-  free (ciphertext);
-  logDebug ("decrypt Ciphertext freed.");
-
-  logDebug ("decrypt Returning plaintext length: %d", plaintext_len);
   return plaintext_len;
 }
 
@@ -319,11 +298,11 @@ decrypt_file_gcm (FILE *fp, unsigned char **plaintext, unsigned char *key, unsig
  */
 extern int
 do_crypt (int mode, FILE *fp, unsigned char **text, int len,
-          unsigned char *key, unsigned char *iv)
+          unsigned char *key, unsigned char *iv, off_t offset)
 {
   if (mode == DECRYPT)
     {
-      return decrypt_file_gcm (fp, text, key, iv);
+      return decrypt_file_gcm (fp, key, iv, text, offset);
     }
   else if (mode == ENCRYPT)
     {
