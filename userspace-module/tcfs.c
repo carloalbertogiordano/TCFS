@@ -1228,7 +1228,7 @@ tcfs_write (const char *fuse_path, const char *buf, size_t size, off_t offset,
   (void)fi;
   (void)offset;
 
-  logInfo ("Called write\n");
+  logInfo ("Called write");
 
   FILE *path_ptr = NULL;
   char *path;
@@ -1343,7 +1343,8 @@ tcfs_write (const char *fuse_path, const char *buf, size_t size, off_t offset,
   free ((void *)decrypted_key);
   free ((void *)enc_buf);
 
-  return encrypted_len;
+  logDebug ("WRITE RETURNING %d, asked? %d", encrypted_len, size);
+  return size;
 }
 
 /**
