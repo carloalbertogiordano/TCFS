@@ -48,20 +48,20 @@ jmp_buf jump_buffer;
  * function, it is responsibility of the caller to free it
  */
 extern int
-do_crypt (int mode, FILE *fp, unsigned char **text, int len,
+do_crypt (int mode, FILE *fp, unsigned char **text, size_t len,
           unsigned char *key, unsigned char *iv, off_t offset)
 {
   (void) offset;
 
   if (mode == DECRYPT)
     {
-      return decrypt_file_aes_ctr (fp, text, key, iv);
-      //return decrypt_file_gcm (fp, key, iv, text, offset);
+      //return decrypt_file_aes_ctr (fp, text, key, iv);
+      return decrypt_file_gcm (fp, key, iv, text, len, offset);
     }
   else if (mode == ENCRYPT)
     {
-      return encrypt_file_aes_ctr (fp, *text, len, key, iv);
-      //return encrypt_file_gcm (fp, *text, len, key, iv);
+      //return encrypt_file_aes_ctr (fp, *text, len, key, iv);
+      return encrypt_file_gcm (fp, *text, len, key, iv, offset);
     }
   logErr ("Error in do_crypt, undefined mode selected");
   return false;

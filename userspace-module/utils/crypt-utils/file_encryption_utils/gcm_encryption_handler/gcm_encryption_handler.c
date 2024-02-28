@@ -18,8 +18,6 @@
  */
 #define TAG_LEN 16
 
-#define BLOCK_SIZE 16
-
 /**
  * @internal @_func
  *
@@ -31,10 +29,11 @@
  * @param plaintext_len  The length of the plaintext.
  * @param key  The AES 256 key.
  * @param iv  The initialization vector.
+ * @param offset The offset
  *
  * @return
  * Returns the length of the encrypted ciphertext.
- * In case of an error, it prints an error message and returns -1.
+ * In case of an error, it prints an error message and returns false.
  *
  * @note
  * This function encrypts using AES 256 GCM.
@@ -44,8 +43,8 @@
  * decrypt_file_gcm depends on this behaviour.
  */
 extern int
-encrypt_file_gcm (FILE *fp, unsigned char *plaintext, int plaintext_len,
-                  unsigned char *key, unsigned char *iv)
+encrypt_file_gcm (FILE *fp, unsigned char *plaintext, size_t plaintext_len,
+                  unsigned char *key, unsigned char *iv, off_t offset)
 {
   EVP_CIPHER_CTX *ctx = NULL;
   int len;
@@ -62,6 +61,12 @@ encrypt_file_gcm (FILE *fp, unsigned char *plaintext, int plaintext_len,
         free (ciphertext);
       return false;
     }
+
+  // Align to offset
+  off_t aligned_offset = (offset / TAG_LEN) * TAG_LEN;
+  fseek (fp, aligned_offset, SEEK_SET);
+
+  logDebug ("write offset:%ul aligned %ul", offset, aligned_offset);
 
   if (!(ctx = EVP_CIPHER_CTX_new ()))
     handleErrors ();
@@ -113,6 +118,7 @@ encrypt_file_gcm (FILE *fp, unsigned char *plaintext, int plaintext_len,
  * @param key  The AES 256 key.
  * @param iv  The initialization vector.
  * @param plaintext  The decrypted text will be written here.
+ * * @param offset The offset
  *
  * @return
  * Returns the length of the decrypted plaintext.
@@ -131,13 +137,14 @@ encrypt_file_gcm (FILE *fp, unsigned char *plaintext, int plaintext_len,
  */
 extern int
 decrypt_file_gcm (FILE *fp, unsigned char *key, unsigned char *iv,
-                  unsigned char **plaintext, off_t offset)
+                  unsigned char **plaintext, size_t bytes_to_read, off_t offset)
 {
   EVP_CIPHER_CTX *ctx = NULL;
   int len;
   volatile int plaintext_len = 0;
   unsigned char *ciphertext = NULL;
   unsigned char tag[TAG_LEN];
+  *plaintext = NULL;
 
   if (setjmp (jump_buffer))
     {
@@ -156,21 +163,27 @@ decrypt_file_gcm (FILE *fp, unsigned char *key, unsigned char *iv,
   fseek (fp, 0, SEEK_SET); // same as rewind(f);
 
   // Align to offset
-  off_t aligned_offset = (offset / BLOCK_SIZE) * BLOCK_SIZE;
+  off_t aligned_offset = (offset / TAG_LEN) * TAG_LEN;
   fseek (fp, aligned_offset, SEEK_SET);
 
   logDebug ("read offset:%ul aligned %ul", offset, aligned_offset);
 
-  *plaintext = NULL;
-
-  while (ftell (fp) < fsize)
+  while (ftell (fp) < fsize && plaintext_len < bytes_to_read)
     {
       int ciphertext_len;
       fread (&ciphertext_len, sizeof (int), 1, fp);
+      if (ciphertext_len < 0){
+          logErr ("ciphertext_len is less than 0");
+          handleErrors();
+        }
 
+      logDebug ("Allocating ciphertext of size %d", ciphertext_len);
       ciphertext = malloc (ciphertext_len);
       if (!ciphertext)
-        handleErrors ();
+        {
+          logErr ("ciphertext MEM err");
+          handleErrors ();
+        }
 
       fread (ciphertext, sizeof (unsigned char), ciphertext_len, fp);
 
@@ -178,31 +191,37 @@ decrypt_file_gcm (FILE *fp, unsigned char *key, unsigned char *iv,
              fp); // Read the tag from the file
 
       if (!(ctx = EVP_CIPHER_CTX_new ()))
-        handleErrors ();
+        {
+          logErr ("CTX ERR MEM");
+          handleErrors ();
+        }
 
       if (1 != EVP_DecryptInit_ex (ctx, EVP_aes_256_gcm (), NULL, key, iv))
-        handleErrors ();
+        {
+          logErr ("EVP_DecryptInit_ex err");
+          handleErrors ();
+        }
 
       if (!EVP_CIPHER_CTX_ctrl (ctx, EVP_CTRL_GCM_SET_TAG, TAG_LEN, tag))
-        handleErrors ();
+        {
+          logErr ("EVP_CIPHER_CTX_ctrl err");
+          handleErrors ();
+        }
 
       *plaintext = realloc (*plaintext, plaintext_len + ciphertext_len);
       if (!*plaintext)
-        handleErrors ();
+        {
+          logErr ("plaintext err");
+          handleErrors ();
+        }
 
       if (1
           != EVP_DecryptUpdate (ctx, *plaintext + plaintext_len, &len,
                                 ciphertext, ciphertext_len))
-        handleErrors ();
-      plaintext_len += len;
-
-      int decrypt_final_result
-          = EVP_DecryptFinal_ex (ctx, *plaintext + len, &len);
-      logDebug ("decrypt EVP_DecryptFinal_ex result: %d",
-                decrypt_final_result);
-      if (decrypt_final_result != 1 && decrypt_final_result != 0)
-        handleErrors ();
-
+        {
+          logErr ("EVP_DecryptUpdate");
+          handleErrors ();
+        }
       plaintext_len += len;
 
       EVP_CIPHER_CTX_free (ctx);
