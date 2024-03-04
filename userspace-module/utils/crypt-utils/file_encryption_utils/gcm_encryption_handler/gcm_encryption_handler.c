@@ -142,6 +142,10 @@ decrypt_file_gcm (FILE *fp, unsigned char *key, unsigned char *iv,
   EVP_CIPHER_CTX *ctx = NULL;
   int len;
   volatile int plaintext_len = 0;
+  size_t aligned_offset = 0;
+  size_t bytes_read = 0L;
+  size_t bytes_read_prev = 0L;
+  off_t seek_value = 0L;
   unsigned char *ciphertext = NULL;
   unsigned char tag[TAG_LEN];
   *plaintext = NULL;
@@ -163,10 +167,46 @@ decrypt_file_gcm (FILE *fp, unsigned char *key, unsigned char *iv,
   fseek (fp, 0, SEEK_SET); // same as rewind(f);
 
   // Align to offset
-  off_t aligned_offset = (offset / TAG_LEN) * TAG_LEN;
-  fseek (fp, aligned_offset, SEEK_SET);
+  if (offset > fsize)
+    {
+      aligned_offset = offset;
+    }
+  while (offset > aligned_offset && offset < fsize)
+    {
+      fread (&seek_value, sizeof (int), 1, fp);
+      bytes_read += (unsigned long)sizeof (int);
+      logDebug ("Next block size: %lu", seek_value);
+      fseek (fp, seek_value, SEEK_CUR);
+      bytes_read += seek_value;
+      logDebug ("Bytes_read:%lu", bytes_read);
+      fseek (fp, TAG_LEN, SEEK_CUR);
+      bytes_read += TAG_LEN;
+      logDebug ("Bytes_read:%lu", bytes_read);
+      aligned_offset += seek_value;
+      logDebug ("New alignedOff: %lu", aligned_offset);
+      if (aligned_offset > offset)
+        {
+          logDebug ("Offset overshoot");
+          bytes_read = bytes_read_prev;
+          break;
+        }
+      else if (aligned_offset == offset)
+        {
+          logDebug ("Offset Found");
+          break;
+        }
+      else
+        {
+          logDebug ("Offset not found yet, off:%lu align:%lu bytes_read:%lu "
+                    "lase bytes_read",
+                    offset, aligned_offset, bytes_read, bytes_read_prev);
+        }
+      bytes_read_prev = bytes_read;
+    }
 
-  logDebug ("read offset:%ul aligned %ul", offset, aligned_offset);
+  logDebug ("Off:%lu is at byte:%lu", offset, bytes_read);
+
+  fseek (fp, bytes_read, SEEK_SET);
 
   while (ftell (fp) < fsize && plaintext_len < bytes_to_read)
     {

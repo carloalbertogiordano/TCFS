@@ -9,6 +9,6 @@ extern int encrypt_file_aes_ctr (FILE *fp, unsigned char *plaintext,
 
 extern int
 decrypt_file_aes_ctr (FILE *fp, unsigned char **plaintext, unsigned char *key,
-                      unsigned char *iv);
+                      unsigned char *iv, size_t bytes_to_read, off_t offset);
 
 #endif // TCFS_CTR_ENCRYPTION_HANDLER_H
