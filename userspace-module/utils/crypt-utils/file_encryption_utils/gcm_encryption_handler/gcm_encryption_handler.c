@@ -1,14 +1,18 @@
 #include "gcm_encryption_handler.h"
+#include <fcntl.h>
+#include <unistd.h>
 
 /**
  * @file gcm_encryption_handler.c
- * @brief File containing the AES GCM mode file encryption and decryption functions.
+ * @brief File containing the AES GCM mode file encryption and decryption
+ * functions.
  *
  * This file contains the following functions:
  * - encrypt_file_gcm: Encrypts a file using AES GCM mode.
  * - decrypt_file_gcm: Decrypts a file using AES GCM mode.
  *
- * Both functions handle errors and clean up resources if an error occurs during the encryption or decryption process.
+ * Both functions handle errors and clean up resources if an error occurs
+ * during the encryption or decryption process.
  */
 
 /**
@@ -17,6 +21,78 @@
  * @brief The length of the authentication tag.
  */
 #define TAG_LEN 16
+
+off_t
+calculate_aligned_offset (FILE *fp, size_t fsize, off_t requested_offset)
+{
+  size_t aligned_offset = 0;
+  size_t bytes_read = 0L;
+  size_t bytes_read_prev = 0L;
+  off_t seek_value = 0L;
+
+  if (requested_offset >= fsize)
+    {
+      return fsize;
+    }
+  else
+    {
+      while (requested_offset > aligned_offset && requested_offset < fsize)
+        {
+          fread (&seek_value, sizeof (int), 1, fp);
+          bytes_read += (unsigned long)sizeof (int);
+          logDebug ("Next block size: %lu", seek_value);
+          fseek (fp, seek_value, SEEK_CUR);
+          bytes_read += seek_value;
+          logDebug ("Bytes_read:%lu", bytes_read);
+          fseek (fp, TAG_LEN, SEEK_CUR);
+          bytes_read += TAG_LEN;
+          logDebug ("Bytes_read:%lu", bytes_read);
+          aligned_offset += seek_value;
+          logDebug ("New alignedOff: %lu", aligned_offset);
+          if (aligned_offset > requested_offset)
+            {
+              logDebug ("Offset overshoot");
+              bytes_read = bytes_read_prev;
+              break;
+            }
+          else if (aligned_offset == requested_offset)
+            {
+              logDebug ("Offset Found");
+              break;
+            }
+          else
+            {
+              logDebug (
+                  "Offset not found yet, off:%lu align:%lu bytes_read:%lu "
+                  "last bytes_read %lu",
+                  requested_offset, aligned_offset, bytes_read,
+                  bytes_read_prev);
+            }
+          bytes_read_prev = bytes_read;
+        }
+    }
+  rewind (fp);
+  logDebug ("Off:%lu is at byte:%lu", requested_offset, bytes_read);
+
+  return bytes_read;
+}
+
+size_t
+get_file_size (FILE *fp)
+{
+  fseek (fp, 0, SEEK_END);
+  long fsize = ftell (fp);
+  fseek (fp, 0, SEEK_SET); // same as rewind(f);
+  logDebug ("FILE size is %lu", fsize);
+  return fsize;
+}
+
+void print_block(unsigned char *block, size_t size) {
+  for(size_t i = 0; i < size; i++) {
+      logDebug("%02x ", block[i]);
+    }
+  printf("\n");
+}
 
 /**
  * @internal @_func
@@ -49,6 +125,8 @@ encrypt_file_gcm (FILE *fp, unsigned char *plaintext, size_t plaintext_len,
   EVP_CIPHER_CTX *ctx = NULL;
   int len;
   int ciphertext_len;
+  off_t seek_value = 0L;
+  size_t fsize = 0L;
   unsigned char *ciphertext = NULL;
   unsigned char tag[TAG_LEN];
 
@@ -62,11 +140,14 @@ encrypt_file_gcm (FILE *fp, unsigned char *plaintext, size_t plaintext_len,
       return false;
     }
 
-  // Align to offset
-  off_t aligned_offset = (offset / TAG_LEN) * TAG_LEN;
-  fseek (fp, aligned_offset, SEEK_SET);
+  // Get file size
+  fsize = get_file_size (fp);
 
-  logDebug ("write offset:%ul aligned %ul", offset, aligned_offset);
+  // Align to offset
+  seek_value = calculate_aligned_offset (fp, fsize, offset);
+  fseek (fp, seek_value, SEEK_SET);
+
+  logDebug ("write offset:%ul aligned %ul", offset, seek_value);
 
   if (!(ctx = EVP_CIPHER_CTX_new ()))
     handleErrors ();
@@ -85,23 +166,28 @@ encrypt_file_gcm (FILE *fp, unsigned char *plaintext, size_t plaintext_len,
 
   if (1 != EVP_EncryptFinal_ex (ctx, ciphertext + len, &len))
     handleErrors ();
-  ciphertext_len += len;
+  //ciphertext_len += len;
 
   if (1 != EVP_CIPHER_CTX_ctrl (ctx, EVP_CTRL_GCM_GET_TAG, TAG_LEN, tag))
     handleErrors ();
 
   fwrite (&ciphertext_len, sizeof (int), 1, fp);
+  logDebug ("WROTE ciphertext len:%lu", ciphertext_len);
 
   if (fwrite (ciphertext, sizeof (unsigned char), ciphertext_len, fp)
       != (unsigned long)ciphertext_len)
     {
+      logErr ("fwrite 1 err");
       handleErrors ();
     }
   if (fwrite (tag, sizeof (unsigned char), TAG_LEN, fp)
       != (unsigned long)TAG_LEN)
     {
+      logErr ("fwrite 2 err");
       handleErrors ();
     }
+
+  get_file_size (fp);
 
   EVP_CIPHER_CTX_free (ctx);
   free (ciphertext);
@@ -137,15 +223,14 @@ encrypt_file_gcm (FILE *fp, unsigned char *plaintext, size_t plaintext_len,
  */
 extern int
 decrypt_file_gcm (FILE *fp, unsigned char *key, unsigned char *iv,
-                  unsigned char **plaintext, size_t bytes_to_read, off_t offset)
+                  unsigned char **plaintext, size_t bytes_to_read,
+                  off_t offset)
 {
   EVP_CIPHER_CTX *ctx = NULL;
   int len;
   volatile int plaintext_len = 0;
-  size_t aligned_offset = 0;
-  size_t bytes_read = 0L;
-  size_t bytes_read_prev = 0L;
   off_t seek_value = 0L;
+  size_t fsize = 0L;
   unsigned char *ciphertext = NULL;
   unsigned char tag[TAG_LEN];
   *plaintext = NULL;
@@ -162,59 +247,28 @@ decrypt_file_gcm (FILE *fp, unsigned char *key, unsigned char *iv,
     }
 
   // Get file size
-  fseek (fp, 0, SEEK_END);
-  long fsize = ftell (fp);
-  fseek (fp, 0, SEEK_SET); // same as rewind(f);
+  fsize = get_file_size (fp);
 
-  // Align to offset
-  if (offset > fsize)
+  seek_value = calculate_aligned_offset (fp, fsize, offset);
+  fseek (fp, seek_value, SEEK_SET);
+
+  // Allocate memory for plaintext before the while loop
+  *plaintext = malloc(bytes_to_read);
+  if (!*plaintext)
     {
-      aligned_offset = offset;
+      logErr ("Cannot allocate plaintext");
+      handleErrors ();
     }
-  while (offset > aligned_offset && offset < fsize)
-    {
-      fread (&seek_value, sizeof (int), 1, fp);
-      bytes_read += (unsigned long)sizeof (int);
-      logDebug ("Next block size: %lu", seek_value);
-      fseek (fp, seek_value, SEEK_CUR);
-      bytes_read += seek_value;
-      logDebug ("Bytes_read:%lu", bytes_read);
-      fseek (fp, TAG_LEN, SEEK_CUR);
-      bytes_read += TAG_LEN;
-      logDebug ("Bytes_read:%lu", bytes_read);
-      aligned_offset += seek_value;
-      logDebug ("New alignedOff: %lu", aligned_offset);
-      if (aligned_offset > offset)
-        {
-          logDebug ("Offset overshoot");
-          bytes_read = bytes_read_prev;
-          break;
-        }
-      else if (aligned_offset == offset)
-        {
-          logDebug ("Offset Found");
-          break;
-        }
-      else
-        {
-          logDebug ("Offset not found yet, off:%lu align:%lu bytes_read:%lu "
-                    "lase bytes_read",
-                    offset, aligned_offset, bytes_read, bytes_read_prev);
-        }
-      bytes_read_prev = bytes_read;
-    }
-
-  logDebug ("Off:%lu is at byte:%lu", offset, bytes_read);
-
-  fseek (fp, bytes_read, SEEK_SET);
+  logDebug ("Plaintext size id %lu", bytes_to_read);
 
   while (ftell (fp) < fsize && plaintext_len < bytes_to_read)
     {
       int ciphertext_len;
       fread (&ciphertext_len, sizeof (int), 1, fp);
-      if (ciphertext_len < 0){
+      if (ciphertext_len < 0)
+        {
           logErr ("ciphertext_len is less than 0");
-          handleErrors();
+          handleErrors ();
         }
 
       logDebug ("Allocating ciphertext of size %d", ciphertext_len);
@@ -248,13 +302,6 @@ decrypt_file_gcm (FILE *fp, unsigned char *key, unsigned char *iv,
           handleErrors ();
         }
 
-      *plaintext = realloc (*plaintext, plaintext_len + ciphertext_len);
-      if (!*plaintext)
-        {
-          logErr ("plaintext err");
-          handleErrors ();
-        }
-
       if (1
           != EVP_DecryptUpdate (ctx, *plaintext + plaintext_len, &len,
                                 ciphertext, ciphertext_len))
@@ -266,7 +313,19 @@ decrypt_file_gcm (FILE *fp, unsigned char *key, unsigned char *iv,
 
       EVP_CIPHER_CTX_free (ctx);
 
-      free (ciphertext);
+      logDebug ("Freeing ciphertext");
+      if (ciphertext)
+        {
+          free (ciphertext);
+          ciphertext = NULL;
+        }
+    }
+
+  if (bytes_to_read > fsize){
+      logDebug ("The requested read size is greater than the file, cleaning the result");
+      for (size_t i = plaintext_len; i < bytes_to_read; i++ ){
+          (*plaintext)[i] = '\0';
+        }
     }
 
   return plaintext_len;

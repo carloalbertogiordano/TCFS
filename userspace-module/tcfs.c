@@ -1158,13 +1158,6 @@ tcfs_read (const char *fuse_path, char *buf, size_t size, off_t offset,
   free_key (key);
 
   // Decrypt
-  /*if (do_crypt (DECRYPT, path_ptr, &plaintext, 0,
-                (unsigned char *)decrypted_key, iv)
-      == false)
-    {
-      strcpy (err_string, "Error in read, do_crypt cannot decrypt file");
-      longjmp (jump_buffer, 1);
-    }*/
   size_t plaintext_len =(unsigned long ) do_crypt (DECRYPT, path_ptr, &plaintext, size,
                                (unsigned char *)decrypted_key, iv, offset);
   logDebug ("read do_crypt res %d", plaintext_len);
@@ -1177,25 +1170,15 @@ tcfs_read (const char *fuse_path, char *buf, size_t size, off_t offset,
     }
 
   // Copy the decrypted text into the buffer.
-  printf ("size:%lu, pltx_len:%lu, bufsize:%lu\n", size, plaintext_len, strlen (buf));
-  /*if (plaintext_len > size)
-    {
-      logWarn ("Buffer size in less than read size, resizing buffer...");
-      char *new_buf = realloc (buf, plaintext_len);
-      if (!new_buf){
-          strcpy (err_string,
-                  "Error: Buffer realloc failed.\n");
-          errno = ERR_inval_read_buf_size;
-          longjmp (jump_buffer, 1);
-        }
-      buf = new_buf; // Update buf to point to the newly allocated buffer
-    }*/
   if (plaintext_len > size)
     {
-      plaintext_len = size; // Limit the plaintext length to the size of the buffer
+        memcpy (buf, plaintext, size); // Limit the plaintext length to the size of the buffer
     }
+  else{
+    memcpy(buf, plaintext, plaintext_len);
+  }
 
-  memcpy (buf, plaintext, plaintext_len);
+  logDebug("READ returning %d -- size%d", plaintext_len, size);
 
   fclose (path_ptr);
   free ((void *)path);
@@ -1203,7 +1186,7 @@ tcfs_read (const char *fuse_path, char *buf, size_t size, off_t offset,
   free ((void *)encrypted_key);
   free ((void *)decrypted_key);
 
-  return (int)plaintext_len;
+  return plaintext_len;
 }
 
 /**
@@ -1287,6 +1270,7 @@ tcfs_write (const char *fuse_path, const char *buf, size_t size, off_t offset,
       strcpy (err_string, "Read error, could not open file");
       longjmp (jump_buffer, 1);
     }
+  fseek (path_ptr, 0, SEEK_SET);
 
   // Get the key size
   size_key_char = malloc (sizeof (char) * 20);
@@ -1337,11 +1321,12 @@ tcfs_write (const char *fuse_path, const char *buf, size_t size, off_t offset,
   // Encrypt
   encrypted_len = do_crypt (ENCRYPT, path_ptr, (unsigned char **)&buf,
                             (int)size, (unsigned char *)decrypted_key, iv,
-                            0 /*Placeholder for offset*/);
+                            offset);
   if (encrypted_len == false)
     {
-      strcpy (err_string, "Error in write, cannot cypher file");
-      longjmp (jump_buffer, 1);
+      //strcpy (err_string, "Error in write, either the user tried to random write of cannot cypher file");
+      //longjmp (jump_buffer, 1);
+      logWarn("Error in write, either the user tried to random write of cannot cypher file");
     }
 
   fclose (path_ptr);
@@ -1353,7 +1338,7 @@ tcfs_write (const char *fuse_path, const char *buf, size_t size, off_t offset,
   free ((void *)enc_buf);
 
   logDebug ("WRITE RETURNING %d, asked? %d", encrypted_len, size);
-  return encrypted_len;
+  return (size_t)encrypted_len == size ? (size_t)encrypted_len:size;
 }
 
 /**

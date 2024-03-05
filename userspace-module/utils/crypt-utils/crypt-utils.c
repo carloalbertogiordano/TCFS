@@ -55,13 +55,15 @@ do_crypt (int mode, FILE *fp, unsigned char **text, size_t len,
 
   if (mode == DECRYPT)
     {
-      //return decrypt_file_aes_ctr (fp, text, key, iv);
+      //return decrypt_file_aes_ctr (fp, text, key, iv, len, offset);
       return decrypt_file_gcm (fp, key, iv, text, len, offset);
+      //return decrypt_file_ctr_offset (fp, text, len, key, iv, offset);
     }
   else if (mode == ENCRYPT)
     {
       //return encrypt_file_aes_ctr (fp, *text, len, key, iv);
       return encrypt_file_gcm (fp, *text, len, key, iv, offset);
+      //return encrypt_file_ctr_offset (fp, *text, len, key, iv, offset);
     }
   logErr ("Error in do_crypt, undefined mode selected");
   return false;
