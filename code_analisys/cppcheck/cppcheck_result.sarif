@@ -37,22 +37,13 @@ user/old_stuff/tcfs_helper_tools.c:102:26: note: Null pointer dereference
 user/old_stuff/tcfs_helper_tools.c:166:10: style: Variable 'ch' is assigned a value that is never used. [unreadVariable]
   int ch = 0;
          ^
-userspace-module/tcfs.c:1180:3: portability: %lu in format string (no. 1) requires 'unsigned long' but the argument type is 'size_t {aka unsigned long}'. [invalidPrintfArgType_uint]
-  printf ("size:%lu, pltx_len:%lu, bufsize:%lu\n", size, plaintext_len, strlen (buf));
-  ^
-userspace-module/tcfs.c:1180:3: portability: %lu in format string (no. 2) requires 'unsigned long' but the argument type is 'size_t {aka unsigned long}'. [invalidPrintfArgType_uint]
-  printf ("size:%lu, pltx_len:%lu, bufsize:%lu\n", size, plaintext_len, strlen (buf));
-  ^
-userspace-module/tcfs.c:1180:3: portability: %lu in format string (no. 3) requires 'unsigned long' but the argument type is 'size_t {aka unsigned long}'. [invalidPrintfArgType_uint]
-  printf ("size:%lu, pltx_len:%lu, bufsize:%lu\n", size, plaintext_len, strlen (buf));
-  ^
-userspace-module/tcfs.c:1550:3: warning: Either the condition 'file_key==NULL' is redundant or there is possible null pointer dereference: file_key. [nullPointerRedundantCheck]
+userspace-module/tcfs.c:1535:3: warning: Either the condition 'file_key==NULL' is redundant or there is possible null pointer dereference: file_key. [nullPointerRedundantCheck]
   file_key[32] = '\0';
   ^
-userspace-module/tcfs.c:1553:16: note: Assuming that condition 'file_key==NULL' is not redundant
+userspace-module/tcfs.c:1538:16: note: Assuming that condition 'file_key==NULL' is not redundant
   if (file_key == NULL)
                ^
-userspace-module/tcfs.c:1550:3: note: Null pointer dereference
+userspace-module/tcfs.c:1535:3: note: Null pointer dereference
   file_key[32] = '\0';
   ^
 userspace-module/tcfs.c:362:11: style: Consecutive return, break, continue, goto or throw statements are unnecessary. [duplicateBreak]
@@ -64,7 +55,7 @@ userspace-module/tcfs.c:296:11: error: Uninitialized variable: de [uninitvar]
 userspace-module/tcfs.c:1104:11: error: Uninitialized variable: path [uninitvar]
       if (path)
           ^
-userspace-module/tcfs.c:1258:11: error: Uninitialized variable: path [uninitvar]
+userspace-module/tcfs.c:1241:11: error: Uninitialized variable: path [uninitvar]
       if (path)
           ^
 userspace-module/tcfs.c:313:27: style: Variable 'error_return_number' is assigned a value that is never used. [unreadVariable]
@@ -79,31 +70,31 @@ userspace-module/tcfs.c:360:31: style: Variable 'error_return_number' is assigne
 userspace-module/utils/config_utils/yaml_loader.c:46:7: error: Resource leak: file [resourceLeak]
       return false;
       ^
-userspace-module/utils/crypt-utils/crypt-utils.c:167:7: warning: Assignment of function parameter has no effect outside the function. Did you forget dereferencing it? [uselessAssignmentPtrArg]
+userspace-module/utils/crypt-utils/crypt-utils.c:169:7: warning: Assignment of function parameter has no effect outside the function. Did you forget dereferencing it? [uselessAssignmentPtrArg]
       destination = NULL;
       ^
-userspace-module/utils/crypt-utils/crypt-utils.c:182:22: style:inconclusive: Function 'encrypt_string' argument 3 names different: declaration 'encrypted_len' definition 'encrypted_key_len'. [funcArgNamesDifferent]
+userspace-module/utils/crypt-utils/crypt-utils.c:184:22: style:inconclusive: Function 'encrypt_string' argument 3 names different: declaration 'encrypted_len' definition 'encrypted_key_len'. [funcArgNamesDifferent]
                 int *encrypted_key_len)
                      ^
 userspace-module/utils/crypt-utils/crypt-utils.h:47:37: note: Function 'encrypt_string' argument 3 names different: declaration 'encrypted_len' definition 'encrypted_key_len'.
                                int *encrypted_len);
                                     ^
-userspace-module/utils/crypt-utils/crypt-utils.c:182:22: note: Function 'encrypt_string' argument 3 names different: declaration 'encrypted_len' definition 'encrypted_key_len'.
+userspace-module/utils/crypt-utils/crypt-utils.c:184:22: note: Function 'encrypt_string' argument 3 names different: declaration 'encrypted_len' definition 'encrypted_key_len'.
                 int *encrypted_key_len)
                      ^
-userspace-module/utils/crypt-utils/crypt-utils.c:234:32: style:inconclusive: Function 'decrypt_string' argument 1 names different: declaration 'base64_ciphertext' definition 'ciphertext'. [funcArgNamesDifferent]
+userspace-module/utils/crypt-utils/crypt-utils.c:236:32: style:inconclusive: Function 'decrypt_string' argument 1 names different: declaration 'base64_ciphertext' definition 'ciphertext'. [funcArgNamesDifferent]
 decrypt_string (unsigned char *ciphertext, const char *key)
                                ^
 userspace-module/utils/crypt-utils/crypt-utils.h:49:47: note: Function 'decrypt_string' argument 1 names different: declaration 'base64_ciphertext' definition 'ciphertext'.
 unsigned char *decrypt_string (unsigned char *base64_ciphertext,
                                               ^
-userspace-module/utils/crypt-utils/crypt-utils.c:234:32: note: Function 'decrypt_string' argument 1 names different: declaration 'base64_ciphertext' definition 'ciphertext'.
+userspace-module/utils/crypt-utils/crypt-utils.c:236:32: note: Function 'decrypt_string' argument 1 names different: declaration 'base64_ciphertext' definition 'ciphertext'.
 decrypt_string (unsigned char *ciphertext, const char *key)
                                ^
-userspace-module/utils/crypt-utils/crypt-utils.c:864:22: style: Variable 'ciphertext_len' is assigned a value that is never used. [unreadVariable]
+userspace-module/utils/crypt-utils/crypt-utils.c:866:22: style: Variable 'ciphertext_len' is assigned a value that is never used. [unreadVariable]
   int ciphertext_len = len;
                      ^
-userspace-module/utils/crypt-utils/crypt-utils.c:872:18: style: Variable 'ciphertext_len' is assigned a value that is never used. [unreadVariable]
+userspace-module/utils/crypt-utils/crypt-utils.c:874:18: style: Variable 'ciphertext_len' is assigned a value that is never used. [unreadVariable]
   ciphertext_len += len;
                  ^
 userspace-module/utils/crypt-utils/file_encryption_utils/ctr_encryption_handler/ctr_encryption_handler.c:75:20: warning:inconclusive: Either the condition '!ciphertext' is redundant or there is possible null pointer dereference: ciphertext. [nullPointerRedundantCheck]
@@ -124,52 +115,67 @@ userspace-module/utils/crypt-utils/file_encryption_utils/ctr_encryption_handler/
 userspace-module/utils/crypt-utils/file_encryption_utils/ctr_encryption_handler/ctr_encryption_handler.c:186:23: note: Null pointer dereference
       if ((int)fread (ciphertext, sizeof (unsigned char), ciphertext_len, fp)
                       ^
-userspace-module/utils/crypt-utils/file_encryption_utils/gcm_encryption_handler/gcm_encryption_handler.c:221:28: warning: Either the condition 'ciphertext_len<0' is redundant or malloc() argument nr 1 can have invalid value. The value is -1 but the valid values are '0:'. [invalidFunctionArg]
+userspace-module/utils/crypt-utils/file_encryption_utils/gcm_encryption_handler/gcm_encryption_handler.c:275:28: warning: Either the condition 'ciphertext_len<0' is redundant or malloc() argument nr 1 can have invalid value. The value is -1 but the valid values are '0:'. [invalidFunctionArg]
       ciphertext = malloc (ciphertext_len);
                            ^
-userspace-module/utils/crypt-utils/file_encryption_utils/gcm_encryption_handler/gcm_encryption_handler.c:215:26: note: Assuming that condition 'ciphertext_len<0' is not redundant
-      if (ciphertext_len < 0){
+userspace-module/utils/crypt-utils/file_encryption_utils/gcm_encryption_handler/gcm_encryption_handler.c:268:26: note: Assuming that condition 'ciphertext_len<0' is not redundant
+      if (ciphertext_len < 0)
                          ^
-userspace-module/utils/crypt-utils/file_encryption_utils/gcm_encryption_handler/gcm_encryption_handler.c:221:28: note: Invalid argument
+userspace-module/utils/crypt-utils/file_encryption_utils/gcm_encryption_handler/gcm_encryption_handler.c:275:28: note: Invalid argument
       ciphertext = malloc (ciphertext_len);
                            ^
-userspace-module/utils/crypt-utils/file_encryption_utils/gcm_encryption_handler/gcm_encryption_handler.c:228:50: warning: Either the condition 'ciphertext_len<0' is redundant or fread() argument nr 3 can have invalid value. The value is -1 but the valid values are '0:'. [invalidFunctionArg]
+userspace-module/utils/crypt-utils/file_encryption_utils/gcm_encryption_handler/gcm_encryption_handler.c:282:50: warning: Either the condition 'ciphertext_len<0' is redundant or fread() argument nr 3 can have invalid value. The value is -1 but the valid values are '0:'. [invalidFunctionArg]
       fread (ciphertext, sizeof (unsigned char), ciphertext_len, fp);
                                                  ^
-userspace-module/utils/crypt-utils/file_encryption_utils/gcm_encryption_handler/gcm_encryption_handler.c:215:26: note: Assuming that condition 'ciphertext_len<0' is not redundant
-      if (ciphertext_len < 0){
+userspace-module/utils/crypt-utils/file_encryption_utils/gcm_encryption_handler/gcm_encryption_handler.c:268:26: note: Assuming that condition 'ciphertext_len<0' is not redundant
+      if (ciphertext_len < 0)
                          ^
-userspace-module/utils/crypt-utils/file_encryption_utils/gcm_encryption_handler/gcm_encryption_handler.c:228:50: note: Invalid argument
+userspace-module/utils/crypt-utils/file_encryption_utils/gcm_encryption_handler/gcm_encryption_handler.c:282:50: note: Invalid argument
       fread (ciphertext, sizeof (unsigned char), ciphertext_len, fp);
                                                  ^
-userspace-module/utils/crypt-utils/file_encryption_utils/gcm_encryption_handler/gcm_encryption_handler.c:228:14: warning: Either the condition '!ciphertext' is redundant or there is possible null pointer dereference: ciphertext. [nullPointerRedundantCheck]
+userspace-module/utils/crypt-utils/file_encryption_utils/gcm_encryption_handler/gcm_encryption_handler.c:39:68: style: Condition 'requested_offset<fsize' is always true [knownConditionTrueFalse]
+      while (requested_offset > aligned_offset && requested_offset < fsize)
+                                                                   ^
+userspace-module/utils/crypt-utils/file_encryption_utils/gcm_encryption_handler/gcm_encryption_handler.c:33:24: note: Assuming condition 'requested_offset>=fsize' is false
+  if (requested_offset >= fsize)
+                       ^
+userspace-module/utils/crypt-utils/file_encryption_utils/gcm_encryption_handler/gcm_encryption_handler.c:39:68: note: Condition 'requested_offset<fsize' is always true
+      while (requested_offset > aligned_offset && requested_offset < fsize)
+                                                                   ^
+userspace-module/utils/crypt-utils/file_encryption_utils/gcm_encryption_handler/gcm_encryption_handler.c:282:14: warning: Either the condition 'ciphertext' is redundant or there is possible null pointer dereference: ciphertext. [nullPointerRedundantCheck]
       fread (ciphertext, sizeof (unsigned char), ciphertext_len, fp);
              ^
-userspace-module/utils/crypt-utils/file_encryption_utils/gcm_encryption_handler/gcm_encryption_handler.c:222:11: note: Assuming that condition '!ciphertext' is not redundant
-      if (!ciphertext)
+userspace-module/utils/crypt-utils/file_encryption_utils/gcm_encryption_handler/gcm_encryption_handler.c:317:11: note: Assuming that condition 'ciphertext' is not redundant
+      if (ciphertext)
           ^
-userspace-module/utils/crypt-utils/file_encryption_utils/gcm_encryption_handler/gcm_encryption_handler.c:228:14: note: Null pointer dereference
+userspace-module/utils/crypt-utils/file_encryption_utils/gcm_encryption_handler/gcm_encryption_handler.c:282:14: note: Null pointer dereference
       fread (ciphertext, sizeof (unsigned char), ciphertext_len, fp);
              ^
-userspace-module/utils/crypt-utils/file_encryption_utils/gcm_encryption_handler/gcm_encryption_handler.c:86:49: warning:inconclusive: Either the condition '!ciphertext' is redundant or there is pointer arithmetic with NULL pointer. [nullPointerArithmeticRedundantCheck]
+userspace-module/utils/crypt-utils/file_encryption_utils/gcm_encryption_handler/gcm_encryption_handler.c:167:49: warning:inconclusive: Either the condition '!ciphertext' is redundant or there is pointer arithmetic with NULL pointer. [nullPointerArithmeticRedundantCheck]
   if (1 != EVP_EncryptFinal_ex (ctx, ciphertext + len, &len))
                                                 ^
-userspace-module/utils/crypt-utils/file_encryption_utils/gcm_encryption_handler/gcm_encryption_handler.c:79:7: note: Assuming that condition '!ciphertext' is not redundant
+userspace-module/utils/crypt-utils/file_encryption_utils/gcm_encryption_handler/gcm_encryption_handler.c:160:7: note: Assuming that condition '!ciphertext' is not redundant
   if (!ciphertext)
       ^
-userspace-module/utils/crypt-utils/file_encryption_utils/gcm_encryption_handler/gcm_encryption_handler.c:86:49: note: Null pointer addition
+userspace-module/utils/crypt-utils/file_encryption_utils/gcm_encryption_handler/gcm_encryption_handler.c:167:49: note: Null pointer addition
   if (1 != EVP_EncryptFinal_ex (ctx, ciphertext + len, &len))
                                                 ^
+userspace-module/utils/crypt-utils/file_encryption_utils/gcm_encryption_handler/gcm_encryption_handler.c:28:10: style: The scope of the variable 'aligned_offset' can be reduced. [variableScope]
+  size_t aligned_offset = 0;
+         ^
+userspace-module/utils/crypt-utils/file_encryption_utils/gcm_encryption_handler/gcm_encryption_handler.c:30:10: style: The scope of the variable 'bytes_read_prev' can be reduced. [variableScope]
+  size_t bytes_read_prev = 0L;
+         ^
 userspace-module/utils/tcfs_utils/tcfs_utils.c:183:7: warning: %X in format string (no. 1) requires 'unsigned int *' but the argument type is 'signed int *'. [invalidScanfArgType_int]
       sscanf (hex, "%X", &decimal);
       ^
 userspace-module/utils/crypt-utils/file_encryption_utils/ctr_encryption_handler/ctr_encryption_handler.c:102:0: style: The function 'decrypt_file_aes_ctr' is never used. [unusedFunction]
 
 ^
-userspace-module/utils/crypt-utils/crypt-utils.c:686:0: style: The function 'decrypt_path_and_filename' is never used. [unusedFunction]
+userspace-module/utils/crypt-utils/crypt-utils.c:688:0: style: The function 'decrypt_path_and_filename' is never used. [unusedFunction]
 
 ^
-userspace-module/utils/crypt-utils/crypt-utils.c:832:0: style: The function 'encrypt_buffer' is never used. [unusedFunction]
+userspace-module/utils/crypt-utils/crypt-utils.c:834:0: style: The function 'encrypt_buffer' is never used. [unusedFunction]
 
 ^
 userspace-module/utils/crypt-utils/file_encryption_utils/ctr_encryption_handler/ctr_encryption_handler.c:32:0: style: The function 'encrypt_file_aes_ctr' is never used. [unusedFunction]
@@ -182,6 +188,9 @@ userspace-module/utils/tcfs_utils/tcfs_utils.c:20:0: style: The function 'get_us
 
 ^
 userspace-module/utils/tcfs_utils/tcfs_utils.c:110:0: style: The function 'print_aes_key' is never used. [unusedFunction]
+
+^
+userspace-module/utils/crypt-utils/file_encryption_utils/gcm_encryption_handler/gcm_encryption_handler.c:90:0: style: The function 'print_block' is never used. [unusedFunction]
 
 ^
 nofile:0:0: information: Cppcheck cannot find all the include files (use --check-config for details) [missingIncludeSystem]
